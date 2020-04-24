@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+1 获取指定范围内的随机数
+
+当我们需要获取指定范围(min,max)内的整数的时候，下面的代码非常适合。
+
+<script>
+    function getRadomNum(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    console.log( getRadomNum(5,20) )  //随机生成5-20的随机数
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+2 随机获取数组中的元素
+
+<script>
+
+    function getRadomFromArr(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    console.log( getRadomFromArr(['前端','后台','美术','设计','模型']) )
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+对象初始化简写
+
+<script>
+
+    // ES5
+    function people(name, age) {
+        return {
+            name: name,
+            age: age
+        };
+    }
+
+    // ES6
+    function people(name, age) {
+        return {
+            name,
+            age
+        };
+    }
+
+</script>
+
+对象字面量简写（省略冒号与 function 关键字）
+
+<script>
+
+    // ES5
+    var people1 = {
+        name: 'bai',
+        getName: function() {
+            console.log(this.name);
+        }
+    };
+
+    // ES6
+    let people2 = {
+        name: 'bai',
+        getName() {
+            console.log(this.name);
+        }
+    };
+
+</script>
+
+另外：Object.assign()
+
+ES6 对象提供了Object.assign()这个方法来实现浅复制。
+Object.assign()可以把任意多个源对象自身可枚举的属性拷贝给目标对象，然后返回目标对象。
+
+第一参数即为目标对象。在实际项目中，我们为了不改变源对象。一般会把目标对象传为{}
+
+<script>
+
+    const obj = Object.assign({}, objA, objB)
+    // 给对象添加属性
+    this.seller = Object.assign({}, this.seller, response.data)
+
+</script>
+
+
+</body>
+</html>

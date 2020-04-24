@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- ------------------------------------------------------------------------------   -->
+
+<script>
+    var obj = {
+        name: 'xiaoming',
+        getName: function() {
+            return this.name
+        }
+    };
+
+    console.log(obj.getName()); // 'xiaoming'
+</script>
+
+上方对象方法中的this指向对象本身，所以输出"xiaoming"。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+<script>
+    var obj = {
+        myName: 'xiaoming',
+        getName: function() {
+            return this.myName
+        }
+    };
+
+    var nameFn = obj.getName;
+
+    console.log(nameFn()); // undefined
+</script>
+
+上方将对象中的方法赋值给了一个变量，此时方法中的this也将不再指向obj对象，从而指向window对象，所以console为"undefined"。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+<script>
+    var obj = {
+        myName: 'xiaoming',
+        getName: function() {
+            return this.myName
+        }
+    };
+
+    var obj2 = {
+        myName: 'xiaohua'
+    };
+
+    var nameFn = obj.getName;
+
+    console.log(nameFn.apply(obj2)); // 'xiaohua'
+</script>
+
+上方同样将obj对象中的方法赋值给了变量nameFn，但是通过apply方法将this指向了obj2对象，
+
+所以最终console为'xiaohua'。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+</html>

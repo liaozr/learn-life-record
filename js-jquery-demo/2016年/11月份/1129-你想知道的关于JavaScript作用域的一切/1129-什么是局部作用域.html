@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  局部作用域指的是那些从全局作用域中定义的许多作用域.JavaScript只有一个全局作用域,每一个定义的函数都有自己的局部(嵌套)作用域.那些定义在别的函数中的函数有一个局部的作用域, 并且这个作用域是指向外部的函数.
+
+  如果我定义了一个函数,并且在里面创建了一些变量,这些变量的作用域就是局部的.
+
+  把下面的当做一个例子:
+
+  <script>
+      // Scope A: Global scope out here
+      var myFunction = function() {
+          // Scope B: Local scope in here
+      };
+  </script>
+
+  任何局部的东西在全局是不可见的,除非这些东西被导出;这句话的意思是这样的,如果我在一个新的作用域里定义了一些函数或者变量的话,这些变量或者函数在当前的作用域之外是不可以访问的.
+
+  下面的代码是关于上面所说的那些的一个小例子:
+
+  <script>
+      var myFunction = function () {
+        var name = 'Todd';
+        console.log(name); // Todd
+      };
+      myFunction();
+      // Uncaught ReferenceError: name is not defined
+      console.log(name);
+  </script>
+  变量name是局部的变量,它并没有暴露在父作用域上,因此它是没有被定义的.
+
+
+</body>
+</html>

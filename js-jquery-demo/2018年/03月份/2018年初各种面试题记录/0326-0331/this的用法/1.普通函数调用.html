@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+// ----------------------------------------------------------------------------------------------------------------
+
+        let username = '守候'
+
+        function fn() {
+            alert(this.username); //underfind
+        }
+
+        fn();
+
+// ----------------------------------------------------------------------------------------------------------------
+
+        // 可能大家会困惑， 为什么不是输出守候， 但是在细看一看， 我声明的方式是let， 不会是window对象如果输出守候， 要这样写
+
+        var username = '守候'
+
+        function fn() {
+            alert(this.username); //守候
+        }
+
+        fu();
+
+// ----------------------------------------------------------------------------------------------------------------
+
+        //---------------
+        window.username = '守候'
+
+        function fn() {
+            alert(this.username); //守候
+        }
+        fn();
+
+        //可以理解为
+        //window.fn();
+
+// ----------------------------------------------------------------------------------------------------------------
+
+    </script>
+
+</body>
+
+</html>

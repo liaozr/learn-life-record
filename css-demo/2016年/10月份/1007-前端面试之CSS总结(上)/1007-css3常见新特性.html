@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- -----------------------------------------------------------------------------------------------	 -->
+
+<!-- 新的元素选择器 -->
+
+E:nth-last-child(n)
+E:nth-of-type(n), 
+E:nth-last-of-type(n),
+E:last-child, 
+E:first-of-type, 
+E:only-child, 
+E:only-of-type, 
+E:empty, 
+E:checked, 
+E:enabled, 
+E:disabled, 
+E::selection, 
+E:not(s)
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+@font-face
+
+<!-- ------------------------------------ -->
+
+border-radius
+又称圆角属性，通常使用该属性将图片圆角化，如头像。
+border-radius: 50%;
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+<!-- text-overflow用于文本溢出: -->
+
+单行缩略的实现如下:
+<style>
+.oneline {
+    white-space: nowrap; /*//强制文本在一行内输出*/
+    overflow: hidden; /*//隐藏溢出部分*/
+    text-overflow: ellipsis; /*//对溢出部分加上...*/
+}
+</style>
+
+多行缩略实现如下(主要针对webkit内核):
+
+<style>
+.multiline {
+    display: -webkit-box !important;
+    overflow: hidden;
+    
+    text-overflow: ellipsis;
+    word-break: break-all;
+    
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+</style>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+background
+
+主要是以下三个属性:
+
+background-clip 规定背景的绘制区域, 取值为border-box | padding-box | content-box | no-clip
+
+background-origin 规定背景的定位区域, 取值为border | padding | content
+
+background-size 规定背景图片的尺寸, 取值为[<length> | <percentage> | auto]{1,2} | cover | contain
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+</html>

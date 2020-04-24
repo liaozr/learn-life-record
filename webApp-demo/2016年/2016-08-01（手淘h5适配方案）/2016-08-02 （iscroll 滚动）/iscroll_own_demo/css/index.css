@@ -1,0 +1,136 @@
+
+/*这里要注意的是倘若是采用这种绝对布局去布局移动端页面的时候，
+头部header、内容部分content、尾部footer等等都是不建议加上width:100%
+这个值的，统一用postion:absolute;left:0;right:0;(头部header还需加上top:0;)
+(尾部footer还需加上bottom:0;)这样子来代替，不然在测试第二种移动端侧边栏导航的
+时候 会发现有bug的，所以都不建议加width:100%;建议统一用position:absolute;
+left:0;right:0;去代替，经测试，效果是一样的。*/
+
+.header {
+	height: 1.3125rem;
+	position: absolute;
+	left: 0;
+	top: 0;
+	right:0;
+}
+.header img {
+	padding-top: 0.15625rem;
+	padding-bottom: 0.15625rem;
+	display: inline-block;
+}
+.header .logo {
+	width: 7.09375rem;
+	height: 1.0rem;
+	position: absolute;
+	right: 1.640625rem;
+}
+.header .menu {
+	width: 0.7rem;
+	height: 0.6rem;
+	position: absolute;
+	top: 0.1875rem;
+	right: 0.234375rem;
+}
+
+.content {
+	overflow-y: auto;
+	top: 1.3125rem;
+	bottom: 1.5rem;
+	position: absolute;
+	left: 0;
+	right: 0;
+	/* 增加该属性，可以增加弹性*/
+	-webkit-overflow-scrolling: touch;
+}
+
+.content p {
+	height: 2.1875rem;
+}
+.footer {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+    right:0;
+	height: 1.5rem;
+	background-color: red;
+}
+.page {
+	padding: 0.15625rem;
+}
+
+
+/*第一种侧边栏导航样式*/
+/*移动端侧边栏导航1*/
+.panel{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 980;
+    width:3.75rem;
+    height:100%;
+    background-color: #333;
+    transform:translate3d(-3.75rem, 0, 0);
+    -webkit-transform:translate3d(-3.75rem, 0, 0); 
+}
+
+.panel.active{
+   transform:translate3d(0, 0, 0);
+   -webkit-transform:translate3d(0, 0, 0);
+}
+.panel_transition{
+	 transition:all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+}
+
+.nav-aside {
+    line-height: 1.25rem;
+}
+.nav-aside li {
+    border-bottom: 1px solid #222;
+    color: #fff;
+}
+.nav-aside li a {
+    color: #fff;
+    padding: 0 5px;
+    display: block;
+}
+.nav-aside li a{
+	font-size: 0.4375rem;
+}
+
+
+/*第二种侧边栏导航样式*/
+/*移动端侧边栏导航2*/
+body.cebianlan_daohang{
+   transition:transform 0.3s ease-in-out;
+   -webkit-transition: -webkit-transform 0.3s ease-in-out;
+}
+.cebianlan_daohang .panel_two{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 980;
+    width:3.75rem;
+    height:100%;
+    background-color: #333;
+    transform:translate3d(-3.75rem, 0, 0);
+    -webkit-transform:translate3d(-3.75rem, 0, 0); 
+}
+.cebianlan_daohang  .header .menu{
+      left:0.234375rem;
+      right:0;
+}
+.cebianlan_daohang .header .logo{
+	right: 1.440625rem;
+}
+body.pad_active{
+    position: absolute;
+ 	left:0;
+ 	top:0;
+ 	bottom: 0;
+    transform:translate3d(3.75rem, 0, 0);
+    -webkit-transform:translate3d(3.75rem, 0, 0);
+}
+

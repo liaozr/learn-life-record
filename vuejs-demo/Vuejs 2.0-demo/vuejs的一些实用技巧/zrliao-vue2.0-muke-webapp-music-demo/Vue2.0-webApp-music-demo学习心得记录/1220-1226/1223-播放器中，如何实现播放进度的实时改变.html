@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    如下面这段代码所示，是通过 watch 一个 percent 来实现的，percent 指的是 当前播放器播放进度的 时间 除以 当前歌曲的总时长 得到的一个数值，
+
+    通过 watch 监听 这个 percent 的变化，来 实时 的 改变 播放进度条的长度的改变  以及  播放进度条小球 的偏移量 来实现的。
+
+    <script>
+
+        export default {
+            data() {
+                return {
+
+                }
+            },
+            props: {
+                percent: {
+                    type: Number,
+                    default: 0
+                }
+            },
+            watch: {
+                percent(newPercent) {
+                    if (newPercent >= 0) {
+
+                        const barWidth = this.$refs.progressBar.clientWidth - progressBtnWidth
+
+                        const offsetWidth = newPercent * barWidth
+
+                        this.$refs.progress.style.width = `${offsetWidth}px`
+
+                        this.$refs.progressBtn.style[transform] = `translate3d(${offsetWidth}px,0,0)`
+
+                    }
+                }
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

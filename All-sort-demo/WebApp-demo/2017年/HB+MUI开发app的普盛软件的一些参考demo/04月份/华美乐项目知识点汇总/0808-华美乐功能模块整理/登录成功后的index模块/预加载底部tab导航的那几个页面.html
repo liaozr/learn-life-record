@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <nav class="bottom-bar bottom-bar-tab">
+        <div class="bottom-tab-item bottom-active mui-hidden" data-index="0" data-id="news.html">
+            <span class="bottom-icon icon-xiaoxi"></span>
+            <span class="bottom-tab-label">消息</span>
+        </div>
+        <div data-mulu='xiangmu' class="bottom-tab-item  mui-hidden" data-index="1" data-id="xiangmu.html">
+            <span class="bottom-icon icon-xiangmu"></span>
+            <span class="bottom-tab-label">工地</span>
+        </div>
+        <div data-mulu='kanbu' class="bottom-tab-item  mui-hidden" data-index="2" data-id="xiangmu-kanban.html">
+            <span class="bottom-icon icon-xiangmukanban"></span>
+            <span class="bottom-tab-label">工地看板</span>
+        </div>
+        <div class="bottom-tab-item  mui-hidden" data-index="3" data-id="sale.html">
+            <span class="bottom-icon icon-xiaoshou"></span>
+            <span class="bottom-tab-label">销售</span>
+        </div>
+        <div class="bottom-tab-item  mui-hidden" data-index="4" data-id="oa_index.html">
+            <span class="bottom-icon icon-oa"></span>
+            <span class="bottom-tab-label">OA</span>
+        </div>
+    </nav>
+
+    <script>
+        var doc = window.document;
+        var docEl = doc.documentElement;
+        var width = docEl.getBoundingClientRect().width;
+        var dpr = 1;
+        if (width > 540) {
+            width = 540 * dpr;
+        }
+        var rem = width / 10;
+        var fontSize = rem;
+        var bottomheight = parseInt(fontSize) * 1.507 + 'px';
+        var topheight = parseInt(fontSize) * 1.27 + 'px';
+
+        var subStyles = {
+            top: topheight,
+            bottom: bottomheight
+        };
+
+        mui.plusReady(function() {
+
+            seajs.config({});
+            //加载多个模块，在加载完成时，执行回调
+            seajs.use("db", function(sql) {
+                sqlObj = sql;
+                //创建数据库
+                seajs.use("$");
+                sqlObj.createDataBase($.locStorage.dbName, "", "数据库", 2 * 1024 * 1024);
+                sqlObj.findMenuByLevel(1, findMenuByLevelResult);
+
+            });
+        });
+
+
+        var subpages = [];
+        //查询1级别菜单
+        function findMenuByLevelResult(data) {
+            console.log(data.length + "一级菜单")
+            var tabs = document.querySelectorAll(".bottom-tab-item");
+            var MENU_ICON, MENU_ID;
+            for (var i = 0; i < data.length; i++) {
+                MENU_ICON = data[i].menuIcon;
+                MENU_ID = data[i].id;
+                if (MENU_ICON == 'ICON_NEWS') {
+                    localStorage.setItem($.locStorage.newsId, MENU_ID);
+                    subpages.push("news.html");
+                    tabs[0].classList.remove("mui-hidden");
+                } else if (MENU_ICON == 'ICON_XM') {
+                    localStorage.setItem($.locStorage.xiangmuId, MENU_ID);
+                    subpages.push("xiangmu.html");
+                    tabs[1].classList.remove("mui-hidden");
+                } else if (MENU_ICON == 'ICON_XMKB') {
+                    localStorage.setItem($.locStorage.xiangmukanbanId, MENU_ID);
+                    subpages.push("xiangmu-kanban.html");
+                    tabs[2].classList.remove("mui-hidden");
+                } else if (MENU_ICON == 'ICON_SALES') {
+                    localStorage.setItem($.locStorage.xiaoshouId, MENU_ID);
+                    subpages.push("sale.html");
+                    tabs[3].classList.remove("mui-hidden");
+                } else if (MENU_ICON == 'ICON_OA') {
+                    localStorage.setItem($.locStorage.oaId, MENU_ID);
+                    subpages.push("oa_index.html");
+                    tabs[4].classList.remove("mui-hidden");
+                }
+            }
+            console.log(subpages);
+            ready(mui);
+        }
+
+        function ready($) {
+
+            // currentEmp.innerHTML = localStorage.lzrempId + '/' + localStorage.postName;
+            var self = plus.webview.currentWebview();
+            var subWvs = []; //子窗口对象数组
+
+            for (var i = 0; i < subpages.length; i++) {
+                var subWv = plus.webview.create(subpages[i], subpages[i], subStyles, {
+                    index: i
+                });
+                subWvs.push(subWv);
+                if (i > 0) {
+                    subWv.hide("none");
+                }
+                self.append(subWv);
+            }
+
+        }
+    </script>
+
+</body>
+
+</html>

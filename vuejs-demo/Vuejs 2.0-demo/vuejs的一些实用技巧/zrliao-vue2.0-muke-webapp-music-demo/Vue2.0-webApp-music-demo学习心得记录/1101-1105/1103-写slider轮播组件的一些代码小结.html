@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  <!-- ============================================================================================================ -->
+
+  v-for 循环数据的时候，记得加上 :key="item.id" (vscpde 上会错误提示)
+
+  <div v-for="item in recommends" :key="item.id">
+      <a :href="item.linkUrl"></a>
+      <img :src="item.picUrl" alt="">
+  </div>
+
+  <!-- ============================================================================================================ -->
+
+    <div class="recomment-content">
+
+        recommends 这个数组 是由 ajax 返回回来的，倘若 网络慢的话，不加上   v-if='recommends.length' 这段代码的话，意味着
+        
+        一开始 slider 组件里面的 那些 内容 是为空的，这样有可能会引起slider组件报错，而且一些效果 会出现异常情况的。
+
+        加上 这段代码的意义就是 v-if='recommends.length' 等 recommends 这个数组不为空的时候，再去渲染 slider 这个组件
+
+        所以，在 在 template 里 写 ajax回调的数据 的时候 ，以及 v-for循环 一个数组的时候，先得判断一下 这个值 存不存在。
+
+        直接用 v-if就很好，不存在就直接先不渲染 这些dom元素
+
+        <div v-if='recommends.length' class="slider-wrapper">
+
+            <slider>
+                <div v-for="item in recommends" :key="item.id">
+                    <a :href="item.linkUrl"></a>
+                    <img :src="item.picUrl" alt="">
+                </div>
+            </slider>
+
+        </div>
+
+        <div class="recommend-list">
+            <h1 class='list-title'>热门歌单推荐</h1>
+            <ul></ul>
+        </div>
+
+    </div>
+
+    <script>
+
+        import slider from '@c/slider/slider'
+
+        export default {
+            data() {
+                return {
+                    recommends: []
+                }
+            },
+            components: {
+                slider
+            },
+            methods: {
+                _getRecommend: function() {
+                    getRecommend().then((res) => {
+                        if (res.code == ERR_OK) {
+                            console.log(res.data.slider)
+                            this.recommends = res.data.slider;
+                        }
+                    })
+                }
+            },
+            created: function() {
+                this._getRecommend()
+            }
+        }
+
+    </script>
+
+    <!-- ============================================================================================================ -->
+
+
+</body>
+
+</html>

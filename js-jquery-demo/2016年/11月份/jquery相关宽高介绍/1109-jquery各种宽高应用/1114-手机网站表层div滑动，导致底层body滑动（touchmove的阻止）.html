@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='js/jquery.min.js'></script>
+</head>
+
+手机网站表层div滑动，导致底层body滑动（touchmove的阻止）
+
+教程网址：
+http://www.haorooms.com/post/webapp_bodyslidebcdiv
+
+http://www.haorooms.com/post/webapp_bodyslidebcdiv
+<body>
+  
+    <!--选项切换开始-->
+    <section class="choice_wrap">
+
+        <ul class="bgf choice_item region" data-flag="region">
+            <li class="current"><a href="#" class="current">全部</a></li>
+            <li><a href="#">宝山</a></li>
+            <li><a href="#">长宁</a></li>
+            <li><a href="#">崇明</a></li>
+            <li><a href="#">奉贤</a></li>
+            <li><a href="#">黄埔</a></li>
+            <li><a href="#">宝山</a></li>
+            <li><a href="#">长宁</a></li>
+            <li><a href="#">崇明</a></li>
+            <li><a href="#">奉贤</a></li>
+            <li><a href="#">黄埔</a></li>
+            <li><a href="#">宝山</a></li>
+            <li><a href="#">长宁</a></li>
+            <li><a href="#">崇明</a></li>
+            <li><a href="#">奉贤</a></li>
+            <li><a href="#">黄埔</a></li>
+        </ul>
+
+        <ul class="bgf choice_item price" data-flag="price">
+            <li><a href="#">全部</a></li>
+            <li><a href="#">2万以下</a></li>
+            <li><a href="#">2万-3万</a></li>
+            <li><a href="#">3万-5万</a></li>
+            <li><a href="#">5万以上</a></li>
+            <li><a href="#">待定</a></li>
+        </ul>
+
+        <ul class="bgf choice_item family" data-flag="family">
+            <li><a href="#">全部</a></li>
+            <li><a href="#">一房</a></li>
+            <li><a href="#">两房</a></li>
+            <li><a href="#">三房</a></li>
+            <li><a href="#">四房</a></li>
+            <li><a href="#">五房</a></li>
+        </ul>
+
+    </section>
+
+    <!-- ------------------------------------------------------------------------------ -->
+
+    <script>
+        // 区域、价格、户型选项卡后出现的下拉列表选项的触摸事件
+
+        $(".choice_wrap ul").bind("touchmove", function(e) {
+            var ulheight = $(this).height();
+            var scrollTop = $(this).scrollTop();
+            // scrollHeight:获取给定对象的滚动高度。
+            // scrollHeight
+            // IE、Opera认为scrollHeight是网页内容实际高度，可以小于clientHeight。
+            // NS、FF认为scrollHeight是网页内容高度，不过最小值是clientHeight。
+            var scrollheight = $(this)[0].scrollHeight;
+            $(".choice_wrap").bind("touchstart", function(events) {
+                startX = events.originalEvent.changedTouches[0].pageX,
+                    startY = events.originalEvent.changedTouches[0].pageY;
+
+            });
+
+            // 发现滚动轴滚到底部的时候，会触发body的滑动，那么我就在事件滚到底部的时候对表层的div做一个touchmove的阻止。到达滚动轴底部，向下滑动，阻止事件，向上滑动，开启事件。为此就要判断touchmove的方向了。
+
+            // 我们可以判断是否滑动到底部或者顶部，假如滑动到底部，再往下滑动，就阻止滑动，往上滑动，就开启滑动！滑动到顶部一个道理！
+
+            if (ulheight + scrollTop + 20 >= scrollheight) {
+                $(".choice_wrap").bind("touchmove", function(event) {
+                    console.log("aaa")
+                    moveEndX = event.originalEvent.changedTouches[0].pageX,
+                        moveEndY = event.originalEvent.changedTouches[0].pageY,
+                        // 经测试发现 当 满足 ulheight + scrollTop + 20 >= scrollheight时
+                        // 继续向下滑时，moveEndY是小于startY的
+                        // 向上滑时，moveEndY是大于startY的。
+                        // 即是 theY=moveEndY - startY>0的时候，是向上滑动的
+                        // theY=moveEndY - startY<0的时候，是向下滑动的
+                        theX = moveEndX - startX,
+                        theY = moveEndY - startY;
+                    if (Math.abs(theY) > Math.abs(theX) && theY > 0) {
+                        $(".choice_wrap").unbind("touchmove");//滑动到底部再往上滑动，解除阻止！
+                    }
+                    if (Math.abs(theY) > Math.abs(theX) && theY < 0) {
+                        event.preventDefault(); //滑动到底部，再往下滑动，阻止滑动！
+
+                    }
+                })
+            }
+        });
+    </script>
+
+    一个栗子：
+    <!-- ------------------------------------------------------------------------------- -->
+    <div class="bb"><p>这是测试scrollHeight属性的一个栗子</p></div>
+    <style>
+       .bb{
+         height:300px;width:300px;overflow-y: scroll;
+         background-color: red;
+       }
+        .bb p{
+          height:1000px;display:block;
+        }
+    </style>
+
+    <script>
+        $(".bb").bind("touchmove", function(e) {
+            var ulheight = $(this).height();
+            var scrollTop = $(this).scrollTop();
+            var scrollHeight = $(this)[0].scrollHeight;
+            console.log(scrollHeight)
+            // scrollHeight:获取给定对象的滚动高度。
+            // scrollHeight
+            // IE、Opera认为scrollHeight是网页内容实际高度，可以小于clientHeight。
+            // NS、FF认为scrollHeight是网页内容高度，不过最小值是clientHeight。
+            if (ulheight + scrollTop + 20 >= scrollHeight) {
+               console.log("你好，bb这个div已经要滑到底部了")
+            }
+        });
+    </script>
+    <!-- ------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

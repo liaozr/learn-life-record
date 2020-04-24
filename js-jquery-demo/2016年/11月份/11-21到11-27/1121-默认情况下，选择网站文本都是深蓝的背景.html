@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+::selection
+
+在默认情况下，选择网站文本都是深蓝的背景，白色的字体的，如下图：
+
+现在请你选择一下本网站的文字看看，是不是发现是这样的：
+
+变成了绿色背景了。
+如何实现的呢？其实并不难，只是用了::selection伪类选择器，代码如下：
+
+<style>
+     ::selection {
+        background: #009a61;
+        color: #fff;
+    }
+
+    ::-moz-selection {
+        background: #009a61;
+        color: #fff;
+    }
+
+    ::-webkit-selection {
+        background: #009a61;
+        color: #fff;
+    }
+</style>
+
+
+注意：::selection只支持background和color两个属性，如果你设置其他属性是没有效果的。
+
+一个小小的技巧分享，希望能对有需要的朋友有所帮助。
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+</html>

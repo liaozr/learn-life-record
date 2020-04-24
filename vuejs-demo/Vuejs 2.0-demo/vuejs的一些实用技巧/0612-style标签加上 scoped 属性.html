@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    scoped 指这里写的css只适用于该组件。
+    scoped 指这里写的css只适用于该组件。
+
+    style 标签加上 scoped 属性。
+
+    加上 scoped 属性编译后会给组件的 class 自动加上唯一的前缀从而避免样式的冲突。
+
+    <style scoped>
+
+        /* 推荐 */
+
+        .MyExample {}
+
+        .MyExample li {}
+
+        .MyExample__item {}
+        /* 避免 */
+
+        .My-Example {}
+        /* 没有用组件名或模块名限制作用域, 不符合 BEM 规范 */
+    </style>
+    
+</body>
+
+</html>

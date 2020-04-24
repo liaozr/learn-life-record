@@ -1,0 +1,42 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
+    <tr>
+        <th class="borderright">商品号</th>
+        <th class="borderright">类别</th>
+        <th class="borderright">商品名称</th>
+        <th class="borderright">品牌</th>
+        <th class="borderright">商品简介</th>
+        <th class="borderright">单价</th>
+        <th class="borderright">降价价格</th>
+        <th class="borderright">商品图片</th>
+        <th class="borderright">添加时间</th>
+        <th class="borderright">库存</th>
+        <th class="borderright">销量</th>
+        <th>操作</th>
+    </tr>
+    <volist name="goods" id="goods">
+        <tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
+            <td align='center' valign='middle' class='borderright borderbottom'>{$goods['id']}</td>
+            <td align='center' valign='middle' class='borderright borderbottom'>{$goods['typename']}</td>
+            <td align='center' valign='middle' class='borderright borderbottom'>{$goods['goodsName']}</td>
+            <td align='center' valign='middle' class='borderright borderbottom'>{$goods['brands']}</td>
+            <td align='center' valign='middle' class='borderright borderbottom'>{$goods['descr']}</td>
+            <td align='center' valign='middle' class='borderright borderbottom'>{$goods['price']}</td>
+            <td align='center' valign='middle' class='borderright borderbottom'>{$goods['priceLower']}</td>
+            <td align='center' valign='middle' class='borderright borderbottom'><img src="__PUBLIC__/Uploads/{$goods['picName']}" alt="" width="100" height="100"></td>
+            <td align='center' valign='middle' class='borderright borderbottom'>{$goods['addTime']|date="y-m-d",###}</td>
+            <td align='center' valign='middle' class='borderright borderbottom'>{$goods['stock']}</td>
+            <td align='center' valign='middle' class='borderright borderbottom'>{$goods['sales']}</td>
+            <td align='center' valign='middle'>
+                <a href="__URL__/goodsUpdate/id/{$goods['id']}" target='mainFrame' onFocus='this.blur()' class='add'>编辑</a>
+                <span class='gray'>&nbsp;|&nbsp;</span><a href='#' target='mainFrame' onFocus='this.blur()' class='add'>删除</a>
+                <switch name="Think.get.state">
+                    <case value="2"><span class='gray'>&nbsp;|&nbsp;</span><a href="__URL__/updateState/id/{$goods['id']}/state/3" target='mainFrame' onFocus='this.blur()' class='add'>下架</a></case>
+                    <case value="3"><span class='gray'>&nbsp;|&nbsp;</span><a href="__URL__/updateState/id/{$goods['id']}/state/2" target='mainFrame' onFocus='this.blur()' class='add'>出售</a></case>
+                    <default/>
+                    <span class='gray'>&nbsp;|&nbsp;</span><a href="__URL__/updateState/id/{$goods['id']}/state/2" target='mainFrame' onFocus='this.blur()' class='add'>出售</a>
+                    <span class='gray'>&nbsp;|&nbsp;</span><a href="__URL__/updateState/id/{$goods['id']}/state/3" target='mainFrame' onFocus='this.blur()' class='add'>下架</a>
+                </switch>
+            </td>
+        </tr>
+    </volist>
+</table>

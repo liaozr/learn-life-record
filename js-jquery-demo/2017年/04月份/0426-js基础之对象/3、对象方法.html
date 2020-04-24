@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+Object.create(proto, [ propertiesObject ])
+
+该方法使用指定的原型对象和其属性创建了一个新的对象。
+
+可理解为该方法会创建一个对象并把这个对象的 [[Prototype]]关联到指定对象。
+
+需要注意的是， Object.create(null)会创建一个拥有空（或者 null）[[Prototype]] 链的对象，这个对象无法进行委托。
+
+由于这个对象没有原型链，所以instanceof操作符无法进行判断，因此总是返回 false。
+
+这些特殊的空 [[Prototype]] 对象通常被称作“字典”，他们完全不会受到原型链的干扰，因此非常适合用来储存数据。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+Object.assign(target, …source)
+
+该方法用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）
+
+注意：
+
+Object.assign 方法实行的是浅拷贝，而不是深拷贝。
+
+也就是说，如果源对象某个属性的值是对象，那么目标对象拷贝得到的是这个对象的引用。
+
+Object.assign 会跳过那些值为 null 或 undefined 的源对象
+
+<!-- --------------------------------------------------------------------------------- -->
+
+obj.hasOwnProperty(prop)
+
+该方法检查属性是否在 obj 中存在，不会检查 [[Prototype]] 原型链。
+
+需要注意的是有的对象可能没有连接到 Object.prototype，也就没有hasOwnProperty方法，例如通过Object.create(null)创建的空对象，在这种情况下，形如obj.hasOwnProperty(prop)就会失败。
+
+这时可以使用一种更加强硬的方法来进行判断：Object.prototype.hasOwnProperty.call(obj, "prop")，它借助基础的hasOwnProperty(..)方法并把它显示绑定到 obj 上。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+obj.toString()
+
+该方法返回一个表示该对象的字符串。
+
+每个对象都有一个toString()方法，当对象被表示为文本值时或者当以期望字符串的方式引用对象时，
+
+该方法被自动调用。
+
+比如在 alert 一个对象或其他某个操作或者运算需要字符串的时候的时候，就会自动调用该对象的toString()方法。
+
+
+var a = {x: 1}
+alert(a) // [object Object]
+console.log('hello' + a) // "hello[object Object]"
+
+
+var a = {x: 1}
+
+alert(a) // [object Object]
+
+console.log('hello' + a) // "hello[object Object]"
+
+如果toString()不可用，系统会再尝试valueOf()方法：
+
+
+var a = {
+toString() {return {}},
+valueOf() {return "hello"}
+}
+alert(a) // hello
+
+var a = {
+    toString() {return {}},
+    valueOf() {return "hello"}
+}
+
+alert(a) // hello
+
+默认情况下，toString()方法被每个继承自 Object 的对象继承。如果此方法在自定义对象中未被覆盖，toString()返回 “[object type]”，其中 type 是对象类型，例如：
+
+JavaScript
+
+var o = new Object();
+o.toString();           // 返回了[object Object]
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

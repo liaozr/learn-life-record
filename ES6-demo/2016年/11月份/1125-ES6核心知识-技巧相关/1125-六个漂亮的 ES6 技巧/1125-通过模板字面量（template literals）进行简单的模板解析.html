@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+通过模板字面量（template literals）进行简单的模板解析
+
+ES6 的模板字面量与文字模板相比，更接近于字符串字面量。
+
+但是，如果你将它们通过函数返回，你可以使用他们来做简单的模板渲染：
+
+<script>
+    const tmpl = addrs => `
+        <table>
+        ${addrs.map(addr => `
+            <tr><td>${addr.first}</td></tr>
+            <tr><td>${addr.last}</td></tr>
+        `).join("")}
+        </table>
+    `;
+</script>
+
+tmpl 函数将数组 addrs 用 map（通过箭头函数） join 拼成字符串。
+
+tmpl() 可以批量插入数据到表格中：
+
+<script>
+    const data = [
+        { first: "<Jane>", last: "Bond" },
+        { first: "Lars", last: "<Croft>" },
+    ];
+    console.log(tmpl(data));
+    // Output:
+    // <table>
+    //
+    //     <tr><td><Jane></td></tr>
+    //     <tr><td>Bond</td></tr>
+    //
+    //     <tr><td>Lars</td></tr>
+    //     <tr><td><Croft></td></tr>
+    //
+    // </table>
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+</html>

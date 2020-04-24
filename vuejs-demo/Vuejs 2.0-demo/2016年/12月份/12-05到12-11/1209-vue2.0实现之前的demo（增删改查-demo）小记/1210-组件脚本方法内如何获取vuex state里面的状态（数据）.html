@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+Getters
+
+有时候我们需要在 store 的状态上计算衍生出我们要的状态，例如遍历过滤一个列表每一项，然后计算剩下的个数：
+
+<script>
+    computed: {
+      doneTodosCount () {
+        return this.$store.state.todos.filter(todo => todo.done).length
+      }
+    }
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+               <tr v-for="(user,index) in users">
+                     <td v-text='user.name'></td>
+                     <td v-text='user.age'></td>
+                     <td v-text='user.tel'></td>
+                     <td>
+
+                    <!-- 组件中，下面这种写法是会出现异常错误的，不能跟@click一起用，所以得把路由写到js里 -->
+                    <!-- 既然参数是来自于vuex里面的数据。那我就在组件的js方法内，在获取vuex里面的数据即可。 -->
+
+                     <!-- 	<router-link :to="{name:'useredit',params:{id:user.id} }" tag='button' @click='edit_user(index)'>编辑</router-link> -->
+
+                      <button @click='edit_user(index)' class='delete_btn'>编辑</button>
+                      <button @click='delete_user(index)' class='delete_btn'>删除</button>
+                     </td>
+               </tr>
+
+
+               <script>
+                   export default{
+                   		data() {
+                   			return{
+                                keywords:'',
+                                guanjianzi:''
+                    			}
+                   		},
+                   		components:{
+                                Headmenu
+                   		},
+                   		computed:{
+                              ...mapGetters(['users'])
+                   		},
+                   		methods:{
+                   			...mapActions(['edit_user','delete_user' ]),
+                   			addUser(){
+                   				this.$store.dispatch('addUser');
+                   				this.$router.push({path:'/useradd'})
+                   			},
+                   			edit_user(index){
+                          this.$store.dispatch('edit_user');
+                          //  获取store里面的state状态一般是这样：
+                          //  this.$store.state.users
+                          // ----------------------------------------------
+                          // 但倘若是大型项目结构的话就不是这样了
+                          //  var user_id=this.$store.state.Userlist.users
+                          var user_id=this.$store.state.Userlist.users[index].id;
+                          this.$router.push({name:'useredit',params:{id:user_id}})
+                   			}
+                        // -----------------------------------------------------
+                        // 或者是下面的这种写法就更简单了
+                        // edit_user(user){
+                        //     this.$store.dispatch('edit_user');
+                        //     var user_id=user.id;
+                        //     this.$router.push({name:'useredit',params:{id:user_id}})
+                  			// }
+                   		}
+                   	}
+               </script>
+
+</body>
+</html>

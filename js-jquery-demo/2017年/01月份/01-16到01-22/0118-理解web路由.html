@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  1. 什么是路由
+
+  在Web开发过程中，经常会遇到『路由』的概念。那么，到底什么是路由？
+
+  简单来说，路由就是URL到函数的映射。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+  2. router和route的区别
+
+  route就是一条路由，它将一个URL路径和一个函数进行映射，例如：
+
+  /users        ->  getAllUsers()
+  /users/count  ->  getUsersCount()
+
+  这就是两条路由，当访问/users的时候，会执行getAllUsers()函数；当访问/users/count的时候，会执行getUsersCount()函数。
+
+  而router可以理解为一个容器，或者说一种机制，它管理了一组route。
+
+  简单来说，route只是进行了URL和函数的映射，而在当接收到一个URL之后，去路由映射表中查找相应的函数，这个过程是由router来处理的。一句话概括就是 “The router routes you to a route“。
+
+  <!-- ------------------------------------------------------------------------------- -->
+
+  3. 服务器端路由
+
+  对于服务器来说，当接收到客户端发来的HTTP请求，会根据请求的URL，来找到相应的映射函数，然后执行该函数，并将函数的返回值发送给客户端。对于最简单的静态资源服务器，可以认为，所有URL的映射函数就是一个文件读取操作。对于动态资源，映射函数可能是一个数据库读取操作，也可能是进行一些数据的处理，等等。
+
+  以Express为例，
+
+  app.get('/', (req, res) => {
+    res.sendFile('index')
+  })
+
+  app.get('/users', (req, res) => {
+    db.queryAllUsers()
+      .then(data => res.send(data))
+  })
+
+  这里定义了两条路由：
+
+  当访问/的时候，会返回index页面
+  当访问/users的时候，会从数据库中取出所有用户数据并返回
+  不仅仅是URL
+
+  在router匹配route的过程中，不仅会根据URL来匹配，还会根据请求的方法来看是否匹配。例如上面的例子，如果通过POST方法来访问/users，就会找不到正确的路由。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+4. 客户端路由
+
+对于客户端（通常为浏览器）来说，路由的映射函数通常是进行一些DOM的显示和隐藏操作。
+
+这样，当访问不同的路径的时候，会显示不同的页面组件。客户端路由最常见的有以下两种实现方案：
+
+基于Hash
+
+基于History API
+
+
+(3) 两种实现的比较
+
+总的来说，基于Hash的路由，兼容性更好；基于History API的路由，更加直观和正式。
+
+但是，有一点很大的区别是，
+
+基于Hash的路由不需要对服务器做改动，
+
+基于History API的路由需要对服务器做一些改造。下面来详细分析。
+
+假设服务器只有如下文件（script.js被index.html所引用）：
+
+/-
+ |- index.html
+ |- script.js
+
+基于Hash的路径有：
+http://example.com/
+http://example.com/#/foobar
+
+基于History API的路径有：
+http://example.com/
+http://example.com/foobar
+
+因此如果使用了基于History API的路由，需要改造服务器端，
+
+使得访问/foobar的时候也能返回index.html文件，
+
+这样当浏览器加载了页面及脚本之后，就能进行路由跳转了。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+一、配置  npm run dev
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+1、先配置 webpack.base.conf.js 这个文件下的
+
+配置为多个入口这样子
+
+<script>
+	module.exports = {
+			entry: {
+				// app: './src/main.js',   // vue-cli脚手架工具默认的entry是app，这里得将app别名修改为 main,看起来方便好看一点
+				main: './src/main.js',   //这里得将app别名修改为 main
+				j0201: './src/Vuejs2.0-demo/02-GettingStarted/j0201.js', // 多页 j0201.js
+				j0202: './src/Vuejs2.0-demo/02-GettingStarted/j0202.js' // 多页 j0202.js
+	        }
+    }
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+2、在配置 build目录下的 webpack.dev.conf.js 这个文件下
+
+参考配置如下：
+<script>
+  	new HtmlWebpackPlugin({
+			filename: 'index.html',
+			template: 'index.html',
+			inject: true,
+			chunks: ['main'] //需要引入的chunk，不配置就会引入所有页面的资源
+		}),
+
+		// --------多頁 start
+		new HtmlWebpackPlugin({
+			filename: 'h0201.html',
+			template: 'h0201.html',
+			inject: true,
+			chunks: ['j0201'] //需要引入的chunk，不配置就会引入所有页面的资源
+		}),
+		// --------多頁 end
+
+		// --------多頁 start
+		new HtmlWebpackPlugin({
+			filename: 'h0202.html',
+			template: 'h0202.html',
+			inject: true,
+			chunks: ['j0202'] //需要引入的chunk，不配置就会引入所有页面的资源
+		})
+		// --------多頁 end
+</script>
+
+h0201.html 与 h0202.html 这两个文件的位置跟 vue-cli默认生成的main.html入口文件的
+层级是一样的，都是放到最外面的。
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+这里要注意的是vue-cli 脚手架 默认生成的 webpack.base.conf.js 入口是:
+
+<script>
+    entry: {
+		app: './src/main.js',   //这个默认name值是app来着
+		j0201: './src/Vuejs2.0-demo/02-GettingStarted/j0201.js', // 多页 j0201.js
+		j0202: './src/Vuejs2.0-demo/02-GettingStarted/j0202.js' // 多页 j0202.js
+    }
+</script>
+
+因为在 在配置 build目录下的 webpack.dev.conf.js 这个文件下
+
+参考配置如下：
+<script>
+    new HtmlWebpackPlugin({
+		filename: 'index.html',
+		template: 'index.html',
+		inject: true,
+		chunks: ['main'] //需要引入的chunk，不配置就会引入所有页面的资源
+		// 命名改为main，方便好看而已的。
+	})
+</script>
+
+所以，webpack.base.conf.js 入口配置文件应修改为:
+
+<script>
+    entry: {
+		main: './src/main.js',   //这个默认name值是app来着
+		j0201: './src/Vuejs2.0-demo/02-GettingStarted/j0201.js', // 多页 j0201.js
+		j0202: './src/Vuejs2.0-demo/02-GettingStarted/j0202.js' // 多页 j0202.js
+    }
+</script>
+
+所以，重要点是将  app: './src/main.js'  修改为  main: './src/main.js'
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+<script>
+	new Vue({
+	  el: '#app',
+	  render: h => h(V0202)  //render是Vuejs2.0的一个虚拟dom的功能，作用是渲染
+	})
+</script>
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+<!-- 多页 j0201.js 参考配置信息 -->
+
+<script>
+	import Vue from 'vue'
+	import V0201 from './v0201.vue'
+
+	/* eslint-disable no-new */
+	new Vue({
+		el: '#app',
+		render: h => h(V0201)
+	})
+</script>
+
+----------------------------------------------------------------------------------
+
+h0201.html 这个页面的配置（跟vue-cli脚手架工具默认生成的index.html一样即可）（位置也是跟index.html一样，也是在最外层的）  ：
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>zrliao-one-demo</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
+
+-------------------------------------------------------------------------------------------------
+
+跟j0201.js 这个入口文件同级的  v0201.vue 页面文件配置：
+
+<template>
+  <div class="hello">
+    <h1>{{ msg }}</h1>
+  </div>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				msg: 'Hello Vue message come form v0201.vue!'
+			}
+		}
+	}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+	h1 {
+		color: #42b983;
+	}
+</style>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+vue-cli 脚手架工具 默认生成的App.vue文件的配置参考信息
+
+链接跳转直接  <a href="h0201.html"></a> 这样子即可。
+
+<ul>
+	<li><a href='h0201.html'>(01) Hello 组件</a></li>
+	<li><a href='h0202.html'>(02) 声明式渲染</a></li>
+</ul>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+二、配置  npm run build
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+1、打开 config目录下的 index.js 文件
+
+将下面那两句 添加到  index: path.resolve(__dirname, '../dist/index.html'),  的后面
+
+  h0201: path.resolve(__dirname, '../dist/h0201.html'),
+  h0202: path.resolve(__dirname, '../dist/h0202.html'),
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+2、打开build 目录下的webpack.prod.conf.js 这个文件
+找到这一段代码：
+
+new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      chunks: ['vendor']
+}),
+
+然后在这段代码的后面添加下面那些代码即可( script标签里面的那些代码：)
+<script>
+
+	// generate dist index.html with correct asset hash for caching.
+	// you can customize output by editing /index.html
+	// see https://github.com/ampedandwired/html-webpack-plugin
+	new HtmlWebpackPlugin({
+			filename: config.build.index,
+			template: 'index.html',
+			inject: true,
+			minify: {
+				removeComments: true,
+				collapseWhitespace: true,
+				removeAttributeQuotes: true
+					// more options:
+					// https://github.com/kangax/html-minifier#options-quick-reference
+			},
+			chunks: ['manifest', 'vendor', 'main'], //需要引入的chunk，不配置就会引入所有页面的资源
+			// necessary to consistently work with multiple chunks via CommonsChunkPlugin
+			chunksSortMode: 'dependency'
+   }),
+
+	//----------多页 start
+	new HtmlWebpackPlugin({
+			filename: config.build.h0201,
+			template: 'h0201.html',
+			inject: true,
+			minify: {
+				removeComments: true,
+				collapseWhitespace: true,
+				removeAttributeQuotes: true
+			},
+			chunks: ['manifest', 'vendor', 'j0201'], //需要引入的chunk，不配置就会引入所有页面的资源
+			chunksSortMode: 'dependency'
+	}),
+	//----------多页 end
+
+	//----------多页 start
+	new HtmlWebpackPlugin({
+			filename: config.build.h0202,
+			template: 'h0202.html',
+			inject: true,
+			minify: {
+				removeComments: true,
+				collapseWhitespace: true,
+				removeAttributeQuotes: true
+			},
+			chunks: ['manifest', 'vendor', 'j0202'], //需要引入的chunk，不配置就会引入所有页面的资源
+			chunksSortMode: 'dependency'
+	})
+	//----------多页 end
+
+</script>
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

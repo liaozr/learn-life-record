@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<!-- ---------------------------------------------------------------------------------- -->
+
+<div class="flag flag-middle">
+    <div class="flag__item">
+        <img src="images/close.jpg" alt="" style="width:50px;height:40px;">
+    </div>
+    <div class="flag__item flag__item_body">
+        <div class="heading">
+            这是头部
+        </div>
+        <div class="p">
+            这是内容来的，这是内容来的
+        </div>
+    </div>
+</div>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+<style>
+  .flag { display: table; width:100%; }
+  .flag__item { display: table-cell; }
+  .flag-top .flag__item { vertical-align: top; }
+  .flag-middle .flag__item { vertical-align: middle; }
+  .flag-bottom .flag__item { vertical-align: bottom; }
+  .flag .flag__item_body{
+      padding-left: 20px;
+      width:100%;
+  }
+  .flag__item img{
+      display: block;
+  }
+  .flag__item .heading{
+      margin: 0;
+  }
+  .flag__item .p{
+      margin-top: 15px;
+  }
+</style>
+
+<br><br><br><br><br><br>
+<!-- ---------------------------------------------------------------------------------- -->
+
+<!-- 布局2 -->
+<div class="m-news">
+    <div class="flag flag-top">
+        <div class="flag__item flag_img">
+            <div class="img-center">
+                <img src="images/close.jpg" alt="">
+            </div>
+        </div>
+        <div class="flag__item flag__item_body">
+            <div class="heading">
+                买砖宝终端订单王亮剑，陶瓷行业磐涅重生
+            </div>
+            <div class="p">
+                2016-05-24
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ----------------------------------------------------------------------------------- -->
+<style>
+    .m-news .flag {
+        display: table;
+        width: 100%;
+        margin-bottom: 0.46875rem;
+        border-bottom: 1px solid #e7e7e7;
+        padding-bottom: 0.46875rem;
+    }
+    .m-news .flag__item {
+        display: table-cell;
+    }
+    .m-news .flag-top .flag__item {
+        vertical-align: top;
+    }
+    .m-news .flag-middle .flag__item {
+        vertical-align: middle;
+    }
+    .m-news .flag .flag_img {
+        width: 3.125rem;
+        height: 2.03125rem;
+        overflow: hidden;
+    }
+    .m-news .flag .flag_img .img-center {
+        width: 3.125rem;
+        height: 2.03125rem;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+    }
+    .m-news .flag .flag_img img {
+        max-width: 3.125rem;
+        max-height: 2.03125rem;
+    }
+    .m-news .flag-bottom .flag__item {
+        vertical-align: bottom;
+    }
+    .m-news .flag .flag__item_body {
+        padding-left: 0.3125rem;
+        width: 100%;
+    }
+    .m-news .flag__item img {
+        display: block;
+    }
+    .m-news .flag__item .heading {
+        margin: 0;
+        font-size: 0.4375rem;
+        line-height: 0.625rem;
+        color: #000000;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    .m-news .flag__item .p {
+        margin-top: 0.43875rem;
+        font-size: 0.375rem;
+        color: #a0a0a0;
+    }
+</style>
+<!-- ----------------------------------------------------------------------------------- -->
+
+<br><br><br><br><br><br>
+
+用在移动手机页面上 flag object 就是完胜
+
+可以在flag上添加类名，比如flag-top，并且通过vertical-algin来控制
+
+.flag__item对齐方式。
+
+当然，我们也可以在.flag__item上添加类名flag-top设置vertical-align。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+上面虽然实现咱们需要的效果，但有时候在放置内容的区域还是会
+存在一定的问题。
+
+其实有一种简单的解决方案。
+就是在放置文本内容的flag__item多添加一个类名flag__item_body,并且在上面设置样式width: 100%。
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+</body>
+</html>

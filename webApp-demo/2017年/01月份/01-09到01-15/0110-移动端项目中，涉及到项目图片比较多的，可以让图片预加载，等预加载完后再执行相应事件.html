@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+</head>
+
+<body>
+
+    <img src="images/c.png" alt="">
+    <img src="images/d.jpg" alt="">
+    <img src="http://bpic.588ku.com/back_pic/04/46/88/095857a5447a645.jpg" alt="">
+
+
+    <script>
+        //获取到所有页面图片
+        var imgurls = [];
+        var imgLength = $('img').length;
+        for (var i = 0; i < imgLength; i++) {
+            imgurls.push($('img')[i].src);
+        }
+
+        //图片依次加载
+        var count = 0;
+        for (var j = 0; j < imgurls.length; j++) {
+            var img = new Image();
+            img.src = imgurls[j];
+            img.onload = imgload();
+        }
+
+        // 做页面loading和执行loading后的事情
+        function imgload() {
+            console.log("图片都已经加载好了")
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+	<script type="text/javascript" src='vue-router.js'></script>
+</head>
+<body>
+
+<!-- 
+
+使用 Vue.js 和 vue-router 创建单页应用非常的简单，使用 Vue.js 开发，整个应用已经被拆分成了独立的组件。在使用 vue-router 时，我们需要做的就是把路由映射到各个组件，vue-router 会把各个组件渲染到正确的地方。
+
+-->
+
+
+<div id="app">
+	<div class="list-group">
+	    <!--使用指令v-link进行导航-->
+	    <!-- 在a元素上使用v-link指令跳转到指定路径。 -->
+	    <a class="list-group-item" v-link="{ path: '/home'}">Home</a>
+	    <a class="list-group-item" v-link="{ path: '/about'}">About</a>
+	</div>
+
+	<!--用于渲染匹配的组件-->
+    <!-- 在页面上使用 <router-view></router-view> 标签，它用于渲染匹配的组件。 -->
+    
+
+
+	<!-- <router-view>
+	<router-view> 用于渲染匹配的组件，它基于 Vue 的动态组件系统，所以它继承了一个正常动态组件的很多特性。
+
+	你可以传递 props。
+	<router-view> 中的 HTML 内容会被插入到相应组件的内容插入点（由 content 指定）。
+	v-transition 和 transition-mode 的完整支持。注意：为了场景切换效果能正常工作，路由组件必须不是一个片断实例。
+	v-ref 也得到支持；被渲染的组件会注册到父级组件的 this.$ 对象。 -->
+
+    <router-view></router-view>
+</div>
+<template id="home">
+			<div>
+				<h1>Home</h1>
+				<p>{{msg}}</p>
+			</div>
+</template>
+
+<template id="about">
+			<div>
+				<h1>About</h1>
+				<p>This is the tutorial about vue-router.</p>
+			</div>
+</template>
+
+
+
+
+<script type="text/javascript">
+
+/* 创建组件构造器  */
+
+// 然后创建两个组件构造器Home和About：
+var Home = Vue.extend({
+    template: '#home',
+    data: function() {
+        return {
+            msg: 'Hello, vue router!'
+        }
+    }
+})
+
+var About = Vue.extend({
+    template: '#about'
+})
+
+
+/* 创建路由器  */
+// 调用构造器VueRouter，创建一个路由器实例router。
+var router = new VueRouter()
+
+
+// 调用router的map方法映射路由，每条路由以key-value的形式存在，key是路径，value是组件。
+// 例如：'/home'是一条路由的key，它表示路径；{component: Home}则表示该条路由映射的组件。
+
+/* 创建路由映射  */
+router.map({
+    '/home': { component: Home },
+    '/about': { component: About }
+})
+
+//默认最先看到的是home组件，home这个路由
+
+// 应用在首次运行时右侧是一片空白，应用通常都会有一个首页，例如：Home页。
+// 使用router.redirect方法将根路径重定向到/home路径：
+
+// router.redirect方法用于为路由器定义全局的重定向规则，全局的重定向会在匹配当前路径之前执行。
+
+router.redirect({
+			      '/': '/home' 
+		       })  
+
+
+
+/* 启动路由  */
+
+// 路由器的运行需要一个根组件，router.start(App, '#app') 表示router会创建一个App实例，并且挂载到#app元素。
+// 注意：使用vue-router的应用，不需要显式地创建Vue实例，而是调用start方法将根组件挂载到某个元素。
+
+
+// 路由器需要一个根组件。
+// 出于演示的目的，这里使用一个空的组件，直接使用 HTML 作为应用的模板
+var App = Vue.extend({})
+
+
+// 现在我们可以启动应用了！
+// 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
+router.start(App, '#app')
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        export default {
+            data() {
+                return {
+                    transitionName: 'slide-left'
+                }
+            },
+            created() {
+                if (this.$route.name == undefined) {
+                    this.$router.push({
+                        name: 'index'
+                    });
+                }
+            },
+            mounted() {
+                var self = this;
+                setTimeout(function() {
+                    self.$router.push({
+                        name: 'home'
+                    })
+                }, 500)
+            },
+            watch: {
+                //  这个监听路由功能暂时未知，有待进一步的开发学习
+                '$route' (to, from) {
+                    const toDepth = to.path.split('/').length;
+                    const fromDepth = from.path.split('/').length;
+                    this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left';
+                }
+            }
+          }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+init 弃用
+
+用新的 beforeCreate 钩子代替，他们本质上是一样的。
+为了与其他生命周期的钩子命名保持一致性，所以重新命名了这个钩子。
+<!-- ------------------------------------------------------------------------ -->
+
+ready 弃用
+
+使用新的 mounted 钩子代替，应该注意的是，通过使用 mounted 钩子，并不能保证该实例已经插入文档。所以还应该在钩子函数中包含 Vue.nextTick/vm.$nextTick 
+
+例如：
+<script>
+	mounted: function () {
+	  this.$nextTick(function () {
+	    // 保证 this.$el 已经插入文档
+	  })
+	}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    table {
+        width: 1000px;
+        margin: 20px auto;
+    }
+
+    table th,
+    table tr td {
+        min-width: 140px;
+        text-align: center;
+    }
+
+    table,
+    table tr th,
+    table tr td {
+        border: 1px solid green;
+    }
+
+    table {
+        width: 1000px;
+        min-height: 25px;
+        line-height: 25px;
+        text-align: center;
+        border-collapse: collapse;
+    }
+
+    .lists {
+        width: 1200px;
+        /*margin:20px auto;*/
+        margin-left: 48px;
+        text-align: left
+    }
+
+    button {
+        display: inline-block;
+        line-height: 30px;
+        margin-top: 10px;
+        min-width: 200px;
+        margin-right: 20px;
+    }
+
+    .active {
+        background-color: red;
+        color: white;
+    }
+
+    .tip {
+        color: green;
+        margin-top: 15px;
+        display: inline-block;
+    }
+    .active{
+      background-color: red;
+      color:white
+    }
+</style>
+
+<body>
+    <div id="app">
+        <table>
+            <thead>
+                <th>序号</th>
+                <th>基金代号</th>
+                <th>基金名称</th>
+                <th>次数排名</th>
+                <th>日增长率排名</th>
+                <th class='active'>综合排名</th>
+            </thead>
+            <tbody>
+               <tr v-for="(item,index) in jijindata">
+                 <td>{{index + 1 }}</td>
+                 <td>{{item.code}}</td>
+                 <td>{{item.name}}</td>
+                 <td>{{item.cishupaiming}}</td>
+                 <td>{{item.zengzhanglvpaiming}}</td>
+                 <td class='active'>{{item.zonghepaiming}}</td>
+               </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+              jijindata: [
+                  {
+                      code: '160505',
+                      name: '博时主题行业混合',
+                      cishupaiming:115,
+                      zengzhanglvpaiming:66
+                  },
+                  {
+                      code: '001878',
+                      name: '嘉实沪港深',
+                      cishupaiming:108,
+                      zengzhanglvpaiming:21
+                  },
+                  {
+                      code: '110003',
+                      name: '易方达50指数',
+                      cishupaiming:102,
+                      zengzhanglvpaiming:68
+                  },
+                  {
+                      code: '001511',
+                      name: '兴全新视野',
+                      cishupaiming:89,
+                      zengzhanglvpaiming:84
+                  },
+                  {
+                      code: '040008',
+                      name: '华安策略优选',
+                      cishupaiming:129,
+                      zengzhanglvpaiming:57
+                  },
+                  {
+                      code: '001542',
+                      name: '国泰互联网+',
+                      cishupaiming:107,
+                      zengzhanglvpaiming:35
+                  },
+                  {
+                      code: '110022',
+                      name: '易方达消费',
+                      cishupaiming:151,
+                      zengzhanglvpaiming:54
+                  },
+                  {
+                      code: '020026',
+                      name: '国泰成长',
+                      cishupaiming:147,
+                      zengzhanglvpaiming:78
+                  },
+                  {
+                      code: '163402',
+                      name: '兴全趋势',
+                      cishupaiming:100,
+                      zengzhanglvpaiming:73
+                  },
+                  {
+                      code: '165312',
+                      name: '建信央视50',
+                      cishupaiming:114,
+                      zengzhanglvpaiming:85
+                  },
+                  {
+                      code: '002001',
+                      name: '华夏回报',
+                      cishupaiming:91,
+                      zengzhanglvpaiming:81
+                  },
+                  {
+                      code: '163406',
+                      name: '兴全合润',
+                      cishupaiming:128,
+                      zengzhanglvpaiming:70
+                  },
+                  {
+                      code: '000619',
+                      name: '东方红产业',
+                      cishupaiming:110,
+                      zengzhanglvpaiming:41
+                  },
+                  {
+                      code: '090007',
+                      name: '大成策略回报',
+                      cishupaiming:129,
+                      zengzhanglvpaiming:70
+                  },
+                  {
+                      code: '530018',
+                      name: '建信深证100',
+                      cishupaiming:158,
+                      zengzhanglvpaiming:115
+                  },
+                  {
+                      code: '163407',
+                      name: '兴全沪深300',
+                      cishupaiming:157,
+                      zengzhanglvpaiming:116
+                  },
+                  {
+                      code: '519671',
+                      name: '银河沪深300',
+                      cishupaiming:111,
+                      zengzhanglvpaiming:76
+                  },
+                  {
+                      code: '310398',
+                      name: '申万菱信沪深300',
+                      cishupaiming:105,
+                      zengzhanglvpaiming:74
+                  },
+                  {
+                      code: '160716',
+                      name: '嘉实基本面',
+                      cishupaiming:109,
+                      zengzhanglvpaiming:64
+                  },
+                  {
+                      code: '481012',
+                      name: '工银深证红利联接',
+                      cishupaiming:143,
+                      zengzhanglvpaiming:65
+                  },
+                  {
+                      code: '002803',
+                      name: '东方红沪港深',
+                      cishupaiming:83,
+                      zengzhanglvpaiming:24
+                  },
+                  {
+                      code: '340007',
+                      name: '兴全社会责任',
+                      cishupaiming:167,
+                      zengzhanglvpaiming:97
+                  },
+                  {
+                      code: '000742',
+                      name: '国泰新经济',
+                      cishupaiming:116,
+                      zengzhanglvpaiming:41
+                  },
+                  {
+                      code: '163412',
+                      name: '兴全轻资产',
+                      cishupaiming:141,
+                      zengzhanglvpaiming:60
+                  },
+                  {
+                      code: '519690',
+                      name: '交银施罗德稳健配置',
+                      cishupaiming:114,
+                      zengzhanglvpaiming:86
+                  },
+                  {
+                      code: '530015',
+                      name: '建信深证',
+                      cishupaiming:135,
+                      zengzhanglvpaiming:54
+                  },
+                  {
+                      code: '000577',
+                      name: '安信价值精选',
+                      cishupaiming:113,
+                      zengzhanglvpaiming:65
+                  },
+                  {
+                      code: '000251',
+                      name: '工银瑞信金融地产混合',
+                      cishupaiming:175,
+                      zengzhanglvpaiming:71
+                  }
+              ]
+            },
+            mounted(){
+
+                for (var i = 0; i < this.jijindata.length; i++) {
+                    if (typeof this.jijindata[i].zonghepaiming == 'undefined') {
+                        Vue.set(this.jijindata[i], "zonghepaiming", this.jijindata[i].cishupaiming + this.jijindata[i].zengzhanglvpaiming)
+                    }
+                }
+
+                var arr = JSON.parse(JSON.stringify(this.jijindata) )
+                for (var i = 0; i < arr.length - 1; i++) {
+                    for (var j = i + 1; j < arr.length; j++) {
+                        var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                        var tempj = arr[j];
+                        if ( Number(tempi.zonghepaiming) > Number( tempj.zonghepaiming ) ) {
+                            arr[i] = tempj;
+                            arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                        }
+                    }
+                }
+                this.jijindata = arr
+            }
+
+        })
+    </script>
+</body>
+
+</html>

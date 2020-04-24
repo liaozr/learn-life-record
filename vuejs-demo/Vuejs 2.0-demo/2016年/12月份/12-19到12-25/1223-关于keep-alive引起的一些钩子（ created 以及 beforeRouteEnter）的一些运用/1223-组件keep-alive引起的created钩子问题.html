@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="com-app">
+        <transition :name="transitionName">
+            <keep-alive>
+                <router-view class="child-view"></router-view>
+            </keep-alive>
+        </transition>
+    </div>
+
+    created是不是会第二次调用取决于你的组件是不是被keep-alive
+
+    如果是keep-alive状态的话，那么只会调用一次(就是在第一次进入该组件的时候，会执行这个 created 的)
+
+    如果没有缓存的话，组件没有设置keep-alive的话。
+
+    那每次都会重新创建一个新的组件实例，created自然会多次调用。
+
+    <script>
+        export default {
+            data() {
+                return {
+                    uid: 123
+                }
+            },
+            activated() {
+                //head的修改
+                this.$store.dispatch('comm_conf', {
+                    isFooter: true,
+                    isSearch: false,
+                    loading: false,
+                    isBack: false,
+                    isShare: false,
+                    title: '个人首页'
+                });
+                if (!this.info.name) {
+                    this.$store.dispatch('getHomeIndex', this.uid);
+                }
+            },
+            created: function() {
+                console.log("当设置了keep-alive后，created钩子只会在第一次进入该组件的时候才会执行的")
+            },
+            computed: {
+                ...mapGetters(['info'])
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    在 config 文件夹 里面 的 index.js 文件。
+
+    把 host 改为 '0.0.0.0' 即可。
+
+    <script>
+
+        module.exports = {
+          
+            dev: {
+
+                // Paths
+                assetsSubDirectory: 'static',
+                assetsPublicPath: '/',
+                proxyTable: {},
+
+                // Various Dev Server settings
+                // host: 'localhost', // can be overwritten by process.env.HOST
+                host: '0.0.0.0'
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

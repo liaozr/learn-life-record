@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+   v-model无论用在input元素上还是custom component上，其工作机制是一样的：
+
+  <input v-model="message">
+  <!-- roughly the same as: -->
+  <input v-bind:value="message" @input="message = $event.target.value">
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+  <my-component v-model="message"></my-component>
+  <!-- roughly the same as: -->
+  <my-component v-bind:value="message" @input="setMessage"> </my-component>
+  <!-- setMessage provided by v-model, doing essentially:
+         function (valuefrom$emittedInputEvent) { message = valuefrom$emittedInputEvent }
+  -->
+  
+  <!-- -------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

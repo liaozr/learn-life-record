@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+ 如果是配了这样子的别名的话
+
+ resolve: {
+     extensions: ['.js', '.vue', '.json'],
+     alias: {
+       'vue$': 'vue/dist/vue.esm.js',
+       '@': resolve('src'),
+       '@a':resolve('src/api'),
+       'assets':resolve('src/assets'),
+       '@c':resolve('src/components'),
+       '@d':resolve('src/directive'),
+       '@m':resolve('src/mixins'),
+       '@r':resolve('src/router'),
+       '@v':resolve('src/views'),
+       '@vuex':resolve('src/vuex')
+     }
+ }
+
+ 在style标签里面，就这样子引入就行了
+
+ @import "~assets/stylus/variable"
+ @import "~assets/stylus/mixin"
+
+</html>

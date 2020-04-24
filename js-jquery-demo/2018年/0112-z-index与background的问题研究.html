@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+    三、z-index与background的关系
+
+    1、 通过实践发现，背景颜色层默认并不是白色，而是透明，所以两个div重叠在一起，
+
+    若z-index较大的div没有设置背景颜色，且背景图片没有填满整个背景，
+
+    那么没有被背景图片覆盖的区域将被显示为z-index较小的div的相应背景或背景颜色。
+
+    所以背景颜色在重叠中起着至关重要的作用，当背景图片没有填满整个背景时，还应该设置背景颜色为white。
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
+
+        .area {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            border: 1px dotted black;
+        }
+
+        .area>div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            z-index: 10;
+            /*内部第一个div*/
+            /*通过设置上层的div的背景颜色与否查看效果。
+           background-color: white;
+           */
+        }
+        .area>div+div {
+            z-index:11;
+            /*内部第二个div*/
+            background-color: #fff;
+        }
+    </style>
+
+    <div class="area">
+
+        <div>
+            高为200，宽为200的div1，绝对定位，z-index=10,未设置背景颜色
+        </div>
+
+        <div>
+            <br/>
+            <br/>
+            <br/> 高为200，宽为200的div2，绝对定位，z-index=5，背景颜色为粉红pink
+        </div>
+
+    </div>
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

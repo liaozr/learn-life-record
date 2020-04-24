@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+插件开发
+
+下面我们就来看第二种方式的jQuery插件开发。
+
+基本方法
+
+先看一下它的基本格式：
+
+<script>
+    // $.fn.pluginName = function() {
+    //     //your code goes here
+    // }
+</script>
+
+基本上就是往$.fn上面添加一个方法，名字是我们的插件名称。然后我们的插件代码在这个方法里面展开。
+
+比如我们将页面上所有链接颜色转成红色，则可以这样写这个插件：
+
+$.fn.myPlugin = function() {
+        //在这里面,this指的是用jQuery选中的元素
+        //example :$('a'),则this=$('a')
+        this.css('color', 'red');
+}
+
+在插件名字定义的这个函数内部，this指代的是我们在调用该插件时，用jQuery选择器选中的元素，一般是一个jQuery类型的集合。
+
+比如$('a')返回的是页面上所有a标签的集合，且这个集合已经是jQuery包装类型了，
+
+也就是说，在对其进行操作的时候可以直接调用jQuery的其他方法而不需要再用美元符号来包装一下。
+
+所以在上面插件代码中，我们在this身上调用jQuery的css()方法，也就相当于在调用 $('a').css()。
+
+理解this在这个地方的含义很重要。这样你才知道为什么可以直接商用jQuery方法同时在其他地方this指代不同时我们又需要用jQuery重新包装才能调用，下面会讲到。初学容易被this的值整晕，但理解了就不难。
+
+现在就可以去页面试试我们的代码了，在页面上放几个链接，调用插件后链接字体变成红色。
+
+<ul>
+    <li>
+        <a href="http://www.webo.com/liuwayong">我的微博</a>
+    </li>
+    <li>
+        <a href="http://http://www.cnblogs.com/Wayou/">我的博客</a>
+    </li>
+    <li>
+        <a href="http://wayouliu.duapp.com/">我的小站</a>
+    </li>
+</ul>
+<p>这是p标签不是a标签，我不会受影响</p>
+
+<script src="jquery.js"></script>
+<script src='myPlugin.js'></script>
+
+<script type="text/javascript">
+	$(function(){
+		// $('a').myPlugin();
+	})
+</script>
+
+<script>
+    // $.fn.myPlugin = function() {
+    //     //在这里面,this指的是用jQuery选中的元素
+    //     //example :$('a'),则this=$('a')
+    //     this.css('color', 'red');
+    // }
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+下面开始jQuery插件编写中一个重要的部分，参数的接收。
+
+支持链式调用
+
+我们都知道jQuery一个时常优雅的特性是支持链式调用，选择好DOM元素后可以不断地调用其他方法。
+
+要让插件不打破这种链式调用，只需return一下即可。
+
+<script>
+    // $.fn.myPlugin = function() {
+    //     //在这里面,this指的是用jQuery选中的元素
+    //     this.css('color', 'red');
+    //     return this.each(function() {
+    //         //对每个元素进行操作
+    //         $(this).append(' ' + $(this).attr('href'));
+    //     })
+    // }
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+让插件接收参数
+
+一个强劲的插件是可以让使用者随意定制的，这要求我们提供在编写插件时就要考虑得全面些，尽量提供合适的参数。
+
+比如现在我们不想让链接只变成红色，我们让插件的使用者自己定义显示什么颜色，要做到这一点很方便，只需要使用者在调用的时候传入一个参数即可。
+
+同时我们在插件的代码里面接收。另一方面，为了灵活，使用者可以不传递参数，插件里面会给出参数的默认值。
+
+在处理插件参数的接收上，通常使用jQuery的extend方法，上面也提到过，但那是给extend方法传递单个对象的情况下，这个对象会合并到jQuery身上，所以我们就可以在jQuery身上调用新合并对象里包含的方法了，像上面的例子。当给extend方法传递一个以上的参数时，它会将所有参数对象合并到第一个里。
+
+利用这一点，我们可以在插件里定义一个保存插件参数默认值的对象，同时将接收来的参数对象合并到默认对象上，最后就实现了用户指定了值的参数使用指定的值，未指定的参数使用插件默认值。
+
+为了演示方便，再指定一个参数fontSize，允许调用插件的时候设置字体大小。
+<script>
+    // 现在， 我们调用的时候指定颜色， 字体大小未指定， 会运用插件里的默认值12px。
+
+    // $.fn.myPlugin = function(options) {
+    //     var defaults = {
+    //         'color': 'red'
+    //     };
+    //     var settings = $.extend({}, defaults, options);
+    //
+    //     // 一个好的做法是将一个新的空对象做为$.extend的第一个参数，defaults和用户传递的参数对象紧随其后，这样做的好处是所有值被合并到这个空对象上，保护了插件里面的默认值。
+    //
+    //     // 所以将插件的所有方法属性包装到一个对象上，用面向对象的思维来进行开发，无疑会使工作轻松很多。
+    //     return this.css({
+    //         'color': settings.color,
+    //         'fontSize': settings.fontSize
+    //     });
+    // }
+
+    $('a').myPlugin({
+        'color': 'red',
+        'fontSize':"16px"
+    });
+    // 所以将插件的所有方法属性包装到一个对象上，用面向对象的思维来进行开发，无疑会使工作轻松很多。
+
+   // -------------------------------------------------------------------------------
+
+    // 插件模式的写法的好处是外处是访问不了里面的变量的
+
+    // 举个例子，$.fn.myPlugin里面 var定一个变量aa='aa',的时候，
+    // 在外面打印这个变量aa，会报错的，underfed的，所以，这就很好的管理了变量了，没有那么多全局变量
+    // 从而改善了全局变量
+
+</script>
+
+<!-- ------------------------------------------------------------- -->
+
+<script>
+    (function($) {
+        $.fn.accordion = function() {
+            // Add plugin code here
+        };
+    })(jQuery);
+</script>
+
+jQuery 关键字被应用到包装器函数中，这允许您在插件中使用美元符号，就像使用 fn 属性时那样。包装器函数就绪后，就可以在整个插件的任何地方使用美元符号代替 jQuery 关键字，不会干扰其他第三方插件。
+
+该选项提供了一种方法使我们可以在开发整个插件中编写较少的代码，并且有助于您的插件代码保持整洁，易于维护。
+<!-- -------------------------------------------------------------------------------- -->
+
+维护链接性
+
+jQuery 的一个优势是允许您使用任何类型的选择器。但是，必须记住，您的插件可以处理几种不同的元素类型。使用 this 关键字允许您的插件应用于相关函数，通过循环实现每个元素的访问，而不考虑元素类型。
+
+如果在 each 循环前使用 return 关键字，就可以使用您的插件维护链接性。
+
+清单 3 显示了分配给一个函数处理程序且与 return 关键字相结合的 each 循环。
+
+清单 3. 在 each 循环之前使用 return 关键字
+
+<script>
+    (function($) {
+        $.fn.accordion = function() {
+            return this.each(function() {
+                // Using return allows for chainability
+            });
+        };
+    })(jQuery);
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+</html>

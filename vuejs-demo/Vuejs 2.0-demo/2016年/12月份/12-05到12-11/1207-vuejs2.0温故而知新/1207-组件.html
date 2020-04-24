@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+组件
+
+现代的前端框架，通常都是组件化的了。整个应用的搭建，其实就是组件的拼接。
+
+自然 Vue 也不会忘了这个。
+
+使用组件
+
+注册
+
+注册一个全局组件，只需要
+
+Vue.component(tagName, options) 即可，如:
+
+<script>
+    Vue.component('my-component', {
+        // options
+    })
+</script>
+
+实际渲染出来的 dom 则定义在 template option 中，如:
+
+<script>
+    // 注册
+    Vue.component('my-component', {
+            template: '<div>A custom component!</div>'
+    })
+        // 创建一个根实例
+    new Vue({
+        el: '#example'
+    })
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+局部注册
+
+局部注册只需要放在 Vue 实例中:
+
+<script>
+    var Child = {
+        template: '<div>A custom component!</div>'
+    }
+    new Vue({
+        // ...
+        components: {
+            // <my-component> 只在父亲的模板里可用
+            'my-component': Child
+        }
+    })
+</script>
+
+使用则像:
+
+<div id="example">
+    <my-component></my-component>
+</div>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+</html>

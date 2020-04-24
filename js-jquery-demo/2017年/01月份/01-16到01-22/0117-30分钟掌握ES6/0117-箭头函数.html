@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+这个恐怕是ES6最最常用的一个新特性了，用它来写function比原来的写法要简洁清晰很多:
+
+<script>
+    function(i) {
+        return i + 1;
+    } //ES5
+
+    (i) => i + 1 //ES6
+</script>
+
+简直是简单的不像话对吧...
+
+
+如果方程比较复杂，则需要用{}把代码包起来：
+
+<script>
+    function(x, y) {
+        x++;
+        y--;
+        return x + y;
+    }
+
+    (x, y) => {
+        x++;
+        y--;
+        return x + y
+    }
+</script>
+
+除了看上去更简洁以外，arrow function还有一项超级无敌的功能！
+
+长期以来，JavaScript语言的this对象一直是一个令人头痛的问题，在对象方法中使用this，必须非常小心。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+当我们使用箭头函数时，函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+
+并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this，它的this是继承外面的，因此内部的this就是外层代码块的this。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+</body>
+</html>

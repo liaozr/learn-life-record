@@ -1,0 +1,20 @@
+/*导航*/
+#top{background:#1C6CD8}
+#navbar .navbar-nav li a{color:#fff;cursor:pointer;}
+#navbar .navbar-nav .active a{background:#0056C7;}
+.logo{box-sizing:border-box;background:white;width:82px;border:5px solid white;margin-right: 50px;}
+#navbar>ul>li:hover{background:#0056C7;}
+/*footer*/
+.icp{width:100%;height:50px;position:relative;margin-top:150px;}
+.icp>div{position:absolute;width:100%;height:100%;background:#000;opacity: .8;}
+.icp>p{position:absolute;width:100%;height:100%;text-align: center;line-height:50px;color:#fff;}
+/*按钮*/
+.btn-primary{background-color:#1C6CD8;}
+
+/*底部*/
+footer{background-color: #1E2F49;height: 230px;color:white;}
+footer section{width: 900px;margin: 0 auto;position: relative;left: 100px;}
+footer .tab{width: 300px;float: left;}
+footer .tab .title{font-size: 25px;margin-top: 50px;margin-bottom: 20px;}
+footer .tab .txt{font-size: 14px;color: #CCCCCC;margin-top: 8px;}
+footer a{color:#fff}

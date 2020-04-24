@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+ 在vue-cli脚手架里的
+
+ config 文件夹下的index.js文件里面
+<script>
+
+    // index.js
+    module.exports = {
+        build: {
+            env: require('./prod.env'),
+            index: path.resolve(__dirname, '../dist/index.html'),
+            assetsRoot: path.resolve(__dirname, '../dist'),
+            assetsSubDirectory: 'static',
+            // assetsPublicPath: '/',
+
+            // 将上面的那个 默认的 assetsPublicPath: '/',
+            // 改为 assetsPublicPath: './',
+            // 也就是在斜杠前面加个点（使之打包出来的资源路径正确）
+            assetsPublicPath: './',
+            productionSourceMap: true,
+            // Gzip off by default as many popular static hosts such as
+            // Surge or Netlify already gzip all static assets for you.
+            // Before setting to `true`, make sure to:
+            // npm install --save-dev compression-webpack-plugin
+            productionGzip: false,
+            productionGzipExtensions: ['js', 'css']
+        },
+        dev: {
+            env: require('./dev.env'),
+            port: 8080,
+            assetsSubDirectory: 'static',
+            assetsPublicPath: '/',
+            proxyTable: {},
+            // CSS Sourcemaps off by default because relative paths are "buggy"
+            // with this option, according to the CSS-Loader README
+            // (https://github.com/webpack/css-loader#sourcemaps)
+            // In our experience, they generally work as expected,
+            // just be aware of this issue when enabling this option.
+            cssSourceMap: false
+        }
+    }
+
+
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+单单改了这个   assetsPublicPath: './' 还是单单不够的。
+
+倘若你的src文件夹里面的main.js(项目入口文件里),路由配置模式 设置为
+mode: 'history' 这样子的话，打包出来的dist目录下的index页面也是本地直接访问不了的。
+所以若想在本地直接打开打包后的index页面可以将路由配置模式： mode: 'history'给注释掉。
+
+官网的原文解释：
+不过这种模式要玩好，还需要后台配置支持。因为我们的应用是个单页客户端应用，
+如果后台没有正确的配置，
+当用户在浏览器直接访问 http://oursite.com/user/id 就会返回 404，这就不好看了。
+
+<script>
+
+    const router = new VueRouter({
+        // mode: 'history',
+        linkActiveClass: 'active',
+        routes
+    })
+
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

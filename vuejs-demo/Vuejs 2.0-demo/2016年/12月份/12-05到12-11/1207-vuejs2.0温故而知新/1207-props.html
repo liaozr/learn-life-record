@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  在 Vue.js 中，这种 父——子 组件关系可以被总结为 props down, events up，
+
+  即父组件通过 props 传递数据给子组件，
+
+  而子组件通过 event 发消息给父组件。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+props
+
+通过 props 传递数据
+
+每个组件都是相互隔离的，所以无法在子组件的 template 中引用父组件的数据。
+
+数据只能通过 props 传递。
+
+比如我们可以这么注册子组件:
+
+<script>
+
+    Vue.component('child', {
+        // 申明 props
+        props: ['message'],
+        // 跟 data 一样，可以在 vm (this.message) 和 template 中直接使用
+        template: '<span>{{ message }}</span>'
+    })
+
+</script>
+
+然后如此传递 props:
+
+<child message="hello!"></child>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+camelCase vs. kebab-case
+
+因为 HTML 属性的限制（大小写敏感），所以使用 non-string templates 时，
+
+camelCased 的属性必须使用对应的 kebab-case 版本:
+
+<script>
+    Vue.component('child', {
+        // camelCase in JavaScript
+        props: ['myMessage'],
+        template: '<span>{{ myMessage }}</span>'
+    })
+</script>
+
+<child my-message="hello!"></child>
+
+Again, if you’re using string templates, then this limitation does not apply.
+所以都说了，用字符串模板吧。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+动态 props
+
+<div>
+    <input v-model="parentMsg">
+    <br>
+    <child v-bind:my-message="parentMsg"></child>
+</div>
+
+如此，my-message 在父组件被改变的时候，都会传递更新到子组件。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+字面量语法 vs 动态语法
+
+当我们使用
+
+<comp some-prop="1"></comp>
+
+的时候，实际传递的是一个字符串，而不是 number
+
+2，如果要传递 JavaScript number，则需要使用 v-bind
+
+<comp v-bind:some-prop="1"></comp>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+单向数据流
+
+所有的 props 都是单向往下的，父组件 property 更新会影响子组件的，反过来则不会。
+
+这样避免了子组件误更改父组件状态，以及应用数据流难以理解。
+
+另外，每次父组件中对应属性发生改变，子组件中的所有 props 都会被更新为最新的值。
+
+所以在子组件中，不应该对 props 进行更改。
+
+你可能会辩解说传进来的只是个初始值，或者是个需要计算才能得出真正要的格式的值，但对前者你应该使用本地 data 属性来引用初始值，后者则应该通过 computed 来做。
+
+<!-- --------------------------------------------------------------------------- -->
+
+prop 检查
+
+可以对组件接受的 props 定义要求，如:
+
+<script>
+    Vue.component('example', {
+        props: {
+            // 基本类型检查 (`null` 表示接受任何类型)
+            propA: Number,
+            // 多种可能的类型
+            propB: [String, Number],
+            // 一个必须的 string
+            propC: {
+                type: String,
+                required: true
+            },
+            // 一个带默认值的 number
+            propD: {
+                type: Number,
+                default: 100
+            },
+            // 对象/数组的默认值须通过一个工厂方法返回
+            propE: {
+                type: Object,
+                default: function() {
+                    return {
+                        message: 'hello'
+                    }
+                }
+            },
+            // 自定义检验器函数
+            propF: {
+                validator: function(value) {
+                    return value > 10
+                }
+            }
+        }
+    })
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+</body>
+</html>

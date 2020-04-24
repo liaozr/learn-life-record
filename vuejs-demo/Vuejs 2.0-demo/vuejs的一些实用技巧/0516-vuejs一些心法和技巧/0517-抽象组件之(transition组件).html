@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ------------------------------------------------------------------------------ -->
+
+  抽象组件具有以下特点：
+
+  1. 它是以引入功能而不是构建视图为目的而存在的
+
+  2. 它不会在DOM中有任何节点
+
+  3. 它也不会在inspect component hierarchy中显示出来
+
+  抽象组件和无template的组件有什么区别？？
+
+  非常典型的例子是vuejs2.0中引入的transition组件:
+
+  <transition>
+    <div v-if="ok">toggled content</div>
+  </transition>
+
+  <!-- ------------------------------------------------------------------------------ -->
+
+  <transition name="fade" mode="out-in" appear>
+
+      <!-- classname 为 fade,  fade-enter,fade-enter-active,fade-leave,fade-leave-active 为 transition class -->
+      <!-- 模式为先出再入,并且首次渲染时也应用transition -->
+      <component :is="view"></component>
+
+  </transition>
+
+  支持的事件:
+
+  before-enter,enter,after-enter,before-leave,leave,after-leave,before-appear,appear,after-appear
+
+  <transition @after-enter="transitionComplete">
+
+    <div v-show="ok">toggled content</div>
+
+  </transition>
+
+  <!-- ------------------------------------------------------------------------------ -->
+
+   <transition-group>组件
+
+   如果需要对多个元素执行transition效果，则需要使用transition-group组件。
+
+   和transition组件所不同的是该组件须插入dom
+
+  <!-- ------------------------------------------------------------------------------ -->
+
+
+
+
+
+</body>
+
+</html>

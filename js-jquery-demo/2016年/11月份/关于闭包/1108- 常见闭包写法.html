@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+常见的闭包写法
+
+前面我的文章中多次提及“自调用匿名函数”，例如：http://www.haorooms.com/post/js_jquery_chajian 其实，大部分自调用匿名函数都是闭包的一种应用和写法。
+
+例如下面的例子
+
+<script>
+    (function(document) {
+        var viewport;
+        var obj = {
+            init: function(id) {
+                viewport = document.querySelector("#" + id);
+            },
+            addChild: function(child) {
+                viewport.appendChild(child);
+            },
+            removeChild: function(child) {
+                viewport.removeChild(child);
+            }
+        }
+        window.jView = obj;
+    })(document);
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+以上代码可以改写成如下代码：
+
+<script>
+    var f = function(document) {
+        var viewport;
+        var obj = {
+            init: function(id) {
+                viewport = document.querySelector("#" + id);
+            },
+            addChild: function(child) {
+                viewport.appendChild(child);
+            },
+            removeChild: function(child) {
+                viewport.removeChild(child);
+            }
+        }
+        window.jView = obj;
+    };
+    f(document);
+</script>
+
+在这段代码中似乎看到了闭包的影子，但 f 中没有任何返回值，似乎不具备闭包的条件，注意这句代码：
+
+window.jView = obj;
+
+obj 是在 f 中定义的一个对象，这个对象中定义了一系列方法， 执行window.jView = obj 就是在 window 全局对象定义了一个变量 jView，
+
+并将这个变量指向 obj 对象，即全局变量 jView 引用了 obj 。
+
+而 obj 对象中的函数又引用了 f 中的变量 viewport ,因此 f 中的 viewport 不会被回收，会一直保存到内存中，所以这种写法满足闭包的条件。
+
+ 另外，我们把obj赋值给window.jView ，那么，我们在整个window中可以直接调用obj 中的函数，但是函数内部的变量不会被收回，例如我们调用
+
+ obj的init函数可以这么写：
+
+window.jView.init("haorooms")
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

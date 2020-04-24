@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    缓存对象成员
+
+    在同一个函数中，如果存在多次读取同一个对象成员，可以在局部函数中保存对象，减少查找。
+    <script>
+        function getWindowWH() {
+            var elBody = document.getElementsByTagName('body')[0];
+            return {
+                width: elBody.offsetWidth,
+                height: elBody.offsetHeight
+            }
+        }
+    </script>
+
+  <!-- ----------------------------------------------------------------------------- -->
+
+    DOM 操作
+
+   访问DOM的次数越多，代码运行的速度越慢，统一的保存结果最后在一并输出。 例子：
+
+    <script>
+        function innerHTMLLoop() {
+            var content = '';
+
+            for (var count = 0; count < 10000; count++) {
+                content += 'a';
+            }
+
+            document.getElementById("idName").innerHTML += content;
+        }
+    </script>
+
+    <!-- ----------------------------------------------------------------------------- -->
+
+    重绘(repaints)与重排(reflows)
+
+    当页面布局和几何属性改变时就需要＂重排＂
+    避免在修改样式的过程中使用 offsetTop, scrollTop, clientTop, getComputedStyle() 这些属性, 它们都会刷新渲染队列
+
+    最小化重绘和重排, 尽量一次处理
+
+    使元素脱离文档流(隐藏元素)
+    使用 documentFragment
+    将原始元素拷贝到一个脱离文档的节点中, 修改副本, 完成后再替换原始元素)
+
+    <!-- ----------------------------------------------------------------------------- -->
+
+    事件委托
+
+    当有很多元素需要绑定事件的时候，我们一个一个的去绑定事件是有代价的的，元素越多应用程序越慢。
+
+    事件绑定不但占用了处理时间，并且追踪事件需要更多的内存，有时候很多元素是不需要，或者是用户不会点击的，
+
+    所以我们需要使用事件委托来解决没有必要的资源消耗。
+
+    例子： 我们需监听li的click事件，通过冒泡事件来获取点击的对象。
+
+    <ul>
+        <li index='1'>1</li>
+        <li index='2'>2</li>
+        <li index='3'>3</li>
+    </ul>
+
+    <script>
+        var ul = document.getElementById('ul');
+
+        ul.addEventListener('click', function(e) {
+            var now_index = e.target.getAttribute('index');
+            ...
+        })
+    </script>
+
+    <!-- ----------------------------------------------------------------------------- -->
+
+
+    循环性能
+
+    一般的for语句可能很多人都这么写
+
+    for(var i = 0; i < array.length; i++){
+        ....
+    }
+    每次循环的时候需要查找array.length，这样不但很耗时，也造成性能损失。只要查找一次属性，存储在局部变量，就可以提高性能。
+
+    for(var i = 0, len = array.length; i < len; i++){
+        ....
+    }
+    重写后的循环根据数组的长度能优化25%的运行时间，IE更多。所以平时书写的时候还是要多加注意。同时还是要避免使用for-in循环。
+
+    <!-- ----------------------------------------------------------------------------- -->
+
+    使用 Object/Array 直接量
+
+    直接量的速度回更快。
+
+    <script>
+        //bad
+        var myObject = new Object();
+        myObject.name = "xxxx";
+
+        //good
+        var myObject = {
+            name: "xxxx"
+        }
+    </script>
+
+    <!-- -------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

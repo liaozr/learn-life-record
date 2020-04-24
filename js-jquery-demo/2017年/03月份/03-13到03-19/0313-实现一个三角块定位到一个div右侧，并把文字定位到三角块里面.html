@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="img">
+        <div class="img-center">
+            <img src="images/bb.jpg" alt="">
+        </div>
+        <span class="sanjiao"><div id="triangle-topright"></div></span>
+        <span class='sanjiao-wen'>已办结</span>
+    </div>
+</body>
+
+<style>
+    .img {
+        width: 4.588rem;
+        height: 2.5rem;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .img .sanjiao {
+        position: absolute;
+        width: 1.5rem;
+        height: 1.5rem;
+        right: 0px;
+        top: 0px;
+    }
+
+    #triangle-topright {
+        width: 0;
+        height: 0;
+        border-top: 3.125rem solid #7ab8f5;
+        border-left: 3.125rem solid transparent;
+    }
+
+    .img .sanjiao-wen {
+        position: absolute;
+        right: -0.188rem;
+        top: 0.188rem;
+        font-size: 0.438rem;
+        transform: rotate(45deg) scale(0.8);
+        -webkit-transform: rotate(45deg) scale(0.8);
+        -moz-transform: rotate(45deg) scale(0.8);
+        -o-transform: rotate(45deg) scale(0.8);
+        color: white;
+    }
+
+    .wen {
+        width: 4.588rem;
+        height: 0.938rem;
+        line-height: 0.938rem;
+        text-align: center;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #444;
+        font-size: 0.375rem;
+    }
+
+</style>
+
+</html>

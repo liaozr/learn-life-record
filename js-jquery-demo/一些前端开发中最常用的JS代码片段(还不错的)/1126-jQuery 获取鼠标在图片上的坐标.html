@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+</head>
+
+<body>
+    <script>
+        $('#myImage').click(function(event) {
+            //获取鼠标在图片上的坐标
+            console.log('X：' + event.offsetX + '\n Y:' + event.offsetY);
+
+            //获取元素相对于页面的坐标
+            console.log('X：' + $(this).offset().left + '\n Y:' + $(this).offset().top);
+        });
+    </script>
+</body>
+
+</html>

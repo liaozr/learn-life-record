@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        console.log(1);
+
+        setTimeout(function() {
+            console.log(2);
+        }, 0);
+
+        Promise.resolve().then(function() {
+            console.log(3);
+        }).then(function() {
+            console.log(4);
+        });
+
+        console.log(5);
+
+        // 1
+        // 5
+        // 3
+        // 4
+        // 2
+    </script>
+
+    上面代码的执行结果说明，setTimeout(fn, 0)在Promise.resolve之后执行。
+
+    这是因为setTimeout语句指定的是“正常任务”，即不会在当前的Event Loop（事件循环）执行。
+
+    而Promise会将它的回调函数，在状态改变后的那一轮Event Loop（事件循环）指定为微任务。
+
+    所以，3和4输出在5之后、2之前。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+setTimeout(fn, 0)的一大应用是，可以调整事件的发生顺序。
+
+setTimeout(fn, 0)的一大应用是，可以调整事件的发生顺序。
+
+setTimeout(fn, 0)的一大应用是，可以调整事件的发生顺序。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+比如，网页开发中，某个事件先发生在子元素，然后冒泡到父元素，即子元素的事件回调函数，
+
+会早于父元素的事件回调函数触发。
+
+如果，我们先让父元素的事件回调函数先发生，就要用到setTimeout(fn, 0)。
+
+案例如下：
+
+<script>
+
+    document.getElementById("haoroomsID").onclick = function A() {
+        setTimeout(function B() {
+            console.log("触发子元素事件")
+        }, 0)
+    };
+
+    document.body.onclick = function C() {
+        console.log("触发父元素事件")
+    };
+    
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+   <!-- ---------------------------------------------------------------------------------------- -->
+
+    需要手动设置constructor。
+
+    <script>
+        function Person() {}
+        Person.prototype = {
+            constructor: Person,
+            name: "Nicholas",
+            age: 29,
+            job: "Software Engineer",
+            sayName: function() {
+                alert(this.name);
+            }
+        };
+    </script>
+    
+    但这同时也会导致constructor的[[Enumerable]]特性变成了true，默认情况下是false。再修改下写法：
+
+    <!-- ---------------------------------------------------------------------------------------- -->
+
+    <script>
+
+        function Person() {}
+
+        Person.prototype = {
+            name: "Nicholas",
+            age: 29,
+            job: "Software Engineer",
+            sayName: function() {
+                alert(this.name);
+            }
+        };
+
+        Object.defineProperty(Person.prototype, "constructor", {
+            enumerable: false,
+            value: Person
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        //判断一个对象是不是数组
+        var arr = []
+
+        if (arr instanceof Array) {} // 方法一
+
+        if (Object.prototype.toString.call(arr) == '[object Array]')
+        } {} // 方法二
+
+        if (Array.isArray(arr)) {} //方法三
+
+        if (arr.constructor == Array) {} // 方法四
+        
+    </script>
+
+</body>
+
+</html>

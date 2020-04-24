@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  根据当前需要判断的值是真值还是假值来判断，真值返回true，假肢返回false，那么这样的话，除了假值，剩下的也都是真值了。
+
+  假值有：0  、'' 、null  、 undefined  、false  、NaN、除了这 6 个外，其它均为“真” ，包括对象、数组、正则、函数等。
+
+  注意: '0'、'null'、'false'、{}、[]也都是真值  。那么下面我们来看看!!是如何转布尔值的。
+
+  例如：首先我们声明3个变量,x为null,y为空字符串,str为字符串,下面看看他们添加了"!!"后会有什么结果。
+
+<script>
+
+    var x = null;
+
+    var y = "";
+
+    var str = "abcd";
+
+    var aa='true'
+
+    var bb='false'
+
+    console.log(!!x)   // false;
+    console.log(!!y)   // false;
+    console.log(!!str)  // true;如上所说，假值返回false,真值返回true。
+    
+    console.log(!!aa)  // true
+    console.log(!!bb)  // true
+
+</script>
+
+</body>
+
+</html>

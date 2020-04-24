@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.min.js"></script>
+</head>
+<style>
+	#Header{
+		width:100%;height:50px;
+		display:block;background-color:black;
+	}
+	#Sidebar{
+		width:200px;float:left;
+		height:300px;
+		display: inline-block;background-color: blue;
+	}
+	#body{
+		width:600px;
+		height:300px;
+		float:left;
+		background-color: red;
+	}
+	#footer{
+		width:100%;
+		height:50px;background-color: yellow;
+	}
+	.clear{
+		clear: both;
+	}
+</style>
+<body>
+<!-- 	<div id="Header"></div>
+	<div id="Sidebar"></div>
+	<div id="body"></div>
+	<div class="clear"></div>
+	<div id="footer"></div>
+ -->
+    <div id="app">
+    	<!-- view层  -->
+	    <!-- 在view层找到自定义元素，找到了就把template的属性值渲染到自定义标签上去。-->
+	    <!-- 这里的自定义标签（元素）是不会显示到页面上的 ，显示也是显示渲染过的属性值-->
+	    <app-header></app-header>
+		<app-sidebar></app-sidebar>
+		<app-body></app-body>
+		<div class="clear"></div>
+		<app-footer></app-footer>
+	</div>
+	<script> 
+
+			// 组件树，每个组件都有个模版
+			// extend 继承 ，定义组件
+			
+			// 用Vue.extend()创建一个组件构造器
+			 var appHeader=Vue.extend({
+			 	template:"<div id='Header'>上方列</div>"
+			 });
+
+			 var appSidebar=Vue.extend({
+			 	template:'<div id="Sidebar">侧边栏</div>'
+			 })
+			 
+			 var appbody= Vue.extend({
+			 	template:'<div id="body">内容</div>'
+			 })
+			 var appfooter=Vue.extend({
+			 	template:"<div id='footer'>底部</div>"
+			 })
+
+			 // 注册组件，去模版中找自定义标签
+
+			 // 注册（要把这个构造器用作组件，需要用Vue.component(tag,constructor)注册）
+
+			 // 注意！！ 组件注册后，会去替换自定义的元素
+			 Vue.component("app-header",appHeader)
+		     Vue.component("app-sidebar",appSidebar)
+		     Vue.component("app-body",appbody)
+		     Vue.component("app-footer",appfooter)
+
+		    // 创建根实例
+		    new Vue({
+		    	el:'#app'	 
+		    })
+	</script>
+</body>
+</html>

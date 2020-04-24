@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.min.js"></script>
+</head>
+<body>
+
+	<div id="app">
+		  <input v-model="newTodo" v-on:keyup.enter="addTodo">
+		  <!-- 看到v-model，就等同于看到vuejs数据data 的意思-->
+		  <!-- v-model 双向数据绑定   new Vue下的data 键值的属性值会改变这个input
+		  标签的值，所以当你输入数据到input上的时候也同样会改变new Vue
+		  下的data 键值的属性值 ，这个就是双向数据绑定-->
+		  <!--  v-on:keyup.enter 当按了键盘的enter键的时候去执行一个方法addTodo-->
+		  <ul>
+		    <li v-for="todo in todos">
+		    	<!-- v-for就是列表渲染 -->
+		      <span>{{ todo.text }}</span>
+		      <!-- todo.text把 todos里面的text键值的属性值打出来 -->
+		      <button v-on:click="removeTodo($index)">X</button>
+		      <!-- v-on:click 点击执行removeTodo($index) 这个方法 -->
+		      <!-- $index vuejs自动会帮v-for列表渲染 增加一个索引值 -->
+		    </li>
+		  </ul>
+	</div>
+
+
+
+<script>
+
+		new Vue({
+
+			  el: '#app',
+			  data: {
+			    newTodo: '',  //newTodo这个键值的值先为空值
+			    todos: [ //todos是一个阵列，中括号包起来的都叫一个阵列
+			      { text: 'Add some todos' } //左边的text也是个键值
+			    ]
+			  },
+			  methods: { //函数方法在这个区域里面，目前有两个函数
+			    addTodo: function () {
+			      var text = this.newTodo.trim()//为newTodo值去空白 trim()是去空白
+			      // 此时text属性的值应该是你刚刚在input标签输入的值，数据绑定，双向数据绑定。
+			      if (text) { //如果text有值的话
+			        this.todos.push({ text: text }) //往todos这个阵列塞东西 ，塞一个值 { text: text }左边的那个text是键值，右边的那个text是属性值。
+			        this.newTodo = '' //再把this.newTodo变为一个空字符串 newTodo这个键值变为空字符串
+			        // 相当于把input元素里面的值去空
+			      }
+			    },
+			    removeTodo: function (index) {
+			      this.todos.splice(index, 1)// splice  往todos这个阵列里面删除一个index索引值项
+			    }
+			  }
+		})
+
+</script>
+</body>
+</html>

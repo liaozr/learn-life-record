@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.staticfile.org/vue/2.2.6/vue.js'></script>
+
+</head>
+
+<style>
+    .list {
+        background-color: red;
+        margin-bottom: 30px;
+    }
+</style>
+
+
+shift:从集合中把第一个元素删除，并返回这个元素的值。
+
+unshift: 在集合开头添加一个或更多元素，并返回新的长度
+
+push:在集合中添加元素，并返回新的长度
+
+pop:从集合中把最后一个元素删除，并返回这个元素的值。
+
+
+<body>
+    <div id="app">
+        <div class='list' v-for='item in changeItem'>
+            <div>{{item.text}}</div>
+            <div>{{item.msg}}</div>
+        </div>
+        <input type="text" v-model='msgs'>
+        <div @click='push'>增加对象</div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                items: [{
+                        text: 1,
+                        msg: 'test1'
+                    },
+                    {
+                        text: 2,
+                        msg: 'test2'
+                    },
+                    {
+                        text: 3,
+                        msg: 'test3'
+                    },
+                    {
+                        text: 4,
+                        msg: 'test4'
+                    }
+                ],
+                msgs: ''
+            },
+            methods: {
+                push() {
+                    if (this.msgs !== undefined && this.msgs !== '' && this.msgs !== null) {
+                        var obj = {
+                            text: this.items.length + 1,
+                            msg: this.msgs
+                        }
+                        this.items.unshift(obj);
+
+                        // shift:从集合中把第一个元素删除，并返回这个元素的值。
+                        // unshift: 在集合开头添加一个或更多元素，并返回新的长度
+                        // push:在集合中添加元素，并返回新的长度
+                        // pop:从集合中把最后一个元素删除，并返回这个元素的值。
+                        
+                        this.msgs = '';
+                    }
+                }
+            },
+            computed: {
+                changeItem: function() {
+                    return this.items.slice(0, 3)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.staticfile.org/vue/2.2.6/vue.js'></script>
+
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+    前端debugger技巧，如何为自己写的脚本打断点
+
+    可以在谷歌开发者工具下的 sources 找到要打断点的 js脚本文件
+
+    然后 左手边你会发现有
+
+    1 2 3 4 5等一连竖串数字的，左键点击那些数字即可打断点
+
+    取消断点的话，只需要把已经点亮蓝色的数字再点击 ，变回正常色调即可。
+
+    也可以右键  remove breakpoint 也是一样的
+
+    打了断点后，再次刷新页面 ，你就会在页面发现
+
+    paused in debugger  点击 蓝色的那个类似播放按钮的功能图标，
+
+    即可打断点调试代码了。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+    <div id="app">
+        <input type="text" v-model='msg'>
+
+        <div id='aa'>{{msg}}</div>
+    </div>
+
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: ''
+            }
+        })
+        var aa = '123'
+        var bb = aa + 1
+
+        console.log(aa + bb)
+    </script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

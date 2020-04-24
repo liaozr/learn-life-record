@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+// ------------------------------------------------------------------------------------
+
+    // 如果是正则带 g 标志。 会替换所有匹配
+        var result = 'mother_in_law'.replace(/_/g, '-');
+        console.log(result) // mother-in-law
+
+// ------------------------------------------------------------------------------------
+        var str = '//abc//ddd';
+
+        var str2=str.replace(/\/\//g,'/');
+
+        console.log(str2)   // 打印出来的结果是： abc/ddd
+// ------------------------------------------------------------------------------------
+
+    </script>
+    
+</body>
+
+</html>

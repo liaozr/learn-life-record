@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Pragma" content="no-cache">
+		<title>自助评估</title>
+		<link rel="stylesheet" href="css/base-reset.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/public.css" />
+		<link rel="stylesheet" href="css/wwNew.css" />
+		<link rel="stylesheet" href="css/yhn.css" />
+	</head>
+
+	<body class="detail">
+		<header class="navbar navbar-default" id="top" role="banner" style="margin-top:20px;margin-bottom: 0;">
+			<div class="container">
+				<img class="logo left" src="img/logo.png" />
+				<div id="navbar" class="navbar-collapse collapse" style='padding-right:0'>
+					<ul class="nav navbar-nav">
+						<li class="">
+							<a href="index.html">主页</a>
+						</li>
+						<li class="">
+							<a href="selectFun.html">自助评估</a>
+						</li>
+						<li class="">
+							<a href="projectApplication.html">项目申请</a>
+						</li>
+						<li class="">
+							<a href="together.html">合作条款</a>
+						</li>
+						<li class="">
+							<a href="aboutUs.html">关于我们</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" v-if="haslogin">
+						<li id="goCenter" class="headBox">
+							<img id="head" style="cursor: pointer;" src="img/cgx.jpg" alt="" />
+							<span id="userTips"></span>
+							<div class="downList" style="display:none;">
+								<strong></strong>
+								<div>
+									<ul>
+										<li>
+											<p id="unameTitle"></p>
+										</li>
+										<li id="makeCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-zoom-in"></span></span><strong class="down-title">创建公司</strong></li>
+										<li id="gomyCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-briefcase"></span></span><strong class="down-title">我管理的公司</strong></li>
+										<li id="assess" class="hov"><span class="dot2"><span class="glyphicon glyphicon-usd"></span></span><strong class="down-title">估价</strong></li>
+										<li id="mypaper" class="hov"><span class="dot2"><span class="glyphicon glyphicon-list-alt"></span></span><strong class="down-title">我的报价单</strong></li>
+										<li id="exit" class="hov"><span class="dot2"><span class="glyphicon glyphicon-off"></span></span><strong class="down-title">退出登录</strong></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" v-else>
+						<li>
+							<a href="login.html">登录</a>
+						</li>
+						<li>
+							<a href="register.html">注册</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+		<section id="showMy" class="content">
+			<div class="title-div">
+				<div class="title" id="nameTxt"></div>
+				<div class="tips" id="remarkTxt">cccccccc</div>
+				<div class="money">预估报价：<span id="priceTxt"></span>元</div>
+				<div class="wordDay">开发周期：<span id="dayTxt"></span>个工作日<button style="float:right;margin-right:40px;color:#333" id="deleteBtn" class="btn btn-toolbar">删除此报价单</button></div>
+			</div>
+			<div class="funTable">
+				<div v-for="bigItem in dataArr" style="margin-top: 50px;">
+					<div class="show-title">{{bigItem.type}}<span>{{bigItem.num}}</span></div>
+					<div class="show-table-title">
+						<div>分类</div>
+						<div>模块</div>
+						<div>功能点</div>
+					</div>
+					<ul class="show-type">
+						<li class="show-type-li" v-for="item in bigItem.arr">
+							<div class="show-type-div">{{item | ifNullItem}}</div>
+							<ul class="show-model">
+								<li class="show-model-li" v-for="subItem in item.item" v-if="subItem.checkArr.length > 0">
+									<div class="show-model-div"><span>{{subItem.model}}</span>
+									</div>
+									<div class="show-model-fun">
+										<div v-for="funItem in subItem.item" class="show-fun-item-div" v-if="subItem.checkArr.indexOf(funItem.val) != -1">
+											<label for="{{funItem.fun}}">{{funItem.fun}}</label>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</li>
+						<li class="show-type-li" v-if="bigItem.type == '前端项目'">
+							<div class="show-type-div">页面数量</div>
+							<ul class="show-model">
+								<li class="show-model-li" style="padding: 10px;">
+									<input id="pageNum" disabled="disabled" type="text" value="{{bigItem.pageNum}}" placeholder="请输入页面数量" style="border: none;width: 300px;" />
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<center>
+				<button class="submit btn btn-primary returnBtn" style="width: 200px;height: 50px;margin-top: 50px;font-size: 20px;">返回</button>
+			</center>
+		</section>
+		<footer id="footer"></footer>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script type="text/javascript" src="js/function.js"></script>
+	<script type="text/javascript" src="js/login.js"></script>
+	<script src="layer/layer.js"></script>
+	<script>
+	$("#footer").load("footer.html");
+		Vue.filter('ifNullItem', function(arr) {
+			for(var i = 0; i < arr.item.length; i++) {
+				if(arr.item[i].checkArr != null && arr.item[i].checkArr.length > 0) {
+					return arr.type;
+				}
+			}
+			return "";
+		})
+		var dataStr = [];
+		var id;
+		if(sessionStorage.detail != undefined) {
+			var dataStr = JSON.parse(sessionStorage.detail).projectPoints.split(",");
+			var item = JSON.parse(sessionStorage.detail);
+			$("#nameTxt").text(item.projectName);
+			$("#remarkTxt").text(item.projectRemark);
+			$("#priceTxt").text(parseInt(item.projectPrice * 0.9) + "-" + parseInt(item.projectPrice * 1.1));
+			$("#dayTxt").text(parseInt(item.projectDay * 0.9) + "-" + parseInt(item.projectDay * 1.1));
+			id = item.id;
+		}
+		var showVm = new Vue({
+			el: '#showMy',
+			data: {
+				dataArr: showArr
+			},
+		});
+		var showArr = new Array();
+		var dataArr = new Array();
+		initFunArr();
+		init();
+
+		function initData() {
+			for(var i = 0; i < functionArr.length; i++) {
+				for(var j = 0; j < functionArr[i].item.length; j++) {
+					functionArr[i].item[j].checkArr = [];
+					for(var k = 0; k < functionArr[i].item[j].item.length; k++) {
+						if(dataStr.indexOf(functionArr[i].item[j].item[k].val) != -1) {
+							functionArr[i].item[j].checkArr.push(functionArr[i].item[j].item[k].val);
+							if(dataArr.indexOf(functionArr[0].name) == -1) {
+								dataArr.push(functionArr[0].name);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		function init() {
+			showArr = new Array();
+			var obj = new Object();
+			for(var i = 0; i < dataArr.length; i++) {
+				if(dataArr[i] == "webArr") {
+					obj = new Object();
+					obj.type = "Web网站"
+					obj.arr = webArr;
+					obj.num = getNum("webArr");
+					showArr.push(obj);
+				} else if(dataArr[i] == "iosArr") {
+					obj = new Object();
+					obj.type = "移动应用IOS"
+					obj.arr = iosArr;
+					obj.num = getNum("iosArr");
+					showArr.push(obj);
+				} else if(dataArr[i] == "androidArr") {
+					obj = new Object();
+					obj.type = "移动应用Android"
+					obj.arr = androidArr;
+					obj.num = getNum("androidArr");
+					showArr.push(obj);
+				} else if(dataArr[i] == "weixinArr") {
+					obj = new Object();
+					obj.type = "微信公众号"
+					obj.arr = weixinArr;
+					obj.num = getNum("weixinArr");
+					showArr.push(obj);
+				} else if(dataArr[i] == "h5Arr") {
+					obj = new Object();
+					obj.type = "前端项目"
+					obj.arr = h5Arr;
+					obj.pageNum = dataStr[dataStr.length - 1];
+					obj.num = getNum("h5Arr");
+					showArr.push(obj);
+				} else if(dataArr[i] == "serviceArr") {
+					obj = new Object();
+					obj.type = "管理后台"
+					obj.arr = serviceArr;
+					obj.num = getNum("serviceArr");
+					showArr.push(obj);
+				}
+				showVm.dataArr = showArr;
+			}
+		}
+
+		function getNum(type) {
+			num = 0;
+			if(type == "webArr") {
+				tempArr = webArr;
+			} else if(type == "iosArr") {
+				tempArr = iosArr;
+			} else if(type == "androidArr") {
+				tempArr = androidArr;
+			} else if(type == "weixinArr") {
+				tempArr = weixinArr;
+			} else if(type == "h5Arr") {
+				tempArr = h5Arr;
+			} else if(type == "serviceArr") {
+				tempArr = serviceArr;
+			}
+			for(var i = 0; i < tempArr.length; i++) {
+				for(var j = 0; j < tempArr[i].item.length; j++) {
+					num += tempArr[i].item[j].checkArr.length;
+				}
+			}
+			return num;
+		}
+		var functionArr = new Array();
+
+		function initFunArr() {
+			functionArr = webArr;
+			initFunArrData();
+			initData();
+			functionArr = iosArr;
+			initFunArrData();
+			initData();
+			functionArr = androidArr;
+			initFunArrData();
+			initData();
+			functionArr = weixinArr;
+			initFunArrData();
+			initData();
+			functionArr = h5Arr;
+			initFunArrData();
+			initData();
+			functionArr = serviceArr;
+			initFunArrData();
+			initData();
+		}
+
+		function initFunArrData() {
+			for(var i = 0; i < functionArr.length; i++) {
+				for(var j = 0; j < functionArr[i].item.length; j++) {
+					if(functionArr[i].item[j].defaultArr != null) {
+						functionArr[i].item[j].checkArr = functionArr[i].item[j].defaultArr;
+					} else {
+						functionArr[i].item[j].checkArr = [];
+					}
+				}
+			}
+		}
+
+		$(".returnBtn").on('click', function() {
+			window.location.href = "personal.html";
+		});
+		
+         var sendData;
+		$("#deleteBtn").on('click', function() {
+			sendData = {
+				id: id
+			};
+			tanchu1("确认删除此报价单？",sendData);
+		});
+		//弹出框函数
+		function tanchu(cont) {
+			layer.open({
+				btn: ['OK'],
+				content: cont, //内容
+				shade: [0.5, '#000'], //遮罩层  透明度，颜色
+				shadeClose: true, //点击遮罩层 关闭弹出层
+				time: 0 //  自动关闭时间，  0表示不自动关闭	           
+			});
+		}
+		
+		//删除本公司
+		function tanchu1(cont,data) {
+			layer.open({
+				btn: ['确认', '取消'],
+				content: cont, //内容
+				shade: [0.5, '#000'], //遮罩层  透明度，颜色
+				shadeClose: true, //点击遮罩层 关闭弹出层
+				time: 0, //  自动关闭时间，  0表示不自动关闭	           
+				yes:function(){
+					$.ajax({
+						type: "post",
+						url: "/services/ws/project/delete",
+						contentType: "application/json",
+						data: JSON.stringify(sendData),
+						success: function(jsonData) {
+							console.log(jsonData);
+							if(JSON.parse(jsonData).status == "true") {
+								window.location.href = "personal.html";
+							} else {
+								tanchu("删除错误");
+							}
+						}
+					});
+				},
+				no:function(){
+					
+				}
+			});
+		}
+	</script>
+
+</html>

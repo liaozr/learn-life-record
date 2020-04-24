@@ -1,0 +1,96 @@
+
+使用具名路径
+<a v-link="{ name: 'myviews', params: { viewId: 123 }}">User</a>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+组件传值的时候单个单词小写，如果有多个单词用"-"连接 API说明
+
+<uiradio :items.sync="mutilCheckitems" :mutil-check.sync="mutilCheck">
+
+然后在组件props中用驼峰的方式访问['mutilCheck']。
+
+<!-- =----------------------------------------------------------------------------- -->
+
+
+组件传值得时候尽量不要使用表达式，可以在computed中定义
+
+比如：
+
+<uiradio :items.sync="singleCheckitems" :mutil-check.sync="!mutilCheck">
+修改为
+<uiradio :items.sync="singleCheckitems" :mutil-check.sync="singleCheck"></uiradio>
+然后定义computed
+
+...
+computed:{
+    singleCheck:function(){
+        return false;
+    }
+},
+...
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+在绑定属性的时候
+
+<div class="tab-panel" v-show="show" transition="transiton">
+    <slot name="tab-panel"></slot>
+</div>
+
+此处的 transition="transiton" 代表的是 transition 这个类名
+而如果前面加个:则代表的是动态属性，: 是 v-bind的简写 参考 Vue1.0.0绑定语法参考
+
+<div class="tab-panel" v-show="show" :transition="transiton">       
+绑定属性用双引号
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+
+vue文件的，template模版中，注释的html里面如果有img标签，相关资源也会被打包。
+
+    <!--
+    ...
+    <img src="./xx.jpg">
+    ...
+    -->
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+
+在data属性里面不要定义以下划线开头的字段。
+
+data:{
+   _k:'v' // this._k 获取不到
+}
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+
+vue-router路由配置的时候，不要写下划线
+
+    '/loan':{
+        name:'loan',
+        component: require('./views/loan.vue')
+    },
+    '/loan_old':{
+        name:'xxx',
+        component: require('./views/loan_old.vue')
+    },
+
+下面的会覆盖上面的，原来本应该跳转到loan的可能现在都跳到了loan_old
+
+<!-- -----------------------------------------------------------------------------------------------------     -->
+
+
+如果要阻止默认事件，一定要写在前面，否则会影响其他事件绑定
+@touchmove.stop.prevent @click.stop="show=false"
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+尽量少用,用多了，感觉渲染的会慢很多。
+<template v-if="flag">
+  bla bla bla...
+</template>
+
+<!-- ---------------------------------------------------------------------------------------- -->

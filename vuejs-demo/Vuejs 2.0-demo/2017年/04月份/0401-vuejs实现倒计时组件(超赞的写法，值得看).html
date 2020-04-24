@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+
+
+    <div id='app'>
+        <ziksang-count-down :start='start' @countDown='start=false' @click.native='sendCode'></ziksang-count-down>
+    </div>
+
+    <template id='countdown'>
+            <!-- 这里的 template 里面的写法是跟单页面里面的组件写法是一样的 -->
+
+            <!-- 当里面的元素只有一个的时候，外面可有div包也可以没有div外层包住 -->
+
+            <!-- 当里面的元素不是只有一个的时候，外面就要有一个层（外面要有一个div层包住）包住里面的元素了，不然
+            vue 是会 报警示错误的。
+            -->
+           <button>{{time | change}}</button>
+           <!-- <button>{{time | change}}</button> -->
+    </template>
+
+    <script>
+        let flag = false
+        Vue.component('ziksang-count-down', {
+            template: '#countdown',
+            data() {
+                return {
+                    time: '获取验证码',
+                }
+            },
+            props: {
+                start: {
+                    type: Boolean
+                }
+            },
+            watch: {
+                start(value, oldvalue) {
+                    if (value == true) {
+                        this.countDown()
+                    }
+                }
+            },
+            methods: {
+                countDown() {
+                    this.time = 60;
+                    let time = setInterval(() => {
+                        this.time--
+                            if (this.time == 0) {
+                                this.$emit('countDown')
+                                this.time = '获取验证码'
+                                flag = true
+                                clearInterval(time)
+                            }
+                    }, 1000)
+                }
+            },
+            filters: {
+                change(value) {
+                    if (!value) return ""
+                    if (!isNaN(value)) {
+                        if (flag == true) {
+                            return `重新发送${value}S`
+                        }
+                        return value + 'S'
+                    } else {
+                        return value
+                    }
+                }
+            }
+        })
+        new Vue({
+            el: "#app",
+            data: {
+                start: false
+            },
+            methods: {
+                sendCode(value) {
+                    //前面发送ajax请求成功之后调用this.start = true开始短信倒计时
+                    this.start = true
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

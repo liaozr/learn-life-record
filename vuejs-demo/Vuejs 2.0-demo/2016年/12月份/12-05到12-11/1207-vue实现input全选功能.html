@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+    <div id="app">
+        <table>
+            <thead>
+                <tr>
+                    <th><input type="checkbox" name="" value="" v-model="allSelected"></th>
+                    <th>name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in items">
+                    <td><input type="checkbox" name="" value="" v-model="item.seleced"></td>
+                    <td>{{item.name}}</td>
+                </tr>
+            </tbody>
+        </table
+
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                items: [
+                  {
+                    name: '1',
+                    seleced: false
+                  },
+                  {
+                    name: '2',
+                    seleced: false
+                  },
+                  {
+                    name: '3',
+                    seleced: false
+                  }
+                ]
+            },
+            computed: {
+                allSelected: {
+                    get: function() {
+                        return this.items.reduce(function(prev, curr) {
+                            return prev && curr.seleced;
+                        }, true);
+                    },
+                    set: function(newValue) {
+                        this.items.forEach(function(item) {
+                            item.seleced = newValue;
+                        });
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

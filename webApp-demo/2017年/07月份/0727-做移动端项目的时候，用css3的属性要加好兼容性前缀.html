@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    做移动端的项目的时候，要加好 css3属性的前缀的，
+
+    因为在低版本的安卓机子上，会出现不兼容的情况出现的
+
+    所以，css3的属性那些一定要加上 兼容前缀。
+
+    不然，会出现一些兼容性问题的
+
+    如transform  是要 加上 -webkit的
+
+    <style media="screen">
+
+        .modal-frame {
+            position: absolute;
+            left: 10%;
+            right: 10%;
+            top: 50%;
+
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%);
+
+            border: solid 1px #ddd;
+            background: #fff;
+            /*padding: 1em;*/
+        }
+        
+    </style>
+
+  </body>
+</html>

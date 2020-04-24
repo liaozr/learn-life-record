@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.min.js"></script>
+</head>
+
+<style>
+ span.file{
+   color:#aaaaaa;
+ }
+</style>
+<body>
+
+  <!-- --------------------------------------------------------------------------------- -->
+
+   可以都绑定事件 然后用变量判断执行不执行  v-if 的话就要多写一遍标签了
+
+  <!-- --------------------------------------------------------------------------------- -->
+
+    <div id="app">
+        <div v-for='item in items'>
+            <span @click='todetails($event)' :class="{'file':item.type=='file'}">{{item.text}}</span>
+        </div>
+    </div>
+
+  <!-- --------------------------------------------------------------------------------- -->
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                items:[
+                  {
+                    text:'文件',
+                    type:'file'
+                  },
+                  {
+                    text:'目录',
+                    type:'mulu'
+                  },
+                  {
+                    text:'目录',
+                    type:'mulu'
+                  },
+                  {
+                    text:'文件',
+                    type:'file'
+                  }
+                ]
+            },
+            methods:{
+               todetails:function(e){
+                     if (e.currentTarget.className.indexOf('file') > -1) {
+                        // 这里点击的是文件，不执行任何脚本即可
+                     } else {
+                        // 这里点击的是目录，执行所需脚本即可
+                        console.log('触发了目录')
+                     }
+               }
+            }
+        })
+    </script>
+
+  <!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

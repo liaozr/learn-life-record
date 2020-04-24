@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+      
+        <!-- v-for一个数组，序列参数用的是一个index -->
+
+        <!-- classArr 也是一个数组 classArr[index]表示的则是输出classArr这个数组对应下标的值 -->
+
+        <ul>
+            <li v-for="(item, index) in arr">
+                <h1 :class="classArr[index]">{{ item }}</h1>
+            </li>
+        </ul>
+
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue.js!',
+                arr: ['1', '2', '3'],
+                classArr: ['', 'show_warn', '']
+            }
+        })
+    </script>
+
+    <style>
+        .show_warn {
+            color: red;
+        }
+    </style>
+</body>
+
+</html>

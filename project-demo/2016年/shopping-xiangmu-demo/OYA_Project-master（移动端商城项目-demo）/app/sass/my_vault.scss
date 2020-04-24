@@ -1,0 +1,67 @@
+body{
+    background: rgb(241,245,246);
+}
+.my_vault aside:nth-child(1) {
+    margin-top: 48px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    font-family: "微软雅黑";
+    background: white;
+    dl {
+        flex: 1;
+        text-align: center;
+        border-right: 1px solid rgb(204,204,204);
+        dt {
+            font-weight: 600;
+        }
+        dd {
+            font-size: 12px;
+            color: rgb(153,153,153);
+        }
+    }
+    dl:last-child {
+        border-right: none;
+    }
+}
+.my_vault aside:nth-child(2) {
+    height: 40px;
+    background: white;
+    margin-top: 10px;
+    nav {
+        display: flex;
+        ul {
+            display: flex;
+            flex: 1;
+            border-top: 1px solid rgb(153,153,153);
+            li {
+                height: 40px;
+                flex: 1;
+                text-align: center;
+                line-height: 40px;
+                font-family: "微软雅黑";
+                font-size: 12px;
+                border-left: 1px solid rgb(204,204,204);
+            }
+            li:first-child {
+                border-left: none;
+            }
+        }
+    }
+}
+.my_vault .storeroom ul {
+    background: white;
+    font-family: "微软雅黑";
+    font-size: 12px;
+    border-bottom: 1px solid gainsboro;
+    li {
+        display: flex;
+        height: 40px;
+        border-top: 1px solid gainsboro;
+        align-items: center;
+        span {
+            flex: 1;
+            text-align: center;
+        }
+    }
+}

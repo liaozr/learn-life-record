@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+</head>
+
+<body>
+    <input type="file" name="" id="upload">
+
+    <script>
+        $(function() {
+            $("#upload").change(function() {
+                checkImgType(this);
+                checkImgSize(this, 1000);
+                checkImgPX(this)
+            })
+        })
+
+        /**
+         * 检查文件类型
+         * @param ths file对象
+         * @return 是否符合规格
+         */
+        function checkImgType(ths) {
+            try {
+                var obj_file = $(ths).get(0).files;
+                for (var i = 0; i < obj_file.length; i++) {
+                    if (!/\.(JPEG|BMP|GIF|JPG|PNG)$/.test(obj_file[i].name.toUpperCase())) {
+                        alert("仅支持JPG、GIF、PNG、JPEG、BMP格式");
+                        $(ths).val("");
+                        return false;
+                    }
+                }
+            } catch (e) {}
+
+            return true;
+        }
+
+        // --------------------------------------------------------------------------------
+
+        /**
+         * 检查文件大小
+         * @param ths file对象
+         * @param limitSize 限制大小(k)
+         * @return 是否符合规格
+         */
+        function checkImgSize(ths, limitSize) {
+            try {
+                var maxsize = limitSize * 1024;
+                var msgSize = limitSize + "K";
+                if (limitSize >= 1024) {
+                    msgSize = limitSize / 1024 + "M";
+                }
+                var errMsg = "上传的图片不能超过" + msgSize;
+                var obj_file = $(ths).get(0).files;
+
+                for (var i = 0; i < obj_file.length; i++) {
+                    if (obj_file[i].size > maxsize) {
+                        alert(errMsg);
+                        $(ths).val("");
+                        return false;
+                    }
+                }
+            } catch (e) {
+
+            }
+            return true;
+        }
+        // ----------------------------------------------------------------------------
+    </script>
+
+    <script>
+      /*
+      * 判断图片大小
+      *
+      * @param ths
+      *          type="file"的javascript对象
+      * @param width
+      *          需要符合的宽
+      * @param height
+      *          需要符合的高
+      * @return true-符合要求,false-不符合
+      */
+      function checkImgPX(ths) {
+          if (typeof FileReader == "undefined") {
+              //不支持filereader浏览器无法判断图片大小，直接上传
+              alert("您的浏览器版本过低，请更换chrome或者狐火等高级浏览器。360、qq、猎豹等国产浏览器请使用极速模式浏览网页！");
+          }
+          else {
+              var file = ths.files[0];
+              var reader = new FileReader();
+              reader.onload = function(ev){
+                  var imgurl=ev.target.result;
+                  $('<img/>').attr('src',imgurl).load(function(){
+                      var imgWidth=$(this)[0].naturalWidth;
+                      var imgHeight=$(this)[0].naturalHeight;
+                      //console.log(imgWidth+'---'+imgHeight);
+                      if (imgWidth>500 || imgHeight>500) {
+                          alert("图片宽高不能超过500像素，建议上传宽高为300*300像素的图片！");
+                          $(ths).val("");
+                          return false;
+                      } else {
+                        //  something
+                      }
+                  });
+              }
+              reader.readAsDataURL(file);
+          }
+      }
+    </script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+<!-- 买砖宝项目 通道图上传 -->
+<script>
+
+    /* 通道图ajax上传 */
+
+    // $('#goods_image2').fileupload({
+    //     dataType: 'json',
+    //     url: "<?=U('upload_image/paving_mask_image_upload',['upload_type'=>uploadedfile])?>",
+    //
+    //     add: function(e, data) {
+    //         if (typeof FileReader == "undefined") {
+    //             //不支持filereader浏览器无法判断图片大小，直接上传
+    //             alert("您的浏览器版本过低，请更换chrome或者狐火等高级浏览器。360、qq、猎豹等国产浏览器请使用极速模式浏览网页！");
+    //         } else {
+    //             var file = data.files[0];
+    //             var reader = new FileReader();
+    //             reader.onload = function(ev) {
+    //                 var imgurl = ev.target.result;
+    //                 $('<img/>').attr('src', imgurl).load(function() {
+    //                     var imgWidth = $(this)[0].naturalWidth;
+    //                     var imgHeight = $(this)[0].naturalHeight;
+    //                     //console.log(imgWidth+'---'+imgHeight);
+    //                     if (imgWidth > 1024 || imgHeight > 1024) {
+    //                         alert("图片宽高不能超过1024像素，建议上传宽高为512*512像素的图片！");
+    //                     } else {
+    //                         $('img[nctype="goods_image_tongdao"]').attr('src', '');
+    //                         data.submit();
+    //                     }
+    //                 });
+    //             }
+    //             reader.readAsDataURL(file);
+    //         }
+    //     },
+    //     done: function(e, data) {
+    //
+    //         var param = data.result;
+    //         var apic_name = param.apic_name;
+    //         $("input[name='goods_name_tongdao']").val(apic_name);
+    //         if (typeof(param.message) != 'undefined') {
+    //             alert(param.message);
+    //         }
+    //         if (typeof(param.error) != 'undefined') {
+    //             alert(param.error);
+    //             $("img[nctype='goods_image_tongdao']").attr('src', "   ");
+    //             $('#image_path_tongdao').val('');
+    //         } else {
+    //             $("img[nctype='goods_image_tongdao']").attr('src', param.thumb_name);
+    //             $('#image_path_tongdao').val(param.name);
+    //         }
+    //     }
+    // });
+</script>
+
+</body>
+
+</html>

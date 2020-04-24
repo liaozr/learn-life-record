@@ -1,0 +1,124 @@
+
+body {
+    background: rgb(241,245,246);
+}
+.my_center aside:nth-child(1) {
+    margin-top: 48px;
+    display: flex;
+    align-items: center;
+    height: 80px;
+    background: linear-gradient(to right,rgb(17,2,9),rgb(87,38,23));
+    flex-wrap: wrap;
+    color: white;
+    font-family: "微软雅黑";
+    dl:nth-child(1) {
+        flex: 1;
+        margin-left: 10px;
+        dt img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+        }
+    }
+    dl:nth-child(2) {
+        flex: 3.5;
+        font-size: 14px;
+        dd img {
+            width: 14px;
+            height: 14px;
+            margin-right: 10px;
+        }
+    }
+    dl:nth-child(3) {
+        flex: 1;
+        a{
+            color: white;
+        }
+    }
+}
+.my_center aside:nth-child(2) {
+    font-family: "微软雅黑";
+    display: flex;
+    align-items: center;
+    height: 60px;
+    background: white;
+    dl {
+        flex: 1;
+        text-align: center;
+        border-left: 1px solid rgb(204,204,204);
+        dt {
+            font-weight: 600;
+        }
+        dd {
+            font-size: 12px;
+            color: rgb(158,159,160);
+        }
+    }
+    dl:nth-child(1) {
+        border-left: none;
+    }
+}
+.my_center aside:nth-child(3),
+section aside:nth-child(4) {
+    height: 165px;
+    margin-top: 10px;
+    background: white;
+    border-top: 1px solid rgb(231,234,236);
+    li {
+        line-height: 55px;
+        height: 55px;
+        border-bottom: 1px solid rgb(231,234,236);
+        padding-left: 18px;
+        font-family: "微软雅黑";
+        font-size: 14px;
+        
+    }
+}
+.my_center aside:nth-child(4) {
+    margin-top: 20px;
+    li{
+        a{
+            color: black;
+        }
+    }
+}
+.icon-gonggaofuzhi,
+.icon-asmkticon0126 {
+    padding: 10px;
+    border-radius: 50%;
+    background: rgb(252,33,94);
+    color: white;
+    margin-right: 10px;
+}
+.icon-huiyuan,
+.icon-jiangbei {
+    padding: 10px;
+    border-radius: 50%;
+    background: rgb(79,198,236);
+    color: white;
+    margin-right: 10px;
+}
+.icon-huiyuan-copy,
+.icon-jibenziliao {
+    padding: 10px;
+    border-radius: 50%;
+    background: rgb(255,166,76);
+    color: white;
+    margin-right: 10px;
+}
+.jiantou {
+    position: absolute;
+    right: 25px;
+}
+#my_center_foot span {
+    color: #8E488E;
+}
+.layout-foot{
+    padding: 6px 0;
+    span:first-child{
+        padding-bottom:3px;
+    }
+    span{
+        font-size: 23px;
+    }
+}

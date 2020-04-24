@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input type="text" id='1'>
+    <input type="text" id='2'>
+
+    <script>
+
+        window.addEventListener("focus", function(e) {
+          
+            var p;
+            e = e || window.event;
+            p = e.target;
+
+            if (p.nodeName === "INPUT") {
+                console.log(p.id)
+                if (p.id == '1') {
+                    console.log('第一个input框获取焦点')
+                } else {
+                    console.log('第二个input框获取焦点')
+                }
+            }
+
+        }, true)
+
+    </script>
+
+</body>
+
+</html>

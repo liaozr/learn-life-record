@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- ---------------------------------------------------------------------------- -->
+
+    接鸡蛋项目中： 在头部一开始，也是有这个loading效果的。
+
+    这个loading效果是由css3动画效果做的，从下面的css样式可以看出。
+
+    <div id="loading">
+        <div class="spinner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+    </div>
+
+    然后，在所有代码的底部。</body> 标签的上面添加下面这段脚本即可。
+
+    代表着所有东西已加载，然后把这个loading效果隐藏掉即可。
+
+    <script>
+        $("#loading").hide();
+    </script>
+
+    <style>
+        #loading {
+            width: 70px;
+            height: 60px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -30px;
+            margin-left: -30px;
+            z-index: 99999;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        .spinner>div {
+            background-color: #ffffff;
+            height: 100%;
+            width: 6px;
+            display: inline-block;
+            -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+            animation: stretchdelay 1.2s infinite ease-in-out;
+        }
+    </style>
+
+    <!-- ------------------------------------------------------------------------------ -->
+
+    在微信 摇一摇抽奖的demo 中, 在头部一开始（ body标签的下面 ）也是有这个loading效果的。
+
+    这个loading效果是由css3动画效果做的，从下面的css样式可以看出。
+
+    <!-- 页面加载的loading 效果  -->
+    <div class="loader">
+        <div class="loader-inner ball-spin-fade-loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <!--  首页要用到的一些图片 -->
+    <header><img src="images/title.png" /></header>
+    <div class="content screen1">
+        <img class="person" src="images/person.png" />
+        <img class="btn" src="images/button01.png" />
+    </div>
+
+    但是 微信摇一摇这个demo中，柳青用的是，把首页要展示的图片一一都加载好了，就把这个loader动画去掉。
+
+    当指定的元素（及子元素）已加载时，会发生 load() 事件。
+    该事件适用于任何带有 URL 的元素（比如图像、脚本、框架、内联框架）。
+    $(selector).load(function(){
+    });
+
+    下面的这种做法还相当于预先加载了图片，把图片都加载好了，这个loader动画才会消失掉。
+
+    <script>
+        $('<img/>').attr('src', 'images/title.png').load(function() {
+            $('<img/>').attr('src', 'images/person.png').load(function() {
+                $('<img/>').attr('src', 'images/phone.png').load(function() {
+                    $('.loader').remove();
+                    $('header').addClass('animated fadeInDown');
+                    $('.screen1 .person').addClass('animated fadeIn');
+                    setTimeout(function() {
+                        $('.screen1 .btn').addClass('animated bounceIn');
+                    }, 300);
+                });
+            });
+        });
+    </script>
+
+    <style>
+        /*loader*/
+        @-webkit-keyframes ball-spin-fade-loader {
+            50% {
+                opacity: 0.3;
+                -webkit-transform: scale(0.4);
+                transform: scale(0.4);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+        @keyframes ball-spin-fade-loader {
+            50% {
+                opacity: 0.3;
+                -webkit-transform: scale(0.4);
+                transform: scale(0.4);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+        .ball-spin-fade-loader {
+            position: relative;
+            top: -10px;
+            left: -10px;
+        }
+        .ball-spin-fade-loader>div:nth-child(1) {
+            top: 25px;
+            left: 0;
+            -webkit-animation: ball-spin-fade-loader 1s -0.96s infinite linear;
+            animation: ball-spin-fade-loader 1s -0.96s infinite linear;
+        }
+        .ball-spin-fade-loader>div:nth-child(2) {
+            top: 17.04545px;
+            left: 17.04545px;
+            -webkit-animation: ball-spin-fade-loader 1s -0.84s infinite linear;
+            animation: ball-spin-fade-loader 1s -0.84s infinite linear;
+        }
+        .ball-spin-fade-loader>div:nth-child(3) {
+            top: 0;
+            left: 25px;
+            -webkit-animation: ball-spin-fade-loader 1s -0.72s infinite linear;
+            animation: ball-spin-fade-loader 1s -0.72s infinite linear;
+        }
+        .ball-spin-fade-loader>div:nth-child(4) {
+            top: -17.04545px;
+            left: 17.04545px;
+            -webkit-animation: ball-spin-fade-loader 1s -0.6s infinite linear;
+            animation: ball-spin-fade-loader 1s -0.6s infinite linear;
+        }
+        .ball-spin-fade-loader>div:nth-child(5) {
+            top: -25px;
+            left: 0;
+            -webkit-animation: ball-spin-fade-loader 1s -0.48s infinite linear;
+            animation: ball-spin-fade-loader 1s -0.48s infinite linear;
+        }
+        .ball-spin-fade-loader>div:nth-child(6) {
+            top: -17.04545px;
+            left: -17.04545px;
+            -webkit-animation: ball-spin-fade-loader 1s -0.36s infinite linear;
+            animation: ball-spin-fade-loader 1s -0.36s infinite linear;
+        }
+        .ball-spin-fade-loader>div:nth-child(7) {
+            top: 0;
+            left: -25px;
+            -webkit-animation: ball-spin-fade-loader 1s -0.24s infinite linear;
+            animation: ball-spin-fade-loader 1s -0.24s infinite linear;
+        }
+        .ball-spin-fade-loader>div:nth-child(8) {
+            top: 17.04545px;
+            left: -17.04545px;
+            -webkit-animation: ball-spin-fade-loader 1s -0.12s infinite linear;
+            animation: ball-spin-fade-loader 1s -0.12s infinite linear;
+        }
+        .ball-spin-fade-loader>div {
+            background-color: #fff;
+            width: 15px;
+            height: 15px;
+            border-radius: 100%;
+            margin: 2px;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            position: absolute;
+        }
+
+    </style>
+
+    <!-- --------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

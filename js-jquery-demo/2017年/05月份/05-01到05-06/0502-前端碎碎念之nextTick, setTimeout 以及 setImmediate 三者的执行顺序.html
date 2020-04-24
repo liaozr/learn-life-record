@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  
+<!-- --------------------------------------------------------------------------------- -->
+
+    <script>
+
+        setImmediate(function() {
+            console.log(1);
+        }, 0);
+        setTimeout(function() {
+            console.log(2);
+        }, 0);
+        new Promise(function(resolve) {
+            console.log(3);
+            resolve();
+            console.log(4);
+        }).then(function() {
+            console.log(5);
+        });
+        console.log(6);
+        process.nextTick(function() {
+            console.log(7);
+        });
+        console.log(8);
+
+        //输出结果是  3 4 6 8 7 5 2 1
+
+        //输出结果是  3 4 6 8 7 5 2 1
+
+    </script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+    nextTick 的优先级 是 高于 Promise  的 then 优先级的
+
+    nextTick 的优先级 是 高于 Promise  的 then 优先级的
+
+<!-- --------------------------------------------------------------------------------- -->
+
+    setTimeout 的优先级比 setImmediate的高，其实这种说法是有条件的。
+
+    setImmediate早于setTimeout执行了，因为进入macro-task 循环的时候，setTimeout的定时器还没到。
+
+    时间大于23ms时，就是 setImmediate 的优先级比 setTimeoute的高了。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

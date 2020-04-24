@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="易送气" />
+		<meta name="Description" content="易送气" />
+		<title>编辑地址</title>
+		<link rel="stylesheet" href="picker/mui.picker.css" />
+		<link rel="stylesheet" href="picker/mui.poppicker.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/yhn.css" />
+		<script src="js/zepto1.1.6.min.js"></script>
+		<script src="js/mui.min.js"></script>
+	</head>
+	<style>
+		.mui-poppicker-header .mui-btn {
+			font-size: .4rem;
+			padding: 8px;
+			margin: 3px;
+			width: 2rem;
+			border: 1px solid #ccc;
+			border-radius: .1rem;
+		}
+		
+		.mui-poppicker-header .mui-btn.mui-btn-blue {
+			color: #fff;
+			border: 1px solid #007aff;
+			background-color: #007aff;
+		}
+	</style>
+
+	<body style="padding-bottom:1.3333rem">
+		<!--头部-->
+		<header class="y-mytop">
+			<h1>编辑地址</h1>
+			<div class="return-box">
+				<img src="img/icon-return.png" alt="" />
+				<span>返回</span>
+			</div>
+		</header>
+		<div class="under-top clear" style="margin-top:1.25rem"></div>
+		<section class="new-adds-box">
+			<div class="service-point">
+				<p><img src="img/adds-dot.png" alt="" />配送服务点：<span>深圳市燃气沙井供应站</span></p>
+			</div>
+			<table class="new-adds-table">
+				<h1 class="new-adds-title">联系人</h1>
+				<tr>
+					<td>姓名</td>
+					<td><input type="text" placeholder="请输入姓名" maxlength="8" /></td>
+				</tr>
+				<tr>
+					<td>电话</td>
+					<td><input type="tel" placeholder="请输入联系电话" maxlength="15" /></td>
+				</tr>
+			</table>
+			<table class="new-adds-table">
+				<h1 class="new-adds-title">地址信息</h1>
+				<tr id='showCityPicker3'>
+					<td>省市区</td>
+					<td id='cityResult3'>广东省 深圳市 福田区<img class="right" src="img/icon-right.png" alt="" /></td>
+				</tr>
+				<tr style="height:2.2rem;">
+					<td>详细地址</td>
+					<td><textarea name="" placeholder="请输入详细地址" maxlength="53"></textarea></td>
+				</tr>
+				<tr>
+					<td>楼层</td>
+					<td><input type="number" placeholder="请输入数字" /></td>
+				</tr>
+			</table>
+			<!--<table class="new-adds-table">
+				<h1 class="new-adds-title">瓶信息</h1>
+				<tr>
+					<td>瓶信息</td>
+					<td>12kgx2</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>15kgx1</td>
+				</tr>
+			</table>-->
+		</section>
+		<footer class="adds-foot">
+			<h1>确认</h1>
+		</footer>
+	</body>
+	<script src="picker/mui.picker.js"></script>
+	<script src="picker/mui.poppicker.js"></script>
+	<script src="picker/city.data-3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		var ua = navigator.userAgent.toLowerCase();
+			if(ua.match(/MicroMessenger/i) == "micromessenger") {
+				$(".y-mytop").css("display", "none");
+				$(".under-top").css("margin-top", 0);
+			}
+		////////////////////////////////////////////
+		(function($, doc) {
+			$.init();
+			$.ready(function() {
+				var cityPicker3 = new $.PopPicker({
+					layer: 3
+				});
+				cityPicker3.setData(cityData3);
+				var showCityPickerButton = doc.getElementById('showCityPicker3');
+				var cityResult3 = doc.getElementById('cityResult3');
+				showCityPickerButton.addEventListener('tap1', function(event) {
+					cityPicker3.show(function(items) {
+						cityResult3.innerText = "" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+						//返回 false 可以阻止选择框的关闭
+						//return false;
+					});
+				}, false);
+			});
+
+			$.ajax({
+				url: "http://192.168.1.30:8080/eidpws/client/customer/gasBottles?bottlesType=01&franchiseId=FRCH1608030007",
+				type: "GET",
+				dataType: "json",
+				success: function (data) {
+					console.log(data);
+				}
+			});
+			
+			$.ajax({
+				type: "post",
+				url: "http://192.168.1.30:8080/eidpws/client/customer/register",
+				contentType: "application/json",
+				data: JSON.stringify({
+					franchiseId: "4ijij1ec56a084470156a0e1b22c0002",
+					openId: "4eett1ec56a084470156a0e1b22c00024eett1ec56a0",
+					memberId: "402881ec56a084470156a0e1b22c0002",
+					memberName: "会员姓",
+					mobileNo: "13740964586",
+					certificateType: "10",
+					certificateNo: "443214198909090728",
+					customerId: "402881ec56a084470156a0e1b22c1234",
+					addressId: "569821ec56a084470156a0e1b22c1234",
+					province: "湖北省",
+					city: "武汉市",
+					county: "平壤",
+					bottlesId: "frt65ec56a084470156a0e1b22c1234",
+					bottlesTypeId: "10",
+					version: "0",
+					createEmp: "会员姓名1",
+					createTime: "2015-02-03 12:25:36"
+				}),
+				success: function(data) {
+					console.log(data);
+				},
+				error: function() {}
+
+			});
+
+		})(mui, document);
+		////////////////////页面跳转/////////////////////
+		//返回
+		$(".return-box").on("tap1",function(){
+			window.history.go(-1);
+		});
+	</script>
+
+</html>

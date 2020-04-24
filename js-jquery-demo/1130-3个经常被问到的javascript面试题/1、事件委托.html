@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ---------------------------------------------------------------------------------------------------------------------------- -->
+
+    当构建应用程序时，有时你需要将事件监听器绑定到页面上的按钮，文本或图像上，以便在用户与元素交互时执行某些操作
+
+    <ul id="todo-app">
+        <li class="item">Walk the dog</li>
+        <li class="item">Pay bills</li>
+        <li class="item">Make dinner</li>
+        <li class="item">Code for one hour</li>
+    </ul>
+
+<!-- ---------------------------------------------------------------------------------------------------------------------------- -->
+
+    更高效的解决方案是将一个事件侦听器实际绑定到整个容器上，然后在实际单击时可以访问每个确切元素。
+
+    这被称为事件委托，并且它每个元素单独绑定事件处理程序更高效。
+
+<!-- ---------------------------------------------------------------------------------------------------------------------------- -->
+
+    用事件委托的代码：
+
+    <script>
+
+          let app = document.getElementById('todo-app');
+
+          // 事件侦听器绑定到整个容器上
+          app.addEventListener('click',function(e) {
+              if (e.target && e.target.nodeName === 'LI') {
+                  let item = e.target;
+                  alert('you clicked on item: ' + item.innerHTML);
+              }
+          });
+
+    </script>
+
+<!-- ---------------------------------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

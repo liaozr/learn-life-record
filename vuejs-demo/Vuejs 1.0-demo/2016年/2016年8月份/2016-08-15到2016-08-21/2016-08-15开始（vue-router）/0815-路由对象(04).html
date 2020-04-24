@@ -1,0 +1,223 @@
+<!-- 
+vue-router
+http://router.vuejs.org/zh-cn/index.html 
+-->
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+	<script type="text/javascript" src='vue-router.js'></script>
+</head>
+<body>  
+        <!-- this.$route.router.go -->
+        <!--  router.go(path)
+
+         导航到一个新的路由
+         -->
+
+        <!-- 	
+
+        在使用了 vue-router 的应用中，路由对象会被注入每个组件中，赋值为 this.$route ，并且当路由切换时，路由对象会被更新。
+
+		路由对象暴露了以下属性：
+
+		$route.path 
+		字符串，等于当前路由对象的路径，会被解析为绝对路径，如 "/home/news" 。
+
+		$route.params 
+		对象，包含路由中的动态片段和全匹配片段的键值对
+
+		$route.query 
+		对象，包含路由中查询参数的键值对。例如，对于 /home/news/detail/01?favorite=yes ，会得到 $route.query.favorite == 'yes' 。
+
+		$route.router 
+		路由规则所属的路由器（以及其所属的组件）。
+
+		$route.matched 
+		数组，包含当前匹配的路径中所包含的所有片段所对应的配置参数对象。
+
+		$route.name 
+		当前路径的名字，如果没有使用具名路径，则名字为空。
+
+		 -->
+        <div id="app">
+			<div class="row">
+				<div class="col-xs-offset-2 col-xs-8">
+					<div class="page-header">
+						<h2>Router Basic - 04</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2 col-xs-offset-2">
+					<div class="list-group">
+						<a class="list-group-item" v-link="{ path: '/home'}">Home</a>
+						<a class="list-group-item" v-link="{ path: '/about'}">About</a>
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="panel">
+						<div class="panel-body">
+							<router-view></router-view>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-offset-2 col-xs-8">
+					<div class="well">
+						<p>当前路径：<code>{{$route.path}}</code></p>
+						<p>当前参数：<code>{{$route.params | json}}</code></p>
+						<p>路由名称：<code>{{$route.name}}</code></p>
+						<p>路由查询参数：<code>{{$route.query | json}}</code></p>
+						<!--<p>路由匹配项：<code>{{$route.matched | json}}</code></p>-->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<template id="home">
+			<div>
+				<h1>Home</h1>
+				<p>{{msg}}</p>
+			</div>
+			<div>
+				<ul class="nav nav-tabs">
+					<li>
+						<a v-link="{ name: 'news'}">News</a>
+					</li>
+					<li>
+						<a v-link="{ path: '/home/message'}">Messages</a>
+					</li>
+				</ul>
+				<router-view></router-view>
+			</div>
+		</template>
+
+		<template id="news">
+			<div>
+				<ul>
+					<li>
+						<a v-link="{ path: '/home/news/detail/01?favorite=yes'}">News 01</a>
+					</li>
+					<li>
+						<a href="javascript:void(0)" @click="viewDetail">News 02</a>
+					</li>
+					<li>
+						<a v-link="{ path: '/home/news/detail/03'}">News 03</a>
+					</li>
+				</ul>
+				<div>
+					<router-view></router-view>
+				</div>
+			</div>
+		</template>
+
+		<template id="newsDetail">
+			<div>
+				News Detail - {{$route.params.id}} ......
+			</div>
+		</template>
+
+
+		<template id="message">
+			<ul>
+				<li>Message 01</li>
+				<li>Message 02</li>
+				<li>Message 03</li>
+			</ul>
+		</template>
+
+		<template id="about">
+			<div>
+				<h1>About</h1>
+				<p>This is the tutorial about vue-router.</p>
+			</div>
+		</template>
+        
+
+		<!--         
+
+		（由于$route.matched内容较长，所以没有将其显示在画面上）
+
+		这里我要稍微说一下$router.matched属性，它是一个包含性的匹配，它会将嵌套它的父路由都匹配出来。
+
+		例如，/home/news/detail/:id这条路径，它包含3条匹配的路由：
+
+		/home/news/detail/:id
+		/home/news
+		/home
+		另外，带有 v-link 指令的元素，如果 v-link 对应的 URL 匹配当前的路径，该元素会被添加特定的class，该class的默认名称为v-link-active。例如，当我们访问/home/news/detail/03这个URL时，根据匹配规则，会有3个链接被添加v-link-active。
+
+		 -->
+		<script>
+			var Home = Vue.extend({
+				template: '#home',
+				data: function() {
+					return {
+						msg: 'Hello, vue router!'
+					}
+				}
+			})
+
+			var News = Vue.extend({
+				template: '#news',
+				methods: {
+					viewDetail: function() {
+						this.$route.router.go({
+							name: 'detail',
+							params: {
+								id: '02'
+							}
+						})
+					}
+				}
+			})
+
+			var NewsDetail = Vue.extend({
+				template: '#newsDetail'
+			})
+
+			var Message = Vue.extend({
+				template: '#message'
+			})
+
+			var About = Vue.extend({
+				template: '#about'
+			})
+
+			var router = new VueRouter()
+			router.redirect({
+				'/': '/home'
+			})
+			router.map({
+				'/home': {
+					component: Home,
+					subRoutes: {
+						'/news': {
+							name: 'news',
+							component: News,
+							subRoutes: {
+								'detail/:id': {
+									name: 'detail',
+									component: NewsDetail
+								}
+							}
+						},
+						'/message': {
+							component: Message
+						}
+					}
+				},
+				'/about': {
+					component: About
+				}
+			})
+
+			var App = Vue.extend({})
+			router.start(App, '#app')
+		</script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+
+<!-- 关于变量提升 以及 let用法的  再次练习 -->
+
+<!-- 你必须知道和理解函数声明会覆盖了变量声明但没有覆盖变量初始化。 -->
+
+<!-- -------------------------------------------------------------- -->
+
+<script>
+	function test(){
+	    var i=1;
+	    console.log(i);
+	    console.log(j);
+	    var j=2;
+	}
+	test();
+	console.log(i);
+</script>
+
+<!-- 上面的那个写法根据变量提升的概念等价于下面的写法： -->
+
+<script>
+	function test(){
+	    var i;
+	    var j;
+	    i=1
+	    console.log(i);
+	    console.log(j);
+	    j=2;
+	}
+	test();
+	console.log(i);
+</script>
+
+<!-- 所以输出结果为    1 、undefined 、 i is not defined  -->
+
+<!-- ----------------------------------------------------------------- -->
+
+
+<script>
+	var foo = 1;  
+
+	function bar() {  
+	    if (!foo) {  
+	        var foo = 10;         
+	    }  
+	    console.log(foo);   //为10 的
+	}  
+
+	bar();
+</script>
+
+<!-- 按照这个说法，上面的程序 是等价于下面的写法的，变量提升 -->
+
+<!-- 典型的变量提升 案例 -->
+<!--  if语句是没有作用域的  -->
+<script>
+	var foo  
+	function bar() {  
+		var foo
+	    if (!foo) {  
+	        foo = 10;
+	    }  
+	    console.log(foo);   //结果 为 10 的
+	}  
+    foo = 1;  
+	bar();
+</script>
+
+<!-- ----------------------------------------------------------------------- -->
+
+<script>
+	var foo = 1;  
+
+	function bar() {  
+	    if (!foo) {  
+	        let foo = 10;
+	        console.log("aaaaa");  
+	    }  
+	    console.log(foo);   //为1的
+	}  
+
+	bar();
+</script>
+
+<!-- 
+
+1、var声明的作用域范围是函数作用域，
+
+2、let声明会劫持它当前的{…}块作用域为它自己所用，这个块之外访问不到let声明的变量
+
+3、let 有着严格的作用域，变量只作用域当前隶属的代码块
+
+4、在ES6中另外一个定义变量的关键字是 const,const 代表一个值的 常量索引 ，也就是说，变量名字在内存中的指针不能够改变，但是指向这个变量的值 可能 改变。例如：
+
+const names=[] ;
+names.push("1") ;
+console.log (names) ;
+
+ -->
+
+<!-- 函数声明会覆盖变量声明 -->
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+<script>
+function a(b){ 
+   alert(b); 
+   function b(){ 
+       alert(b); 
+   } 
+   b(); 
+} 
+a(1); 
+</script>
+
+<!-- 上面的代码等同于下面的代码写法 -->
+
+<script>
+function a(b){ 
+   function b(){ 
+       alert(b); 
+   } 
+   alert(b); 
+   b(); 
+} 
+a(1); 
+</script>
+
+<!-- 执行结果： -->
+<script>
+alert(b);//弹出提示‘function b(){ alert(b); }’
+
+b(); // 执行function b(){ alert(b); }，在函数b的作用域内部找不到b,根据作用域链原理往外层寻找，找到b就是函数自己，弹出‘function b(){ alert(b); }’
+</script>
+
+</body>
+</html>

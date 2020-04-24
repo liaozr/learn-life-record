@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+     首先先安装node-sass 跟 sass-loader
+
+     cnpm install node-sass --save-dev
+     cnpm install sass-loader --save-dev
+
+     <!-- 建议 - -save 这样装多一次 -->
+     cnpm install node-sass --save
+     cnpm install sass-loader --save
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+     新版本的vue-cli 是不用再往 webpack.base.conf.js里面 配置loader的了。
+
+     然后在组件上  下面引用即可
+     <style lang="scss" scoped>
+     </style>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+     如果发现报错的话，
+
+     在使用npm安装node-sass的时候，可能会出现如下的报错：
+
+     Error: ENOENT: no such file or directory, scandir 'D:\IdeaWork\code-front-jet\node_modules\.npminstall\node-sass\3.7.0\node-sass\vendor'
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+     解决办法是：
+
+     npm rebuild node-sass
+     npm rebuild node-sass
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+     如果 安装 这个 npm rebuild node-sass 也报错的话，则在项目中，找到 node_modules 依赖包，
+
+     查找 node-sass ,并把装的node-sass包删掉，在重新安装 cnpm install node-sass --save
+
+     然后，在 重新 执行 npm rebuild node-sass 看下.
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+     如果都不行的话，则先建议在本机先 安装 sass ，安装ruby之类的，然后，可以看sass -v的版本，
+     
+     sass安装完后，在执行上述所说的一些操作。
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+    组件里使用 组件里如何 引用 sass
+
+    下面两种是比较常用的两种使用方式。
+
+    <!-- 用import的方式导入到组件中 -->
+    <script>
+
+      import '../assets/css/home.scss'
+
+    </script>
+
+    <!-- 组件中的样式，加上scoped 意味着 只能这个组件使用这些样式  -->
+    <style lang='scss' scoped>
+
+      $aaa:red;
+      $fontsize:24px;
+
+      .msg2 {
+        color: $aaa;
+        font-size: $fontsize;
+      }
+
+    </style>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

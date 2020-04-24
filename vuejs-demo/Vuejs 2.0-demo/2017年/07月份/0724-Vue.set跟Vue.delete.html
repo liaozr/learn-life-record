@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  Vue.set
+
+  Vue.set( target, key, value )，target不能是 Vue 实例，或者 Vue 实例的根数据对象，因为源码中做了如下判断：
+
+  <script>
+
+      var ob = (target).__ob__;
+      if (target._isVue || (ob && ob.vmCount)) {
+          "development" !== 'production' && warn(
+              'Avoid adding reactive properties to a Vue instance or its root $data ' +
+              'at runtime - declare it upfront in the data option.'
+          );
+          return val
+      }
+
+  </script>
+
+  target._isVue阻止了给Vue实例添加属性，ob && ob.vmCount阻止了给Vue实例的根数据对象添加属性。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  Vue.delete
+
+  如果Vue能检测到delete操作，那么就不会出现这个api。如果一定要用delete来删除$data的属性，那就用Vue.delete，否则不会触发dom的更新。
+
+  同Vue.set，Vue.delete( target, key )的target不能是一个 Vue 示例或 Vue 示例的根数据对象。源码中的阻止方式和Vue.set相同。
+
+  在2.2.0+ 版本中target若为数组，key则是数组下标。因为Vue.delete删除数组实际是用splice来删除，delete虽然能用于删除数组，但位置还在，不能算真正的删除。
+
+
+  <script>
+  
+      var a = [1, 2, 3];
+
+      delete a[0];
+
+      console.log(a); // [undefined, 2, 3]
+
+  </script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

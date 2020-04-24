@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+      在做买砖宝项目的时候，登录注册页面的验证码图片有时候点击了换另一张 不会有响应，验证码图片不会切换
+
+      在谷歌上是没问题的，但是在 IE跟火狐上 是会有问题的，点击了另一张按钮后，再点击另一张按钮想切换
+
+      验证码图片会发现是没有任何反应的。
+
+      建志说 是因为缓存问题，因为 谷歌浏览器会清楚缓存，其他浏览器不会，所以，在点击切换验证码图片的
+      url 后面加上一个时间戳即可。代表着的是一个新的数据的意思。
+
+  <!-- ------------------------------------------------------------------------------------------------------     -->
+
+  结果图片并没有刷新，因为后端方法没有执行。
+
+  后来从一个修改头像的页面重新加载想到可以用random,src与原来的src不一样了应该不会不加载了吧。
+
+  解决办法： 后url 后面加 '?'+ Math.random() 从而解决了类似于时间戳的问题
+
+  从而解决了因为浏览器缓存问题，验证码图片刷不出来的问题。
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+<a class="captcha_a" href="javascript:void(0)">
+        <img src="<?=U('captcha/makecode')?>" name="codeimage" border="0" id="codeimage">
+</a>
+<div class="see_other_icon">
+    <!--          看不清？<a href="javascript:void(0)" onclick="javascript:document.getElementById('codeimage').src='{$Think.const.SITE_URL}/captcha/makecode'">换一张</a> -->
+    看不清？<a href="javascript:void(0)">换一张</a>
+</div>
+
+<script>
+    $(function() {
+        $(".see_other_icon a").click(function() {
+            $("#codeimage").attr("src", '{$Think.const.SITE_URL}/captcha/makecode' + '?' + Math.random())
+        });
+        $("a.captcha_a").click(function() {
+            $("#codeimage").attr("src", '{$Think.const.SITE_URL}/captcha/makecode' + '?' + Math.random())
+        })
+    })
+</script>
+
+<!-- ------------------------------------------------------------------------------------------ -->
+
+  </body>
+</html>

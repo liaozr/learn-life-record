@@ -1,0 +1,93 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>订单列表</title>
+    <link href="__PUBLIC__/Admin/Css/css.css" type="text/css" rel="stylesheet"/>
+    <link href="__PUBLIC__/Admin/Css/main.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/Css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/Js/jquery1123.js"></script>
+    <include file="Goods/list"/>
+</head>
+<body>
+<!--main_top-->
+<table width="99%" border="0" cellspacing="0" cellpadding="0" id="searchmain">
+    <tr>
+        <td width="99%" align="left" valign="top">您的位置：订单浏览</td>
+    </tr>
+    <tr>
+        <td align="left" valign="top">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" id="search">
+                <tr>
+                    <td width="90%" align="left" valign="middle">
+                        <form method="post" action="">
+                            <span>订单号或商品名称：</span>
+                            <input type="text" name="" value="" class="text-word">
+                            <input name="" type="button" value="查询" class="text-but">
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" valign="top">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
+                <tr>
+                    <th class="borderright">ID</th>
+                    <th class="borderright">商品ID</th>
+                    <th class="borderright">用户ID</th>
+                    <th class="borderright">商品名称</th>
+                    <th class="borderright">联系人</th>
+                    <th class="borderright">地址</th>
+                    <th class="borderright">邮编</th>
+                    <th class="borderright">手机号</th>
+                    <th class="borderright">添加时间</th>
+                    <th class="borderright">总价</th>
+                    <th class="borderright">订单状态</th>
+                </tr>
+                <volist name="orders" id="orders">
+                    <tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
+                        <td align='center' valign='middle' class='borderright borderbottom'>{$orders['id']}</td>
+                        <td align='center' valign='middle' class='borderright borderbottom'>{$orders['goodsId']}</td>
+                        <td align='center' valign='middle' class='borderright borderbottom'>{$orders['userId']}</td>
+                        <td align='center' valign='middle' class='borderright borderbottom'>{$orders['goodsName']}</td>
+                        <td align='center' valign='middle' class='borderright borderbottom'>{$orders['linkMan']}</td>
+                        <td align='center' valign='middle' class='borderright borderbottom'>{$orders['address']}</td>
+                        <td align='center' valign='middle' class='borderright borderbottom'>{$orders['code']}</td>
+                        <td align='center' valign='middle' class='borderright borderbottom'>{$orders['phone']}</td>
+                        <td align='center' valign='middle' class='borderright borderbottom'>{$orders['addTime']|date="y-m-d",###}</td>
+                        <td align='center' valign='middle' class='borderright borderbottom'>{$orders['total']}</td>
+                        <td align='center' valign='middle' class='borderright borderbottom'>{$orders['status']}
+                            <switch name="orders.status">
+                                <case value="2">已发货</case>
+                                <case value="3">已收货</case>
+                                <default/>
+                                新订单
+                            </switch>
+                        </td>
+                    </tr>
+                </volist>
+            </table>
+        </td>
+    </tr>
+</table>
+<!--<nav class="text-center">-->
+<!--<ul class="pagination pagination-lg">-->
+<!--<li>-->
+<!--<a href="#" aria-label="Previous" id="previous">-->
+<!--<span aria-hidden="true">&laquo;</span>-->
+<!--</a>-->
+<!--</li>-->
+<!--<for start="1" end="$pagenum+1">-->
+<!--<li class="page"><a href="#">{$i}</a></li>-->
+<!--</for>-->
+<!--</volist>-->
+<!--<li>-->
+<!--<a href="#" aria-label="Next" id="Next">-->
+<!--<span aria-hidden="true">&raquo;</span>-->
+<!--</a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</nav>-->
+</body>
+</html>

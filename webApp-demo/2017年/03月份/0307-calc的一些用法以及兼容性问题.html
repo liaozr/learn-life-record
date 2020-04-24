@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+          calc的兼容性
+
+          height: calc(100vh - 4.125rem);
+
+          相对于视口的高度。视口被均分为100单位的vh
+          示例代码：
+
+          h1 {
+          font-size: 8vh;
+          }
+
+          如果视口的高度是200mm，那么上述代码中h1元素的字号将为16mm，即(8x200)/100
+
+         <style media="screen">
+
+             .mui-control-content{
+             height: calc(100vh - 100px);
+             }
+
+            .mui-slider .mui-slider-group .mui-slider-item{
+              	height: calc(100vh - 3.8rem);
+              	height: -webkit-calc(100vh - 3.8rem);
+              	height: -moz-calc(100vh -  3.8rem);
+              	height: -o-calc(100vh -  3.8rem);
+            }
+
+         </style>
+
+          上面的样式表示高度为100% 减去 100px像素。
+
+          因为顶部、底部的高度一般都是已知的，所以中间内容区域的高度使用这种方法就可以计算出来了。
+
+  </body>
+</html>

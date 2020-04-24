@@ -1,0 +1,36 @@
+<template>
+   <div class="search-box">
+         <i class="icon-search"></i>
+         <input ref='searchInput' v-model='query' :placeholder="placeholader" class="box"/>
+         <i @click='clear' v-show='query' class="icon-dismiss"></i>
+   </div>
+</template>
+
+<script type="text/ecmascript-6">
+    import iconfont2 from 'assets/css/iconfont2.css'
+    export default {
+        data() {
+            return {
+                query: ""
+            }
+        },
+        props: {
+            placeholader: {
+                type: String,
+                default: "搜索歌曲、歌手"
+            }
+        },
+        methods: {
+            clear() {
+                this.query = ''
+                this.$refs.searchInput.focus()
+            }
+        },
+        mounted() {
+            this.$refs.searchInput.focus()
+        },
+        activated() {
+            this.$refs.searchInput.focus()
+        }
+    }
+</script>

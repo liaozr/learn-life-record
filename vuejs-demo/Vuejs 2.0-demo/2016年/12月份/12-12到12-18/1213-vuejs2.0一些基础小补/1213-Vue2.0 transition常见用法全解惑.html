@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+
+    css过渡 先举一个典型的CSS过渡的例子：
+
+    <!-- 首先将要过渡的元素用transition包裹，并设置过渡的name，然后添加触发这个元素过渡的按钮（实际项目中不一定是按钮，任何能触发过渡组件的DOM操作的操作都可以） -->
+
+    <div id='app'>
+        <button @click="show=!show">show</button>
+        <transition name="fade">
+            <p v-show="show">hello</p>
+        </transition>
+    </div>
+
+    <!-- // 接着为过渡类名添加规则 -->
+    <style>
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: all 0.5s ease
+        }
+
+        .fade-enter,
+        .fade-leave-active {
+            opacity: 0
+        }
+    </style>
+    <script>
+        new Vue({
+          el:"#app",
+          data:{
+            show:''
+          }
+        })
+    </script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+CSS过渡类名
+
+组件过渡过程中，会有四个CSS类名进行切换，这四个类名与上面transition的name属性有关，
+
+比如name=”fade”，
+
+会有如下四个CSS类名：
+
+fade-enter：进入过渡的开始状态，元素被插入时生效，只应用一帧后立即删除；
+fade-enter-active：进入过渡的结束状态，元素被插入时就生效，在过渡过程完成之后移除；
+
+fade-leave：离开过渡的开始状态，元素被删除时触发，只应用一帧后立即删除；
+fade-leave-active：离开过渡的结束状态，元素被删除时生效，离开过渡完成之后被删除；
+
+从上面四个类名可以看出，fade-enter-active和fade-leave-active在整个进入或离开过程中都有效，
+
+所以CSS的transition属性在这两个类下进行设置。
+
+上面示例中，fade-enter和fade-leave-active类设置CSS为opacity:0，
+
+说明过渡刚进入和离开的时候透明度为0，即不显示。
+
+当然还可以设置其他的CSS属性，transform属性是除了opacity之外经常在这里被用到的
+
+<!-- ------------------------------------------------------------------------ -->
+
+CSS动画
+
+组件过渡的实现不仅可以通过CSS过渡还可以通过CSS动画(animation)实现，
+
+建议先了解一下CSS3 Animation，这里还是给个例子：
+
+
+<div id='app2'>
+    <button @click="show=!show">show</button>
+    <transition name="fold">
+        <p v-show="show">hello</p>
+    </transition>
+</div>
+
+
+<style>
+    .fold-enter-active {
+        animation-name: fold-in;
+        animation-duration: .5s;
+    }
+
+    .fold-leave-active {
+        animation-name: fold-out;
+        animation-duration: .5s;
+    }
+
+    @keyframes fold-in {
+        0% {
+            transform: translate3d(0, 100%, 0);
+        }
+        50% {
+            transform: translate3d(0, 50%, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    @keyframes fold-out {
+        0% {
+            transform: translate3d(0, 0, 0);
+        }
+        50% {
+            transform: translate3d(0, 50%, 0);
+        }
+        100% {
+            transform: translate3d(0, 100%, 0);
+        }
+    }
+</style>
+<script>
+    new Vue({
+        el: "#app2",
+        data: {
+            show: ''
+        }
+    })
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

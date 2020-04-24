@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(){var e=document.querySelector(".usename"),n=JSON.parse(localStorage.getItem("oyaUser"));e.innerHTML=n[0].phoneNum});

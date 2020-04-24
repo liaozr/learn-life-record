@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>demo05</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+         <p>根组件:</p>
+         <compa v-for="item in childs" :option="item"></compa>
+    </div>
+    <script>
+        var compb = Vue.extend({
+            template : "<p @click='cc(id)'>----孙子组件 :{{id}} 点击我 调用根组件方法 </p>",
+            props:['id'],
+            methods : {
+                cc  : function(arg){
+                    this.$dispatch('message',arg)
+                }
+            }
+        })
+        var compa = Vue.extend({
+            template : "<div>--子组件 :{{option.id}}--{{option.name}}<compb :id='option.id'></compb></div>",
+            props:['option'],
+            components :{
+                compb: compb
+            }
+        });
+
+
+        // 组件嵌套例子
+        var vm =new Vue({
+            el : "#app",
+            ready: function(){
+                var me = this;
+                setTimeout(function(){
+                    var data =[{ id:1,  name : "A" },{ id:2,  name : "B"}];
+                    me.$set('childs',data);
+                },500)
+            },
+            data :{
+                childs : [],
+                path :[
+                    {"A" : {
+                        b :[
+                            {name : "qqq" , v : "123"}
+                        ]
+                    }}
+                ]
+            },
+            components:{
+              compa:compa
+            },
+            events:{
+                message : function(id){
+                    alert(id);
+                }
+            }
+        });
+
+         // log根据path打印属性
+         vm.$log('path[0].A.b[0].v')
+         vm.$log('path[0].A.b[0].name')
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        function Fn() {
+            this.x = 100;
+            this.getX = function() {
+                // this-> 需要看getX执行的时候才知道
+                console.log(this.x);
+            };
+        }
+        var f1 = new Fn;
+
+        f1.getX(); // 100    方法中的this是f1
+
+        var xx = f1.getX;
+        xx(); // undefined   方法中的this是window
+        xx(); // undefined
+
+    </script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+函数执行，首先看函数名前面是否有"."，有点话，"."前面是谁，this就是谁，没有的话，this就是window；
+
+自执行函数中的this永远是window；
+
+给元素的某一个事件绑定方法，当事件触发的时候，执行对应的方法，方法中的this是当前的元素。
+
+<script>
+
+    function sum() {
+        // this -> window
+        fn(); // this -> window
+    }
+    function fn(){
+
+    }
+    sum();
+
+// -------------------------------------------------------------------------------
+
+    var aa='windowaa';
+    function fnc(){
+      var aa='fnaa';
+      console.log(this.aa);
+    }
+    var oo = {
+        sum: function() {
+            // this -> oo
+            fnc(); // this -> window
+        }
+    };
+    oo.sum();
+
+    // 打印出的值 是 windowaa
+    
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+
+</body>
+
+</html>

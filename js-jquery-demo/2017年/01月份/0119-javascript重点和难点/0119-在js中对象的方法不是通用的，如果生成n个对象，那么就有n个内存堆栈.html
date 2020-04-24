@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // js 中 一切类 继承自 Object 而Object 有propotype
+        // 下面是解决办法 prototype 获得类的static性质
+
+        function God() {}
+        God.prototype.shout = function() {
+            window.alert('小狗叫');
+        }
+
+        var dog1 = new God();
+        var dog2 = new God();
+        dog1.shout();
+        dog2.shout();
+        
+    </script>
+</body>
+
+</html>

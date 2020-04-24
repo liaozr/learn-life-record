@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<!-- -------------------------------------------------------------------------------- -->
+
+window.name 需要注意name只能是字符串
+
+缺点： 接口返回的内容必须都是html里嵌入script脚本。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+window对象有个name属性，该属性有个特征：即在一个窗口(window)的生命周期内,窗口载入的所有的页面都是共享一个window.name的，每个页面对window.name都有读写的权限，window.name是持久存在一个窗口载入过的所有页面中的，并不会因新页面的载入而进行重置。
+
+比如：我们在任意一个页面输入
+<script>
+
+	window.name = "My window's name";
+	setTimeout(function(){
+	    window.location.href = "http://damonare.cn/";
+	},1000)
+
+</script>
+
+进入damonare.cn页面后我们再检测再检测 window.name :
+<script>
+   window.name; // My window's name
+</script>
+
+可以看到，如果在一个标签里面跳转网页的话，我们的 window.name 是不会改变的。
+基于这个思想，我们可以在某个页面设置好 window.name
+
+的值，然后跳转到另外一个页面。在这个页面中就可以获取到我们刚刚设置的 window.name 了。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+由于安全原因，浏览器始终会保持 window.name 是string 类型。
+
+同样这个方法也可以应用到和iframe的交互来：
+
+比如：我的页面(http://damonare.cn/index.html)中内嵌了一个iframe：
+
+<iframe id="iframe" src="http://www.google.com/iframe.html"></iframe>
+
+在 iframe.html 中设置好了 window.name 为我们要传递的字符串。
+
+我们在 index.html 中写了下面的代码：
+<script>
+	var iframe = document.getElementById('iframe');
+	var data = '';
+	iframe.onload = function() {
+	    data = iframe.contentWindow.name;
+	};
+</script>
+
+Boom!报错！肯定的，因为两个页面不同源嘛，想要解决这个问题可以这样干：
+
+<script>
+	var iframe = document.getElementById('iframe');
+	var data = '';
+	iframe.onload = function() {
+	    iframe.onload = function(){
+	        data = iframe.contentWindow.name;
+	    }
+	    iframe.src = 'about:blank';
+	};
+</script>
+
+或者将里面的 about:blank 替换成某个同源页面（about:blank，javascript: 和 data: 中的内容，继承了载入他们的页面的源。）
+
+这种方法与 document.domain 方法相比，放宽了域名后缀要相同的限制，可以从任意页面获取 string 类型的数据。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+使用window.name来进行跨域
+
+原理：
+
+window对象有个name属性，该属性有个特征：即在一个窗口(window)的生命周期内,窗口载入的所有的页面都是共享一个window.name的，每个页面
+
+对window.name都有读写的权限，window.name是持久存在一个窗口载入过的所有页面中的。
+
+方法：
+
+假如有三个页面。
+
+a.com/app.html：应用页面。
+
+a.com/proxy.html：代理文件，一般是一个没有任何内容的html文件，需要和应用页面在同一域下。
+
+b.com/data.html：应用页面需要获取数据的页面，可称为数据页面。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+1、在应用页面（a.com/app.html）中创建一个iframe，把其src指向数据页面（b.com/data.html）。
+
+数据页面会把数据附加到这个iframe的window.name上，
+
+data.html代码如下：
+
+<script type="text/javascript">
+	window.name = 'I was there!'; // 这里是要传输的数据，大小一般为2M，IE和firefox下可以大至32M左右
+	// 数据格式可以自定义，如json、字符串
+</script>
+
+
+2、在应用页面（a.com/app.html）中监听iframe的onload事件，在此事件中设置这个
+
+iframe的src指向本地域的代理文件（代理文件和应用页面在同一域下，所以可以相互通信）。
+
+app.html部分代码如下：
+
+<script type="text/javascript">
+	var state = 0,
+		iframe = document.createElement('iframe'),
+		loadfn = function() {
+			if (state === 1) {
+				var data = iframe.contentWindow.name; // 读取数据
+				alert(data); //弹出'I was there!'
+			} else if (state === 0) {
+				state = 1;
+				iframe.contentWindow.location = "http://a.com/proxy.html"; // 设置的代理文件
+			}
+		};
+	iframe.src = 'http://b.com/data.html';
+	if (iframe.attachEvent) {
+		iframe.attachEvent('onload', loadfn);
+	} else {
+		iframe.onload = loadfn;
+	}
+	document.body.appendChild(iframe);
+</script>
+
+3、获取数据以后销毁这个iframe，释放内存；这也保证了安全（不被其他域frame js访问）。
+
+<script type="text/javascript">
+	iframe.contentWindow.document.write('');
+	iframe.contentWindow.close();
+	document.body.removeChild(iframe);
+</script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

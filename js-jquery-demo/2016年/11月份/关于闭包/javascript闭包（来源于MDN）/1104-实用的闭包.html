@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+实用的闭包
+
+理论就是这些了 — 可是闭包确实有用吗？让我们看看闭包的实践意义。
+
+闭包允许将函数与其所操作的某些数据（环境）关连起来。这显然类似于面向对象编程。
+
+在面对象编程中，对象允许我们将某些数据（对象的属性）与一个或者多个方法相关联。
+
+因而，一般说来，可以使用只有一个方法的对象的地方，都可以使用闭包。
+
+在 Web 中，您可能想这样做的情形非常普遍。大部分我们所写的 Web JavaScript 代码都是事件驱动的 — 定义某种行为，然后将其添加到用户触发的事件之上（比如点击或者按键）。我们的代码通常添加为回调：响应事件而执行的函数。
+
+以下是一个实际的示例：假设我们想在页面上添加一些可以调整字号的按钮。一种方法是以像素为单位指定 body 元素的 font-size，然后通过相对的 em 单位设置页面中其它元素（例如页眉）的字号：
+
+<script>
+    function makeSizer(size) {
+        return function() {
+            document.body.style.fontSize = size + 'px';
+        };
+    }
+
+    var size12 = makeSizer(12);
+    var size14 = makeSizer(14);
+    var size16 = makeSizer(16);
+
+    document.getElementById('size-12').onclick = size12;
+    document.getElementById('size-14').onclick = size14;
+    document.getElementById('size-16').onclick = size16;
+</script>
+</body>
+</html>

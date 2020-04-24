@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<style>
+    span {
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+    }
+</style>
+
+<body>
+    <div id="app">
+
+        <div class="header">
+            {{ title | captalize}}
+        </div>
+
+        <ul>
+            <li v-for="item in items">
+               <h4>{{item.text | captalize }}</h4>
+
+               <span>
+                  {{item.text | undercase }} <br>
+               </span>
+
+               <a href="">{{item.text | undercase | url }}</a>
+
+            </li>
+        </ul>
+
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                title: 'dinosours',
+                items: [
+                  {
+                    text: 'veloCity'
+                  },
+                  {
+                    text: 'melOcity'
+                  },
+                  {
+                    text: 'yeL'
+                  }
+                ]
+            },
+            filters:{
+                captalize:function(value){
+                  if(!value)
+                  return '';
+                  value=value.toString()
+                  return value.charAt(0).toUpperCase()+value.slice(1);
+                },
+                undercase:function(value){
+                  if(!value)
+                  return '';
+                  value=value.toString()
+                  return value.toLowerCase();
+                },
+                url:function(value){
+                  if(!value)
+                  return '';
+                  value=value.toString()
+                  return "http://www.baidu.com/weke/"+value
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

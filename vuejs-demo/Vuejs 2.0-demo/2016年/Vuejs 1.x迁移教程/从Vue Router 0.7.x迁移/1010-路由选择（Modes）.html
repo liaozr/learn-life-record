@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+路由选择：Modes
+
+<!-- ------------------------------------------------------------------- -->
+
+hashbang: false 弃用
+
+Hashbangs将不再为谷歌需要去爬去一个网址，所以他们将不再成为哈希策略的默认选项.
+
+<!-- -------------------------------------------------------------------- -->
+
+history: true 弃用
+
+所有路由模型选项将被简化成一个单个的mode 选项. 更新:
+
+<script>
+var router = new VueRouter({
+  history: 'true'
+})
+</script>
+
+
+变成:
+
+<script>
+	var router = new VueRouter({
+	  mode: 'history'
+	})
+</script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+abstract: true 弃用
+
+所有路由模型选项将被简化成一个单个的mode 选项. 更新:
+
+<script>
+	var router = new VueRouter({
+	  abstract: 'true'
+	})
+</script>
+
+变成 to:
+
+<script>
+	var router = new VueRouter({
+	  mode: 'abstract'
+	})
+</script>
+
+</body>
+</html>

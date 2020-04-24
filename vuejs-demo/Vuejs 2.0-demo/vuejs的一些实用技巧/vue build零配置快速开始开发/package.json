@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "muse-ui": "^2.0.3",
+    "vue-router": "^2.5.3",
+    "vuex": "^2.3.1"
+  }
+}

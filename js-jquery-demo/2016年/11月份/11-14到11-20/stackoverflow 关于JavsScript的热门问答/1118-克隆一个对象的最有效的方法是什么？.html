@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<!-- --------------------------------------------------------------------------------- -->
+
+我想指出，jQuery中的.clone（）方法只克隆DOM元素。
+
+为了克隆JavaScript对象，你需要这么做：
+
+<script>
+    // 浅拷贝
+    var newObject = jQuery.extend({}, oldObject);
+
+    // 深拷贝
+    var newObject = jQuery.extend(true, {}, oldObject);
+</script>
+
+我还想指出，深拷贝其实比上面所示聪明得多 - 它是能够避免很多陷阱（例如，想深扩展DOM元素）。
+
+它被频繁地用于jQuery的核心并且在插件里也有重大的作用
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

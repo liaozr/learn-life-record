@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+<!-------------------------------------------------------------------------------------------------------->
+
+5种方式实现值交换
+
+下面几种方式都行
+
+1. var temp = a; a = b; b = temp; (传统，但需要借助临时变量)
+
+2. a ^= b; b ^= a; a ^= b; (需要两个整数)
+
+3. b = [a, a = b][0] (借助数组)
+
+4. [a, b] = [b, a]; (ES6，解构赋值)
+
+5. a = a + b; b = a - b; a = a - b; (小学奥赛题)
+
+<!-------------------------------------------------------------------------------------------------------->
+
+去掉小数部分
+
+下面几种方式都行
+
+parseInt(num)
+
+~~num
+
+num >> 0
+
+num | 0
+
+<!-------------------------------------------------------------------------------------------------------->
+
+克隆数组
+
+arr.slice(0)
+
+<!-------------------------------------------------------------------------------------------------------->
+
+数组去重
+
+<script>
+
+    var arr=[1,2,2,1];
+    // ES6
+    Array.from(new Set(arr))
+
+    // ES5
+    arr.filter(function(ele, index, array){
+        return index===array.indexOf(ele)
+    })
+    
+</script>
+
+<!-------------------------------------------------------------------------------------------------------->
+
+数组最大值
+
+<script>
+
+    function maxArr(arr) {
+      return Math.max.apply(null, arr)
+    }
+
+</script>
+
+
+数组最小值
+
+<script>
+
+    function minArr(arr) {
+       return Math.min.apply(null, arr)
+    }
+</script>
+
+<!-------------------------------------------------------------------------------------------------------->
+
+浅拷贝
+
+<script>
+
+    var obj={
+        text:'zrliao',
+        msg:11111
+    }
+   
+    var obj1=JSON.parse(JSON.stringify(obj))
+
+    var obj2={
+        text:'zrliao',
+        msg:11111
+    }
+
+    var obj3=obj2;
+
+    obj1.text='newzrliao'
+
+    obj3.text='oldzrliao'
+
+    console.log(obj)
+
+    console.log(obj1);
+
+    console.log(obj2);
+    
+    console.log(obj3);
+
+    // 控制台输出打印的值 为下列这些：
+
+    // 可以看出，改变obj2 会同时也改变 obj3
+
+    // 而 qian拷贝 过后的 obj2 则不会对obj1 有任何的影响
+
+    // {text: "zrliao", msg: 11111}
+
+    // {text: "newzrliao", msg: 11111}
+
+    // {text: "oldzrliao", msg: 11111}
+
+    // {text: "oldzrliao", msg: 11111}
+
+</script>
+
+<!-------------------------------------------------------------------------------------------------------->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

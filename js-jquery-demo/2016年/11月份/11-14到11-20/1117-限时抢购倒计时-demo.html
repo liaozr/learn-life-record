@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #daojishi {
+            width: 600px;
+            height: 200px;
+            border: 1px solid #f00;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="daojishi"></div>
+    <script>
+        function showTime() {
+            var div = document.getElementById("daojishi");
+            var endTime = new Date("2016/11/30,10:15:10");
+            var startTime = new Date();
+            var shengyuTime = parseInt((endTime.getTime() - startTime.getTime()) / 1000);
+            var d = parseInt(shengyuTime / (60 * 60 * 24));
+            var h = parseInt(shengyuTime / (60 * 60) % 24);
+            var m = parseInt(shengyuTime / 60 % 60);
+            var s = parseInt(shengyuTime % 60);
+            m < 10 ? m = "0" + m : m;
+            s < 10 ? s = "0" + s : s;
+            h < 10 ? h = "0" + h : h;
+            d < 10 ? d = "0" + d : d;
+            if (shengyuTime <= 0) {
+                div.innerHTML = "团购结束啦！"
+            } else {
+                div.innerHTML = "团购还剩余：" + d + "天" + h + "小时" + m + "分钟" + s + "秒";
+                setTimeout(showTime, 500);
+            }
+        }
+        showTime();
+    </script>
+</body>
+
+</html>

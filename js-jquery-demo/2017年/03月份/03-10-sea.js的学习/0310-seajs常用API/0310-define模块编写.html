@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+<!-- ------------------------------------------------------------------------------ -->
+
+define(factory)
+
+是一个全局函数，用来定义模块。
+
+接收一个参数 可以使对象 可以使字符串 也可以使函数
+
+接收两个以上参数
+define(id?, deps?, factory)
+字符串 id 表示模块标识，数组 deps 是模块依赖。
+
+如果只有一个参数，则赋值给factory。
+如果有两个参数，第二个赋值给factory；第一个如果是array则赋值给deps，否则赋值给id。
+如果有三个参数，则分别赋值给id，deps和factory。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+主要来看工厂函数factory解析
+
+工厂函数是模块的主体和重点。在只传递一个参数给define时（推荐写法），这个参数就是工厂函数，此时工厂函数的三个参数分别是：
+
+require——模块加载函数，用于记载依赖模块。
+require加载机制，在后面做统一讨论。
+
+exports——接口点，将数据或方法定义在其上则将其暴露给外部调用。
+
+module——模块的元数据。
+
+这三个参数可以根据需要选择是否需要显示指定。
+
+exports:
+exports 是一个对象，用来向外提供模块接口。
+除了给 exports 对象增加成员，还可以使用 return 直接向外提供接口。
+
+seajs对外提供
+module是一个对象，存储了模块的元信息，具体如下：
+module.id——模块的ID。
+module.dependencies——一个数组，存储了此模块依赖的所有模块的ID列表。
+
+module.exports——与exports指向同一个对象。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+
+</body>
+</html>

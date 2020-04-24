@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+  <!-- --------------------------------------------------------------------------------------- -->
+
+  可以看到每个格子的右边框和下边框明显有边框重合现象，这样很影响美观，
+
+  要解决这个问题其实也很简单；
+
+  只要给每个li设置css属性 margin：0 0 -width -width 就可以了,
+
+  其中的width是我们给li设置的边框宽度;
+
+  然而单单只设置margin属性有个小bug，
+
+  那就是当我们鼠标滑过li要显示边框效果时会出现这个情况：
+
+  这里写图片描述
+
+  这个时候问题很明显，因为我们想通过设置li的右边框和下边框的margin为负数来实现边框”重叠“，
+
+  但是当鼠标经过时右边框和下边框被相邻的li”压“在了下面，
+
+  解决这个问题也很简单，只要用z-index就可以解决了，开始将li的z-index设置为0，让它可以“压”在下面，
+
+  当鼠标经过时将其z-index设置为1，让其显示；（注意这时记得给li设置position属性，
+
+  具体原由可以参考我的另一篇博客关于设置z-index层级无效的问题）；
+
+  <!-- --------------------------------------------------------------------------------------- -->
+
+  <style type="text/css">
+
+     *{ margin:0; padding:0;}
+
+     ul{
+         width: 520px;
+         height: 312px;
+         margin: 50px auto;
+     }
+     
+     ul li{
+         list-style: none;
+         width: 100px;
+         height: 100px;
+         text-align: center;
+         background-color: #efefef;
+         float: left;
+         border: 1px solid #999;
+         margin: 0 0 -1px -1px;
+         position: relative;
+         z-index: 0;
+     }
+
+     ul li:hover{
+         border: 1px solid red;
+         z-index: 1;
+     }
+
+     ul li a{
+         text-decoration: none;
+         color: #333;
+         font-size: 40px;
+         font-weight: bold;
+         line-height: 100px;
+     }
+
+ </style>
+
+ <!-- --------------------------------------------------------------------------------------- -->
+
+</head>
+
+<body>
+
+ <ul>
+
+     <li><a href="#">1</a></li>
+     <li><a href="#">2</a></li>
+     <li><a href="#">3</a></li>
+     <li><a href="#">4</a></li>
+     <li><a href="#">5</a></li>
+     <li><a href="#">6</a></li>
+     <li><a href="#">7</a></li>
+     <li><a href="#">8</a></li>
+     <li><a href="#">9</a></li>
+     <li><a href="#">10</a></li>
+     <li><a href="#">11</a></li>
+     <li><a href="#">12</a></li>
+     <li><a href="#">13</a></li>
+     <li><a href="#">14</a></li>
+     <li><a href="#">15</a></li>
+
+ </ul>
+
+  </body>
+
+</html>

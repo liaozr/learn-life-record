@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  最后一步，简化代码
+
+  结合以上测试用例，完成一个简化版本的San Francisco重命名例子，
+
+  使其可以在Chrome，Safari桌面端和移动端，Firefox中正常工作。
+
+  这样之后就无需使用BlinkMacSystemFont了。
+
+  同样也不再需要在你的CSS中为font-family属性赋其他杂乱的值了。简单而有效！
+
+  <p>廖仲人呢</p>
+
+  <style>
+
+      @font-face {
+          font-family: My San Francisco Alias;
+          src: local(system-ui), local(-apple-system), local('.SFNSText-Regular');
+      }
+
+      p {
+          font-family: My San Francisco Alias, fantasy;
+      }
+
+  </style>
+  
+  这么定义后，San Francisco在任何情况下都是可用的。
+
+</body>
+
+</html>

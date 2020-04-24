@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+</head>
+<body>
+
+	<div id="example">
+        <button v-on:click="greet">Greet</button>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            name: 'Vue.js'
+        },
+        // define methods under the `methods` object
+        methods: {
+            greet: function(event) {
+                // `this` inside methods point to the Vue instance
+            console.log('Hello ' + this.name + '!') // this.name , 为 vue 实例的 data
+                    // `event` is the native DOM event
+            console.log(event.target.tagName)  // 出现 button，事件目标的 tag name
+            }
+        }
+    })
+
+    // you can invoke methods in JavaScript too
+
+    // 自动执行  greet()的一个事件
+    vm.greet() // -> 'Hello Vue.js!'  注：小凡，执行 vm实例的 greet() 函数
+    </script>
+
+ <!-- ----------------------------------------------------------------------------------- -->
+
+  <div id="example-2">
+  	       <!--  方法传参  -->
+        <button v-on:click="say('hi')">Say Hi</button>
+        <button v-on:click="say('what')">Say What</button>
+    </div>
+    <script>
+    new Vue({
+        el: '#example-2',
+        methods: {
+            say: function(msg) {
+                 console.log(msg)
+            }
+        }
+    })
+    </script>
+<!-- -------------------------------------------------------- -->
+
+
+
+<div id="example-3">
+        <button v-on:click="say('hello!', $event)">Submit</button>
+        <a href="http://vuejs.org/"  v-on:click="say('vuejs!', $event)" >http://vuejs.org/</a>
+        <p>preventDefault() 方法将防止上面的链接打开 URL。</p>
+    </div>
+    <script>
+    new Vue({
+        el: '#example-3',
+        methods: {
+            say: function(msg, event) {
+                console.log(event.type);
+                console.log(event); // 控制台，看得比较精确
+                console.log(msg);
+                event.preventDefault(); //preventDefault() 方法阻止元素发生默认的行为（例如，当点击提交按钮时阻止对表单的提交）。
+            }
+        }
+    })
+    </script>
+<!-- ------------------------------------------------------------------------------- -->
+
+    <div id="example-4">
+        <ul>
+            <li>
+                <input v-on:keyup.13="say('第1式')" v-model="a1"> 当你按下 enter ，弹窗
+            </li>
+            <li>
+                <!-- same as above -->
+                <input v-on:keyup.enter="say1('第2式')" v-model="a2"> 当你按下 enter ，弹窗
+            </li>
+            <li>
+                <!-- also works for shorthand -->
+                <input @keyup.enter="say2('第3式')" v-model="a3"> 当你按下 enter ，弹窗
+            </li>
+            <li>
+                <!-- enable @keyup.f1-->
+                <input @keyup.f1="say3('第4式,f1')" v-model="a4"> 当你按下 f1(macbook pro , fn+f1) ，弹窗
+            </li>
+        </ul>
+    </div>
+    <script>
+    // enable @keyup.f1
+    Vue.directive('on').keyCodes.f1 = 112
+    new Vue({
+        el: '#example-4',
+        data: {
+            a1: '',
+            a2: '',
+            a3: '',
+            a4: ''
+        },
+        methods: {
+            say: function(msg) {
+                console.log(msg + ', ' + this.a1);
+            },
+            say1: function(msg) {
+                console.log(msg + ', ' + this.a2);
+            },
+            say2: function(msg) {
+                console.log(msg + ', ' + this.a3);
+            },
+            say3: function(msg) {
+                console.log(msg + ', ' + this.a4);
+            }
+        }
+    })
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    5、 forEach()
+
+    forEach为每个元素执行对应的方法
+
+    使用for：
+
+    <script type="text/javascript">
+
+        var arr = [1,2,3,4,5,6,7,8];
+
+        for(var i= 0, l = arr.length; i< l; i++){
+           console.log(arr[i]);
+        }
+
+// ----------------------------------------------------------------------------------------
+
+        // 使用forEach()：
+        var arr = [1,2,3,4,5,6,7,8];
+
+        arr.forEach(function(item,index){
+          console.log(item); //  1  2 3 4 5 6 7 8
+        });
+
+   </script>
+
+    forEach是用来替换for循环的
+
+    forEach：用来遍历数组中的每一项；这个方法执行是没有返回值的，
+
+    对原来数组也没有影响；数组中有几项，
+
+    那么传递进去的匿名回调函数就需要执行几次；每一次执行匿名函数的时候，还给其传递了三个参数值：
+
+    数组中的当前项item,当前项的索引index,原始数组list；
+
+    理论上这个方法是没有返回值的，仅仅是遍历数组中的每一项，不对原来数组进行修改；
+
+    但是我们可以自己通过数组的索引来修改原来的数组；
+
+
+  </body>
+</html>

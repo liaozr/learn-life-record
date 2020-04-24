@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    mutations 必须都是同步的， 它的改变必须在调用之后立即执行
+
+    因为它是唯一可以修改 state 的， 如果它使用了异步方法， 将会使我们的 state 变得无法追踪， 定位问题也变得是否困难
+
+    在组件中 commit mutation 时
+
+    可以使用 this.$store.commit() 或者使用 mapMutations 方法， 后者可以将组件中的方法映射到 store.commit 调用（ 需要在根组件注入 store）。
+
+    ( 意思是不通过actions了，因为actions的作用就是commit一个或多个mutations )
+    ( mapMutations 就相当于 this.$store.commit() 的话，意味着mapMutations 是直接操作mutations的了，而不是先操作actions ,
+    通过actions 来commit一个或多个 mutations.)
+    <!-- ------------------------------------------------------------------------------------------- -->
+
+    <!-- 组件 articleDetails.vue -->
+
+    <li v-for='nav in getnavlists' @click="getterlists(nav.type)" :class="{'active': getcurlist[0].type==nav.type}">
+        <router-link to='/index/article' v-text='nav.title'></router-link>
+    </li>
+
+    <script>
+        import {
+            mapGetters,
+            mapActions,
+            mapMutations
+        } from 'vuex'
+        export default {
+            data() {
+                return {
+
+                }
+            },
+            computed: {
+                ...mapGetters(['getnavlists', 'getcurlist'])
+            },
+            methods: {
+                // ...mapActions(['getterlists','getstartlist']),
+                ...mapActions(['getstartlist']),
+                ...mapMutations(['getterlists'])
+            },
+            created() {
+                this.getstartlist() //要先 执行这个this.getstarlist()，要不然上面那个getcurlist[0].type会报错的。
+            }
+        }
+    </script>
+
+    <!-- ----------------------------------------------------------------------------------------- -->
+    <!-- mutation-types -->
+    <script type="text/javascript">
+
+        export const getterlists = 'getterlists'
+        export const GETSTARTLIST = 'GETSTARTLIST'
+
+    </script>
+<!-- ----------------------------------------------------------------------------------------- -->
+    <!-- store.js -->
+    <script type="text/javascript">
+
+    import { GETSTARTLIST } from './mutation-types'
+    import { getterlists } from './mutation-types'
+    Vue.use(Vuex)
+   const store = new Vuex.Store({
+           actions: {
+                // getterlists ({ commit }, gettercan) {
+                // 	commit('GETTERSLISTS', gettercan)
+                // },
+                getstartlist({ commit }) {
+                    commit('GETSTARTLIST')
+                }
+            },
+            mutations: {
+                [getterlists](state, gettercan) {
+                    if (gettercan == 'hot')
+                    {
+                        state.curlisttype = ''
+                        state.curlisttype = state.hot
+                    } else if (gettercan == 'new')
+                    {
+                        state.curlisttype = ''
+                        state.curlisttype = state.new
+                    } else if (gettercan == 'day')
+                    {
+                        state.curlisttype = ''
+                        state.curlisttype = state.day
+                    }
+                },
+                [GETSTARTLIST] (state)
+                {
+                   state.curlisttype=''
+                   state.curlisttype=state.hot
+                }
+                // [GETTERSLISTS](state,gettercan)
+                // {
+                //       if(gettercan == 'hot')
+                //       {
+                //       	    state.curlisttype=''
+                //            state.curlisttype=state.hot
+                //       }
+                //       else if(gettercan == 'new'){
+                //           state.curlisttype=''
+                //           state.curlisttype=state.new
+                //       }
+                //       else if(gettercan == 'day'){
+                //           state.curlisttype=''
+                //           state.curlisttype=state.day
+                //       }
+                // },
+              }
+    })
+    export default store
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        function openNew(url) {
+            if (!mui.os.plus) {
+                location.href = url;
+                return;
+            }
+            if (plus.webview.getWebviewById(url)) {
+                return;
+            } else {
+                var webview = plus.webview.create(url, url);
+                webview.addEventListener("titleUpdate", function() {
+                    setTimeout(function() {
+                        webview.show("pop-in", 200);
+                    }, 10);
+                });
+            }
+        }
+
+    </script>
+</body>
+
+</html>

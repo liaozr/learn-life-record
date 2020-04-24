@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+        isArray()是Array对象的一个静态函数，用来判断一个对象是不是数组
+
+       <script type="text/javascript">
+
+          var ary1 = [];
+          var res1 = Array.isArray(ary1);  // Output: true
+          console.log(res1)
+
+          var ary2 = new Array();
+          var res2 = Array.isArray(ary2);  // Output: true
+          console.log(res2)
+
+          var ary3 = [1, 2, 3];
+          var res3 = Array.isArray(ary3);  // Output: true
+          console.log(res3)
+
+          var ary4 = new Date();
+          var res4 = Array.isArray(ary4);  // Output: false
+          console.log(res4)
+
+      </script>
+
+  </body>
+</html>

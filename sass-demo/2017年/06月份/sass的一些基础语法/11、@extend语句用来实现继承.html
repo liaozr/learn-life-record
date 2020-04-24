@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  @extend语句用来实现继承:
+
+  <style>
+    .large {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .main {
+        @extend .large;
+        background: red;
+    }
+
+    /*输出为： */
+    .large,.main {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .main {
+        background: red;
+    }
+
+/*------------------------------------------------------------------------------------*/
+
+    /*@extend实现的继承是继承所有： */
+
+    .large {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .large.blue {
+        color: blue;
+    }
+
+    .main {
+        @extend .large;
+        background: red;
+    }
+
+    /*输出为： */
+    .large,.main {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .large.blue,.blue.main {
+        color: blue;
+    }
+    
+    .main {
+        background: red;
+    }
+
+/*------------------------------------------------------------------------------------*/
+
+</style>
+
+
+</body>
+
+</html>

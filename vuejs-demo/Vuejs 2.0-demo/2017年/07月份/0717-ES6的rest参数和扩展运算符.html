@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+rest参数
+
+rest参数用于获取函数的多余参数，这样就不需要使用arguments对象了。
+
+rest参数搭配的变量是一个数组，该变量将多余的参数放入数组中。
+
+<script>
+
+    function add(...values) {
+        let sum = 0;
+        for (var val of values) {
+            sum += val;
+        }
+        return sum;
+    }
+
+    add(1, 2, 3) // 6
+
+</script>
+
+传递给 add 函数的一组参数值，被整合成了数组 values。
+
+下面是一个 rest 参数代替arguments变量的例子。
+
+<script>
+
+    // arguments变量的写法
+    function sortNumbers() {
+        return Array.prototype.slice.call(arguments).sort();
+    }
+
+    // rest参数的写法
+    const sortNumbers = (...numbers) => numbers.sort();
+
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+扩展运算符
+
+扩展运算符可以看做是 rest 参数的逆运算，将一个数组转为用逗号分隔的参数序列。
+
+<script>
+
+    console.log(...[1, 2, 3]) // 1 2 3
+
+    console.log(1, ...[2, 3, 4], 5) //1 2 3 4 5
+
+</script>
+
+
+扩展运算符的应用
+
+普通的函数调用
+
+<script>
+
+    function push(array, ...items) {
+        array.push(...items);
+    }
+
+    function add(x, y) {
+        return x + y;
+    }
+
+    var numbers = [4, 38];
+    add(...numbers) // 42
+
+</script>
+
+上面代码中，array.push(...items)和add(...numbers)这两行，都是函数的调用，
+
+它们的都使用了扩展运算符。该运算符将一个数组，变为参数序列。
+
+替代 apply 方法调用函数
+
+<script>
+
+    // ES5 的写法
+    Math.max.apply(null, [14, 3, 77])
+
+    // ES6 的写法
+    Math.max(...[14, 3, 77])
+
+    // 等同于
+    Math.max(14, 3, 77);
+    // ES5 的写法
+    var arr1 = [0, 1, 2];
+    var arr2 = [3, 4, 5];
+    Array.prototype.push.apply(arr1, arr2);
+
+
+    // ES6 的写法
+    var arr1 = [0, 1, 2];
+    var arr2 = [3, 4, 5];
+    arr1.push(...arr2);
+
+
+    // 合并数组
+
+    var arr1 = ['a', 'b'];
+    var arr2 = ['c'];
+    var arr3 = ['d', 'e'];
+
+    // ES5的合并数组
+    arr1.concat(arr2, arr3) // [ 'a', 'b', 'c', 'd', 'e' ]
+
+    // ES6的合并数组
+    [...arr1, ...arr2, ...arr3] // [ 'a', 'b', 'c', 'd', 'e' ]
+
+</script>
+
+与解构赋值结合
+
+<script>
+
+    const [first, ...rest] = [1, 2, 3, 4, 5];
+    first // 1
+    rest // [2, 3, 4, 5]
+
+    const [first, ...rest] = [];
+    first // undefined
+    rest // []
+
+    const [first, ...rest] = ["foo"];
+    first // "foo"
+    rest // []
+
+    // --------------------------------------------------------------------------
+
+    // 如果将扩展运算符用于数组赋值， 只能放在参数的最后一位， 否则会报错。
+
+    const [...butLast, last] = [1, 2, 3, 4, 5]; // 报错
+
+    const [first, ...middle, last] = [1, 2, 3, 4, 5]; // 报错
+
+
+    // --------------------------------------------------------------------------
+
+
+    // 将字符串转为数组
+
+    var str = 'hello';
+
+    // ES5
+    var arr1 = str.split(''); // [ "h", "e", "l", "l", "o" ]
+
+    // ES6
+    var arr2 = [...str]; // [ "h", "e", "l", "l", "o" ]
+
+    // --------------------------------------------------------------------------
+
+
+    实现了 Iterator 接口的对象
+
+    任何 Iterator 接口的对象， 都可以用扩展运算符转为真正的数组。
+
+    var nodeList = document.querySelectorAll('div');
+    var array = [...nodeList];
+
+</script>
+
+上面代码中，querySelectorAll方法返回的是一个nodeList对象。
+
+它不是数组，而是一个类似数组的对象。这时，扩展运算符可以将其转为真正的数组
+
+，原因就在于NodeList对象实现了 Iterator 。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+
+</body>
+</html>

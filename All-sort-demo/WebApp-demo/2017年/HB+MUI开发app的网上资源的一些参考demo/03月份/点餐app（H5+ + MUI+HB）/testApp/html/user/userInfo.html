@@ -1,0 +1,243 @@
+<!--
+	作者：Trust
+	时间：2015-12-21
+	描述：用户资料
+	知识点：1、使用artTemplate.js拼接用户信息
+		  2、读取本地存储中的用户信息
+		  3、删除本地存储中的信息
+		  4、自定义事件，用于更新用户信息
+-->
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>用户资料</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			#edit {
+				color: red;
+				margin-top: 10px;
+			}
+			
+			.mui-button-row {
+				padding: 10px;
+			}
+			
+			.mui-btn-block {
+				padding: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a class="mui-pull-right" id="edit">修改</a>
+			<h1 class="mui-title">我的资料</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view" id="info">
+				<!--<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-right" id="uimg" src="">
+						<div class="mui-media-body">
+							<span id="uname"></span>
+							<p class="mui-ellipsis" id="uid"></p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					性别<span class="mui-pull-right" id="usex"></span>
+				</li>
+				<li class="mui-table-view-cell">
+					自我介绍<span class="mui-pull-right" id="udesc"></span>
+				</li>
+				<li class="mui-table-view-cell">
+					学校<span class="mui-pull-right" id="uschool"></span>
+				</li>
+				<li class="mui-table-view-cell">
+					班级<span class="mui-pull-right" id="uclass"></span>
+				</li>
+				<li class="mui-table-view-cell">
+					专业<span class="mui-pull-right" id="umajor"></span>
+				</li>
+				<li class="mui-table-view-cell">
+					地址<span class="mui-pull-right" id="uaddress"></span>
+				</li>-->
+			</ul>
+			<div class="mui-button-row">
+				<button class="mui-btn mui-btn-red mui-btn-block" id="exit" type="button">退出登录</button>
+			</div>
+		</div>
+
+		<!--渲染部分-->
+		<!--这里就很明显了，我们就直接取的对象的属性名，就可以将其对应的值展示出来了；-->
+		<script type="text/html" id="infoTmpl">
+			<li class="mui-table-view-cell mui-media">
+				<a href="javascript:;">
+					<img class="mui-media-object mui-pull-right" id="uimg" src="{{uimage}}">
+					<div class="mui-media-body">
+						<span id="uname">{{uname}}</span>
+						<p class="mui-ellipsis" id="uid">{{uid}}</p>
+					</div>
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				性别<span class="mui-pull-right" id="usex">{{usex | checkSex}}</span>
+			</li>
+			<li class="mui-table-view-cell">
+				自我介绍<span class="mui-pull-right" id="udesc">{{udesc}}</span>
+			</li>
+			<li class="mui-table-view-cell">
+				学校<span class="mui-pull-right" id="uschool">{{uschool}}</span>
+			</li>
+			<li class="mui-table-view-cell">
+				班级<span class="mui-pull-right" id="uclass">{{uclass}}</span>
+			</li>
+			<li class="mui-table-view-cell">
+				专业<span class="mui-pull-right" id="umajor">{{umajor}}</span>
+			</li>
+			<li class="mui-table-view-cell">
+				地址<span class="mui-pull-right" id="uaddress">{{uaddress}}</span>
+			</li>
+		</script>
+
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/template.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				/*
+				 * 从本地缓存中获取用户标识
+				 * 这里只存了用户的id，实际项目中可以同时存储id和token
+				 * 或者你们有更好的更安全的方式，都是可以的
+				 * http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.getItem
+				 */
+				var userInfo = plus.storage.getItem("userInfo");
+				var user = JSON.parse(userInfo);
+				var userId = user.userid;
+				/*
+				 * ajax获取的参数几种常见的情况，但是通常我们都采用json格式的字符串来进行数据交互
+				 * http://dev.dcloud.net.cn/mui/ajax/
+				 * 1、实际要获取的参数是一个数组，数组中是n组数据，也就是商家以及商品列表部分那种
+				 * 2、实际要获取的只是一组数据，就类似某个用户的信息
+				 * 3、向后台发起增删改等操作，后台返回操作成功与否的参数，我们再根据这个参数来进行下一步的操作
+				 * 年底了，有些东西搞的太匆忙，写的有些丑，大家见谅，作为新人我也在不断学习
+				 */
+				mui.ajax({
+					type: "get", //请求方式，这里本地json用的是get方式
+					url: "../../json/user/userInfo.json", //接口地址，实际项目中这里填写后台给你的接口地址
+					async: true, //异步，默认是true
+					data: {
+						userId: userId
+					}, //传递的参数，属性名值对的形式
+					dataType: "json", //预计返回的数据格式，默认是json
+					timeout: 1000, //请求超时时间
+					/*
+					 * 请求成功的回调函数，我们在这里处理从后台获取的参数
+					 * 由于ajax默认是异步的，所以在调用多个ajax的时候，自己要注意执行的顺序
+					 */
+					success: function(data) {
+						/*
+						 * 成功获取到用户相关信息后，替换各个节点的内容
+						 */
+						if (data.status == "1") {
+							var info = document.getElementById("info");
+							var result = data.result;
+							// 辅助事件，用于判定性别的名称；
+							template.helper("checkSex", function(sex) {
+								var usex = "";
+								if (sex == "0") {
+									usex = "男";
+								} else {
+									usex = "女";
+								}
+								return usex;
+							});
+							// 渲染主体部分
+							var content = template("infoTmpl", result);
+							info.innerHTML = content;
+							/*
+							 * 这里单独对头像上传进行处理
+							 * 实际项目中，根据实际设计情况进行处理
+							 * 单独处理的目的，主要是为了介绍下调用相册以及摄像头的问题
+							 */
+							document.getElementById("uimg").addEventListener("tap", function() {
+								mui.openWindow({
+									url: "userHead.html",
+									id: "userHead",
+									waiting: {
+										autoShow: false
+									},
+									extras: {
+										uimage: this.src
+									}
+								});
+							});
+							// 右上角的修改事件
+							document.getElementById("edit").addEventListener("tap", function() {
+								mui.openWindow({
+									url: "editUserInfo.html",
+									id: "editUserInfo",
+									waiting: {
+										autoShow: false
+									},
+									extras: {
+										result: result
+									} //其实这个主要是为了演示，子页面如何获取对父页面传的值
+								});
+							});
+						}
+					},
+					/*
+					 * 请求失败的回调，这里处理ajax请求失败的情况
+					 * 这里只是简单做一个提示，具体项目中根据自己的场景和业务做出合理的处理
+					 */
+					error: function(xhr, type, errorThrown) {
+						plus.nativeUI.toast(errorThrown);
+					}
+				});
+				// 退出登录（暴力法）
+				document.getElementById("exit").addEventListener("tap", function() {
+					// http://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.confirm
+					plus.nativeUI.confirm("确定退出登录？", function(e) {
+						if (e.index == 0) {
+							// http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.removeItem
+							plus.storage.removeItem("userInfo");
+							mui.openWindow({
+								url: "../account/login.html",
+								id: "login",
+								waiting: {
+									autoShow: false
+								},
+								extras: {
+									entrance: "userInfo"
+								}
+							});
+						}
+					}, "", ["退出", "算了"]);
+				});
+			});
+			/*
+			 * 自定义事件，用于修改信息后替换；
+			 * 注意：实际项目中，有两种做法：
+			 * 1、重新请求ajax
+			 * 2、替换部分值
+			 * 3、但是不论以上哪种，在你替换数据之前，是要将数据提交到后台的；
+			 */
+			window.addEventListener("changeInfo", function(e) {
+				var result = e.detail;
+				if (result.usex == "1") {
+					document.getElementById("usex").innerHTML = "男";
+				} else {
+					document.getElementById("usex").innerHTML = "女";
+				}
+				document.getElementById("uaddress").innerHTML = result.uaddress;
+				document.getElementById("uschool").innerHTML = result.uschool;
+			});
+		</script>
+	</body>
+
+</html>

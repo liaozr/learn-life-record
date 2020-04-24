@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<script>
+
+	function helloWorld (ready) {
+	    return new Promise(function (resolve, reject) {
+	        if (ready) {
+	            resolve("Hello World!");
+	        } else {
+	            reject("Good bye!");
+	        }
+	    });
+	}
+
+	helloWorld(true).then(function (message) {
+	    alert(message);
+	}, function (error) {
+	    alert(error);
+	});
+
+</script>
+
+
+上面的代码实现的功能非常简单，helloWord 函数接受一个参数，如果为 true 就打印 "Hello World!"，如果为 false 就打印错误的信息。
+
+helloWord 函数返回的是一个 Promise 对象。
+
+在 Promise 对象当中有两个重要方法————resolve 和 reject。
+
+resolve 方法可以使 Promise 对象的状态改变成成功，同时传递一个参数用于后续成功后的操作，在这个例子当中就是 Hello World! 字符串。
+
+reject 方法则是将 Promise 对象的状态改变为失败，同时将错误的信息传递到后续错误处理的操作。
+
+
+</body>
+</html>

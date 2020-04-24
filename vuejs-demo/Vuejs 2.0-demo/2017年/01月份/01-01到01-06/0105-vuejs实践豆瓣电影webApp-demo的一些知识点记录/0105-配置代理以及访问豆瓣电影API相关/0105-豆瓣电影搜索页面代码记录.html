@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!--  v-infinite-scroll是一个自定义指令，一个自定义下拉加载指令   -->
+
+    <section class="grid has-search-bar" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+        <h2>{{movieList.title}}</h2>
+        <div class="card" v-if="movieList.subjects.length > 0">
+            <router-link :to="{name: 'moviedetail', params: {id: item.id}}" class="item" v-for="item in movieList.subjects">
+                <div class="cover">
+                    <div class="wp">
+                        <img class="img-show" :src="item.images.medium" />
+                    </div>
+                </div>
+                <div class="info">
+                    <h3>{{item.title}}</h3>
+                </div>
+            </router-link>
+        </div>
+
+        <!--此时的show一个 props，传给子组件的一个 props  -->
+        <spinner :show="loading"></spinner>
+
+        <!-- 下面被注释的这段代码是组件spinner 的一些代码 -->
+        <!-- --------------------------------------------------------------- -->
+        <!-- 组件 spinner -->
+        <!-- <template>
+            <transition>
+                 <svg class="spinner" :class="{ show: show }" v-show="show" width="68px" height="68px" viewBox="0 0 44 44">
+                   <circle class="path" fill="none" stroke-width="4" stroke-linecap="round" cx="22" cy="22" r="20"></circle>
+                 </svg>
+            </transition>
+        </template>
+
+        <script>
+            export default {
+                props: ['show']
+            }
+        </script> -->
+
+        <!-- --------------------------------------------------------------- -->
+
+    </section>
+
+    <script>
+        import spinner from './../components/spinner'
+        import InfiniteScroll from 'vue-infinite-scroll'
+        import { fetchSearchMovies } from './../api/api';
+
+        export default {
+            components: {
+                spinner
+            },
+            directives: {
+                InfiniteScroll
+            },
+            data() {
+                return {
+                    loading: true,
+                    query: '',
+                    movieList: {
+                        subjects: []
+                    },
+                    busy: false
+                }
+            },
+            mounted() {
+                this.query = this.$route.query.query;
+                this.loadMore()
+            },
+            watch: {
+                '$route': 'loadAgain'
+            },
+            methods: {
+                loadAgain() {
+                    this.movieList.subjects = [];
+                    this.busy = false;
+                    this.query = this.$route.query.query;
+                    this.loadMore();
+                },
+                loadMore() {
+                    let start = this.movieList.subjects.length;
+                    this.busy = true;
+                    fetchSearchMovies(this.query, start)
+                        .then(data => {
+                            console.log(data)
+                            this.movieList.title = data.title;
+                            this.movieList.total = data.total;
+                            this.movieList.subjects = this.movieList.subjects.concat(data.subjects);
+                            if (this.movieList.subjects.length < this.movieList.total) {
+                                this.busy = false;
+                            }
+                            this.loading = false;
+                   })
+                }
+            },
+            destroyed() {
+              
+            }
+        };
+    </script>
+</body>
+
+</html>

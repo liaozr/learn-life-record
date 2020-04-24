@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+过滤器
+
+Vue.js允许在表达式后添加可选的过滤器，以‘管道符’形式
+
+{{ message | capitalize }}
+
+上述语句表示将message的值通过内置的capitalize过滤器，这个过滤器其实是一个函数，返回大写的值
+
+
+<!-- ------------------------------------------------------------------------------- -->
+
+过滤器可以串联
+
+{{ message | filterA | filterB }}
+
+<!-- ------------------------------------------------------------------------------- -->
+
+同时可以接收参数
+
+{{ message | filterA 'arg1' arg2 }}
+
+过滤器函数始终以表达式的值作为第一个参数。
+
+带引号的参数视为字符串，而不带引号的参数按表达式计算。
+
+这里，字符串 ‘arg1’ 将传给过滤器作为第二个参数，表达式 arg2 的值在计算出来之后作为第三个参数。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+</html>

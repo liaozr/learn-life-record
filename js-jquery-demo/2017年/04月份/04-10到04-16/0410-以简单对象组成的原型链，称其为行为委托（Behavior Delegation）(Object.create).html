@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var Person = {
+            init: function(name) {
+                this.name = name;
+            },
+            greet: function() {
+                console.log('I am ' + this.name);
+            }
+        }
+
+
+        var Student = Object.create(Person);
+
+        Student.init = function(name, school) {
+            Person.init.call(this, name);
+            this.school = school;
+        }
+
+        Student.greet = function() {
+            console.log('I am ' + this.name + ',my school is ' + this.school);
+        }
+
+        var p1 = Object.create(Person);
+        var s1 = Object.create(Student);
+        p1.init('p1');
+        p1.greet(); //I am p1
+        s1.init('s1', 'USTB');
+        s1.greet(); //I am s1,my school is USTB
+    </script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+Object.create的作用是以某一对象为原型来创建新的对象，可以简单理解为向下扩展原型链的功能，
+即生成了一个__proto__指向源对象的新对象。
+
+只是使用了一些对象，实现了和之前代码的同样的功能，并且具有更加简单清晰的原型链，每个对象之间的关系一目了然，没有了烦人的prototype，简单的原型链能使你更容易分析自己的代码，找出错误所在。
+
+两种组织代码的方式孰优孰劣，大体上是看得出来的，只是面向对象的语法可能看起来使人更熟悉，
+但我相信不明白具体内在的人一定会迷惑的。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

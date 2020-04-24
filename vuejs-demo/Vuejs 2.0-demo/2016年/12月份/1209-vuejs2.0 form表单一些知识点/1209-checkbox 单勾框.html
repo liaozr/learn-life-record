@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src='vue.js'></script>
+</head>
+<body>
+<div id="app">
+    <input type="checkbox" id="checkbox" v-model="checked">
+
+    <label for="checkbox">{{ checked }}</label>
+</div>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            checked: ''
+        }
+    })
+</script>
+
+<!-- ------------------------------------------------------------------------- -->
+
+特别：
+
+但是有时我们想绑定 value 到 Vue 实例的一个动态属性上
+
+这时可以用 v-bind 实现
+
+v-bind:value="vue data value"
+
+并且这个属性的值可以不是字符串。
+<!-- `toggle` 为 true 或 false -->
+
+<input type="checkbox" v-model="toggle">
+
+</body>
+</html>

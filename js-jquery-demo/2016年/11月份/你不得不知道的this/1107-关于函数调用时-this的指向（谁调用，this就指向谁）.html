@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <!-- ---------------------------------------------------------------- -->
+
+  <script>
+
+  　　var name = "The Window";
+
+  　　var object = {
+  　　　　name : "My Object",
+  　　　　getNameFunc : function(){
+  　　　　　　return function(){
+  　　　　　　　　return this.name;
+  　　　　　　};
+  　　　　}
+  　　};
+  　　alert(object.getNameFunc()());//The Window
+
+  // 谁调用，this就指向谁
+  // 下面那个是全局调用，所以指向了window
+  // 也算是闭包，但重点不是闭包，是this指向
+  </script>
+
+  <!-- ----------------------------------------------------------------- -->
+
+  <script>
+
+  　  var name = "The Window";
+  　　var object = {
+  　　　　name : "My Object",
+  　　　　getNameFunc : function(){
+  　　　　　　var that = this;
+  　　　　　　return function(){
+  　　　　　　　　return that.name;
+  　　　　　　};
+  　　　　}
+  　　};
+  　　alert(object.getNameFunc()());//My Object
+
+  // 缓存了个this
+  // 就是改变了指向
+  // 所以调用的时候，this指向缓存值
+  </script>
+
+  <!-- ---------------------------------------------------------------------------- -->
+
+  我们需要知道 JavaScript 里面的函数会创建内部词法作用域，是的，JavaScript 是词法作用域，
+
+  也就是说作用域与作用域的层级关系在你书写的时候就已经确定了，而不是调用的时候，调用的时候确定的称为动态作用域，
+
+  由于不是本篇文章的重点，就不再详细解释了，举两个例子自己领悟：
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+<script>
+    var name = 'fruit'
+
+    function apple() {
+        console.log(this) //this 指向的是window
+        console.log(name)
+    }
+
+    function orange() {
+        var name = 'orange'
+        apple()
+    }
+    orange() // fruit
+
+
+// 调用apple这个函数的是orange(), 而orange()是全局调用，所以指向的是window
+// 这个this就指的是window了。
+// 这个打印出来的结果是fruit来的
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+</body>
+</html>

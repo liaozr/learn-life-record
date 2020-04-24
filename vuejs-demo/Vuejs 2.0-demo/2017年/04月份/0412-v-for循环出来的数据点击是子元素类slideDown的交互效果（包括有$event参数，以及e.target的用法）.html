@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.staticfile.org/jquery/3.2.1/jquery.js'></script>
+    <script src='https://cdn.staticfile.org/vue/1.0.28/vue.js'></script>
+
+    <style>
+        .g-content-kanban .pianqu-wanchenglv {
+            margin-top: 0rem;
+            padding-bottom: 0.533rem;
+        }
+
+        .g-content-kanban .pianqu-wanchenglv .tr {
+            height: 40px;
+            line-height: 0.8rem;
+            font-size: 0;
+            line-height: 40px;
+            background-color: yellow;
+            margin-bottom: 10px;
+        }
+
+        .g-content-kanban .pianqu-wanchenglv .tr.tr-child {
+            border-left: 3px solid #f9f9f9;
+            border-bottom: 1px solid #dddddd;
+            background-color: pink;
+        }
+
+        .g-content-kanban .pianqu-wanchenglv .tr.tr-child .td:first-child {
+            text-indent: 1.5em;
+        }
+
+        .g-content-kanban .pianqu-wanchenglv .tr .td {
+            height: 0.8rem;
+            line-height: 0.8rem;
+            display: inline-block;
+            font-size: 0.4rem;
+            width: 25%;
+            text-align: center;
+        }
+
+        .g-content-kanban .pianqu-wanchenglv .tr.th {
+            background-color: #f3f3f3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="g-content-kanban">
+        <div class="pianqu-wanchenglv">
+            <div v-for='(index, item) in items' class="tr-lay">
+
+<!-- -------------------------------------------------------------------------------             -->
+                <!-- 使用的是 zepto的情况下 -->
+              	<!-- <div class="tr tr-list" @tap.stop='slide(index,$event)'> -->
+                <div class="tr tr-list" @click.stop='slide(index,$event)'>
+                    <div v-cloak class="td">
+                        <span v-cloak>{{item.pianqu}}</span>
+                    </div>
+                    <div v-cloak class="td">
+                        <span v-cloak>{{item.mubiao}}</span>
+                    </div>
+                    <div v-cloak class="td">
+                        <span v-cloak>{{item.yiwancheng}}</span>
+                    </div>
+                    <div v-cloak class="td">
+                        <span v-cloak>{{item.wanchenglv}}</span>
+                    </div>
+                </div>
+                <div v-show='itemindex == index && boolean' class="tr_child">
+                    <div v-for='childitem in item.child' class="tr tr-child">
+                        <div v-cloak class="td">
+                            <span v-cloak>{{childitem.pianqu}}</span>
+                        </div>
+                        <div v-cloak class="td">
+                            <span v-cloak>{{childitem.mubiao}}</span>
+                        </div>
+                        <div v-cloak class="td">
+                            <span v-cloak>{{childitem.yiwancheng}}</span>
+                        </div>
+                        <div v-cloak class="td">
+                            <span v-cloak>{{childitem.wanchenglv}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var kanbanVM = new Vue({
+            el: 'body',
+            data: {
+                itemindex: null,
+                boolean: false,
+                lastIndex: null,
+                isActive: false,
+                items: [{
+                        pianqu: '南城1',
+                        mubiao: 60,
+                        yiwancheng: 30,
+                        wanchenglv: '50%',
+                        child: [{
+                                pianqu: '南城1',
+                                mubiao: 60,
+                                yiwancheng: 30,
+                                wanchenglv: '50%'
+                            },
+                            {
+                                pianqu: '南城1',
+                                mubiao: 60,
+                                yiwancheng: 30,
+                                wanchenglv: '50%'
+                            }
+                        ]
+                    },
+                    {
+                        pianqu: '南城2',
+                        mubiao: 60,
+                        yiwancheng: 30,
+                        wanchenglv: '50%',
+                        child: [{
+                                pianqu: '南城2',
+                                mubiao: 60,
+                                yiwancheng: 30,
+                                wanchenglv: '50%'
+                            },
+                            {
+                                pianqu: '南城2',
+                                mubiao: 60,
+                                yiwancheng: 30,
+                                wanchenglv: '50%'
+                            }
+                        ]
+                    }
+                ]
+            },
+            methods: {
+                slide(index, e) {
+                    this.itemindex = index;
+                    e.stopPropagation();
+                    console.log(e)
+                    //  拿到实例
+                    console.log(e.currentTarget);
+                    // 拿到当前触发的dom元素
+
+                    document.querySelectorAll(".tr-list")[0].classList.remove("active")
+                    // $(".tr-list").removeClass("active");
+
+                    // lastIndex是判断是不是点击当前的这个元素还是点击其他的元素
+                    if (this.itemindex != this.lastIndex) {
+                        this.boolean = true;
+                        this.lastIndex = this.itemindex;
+                        e.currentTarget.classList.add("active");
+                    } else {
+                        this.boolean = !this.boolean;
+                        this.lastIndex = null;
+                        e.currentTarget.classList.remove("active");
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

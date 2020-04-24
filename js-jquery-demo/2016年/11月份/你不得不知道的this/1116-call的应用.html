@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function eat(x, y) {
+            console.log(x + y);
+        }
+
+        function drink(x, y) {
+            console.log(x - y);
+        }
+        eat.call(drink, 3, 2);
+
+        // 输出： 5
+    </script>
+    这个例子中的意思就是用 eat 来替换 drink， eat.call(drink,3,2) == eat(3,2) ， 所以运行结果为：console.log(5);
+
+    <!-- ------------------------------------------------------------------------------ -->
+
+    （2）
+    <script>
+        function Animal() {
+            this.name = "animal";
+            this.showName = function() {
+                console.log(this.name);
+            }
+        }
+
+        function Dog() {
+            this.name = "dog";
+        }
+        var animal = new Animal();
+        var dog = new Dog();
+
+        animal.showName.call(dog);
+    </script>
+
+    <!-- 输出：dog -->
+    在上面的代码中，我们可以看到Dog里并没有showName方法，那为什么（this.name）的值是dog呢？ 关键就在于最后一段代码（animal.showName.call(dog)），意思是把animal的方法放到dog上执行，也可以说，把animal 的showName()方法放到 dog上来执行，所以this.name 应该是 dog。
+
+    <!-- ------------------------------------------------------------------------------------- -->
+
+    （3）继承
+    <script>
+        var name='test';
+        function Animal(name) {
+            this.name = name;
+            this.showName = function() {
+                console.log(this.name);
+            }
+        }
+
+        function Dog(name) {
+            Animal.call(this, name);
+        }
+        var dog = new Dog("Crazy dog");
+        dog.showName();
+    </script>
+    <!-- 输出：Crazy dog -->
+    Animal.call(this) 的意思就是使用 Animal对象代替this对象，那么Dog就能直接调用Animal的所有属性和方法。
+</body>
+
+</html>

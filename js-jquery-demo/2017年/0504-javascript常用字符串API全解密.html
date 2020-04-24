@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+String.prototype
+
+和其他所有对象一样，字符串实例的所有方法均来自String.prototype。以下是它的属性特性：
+
+writable	false
+enumerable	false
+configurable	false
+
+可见，字符串属性不可编辑，任何试图改变它属性的行为都将抛出错误。
+
+属性
+String.prototype共有两个属性，如下：
+
+String.prototype.constructor 指向构造器(String())
+
+String.prototype.length 表示字符串长度
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+字符串原型方法分为两种，一种是html无关的方法，一种是html有关的方法
+
+常用的方法有，charAt、charCodeAt、concat、indexOf、lastIndexOf、localeCompare、match、replace、search、
+
+slice、split、substr、substring、toLocaleLowerCase、toLocaleUpperCase、toLowerCase、toString、toUpperCase、trim、valueof 等ES5支持的，
+
+以及 codePointAt、contains、endsWith、normalize、repeat、startsWith 等ES6支持的，还包括 quote、toSource、trimLeft、trimRight 等非标准的。
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+charAt
+
+charAt() 方法返回字符串中指定位置的字符。
+
+语法：str.charAt(index)
+
+index 为字符串索引（取值从0至length-1），如果超出该范围，则返回空串。
+
+console.log("Hello, World".charAt(8)); // o, 返回下标为8的字符串o
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+concat
+
+concat() 方法将一个或多个字符串拼接在一起，组成新的字符串并返回。
+
+语法：str.concat(string2, string3, …)
+
+console.log("早".concat("上","好")); // 早上好
+
+但是 concat 的性能表现不佳，强烈推荐使用赋值操作符（+或+=）代替 concat。"+" 操作符
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+indexOf() 方法用于查找子字符串在字符串中首次出现的位置，没有则返回 -1。该方法严格区分大小写，并且从左往右查找。而 lastIndexOf 则从右往左查找，其它与前者一致。
+
+语法：str.indexOf(searchValue [, fromIndex=0])，str.lastIndexOf(searchValue [, fromIndex=0])
+
+searchValue 表示被查找的字符串，fromIndex 表示开始查找的位置，默认为0，如果小于0，则查找整个字符串，若超过字符串长度，则该方法返回-1，除非被查找的是空字符串，此时返回字符串长度。
+
+<script>
+    console.log("".indexOf("", 100)); // 0
+    console.log("IT改变世界".indexOf("世界")); // 4
+    console.log("IT改变世界".lastIndexOf("世界")); // 4
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+search
+
+search() 方法用于测试字符串对象是否包含某个正则匹配，相当于正则表达式的 test 方法，且该方法比 match() 方法更快。如果匹配成功，search() 返回正则表达式在字符串中首次匹配项的索引，否则返回-1。
+
+注意：search方法与indexOf方法作用基本一致，都是查询到了就返回子串第一次出现的下标，否则返回-1，唯一的区别就在于search默认会将子串转化为正则表达式形式，而indexOf不做此处理，也不能处理正则。
+
+语法：str.search(regexp)
+
+<script>
+
+    var str = "abcdefg";
+    console.log(str.search(/[d-g]/)); // 3, 匹配到子串"defg",而d在原字符串中的索引为3
+    search() //方法不支持全局匹配（ 正则中包含g参数）， 如下：
+
+    console.log(str.search(/[d-g]/g)); // 3, 与无g参数时,返回相同
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+slice
+
+slice() 方法提取字符串的一部分，并返回新的字符串。该方法有些类似 Array.prototype.slice 方法。
+
+语法：str.slice(start, end)
+
+首先 end 参数可选，start可取正值，也可取负值。
+
+取正值时表示从索引为start的位置截取到end的位置（不包括end所在位置的字符，如果end省略则截取到字符串末尾）。
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+split
+
+split() 方法把原字符串分割成子字符串组成数组，并返回该数组。
+
+语法：str.split(separator, limit)
+
+两个参数均是可选的，其中 separator 表示分隔符，它可以是字符串也可以是正则表达式。如果忽略 separator，则返回的数组包含一个由原字符串组成的元素。如果 separator 是一个空串，则 str 将会被分割成一个由原字符串中字符组成的数组。limit 表示从返回的数组中截取前 limit 个元素，从而限定返回的数组长度。
+
+<script>
+
+    var str = "today is a sunny day";
+    console.log(str.split()); // ["today is a sunny day"]
+    console.log(str.split("")); // ["t", "o", "d", "a", "y", " ", "i", "s", " ", "a", " ", "s", "u", "n", "n", "y", " ", "d", "a", "y"]
+    console.log(str.split(" ")); // ["today", "is", "a", "sunny", "day"]
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+substr
+
+substr() 方法返回字符串指定位置开始的指定数量的字符。
+
+语法：str.substr(start[, length])
+
+start 表示开始截取字符的位置，可取正值或负值。取正值时表示start位置的索引，取负值时表示 length+start位置的索引。
+
+length 表示截取的字符长度。
+
+<script>
+
+    var str = "Yesterday is history. Tomorrow is mystery. But today is a gift.";
+    console.log(str.substr(47)); // today is a gift.
+    console.log(str.substr(-16)); // today is a gift.
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+substring
+
+substring() 方法返回字符串两个索引之间的子串。
+
+语法：str.substring(indexA[, indexB])
+
+indexA、indexB 表示字符串索引，其中 indexB 可选，如果省略，则表示返回从 indexA 到字符串末尾的子串。
+
+描述
+
+substring 要截取的是从 indexA 到 indexB（不包含）之间的字符，符合以下规律：
+
+若 indexA == indexB，则返回一个空字符串；
+若 省略 indexB，则提取字符一直到字符串末尾；
+若 任一参数小于 0 或 NaN，则被当作 0；
+若 任一参数大于 length，则被当作 length。
+而 如果 indexA > indexB，则 substring 的执行效果就像是两个参数调换一般。比如：str.substring(0, 1) == str.substring(1, 0)
+
+<script>
+    var str = "Get outside every day. Miracles are waiting everywhere.";
+    console.log(str.substring(1, 1)); // ""
+    console.log(str.substring(0)); // Get outside every day. Miracles are waiting everywhere.
+    console.log(str.substring(-1)); // Get outside every day. Miracles are waiting everywhere.
+    console.log(str.substring(0, 100)); // Get outside every day. Miracles are waiting everywhere.
+    console.log(str.substring(22, NaN)); // Get outside every day.
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+toLowerCase
+
+toUpperCase
+
+这两个方法分别表示将字符串转换为相应的小写，大写形式，并返回。如下：
+
+console.log('ABCDEFG'.toLowerCase()); // abcdefg
+console.log('abcdefg'.toUpperCase()); // ABCDEFG
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+toString
+
+valueOf
+
+这两个方法都是返回字符串本身。
+
+语法：str.toString(), str.valueOf()
+
+<script>
+    var str = "abc";
+    console.log(str.toString()); // abc
+    console.log(str.toString() == str.valueOf()); // true
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+trim
+
+trim() 方法清除字符串首尾的空白并返回。
+
+语法：str.trim()
+
+<script>
+    console.log(" a b c ".trim()); // "a b c"
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+小结
+
+部分字符串方法之间存在很大的相似性，要注意区分他们的功能和使用场景。如：
+
+substr 和 substring，都是两个参数，作用基本相同，两者第一个参数含义相同，但用法不同，前者可为负数，后者值为负数或者非整数时将隐式转换为0。
+
+前者第二个参数表示截取字符串的长度，后者第二个参数表示截取字符串的下标；同时substring第一个参数大于第二个参数时，执行结果同位置调换后的结果。
+
+search方法与indexOf方法作用基本一致，都是查询到了就返回子串第一次出现的下标，否则返回-1，唯一的区别就在于search默认会将子串转化为正则表达式形式，而indexOf不做此处理，也不能处理正则。
+
+另外，还记得吗？concat方法由于效率问题，不推荐使用。
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+</body>
+</html>

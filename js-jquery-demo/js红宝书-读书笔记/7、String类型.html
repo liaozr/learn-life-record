@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+字符串操作方法
+
+concat()
+slice()
+substr()
+substring()
+
+这些方法对原字符均没有任何影响。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+<script>
+
+    var stringValue = "hello ";
+    var result = stringValue.concat("world", "!");
+    alert(result); //"hello world!"
+
+    var stringValue = "hello world";
+    alert(stringValue.slice(3)); //"lo world"
+    alert(stringValue.substring(3)); //"lo world"
+    alert(stringValue.substr(3)); //"lo world"
+    alert(stringValue.slice(3, 7)); //"lo w"
+    alert(stringValue.substring(3, 7)); //"lo w"
+    alert(stringValue.substr(3, 7)); //"lo worl"
+
+    // 参数是负值的情况下，它们的行为就不尽相同了。
+    // 其中，slice()方法会将传入的负值与字符串的长度相加，
+    // substr()方法将负的第一个参数加上字符串的长度，而将负的第二个参数转换为0。
+    // 最后，substring()方法会把所有负值参数都转换为0。
+    alert(stringValue.slice(-3)); //"rld"
+    alert(stringValue.substring(-3)); //"hello world"
+    alert(stringValue.substr(-3)); //"rld"
+    alert(stringValue.slice(3, -4)); //"lo w"
+    alert(stringValue.substring(3, -4)); //"hel"
+    alert(stringValue.substr(3, -4)); //""（空字符串）
+
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+字符串位置方法
+
+indexOf()
+lastIndexOf()
+
+两个方法的第二个参数，表示从字符串中哪个位置开始搜索。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+trim()方法
+
+ECMAScript 5方法
+
+字符串转换大小写方法
+
+toLowerCase()
+toLocaleLowerCase()
+toUpperCase()
+toLocaleUpperCase()
+
+<!-- ------------------------------------------------------------------------------- -->
+
+字符串的模式匹配方法
+
+match()
+search()
+replace()
+split()
+
+-----------------------------------------------------------------------------------
+
+search()方法的参数与match()方法相同，该方法返回字符串中第一个匹配项的索引，没有匹配项返回-1；个人认为serch()就是正则版的indexOf()。
+
+<script>
+
+    var text = "cat, bat, sat, fat";
+    var pos = text.search(/at/);
+    aler t(pos); //1
+
+</script>
+
+-----------------------------------------------------------------------------------
+
+ECMAScript提供了replace()方法，该方法接受两个参数，
+
+第一个参数可以是RegExp对象或者是一个字符串，第二个参数可以是一个字符串或者一个函数。
+
+<script>
+    var text = "cat, bat, sat, fat";
+    var result = text.replace("at", "ond");
+    alert(result); //"cond, bat, sat, fat"
+
+    result = text.replace(/at/g, "ond");
+    aler t(result); //"cond, bond, sond, fond"
+</script>
+
+-----------------------------------------------------------------------------------
+
+split()方法可以基于指定的分隔符(字符串 or RegExp对象)将一个字符串分割成多个子字符串，
+
+并将结构放在一个数组中。可以接受可选的第二个参数，用于指定数组的大小。
+
+<script>
+
+    var colorText = "red,blue,green,yellow";
+    var colors1 = colorText.split(","); //["red", "blue", "green", "yellow"]
+    var colors2 = colorText.split(",", 2); //["red", "blue"]
+    var colors3 = colorText.split(/[^\,]+/); //["", ",", ",", ",", ""]
+
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

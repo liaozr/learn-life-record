@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div v-for="item in dataArr" v-bind:class="{msgItemSelf:item.empId==empId}" class="msg-item" msg-type='{{item.msgType}}' msg-content='{{item.content}}'>
+        <i v-if="item.empId==empId" class="msg-user mui-icon mui-icon-person"></i>
+        <img v-if="item.empId!=empId" class="msg-user-img" src="{{item.logo}}" alt="{{item.logo}}" />
+        <div class="mui-item-clear"></div>
+    </div>
+
+
+    <script>
+
+// -----------------------------------------------------------------------------------
+
+        var chatListVM = new Vue({
+            el: '#chatList',
+            data: {
+                dataArr: [],
+                empId: "",
+                groupId: ""
+            },
+            ready: function() {
+                this.empId = localStorage.empId;
+                this.groupId = localStorage.groupId;
+            }
+        });
+// -----------------------------------------------------------------------------------
+        var record = [];
+
+        // get 请求的话，传到服务器的data参数可以是对象
+        function queryMsg() {
+            $.ajax(getBaseServerUrl() + '/app/chatGroup/getChatGroupMsgList', {
+                type: 'get', //HTTP请求类型
+                data: {
+                    empId: chatListVM.empId,
+                    groupId: chatListVM.groupId
+                },
+                success: function(jsonData) {
+                    for (var i = 0; i < jsonData.length; i++) {
+                        record.push({
+                            empId: jsonData[i].groupMemberId,
+                            groupId: jsonData[i].groupId,
+                            msgType: jsonData[i].msgType,
+                            content: jsonData[i].content,
+                            logo: '../images/logo.png'
+                        });
+                    }
+                    bindMsgList();
+                    console.log(JSON.stringify(jsonData));
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+            });
+        }
+// -----------------------------------------------------------------------------------
+        // post请求的话，传到服务器的data参数是要  json字符串格式的
+        // 所以得加上 下面两行代码表示要传到服务器的参数格式是要 json字符串格式的。
+        // dataType: 'json',
+        // contentType: "application/json",
+
+        // 然后data参数 那里的处理是 通过 JSON.stringify() 把数据转成字符串格式。
+       // data: JSON.stringify(record),
+
+        function sendMsg(record) {
+            $.ajax({
+                url: getBaseServerUrl() + '/app/chatGroup/sendMessage',
+                dataType: 'json',
+                contentType: "application/json",
+                data: JSON.stringify(record),
+                type: 'post',
+                success: function(jsonData) {
+                    console.log(JSON.stringify(jsonData));
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+            });
+        }
+
+        var bindMsgList = function() {
+          chatListVM.dataArr = record;
+          setTimeout(setImageView, 100)
+        };
+
+// -----------------------------------------------------------------------------------
+    </script>
+</body>
+
+</html>

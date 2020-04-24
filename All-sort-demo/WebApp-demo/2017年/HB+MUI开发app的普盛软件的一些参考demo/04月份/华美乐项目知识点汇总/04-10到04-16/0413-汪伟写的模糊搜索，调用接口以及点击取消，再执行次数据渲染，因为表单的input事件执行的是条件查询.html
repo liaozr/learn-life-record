@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var vm = new Vue({
+            el: "body",
+            data: {
+                focusy: false,
+                search_cont: false,
+                his_length: 0,
+                dataArr: []
+            },
+            methods: {
+                onfocus: function(e) {
+                    this.$els.search.className = 'onfocus'
+                    this.focusy = true;
+                    this.search_cont = true;
+                    this.$nextTick(function() {
+                        showSearchHis();
+                    })
+                },
+                blur: function(e) {
+                    // this.$els.search.className='left'
+                },
+                toProjectDetail: function(sitesId, contractId) {
+                    localStorage.selectSitesId = sitesId;
+                    localStorage.selectContractId = contractId;
+                    openNew("xiangmu/project-details.html");
+                },
+                // 点击取消按钮的事件
+                cancelSearch: function() {
+                    search.value = '';
+                    this.focusy = false;
+                    // this.search_cont = false;
+                    this.$els.search.className = 'search'
+                    var that = this;
+                    this.$nextTick(function() {
+                        that.search_cont = false;
+                    })
+                    //用于异步展示进度条
+                    setTimeout(function() {
+                        jindutiaoBaifenbi();
+                    }, 0)
+
+                    // 当你在input搜索框 输入了值后，但又点取消按钮的时候，现在的事件是
+                    // 执行关键字搜索事件的，你会发现点击了取消后，页面中间内容部分变空白了，
+                    // 是因为链接带有关键字了，所以点击取消按钮得 再渲染多一次数据
+                    // init() 这个方法，把数据渲染出来 并把输入框的内容清空
+
+                    // 重新请求一次数据，因为input事件执行的是搜索事件
+                    // 点击取消时，再重新请求数据，把数据渲染出来 并把输入框的内容清空
+                    init();
+                }
+            },
+            ready: function() {
+                init(); // 请求数据，把数据渲染出来
+            }
+        });
+
+        //  渲染数据的一个方法
+        function init() {
+            //获取工地信息
+            mui.ajax(getBaseServerUrl() + '/sites/sitesRecord/querySitesRecordList', {
+                type: 'get', //HTTP请求类型
+                data: {
+                    empId: '1',
+                    // 搜索框中的值，数据
+                    searchValue: $("#search").val()
+                },
+                success: function(jsonData) {
+                    console.log(JSON.stringify(jsonData));
+                    vm.dataArr = jsonData;
+
+                    //用于异步展示进度条
+                    setTimeout(function() {
+                        jindutiaoBaifenbi();
+                    }, 0)
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    $("#search_content").hide();
+                }
+            });
+        }
+
+        // 监听input事件，实现模糊搜索
+        search.addEventListener('input', mohuSearchData);
+
+        function mohuSearchData(e) {
+            $("html,body").css({
+                'overflow': 'hidden'
+            })
+            $("#his_content_lay").hide();
+            var skeyword = e.target.value;
+            var skeyword = trim(skeyword);
+
+            // 这段代码的作用就是 在input搜索框按下键盘 获取到值的时候（ 关键字不为空的时候 ），就模糊搜索
+            // 调用 init()方法 ，把刚输入的关键字的内容渲染出来。
+            if ($.trim(skeyword) != "") {
+                init();
+            } else {
+                $("#search_content").hide();
+                vm.search_cont = false;
+            }
+        }
+
+        // 去除搜索关键字字符串中的空值。
+        // function trim(str){
+        //     return str.replace(/[ ]/g,""); //去除字符串中的空格
+        // }
+        function trim(text) {
+            if (typeof(text) == "string") {
+                return text.replace(/^\s*|\s*$/g, "");
+            } else {
+                return text;
+            }
+        }
+    </script>
+</body>
+
+</html>

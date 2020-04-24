@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- 起一个web服务器 -->
+
+<!-- ----------------------------------------------------------------- -->
+
+<!-- 
+
+ndoejs可以自定义一个web服务器  服务器采用事件驱动模型
+
+ 也就是用回调函数做异步加载 所以启动时遇到错误不会被阻塞 创建服务器
+
+1.先引用一个http模块 创建服务器及处理http相关的任务 
+
+2.通过http里的 createServer 方法来创建服务后会返回一个对象  
+
+3.在通过服务器返回对象里的listen方法让服务器来设置它的端口监听请求
+
+4.在createServer方法里创建一个回调函数 回调函数里有两个参数（1.请求 用来请求url之类的访问  2.响应 用来根据请求返回相对应的东西） 另外还会返回的一个请求头 返回的状态码是200，是文本类型的或者其他类型  表示请求成功  最后还会返回一个提示语
+
+ -->
+
+<script>
+
+var http = require('http');
+
+//  通过createServer来创建一个web服务器
+// 回调函数  req,res传入两个参数，req是请求体，res是响应体
+http.createServer(function(req,res){
+  res.writeHead(200,{'Content-type':'text/plain'});
+  res.end('Hello World\n');
+}).listen(1337,'127.0.0.1');
+// 在1337这个端口监听请求
+
+console.log('Server running at http://127.0.0.1:1337/');
+
+
+// 上面的写法是等价于下面的写法的。
+
+// var server=http.createServer(function(req,res){
+//   res.writeHead(200,{'Content-type':'text/plain'});
+//   res.end('Hello World\n');
+// })
+// server.listen(1337,'127.0.0.1');
+
+</script>
+
+<!-- 
+
+操作：
+1.cmd 启动命令行
+2.cd + 文件路径 
+3.node server.js //运行文件启动服务器
+4.ctrl+c //停止服务器 （修改后需重启） 
+当修改了内容，不重启node服务器的话，是看不到内容变更的。
+
+-->
+
+</body>
+</html>

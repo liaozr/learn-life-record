@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+<script type="text/javascript">
+
+    var p = new Promise(function(resolve, reject){
+      resolve("success");
+    });
+
+    p.then(function(value){
+      console.log(value);
+    });
+
+    console.log("which one is called first ?");
+
+    // 控制台输出：
+    "which one is called first ?"
+    "success"
+
+</script>
+
+Promise接收的函数参数是同步执行的，
+
+但then方法中的回调函数执行则是异步的，因此，"success"会在后面输出。
+
+  </body>
+</html>

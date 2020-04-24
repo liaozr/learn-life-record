@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+清空数组
+
+<script type="text/javascript">
+
+  // 方式一 通过将长度设置为0
+  var arr=[1,2,3,4,5];
+  arr.length=0;
+
+  console.log(arr)  // Array(0)
+
+  // 方式二 通过splice方法
+  var arr=[1,2,3,4,5];
+  arr.splice(0,arr.length);
+
+  //方式三
+  var arr=[1,2,3,4,5];
+  arr=[];
+
+</script>
+
+方式三将一个新的数组的引用赋值给变量，其他引用并不受影响。
+
+这意味着以前数组的内容被引用的话将依旧存在于内存中，这将导致内存泄漏。
+
+最高效的方法是第一种，所以推荐使用第一种方法清空数组。
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+保留指定小数位
+
+这个需求在项目中也是很常见的，可以toFixed()方法
+
+<script type="text/javascript">
+
+  var num =3.1415926;
+  num = num.toFixed(4); //toFixed()方法可把 Number 四舍五入为指定小数位数的数字，括号里面取值0~20（包括0和20）
+  console.log(num); //3.1416
+
+</script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+从数组里查找指定的值
+
+查到了返回true，没查到返回false。
+<script type="text/javascript">
+
+  function findInArr(arr, value){
+  	for (var i=0; i<arr.length; i++){
+  		if (arr[i] == value){
+  			return true;
+  		}
+  	}
+  	return false;
+  }
+
+</script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+去除首尾空格
+
+<script type="text/javascript">
+
+    function trim(str){
+        return str.replace(/(^\s*)|(\s*$)/g, "");
+    }
+
+    trim('  hello world    '); //"hello world"
+
+</script>
+
+去除所有空格
+
+<script type="text/javascript">
+
+    function trimAll(str){
+        return str.replace(/\s+/g,"");
+    }
+
+    trimAll('   he ll o  wo  r ld    '); //"helloworld"
+
+</script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+  </body>
+</html>

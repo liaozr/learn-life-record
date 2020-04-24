@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<style>
+    span {
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+    }
+</style>
+
+<body>
+    <div id="app">
+
+        <div class="header">
+            {{ title }}
+        </div>
+        <form action="" v-on:submit.prevent='addItem'>
+           <input type="text" id='itemform' v-model="input">
+           <button v-bind:disabled="buttonDisabled">{{buttonText}}</button>
+        </form>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                title: 'dinosours',
+                input:'',
+                buttonText:'Add dinosours',
+                buttonDisabled:true,
+                items: [
+                  {
+                    test: 'velocity'
+                  },
+                  {
+                    test: 'melocity'
+                  },
+                  {
+                    test: 'yel'
+                  }
+                ]
+            },
+            watch:{
+                input:function(){
+                  //  this.buttonText=this.input !== "" ? " Add " + this.input : "Add dinosours";
+                   this.buttonDisabled=this.input !== "" ? false : true
+                }
+            },
+            methods:{
+              addItem(){
+                if(this.input !=='')
+                {
+                  this.items.push(this.input);
+                  this.input=''
+                }
+              }
+            }
+        })
+    </script>
+</body>
+
+</html>

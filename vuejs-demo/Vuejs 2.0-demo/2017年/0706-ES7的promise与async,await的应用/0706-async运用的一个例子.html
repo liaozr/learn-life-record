@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+
+<body>
+</body>
+<script>
+	var p1 = function(val) {
+		return new Promise(function(resolve, reject) {
+			setTimeout(function() {
+				resolve(val)
+			}, 1000);
+		});
+	}
+
+	var p2 = function(val) {
+		return new Promise(function(resolve, reject) {
+			setTimeout(function() {
+				resolve(val)
+			}, 2000);
+		});
+	}
+
+	var asy = async(num) => {
+
+
+		var abc = await Promise.all([p1(1), p2(2)]).then(arr => {
+			return arr[0] + arr[1]
+		});
+
+		console.log(abc); // 3
+		return abc
+
+	}
+
+	asy(1000).then(val => {
+		console.log("执行完毕")
+		console.log(val) // 3
+	});
+</script>
+
+</html>

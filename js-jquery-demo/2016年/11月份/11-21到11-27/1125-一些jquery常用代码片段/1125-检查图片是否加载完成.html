@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    有时候你需要确保图片完成加载完成以便执行后面的操作：
+
+    <script>
+        $('img').load(function() {
+            console.log('image load successful');
+        });
+    </script>
+
+    你可以把 img 替换为其他的 ID 或者 class 来检查指定图片是否加载完成。
+
+    
+</body>
+
+</html>

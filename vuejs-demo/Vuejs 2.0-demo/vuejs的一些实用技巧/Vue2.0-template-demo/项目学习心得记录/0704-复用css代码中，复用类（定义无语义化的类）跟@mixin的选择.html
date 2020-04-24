@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  <style>
+    /* The good way */
+
+    .box-1 {
+      width: 200px;
+      height: 200px;
+    }
+
+    .box-2 {
+      width: 120px;
+      height: 120px;
+    }
+
+    .box-border {
+      border: 1px solid #CCC;
+      border-radius: 10px;
+    }
+  </style>
+
+
+  <div class="box-1 box-border">Lorem ipsum</div>
+  <div class="box-2 box-border">Lorem ipsum</div>
+
+无语义化、维护
+
+你不应该把重点放在代码会变得无语义化，我关注的是如何维护。
+
+纯CSS定义对象的唯一方式就是定义无语意化的类，然而这会带来一些问题：
+
+基本上每次我们修改样式都必须修改HTML
+访问一些DOM元素不太安全
+除了难以维护HTML，OOCSS几乎完美。
+使用抽象类，我们的CSS代码是可扩展并且容易维护的。
+
+然而有更好的方式吗?
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+仔细比较 下面 两段 css样式，、
+
+用 f-overflow 会增加 一个类
+
+但是用 @mixin f-overflow 就只是复用css样式，并不会产生一个css类名。
+
+而 .f-overflow 则会在html 结构代码上产生多一个css类名。
+
+而且当 一个dom元素标签上拥有太多无关语义化的类名是不怎么友好的，也看起来很臃肿的感觉。
+
+而且当 一个dom元素标签上拥有太多无关语义化的类名是不怎么友好的，也看起来很臃肿的感觉。
+
+所以，也都推荐  用  @mixin 来复用css样式代码，而不是 单纯的 无语义化的定个类名。
+
+<style>
+
+   @mixin f-overflow {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+   }
+
+  .f-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /*使用*/
+  .aa{
+     @include f-overflow;
+  }
+</style>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

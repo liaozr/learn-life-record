@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,minimal-ui" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="服务单" />
+		<meta name="Description" content="服务单" />
+		<title>服务单</title>
+		<link rel="stylesheet" href="css/base.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+		<link rel="stylesheet" href="css/public.css" />
+		<link rel="stylesheet" href="css/ww.css" />
+		<!--手机适配-->
+		<!--<script src="js/setFont.js"></script>-->
+	</head>
+
+	<body class="service-order">
+		<div id="loadpage">
+			<img src="img/loading2.gif" alt="" />
+		</div>
+		<header class="y-mytop">
+			<h1>服务单</h1>
+			<div class="return-box">
+				<img src="img/icon-return.png" alt="" />
+				<span>返回</span>
+			</div>
+		</header>
+		<!--消除浮动并且在ios微信浏览器下取消1.25rem上间距-->
+		<div class="clear under-top" style="margin-top:1.25rem"></div>
+		<div class="nav-bar">
+			<div class="tab active">
+				<div class="name">安检记录</div>
+				<div class="num">(1)</div>
+			</div>
+			<div class="tab">
+				<div class="name">报修单</div>
+				<div class="num">(2)</div>
+			</div>
+			<div class="tab">
+				<div class="name">催气单</div>
+				<div class="num">(3)</div>
+			</div>
+			<div class="tab">
+				<div class="name">开户申请</div>
+				<div class="num">(4)</div>
+			</div>
+			<div class="tab">
+				<div class="name">其他</div>
+				<div class="num">(5)</div>
+			</div>
+		</div>
+		<!--订单列表-->
+		<section class="orderList">
+			<ul>
+				<li>
+					<div class="title"><span>2016-07-17</span><span>S132653213562313</span><span class="right">已安检</span></div>
+					<div class="txt">用气环境正常</div>
+				</li>
+				<li>
+					<div class="title"><span>2016-07-17</span><span>S132653213562313</span><span class="right">已安检</span></div>
+					<div class="txt">用气环境正常</div>
+				</li>
+				<li>
+					<div class="title"><span>2016-07-17</span><span>S132653213562313</span><span class="right">已安检</span></div>
+					<div class="txt">用气环境正常</div>
+				</li>
+			</ul>
+		</section>
+	</body>
+	<script src="js/zepto1.1.6.min.js"></script>
+	<script>
+	
+	// 返回上一页
+		$(".return-box").on('tap1',function(){
+			window.history.go(-1);
+		});
+		
+		
+		$(".nav-bar").on('tap1', '.tab', function(e) {
+			$(this).siblings().removeClass('active');
+			$(this).addClass('active');
+			e.preventDefault();
+		});
+		var ua = navigator.userAgent.toLowerCase();
+			if (ua.match(/MicroMessenger/i) == "micromessenger") {
+				$(".y-mytop").css("display","none");
+				$(".under-top").css("margin-top",0);
+			}
+		
+		//页面加载完毕删除遮罩层
+		window.onload=function(){
+			$("html").css("overflow","auto");
+			$("#loadpage").css("display","none");
+		}
+		////////////////////页面跳转/////////////////////
+		//返回
+		$(".return-box").on("tap1",function(){
+			window.history.go(-1);
+		});
+	</script>
+
+</html>

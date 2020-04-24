@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src='vue.js'></script>
+</head>
+<body>
+
+表单输入
+
+有时候在组件中，我们会有输入，比如 input，其实 input 中的 v-model 就是:
+
+<input v-bind:value="something" v-on:input="something = $event.target.value">
+
+的一个语法糖。
+
+类似地，为了让组件支持 v-model，它必须：
+
+接受 value prop
+
+用新的值发送一个 input 事件
+
+让我们来看看实践
+
+<div id="v-model-example">
+    <p>{{ message }}</p>
+    <my-input label="Message" v-model="message"></my-input>
+</div>
+
+<script>
+    Vue.component('my-input', {
+        template: '\
+          <div class="form-group">\
+            <label v-bind:for="randomId">{{ label }}:</label>\
+            <input v-bind:id="randomId" v-bind:value="value" v-on:input="onInput">\
+          </div>\
+        ',
+        props: ['value', 'label'],
+        data: function() {
+            return {
+                randomId: 'input-' + Math.random()
+            }
+        },
+        methods: {
+            onInput: function(event) {
+                this.$emit('input', event.target.value)
+            }
+        },
+    })
+    new Vue({
+        el: '#v-model-example',
+        data: {
+            message: 'hello'
+        }
+    })
+</script>
+
+<!-- --------------------------------------------------------------------------- -->
+
+这个接口不仅能被用在组件内的表单输入，还能被用在你自己发明的各种组件输入，像是:
+
+<voice-recognizer v-model="question"></voice-recognizer>
+<webcam-gesture-reader v-model="gesture"></webcam-gesture-reader>
+<webcam-retinal-scanner v-model="retinalImage"></webcam-retinal-scanner>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+</body>
+</html>

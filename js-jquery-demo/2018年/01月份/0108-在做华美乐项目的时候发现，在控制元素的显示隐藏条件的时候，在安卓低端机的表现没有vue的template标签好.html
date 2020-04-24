@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+在做华美乐项目的时候发现，在控制元素的显示隐藏条件的时候，在安卓低端机的表现没有vue的template标签好
+
+在安卓 低端机有时 是 还能看到 要隐藏的元素的
+
+在安卓 低端机有时 是 还能看到 要隐藏的元素的
+
+在安卓 低端机有时 是 还能看到 要隐藏的元素的
+
+所以，在项目中，都建议这样子使用，用template标签代替 元素标签 来控制显示隐藏。
+
+<template v-if="state == 30">
+
+      <div class="nav" style="border-bottom: 1px solid #eee; text-align:center;">
+         <input class='yiwancheng-sousuo' @input='sousuo' v-model='content' type="text" placeholder="按任务名称搜索">
+         <button @click='searchEvent' class='search-btn'>搜索</button>
+      </div>
+
+ </template>
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+ 不是很建议 直接 下面 这样子使用了。
+ 不是很建议 直接 下面 这样子使用了。
+
+ <!-- <div v-if="state == 30"  class="nav" style="border-bottom: 1px solid #eee; text-align:center;">
+    <input class='yiwancheng-sousuo' @input='sousuo' v-model='content' type="text" placeholder="按任务名称搜索">
+    <button @click='searchEvent' class='search-btn'>搜索</button>
+ </div> -->
+
+ <!-- --------------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

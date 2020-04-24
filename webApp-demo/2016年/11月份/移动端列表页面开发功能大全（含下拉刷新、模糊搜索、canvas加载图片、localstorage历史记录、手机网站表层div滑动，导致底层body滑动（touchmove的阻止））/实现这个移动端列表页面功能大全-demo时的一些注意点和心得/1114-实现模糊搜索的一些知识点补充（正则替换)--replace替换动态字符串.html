@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src='js/jquery.min.js'></script>
+</head>
+<body>
+
+方法一：用eval（）处理
+
+例如下面的一段html
+
+<ul class="Hrooms-dashb-list">
+    <li class="Hrooms-warn">
+        <h3 class="Hrooms-title" title="unicorn">unicorn</h3>
+        <p class="Hrooms-infor"><span title="haorooms">haorooms</span><span title="行：haorooms">haorooms</span></p>
+    </li>
+</ul>
+
+需求：我要把上面span中的innerHTML “haorooms”，外层包裹一个em标签，并且em标签的class是highlight
+
+<!-- --------------------------------------------------------------------------------- -->
+
+js操作：
+
+<script>
+    var searchText="haor";  //相当于搜索功能中的关键字
+    var searchText=trim(searchText);
+
+    var html = $(".Hrooms-dashb-list").html(); //相当于后台数据。
+    console.log("old" + html);
+
+    var newHtml = html.replace(eval("/>("+searchText+")/gi"),'<em class="highlight">$1</em>');
+
+    // 判断是否已经正则匹配成功
+    // indexOf用法:
+    // 返回 String 对象内第一次出现子字符串的字符位置。
+    if(newHtml.indexOf("em") >= 0 )
+    {
+        console.log(newHtml);
+        console.log("正则匹配成功，可以输出");
+    }
+
+    // 去除字符串中的空值。
+    function trim(str){
+         return str.replace(/[ ]/g,""); //去除字符串中的空格
+    }
+
+    //注释"/>("+searchText+")/gi"  “/”是正则里面的， ">"是<span>中的“>”, gi是正则中的g是全部，i是部分大小写。
+
+    // $1是匹配括号中的内容
+
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+一个参考案例：
+<script>
+    // var sLpNameNew=sLpName.replace(eval("/("+skeyword+")/gi"),'<span class="red2">$1</span>');
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+关于正则：
+
+/i (忽略大小写)
+/g (全文查找出现的所有匹配字符)
+/m (多行查找)
+/gi(全文查找、忽略大小写)
+/ig(全文查找、忽略大小写)
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+js 判断字符串是否包含某字符串,String对象中查找子字符,indexOf
+
+<script>
+    var Cts = "bblText";
+
+    if (Cts.indexOf("Text") > 0) {
+        // alert('Cts中包含Text字符串');
+    }
+</script>
+
+indexOf用法:
+
+返回 String 对象内第一次出现子字符串的字符位置。
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+再来看下移动端列表开发功能大全里面的模糊搜索功能demo
+
+<script>
+    if (listnum > 0) {
+        $("#search_content").show();
+        for (var i = 0; i < listnum; i++) {
+            var sLpAddr = res.lists[i].address;
+            var sLpName = res.lists[i].title;
+            var sLpAddrNew = sLpAddr.replace(eval("/(" + skeyword + ")/gi"), '<span class="red2">$1</span>');
+            var sLpNameNew = sLpName.replace(eval("/(" + skeyword + ")/gi"), '<span class="red2">$1</span>');
+            if (sLpAddrNew.indexOf("span") >= 0 || sLpNameNew.indexOf("span") >= 0) {
+                listsearch[i] = ' <li data-name=' + sLpName + '><a href="?iRegionID=0&iPriceID=0&iLayoutID=0&sKeyword=' + sLpName + '&iFeatureID=">' +
+                    '<p class="sptitle">' + sLpNameNew + '</p>' +
+                    '<p class="spaddress ptf2">' + sLpAddrNew + '</p>' +
+                    '</a></li>'
+            }
+        }
+        $("#search_content").html(listsearch.join(""));
+    } else {
+        $("#search_content").hide();
+    }
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+IOS中input键盘事件keyup、keydown、keypress支持不是很好
+
+问题是这样的，用input search做模糊搜索的时候，在键盘里面输入关键词，会通过ajax后台查询，然后返回数据，然后再对返回的数据进行关键词标红。用input监听键盘keyup事件，在安卓手机浏览器中是可以的，但是在ios手机浏览器中变红很慢，用输入法输入之后，并未立刻相应keyup事件，只有在通过删除之后才能相应！
+
+解决办法：
+
+可以用html5的oninput事件去代替keyup
+
+<input type="text" id="testInput">
+
+<script type="text/javascript">
+    document.getElementById('testInput').addEventListener('input', function(e) {
+        var value = e.target.value;
+        console.log(value);
+    });
+</script>
+
+然后就达到类似keyup的效果！
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

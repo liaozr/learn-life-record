@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+问题描述：
+
+在javascript中，我如何检测一个字符串包含另一个子字符串。
+
+通常我会想到String.contains（）方法，但似乎没有一个。
+
+Best Answers：
+
+indexOf返回一个字符串在其他字符串中的位置。
+
+如果没找到，它会返回-1
+
+<script>
+    var s = "foo";
+    alert(s.indexOf("oo") > -1); //true
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+</body>
+</html>

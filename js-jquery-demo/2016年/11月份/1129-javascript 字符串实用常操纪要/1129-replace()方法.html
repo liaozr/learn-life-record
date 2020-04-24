@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+replace()方法
+
+stringObject.replace(regexp/substr,replacement)
+
+replace()方法用来进行字符串替换操作
+
+它可以接收两个参数，前者为被替换的子字符串（可以是正则），
+
+后者为用来替换的文本。
+
+如果第一个参数传入的是子字符串或是没有进行全局匹配的正则表达式
+
+那么replace()方法将只进行一次替换（即替换最前面的），
+
+返回经过一次替换后的结果字符串。
+
+<script>
+    let str = 'www.jeffjade.com'
+    console.log(str.replace('w', 'W')) // Www.jeffjade.com
+    console.log(str.replace(/w/, 'W')) // Www.jeffjade.com
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+如果第一个参数传入的全局匹配的正则表达式，那么replace()将会对符合条件的子字符串进行多次替换，
+
+最后返回经过多次替换的结果字符串。
+
+<script>
+
+    let str2 = 'www.jeffjade.com'
+    console.log(str2.replace(/w/g, 'W')) // WWW.jeffjade.com
+    // WWW.jeffjade.com（ 这个是 全替换 来的 ）
+
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+</html>

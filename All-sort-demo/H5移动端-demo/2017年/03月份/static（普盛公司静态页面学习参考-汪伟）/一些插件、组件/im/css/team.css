@@ -1,0 +1,273 @@
+.back-btn {
+    width: 68px;
+    height: 34px;
+    line-height: 34px;
+    background-color: #f5f5f5;
+    color: #88939b;
+    font-size: 12px;
+    border: 1px solid #ced4d9;
+    position: absolute;
+    left: 15px;
+    top: 13px;
+}
+
+.info-box .title {
+    line-height: 60px;
+    font-size: 16px;
+}
+
+.user-content ul li {
+    float: left;
+    margin: 5px 20px;
+    width: 60px;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+}
+
+.user-content ul a .hover {
+    display: none;
+}
+
+.user-content .owner a:hover .hover {
+    display: inline-block;
+}
+
+.user-content ul .first {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px dashed #ccc;
+    line-height: 56px;
+}
+
+.user-content ul .first:hover {
+    background-color: #f5f5f5;
+}
+
+.user-content ul .last {
+    margin-right: 0;
+}
+
+.add-item .imicon-plus {
+    background-position: -32px -113px;
+    margin-right: 3px;
+    width: 26px;
+    height: 26px;
+}
+
+.imicon-user {
+    background-position: -65px -142px;
+    position: absolute;
+    bottom: 36px;
+    right: 8px;
+    border: 1px solid #fff;
+}
+
+.imicon-radio {
+    background-position: -85px -50px;
+}
+
+.imicon-radio.cur {
+    background-position: -63px -50px;
+}
+
+.imicon-radio.cur2 {
+    background-position: -84px 0;
+}
+
+.user-content ul li img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+}
+
+.user-content ul li p {
+    line-height: 24px;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.team-wrapper {
+    height: 445px
+}
+
+.team-box .title {
+    height: 40px;
+    line-height: 40px;
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.user-list {
+    height: 300px;
+    width: 318px;
+    border-right: 1px solid #ececec;
+    float: left;
+}
+
+.added-list {
+    height: 300px;
+}
+
+.user-list img, .added-list img {
+    border-radius: 50%;
+}
+
+.user-list ul, .added-list ul {
+    overflow-y: auto;
+    padding: 5px;
+    height: 100%;
+}
+
+.user-list ul {
+    float: left;
+}
+
+.user-list ul li {
+    width: 148px;
+    float: left;
+    line-height: 40px;
+    margin-bottom: 10px;
+    cursor: default;
+}
+
+.user-list li img {
+    vertical-align: middle;
+    margin: 0 8px;
+    width: 40px;
+    height: 40px;
+}
+
+.user-list ul .name {
+    display: inline-block;
+    width: 75px;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.added-list {
+    margin-left: 318px;
+}
+
+.added-list ul li {
+    float: left;
+    width: 50%;
+    position: relative;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.added-list ul .name {
+    display: inline-block;
+    width: 80px;
+    height: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+    overflow: hidden;
+}
+
+.hover {
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    background-color: rgba(0, 0, 0, .75);
+    border-radius: 50%;
+    line-height: 56px;
+    color: #f24c3d;
+    top: 0;
+    left: 50%;
+    margin-left: -28px;
+}
+
+.box-footer {
+    position: absolute;
+    bottom: 0;
+    background-color: #fff;
+    width: 100%;
+    padding: 12px 0;
+    border-top: 1px solid #ddd;
+}
+
+.imicon-write {
+    background-position: -62px -114px;
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+}
+
+.op-content .name {
+    color: #3a4a59;
+    line-height: 24px;
+}
+
+.op-content .ipt {
+    display: none;
+}
+
+.op-content .exit-team, .op-content .dismiss-team {
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+    color: #0888ff;
+}
+
+.op-content .wrap.active {
+    display: inline-block;
+    padding: 0;
+}
+
+.op-content .wrap .groupName {
+    width: 200px;
+    display: inline-block;
+    overflow: hidden;
+    height: 24px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.op-content .wrap.active input {
+    display: inline-block;
+}
+
+.op-content .wrap.active .groupName {
+    display: none;
+}
+
+.op-content .wrap a .icon {
+    visibility: hidden;
+}
+
+.op-content .owner:hover .icon {
+    visibility: visible;
+}
+
+.op-content .items {
+    line-height: 24px;
+}
+
+.op-content .info {
+    height: 24px;
+    line-height: 24px;
+}
+
+.op-content .items .item {
+    width: 100px;
+    font-size: 14px;
+    color: #666;
+}
+
+.op-content .btns {
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+    color: #0888ff;
+}

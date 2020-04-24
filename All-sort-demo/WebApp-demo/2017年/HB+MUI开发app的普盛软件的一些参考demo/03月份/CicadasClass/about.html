@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="知了云课堂" />
+		<meta name="Description" content="知了云课堂" />
+		<title>知了云课堂</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+	</head>
+		<style type="text/css">
+			li {
+				padding: 2em;
+				border-bottom: 1px solid #eaeaea;
+				background: #fafafa;
+				font-size: 12px;
+			}
+			
+			li:active {
+				background: #f4f4f4;
+			}
+			
+			footer {
+				width: 100%;
+				text-align: center;
+				color: #c6c6c6;
+				font-size: 12px;
+			}
+			.content {
+				text-align: left;
+				padding-top: 44px;
+			}
+			.logo {
+				width: 100%;
+				text-align: center;
+			}
+	
+
+
+		</style>
+
+		<body>
+			<header class="mui-bar mui-bar-nav" >
+				<h1 id="title" class="mui-title cc-title"><span>关于</span></h1>
+				<div class="mui-pull-left" >
+					<a id="back" class="mui-icon">
+						<img src="img/title_button_back.png" style="width:1em;height:1em;" />
+					</a>
+				</div>
+			</header>
+			
+			<div id="content" class="content">
+				<div class="logo">
+					<br/>
+					<span style="font-size: 20px;">知了云课堂</span>
+					<br/> (v<span id="version"></span>)<br/>
+					<img style="width:100%" src="img/banner3.png" />
+					<div id="shortcut" style="display:none;" class="button" onclick="createShortcut()">创建桌面图标</div>
+					<br/><br/>
+				</div>
+				<p class="des" style="font-size:16px;line-height:30px;margin: 0px .5em;">
+					知了云课堂针对企业级系统培训和管理的移动APP。它融合多方面的培训课程，拥有便捷的信息交互功能，并具备改变企业对员工的管理、培训、知识分享的功能。<br/> 　　 
+				</p>
+				<br/>
+				<ul style="list-style:none;margin:0;padding:0;text-align:left;">
+					<li onclick="plus.runtime.openURL('http://weibo.com/posuncn');">
+						<img style="width:40px;height:40px;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAwOS8xMy8xMySCRBYAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAAC/UlEQVRYhe2Y23HaQBSGP2fyDh1YqcDMnAKMK4g6iFwBpIKQCkIqMK4gdGBRwBmLDkQFgQqchz0aVmJXF5zBfvA/wxjt9dPZs/8uvnp5eeE969NbA3TpA/C1+gB8rT5fYhJVTYACGFnRFsiBpYiUbX0vFcExRziAG2AGFKq6aOt4dSkfVNUMSIAJMKUOvAFSEdk3+10MsClVnQMLvGUXkUmz3aUjCLCuIqWqE2CFW3KAnyKy+C+AqjoGUtxyJbhNEEx6A3n2in6LyNyryzlG8os/xlmbxBK7BB6Ab8AtLunzSJc9cPCeZ6paAIhIgVvqSpnfcRCgqk5UtQR+UE/yStcWkZosIgnw3QO9UdWl1S+98vQsQMuhZ+C6o+k4VCgiewOZejAz80iAdQXu9+tl1Pamsz5tcd6WcMzPCrgEFiJS2A5+sPIUWFr9iToBB8KBy8ObQPktkBr82qD8NAkCti6xLesQOCJwlUbAxGwmxeXkCkBEVsA9cOd3iNqMqk6Bp4FwfXQnInnfxkFA87iC7g2xsb85bpdWn1i/g4gEN1FMsRyct0zyiDsN1pH66vYyx3naqFG3wBn6ybkb0kkELXp/A203QNZ1PQqMtQK+NqoOwNzybjDgHPjVaPcoIlkAYAqUXdCqug5AAtx3QYYAC+o7sQZnUVnijrhKO1x08wjgGGcjzdPnACRtyx2yGR9uh8slf6K8AQcuX5+8U6EmAwjl7Ah3P4yq66hbN94uo93nspa6smOuoLoAm6EfZBENJZHysq1TCPAQKKvUZQ15qNC7Oza1PedH08r7ngXqtpGxHltOiOa5W2kRJTPFfLD0Bgzt4gXH5N7jjDcIp6orTjfVybi9AW3QFPjjD4Yz1l7ub2MkuIjfBqo3IjLtM07bZSGjvjQ7e161gdrLpYSjBj0j1wlok00MqhmFLW5pc3tO7BOKVqUdbhWiZ/hgQA90aqBtHtgG1hn5mAb97Gxc5SeEbzwH3FUtxxl9MRTqbMC30Lv/99sH4Gv17gH/ARiRUOpAHVd0AAAAAElFTkSuQmCC" /> 微博
+					</li>
+					<li style="border-bottom:0px;" onclick="window.open('mailto:ls@posun.cn');">
+						<img style="width:40px;height:40px;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAwOS8xMy8xMySCRBYAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAABv0lEQVRYhe3X3XGCQBSG4ddM7k0HsQOdOQWEdGAHagWRDpIOYgViB3YgFnBmtIPYgVZgLhYCKK4sixMu+G4c2WV5Ztk/eufzmTbn6b8B99IBfdMBfdMBfdN64LOtUFUHQAAMHmjYAbGIHMsKe7d2ElUdAxHQfxgtywEIROTnssD2ij/JcKfmTYV2X4F5WQUbcJj8fmFe86ExlskeM3S2yf9RWaUqk2QOvCQN7JuQASsRGQFj4M1WsQqwD2ySxgL8kSsRmapqBCzvVbbO4oukjQVATDYEXJLHTarc4LoOLoFx8npWjveGrjiot1AvVTUSkSnVkTMgUtWdCw7q7yQTB+QMWFNzWPhsdXlkWFJ+At59cOA2ScoyUdURZuIcySbSKbkGZit7rfsA38PCFtMzMaanZhRxMQbnOqH+4gMMMQs45JAikl6LKe7jszoPqQsMgSnFcTUEvlU14PqQMcH0qjOyDrAMl4dsLGUBjkhXoA1XJc5IF6AvLo0TsiqwKVyaykgbMD1MLmgWlyZFWpcg20K9Thr5aM50lfy+HJVVsPXgnOy0++gsRCQqK7j50dSWtP67uAP6pgP6pgP6pvXAX+59ddMVCTyHAAAAAElFTkSuQmCC" /> 联系我们
+					</li>
+				</ul>
+				<br/>
+				<footer>
+					<span>Powered By POSUN</span>
+					<br/>
+					<span>普盛软件</span>
+					<br/>
+					<!--<span>Copyright ©2012-2015</span>
+					<br/>
+					<span>数字天堂（北京）网络技术有限公司</span>-->
+				</footer>
+			</div>
+		</body>
+		<script src="js/mui.min.js"></script>
+		<script src="js/zepto1.1.6.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			// H5 plus事件处理
+			function plusReady() {
+				plus.runtime.getProperty(plus.runtime.appid, function(inf) {
+					var wgtVer = inf.version;
+					document.getElementById('version').innerText = wgtVer;
+					console.log("当前应用版本：" + wgtVer);
+				});
+				//plus.webview.currentWebview().show('zoom-fade-out');
+			}
+			document.addEventListener("plusready", plusReady, false);
+			mui.init();
+			
+				//处理安卓返回按键事件
+			var oldback = mui.back;
+			mui.back = function() {
+			    mui.currentWebview.hide('pop-out');
+			}
+			$(".mui-pull-left").on('tap', function() {
+				mui.back();
+			});
+		</script>
+
+</html>

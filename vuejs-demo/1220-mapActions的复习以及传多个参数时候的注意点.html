@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    mapActions 是 在 methods 里面的最外层 引入的，并不是在方法体内引入的，
+
+    方法体内的话，只需当 mapActions 引入的东西当做一个方法来直接调用就行了，
+
+    这个方法而且是可以直接传参的
+
+    如下面的这段代码所示：
+
+    <script>
+
+// -----------------------------------------------------------------------------------------------------------------
+
+        import { mapActions } from 'vuex'
+
+        methods: {
+
+            selectItem(item, index) {
+
+                console.log('hhhh')
+
+                // 经测试这种情况，方法来调用 vuex里面的 mapActions 的方法的时候，
+                // 是不能够传多个参数的，有多个参数的话，可以把多个参数转化成对象传过去即可。
+
+                // 所以，下面这段被注释了的代码 是不行的
+                // this.selectPlay(this.songs,index) // 这种情况下，是传不了多个参数的
+
+                this.selectPlay({
+                  list:this.songs,
+                  index
+                })
+
+            },
+            ...mapActions(['selectPlay'])
+        }
+
+// -----------------------------------------------------------------------------------------------------------------
+
+        // vuex里面 这样子 接收即可
+
+        actions: {
+           // 一些异步操作，以及对 mutations的 封装
+           // 如通过调用一个actions，去修改多个mutations的目的
+
+           // 传多个参数的时候，可以利用对象的解构，{ list,index },这样拿到的值就是list 跟 index
+
+          selectPlay ({commit},{ list,index }){
+
+              commit('SET_SEQUENCE_LIST',list)
+              commit('SET_PLAYLIST',list)
+              commit('SET_CURRENT_INDEX',index)
+              commit('SET_FULL_SCREEN',true)
+              commit('SET_PLAYING_STATE',true)
+          }
+
+        }
+
+// -----------------------------------------------------------------------------------------------------------------
+
+      </script>
+
+<!-- ---------------------------------------------------------------------------------------------------------------------- -->
+
+      mapActions的另一种写法
+
+     <div class="back" @click="back">
+          <i class="icon-back"></i>
+     </div>
+
+     <script type="text/ecmascript-6">
+
+         import { mapGetters,mapActions} from 'vuex'
+         export default{
+             data(){
+                 return {
+
+                 }
+             },
+             methods:{
+                 ...mapActions(['back'])
+             },
+             computed:{
+                ...mapGetters(['fullScreen','playlist','currentSong'])
+             }
+         }
+    </script>
+    
+<!-- ---------------------------------------------------------------------------------------------------------------------- -->
+
+
+  </body>
+
+  </html>

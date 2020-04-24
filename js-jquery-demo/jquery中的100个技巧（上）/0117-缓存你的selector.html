@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // Bad:
+        // $('#pancakes li').eq(0).remove();
+        // $('#pancakes li').eq(1).remove();
+        // $('#pancakes li').eq(2).remove();
+
+// -------------------------------------------------------------------------------
+
+        // Good:
+        var pancakes = $('#pancakes li');
+
+        pancakes.eq(0).remove();
+        pancakes.eq(1).remove();
+        pancakes.eq(2).remove();
+
+        // Alternatively:
+        // pancakes.eq(0).remove().end()
+        //           .eq(1).remove().end()
+        //           .eq(2).remove().end();
+        
+    </script>
+</body>
+
+</html>

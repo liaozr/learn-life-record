@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>项目申请</title>
+		<link rel="stylesheet" href="css/base-reset.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/yhn.css" />
+		<link rel="stylesheet" href="css/action.css" />
+		<script src="js/jquery-1.11.3.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/vue.min.js"></script>
+	</head>
+	<style>
+		html {
+			background: #E9EAEE
+		}
+		
+		/*导航*/
+		#top{background:#1C6CD8}
+		#navbar .navbar-nav li a{color:#fff;cursor:pointer;}
+		#navbar .navbar-nav .active a{background:#0056C7;}
+		.logo{box-sizing:border-box;background:white;width:82px;border:5px solid white;margin-right: 50px;}
+		#navbar>ul>li:hover{background:#0056C7;}
+		/*footer*/
+		.icp{width:100%;height:50px;position:relative;margin-top:150px;}
+		.icp>div{position:absolute;width:100%;height:100%;background:#000;opacity: .8;}
+		.icp>p{position:absolute;width:100%;height:100%;text-align: center;line-height:50px;color:#fff;}
+		/*按钮*/
+		.btn-primary{background-color:#1C6CD8;}
+	</style>
+
+	<body>
+		<header class="navbar navbar-default" id="top" role="banner" style="margin-top:20px">
+			<div class="container">
+				<img class="logo left" src="img/logo.png" />
+				<div id="navbar" class="navbar-collapse collapse" style='padding-right:0'>
+					<ul class="nav navbar-nav">
+						<li class="">
+							<a href="index.html">主页</a>
+						</li>
+						<li class="">
+							<a href="selectFun.html">自助评估</a>
+						</li>
+						<li class="">
+							<a href="projectApplication.html">项目申请</a>
+						</li>
+						<li class="">
+							<a href="together.html">合作条款</a>
+						</li>
+						<li class="">
+							<a href="aboutUs.html">关于我们</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<!--<li>
+							<a href="login.html">登录</a>
+						</li>
+						<li>
+							<a href="register.html">注册</a>
+						</li>-->
+						<li class="headBox">
+							<img id="head" src="img/cgx.jpg" alt="" />
+							<span id="userTips"></span>
+							<div class="downList" style="display:none;">
+								<strong></strong>
+								<div>
+									<ul>
+										<li>
+											<p id="unameTitle"></p>
+										</li>
+										<li id="makeCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-zoom-in"></span></span><strong class="down-title">创建公司</strong></li>
+										<li id="gomyCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-briefcase"></span></span><strong class="down-title">我管理的公司</strong></li>
+										<li id="assess" class="hov"><span class="dot2"><span class="glyphicon glyphicon-usd"></span></span><strong class="down-title">估价</strong></li>
+										<li id="mypaper" class="hov"><span class="dot2"><span class="glyphicon glyphicon-list-alt"></span></span><strong class="down-title">我的报价单</strong></li>
+										<li id="exit" class="hov"><span class="dot2"><span class="glyphicon glyphicon-off"></span></span><strong class="down-title">退出登录</strong></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+		<section class="w1000 ba">
+             <div class="box">
+				 <div class="box-2">
+					 <h4>团队成员</h4>
+					 <ul>
+						 <li><img src="img/8ad4b31c8701a18bbef9f231982f07082838feba.jpg" alt=""/><div class="le"><h4>唐朝</h4><p>职位CEO</p></div></li>
+						 <li><img src="img/8ad4b31c8701a18bbef9f231982f07082838feba.jpg" alt=""/><div class="le"><h4>唐朝</h4><p>职位CEO</p></div></li>
+						 <li><img src="img/8ad4b31c8701a18bbef9f231982f07082838feba.jpg" alt=""/><div class="le"><h4>唐朝</h4><p>职位CEO</p></div></li>
+						 <li class="change"><img src="img/8ad4b31c8701a18bbef9f231982f07082838feba.jpg" alt=""/><div class="le"><h4>唐朝</h4><p>职位CEO</p></div></li>
+						 <li><img src="img/8ad4b31c8701a18bbef9f231982f07082838feba.jpg" alt=""/><div class="le"><h4>唐朝</h4><p>职位CEO</p></div></li>
+						 <li><img src="img/8ad4b31c8701a18bbef9f231982f07082838feba.jpg" alt=""/><div class="le"><h4>唐朝</h4><p>职位CEO</p></div></li>
+						 <li><img src="img/添加.png" alt=""/></li>
+					 </ul>
+					 <div class="clearfix"></div>
+					 <h4>团队简介</h4>
+					 <p>金算盘网聚集营销领域的精英，负责市场营销方面的同学，在大学期间是就读于市场营销的专业，熟悉掌握营销各个方面的知识、有丰富的市场调研经验和方法，成功为茶叶店做过营销策划案，有成功的市场策划的经验，对网络品牌创建和网络营销传播有着独特的见解和观点，并拥有丰富的经验，充分发挥互联网传播特点，以网名喜闻乐见的形式，能够根据客户需要提供针对性方案。</p>
+					 <h4>团队优势</h4>
+					 <p>金算盘网聚集营销领域的精英，负责市场营销方面的同学，在大学期间是就读于市场营销的专业，熟悉掌握营销各个方面的知识、有丰富的市场调研经验和方法，成功为茶叶店做过营销策划案，有成功的市场策划的经验，对网络品牌创建和网络营销传播有着独特的见解和观点，并拥有丰富的经验，充分发挥互联网传播特点，以网名喜闻乐见的形式，能够根据客户需要提供针对性方案。</p>
+				 </div>
+			 </div>
+		</section>
+	</body>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script src="js/login.js"></script>
+	<script type="text/javascript" src="layer/layer.js" ></script>
+	<script>
+//	if(sessionStorage.userInfo == undefined || sessionStorage.userInfo == ""){
+//		window.location.href="index.html";
+//	}
+	
+	    Vue.filter('funNum', function(item) {
+	    	var arr = item.split(",");
+	    	arr.pop();
+			return arr.length;
+		})
+	    
+	    Vue.filter('jsonItem', function(item) {
+			return JSON.stringify(item);
+		})
+	    
+	     Vue.filter('formatUrl', function(url) {
+	     	var arr = url.split("/");
+			return "background:url(logo/"+arr[arr.length-1] +") no-repeat";
+		})
+	    
+	    
+	    Vue.filter('itemNum', function(item) {
+	    	var arr = item.split(",");
+	    	var indexArr = new Array();
+	    	arr.pop();
+	    	for (var i = 0; i < arr.length; i++) {
+	    		if(indexArr.indexOf(arr[i][0]) == -1){
+	    			indexArr.push(arr[i][0]);
+	    		}
+	    	}
+			return indexArr.length-1;
+		})
+	    Vue.filter('ifItem', function(item,num) {
+	    	var arr = item.split(",");
+	    	var indexArr = new Array();
+	    	arr.pop();
+	    	for (var i = 0; i < arr.length; i++) {
+	    		if(indexArr.indexOf(arr[i][0]) == -1){
+	    			indexArr.push(arr[i][0]);
+	    		}
+	    	}
+	    	if(indexArr.indexOf(num) == -1){
+	    		return false;
+	    	}
+			return true;
+		})
+	    
+	    if(sessionStorage.userInfo == undefined || sessionStorage.userInfo == ""){
+	    	$("#userTips").text("请登录");
+			$("#userName").text("");
+	    }else
+	    {
+	    	$("#userTips").text("您好，"+JSON.parse(sessionStorage.userInfo).name);
+			$("#userName").text(JSON.parse(sessionStorage.userInfo).name);
+	    }
+	    var sendData;
+		var vm = new Vue({
+			el: '#list',
+			data: {
+				dataArr: {},
+			},
+			ready: function() {
+				sendData = {
+					mobile: sessionStorage.mobile
+				};
+				$.ajax({
+					type: "post",
+					url: "/services/ws/project/info",
+					contentType: "application/json",
+					data: JSON.stringify(sendData),
+					success: function(jsonData) {
+						//console.log(jsonData);
+						if(JSON.parse(jsonData).status == "true") {
+							vm.dataArr = JSON.parse(jsonData).info;
+							if(vm.dataArr.length == 0){
+								$("#noTips").css('display','block')
+							}
+						} else {
+							layer.msg("请求列表出错");
+						}
+					}
+				});
+			}
+		});
+		
+		var companyVm = new Vue({
+			el: '#companyList',
+			data: {
+				dataArr: {},
+			},
+			ready: function() {
+				if(sessionStorage.mobile == undefined || sessionStorage.mobile == ""){
+					return;
+				}
+				sendData = {
+					mobile: sessionStorage.mobile
+				};
+				$.ajax({
+					type: "post",
+					url: "/services/ws/cen/manage",
+					contentType: "application/json",
+					data: JSON.stringify(sendData),
+					success: function(jsonData) {
+						setTimeout(romImg,100);
+						//console.log(jsonData);
+						if(JSON.parse(jsonData).status == "true") {
+							companyVm.dataArr = JSON.parse(jsonData).info;
+							if(companyVm.dataArr.length == 0){
+								$("#noCom").css('display','block');
+								
+							}
+						} else {
+							layer.msg("请求列表出错");
+						}
+					}
+				});
+			}
+		});
+		
+		$(".exit").on('click',function(){
+			sessionStorage.mobile="";
+			sessionStorage.haslogin="";
+			sessionStorage.userInfo  = "";
+			window.location.href = "index.html";
+		});
+		
+		$("#gotoSelectFun").on('click',function(){
+			window.location.href = "selectFun.html";
+		});
+		
+		$("#gotoCreateCompany").on('click',function(){
+			window.location.href = "companyInfo.html";
+		});
+		
+		$("#list").on('click','#check',function() {
+			sessionStorage.detail = $(this).attr('name');
+			window.location.href = "detail.html";
+		});
+		
+		$("#companyList").on('click','.companyCard',function() {
+			sessionStorage.companyDetail = $(this).attr('name');
+			window.location.href = "companyInfo.html";
+		});
+		
+
+		$("#head").mouseenter(function() {
+			$(".downList").fadeIn(300);
+		});
+		$(".downList").mouseleave(function() {
+			$('.downList').fadeOut(300);
+		});
+		//随机背景
+		function romImg(){
+			var a = $("#companyList").find(".bg");
+			console.log(a);
+			for(var i = 0; i < a.length; i++) {
+			var ran = Math.floor(Math.random() * 8 + 1);
+			$(a[i]).css("background", "url(./img/tuan" + ran + ".jpg)");
+			}
+		}
+		if(sessionStorage.selectTab == undefined){
+			$(".companyBox").fadeOut(150);
+			$(".price").fadeIn(150);
+		}else if(sessionStorage.selectTab == ".price"){
+			$(".companyBox").fadeOut(150);
+			$(".price").fadeIn(150);
+		}else if(sessionStorage.selectTab == ".companyBox"){
+			$(".companyBox").fadeIn(150);
+			$(".price").fadeOut(150);
+		}
+
+		$(".leftList>ul>li").click(
+			function() {
+				$(this).siblings().removeClass("active");
+				$(this).addClass("active");
+				var sel = $(this).data("sel");
+				sessionStorage.selectTab = sel;
+				$(".companyBox").fadeOut(150);
+				$(".price").fadeOut(150);
+				$(sel).fadeIn(150);
+			}
+		);
+	</script>
+
+</html>

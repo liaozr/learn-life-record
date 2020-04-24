@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        // 在浏览器记录中前进一步，等同于 history.forward()
+        this.$router.go(1)
+
+        // 后退一步记录，等同于 history.back()
+        this.$router.go(-1)
+
+        // 前进 3 步记录
+        this.$router.go(3)
+
+        // 如果 history 记录不够用，那就默默地失败呗
+        this.$router.go(-100)
+        
+        this.$router.go(100)
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+    如下所示，可以 把 当前页面 （组件） 里面 需要的一些 数据 都写到  一个对象里面，
+
+    把这些变量 这些 数据 都写到  一个对象里面。
+
+    最后，再预保存的时候，就保存 这个对象就行了，就不用一个个值的预保存了，
+
+    这么做的办法 是简单 ，逻辑清晰，不易出bug.
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+    还有，最近在做的 慕课网的 webapp 音乐的项目 ，也有用到这个思想
+
+    当前模块,一个模块所用到的所有 数据 ,所有 变量,抽象成 一个 对象,一个类
+
+    好处就是:
+
+    1、可以把一些代码集中到一个地方去维护，而不用大量的地方去写相同的代码
+    
+    2、类的扩展性比对象好，要比对象强很多，而且类是一个面向对象的编程方式
+
+    <script>
+
+         // 设计成一个类的而不是设计成一个对象的原因:
+        // 1、可以把一些代码集中到一个地方去维护，而不用大量的地方去写相同的代码
+        // 2、类的扩展性比对象好，要比对象强很多，而且类是一个面向对象的编程方式
+
+        export default class Song{
+           constructor({ id,mid,singer,name,album,duration,image,url }) {
+                  this.id=id
+                  this.mid=mid
+                  this.singer=singer
+                  this.name=name
+                  this.album=album
+                  this.duration=duration
+                  this.image=image
+                  this.url=url
+           }
+        }
+        
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+    <script>
+
+        var msg = {
+            jianchaxiangname: vm.indexwenjiancha,
+            jianchajieguoflag: vm.jianchajieguoflag,
+            batch: vm.batch,
+            batchCode: vm.batchCode,
+            jianchaxingxianglists: vm.jianchaxingxianglists,
+            jianchaotherlists: vm.jianchaotherlists,
+            jianchaxingxianglistsAll: vm.jianchaxingxianglistsAll,
+            jianchaotherlistsAll: vm.jianchaotherlistsAll
+        }
+
+        localforage.setItem(localStorage.empId + localStorage.jianchataskid + 'jianchashujumsg', msg);
+
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+
+</body>
+
+</html>

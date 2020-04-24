@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+Object.prototype.__proto__
+
+__proto__属性（前后各两个下划线）可以改写某个对象的原型对象。
+
+<script>
+    var obj = {};
+    var p = {};
+
+    obj.__proto__ = p;
+    console.log( Object.getPrototypeOf(obj) === p ) // true
+</script>
+
+上面代码通过__proto__属性，将p对象设为obj对象的原型。
+
+根据语言标准，__proto__属性只有浏览器才需要部署，其他环境可以没有这个属性，而且前后的两根下划线，表示它本质是一个内部属性，不应该对使用者暴露。因此，应该尽量少用这个属性，
+
+而是用
+Object.getPrototypeof()（读取）和
+
+Object.setPrototypeOf()（设置）
+
+进行原型对象的读写操作。
+
+<!-- -------------------------------------------------------------------------- -->
+
+原型链可以用__proto__很直观地表示。
+
+<script>
+    var A = {
+        name: '张三'
+    };
+    var B = {
+        name: '李四'
+    };
+
+    var proto = {
+        print: function() {
+            console.log(this.name);
+        }
+    };
+
+    A.__proto__ = proto;
+    B.__proto__ = proto;
+
+    A.print()  // 张三
+    B.print()  // 李四
+</script>
+
+上面代码中，A对象和B对象的原型都是proto对象，它们都共享proto对象的print方法。
+
+也就是说，A和B的print方法，都是在调用proto对象的print方法。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+可以使用Object.getPrototypeOf方法，检查浏览器是否支持__proto__属性，老式浏览器不支持这个属性。
+
+<script>
+   console.log( Object.getPrototypeOf({ __proto__: null }) === null )  //true
+</script>
+
+上面代码将一个对象的__proto__属性设为null，然后使用Object.getPrototypeOf方法获取这个对象的原型，
+
+判断是否等于null。如果当前环境支持__proto__属性，两者的比较结果应该是true。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

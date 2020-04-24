@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+	<style>
+    .fade-transition {
+        transition: opacity .3s ease;
+    }
+
+    .fade-enter,
+    .fade-leave {
+        opacity: 0;
+    }
+    </style>
+</head>
+<body>
+
+	<h3>组件和 v-for</h3>
+    <div id="app">
+        <!--在父的作用域使用data的 items-->
+
+        <!--  在父的作用域使用data的 items  -->
+
+        <!-- $index 表示的是items数组的索引值 -->
+
+        <!-- 自定义组件可以像普通元素一样直接使用 v-for：
+
+            <my-component v-for="item in items"></my-component>
+            但是，不能传递数据给组件，因为组件的作用域是孤立的。为了传递数据给组件，应当使用 props：
+
+            <my-component
+              v-for="item in items"
+              :item="item"
+              :index="$index">
+            </my-component>
+            不自动把 item 注入组件的原因是这会导致组件跟当前 v-for 紧密耦合。显式声明数据来自哪里可以让组件复用在其它地方。
+        -->
+        <my-component v-for="item in items" :str1="item" :index="$index"></my-component>
+    </div>
+    <br>
+    <template id='aaa'>
+    	 <div>
+               index:{{index}}, props:{{str1}} ,item:{{items.a}}{{items.b}}{{items.c}}
+         </div>
+    </template>	
+    <script>
+    Vue.component('my-component', {
+        template: '#aaa',
+
+        // 子组件接收父组件传来的props
+        props: ['str1','index'], // props 来自父组件的 tag 传值
+        data: function() {
+            return {
+                items: {
+                    a: '1', // 子组件的作用域跟父组件的作域是独立不连系
+                    b: '2',
+                    c: '3'
+                }
+            }
+        }
+    });
+
+
+
+    new Vue({
+        el: '#app',
+        data: {
+            items: {
+                'a': '4',
+                'b': '5',
+                'c': '6'
+            }
+        }
+
+    });
+    </script>
+	
+</body>
+</html>

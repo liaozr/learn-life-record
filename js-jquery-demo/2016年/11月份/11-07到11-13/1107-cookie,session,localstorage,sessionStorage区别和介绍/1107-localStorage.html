@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+2、localStorage && sessionStorage
+
+过期时间：localStorage 永久存储，永不失效除非手动删除
+
+sessionStorage 浏览器重新打开后就消失了
+
+大小：每个域名是5M
+
+<!-- ------------------------------------------------------------ -->
+localStorage是html5提出的，在此之前，IE已经有userData这种实现方式.localStorage是windows的一个对象：
+
+基本操作
+
+set
+<script>
+    localStorage.name = 'ggbond';
+    localStorage["name"] = "ggbond";
+    localStorage.setItem("name", "ggbond");
+</script>
+
+get
+<script>
+
+    var name = localStorage["name"];
+    var name = localStorage.name;
+    var name = localStorage.getItem("name");
+
+</script>
+
+foreach
+
+localStorage提供了key方法，来获取里面所有的key
+
+<script>
+
+    var storage = window.localStorage;
+
+    function showStorage() {
+        for (var i = 0; i < storage.length; i++) {
+            //key(i)获得相应的键，再用getItem()方法获得对应的值
+            document.write(storage.key(i) + " : " + storage.getItem(storage.key(i)) + "<br>");
+        }
+    }
+
+</script>
+
+delete
+
+<script>
+
+    localStorage.removeItem("name");
+    clearAll
+    localStorage.clear()
+
+</script>
+
+相关事件
+
+HTML5的本地存储，还提供了一个storage事件，可以对键值对的改变进行监听，使用方法如下：
+
+<script>
+    if (window.addEventListener) {
+        window.addEventListener("storage", handle_storage, false);
+    } else if (window.attachEvent) {
+        window.attachEvent("onstorage", handle_storage);
+    }
+
+    function handle_storage(e) {
+        if (!e) {
+            e = window.event;
+        }
+        //showStorage();
+    }
+</script>
+
+对于事件变量e，是一个StorageEvent对象，提供了一些实用的属性，可以很好的观察键值对的变化，如下表：
+
+Property	   Type	                  Description
+key	        String	   The named key that was added, removed, or moddified
+oldValue  	Any	       The previous value(now overwritten), or null if a new item was added
+newValue	  Any	       The new value, or null if an item was added
+url/uri   	String	   The page that called the method that triggered this change
+
+</body>
+</html>

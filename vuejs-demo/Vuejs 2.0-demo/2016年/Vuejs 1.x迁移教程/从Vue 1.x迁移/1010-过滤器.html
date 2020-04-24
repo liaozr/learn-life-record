@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+插入文本之外的过滤器 弃用
+
+现在过滤器只能用在插入文本中 ({{ }} tags)。
+
+我们发现在指令（如：v-model， v-on等）中使用过滤器使事情变得更复杂。
+
+像v-for 这样的列表过滤器最好把处理逻辑作为一个计算属性放在js里面，这样就可以在整个模板中复用。
+
+总之，能在原生js中实现的东西，我们尽量避免引入一个新的符号去重复处理同样的问题。
+
+下面是如何替换 Vue 内置过滤器：
+
+<!-- ------------------------------------------------------------------------------- -->
+
+替换 debounce 过滤器
+
+不再这样写
+
+<input v-on:keyup="doStuff | debounce 500">
+<script>
+methods: {
+  doStuff: function () {
+    // ...
+  }
+}
+</script>
+
+
+请使用 lodash’s debounce (也有可能是 throttle) 来直接控制高耗任务。可以这样来实现上面的功能：
+
+<input v-on:keyup="doStuff">
+
+<script>
+methods: {
+  doStuff: _.debounce(function () {
+    // ...
+  }, 500)
+}
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+替换 limitBy 过滤器
+
+不再这样写：
+
+<p v-for="item in items | limitBy 10">{{ item }}</p>
+在 computed 属性中使用js内置方法： .slice method：
+
+<p v-for="item in filteredItems">{{ item }}</p>
+
+<script>
+	computed: {
+	  filteredItems: function () {
+	    return this.items.slice(0, 10)
+	  }
+	}
+</script>
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+替换 filterBy 过滤器
+
+不再这样写：
+
+<p v-for="user in users | filterBy searchQuery in 'name'">{{ user.name }}</p>
+
+
+在 computed 属性中使用js内置方法 .filter method：
+
+<p v-for="user in filteredUsers">{{ user.name }}</p>
+
+<script>
+	computed: {
+	  filteredUsers: function () {
+	    return this.users.filter(function (user) {
+	      return user.name.indexOf(this.searchQuery)
+	    })
+	  }
+	}
+</script>
+
+js原生的 .filter 同样能实现很多复杂的过滤器操作，因为可以在计算 computed 属性中使用所有js方法。比如，想要通过匹配用户名字和电子邮箱地址（不区分大小写）找到用户：
+
+<script>
+	this.users.filter(function (user) {
+	  var searchRegex = new RegExp(this.searchQuery, 'i')
+	  return user.isActive && (
+	    searchRegex.test(user.name) ||
+	    searchRegex.test(user.email)
+	  )
+	})
+</script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+替换 orderBy 过滤器
+
+不这样写：
+
+<p v-for="user in users | orderBy 'name'">{{ user.name }}</p>
+
+而是在 computed 属性中使用 lodash’s orderBy (or possibly sortBy)：
+
+<p v-for="user in orderedUsers">{{ user.name }}</p>
+<script>
+computed: {
+  orderedUsers: function () {
+    return _.orderBy(this.users, 'name')
+  }
+}
+</script>
+
+甚至可以字段排序：
+
+<script>
+_.orderBy(this.users, ['name', 'last_login'], ['asc', 'desc'])
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+过滤器参数符号
+
+现在过滤器参数形式可以更好地与js函数调用方式一致，因此不用再用空格分隔参数：
+
+<p>{{ date | formatDate 'YY-MM-DD' timeZone }}</p>
+
+现在用圆括号括起来并用逗号分隔：
+
+<p>{{ date | formatDate('YY-MM-DD', timeZone) }}</p>
+
+<!-- ------------------------------------------------------------------------------------------- -->
+
+
+内置文本过滤器 弃用
+
+尽管插入文本内部的过滤器依然有效，但是所有内置过滤器已经移除了。
+
+取代的是，推荐在每个区域使用更专业的库来解决。
+
+(比如用 date-fns 来格式化日期，用 accounting 来格式化货币).
+
+对于每个内置过滤器，我们大概总结了下该怎么替换。
+
+代码示例可能写在自定义 helper 函数，方法或计算属性中。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+替换 json 过滤器
+
+不用一个个改，因为Vue已经帮你自动格式化好了，无论是字符串，数字还是数组，对象。如果想用js的 JSON.stringify 功能去实现，你也可以把它写在方法或者计算属性里面。
+
+
+替换 capitalize 过滤器
+
+text[0].toUpperCase() + text.slice(1)
+
+
+替换 uppercase 过滤器
+text.toUpperCase()
+
+
+替换 lowercase 过滤器
+text.toLowerCase()
+
+
+替换 pluralize 过滤器
+NPM 上的 pluralize 库可以很好的实现这个功能。如果仅仅想将特定的词格式化成复数形式或者想给特定的值（’0’）指定特定的输出，也可以很容易地自定义复数格式化过滤器：
+
+<script>
+function pluralizeKnife (count) {
+  if (count === 0) {
+    return 'no knives'
+  } else if (count === 1) {
+    return '1 knife'
+  } else {
+    return count + 'knives'
+  }
+}
+</script>
+
+Replacing the currency Filter
+
+对于简单的问题,可以这样做：
+
+'$' + price.toFixed(2)
+大多数情况下，仍然会有奇怪的现象(比如 0.035.toFixed(2) 向上舍入得到 0.4,但是 0.045 向下舍入却也得到 0.4)。解决这些问题可以使用 accounting 库来实现更多货币格式化。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+
+</body>
+</html>

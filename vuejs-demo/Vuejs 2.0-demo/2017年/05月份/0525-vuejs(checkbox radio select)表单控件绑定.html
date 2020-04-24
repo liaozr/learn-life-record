@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.min.js"></script>
+
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+    <div id="app">
+
+        <!--取value值 对应的checkbox 必须是数组-->
+        <br>
+        <input type="checkbox" value="checkbox0" v-model="name">
+        <input type="checkbox" value="checkbox1" v-model="name">
+        <input type="checkbox" value="checkbox2" v-model="name">
+        <input type="checkbox" value="checkbox3" v-model="name">{{name}}
+
+        <br>
+        <input type="radio" v-model="radio" value="man">男
+        <input type="radio" v-model="radio" value="woman">女 {{radio}}
+
+        <br>
+
+        <!--取selects的值就是我们对应的当前选中的值-->
+        <select v-model="selects">
+  				<option v-for="l in lists" v-bind:value="l.name">{{l.name}}</option>
+  			</select>{{selects}}
+
+    </div>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+    <script>
+
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                name: [],
+                radio: '',
+                selects: 'select2',
+                lists: [
+                    {
+                      name: 'select1'
+                    },
+                    {
+                      name: 'select2'
+                    },
+                    {
+                      name: 'select3'
+                    }
+                ]
+            }
+        })
+
+        //  watch 监听一个name 这个变量
+        vm.$watch('name', function(val) {
+            console.log(val)
+        })
+
+    </script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

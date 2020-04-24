@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    这个是自定义形式画出来的虚线边框：<br>
+    <div class='xuline'></div>
+    <br>  <br>  <br>
+
+    这个是用css自带的dashed属性画出来的虚线边框:<br>
+    <div class="dashed"></div>
+
+    <style>
+
+        /*这个是有兼容性问题的*/
+        div.xuline{
+            margin-top: 10px;
+            padding: 1em;
+            height:80px;
+            border: 1px dashed transparent;
+            background: linear-gradient(white, white) padding-box, repeating-linear-gradient(-45deg, #ccc 0, #ccc 0.25em, white 0, white 0.75em);
+        }
+
+        .dashed{
+          margin-top: 10px;
+          width:100%;
+          height:80px;
+          border:1px dashed #ddd;
+        }
+
+    </style>
+    
+</body>
+
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+<!-- -------------------------------------------------------------------------------------- -->
+
+  1、模拟私有变量 (Private variable)
+
+  JavaScript 并不提供原生的支持，但是可以使用闭包模拟私有方法。
+
+  私有方法不仅仅有利于限制对代码的访问：还提供了管理全局命名空间的强大能力
+
+  避免非核心的方法弄乱了代码的公共接口部分。这种方式也称为 模块模式
+
+module import variant
+
+<script>
+    (function(window) {
+        //私有属性
+        var privateThing;
+
+        function privateMethod() {
+            //私有方法
+        }
+        window.api = {
+            //暴露公共接口
+        }
+    })(window)
+
+    // module pattern
+
+    var api = (function() {
+        // Private and in-place!
+        var local = 0;
+        //私有作用域
+        function counter() {
+            return ++local;
+        }
+        //暴露给api
+        return {
+            counter: counter
+        };
+    })();
+    api.counter();
+
+    // <- 1
+    api.counter();
+    // <- 2
+</script>
+<!-- ------------------------------------------------------------------------------- -->
+
+2.回调和计时器 (Callback and Timer)
+
+在处理回调和计时器的时候我们可以使用闭包，这两个函数都需要异步被调用而且会很频繁的获取外部的数据.
+
+异步回调(cb)最常见的是Ajax请求,例子就不举了用过jquery的同学都知道.
+
+Timer
+
+<script>
+    //这是一个60秒倒计时的计时器
+    var step = 0;
+    var timer = setInterval(function() {
+        if (step < 60) {
+            step++;
+        } else {
+            clearInterval(timer);
+        }
+    }, 1000);
+</script>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+3.绑定函数作用域(Binding function contexts)
+
+<script>
+    function bind(context, name) {
+        return function() {
+            return context[name].apply(context, arguments);
+        };
+    }
+</script>
+<!-- ------------------------------------------------------------------------------------- -->
+
+4.参数归并技术以及函数柯里化 (Argument-merging technique and currying)
+
+柯里化是指我们可以部分调用函数(返回我们预定义参数的函数),这个函数可以被以后调用.
+
+简单来说就是我们可以首先填充函数的一部分参数(并返回新的函数)这种技术通常被叫做函数柯里化。
+
+因为参数开始被填充了一部分到函数,后面一边通过返回新的函数里引用剩余的参数.所以形象的叫做参数归并技术。其本质是一样的。
+举个例子:
+<script>
+    Function.prototype.curry = function() {
+        var fn = this,
+            args = Array.prototype.slice.call(arguments);
+        return function() {
+            return fn.apply(this, args.concat(
+                Array.prototype.slice.call(arguments)));
+        };
+    };
+
+    Function.prototype.partial = function() {
+        var fn = this,
+            args = Array.prototype.slice.call(arguments);
+        return function() {
+            var arg = 0;
+            for (var i = 0; i < args.length && arg < arguments.length; i++) {
+                if (args[i] === undefined) {
+                    args[i] = arguments[arg++];
+                }
+            }
+            return fn.apply(this, args);
+        };
+    };
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+5.立即执行函数(IIFE)
+
+几种立即执行的写法
+
+ <script>
+
+     (function() {
+         // child scope
+     })();
+
+     !function () {
+         // child scope
+     }();
+
+     +function () {
+         // child scope
+     }();
+
+     -function () {
+         // child scope
+     }();
+
+     ~function () {
+         // child scope
+     }();
+
+     void function () {
+         // child scope
+     }();
+
+     1^function () {
+         // child scope
+     }();
+
+     1&function () {
+         // child scope
+     }();
+
+</script>
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+展开运算符
+
+从 apply() 到展开运算符。我们同样用 ... 来解决：
+
+提醒：我们使用 apply() 将数组转换为一列参数。例如，Math.max() 作用于一列参数，但是如果我们有一个数组，我们就能用 apply 让它生效。
+
+正如我们较早之前看过的，我们可以使用 apply 将数组作为参数列表传递：
+
+<script>
+// ES5
+Math.max.apply(Math, [2,100,1,6,43]) // 100
+
+</script>
+
+在 ES6 中，你可以用展开运算符：
+
+<script>
+
+    // ES6
+    Math.max(...[2, 100, 1, 6, 43]) // 100
+
+</script>
+
+
+同样，从 concat 数组到使用展开运算符：
+
+<script>
+    // ES5
+    var array1 = [2, 100, 1, 6, 43];
+    var array2 = ['a', 'b', 'c', 'd'];
+    var array3 = [false, true, null, undefined];
+    console.log(array1.concat(array2, array3));
+</script>
+
+
+在 ES6 中，你可以用展开运算符来压平嵌套：
+
+<script>
+
+    // ES6
+    const array1 = [2, 100, 1, 6, 43];
+    const array2 = ['a', 'b', 'c', 'd'];
+    const array3 = [false, true, null, undefined];
+    console.log([...array1, ...array2, ...array3]);
+
+</script>
+
+</body>
+</html>

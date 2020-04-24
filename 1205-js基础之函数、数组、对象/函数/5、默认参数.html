@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ----------------------------------------------------------------------------------------------------- -->
+
+  对于函数的命名参数，如果不显式传值，则其默认值为 undefined。
+
+  ES6 新增特性可以为参数传入值提供一个默认的初始值。
+
+  <script>
+
+      function makeRequest(url, timeout = 20000, callback = function() {}) {
+          // 函数的其余部分
+      }
+
+  </script>
+
+  在这个函数中，只有第一个参数被认为总是要为其传入值的，其他两个参数都是默认值，如果未传入或传入值为 undefined 就会应用默认参数。
+
+<!-- ----------------------------------------------------------------------------------------------------- -->
+
+  默认参数对 arguments 对象的影响
+
+  如果一个函数使用了默认参数值，则 arguments 对象保持与命名参数分离，改变命名参数不会影响 arguments 对象。
+
+  例如：
+
+  <script>
+
+      // 无默认参数且非 strict mode 下
+      function foo(a, b) {
+          console.log(a === arguments[0])  // true
+          console.log(b === arguments[1])  // true
+      }
+
+      foo()
+
+      // 有默认参数下
+      function bar(a, b) {
+          a = 1
+          b = 2
+          console.log(a === arguments[0])  // false
+          console.log(b === arguments[1])  // false
+      }
+
+      bar()
+
+  </script>
+
+  如以上示例，改变 a 和 b 的值并不会影响 arguments 对象，这样就可以通过 arguments 对象将参数恢复为初始值。
+
+  此外需要提到的是，无默认参数但是在 strict mode 下也是如此。
+
+<!-- ----------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

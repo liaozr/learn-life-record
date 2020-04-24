@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>页面内进度条的效果</title>
+    <meta charset="utf-8" />
+
+    <style>
+        #zuiwai {
+            width: 300px;
+            height: 20px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        #jingdutiao {
+            height: 20px;
+            width: 0px;
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>页面内进度条的效果</h3>
+    <div id="zuiwai">
+        <div id="jingdutiao"></div>
+    </div>
+    <div id="zhi">
+        <button onclick="fun()">开始下载</button> 系统检查进度为：
+        <span></span>
+    </div>
+
+    <script>
+        var timer = null;
+        var baifenbi = 0;
+        var swidth;
+
+        function jingdu() {
+            var div = document.querySelector("#jingdutiao");
+            var wid = getComputedStyle(div);
+            swidth = Math.floor(Math.random() * (50 - 1 + 1) + 1);
+            if (parseInt(wid.width) + swidth < 300) {
+                div.style.width = parseInt(wid.width) + swidth + "px";
+            }
+            else {
+                div.style.width = "300px";
+                clearInterval(timer);
+                timer = null;
+            }
+            baifenbi = parseInt(div.style.width) / 300;
+            document.querySelector("#zhi span").innerHTML = parseInt(baifenbi * 100) + "%";
+        }
+        function fun() {
+            jingdu();
+            timer = setInterval(jingdu, 500);
+        }
+    </script>
+</body>
+
+</html>

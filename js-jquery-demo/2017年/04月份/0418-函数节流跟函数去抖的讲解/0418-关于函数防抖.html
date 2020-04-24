@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    p {
+        min-height: 1000px;
+    }
+</style>
+
+<body>
+    <p></p>
+    <script>
+        // 函数防抖
+        var timer = null;
+        window.onscroll = function() {
+            if (timer) {
+                // 清除未执行的逻辑，重新执行下一次逻辑，不论上一次是否执行完毕
+                clearTimeout(timer);
+            }
+            timer = setTimeout(function() {
+                console.log('yes')
+                //执行逻辑
+            }, 100);
+        };
+    </script>
+
+    在函数防抖这个例子中，可以看出当事件被监控触发时候，不论上一次的逻辑有没有执行完毕， 都要清除掉重新执行，
+
+    函数防抖会更加降低事件被触发的频率。
+
+</body>
+
+</html>

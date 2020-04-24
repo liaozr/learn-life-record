@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,minimal-ui" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="下单" />
+		<meta name="Description" content="下单" />
+		<title>下单</title>
+		<link rel="stylesheet" href="css/base.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+		<link rel="stylesheet" href="css/swiper.min.css" />
+		<link rel="stylesheet" href="css/public.css" />
+		<link rel="stylesheet" href="css/ww.css" />
+		<!--手机适配-->
+		<!--<script src="js/setFont.js"></script>-->
+
+	</head>
+
+	<body class="payOrder" style="padding-bottom: 1.5rem;">
+		<div id="loadpage">
+			<img src="img/loading2.gif" alt="" />
+		</div>
+		<header class="y-mytop">
+			<h1>下单</h1>
+			<div class="return-box">
+				<img src="img/icon-return.png" alt="" />
+				<span>返回</span>
+			</div>
+		</header>
+		<!--消除浮动并且在ios微信浏览器下取消1.25rem上间距-->
+		<div class="clear under-top" style="margin-top:1.25rem"></div>
+		<div class="receiver-info">
+			<div class="people-info">
+				收货人：<span>夏蕾蕾</span><span>12345678978</span>
+			</div>
+			<div class="address-info">
+				<i class="location"></i>收货地址：<span>深圳福田奥林匹克26A</span><i class="next right"></i>
+			</div>
+			<img src="img/border.png" />
+		</div>
+		<div class="pay-info">
+			<div>
+				<span>预约时间</span>
+				<span class="right">2016-07-12 12:00-12:30</span>
+				<i class="next right"></i>
+			</div>
+			<div>
+				<span>支付方式</span>
+				<span class="right">微信支付/货到付款</span>
+				<i class="next right"></i>
+			</div>
+			<div>
+				<span>账户余额</span>
+				<span class="right color-dd010f" style="margin-right: -0.1rem;">￥84</span>
+			</div>
+			<div>
+				<span>优惠券</span>
+				<span class="right">已优惠<span class="color-dd010f">￥5</span></span>
+				<i class="next right"></i>
+			</div>
+		</div>
+		<div class="goods-info">
+			<div>
+				<span>商品信息</span>
+			</div>
+			<div>
+				<span>12kg液化气</span>
+				<span class="right">￥84</span>
+			</div>
+			<div>
+				<span>12kg液化气</span>
+				<span class="right">￥84</span>
+			</div>
+			<div>
+				<span>12kg液化气</span>
+				<span class="right">￥84</span>
+			</div>
+			<div>
+				<span>12kg液化气</span>
+				<span class="right">￥84</span>
+			</div>
+			<div>
+				<span>五一优惠券</span>
+				<span class="right">-￥5</span>
+			</div>
+			<div>
+				<span class="color-999">总计￥243 优惠￥5</span>
+				<span class="right">实付<span class="color-dd010f">￥284</span></span>
+			</div>
+		</div>
+		<div class="message-info">
+			<div>
+				<span>留言</span>
+			</div>
+			<textarea  maxlength="255"></textarea>
+		</div>
+		<!--付款-->
+		<div class="pay">
+			<div class="left">
+				<div>应付:<span>￥</span><span class="color-dd010f">134.00</span></div>
+			</div>
+			<div id="to-pay">去结算(2)</div>
+		</div>
+	</body>
+	<script src="js/zepto1.1.6.min.js"></script>
+	<script>
+	
+	// 返回上一页
+		$(".return-box").on('tap1',function(){
+			window.history.go(-1);
+		});
+		
+		
+		var ua = navigator.userAgent.toLowerCase();
+			if (ua.match(/MicroMessenger/i) == "micromessenger") {
+				$(".h-nav-top").css("display", "none");
+				$(".y-mytop").css("margin-top",0);
+			}
+		window.onload=function(){
+			$("html").css("overflow","auto");
+			$("#loadpage").css("display","none");
+		}
+		//按钮点击变色
+		$("#to-pay").on('touchstart',function(){
+			$(this).addClass('active');
+		});
+		$("#to-pay").on('touchend',function(){
+			$(this).removeClass('active');
+		});
+	</script>
+</html>

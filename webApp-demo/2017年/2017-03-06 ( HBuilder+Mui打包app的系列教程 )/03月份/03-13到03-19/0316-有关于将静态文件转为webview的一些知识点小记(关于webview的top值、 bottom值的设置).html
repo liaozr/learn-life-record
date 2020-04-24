@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <!-- --------------------------------------------------------------------------- -->
+
+   再将 静态文件 转为 webview的过程中，发现
+
+   一个webview过来，它就是满屏给你展现的，
+
+   你在做静态文件的时候，<div class="g-content"></div>，
+
+   这块中间块的常见设置通常是下面这样子的。
+
+   其中一个重要的点是 bottom: 1.562rem;这个属性值的作用，是为了空出一块留给footer的位置。
+
+   <style>
+        .g-content {
+            overflow-y: auto;
+            top: 1.375rem;
+            bottom: 1.562rem;
+            position: absolute;
+            left: 0;
+            right: 0;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+
+    <!-- --------------------------------------------------------------------------- -->
+
+    而在将中间这块跟header头部那块作为一个webview过来的时候，它就是一个全屏显示的状态的，当然也包括
+    原先做静态的时候为footer底部部分留出的 1.562rem 高的空白位置
+
+    这样的话，放到手机上的话，是看不到底部展现出来的，因为
+    被全屏过来的webview遮住了， webview过来的是在上层。所以而看不到底部的出现。
+
+    倘若，设置了webview过来的bottom值为 50px左右的话，这样是看到底部了，但底部上层会发现
+    会空出一大块白块的。这个空出的白块部分就是在做静态页面的时候，预留给 底部footer位置的。
+    （也就是   bottom: 1.562rem;  这个值。）
+
+    <!-- --------------------------------------------------------------------------- -->
+
+
+    所以，这种情况下，就得把 <div class="g-content"></div>的原先 bottom值去掉改为0才行，这样
+
+    g-content这块div就不会留给空位置给底部了， 而底部的展现则控制  webview的bottom值来展现了。
+
+    之所以这样，是因为，webview划过来就是一个全屏（ 满屏 ）的展现的。
+
+    所以它得有个top值 bottom值
+
+    来为 头部header  底部footer的展现留出位置。
+
+    <!-- --------------------------------------------------------------------------- -->
+
+    所以，这就意味着，你在做静态页面的时候，在转成webview的时候，样式上还是有点点区别的。
+
+    需要一点点的改动，比如上面所说的 bottom值 top值的改动。
+
+    <style>
+        .g-content {
+            overflow-y: auto;
+            top: 1.375rem;
+            /* bottom: 1.562rem; */
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+
+    <!-- --------------------------------------------------------------------------- -->
+
+
+    <script>
+        var doc = window.document;
+        var docEl = doc.documentElement;
+        var width = docEl.getBoundingClientRect().width;
+        var dpr = 1;
+        if (width > 540) {
+            width = 540 * dpr;
+        }
+        var rem = width / 10;
+        var fontSize = rem;
+        var bottomheight = parseInt(fontSize) * 1.562 + 'px';
+
+        // 控制 webview 的头部部分跟底部部分的 效果展现的代码段。
+        // bottomheight 是 rem布局的转换做法。，将 rem 转换成 px
+        var subStyles = {
+            top: "0px",
+            bottom: bottomheight
+        };
+
+    </script>
+
+    <!-- --------------------------------------------------------------------------- -->
+
+
+
+</body>
+</html>

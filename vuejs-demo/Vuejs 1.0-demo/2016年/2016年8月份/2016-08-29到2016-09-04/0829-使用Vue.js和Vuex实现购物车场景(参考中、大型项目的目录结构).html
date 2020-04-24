@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!--   配置vuex  -->
+
+<!-- 
+
+每一个 Vuex 应用的核心就是 store（仓库）。"store" 基本上就是一个容器，它包含着你应用里大部分的 状态(即 state)，
+
+我们创建store.js导入各个模块的初始状态和 mutations。
+
+// vuex/store.js
+-->
+
+<script>
+import Vue from 'vue'
+import Vuex from 'vuex'
+import index from './modules/index'
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+  // 组合各个模块
+  modules: {
+    index
+  }
+}) 
+</script>
+<!-- ----------------------------------------------------------------------- -->
+
+
+<!-- 通过在根实例中注册 store 选项，该 store 实例会注入到根组件下的所有子组件中。 -->
+
+<!-- App.vue -->
+
+<script>
+import Nav from './components/Nav.vue'
+import store from './vuex/store'
+
+export default {
+  name: 'App',
+
+  store,
+
+  data() {
+    return {
+      // note: changing this line won't causes changes
+      // with hot-reload because the reloaded component
+      // preserves its current state and we are modifying
+      // its initial state.
+    }
+  },
+  components: {
+    'cart-nav': Nav
+  }
+}
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+
+<!-- 
+
+组件中通过getters读取状态
+配合ES6的箭头函数真的很简洁的。
+ -->
+
+
+<script>
+vuex: {
+  getters: {
+    iPhone6S: ({ index }) => index.iPhone6S
+  }
+}
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+<!-- 理解数据流闭环 -->
+
+<!-- 比如我们需要根据更改外观来改变商品的图片这样的需求。我们该怎样完成一个数据流闭环呢？ -->
+
+<!-- 从组件开始： -->
+
+<!--    一（Vue components）、首先子组件Index.vue需要一个点击事件来触发action： -->
+
+<!-- Index.vue -->
+
+<li v-for="styleUrl in iPhone6S.style"
+    @click="changeStyle($key, styleUrl)"
+    :class="{active: iPhone6S.activeStyleUrl == styleUrl}"><span v-text="$key"></span>
+</li>
+
+
+
+<!--    二（Actions）、声明一个名为changeStyle的action -->
+
+<!-- actions.js -->
+
+<!--  export const changeStyle = makeAction('CHANGE_STYLE') -->
+
+<!-- 并分发mutations，用统一的函数处理。 -->
+
+<!-- 
+	function makeAction (type) {
+	  return ({ dispatch }, ...args) => dispatch(type, ...args)
+	} 
+-->
+
+
+
+<!-- 
+
+	   三（Mutations）、我们用常量声明mutation，并把它放到单独的地方。
+	   mutation常量习惯性大写的，区分于actions。 
+-->
+
+<!--   mutation-types.js  -->
+
+<!--   export const CHANGE_STYLE = 'CHANGE_STYLE'   -->
+
+
+
+
+<!--   四（State）、在模块中导入mutation改变状态：   -->
+
+<!-- index.js -->
+<!--  放着index模块的state 跟 mutation  -->
+
+<script>
+[CHANGE_STYLE] (state, styleName, styleUrl) {
+
+  state.iPhone6S.activeStyle = styleName
+  state.iPhone6S.activeStyleUrl = styleUrl
+}
+</script>
+
+<!-- 由于 Vuex store 内部的 state 对象被 Vue 改造成了响应式对象，当我们对 state 进行修改时，任何观测着 state 的 Vue 组件都会自动地进行相应地更新。
+使用Vuex管理状态并不是需要把所有的状态都放在Vuex里。
+
+如上所述，组件本地状态是不需要写在Vuex里的。 -->
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+<!-- 组件不允许直接修改 store 实例的状态
+
+在使用vuex的过程中你有可能会对从vuex.getters获取的数据进行再次操作。这是不允许的。改变 store 中的状态的唯一途径就是显式地分发 状态变更事件
+
+组件永远都不应该直接改变 Vuex store 的状态。因为我们想要让状态的每次改变都很明确且可追踪，Vuex 状态的所有改变都必须在 store 的 mutation handler (变更句柄)中管理 
+
+-->
+
+
+</body>
+</html>

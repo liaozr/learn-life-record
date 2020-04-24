@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- playlist 这个是 包括蒙层的一个大的透明层 ，相当于全屏 -->
+
+    <!-- 点击这个层，使蒙层消失 -->
+    <div class="playlist" v-show='showFlag' @click='hide'>
+
+        <!-- list-wrapper 是蒙层自身  -->
+        <!-- 点击蒙层自身，把蒙层自身的点击事件给stop掉，不让他在冒泡到父元素上 -->
+
+        <!-- @click.stop的 作用是让其事件不继续向上冒泡 -->
+        <div class="list-wrapper" @click.stop>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+ <!DOCTYPE html>
+<html>
+<head>
+	<title>宝安通</title>
+	 <meta charset="UTF-8" />
+	<!-- Mobile Devices Support @begin -->
+    <meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" / >
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <!-- Mobile Devices Support @end -->
+    <link rel="stylesheet" href="css/base-reset.css">
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link rel="stylesheet" href="css/icons-extra.css">
+    <link rel="stylesheet" type="text/css" href="css/swiper-3.3.1.min.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+
+    <script src="js/zepto1.1.6.min.js" type="text/javascript"></script>
+    <script src="js/flexible.js" type="text/javascript"></script>
+    <script src="js/flexible_css.js" type="text/javascript"></script>
+    <script src='js/swiper-3.3.1.min.js' type="text/javascript"></script>
+    <script src="js/mui.min.js"></script>
+    
+</head>
+<body>
+	
+    <div class="footer">
+			<div class='cur dot' data-id="section"><span id='section' class='icon icon-home'></span><span>首页</span></div>
+			<div class="dot" data-id="baoliao"><span id='news' class='icon icon-task'></span><span>报料</span></div>
+			<div class="dot" data-id="us"><span id='us' class='icon icon-mine'></span><span>我的</span></div>
+	</div>
+    <script>
+	        var doc = window.document;
+            var docEl = doc.documentElement;
+	        var width = docEl.getBoundingClientRect().width;
+	        var dpr=1;
+	        if ( width > 540) {
+	            width = 540 * dpr;
+	        }
+	        var rem = width / 10;	        
+	        var fontSize=rem;	       
+	        var bottomheight=parseInt(fontSize)*1.562+'px';	
+	        var topheight2= parseInt(fontSize) * 1.375 + 'px';
+		    var bottomheight2 = parseInt(fontSize) * 1.562+ 'px';
+	        
+			var subStyles = {
+				top:"0px",
+				bottom:bottomheight,
+				bounce: 'vertical',
+			    bounceBackground: '#eee'
+			};
+			
+			var subStyles2 = {
+				top:topheight2,
+				bottom:bottomheight2				 
+			};
+
+			if(window.plus) {
+				plusReady()
+			} else {
+				document.addEventListener('plusready', plusReady, false);
+			}
+
+			function plusReady() {
+				plus.webview.create("section.html", "section", subStyles);
+				plus.webview.create("baoliao.html", "baoliao", subStyles);
+				plus.webview.create("us.html", "us", subStyles);
+				
+//				plus.webview.create("pullrefresh_sub1.html", "pullrefresh_sub1.html", subStyles2);
+				
+				
+				plus.webview.getWebviewById("section").show("fade-in",200);		
+				
+				
+				//设置只支持竖屏幕显示
+				plus.screen.lockOrientation("portrait-primary");
+								
+				//判断是否已经登录,若没有登陆将预加载登录页面
+				judgelogin();
+				
+				//底部导航栏的tap点击切换事件
+				tapBaritem();
+								 		    								 
+			}
+			
+			function tapBaritem(){	
+				var lastid='section';
+				$(".dot").on("tap",function(){
+					
+					$(".dot").removeClass("cur");
+					$(this).addClass("cur");					
+					var id=$(this).data("id");				
+
+					
+					plus.webview.getWebviewById(id).evalJS("init()");		                
+					plus.webview.getWebviewById(id).show("pop-in",200); 				 			 
+// 					plus.webview.getWebviewById(lastid).hide("fade-in",0);
+					
+					lastid=id;
+																	 				
+					var arr=plus.webview.getWebviewById(id).opened();				 
+					for(var i=0;i<arr.length;i++){
+						//arr[i].close();
+					}
+									 
+					var array = plus.webview.all();
+			    	if(array) {
+			    		console.log("********************");
+						for(var i = 0; i < array.length; i++) {
+							console.log(array[i].getURL());
+						}
+				    }			 				 											
+			    });			 
+			}
+			
+			function judgelogin() {
+				//测试语句
+				localStorage.removeItem('user');
+				//判断是否已经登录成功//localstorage在页面关闭的时候也同样存在，sessionstorage页面关闭数据不存在
+				if (!localStorage.getItem('user')) {
+					mui.preload({
+						url:'denglu.html',
+						id:'denglu.html',
+						styles:{
+							top:'0px',
+							bottom:'0px'
+						}
+					});
+				}
+			}
+						
+								
+		</script>	
+</body>
+</html>

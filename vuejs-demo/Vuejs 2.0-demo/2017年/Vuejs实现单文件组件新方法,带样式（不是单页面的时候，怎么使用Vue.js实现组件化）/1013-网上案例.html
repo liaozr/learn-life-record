@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+    <!-- example.html 页面代码 -->
+
+    <script src="vue.js"></script>
+
+    <div id="example">
+
+      <h3>Vue component<h3>
+      <counter></counter>
+      <counter></counter>
+
+    </div>
+
+    <!--引入组件mycomp.js-->
+    <script src="mycomp.js"></script>
+
+    <script>
+
+         new Vue({
+             el: '#example'
+         })
+
+   </script>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+<!-- mycomp.js  脚本里面的代码 -->
+
+<script>
+
+  //heredoc方法输出注释中的组件代码
+
+  function heredoc(fn){
+      return fn.toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
+  }
+
+  //输出组件代码
+  document.write(heredoc(function(){
+      /*
+      <style>
+        .my {color:red;padding:10px;}
+     </style>
+
+     <script type="text/x-template" id="c">
+         <p class="my" v-on:click="todo+=1">
+           {{todo}}
+         </p>
+     </script>
+
+     <script>
+         Vue.component('counter',{
+           template: "#c",
+           data: function (){
+             return {
+                todo: 1
+             }
+           }
+         })
+     </script>
+
+ */}))  // 这里有个点是要注意一下的，那就是 */ 与 })) 是 不能够 换行的，否则 组件 会报错，已经亲身实践过的了。
+
+  // 同时，也要注意下， 组件的命名 是不能跟 html 的元素标签 重名，否则的话，组件效果也是显示不出来的。
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+
+</body>
+
+</html>

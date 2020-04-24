@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+下面的验证是做一个商城的时候所用的，在这种写不了其他的情况下贴出这个小case补下心意。
+
+------------请关注我@小萧ovo，一起学习、交流、分享。（有什么想了解的可以评论或私信小编喔，尽我所能。）
+
+idcardCheck.js //身份证验证
+
+var Wi = [ 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1 ];    // 加权因子
+var ValideCode = [ 1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2 ];            // 身份证验证位值.10代表X
+function IdCardValidate(idCard) {
+    idCard = trim(idCard.replace(/ /g, ""));               //去掉字符串头尾空格
+    if (idCard.length == 15) {
+        return isValidityBrithBy15IdCard(idCard);       //进行15位身份证的验证
+    } else if (idCard.length == 18) {
+        var a_idCard = idCard.split("");                // 得到身份证数组
+        if(isValidityBrithBy18IdCard(idCard)&&isTrueValidateCodeBy18IdCard(a_idCard)){   //进行18位身份证的基本验证和第18位的验证
+            return true;
+        }else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+/**
+ * 判断身份证号码为18位时最后的验证位是否正确
+ * @param a_idCard 身份证号码数组
+ * @return
+ */
+function isTrueValidateCodeBy18IdCard(a_idCard) {
+    var sum = 0;                             // 声明加权求和变量
+    if (a_idCard[17].toLowerCase() == 'x') {
+        a_idCard[17] = 10;                    // 将最后位为x的验证码替换为10方便后续操作
+    }
+    for ( var i = 0; i < 17; i++) {
+        sum += Wi[i] * a_idCard[i];            // 加权求和
+    }
+    valCodePosition = sum % 11;                // 得到验证码所位置
+    if (a_idCard[17] == ValideCode[valCodePosition]) {
+        return true;
+    } else {
+        return false;
+    }
+}
+/**
+  * 验证18位数身份证号码中的生日是否是有效生日
+  * @param idCard 18位书身份证字符串
+  * @return
+  */
+function isValidityBrithBy18IdCard(idCard18){
+    var year =  idCard18.substring(6,10);
+    var month = idCard18.substring(10,12);
+    var day = idCard18.substring(12,14);
+    var temp_date = new Date(year,parseFloat(month)-1,parseFloat(day));
+    // 这里用getFullYear()获取年份，避免千年虫问题
+    if(temp_date.getFullYear()!=parseFloat(year)
+          ||temp_date.getMonth()!=parseFloat(month)-1
+          ||temp_date.getDate()!=parseFloat(day)){
+            return false;
+    }else{
+        return true;
+    }
+}
+  /**
+   * 验证15位数身份证号码中的生日是否是有效生日
+   * @param idCard15 15位书身份证字符串
+   * @return
+   */
+  function isValidityBrithBy15IdCard(idCard15){
+      var year =  idCard15.substring(6,8);
+      var month = idCard15.substring(8,10);
+      var day = idCard15.substring(10,12);
+      var temp_date = new Date(year,parseFloat(month)-1,parseFloat(day));
+      // 对于老身份证中的你年龄则不需考虑千年虫问题而使用getYear()方法
+      if(temp_date.getYear()!=parseFloat(year)
+              ||temp_date.getMonth()!=parseFloat(month)-1
+              ||temp_date.getDate()!=parseFloat(day)){
+                return false;
+        }else{
+            return true;
+        }
+  }
+//去掉字符串头尾空格
+function trim(str) {
+    return str.replace(/(^\s*)|(\s*$)/g, "");
+}
+
+/**判断是否为空**/
+
+/**判断是否为空**/
+function isBlank(_value){
+if(_value==null || _value=="" || _value==undefined){
+return true;
+   }
+return false;
+}
+
+/** 验证邮箱 **/
+
+/** 验证邮箱  **/
+function validateEmailFiled(obj,param,description){
+if(param.errorCount == 0 && obj.val().length > 0){
+var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+if(!reg.test(obj.val())){
+            param.errorCount =  param.errorCount + 1;
+floatNotify.simple(description);
+          }
+      }else{
+         param.errorCount =  param.errorCount + 1;
+floatNotify.simple(description);
+      }
+}
+
+/** 验证手机 **/
+
+/** 验证手机  **/
+function validateMobileFiled(obj,param,description){
+if(param.errorCount == 0){
+//验证电话号码手机号码，包含至今所有号段
+         var reg=/^1\d{10}$/;
+if(!reg.test(obj.val())){
+            param.errorCount =  param.errorCount + 1;
+floatNotify.simple(description);
+         }
+      }
+}
+
+/** 检查文件类型 **/
+
+/**
+ * 检查文件类型
+ * @param ths file对象
+ * @return 是否符合规格
+ */
+function checkImgType(ths) {
+try {
+var obj_file = $(ths).get(0).files;
+for(var i=0;i<obj_file.length;i++){
+if (!/\.(JPEG|BMP|GIF|JPG|PNG)$/.test(obj_file[i].name.toUpperCase())) {
+alert("仅支持JPG、GIF、PNG、JPEG、BMP格式");
+$(ths).val("");
+return false;
+         }
+      }
+   } catch (e) {
+   }
+
+return true;
+}
+
+/** 检查文件大小 **/
+
+/**
+ * 检查文件大小
+ * @param ths file对象
+ * @param limitSize 限制大小(k)
+ * @return 是否符合规格
+ */
+function checkImgSize(ths,limitSize){
+try {
+var maxsize = limitSize*1024;
+var msgSize = limitSize+"K";
+if(limitSize>=1024){
+msgSize = limitSize/1024+"M";
+       }
+var errMsg = "上传的图片不能超过"+msgSize;
+var obj_file = $(ths).get(0).files;
+
+for(var i=0;i<obj_file.length;i++){
+if(obj_file[i].size>maxsize){
+alert(errMsg);
+$(ths).val("");
+return false;
+         }
+      }
+   } catch (e) {
+
+   }
+return true;
+}
+
+/** forget 这是我做商城网站的时候验证手机的代码 **/
+
+$(document).ready(function(){
+
+	  //当光标离开 手机时，验证手机
+	  $("#mobile").blur(function(){
+		  checkPhone();
+	  });
+
+	 //当光标离开 新密码时，验证密码
+	  $("#password").blur(function(){
+		  checkPassword();
+	  });
+
+	 //当光标离开  确认新密码 时 ，验证是否相同
+	  $("#confirm").blur(function(){
+		  checkConfirmPW();
+	  });
+
+	//获取手机验证码
+	  $('.get_mobile_code').click(function(){
+
+		  var _this = this;
+	      if(checkPhone()){
+	    	  $.ajax({
+	    			url: contextPath + "/sendSMSCode",
+	    			data:{"userName":null,"mobile":$("#mobile").val()},
+	    			type:'post',
+	    			dataType : 'json',
+	    			async : false,
+	    			error: function(jqXHR, textStatus, errorThrown) {
+	    		 		alert(textStatus, errorThrown);
+	    			},
+	    			success:function(retData){
+		    		    	mycountDown(_this,60);
+	    			}
+	    	  });
+
+	      }
+
+	 });
+});
+
+//方法，验证手机
+function checkPhone(){
+
+	var mobile = $('input[name=mobile]').val();
+
+    if(isBlank(mobile)){
+       floatNotify.simple('请输入您的手机号码');
+       return false;
+    }
+
+    if(!isPhone(mobile)){
+  	  floatNotify.simple('请输入正确的手机形式');
+        return false;
+    }
+
+    if(isPhoneExist(mobile)){
+      floatNotify.simple('该手机号码不存在');
+        return false;
+    }
+
+    return true;
+}
+
+/**判断是否为空**/
+function isBlank(_value){
+	if(_value==null || _value=="" || _value==undefined){
+		return true;
+	}
+	return false;
+}
+
+/**检查是否为手机号码形式**/
+function isPhone(str){
+	var mobile = /^1\d{10}$/;
+	return mobile.test(str);
+}
+
+/**检查手机号码是否存在**/
+function isPhoneExist(phone) {
+	var result = true;
+	$.ajax({
+			url: contextPath + "/isPhoneExist",
+			data: {"phone":phone},
+			type:'post',
+			async : false, //默认为true 异步
+			dataType : 'json',
+			error: function(jqXHR, textStatus, errorThrown) {
+				 //console.log(textStatus, errorThrown);
+				},
+			success:function(retData){
+				if(retData){
+					result = false;
+				}
+			}
+		});
+	return result;
+}
+
+//方法，验证密码
+function checkPassword(){
+
+	var password = $('input[name=password]').val();
+
+	if(isBlank(password)){
+        floatNotify.simple('密码不能为空！');
+        return false;
+     }
+
+	if(password.length<6){
+        floatNotify.simple('密码长度不能小于6个字符！');
+        return false;
+    }
+
+	return true;
+}
+
+//方法，检验第二次输入的新密码
+function checkConfirmPW(){
+	var password = $('input[name=password]').val();
+	var confirm = $('input[name=password]').val();
+
+	if(password != confirm){
+		  floatNotify.simple('两次输入的新密码不一致！');
+	      return false;
+	}
+
+	return true;
+}
+
+/** 倒计时函数 **/
+function mycountDown(obj,second){
+
+   // 如果秒数还是大于0，则表示倒计时还没结束
+   if(second>=0){
+
+       // 按钮置为不可点击状态
+       $(obj).attr('disabled', true);
+
+       // 按钮里的内容呈现倒计时状态
+       $(obj).val("发送短信中"+'('+second+')');
+
+       // 时间减一
+       second--;
+
+       // 一秒后重复执行
+       setTimeout(function(){mycountDown(obj,second);},1000);
+
+   }else{// 否则，按钮重置为初始状态
+
+       // 按钮置未可点击状态
+       $(obj).attr('disabled', false);
+       // 按钮里的内容恢复初始状态
+       $(obj).val("获取手机验证码");
+   }
+
+}
+
+function formSubmit(){
+	var postData={};var flag = true;
+
+	if(checkPhone()){//验证手机
+    	postData['mobile']=$('input[name=mobile]').val();
+    }else{
+    	flag = false;
+    	return;
+    }
+
+	if(checkPassword() && checkConfirmPW()){//验证密码
+        postData['newPwd']=$('input[name=password]').val();
+    }else{
+    	flag = false;
+    	return;
+    }
+
+	var mobileCode = $('#mobile_code').val();
+	if(!isBlank(mobileCode)){
+		postData['code'] = mobileCode;
+	}else{
+		floatNotify.simple("验证码不能为空！");
+		flag = false;
+    	return;
+	}
+
+	if(flag){
+    	$.ajax({
+			url:contextPath+"/changePwd",
+			type:'POST',
+			dataType:'text',
+			data:postData,
+			success:function(resp){
+				if(resp=="OK"){
+					floatNotify.simple("操作成功");
+					setTimeout("window.location.href='"+contextPath+"/login'",2000);
+				}else if(resp=="codeError"){
+					$('input[name=mobile_code]').val("");//清空验证码
+					floatNotify.simple('验证码错误');
+				}else{
+					floatNotify.simple('操作失败，请重试');
+				}
+			}
+		});
+    }
+}
+
+/** 当手机注册用户时 **/
+
+//提交
+function formSubmit(){
+
+        var postData={};var flag = true;
+
+        var username = $('input[name=username]').val();
+
+        if(checkPhone()){//验证手机
+        	postData['mobile']=$('input[name=mobile]').val();
+        }else{
+        	flag = false;
+        	return;
+        }
+
+        if(checkPassword()){//验证密码
+            postData['password']=$('input[name=password]').val();
+        }else{
+        	flag = false;
+        	return;
+        }
+
+        postData['mobileCode'] = $('input[name=mobile_code]').val();
+
+        if(flag){
+        	$.ajax({
+    			url:contextPath+"/userReg",
+    			type:'POST',
+    			dataType:'text',
+    			data:postData,
+    			success:function(resp){
+    				if(resp=="success"){
+    					window.location.href=contextPath+"/userhome";
+    				}else if(resp=="codeError"){
+    					//清空验证码
+    					$('input[name=mobile_code]').val("");
+    					floatNotify.simple('验证码错误');
+    				}else{
+    					floatNotify.simple('注册失败，请重试');
+    				}
+    			}
+    		});
+        }
+}
+
+/**判断是否为空**/
+function isBlank(_value){
+	if(_value==null || _value=="" || _value==undefined){
+		return true;
+	}
+	return false;
+}
+
+/**检查是否为手机号码形式**/
+function isPhone(str){
+	var mobile = /^1\d{10}$/;
+	return mobile.test(str);
+}
+
+/**检查手机号码是否存在**/
+function isPhoneExist(phone) {
+	var result = true;
+	$.ajax({
+			url: contextPath + "/isPhoneExist",
+			data: {"phone":phone},
+			type:'post',
+			async : false, //默认为true 异步
+			dataType : 'json',
+			error: function(jqXHR, textStatus, errorThrown) {
+				 //console.log(textStatus, errorThrown);
+				},
+			success:function(retData){
+				if(retData){
+					result = false;
+				}
+			}
+		});
+	return result;
+}
+
+
+//方法，验证姓名
+function checkName(){
+	var result=true;
+	var username = $('input[name=username]').val();
+	if(isBlank(username)){
+		floatNotify.simple('请输入您的姓名');
+		return false;
+	}else if(username.length < 2){
+		floatNotify.simple('姓名长度不能少于2个字符');
+		return false;
+	}else{
+	       $.ajax({
+				url: contextPath + "/isNickNameExist",
+				data: {"nickName":username},
+				type:'post',
+				async : false, //默认为true 异步
+				error: function(jqXHR, textStatus, errorThrown) {
+			 		 //console.log(textStatus, errorThrown);
+				},
+				success:function(retData){
+			 		if('true' == retData){
+			 			floatNotify.simple('姓名已经存在');
+			 			result=false;
+					}
+				}
+			});
+	}
+	return result;
+}
+
+//方法，验证手机
+function checkPhone(){
+
+	var mobile = $('input[name=mobile]').val();
+
+    if(isBlank(mobile)){
+       floatNotify.simple('请输入您的手机号码');
+       return false;
+    }
+
+    if(!isPhone(mobile)){
+  	  floatNotify.simple('请输入正确的手机形式');
+        return false;
+    }
+
+    if(!isPhoneExist(mobile)){
+  	  floatNotify.simple('该手机号码已存在！');
+        return false;
+    }
+
+    return true;
+}
+
+//方法，验证密码
+function checkPassword(){
+
+	var password = $('input[name=password]').val();
+
+	if(isBlank(password)){
+        floatNotify.simple('密码不能为空！');
+        return false;
+     }
+
+	if(password.length<6){
+        floatNotify.simple('密码长度不能小于6个字符！');
+        return false;
+    }
+
+	return true;
+}
+
+/** 倒计时函数 **/
+function mycountDown(obj,second){
+
+   // 如果秒数还是大于0，则表示倒计时还没结束
+   if(second>=0){
+
+       // 按钮置为不可点击状态
+       $(obj).attr('disabled', true);
+
+       // 按钮里的内容呈现倒计时状态
+       $(obj).val("发送短信中"+'('+second+')');
+
+       // 时间减一
+       second--;
+
+       // 一秒后重复执行
+       setTimeout(function(){mycountDown(obj,second);},1000);
+
+   }else{// 否则，按钮重置为初始状态
+
+       // 按钮置未可点击状态
+       $(obj).attr('disabled', false);
+       // 按钮里的内容恢复初始状态
+       $(obj).val("获取手机验证码");
+   }
+
+}
+
+/** 倒计时函数 **/
+function bindingMycountDown(obj,second){
+
+   // 如果秒数还是大于0，则表示倒计时还没结束
+   if(second>=0){
+
+       // 按钮置为不可点击状态
+       $(obj).attr('disabled', true);
+
+       // 按钮里的内容呈现倒计时状态
+       $(obj).html("发送短信中"+'('+second+')');
+
+       // 时间减一
+       second--;
+
+       // 一秒后重复执行
+       setTimeout(function(){bindingMycountDown(obj,second);},1000);
+
+   }else{// 否则，按钮重置为初始状态
+
+       // 按钮置未可点击状态
+       $(obj).attr('disabled', false);
+       // 按钮里的内容恢复初始状态
+       $(obj).html("获取手机验证码");
+   }
+
+}
+
+/** 这是倒计时的方法 **/
+
+/**
+ *  倒计时的JS
+ */
+var time_distance;
+var totleTime;
+var stop;
+function countdownTime(disTime){
+	time_distance =disTime;
+	totleTime=time_distance;
+	showTime();
+}
+function showTime(){
+	time_distance=totleTime;
+	var day=0,
+	hour=0,
+	minute=0,
+	second=0;//时间默认值
+	if(time_distance > 0){
+		day = Math.floor(time_distance / (60 * 60 * 24*1000));
+		hour = Math.floor(time_distance / (60 * 60*1000)) - (day * 24);
+		minute = Math.floor(time_distance / (60*1000)) - (day * 24 * 60) - (hour * 60);
+		second = Math.floor(time_distance/1000) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+	}
+	if (hour <= 9) hour = '0' + hour;
+	if (minute <= 9) minute = '0' + minute;
+	if (second <= 9) second = '0' + second;
+	// 显示时间
+	$("#time_d").text(day+'天');
+	$("#time_h").text(hour+'时');
+	$("#time_m").text(minute+'分');
+	$("#time_s").text(second+'秒');
+	stop=setTimeout("showTime()",1000);
+	totleTime=totleTime-1000;
+	if(totleTime<1000){
+		$("#time_d").text('活动');
+		$("#time_h").text('已经');
+		$("#time_m").text('结束');
+		$("#time_s").text('。');
+		clearTimeout(stop);
+		}
+
+}
+以上只是小编在一个商城网站里面用到的，如要其他的以下有个链接：
+
+这里面有更多的方法： JavaScript验证
+
+如果对你有帮助赞一个呗。你的支持是小编的动力。
+</body>
+</html>

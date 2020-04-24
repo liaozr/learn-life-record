@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+    多行文本 在文本区域插值( ) 并不会生效，应用 v-model 来代替
+
+    <div id="app">
+        <span>Multiline message is:</span>
+        <p style="white-space: pre">{{ dom }}</p>
+        <br>
+        <textarea v-model="dom" placeholder="add multiple lines"></textarea>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                dom: ''
+            }
+        })
+    </script>
+</body>
+
+</html>

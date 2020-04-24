@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+forEach
+
+这个方法作用是啥咧，就是循环，遍历。比如一般我们在for循环做这样的事的时候如下。
+
+<script>
+    var arr = [1, 2, 3, 4, 5, 6];
+    for (var i = 0, len = arr.length; i < len; i++) {
+        console.log(arr[i], i, arr);
+    }
+</script>
+
+如果用forEach我们应该如何做呢？
+
+<script>
+    var arr = [1, 2, 3, 4, 5, 6];
+    arr.forEach(function(e, i, array) {
+        console.log(e, i, array)
+    })
+
+    // forEach函数中的回调函数支持三个参数，
+    //
+    // 1、数组的值，2、值的索引，3、数组本身。
+    //
+    // 这样的调用方式是不是和jQuery中的$.each很像？
+    //
+    // 其实不然，jQuery和forEach回调函数的第一个和第二个参数正好是反着来的。
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+map
+
+map是干嘛的！ 其最主要的作用就是将原数组按照一定的规则映射成一个新的数组。
+
+再将其返回，注意是返回一个新的数组，而不是将原数组直接改变使用方式和forEach类似,
+
+也是接受一个回调函数，一个改变内部this指向的对象。
+
+map
+
+array.map(callback,[ thisObject])
+callback
+
+var arr = [1, 2, 3, 4, 5];
+arr.map(function(value, index, array) {
+
+});
+
+举个栗子
+<script>
+    var arr = [1, 2, 3, 4, 5];
+    var newArr = arr.map(function(e, i, array) {
+            return 'hello ' + e;
+    })
+    console.log(newArr)
+    // output
+    // ["hello 1", "hello 2", "hello 3", "hello 4", "hello 5"] // newArr
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+filter
+
+接下来是filter,筛选，过滤的意思，给你一个数组，用一些你制定的条件，对其中的值进行过滤，
+
+最后得到你想要的新的数组。基本用法和map差不多
+
+array.filter(callback,[ thisObject]);
+
+```
+但是和map也有差别的地方，filter需要你在callback处返回弱等于`true` 的值,才会将原数组中筛选出的值返回给你。
+
+**举个栗子**
+``` javascript
+<script>
+    var arr = [0, 1, 2, 3, 4, 5];
+
+    var newArr22 = arr.filter(function(e, i, array) {
+            if (e >= 2) return true;
+    })
+    console.log(newArr22)
+    // ouput
+    // [2, 3, 4, 5] // newArr22
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+indexOf
+
+数组的indexOf方法和字符串的indexOf用法非常类似，array.indexOf(searchElement[, fromIndex]),
+
+针对给定的要查找的值，和开始查找的位置(可选)，返回整数索引值。
+
+举个例子
+
+<script>
+    var arr3 = [0, 1, 2, 3, 4, 5];
+    console.log( arr3.indexOf(1) ) // 1
+    console.log( arr3.indexOf(3, 'qianlong') ) // 3 因为给定的开始索引值不能转化成数字，所以还是从0位置开始搜索
+    console.log( arr3.indexOf(3, 4) ) // -1
+    console.log( arr3.indexOf(3, '4') ) // -1
+    console.log( arr3.indexOf('3') ) // -1 // 判断条件是强 3 !== '3' => -1
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+</html>

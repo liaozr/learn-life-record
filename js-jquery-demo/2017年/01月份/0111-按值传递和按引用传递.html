@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- ---------------------------------------------------------------------------- -->
+
+    <script>
+        function test(num) {
+            //  相当于 这里对 num 这个变量创建了一个内存副本，
+            //  不关于局部变量还是全局变量的事，因变量是 按值传递的。
+            var num = num + 1;
+            return num
+        }
+        var num = 1;
+        console.log(test(num)); // 2
+
+        console.log(num); //  1
+    </script>
+
+    <!-- --------------------------------------------------------------------------- -->
+
+    <script>
+
+        function test(obj) {
+          //  当前obj对内存的这个地址指向同一个， 因为对象、数组等都是按引用传递的
+          obj.age=20;
+          console.log("内部obj:",obj)  // 内部obj: Object {name: "xiaoming", age: 20}
+        }
+        var obj={
+          name:'xiaoming'
+        }
+        test(obj);
+        console.log('外部obj:',obj); // 外部obj: Object {name: "xiaoming", age: 20}
+
+        //  js 对象 obj array  都是按引用传递
+       //  字符串 变量 布尔值 等等都是  按值传递的
+
+    </script>
+
+    <!-- ---------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

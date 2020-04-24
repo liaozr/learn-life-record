@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+css3为了更好的兼容多个浏览器，通常前面加一大堆前缀，有时候感觉很烦，前缀也容易忘记或者漏掉。下面总结一下！
+
+-webkit  /*为Chrome/Safari*/
+-moz  /*为Firefox*/
+-ms   /*为IE*/
+-o  /*为Opera*/
+
+以旋转为例
+<style>
+    .aa {
+        -webkit-transform: rotate(-3deg);
+        /*为Chrome/Safari*/
+        -moz-transform: rotate(-3deg);
+        /*为Firefox*/
+        -ms-transform: rotate(-3deg);
+        /*为IE*/
+        -o-transform: rotate(-3deg);
+        /*为Opera*/
+        transform: rotate(-3deg);
+        /*为nothing*/
+    }
+</style>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+以border-radius为例(本文上面案例15，CSS 圆角已经提过圆角的问题，下面我们再来重提一下)：
+
+<style>
+    .bb {
+        -moz-border-radius: 12px;
+        /* FF1-3.6 */
+        -webkit-border-radius: 12px;
+        /* Saf3-4, iOS 1-3.2, Android <1.6 */
+        border-radius: 12px;
+        /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    }
+</style>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

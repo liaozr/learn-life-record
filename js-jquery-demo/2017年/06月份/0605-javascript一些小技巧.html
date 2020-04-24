@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  4. 使用逻辑或(||)设置默认值
+
+  逻辑或(||)也属于短路操作，即当第一个操作数可以决定结果时，不再对第二个操作数进行求值。
+
+  利用这个特点，我们可以给赋值语句设置默认值。只有当第一个操作数为null或者undefined时，才会把第二个操作数赋值给目标。
+
+  <script>
+
+      function User(name, age) {
+          this.name = name || "Liming";
+      }
+
+  </script>
+
+  上述代码中，如果函数中没有传入name参数，name的值为undefined，那么就会给this.name赋值为"Liming"。
+
+  ES6中可以为函数设置默认值，所以这个无需在函数中使用，但是其他地方还是很有用的。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  5. 获取数组最后n个元素
+
+  可以使用以下代码获取数组中最后n个元素
+
+  <script>
+
+      var array = [1, 2, 3, 4, 5, 6];
+      console.log(array.slice(-1)); //[6]
+      console.log(array.slice(-2)); //[5, 6]
+
+  </script>
+
+  原理:Array.prototype.slice(begin,end)可以用来裁剪数组，第二个参数的默认值是数组的长度值。
+
+  若值传入一个参数，则会返回从指定索引开始到数组结尾的所有值。
+
+  而slice()方法还可以接收负值，当传入负值时，会自动加上数组的长度值使其转换为正值，于是便得到了最后的n个值。
+
+  <!-- ---------------------------------------------------------------------------------- -->
+
+  6. 合并大数组
+
+  常用的合并数组的方式是使用Array.concat()函数。
+
+  该函数会创建一个新数组，将两个数组连接起来存储到新数组中，这会大量消耗内存。
+
+  可以使用Array.push.apply(arr1, arr2)，它不会创建新数组，而是将第二个数组合并到第一个数组中，以减少内存的消耗。
+
+  <script>
+
+      var a = [1, 2];
+      var b = [3, 4];
+      console.log(a.push.apply(a, b)); // [1,2,3,4]
+      //或者
+      console.log(Array.prototype.push.apply(a, b)); // [1,2,3,4]
+
+  </script>
+
+  原理: Array.push()是在数组的末尾增加元素，但是如果使用a.push(b)会把整个数组b当作一个元素添加到数组a中。
+
+  而apply()方法，则允许将某个方法的参数以数组的形式传入，所以起到了将数组b中的元素追加到数组a中的效果。
+
+  <!-- ---------------------------------------------------------------------------------- -->
+
+  7. NodeList转换为数组
+
+  使用document.querySelectorAll('div')返回的是NodeList对象，虽然它很像数组，
+
+  但是并不能使用诸如sort()，filter()等方法。你可以将其转换为真正的数组。
+
+  <script>
+  
+      var eles = document.querySelectorAll('p'); //NodeList
+      var arrayElements = [].slice.call(eles); //转化为数组
+
+      // 或者
+      var arrayElements = Array.prototype.slice.call(eles);
+
+      // 或者
+      var arrayElements = Array.from(eles);
+
+  </script>
+
+  原理:
+
+  [].slice.call(eles):
+
+  首先创建了一个空数组[]，然后调用他的slice()方法，但是在slice()方法的执行中，把this对象指向了eles,所以会对eles进行裁减，
+
+  由于对slice()方法没有传入参数，所以相当于slice(0,eles.length),会按照元长度返回一个数组。
+
+  Array.prototype.slice.call(eles): 原理与上面相似，只不过这次没有创建空数组，而是直接使用了原型中的方法
+
+  Array.from()
+
+  Array.from()接受一个类数组对象或者可迭代对象，基于该对象创建一个新的Array实例。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

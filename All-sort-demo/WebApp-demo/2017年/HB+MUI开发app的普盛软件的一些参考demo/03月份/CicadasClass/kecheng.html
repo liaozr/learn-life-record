@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="知了云课堂" />
+		<meta name="Description" content="知了云课堂" />
+		<title>知了云课堂</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+	</head>
+	<style>
+			html,
+			body {
+				width: 100%;
+				overflow-x: hidden;
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+			
+			.mui-table-view .mui-media-object {
+				line-height: 85px;
+				max-width: 120px;
+				height: 85px;
+			}
+			
+			h1{
+				font-size: 16px;
+				margin-top: 0;
+				margin-bottom: 25px;
+				color: black;
+				white-space:normal;
+				line-height: .4rem;
+			}
+			
+			.kc-jie{
+				float: left;
+				font-size: 16px;
+				color: lightgray;
+			}
+			.kc-count{
+				float: right;
+				font-size: 16px;
+				color: lightgray;
+			}
+		
+		</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 id="title" class="mui-title cc-title"><span>课程</span></h1>
+			<div class="mui-pull-left" >
+				<a id="back" class="mui-icon">
+					<img src="img/title_button_back.png" style="width:1em;height:1em;" />
+				</a>
+			</div>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view" style="padding: 0;margin: 0;">
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left cc-left-image" src="img/shuijiao.jpg">
+						<div class="mui-media-body">
+							<h1>{{kecheng.title}}</h1>
+							<span class="kc-jie">{{kecheng.jie}}</span>
+							<span class="kc-count">{{kecheng.count}}</span>
+						</div>
+					</a>
+				</li>
+
+			</ul>
+		</div>
+		
+		
+	</body>
+</html>

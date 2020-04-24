@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var subStyles = {
+            top: "44px",
+            bottom: "50px"
+        };
+
+        $(".susong>li>div").on("click", function() {
+
+            var url = $(this).data("url");
+            var str = $(this).data("str");
+            plus.webview.currentWebview().opener().evalJS("changeTit('" + str + "')");
+            mui.openWindow({
+                url: url,
+                id: url,
+                styles: subStyles,
+                createNew: false,
+                show: {
+                    autoShow: true, //页面loaded事件发生后自动显示，默认为true
+                    aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
+                    duration: 200 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+                },
+                waiting: {
+                    autoShow: true,
+                    title: '正在加载...',
+                }
+            });
+            /*var array = plus.webview.all();
+                if(array) {
+                for(var i = 0, len = array.length; i < len; i++) {
+                  console.log(array[i].getURL());
+                }
+                }*/
+        });
+
+        function webviewchange(_this) {
+            var url = _this.data("url");
+            var str = _this.html();
+            plus.webview.currentWebview().opener().evalJS("changeTit('" + str + "')");
+            mui.openWindow({
+                url: url,
+                id: url,
+                styles: subStyles,
+                createNew: false,
+                show: {
+                    autoShow: true,
+                    aniShow: 'slide-in-right',
+                    duration: 200
+                },
+                waiting: {
+                    autoShow: true,
+                    title: "正在加载..."
+                }
+            })
+        }
+
+        $(".sort a").click(function() {
+            var _self = $(this);
+            webviewchange(_self);
+        })
+
+        var oldback = mui.back;
+        mui.back = function() {
+            if (confirm('确认退出？')) {
+                plus.runtime.quit();
+            }
+        }
+
+    </script>
+</body>
+
+</html>

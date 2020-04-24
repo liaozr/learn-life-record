@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- --------------------------------------------------------------------------------------- -->
+
+    绑定css class和style:
+
+    <div v-bind:style="styleObject"></div>
+
+    <li v-bind:class="{'j_current': currenttab=='login'}"> 这是class绑定的演示</li>
+
+
+    data: { styleObject: { color: 'red', fontSize: '13px' } }
+
+    <div v-bind:class="classObject"></div>
+
+    <script>
+        data: {
+            classObject: {
+                'class-a': true,
+                'class-b': false
+            }
+        }
+    </script>
+
+    <!-- --------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

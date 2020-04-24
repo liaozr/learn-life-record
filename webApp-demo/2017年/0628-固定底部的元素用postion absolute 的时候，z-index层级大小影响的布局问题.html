@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  
+<!-- --------------------------------------------------------------------------------- -->
+
+    <style>
+
+        .y-sd-footer {
+            height: 1.3rem;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            z-index: -999;
+            position: absolute;
+            display: inline-block;
+            bottom: 0;
+            width: 100%;
+            line-height: 1.3rem;
+        }
+
+    </style>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+    经测试，倘若页面底部有个固定的元素，如提交按钮等等，要固定在页面底部的。
+
+    首先，你要知道坑1 是这个布局元素是不能用fixed布局的，这点是要清楚的
+
+    这里用的也是 absolute 定位，bottom设置为 0
+
+    这里遇到的坑是如果页面中，有多个input输入的地方的话，假若 这个 固定在底部的
+    元素 的层级 设置为 999999比较大的话，那些input输入框获取到软键盘焦点后，
+
+    会出现 这个元素 会在页面上漂的，导致遮住原有的页面布局元素。
+
+    解决办法就是 把这个固定在页面底部的元素的层级  不要设置那么高 ，设置为 -999即可
+
+    解决问题。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

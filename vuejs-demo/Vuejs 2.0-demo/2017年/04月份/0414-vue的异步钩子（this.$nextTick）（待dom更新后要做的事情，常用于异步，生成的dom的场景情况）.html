@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.staticfile.org/vue/1.0.28/vue.js'></script>
+    <script src='https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js'></script>
+
+</head>
+
+<div id='aa' class="aa" @click='dianji($event)'>
+    点击块
+</div>
+<div class="bb">
+      <div class="cc" v-for='item in items'>{{item.name}}</div>
+</div>
+<body>
+    <script>
+        new Vue({
+            el: 'body',
+            data: {
+               items:[
+                 {
+                   name:'zrliao'
+                 },
+                 {
+                   name:'fulin'
+                 },
+                 {
+                   name:'zrliao2'
+                 }
+               ]
+            },
+            created() {
+                //  异步等dom更新后才更改值
+                // 但是，若用的是ready钩子，就应该不用加上 this.$nextTick这个钩子了。
+                this.$nextTick(function() {
+                   var height=$('.bb').height();
+                   $('.aa').css({
+                     height:height
+                   })
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

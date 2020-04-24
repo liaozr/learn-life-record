@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		<span>Message:{{msg}}</span>
+		<input type="text" v-model='msg'>
+		<span> This will never change:{{*msg1}} 
+			<!-- {{*msg1}} 这样子是相当于单向绑定 -->
+		</span>
+        <!-- 你也可以只处理单次插值，今后的数据变化就不会再引起插值更新了：
+        <span>This will never change: {{* msg }}</span> -->
+		<input type="text" v-model='msg1'>
+	</div>
+	<script>
+	var vm=new Vue({
+		el:'#app',
+		data:{
+			msg:'hello vuejs!',
+			msg1:'hello msg1'
+		}
+	})
+	</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+    <!-- 三个大括号，跟二个大括号的区别 -->
+	<div id="app2">
+		 <div>{{{raw_html}}}</div>
+
+		 <div>{{raw_html}}</div>
+
+	</div>
+	<script>
+	// 双 Mustache 标签将数据解析为纯文本而不是 HTML。
+	// 为了输出真的 HTML 字符串，需要用三 Mustache 标签
+    var vm=new Vue({
+    	el:'#app2',
+    	data:{
+    		raw_html:" <img src='http://www.baidu.com/logo1.png' alt='' width='270' height='129'>"
+    	}
+    })
+	</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+<!-- 内容以 HTML 字符串插入——数据绑定将被忽略。如果需要复用模板片断，应当使用 partials。 -->
+
+ <!--partial 注册 局部的模板 示例-->
+    <!--http://vuejs.org/api/#partial-->
+    <div id="app3">
+        <!-- a static partial -->
+
+        <!-- partial 是vuejs里的一个内定标签 -->
+        <partial name="my-partial"></partial>
+    </div>
+    <script>
+    Vue.partial('my-partial', '<p>This is a partial! {{msg}}</p>')
+
+    new Vue({
+        el: '#app3',
+        data:{
+          msg:'你好，我是台湾小凡'
+        }
+    })
+    </script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+ 
+ <!--partial 注册 局部的模板 示例-->
+    <!--http://vuejs.org/api/#partial-->
+    <div id="app4">
+        <!-- a dynamic partial -->
+        <!-- renders partial with id === vm.partialId -->
+        <!-- v-bind  表示动态绑定 partial的name值 -->
+        <partial v-bind:name="partialId"></partial>
+        <br> partialId :
+        <input type="text" v-model="partialId" placeholder="this is partialId">
+    </div>
+
+    <script>
+    //注册局部模板片断 1
+    Vue.partial('my-partial', '<p>This is a partial! {{msg}}</p>')
+        //注册局部模板片断 2
+    Vue.partial('my-day', '<p>我的一天, 就是现在！ {{msg}}</p>')
+    new Vue({
+        el: '#app4',
+        data: {
+            partialId: 'my-partial',
+            msg: '你好，我是台湾小凡'
+        }
+    })
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+<!--partial 注册 局部的模板 示例-->
+    <!--http://vuejs.org/api/#partial-->
+    <div id="app5">
+        <!-- dynamic partial using v-bind shorthand -->
+        <!-- 就是 可以省去 v-bind 直接用 : 一个冒号代替 -->
+        <partial :name="partialId"></partial>
+        <br> partialId :
+        <input type="text" v-model="partialId" placeholder="this is partialId">
+    </div>
+    <script>
+    //注册局部模板片断 1
+    Vue.partial('my-partial', '<p>This is a partial! {{msg}}</p>')
+        //注册局部模板片断 2
+    Vue.partial('my-day', '<p>我的一天, 就是现在！ {{msg}}</p>')
+    new Vue({
+        el: '#app5',
+        data: {
+            partialId: 'my-partial',
+            msg: '你好，我是台湾小凡'
+        }
+    })
+    </script>
+<!-- ---------------------------------------------------------------- -->
+
+ <!--
+    Mustache 标签也可以用在 HTML 特性 (Attributes) 内：
+    请见控制台
+    -->
+    <div id="app6">
+        <p i="123"  id ="abc" name ="abc">你好，我是台湾小凡</p>
+        <div id="item-{{ id }}"></div>
+    </div>
+    <script>
+    new Vue({
+        el: '#app6',
+        data: {
+            id: 979866666666
+        }
+    })
+    </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<!-- ------------------------------------------------------------------------------ -->
+
+v-link 弃用
+
+v-link指令已经被一个新的<router-link>component指令替代,这一部分的工作已经被Vue2中的组件完成。
+
+这将意味着无论在什么时刻，什么情况下你将会拥有这样的一个链接:
+
+<a v-link="'/about'">About</a>
+
+你需要像这样去更新:
+<router-link to="/about">About</router-link>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+v-link-active 废弃
+
+v-link-active指令也因为新出现了一个用于定义隔离标签(在<router-link>组件上)被废弃掉了。
+
+所以举例说明，你将会以这样的方式更新:
+
+<li v-link-active>
+  <a v-link="'/about'">About</a>
+</li>
+
+变成了这样:
+
+<router-link tag="li" to="/about">
+  <a>About</a>
+</router-link>
+
+<a>标签将会成为真实的链接(并且会获取到正确的跳转),但是激活的类将会被应用在外部的<li>标签上.
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

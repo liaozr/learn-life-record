@@ -1,0 +1,108 @@
+
+Vue群中, 一些常见问题及解答
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+1. 关闭eslint
+
+部分刚接触vue-cli的群友, 会默认把eslint打开, 但是又不了解eslint的规则, 经常造成编译时报错, 那么如何关闭呢?
+打开build/webpack.base.conf.js配置文件, 删除以下代码:
+
+preLoaders: [{
+    test: /\.vue$/,
+    loader: 'eslint',
+    include: projectRoot,
+    exclude: /node_modules/
+}, {
+    test: /\.js$/,
+    loader: 'eslint',
+    include: projectRoot,
+    exclude: /node_modules/
+}],
+eslint: {
+    formatter: require('eslint-friendly-formatter')
+},
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+2. 片段实例
+
+在控制台中报类似警告: Attribute "id" is ignored on component <div> because the component is a fragment instance, 这个就是组件是片段实例的问题, 通常来讲, 组件里的template不要有多个顶级元素
+
+<template>
+<div>hello</div>
+<div>world</div>
+</template>
+上面代码是极不推荐的, 应该改成下面格式:
+
+<template>
+<div>
+    <div>hello</div>
+    <div>world</div>
+</div>
+</template>
+<!-- ------------------------------------------------------------------------------------------------------------ -->
+
+3. webpack打包时图片路径的问题
+
+在.vue文件中引入css样式的方法有两种:
+
+在script里用import引用
+在style里用@import引用
+那么这两种引用方式有什么区别呢?
+
+用方法1的方式引入, 那么css文件中图片路径, 应该相对当前css文件, 而不是当前引入该css文件的.vue文件
+
+用方法2的方式引入, 那么css文件中图片路径, 应该相对当前引入该css文件的.vue文件, 而不是当前css文件
+
+个人不推荐用方法2引入, 特别是, 你在/src/app.vue和/src/components/main.vue这样不同目录的.vue文件中分别引入,
+
+那么总有一个要报图片路径不存的错误
+
+<!-- ------------------------------------------------------------------------------------------ -->
+
+
+4. vue-strap 按需引用打包后报错?
+
+因为vue-strap只是将所有的组件编译打包成了一个文件, 并没有单个组件打包, 所以在按需应用时, 只能引用组件目录下的.vue文件, 而.vue文件引用了两个js文件, 这个两个js文件是用es6的export模块方式写的, 当webpack中配置编译.js文件将node_modules文件夹exclude后, webpack编译时, 这两个js文件会被跳过编译, 浏览器运行时遇到export, 那么就肯定报错, 那么怎么解决呢? 方法有下面几种:
+
+方法1:
+
+将引用方法从import alert from 'vue-strap/src/alert.vue' 改成 import { alert } from 'vue-strap', 不过这个方法并不推荐, 因为会将整个vue-strap.js文件打包, 这个文件比较大
+
+方法2:
+
+将webpack的配置文件中的
+
+{
+    test: /\.js$/,
+    loader: 'babel',
+    exclude: /node_modules/
+}
+exclude: /node_modules/ 删除, 这个方法也不推荐, 因为去除这个后, webpack打包时, 会将node_modules里的所有引用的js文件重新用babel编译一次, 造成不可预知问题
+
+方法3:
+
+将node_modules/vue-strap/src文件夹名字改成vue-strap, 然后放到项目文件夹src下,
+引用方法改成import alert from './vue-strap/alert.vue'
+
+方法4:
+
+将webpack的配置文件
+
+{
+    test: /\.js$/,
+    loader: 'babel',
+    exclude: /node_modules/
+}
+改成
+
+{
+    test: /\.js$/,
+    loader: 'babel',
+    exclude: /node_modules(?!(.*vue-strap))/
+}
+
+个人推荐第四种方法
+
+<!-- ----------------------------------------------------------------------------------------------------- -->

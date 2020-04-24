@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    <!-- ----------------------------------------------------------------------- -->
+
+     Migration to vue 2.0 需要升级的包列表 （ 截止到 2016-10-13 需要update的版本 ）（！需参考当前日期的最新版本的）
+
+     cnpm i vue@2.0.2 --save
+
+     cnpm i vue-router@2.0.0 --save
+
+     cnpm i vuex@2.0.0 --save
+
+     cnpm i vue-loader@9.4.0 --save-dev
+
+     cnpm i vuex-router-sync@3.0.0 --save (可选安装)
+
+
+    <!-- --------------------------------------------------------------------- -->
+
+    github地址： https://github.com/vuejs/vue-migration-helper
+
+    <!-- -------------------------------------------------------------------- -->
+
+    Usage # install （全局安装这个迁移工具）
+
+    npm install --global git://github.com/vuejs/vue-migration-helper.git or cnpm install --global
+
+    git://github.com/vuejs/vue-migration-helper.git
+
+    # navigate to a Vue 1.x project directory （进入到项目目录） cd path/to/my-vue-project #
+
+    scan all files in the current directory （ 一般在项目文件夹里执行vue-migration-helper这句即可 ）
+
+     vue-migration-helper
+
+    <!-- ----------------------------------------------------------------------- -->
+
+    执行完 vue-migration-helper 这句后，就会发现控制台里会有很多修改意见出来的，跟着一个一个去 修改就行了。 不过此时是预览不了效果的，所以建议new一个 cmd控制台出来，重新cd到项目目录路径， 再执行cnpm run dev 意思是说一个cmd窗口来看 vue-migration-helper 给出的修改意见 一个cmd窗口来 跑当前项目
+
+    <!-- ----------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

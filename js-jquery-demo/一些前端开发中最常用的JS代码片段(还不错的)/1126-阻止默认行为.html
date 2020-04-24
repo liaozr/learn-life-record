@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 原生js
+        document.getElementById('btn').addEventListener('click', function(event) {
+            event = event || window.event；
+
+            if (event.preventDefault) {
+                // w3c方法 阻止默认行为
+                event.preventDefault();
+            } else {
+                // ie 阻止默认行为
+                event.returnValue = false;
+            }
+        }, false);
+
+        // jQuery
+        $('#btn').on('click', function(event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+
+</html>

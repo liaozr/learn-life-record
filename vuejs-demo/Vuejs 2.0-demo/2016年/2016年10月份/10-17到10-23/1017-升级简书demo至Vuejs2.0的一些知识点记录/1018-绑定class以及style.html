@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+<!-- ------------------------------------------------------------------------------------ -->
+
+要想在项目中使用sass的话，得先安装下面那些依赖
+
+  cnpm install sass-loader --save
+  cnpm install node-sass --save
+  cnpm install sass --save
+---------------------------------------------------------------------
+<style lang="scss">
+    .class1 {
+        border: 1px solid #ddd;
+    }
+    .class2 {
+        @extend .class1;
+        font-size: 14px;
+    }
+</style>
+然后再项目中引用sass即可，需要注意的是经测试  把style的那个lang="scss"改为 lang="sass"是会报错的
+
+所以，要么就<style lang="scss"></style> 要么就<style></style>即可。
+
+<!-- --------------------------------------------------------------------------------------------   -->
+
+    我们也可以在这里绑定一个返回对象的计算属性。这是一个常用且强大的模式：
+
+    <div v-bind:class="classObject"></div>
+
+    <script type="text/javascript">
+        data: {
+                isActive: true,
+                error: null
+            },
+            computed: {
+                classObject: function() {
+                    return {
+                        active: this.isActive && !this.error,
+                        'text-danger': this.error && this.error.type === 'fatal'
+                    }
+                }
+            }
+    </script>
+
+    <!-- ------------------------------------------------------------------------------- -->
+
+    <div class="cover-image" :style="{'background-image':'url('+adbg+')'}"></div>
+
+    <script>
+        import ad from './ad'
+        import articleDetails from './articleDetails'
+
+        export default {
+            data() {
+                return {
+                    adbg: require('../assets/images/vue-demo-bg3.jpg')
+                }
+            },
+            components: {
+                ad,
+                articleDetails
+            }
+        }
+    </script>
+    <!-- ----------------------------------------------------------------------------------- -->
+
+    <li v-for='nav in getnavlists' @click="getterlists(nav.type)" :class="{'active': getcurlist[0].type==nav.type}">
+        <router-link to='/index/article' v-text='nav.title'></router-link>
+    </li>
+    <script>
+        import { mapGetters,mapActions } from 'vuex'
+        export default {
+            data() {
+                return {
+                }
+            },
+            computed: {
+                ...mapGetters(['getnavlists', 'getcurlist'])
+            },
+            methods: {
+                ...mapActions(['getterlists', 'getstartlist'])
+            },
+            created() {
+                this.getstartlist() //要先 执行这个this.getstarlist()，要不然上面那个getcurlist[0].type会报错的。
+            }
+        }
+    </script>
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

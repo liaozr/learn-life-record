@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  数组实例的find方法，用于找出第一个符合条件的数组成员。
+
+  它的参数是一个回调函数，所有数组成员依次执行该回调函数，直到找出第一个返回值为true的成员，
+
+  然后返回该成员。如果没有符合条件的成员，则返回undefined。
+
+  <script>
+  
+      [1, 4, -5, 10].find((n) => n < 0)
+      // -5
+
+      [1, 5, 10, 15].find(function(value){
+          return value > 9;
+      }) // 10
+
+  </script>
+
+</body>
+
+</html>

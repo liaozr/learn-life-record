@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="search">
+
+        <input type="text" class="search-input" v-model.trim="query" @keyup.enter="search()" name="search" placeholder="请输入搜索内容" />
+
+        <img src="../assets/search-btn.png" class="search-btn" @click="search()" />
+    </div>
+
+    <script>
+        export default {
+            data() {
+                return {
+                    query: '',
+                    placeholder: '',
+                    path: ''
+                }
+            },
+            mounted() {
+                if (this.$route.path === '/' || this.$route.path.indexOf('movie'))
+                {
+                    this.path = '/movie/search';
+                }
+                else if (this.$route.path.indexOf('book')) {
+                    this.path = '/book/search'
+                }
+            },
+            methods: {
+                search() {
+                    this.$router.push({
+                        path: this.path,
+                        query: { query: this.query }
+                    })
+                    this.query = ''
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

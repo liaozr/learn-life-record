@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.staticfile.org/vue/2.2.6/vue.js'></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <div v-for='(item,index) in formatItems' class="aa">
+              {{item.text}}
+              <!--
+                输出的数据为
+                1111
+                2222
+                3333
+              -->
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+               items:[
+                  {
+                    text:1111
+                  },
+                  {
+                    text:2222
+                  },
+                  {
+                    text:3333
+                  },
+                  {
+                    text:4444
+                  },
+                  {
+                    text:5555
+                  }
+               ]
+            },
+            computed:{
+               formatItems:function(){
+                 //  slice的作用是数组的截取 到 0到 3 个
+                 return this.items.slice(0,3);  // 截取数组的前三个
+                // 返回 截取后的数组
+               }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+1. 单个页面内容不能过多
+
+设计常用尺寸：750 x 1334 / 640 x 1134，包含了手机顶部信号栏的高度。
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+3. 二维码图片使用 img 标签引入
+
+二维码图片不要写为元素背景，不然长按没有办法触发扫描功能。应使用 img 标签引入，如下：
+
+<img src="images/qrcode.png" title="" alt="">
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+4. 二维码图片记得扫描测试
+
+有时候扫描二维码之后，会跳转至某个地址，不幸的话QQ或者微信会对这个地址进行温馨提醒，如下图所示：
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+6. 关于链接的分享-QQ
+
+如果将页面链接直接复制分享给其他人，在手机上接收链接消息的用户可能会看到链接的相关信息，如页面标题、描述和图片。相关信息设置方式如下：
+
+<title>QQ中链接的标题由此处获取</title>
+<meta name="description" content="QQ中链接的描述由此处获取">
+<!-- QQ默认获取的图片有可能出现缩放问题，效果不佳，可以通过如下方法进行设置 -->
+<meta itemprop="image" content="http://*.*.com/static/images/share.png" />
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+8. Loading
+
+首屏 Loading，代码段分享，拿走即用~
+
+<script>
+    function loading() {
+
+        function Load() {}
+
+        Load.prototype.loadImgs = function(urls, callback) {
+            this.urls = urls;
+            this.imgNumbers = urls.length;
+            this.loadImgNumbers = 0;
+            var that = this;
+            for (var i = 0; i < urls.length; i++) {
+                var obj = new Image();
+                obj.src = urls[i];
+                obj.onload = function() {
+                    that.loadImgNumbers++;
+                    callback(parseInt((that.loadImgNumbers / that.imgNumbers) * 100));
+                }
+            }
+        };
+
+        var loader = new Load();
+
+        loader.loadImgs([
+            // 将所有需要加载的图片地址写于此处
+            "http://domain/site/dist/img/XX.png",
+            "http://domain/site/dist/img/XX.png",
+            "http://domain/site/dist/img/XX.png",
+            "http://domain/site/dist/img/XX.png",
+            "http://domain/site/dist/img/XX.png",
+            "http://domain/site/dist/img/XX.png",
+            "http://domain/site/dist/img/XX.png"
+        ], function(percent) {
+            // 假设显示百分比的元素为 $(".percent")
+            $(".percent").text(percent + '%');
+
+            // 加载结束后，隐藏相应的 loading 或遮罩
+            if (percent == 100) {
+                $(".mask").css('display', 'none');
+            }
+        });
+    }
+
+    // 执行 loading 方法
+    loading();
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+9. CSS 动画属性前缀 webkit
+
+使用 CSS3 来制作动画效果的话，webkit 前缀一定记得加，要不然在某些手机下动画效果是没有的。
+
+如下：
+
+<style>
+    -webkit-animation: f .8s 2s forwards ease-in-out;
+    animation: f .8s 2s forwards ease-in-out;
+    @-webkit-keyframes f {
+        0% {
+            opacity: 0;
+            -webkit-transform: translate3d(750px, 0, 0);
+            transform: translate3d(750px, 0, 0)
+        }
+        to {
+            opacity: 1;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0)
+        }
+    }
+
+    @keyframes f {
+        0% {
+            opacity: 0;
+            -webkit-transform: translate3d(750px, 0, 0);
+            transform: translate3d(750px, 0, 0)
+        }
+        to {
+            opacity: 1;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0)
+        }
+    }
+</style>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+12. 微信二维码问题
+
+01：同一个页面里要是有两个二维码，长按扫描总是只能扫出 左侧/第一个 二维码。
+解决：可视区域内只能出现一个二维码。
+
+02：使用 meta 标签缩放页面后长按二维码图片无反应。
+解决：使用了以下代码之后，就能长按识别二维码了~
+
+<!--同一张二维码图片-->
+<!--下面这张 opacity 为 0，隐藏起来，但是实际存在，并且宽为 100%，屏幕有多大就多大-->
+<img style="right:0; top:0; height: auto;width: 100%;opacity: 0;position: absolute;" src="二维码图片地址">
+<!--下面这张是呈现给用户看的-->
+<img src="二维码图片地址" title="qrcode" alt="qrcode">
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+</body>
+</html>

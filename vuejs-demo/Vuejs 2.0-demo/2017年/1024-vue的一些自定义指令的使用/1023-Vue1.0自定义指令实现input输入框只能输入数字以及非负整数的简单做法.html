@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://cdn.bootcss.com/vue/1.0.14/vue.min.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/vue/2.4.4/vue.js"></script> -->
+
+</head>
+
+<body>
+    <div id="app">
+        <div v-for='item in lists'>
+            <span>{{item.name}}</span>
+            <input v-validate="item.qty" type="number">
+        </div>
+    </div>
+
+    <script>
+        Vue.directive('validate', {
+            twoWay: true,
+            update: function(result) {
+                this.el.value = result;
+                this.handler = function() {
+                    // debugger;
+                    var value = this.el.value;
+                    if (isNaN(value)) {
+                        value = 0;
+                    } else if (value <= 0) {
+                        value = 0;
+                    } else {
+                        value = Math.round(this.el.value);
+                    }
+
+                    this.el.value = value;
+                    this.set(Math.round(value));
+                }.bind(this)
+                this.el.addEventListener('input', this.handler);
+            }
+        });
+        new Vue({
+            el: '#app',
+            data: {
+                lists: [
+                    {
+                        qty: 0,
+                        name: 'wwewew'
+                    },
+                    {
+                        qty: 0,
+                        name: '1111111'
+                    },
+                    {
+                        qty: 0,
+                        name: '222222222222'
+                    }
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>

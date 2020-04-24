@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+2、setTimeout的好搭档“0”
+
+也许你见过下面这一段代码：
+
+<script>
+    setTimeout(function() {
+        // statement
+    }, 0);
+</script>
+
+上面的代码表示立即执行。
+
+本意是立刻执行调用函数，但事实上，上面的代码并不是立即执行的，这是因为setTimeout有一个最小执行时间，当指定的时间小于该时间时，浏览器会用最小允许的时间作为setTimeout的时间间隔，也就是说即使我们把setTimeout的延迟时间设置为0，被调用的程序也没有马上启动。
+
+不同的浏览器实际情况不同，IE8和更早的IE的时间精确度是15.6ms。不过，随着HTML5的出现，在高级版本的浏览器（Chrome、ie9+等），定义的最小时间间隔是不得低于4毫秒，如果低于这个值，就会自动增加，并且在2010年及之后发布的浏览器中采取一致。
+
+所以说，当我们写为 setTimeout(fn,0) 的时候，实际是实现插队操作，要求浏览器“尽可能快”的进行回调，但是实际能多快就完全取决于浏览器了。
+
+那setTimeout(fn, 0)有什么用处呢？其实用处就在于我们可以改变任务的执行顺序！因为浏览器会在执行完当前任务队列中的任务，再执行setTimeout队列中积累的的任务。
+
+通过设置任务在延迟到0s后执行，就能改变任务执行的先后顺序，延迟该任务发生，使之异步执行。
+
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+<p>未使用setTimeout函数</p>
+<p id="one">
+    <input type="text" id="input" value="">
+    <span></span>
+</p>
+<br><br>
+<p>使用setTimeout函数</p>
+<p id="second">
+    <input type="text" id="input" value="">
+    <span></span>
+</p>
+
+<script>
+    document.querySelector('#one input').onkeydown = function() {
+        document.querySelector('#one span').innerHTML = this.value;
+    };
+
+    document.querySelector('#second input').onkeydown = function() {
+        setTimeout(function() {
+            document.querySelector('#second span').innerHTML = document.querySelector('#second input').value;
+        }, 0);
+    };
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+当你往两个表单输入内容时，你会发现未使用setTimeout函数的只会获取到输入前的内容，
+
+而使用setTimeout函数的则会获取到输入的内容。
+
+这是为什么呢？
+
+因为当按下按键的时候，JavaScript 引擎需要执行 keydown 的事件处理程序，然后更新文本框的 value 值，这两个任务也需要按顺序来，事件处理程序执行时，更新 value值（是在keypress后）的任务则进入队列等待，所以我们在 keydown 的事件处理程序里是无法得到更新后的value的，
+
+而利用 setTimeout(fn, 0)，我们把取 value 的操作放入队列，放在更新 value 值以后，这样便可获取出文本框的值。
+
+未使用setTimeout函数，执行顺序是：onkeydown => onkeypress => onkeyup
+
+使用setTimeout函数，执行顺序是：onkeydown => onkeypress => function => onkeyup
+
+<!-- -------------------------------------------------------------------------------- -->
+
+3、setTimeout的一些秘密
+
+3.1 setTimeout中回调函数的this
+
+由于setTimeout() 方法是浏览器 window 对象提供的，因此第一个参数函数中的this其实是指向window对象，
+
+这跟变量的作用域有关。
+
+看个例子：
+
+<script>
+    var a = 1;
+    var obj = {
+        a: 2,
+        test: function() {
+            setTimeout(function() {
+                console.log(this.a);
+            }, 0);
+        }
+    };
+    obj.test(); //  1
+</script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+不过我们可以通过使用bind()方法来改变setTimeout回调函数里的this
+
+<script>
+    var a = 1;
+    var obj = {
+        a: 2,
+        test: function() {
+            setTimeout(function() {
+                console.log(this.a);
+            }.bind(this), 0);
+        }
+    };
+    obj.test(); //  2
+</script>
+
+<!-- 也可以通过一个缓存this来 来保证setTimeout里面的this指向正确  -->
+<script>
+    var a = 1;
+    var obj = {
+        a: 2,
+        test: function() {
+            var self=this;  //此时 self就指向  obj对象了。
+            setTimeout(function() {
+                console.log(self.a);
+            },0);
+        }
+    };
+    obj.test(); //  2
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+
+3.2 setTimeout不止两个参数
+
+我们都知道，setTimeout的第一个参数是要执行的回调函数，第二个参数是延迟时间（如果省略，会由浏览器自动设置。在IE，FireFox中，第一次配可能给个很大的数字，100ms上下，往后会缩小到最小时间间隔，Safari，chrome，opera则多为10ms上下。）
+
+其实，setTimeout可以传入第三个参数、第四个参数....，它们表示神马呢？
+其实是用来表示第一个参数（回调函数）传入的参数。
+
+<script>
+    setTimeout(function(a, b) {
+        console.log(a); // 3
+        console.log(b); // 4
+    }, 0, 3, 4);
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+
+
+</body>
+</html>

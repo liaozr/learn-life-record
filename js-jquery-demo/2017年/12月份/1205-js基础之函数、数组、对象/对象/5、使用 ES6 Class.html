@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  上面说的原型是通过构造函数，定义并生成新对象。
+
+  但这种写法跟传统的面向对象语言（比如C++和Java）差异很大，
+
+  很容易让新学习这门语言的程序员感到困惑。
+
+  ES6 提供了更接近传统语言的写法，引入了Class（类）这个概念，作为对象的模板。
+
+  不过需要注意的是， ES6 的 class 语法是并不是向 JavaScript 中引入了一种新的“ 类” 机制。
+
+   class 基本上只是现有 [[Prototype]] 机制的一种语法糖。
+
+   <!-- -------------------------------------------------------------------------------------------- -->
+
+  也就是说， class 并不会像传统面向类的语言一样在声明时静态复制所有行为。 如果你（ 有意或无意） 修改或者替换了父“ 类” 中的一个方法， 那子“ 类” 和所有实例都会受到影响， 因为它们在定义时并没有进行复制， 只是使用基于 [[Prototype]] 的实时委托。
+
+  ES6 的类，完全可以看作构造函数的另一种写法。
+
+  <script>
+
+      class Foo {
+          // ...
+      }
+
+      typeof Foo // "function"
+      Foo === Foo.prototype.constructor // true
+
+  </script>
+
+  上面代码表明，类的数据类型就是函数，类本身就指向构造函数。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  使用的时候，也是直接对类使用new命令，跟构造函数的用法完全一致。
+
+  <script>
+
+      class Foo {
+          constructor(name) {
+              this.name = name
+          }
+          sayName() {
+              alert(this.name)
+          }
+      }
+
+      var a = new Foo('a')
+      a.sayName() // a
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  构造函数的 prototype 属性，在ES6的“类”上面继续存在。
+
+  事实上，类的所有方法都定义在类的 prototype 属性上面。
+
+  <script>
+
+      class Foo {
+          constructor() {}
+          toString() {}
+          toValue() {}
+      }
+      // 等同于
+      Foo.prototype = {
+          toString() {},
+          toValue() {}
+      };
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  由于类的方法都定义在 prototype 对象上面，所以类的新方法可以添加在 prototype 对象上面。
+
+  Object.assign方法可以很方便地一次向类添加多个方法。
+
+  <script>
+      class Foo {
+          constructor() {}
+      }
+      Object.assign(Foo.prototype, {
+          toString() {},
+          toValue() {}
+      });
+  </script>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+
+  prototype 对象的 constructor 属性，直接指向“类”的本身，这与 ES5 的行为是一致的。
+
+  <script>
+
+      Foo.prototype.constructor === Foo // true
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  ES6 Class 与 普通构造函数的不同点主要有 4 个：
+
+  （1）constructor 方法
+
+  constructor方法是类的默认方法，通过 new 命令生成对象实例时，自动调用该方法。一个类必须有constructor方法，
+
+  如果没有显式定义，一个空的constructor方法会被默认添加。
+
+  constructor() {}
+
+  constructor方法默认返回实例对象（即this），完全可以指定返回另外一个对象。
+
+  <script>
+
+      class Foo {
+          constructor() {
+              return Object.create(null);
+          }
+      }
+      new Foo() instanceof Foo // false
+
+  </script>
+
+
+  上面代码中，constructor函数返回一个全新的对象，结果导致实例对象不是 Foo 类的实例。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  类的构造函数，不使用new是没法调用的，会报错。这是它跟普通构造函数的一个主要区别，后者不用new也可以执行。
+
+  <script>
+
+      class Foo {
+          constructor() {
+              return Object.create(null);
+          }
+      }
+
+      Foo()
+      // TypeError: Class constructor Foo cannot be invoked without 'new'
+  </script>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+
+  （2）类的内部所有定义的方法，都是不可枚举的（non-enumerable）。这一点与普通构造函数的行为不一致。
+
+    <script>
+
+        // class
+        class Foo {
+            constructor(name) {
+                this.name = name
+            }
+            sayName() {
+                this.name
+            }
+        }
+
+        Object.keys(Foo.prototype) // []
+        Object.getOwnPropertyNames(Foo.prototype) // ["constructor","sayName"]
+
+
+
+        //构造函数
+        function Foo(name) {
+            this.name = name
+        }
+
+        Foo.prototype.sayName = function() {
+            alert(this.name)
+        }
+
+        Object.keys(Foo.prototype) // ["sayName"]
+
+        Object.getOwnPropertyNames(Foo.prototype) // ["constructor", "sayName"]
+
+   </script>
+
+   上面代码中，sayName方法是 Foo 类内部定义的方法，它是不可枚举的。而定义在 Foo.prototype 中的话则是可枚举的。
+
+   <!-- -------------------------------------------------------------------------------------------- -->
+
+  （3）Class不存在变量提升（hoist），这一点与ES5完全不同。
+
+   <script>
+
+        new Foo(); // ReferenceError
+        class Foo {}
+
+   </script>
+
+  上面代码中，Foo 类使用在前，定义在后，这样会报错，因为 ES6 不会把类的声明提升到代码头部。
+
+  这种规定的原因与下文要提到的继承有关，必须保证子类在父类之后定义。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  （4）子类的继承
+
+   Class 之间可以通过 extends 关键字实现继承，这比普通构造函数通过修改原型链实现继承，要清晰和方便很多。
+
+  <script>
+
+      class Foo {}
+      class Bar extends Foo {}
+
+  </script>
+
+  上面代码定义了一个 Bar 类，该类通过extends关键字，继承了 Foo 类的所有属性和方法。
+
+  但是由于没有部署任何代码，所以这两个类完全一样，等于复制了一个 Foo 类。下面，我们在 Bar 内部加上代码。
+
+  <script>
+
+      class Foo {
+          constructor(name, age) {
+              this.name = name
+              this.age = age
+          }
+          sayProfile() {
+              return `hello, my name is ${this.name}, ${this.age} years old`
+          }
+      }
+
+      class Bar extends Foo {
+          constructor(name, age, lover) {
+              super(name, age) // 调用父类的 constructor(name), 约等于普通构造函数中的 Foo.call(this, name, age)
+
+              this.age = Number(this.age) + 5
+              this.lover = lover
+          }
+          sayIntro() {
+              alert(super.sayProfile() + `, my lover is ${this.lover}, again, I am ${this.name}`)
+          }
+      }
+
+      var a = new Bar('Jack', '20', 'Rose')
+
+      a.sayIntro() // "hello, my name is Jack, 25 years old, my lover is Rose, again, I am Jack"
+
+  </script>
+
+  上面代码中，子类 Bar 的constructor方法和sayIntro方法之中，都出现了super关键字，super这个关键字，既可以当作函数使用，也可以当作对象使用。
+  在这两种情况下，它的用法完全不同。
+
+  第一种情况，super作为函数调用时，代表父类的构造函数。ES6 要求，子类的构造函数必须执行一次super函数。在上面的代码中 子类 Bar 的构造函数中super(name, age)相当于Foo.prototype.constructor.call(this, name, age)。
+
+  作为函数时，super()只能用在子类的构造函数之中，用在其他地方就会报错。
+
+  要注意的是，子类必须在 constructor方法中调用super方法，否则新建实例时会报错。这是因为子类没有自己的 this 对象，而是继承父类的 this 对象，然后对其进行加工。如果不调用super方法，子类就得不到 this 对象。在子类的构造函数中，只有调用super之后，才可以使用 this 关键字，否则会报错。这是因为子类实例的构建，是基于对父类实例加工，只有super方法才能返回父类实例。
+
+  普通构造函数的继承，实质是先创造子类的实例对象 this，然后再将父类的方法添加到 this 上面（Foo.call(this)）。ES6 Class 的继承机制完全不同，实质是先创造父类的实例对象 this（所以必须先调用super方法），然后再用子类的构造函数修改 this。
+
+-------------------------------------------------------------------------------------------------------------------------
+
+  如果子类没有定义constructor方法，这个方法会被默认添加，代码如下。也就是说，不管有没有显式定义，任何一个子类都有constructor方法：
+
+  constructor(...args) {
+  super(...args);
+  }
+
+  第二种情况，super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。上面代码代码中的 super.sayProfile()就是将super当作一个对象使用。这时，super在普通方法之中，指向 Foo.prototype，所以super.sayProfile()就相当于Foo.prototype.sayProfile()。
+
+  ES6 规定，通过super调用父类的方法时，super会绑定子类的 this。所以sayProfile输出的this.age是子类 Bar 的 age 25岁。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  刚刚说到在静态方法中super指向父类。
+
+  静态方法
+
+  类相当于实例的原型，所有在类中定义的方法，都会被实例继承。如果在一个方法前，加上 static 关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”。
+
+  <script>
+
+      class Foo {
+          static sayHi() {
+              return 'hello';
+          }
+      }
+
+      Foo.sayHi() // hello
+
+      var a = new Foo()
+
+      a.sayHi() // TypeError: a.sayHi is not a function
+
+
+  </script>
+
+  上面代码中ayHi()就是 Foo 的静态方法，它只能通过 Foo 调用，不能通过 Foo 的实例调用。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  如果super作为对象用在静态方法中，这时super将指向父类，而不是父类的原型对象。
+
+  <script>
+
+      class Foo {
+          static sayHi() {
+              return 'hello';
+          }
+          satHi() {
+              return 'oops'
+          }
+      }
+
+      class Bar extends Foo {
+          static sayBob() {
+              return super.sayHi() + ' Bob'
+          }
+      }
+
+      Bar.sayBob() // "hello Bob"
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        //更新功能
+        var wgtVer = null; //当前版本号
+        var wgtVerNew = null; //最新版本号
+        var wgtUrl = null;
+        var updateContent=null;
+
+        //更新包URL
+        //var wgtUrl = getBaseImgUrl1() + "/appVersion/Homello.wgt";
+        console.log(wgtUrl);
+
+        //获取当前版本号
+        function getwgtVer() {
+            if (!mui.os.plus) {
+                return
+            }
+            plus.runtime.getProperty(plus.runtime.appid, function(inf) {
+                wgtVer = inf.version;
+                console.log("当前应用版本：" + wgtVer);
+                getwgtVerNew(checkwgtVer);
+            });
+        }
+
+        function getwgtVerNew(callback) {
+
+            //if(!mui.os.plus){return}
+            mui.ajax({
+                url: getBaseServerUrl() + '/core/common/upgrade/homello/homello.wgt/WGT',
+                dataType: 'application/json', //服务器返回json格式数据
+                type: 'get',
+                timeout: 20000, //超时时间设置为8秒；
+                success: function(data) {
+                    console.log(JSON.stringify(data));
+                    var jsonData = JSON.parse(data);
+                    if (jsonData.status.toString() == "Y") {
+                        wgtVerNew = jsonData.versionCode;
+                        wgtUrl = getBaseImgUrl() + jsonData.url;
+                        updateContent=jsonData.remark;
+                        console.log("最新版本：" + wgtVerNew);
+                    }
+                    callback();
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+            });
+
+        }
+
+
+        //检查对比 新旧版本号
+        function checkwgtVer() {
+            if (!mui.os.plus) {
+                return
+            }
+            if( wgtVer !== wgtVerNew && wgtVer < wgtVerNew ){
+
+              var msg="本次更新修复了：\n" + updateContent
+    				  plus.nativeUI.confirm(msg, function(e) {
+        				 	var i = e.index;
+        				 	//console.log(i);
+        				 	if(i == 0) {
+        				 		downWgt();
+        				 	} else {}
+    				  }, '应用更新：')
+            }
+        }
+        
+        //下载更新包
+        function downWgt() {
+            plus.nativeUI.showWaiting("下载更新文件...");
+            vm.gengxinFlag = true;
+            plus.downloader.createDownload(wgtUrl, {
+                filename: "_doc/update/"
+            }, function(d, status) {
+                if (status == 200) {
+                    console.log("下载成功：" + d.filename);
+                    plus.nativeUI.closeWaiting();
+                    installWgt(d.filename); // 安装wgt包
+                } else {
+                    console.log("下载失败！");
+                    plus.nativeUI.alert("下载wgt失败！");
+                    vm.gengxinFlag = false;
+                }
+            }).start();
+        }
+
+        // 更新应用资源
+        function installWgt(path) {
+            plus.nativeUI.showWaiting("正在更新,请勿关闭应用！");
+            plus.runtime.install(path, {}, function() {
+                plus.nativeUI.closeWaiting();
+                //console.log("安装wgt文件成功！");
+
+                plus.nativeUI.alert("应用资源已更新完成！", function() {
+                    plus.runtime.restart();
+                    vm.gengxinFlag = false;
+                });
+            }, function(e) {
+                plus.nativeUI.closeWaiting();
+                console.log("安装wgt文件失败[" + e.code + "]：" + e.message);
+                plus.nativeUI.alert("安装wgt文件失败[" + e.code + "]：" + e.message);
+                vm.gengxinFlag = false;
+            });
+        }
+
+    </script>
+</body>
+
+</html>

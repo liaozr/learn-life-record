@@ -1,0 +1,218 @@
+<script>
+    function getMsg() {
+        /*
+         * 透传消息
+         */
+        // 监听点击消息事件
+        plus.push.addEventListener("click", function(msg) {
+            if (isDefine(msg.payload)) {
+                var payload = JSON.parse(msg.payload);
+                var url;
+                var state;
+                var fromActivity;
+                if (isDefine(payload.type)) {
+                    switch (payload.type) {
+                        case "10": //知会通知推送->消息里面的通知
+                            // 设置APP图标的角标
+                            var BadgeNumber = parseInt(localStorage.BadgeNumber);
+                            plus.runtime.setBadgeNumber(BadgeNumber + 1);
+                            url = "./xiaoxi/news-list.html";
+                            if (plus.webview.getWebviewById(url)) {
+                                plus.webview.getWebviewById(url).evalJS("refresh()");
+                            } else {
+                                var webview = plus.webview.create(url, url);
+                                webview.addEventListener("titleUpdate", function() {
+                                    setTimeout(function() {
+                                        webview.show("pop-in", 200);
+                                    }, 10);
+                                });
+                            }
+                            break;
+                        case "20": //执行通知推送->消息里面的待处理任务
+                            var BadgeNumber = parseInt(localStorage.BadgeNumber);
+                            plus.runtime.setBadgeNumber(BadgeNumber + 1);
+
+                            url = "./xiaoxi/daichuli.html";
+                            if (plus.webview.getWebviewById(url)) {
+                                plus.webview.getWebviewById(url).evalJS("refresh()");
+                            } else {
+                                state = 20;
+                                fromActivity = "DCL";
+                                localStorage.setItem('state', state);
+                                localStorage.setItem('fromActivity', fromActivity);
+                                mui.openWindow({
+                                    url: url,
+                                    id: url,
+                                    extras: {
+                                        state: state, //扩展参数
+                                        fromActivity: fromActivity,
+                                    },
+                                    show: {
+                                        autoShow: true,
+                                        aniShow: 'pop-in',
+                                        duration: 300
+                                    },
+                                    waiting: {
+                                        autoShow: false
+                                    }
+                                });
+                            }
+                            break;
+                        case "30": //聊天通知推送
+                            var BadgeNumber = parseInt(localStorage.BadgeNumber);
+                            plus.runtime.setBadgeNumber(BadgeNumber + 1);
+
+                            if (plus.webview.getWebviewById("./xiaoxi/im-chat.html")) {
+                                plus.webview.getWebviewById("./xiaoxi/im-chat.html").evalJS("updateMsg()");
+                            } else {
+                                var webview = plus.webview.create("./xiaoxi/im-chat.html", "./xiaoxi/im-chat.html");
+                                webview.addEventListener("titleUpdate", function() {
+                                    setTimeout(function() {
+                                        webview.show("pop-in", 200);
+                                    }, 10);
+                                });
+                            }
+                            break;
+                        case "40": //通知公告推送->OA里面的通知公告
+                            url = "./oa/tongzhi-gonggao.html";
+                            if (plus.webview.getWebviewById(url)) {
+                                plus.webview.getWebviewById(url).evalJS("init()");
+                            } else {
+                                var webview = plus.webview.create(url, url);
+                                webview.addEventListener("titleUpdate", function() {
+                                    setTimeout(function() {
+                                        webview.show("pop-in", 200);
+                                    }, 10);
+                                });
+                            }
+                            break;
+                    }
+                }
+            }
+        }, false);
+
+        // 监听在线消息事件
+        plus.push.addEventListener("receive", function(msg) {
+            //接收到在线透传消息
+            if (typeof(msg.payload) == "string") {
+
+                createLocalPushMsg(msg);
+            } else {
+                plus.nativeUI.confirm(msg.payload.content, function(e) {
+                    var i = e.index;
+                    if (i == 0) {
+                        //do something
+                        processPayload(msg.payload);
+
+                    } else {}
+
+                }, "收到一条新消息");
+            }
+        }, false);
+
+
+        function processPayload(payload) {
+            var url;
+            var state;
+            var fromActivity;
+            if (isDefine(payload.type)) {
+                switch (payload.type) {
+                    case "10": //知会通知推送->消息里面的通知
+                        // 设置APP图标的角标
+                        var BadgeNumber = parseInt(localStorage.BadgeNumber);
+                        plus.runtime.setBadgeNumber(BadgeNumber + 1);
+                        url = "./xiaoxi/news-list.html";
+                        if (plus.webview.getWebviewById(url)) {
+                            plus.webview.getWebviewById(url).evalJS("refresh()");
+                        } else {
+                            var webview = plus.webview.create(url, url);
+                            webview.addEventListener("titleUpdate", function() {
+                                setTimeout(function() {
+                                    webview.show("pop-in", 200);
+                                }, 10);
+                            });
+                        }
+                        break;
+                    case "20": //执行通知推送->消息里面的待处理任务
+                        var BadgeNumber = parseInt(localStorage.BadgeNumber);
+                        plus.runtime.setBadgeNumber(BadgeNumber + 1);
+
+                        url = "./xiaoxi/daichuli.html";
+                        if (plus.webview.getWebviewById(url)) {
+                            plus.webview.getWebviewById(url).evalJS("refresh()");
+                        } else {
+                            state = 20;
+                            fromActivity = "DCL";
+                            localStorage.setItem('state', state);
+                            localStorage.setItem('fromActivity', fromActivity);
+                            mui.openWindow({
+                                url: url,
+                                id: url,
+                                extras: {
+                                    state: state, //扩展参数
+                                    fromActivity: fromActivity,
+                                },
+                                show: {
+                                    autoShow: true,
+                                    aniShow: 'pop-in',
+                                    duration: 300
+                                },
+                                waiting: {
+                                    autoShow: false
+                                }
+                            });
+                        }
+                        break;
+                    case "30": //聊天通知推送
+                        var BadgeNumber = parseInt(localStorage.BadgeNumber);
+                        plus.runtime.setBadgeNumber(BadgeNumber + 1);
+
+                        if (plus.webview.getWebviewById("./xiaoxi/im-chat.html")) {
+                            plus.webview.getWebviewById("./xiaoxi/im-chat.html").evalJS("updateMsg()");
+                        } else {
+                            var webview = plus.webview.create("./xiaoxi/im-chat.html", "./xiaoxi/im-chat.html");
+                            webview.addEventListener("titleUpdate", function() {
+                                setTimeout(function() {
+                                    webview.show("pop-in", 200);
+                                }, 10);
+                            });
+                        }
+                        break;
+                    case "40": //通知公告推送->OA里面的通知公告
+                        url = "./oa/tongzhi-gonggao.html";
+                        if (plus.webview.getWebviewById(url)) {
+                            plus.webview.getWebviewById(url).evalJS("init()");
+                        } else {
+                            var webview = plus.webview.create(url, url);
+                            webview.addEventListener("titleUpdate", function() {
+                                setTimeout(function() {
+                                    webview.show("pop-in", 200);
+                                }, 10);
+                            });
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
+    //非标准格式的透传消息 receive
+    function createLocalPushMsg(msg) {
+        var titleStr = msg.title;
+        var options = {
+            cover: false,
+            title: titleStr
+        };
+        //msg.payload.msgType = "LocalMSG";
+        var payloadStr = msg.payload;
+        plus.push.createMessage(msg.content, payloadStr, options);
+        if (plus.os.name == "iOS") {
+            alert('*如果无法创建消息，请到"设置"->"通知"中配置应用在通知中心显示!');
+        }
+    }
+    
+</script>
+
+</body>
+
+</html>

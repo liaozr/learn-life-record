@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="知了云课堂" />
+		<meta name="Description" content="知了云课堂" />
+		<title>知了云课堂</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+	</head>
+	<style>
+		html,
+		body {
+			min-height: 100%;
+			background-color: #efeff4;
+		}
+		/*@mine.html*/
+		.owner-img {
+			padding-top: 30px;
+			//background: url(img/muwu.jpg) no-repeat 100%;
+			background: #242424;
+			height: 190px;
+		}
+		
+		.owner-img .right-box {
+			display: inline;
+			float: right;
+			width: 60%;
+			padding: 0 30px 0 0;
+			margin: auto;
+		}
+		
+		.owner-img .right-box #progressbar1 {
+			margin-top: 10px;
+		}
+		
+		.owner-img .right-box>h5 {
+			margin-top: 15px;
+			font-size: .37rem;
+			color: #fff;
+		}
+		
+		.owner-img .right-box>h6 {
+			margin-top: 5px;
+			font-size: .3rem;
+		}
+		
+		.owner-img .right-box #progressbar2 {
+			margin-top: 10px;
+		}
+		
+		.mui-progressbar {
+			padding: 4px 0;
+			background: #fff;
+		}
+		
+		.mui-progressbar span {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			-webkit-transition: 150ms;
+			transition: 150ms;
+			-webkit-transform: translate3d(-100%, 0, 0);
+			transform: translate3d(-100%, 0, 0);
+			background: #FF6600;
+		}
+		
+		.owner-img .left-box {
+			display: inline;
+			float: left;
+			width: 30%;
+		}
+		
+		.owner-img .left-box>img {
+			width: 80px;
+			height: 80px;
+			z-index: 9999;
+			border-radius: 50%;
+			display: block;
+			margin: auto;
+		}
+		
+		.owner-img .left-box h5 {
+			text-align: center;
+			margin: 10px auto;
+			color: #fff;
+			font-size: .37rem;
+			display: block;
+		}
+		
+		.owner-img .left-box h6 {
+			color: #EFEFF4;
+			font-size: .37rem;
+		}
+		.owner-img .left-box div{
+			margin: 10px 0 0;
+		}
+		
+		.owner-grid {
+			padding-top: 0;
+		}
+		
+		#mui-grid-9 {
+			background: #fff;
+		}
+		
+		#mui-grid-9 li {
+			border-right: 1px solid lightgray;
+		}
+		
+		#mui-grid-9{
+			border: none;
+		}
+		#mui-grid-9 li:last-child {
+			//border: none;
+		}
+		
+		#mui-grid-9 li a {
+			padding-bottom: 0;
+			text-decoration: none;
+		}
+		
+		#mui-grid-9 li a>span {
+			color: black;
+			font-size: 0.37rem;
+		}
+		
+		#mui-grid-9 li a>h5 {
+			color: gray;
+			font-size: 0.5rem;
+			margin-top: 5px;
+			font-family: elephant;
+		}
+		.owner-list .mui-table-view  a{
+			text-decoration: none;
+			color: black;
+			font-size: 0.37rem;
+		}
+		
+	</style>
+
+	<body id="mine">
+		<div class="mui-content">
+			<div class="owner-img">
+				<div class="left-box">
+					<img src="img/default_photo.png"></img>
+					<h5>{{emp.empName}}</h5>
+					<div style="width: 100%;margin: auto;text-align: center;vertical-align:middle;">
+						<h6 style="display: inline;">{{vueData.gold}}</h6><img src="img/icon.png" style="width: 1em;height:1em;margin: 2px 0  0 2px;" />
+					</div>
+				</div>
+				<div class="right-box">
+					<h5>我的等级-Lv{{vueData.empLevel}}</h5>
+					<div id="progressbar1" class="mui-progressbar" >
+						<span></span>
+					</div>
+					<h6>距离下一级别还差{{vueData.empUpgradeExperience}}点经验</h6>
+
+					<h5>我的能量{{vueData.empEnergy}}/100</h5>
+					<div id="progressbar2" class="mui-progressbar">
+						<span></span>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="owner-grid">
+				<ul id="mui-grid-9" class="mui-table-view mui-grid-view mui-grid-9" >
+					<li class="mui-table-view-cell  mui-media mui-col-xs-4 " v-for="item in vueData.empCapacityVOs">
+						<a>
+							<span>{{item.capacityDetailName}}</span>
+							<h5>{{item.capacityDetailLevel}}</h5>
+						</a>
+					</li>
+					
+				</ul>
+			</div>
+			
+			<div class="owner-list">
+				
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+	                     <img src="img/tip.png" style="width:1em;height: 1em;vertical-align:middle;"/><span> 爱学榜</span>
+	                    </a>
+						<!--<div class="mui-switch mui-switch-mini" >
+								<div class="mui-switch-handle"></div>
+							</div>-->
+						
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+	                       	我的下载
+	                    </a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+	                        	我的收藏
+	                    </a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+	                         	奖品兑换
+	                    </a>
+					</li>
+				</ul>
+			
+			<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-media">
+						<a href="javascript:clear();">
+							<p class="mui-pull-right" id="cache">1.4MB</p>
+							<div class="mui-pull-left">
+								清除缓存
+							</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media">
+						<a href="javascript:;">
+							<div class="mui-switch mui-switch-mini mui-active">
+								<div class="mui-switch-handle"></div>
+							</div>
+							<div class="mui-media-body">
+								允许非WIFI网络播放/下载视频
+								<p class="mui-ellipsis">请慎重选择开启 避免过度使用流量</p>
+							</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+	                         		离线下载路径设置
+	                    </a>
+					</li>
+				</ul>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" href="javascript:fowardPage('help.html')">
+	                          	 帮助手册
+	                     </a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" href="javascript:fowardPage('feedback.html')">
+	                          	 意见反馈
+	                     </a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+	                          	版本更新
+	                        </a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" href="javascript:fowardPage('about.html')">
+	                  		 关于我们
+	                        </a>
+					</li>
+				</ul>
+
+			</div>
+
+		</div>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/zepto1.1.6.min.js"></script>
+		<script type="text/javascript" src="js/locStorage.js"></script>
+		<script type="text/javascript" src="js/url.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+		<script>
+			var empParam = {};
+			
+			var VM = new Vue({ 
+				el:'#mine', 
+				data: {
+					vueData:empParam,
+					emp:{
+						empName:localStorage.getItem($.locStorage.emp.empName),
+						empId:localStorage.getItem($.locStorage.emp.empId)
+					}
+				}
+			});
+
+			mui.init();
+			var empId = localStorage.getItem($.locStorage.emp.empId);
+			mui.plusReady(function(){
+				var url = $.url.getEmpParam;
+				console.log("获取用户参数基本信息：" + url);
+				$.marketApi.ajaxRequest({
+						type: "GET",
+						url: url,
+						data: {
+							"empId": empId,
+						},
+						callback: function(data) {
+							console.log(JSON.stringify(data));
+							empParam = data;
+							VM.vueData = empParam;
+							
+							mui("#progressbar1").progressbar({ progress: data.empExperience }).show();
+							mui("#progressbar2").progressbar({ progress: data.empEnergy }).show();
+						},
+						errorCallback: function(xhr, errorType, error, msg) {
+							alert(msg);
+						}
+					});
+					
+					
+					plus.cache.calculate( function ( size ) {
+						document.getElementById("cache").innerHTML= size + " byte";
+						console.log( "Application cache size: " + size + " byte!" );
+						
+					});
+			});
+			
+			function clear(){
+				plus.cache.clear( function () {
+					mui.toast( "Clear application cache successful!" );
+				});
+			}
+			function fowardPage(id){
+				//				var wt=plus.nativeUI.showWaiting();
+				//				var w=plus.webview.create(id,id,{scrollIndicator:'none',scalable:false});
+				//				w.addEventListener("loaded",function(){
+				//					wt.close();
+				//					w.show("slide-in-right",300);
+				//				},false);
+				
+				mui.openWindow({
+					url: id,
+					id: id
+				});
+			}
+			
+			$(".owner-img").on('tap',function() {
+					mui.openWindow({
+						url: 'empDetail.html',
+						id: 'empDetail.html',
+						extras:{
+							empLevel :  empParam.empLevel,
+							empExperience : empParam.empExperience,
+							empEnergy : empParam.empEnergy,
+							gold : empParam.gold
+							//扩展参数
+						},
+						show: {
+							autoShow: true,
+							aniShow: 'pop-in',
+							duration: 300
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+				});
+			//      document.getElementsByClassName('owner-setting')[0].addEventListener('tap', function() {
+			//			mui.openWindow({
+			//				url:'setting.html',
+			//				styles:{
+			//					top:'0',
+			//					bottom:'0'
+			//				},
+			//				
+			//			});
+			//		});
+		</script>
+	</body>
+
+</html>

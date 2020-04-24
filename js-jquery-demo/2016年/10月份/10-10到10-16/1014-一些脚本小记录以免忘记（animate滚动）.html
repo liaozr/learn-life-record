@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        $(function() {
+          
+            //返回顶部
+            $("#backtop").click(function() {
+                $('html,body').animate({
+                    'scrollTop': 0
+                }, 600);
+            });
+
+            $(".content-center .main-data .menu-left .list .sub-list").each(function(index) {
+                $(this).hover(function() {
+                    $(this).addClass("cur")
+                }, function() {
+                    $(this).removeClass("cur")
+                })
+            })
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,2165 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://segmentfault.com/a/1190000005848133 -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"><meta name="renderer" content="webkit"><meta property="qc:admins" content="15317273575564615446375"><meta property="og:image" content="https://static.segmentfault.com/v-58f8626d/global/img/touch-icon.png"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><meta name="alexaVerifyID" content="LkzCRJ7rPEUwt6fVey2vhxiw1vQ"><meta name="apple-itunes-app" content="app-id=958101793, app-argument="><title>浏览器中唤起native app || 跳转到应用商城下载 - web前端之路 - SegmentFault</title><meta name="description" content="前段时间遇到一个小需求：要求在分享出来的h5页面中，有一个立即打开的按钮，如果本地安装了我们的app，那么点击就直接唤起本地app，如果没有安装，则跳转到下载。 因为从来没有做过这个需求，因此这注定是一个苦..."><meta name="keywords" content="html5,universal-links,ios9,javascript,css"><link rel="search" type="application/opensearchdescription+xml" href="https://segmentfault.com/opensearch.xml" title="SegmentFault"><link rel="shortcut icon" href="https://static.segmentfault.com/v-58f8626d/global/img/favicon.ico"><link rel="apple-touch-icon" href="https://static.segmentfault.com/v-58f8626d/global/img/touch-icon.png"><meta name="msapplication-TileColor" content="#009a61"><meta name="msapplication-square150x150logo" content="https://static.segmentfault.com/v-58f8626d/global/img/touch-icon.png"><meta name="userId" value="1030000006728639" id="SFUserId"><meta name="userRank" value="1" id="SFUserRank"><link rel="alternate" type="application/atom+xml" title="SegmentFault 最新问题" href="https://segmentfault.com/feeds/questions"><link rel="alternate" type="application/atom+xml" title="SegmentFault 最新文章" href="https://segmentfault.com/feeds/blogs"><link rel="stylesheet" href="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/global.css"><link rel="stylesheet" href="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/blog.css"><link rel="stylesheet" href="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/responsive.css"><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="https://static.segmentfault.com/v-58f8626d/3rd/socket/socket.io.js" src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/socket.io.js.下载"></script></head><body data-mod="blog" class="blog-post "><!--[if lt IE 9]><div class="alert alert-danger topframe" role="alert">你的浏览器实在<strong>太太太太太太旧了</strong>，放学别走，升级完浏览器再说 <a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div><![endif]--><img id="icon4weChat" style="height: 0;width: 0;" data-src="https://static.segmentfault.com/v-58f8626d/global/img/touch-icon-512.png"><div class="global-nav sf-header sf-header--index"><nav class="container nav"><div class="hidden-sm hidden-lg hidden-md"><div class="sf-header__logo sf-header__logo--response"><h1><a></a></h1></div><div class="dropdown m-menu"><a href="javascript:void(0);" id="dLabel" class="visible-xs-block m-toptools" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-align-justify"></span><span class="mobile-menu__unreadpoint"></span></a><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"><li class="mobile-menu__item"><a href="https://segmentfault.com/">首页</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/news" class="menu__item--new-show">头条</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/questions">问答</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/blogs">专栏</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/lives" class="menu__item--new-show">讲堂</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/jobs">职位</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/events">活动</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/notes">笔记</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/tags">标签</a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/users">榜单</a></li><li role="presentation" class="divider"></li><li class="mobile-menu__item"><a href="https://segmentfault.com/user/notifications">消息<span class="pull-right badge mt4" id="m-messageCount"></span></a></li><li class="mobile-menu__item"><a href="https://segmentfault.com/user/settings">设置</a></li><li role="presentation" class="divider"></li><li class="mobile-menu__item"><a href="https://segmentfault.com/api/user/logout?_=b8475af0a8ee80fb1b8cd919d0a1c1ad">退出</a></li></ul></div><a href="https://segmentfault.com/write" class="visible-xs-block pull-right m-ask m-toptools"><span class="glyphicon glyphicon-pencil"></span></a></div><div class="row hidden-xs"><div class="col-sm-8 col-md-8 col-lg-7"><div class="sf-header__logo"><h1><a href="https://segmentfault.com/">SegmentFault</a></h1></div><ul class="menu list-inline pull-left hidden-xs"><li class="menu__item"><a href="https://segmentfault.com/news" class="menu__item--new-show">头条</a></li><li class="menu__item"><a href="https://segmentfault.com/questions">问答</a></li><li class="menu__item"><a href="https://segmentfault.com/blogs">专栏</a></li><li class="menu__item"><a href="https://segmentfault.com/lives" class="menu__item--new-show">讲堂</a></li><li class="menu__item"><a href="https://segmentfault.com/jobs">职位</a></li><li class="menu__item"><a href="https://segmentfault.com/events">活动</a></li></ul></div><div class="col-sm-4 col-md-4 col-lg-5 text-right"><form action="https://segmentfault.com/search" class="header-search  hidden-sm hidden-xs mr20"><button class="btn btn-link"><span class="sr-only">搜索</span><span class="glyphicon glyphicon-search"></span></button><input id="searchBox" name="q" type="text" placeholder="输入关键字搜索" class="form-control" value=""></form><ul class="opts list-inline hidden-xs"><li class="opts__item dropdown hoverDropdown write-btns"><a class="dropdownBtn" data-toggle="dropdown" href="https://segmentfault.com/ask"><i class="fa fa-plus" aria-hidden="true"></i><span class="caret"></span></a><ul class="dropdown-menu dropdown-menu-right "><li><a href="https://segmentfault.com/submit">发头条</a></li><li><a href="https://segmentfault.com/ask">提问题</a></li><li><a href="https://segmentfault.com/write">写文章</a></li><li><a href="https://segmentfault.com/record">记笔记</a></li><li class="divider"></li><li><a href="https://segmentfault.com/user/draft">草稿箱</a></li></ul></li><li class="opts__item message has-unread hidden-sm"><a id="dLabel" class="dropdown-toggle-message" href="https://segmentfault.com/user/notifications"><span class="sr-only">消息</span><span id="messageCount" class="fa fa-bell-o"></span></a><div class="opts__item--message hide"><div class="panel panel-default"><div class="panel-heading"><ul class="nav nav-tabs nav-tabs-message"><li role="presentation" class="active"><a href="https://segmentfault.com/a/1190000005848133#messageGeneral" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><i class="fa fa-bullhorn"></i><span class="notice-dot hide notice-dot-general"></span></a></li><li role="presentation" class=""><a href="https://segmentfault.com/a/1190000005848133#messageRanked" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><i class="fa fa-thumbs-o-up"></i><span class="notice-dot hide notice-dot-ranked"></span></a></li><li role="presentation" class=""><a href="https://segmentfault.com/a/1190000005848133#messageFollowed" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><i class="fa fa-user-plus"></i><span class="notice-dot hide notice-dot-followed"></span></a></li></ul></div><div class="panel-body"><div class="tab-content"><div role="tabpanel" class="tab-pane active" id="messageGeneral"></div><div role="tabpanel" class="tab-pane" id="messageRanked"></div><div role="tabpanel" class="tab-pane" id="messageFollowed"></div><script src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/ca-pub-6330872677300335.js.下载"></script><script src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/hm.js.下载"></script><script async="" src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/analytics.js.下载"></script><script type="text/template" id="messageGeneralTpl"><ul class="mCustomScrollbar-message" data-proto="general"  data-mcs-theme="minimal-dark"><% _.each(general,function(d){ %><li class="<%= d.viewed>0 ?'':'bg-warning'%>"><%= d.sentence %>&nbsp;<a
+                                    href="<%= d.url %>"><%= d.excerpt %></a></li><% }) %></ul></script><script type="text/template" id="item--general"><% _.each(general,function(d){ %><li class="<%= d.viewed>0 ?'':'bg-warning'%>"><%= d.sentence %>&nbsp;<a
+                                    href="<%= d.url %>"><%= d.excerpt %></a></li><% }) %></script><script type="text/template" id="messageRankedTpl"><ul class="mCustomScrollbar-message" data-proto="ranked"  data-mcs-theme="minimal-dark"><% _.each(ranked,function(d){ %><li class="<%= d.viewed>0 ?'':'bg-warning'%>"><span class="badge
+                                                    <% if(d.voted && d.voted.rank!=0){ %><%= d.voted.rank > 0 ? 'green':'red' %><% } else { %> transparent <% } %>"><% if(d.voted){ %><%= d.voted.rank > 0 ? '+'+d.voted.rank:d.voted.rank %><% } %></span><div class="rank-desc"><%= d.sentence %>&nbsp;<a href="<%= d.url %>"><%=
+                                    d.excerpt %></a></div></li><% }) %></ul></script><script type="text/template" id="item--ranked"><% _.each(ranked,function(d){ %><li class="<%= d.viewed>0 ?'':'bg-warning'%>"><span class="badge
+                                                    <% if(d.voted && d.voted.rank!=0){ %><%= d.voted.rank > 0 ? 'green':'red' %><% } else { %> transparent <% } %>"><% if(d.voted){ %><%= d.voted.rank > 0 ? '+'+d.voted.rank:d.voted.rank %><% } %></span><div class="rank-desc"><%= d.sentence %>&nbsp;<a href="<%= d.url %>"><%=
+                                    d.excerpt %></a></div></li><% }) %></script><script type="text/template" id="messageFollowedTpl"><ul class="mCustomScrollbar-message" data-proto="followed"  data-mcs-theme="minimal-dark"><p class="follow-tips">他们最近关注了你</p><% _.each(followed,function(d){ %><li class="<%= d.viewed>0 ?'':'bg-warning'%>"><img class="follower__img avatar-32"
+                                 src="<%= d.triggerUser[0] ? d.triggerUser[0].avatarUrl : '' %>"><div class="follower__info"><% if(d.triggerUser[0] ? d.triggerUser[0].isFollowed : ''){ %><button data-id="<%= d.triggerUser[0] ? d.triggerUser[0].id : '' %>"
+                                        class="btn btn-default btn-xs message__btn--unfollow pull-right active">
+                                    已关注
+                                </button><% }else{ %><button data-id="<%= d.triggerUser[0] ? d.triggerUser[0].id : '' %>"
+                                        class="btn btn-default btn-xs message__btn--follow pull-right">
+                                    关注
+                                </button><% } %><a href="<%= d.triggerUser[0] ? d.triggerUser[0].url : '' %>"><%=d.triggerUser[0] ? d.triggerUser[0].name : ''%></a><br><span><%= d.triggerUser[0] ? d.triggerUser[0].rank : '' %> 声望</span></div></li><% }) %></ul></script><script type="text/template" id="item--followed"><% _.each(followed,function(d){ %><li class="<%= d.viewed>0 ?'':'bg-warning'%>"><img class="follower__img avatar-32"
+                                 src="<%= d.triggerUser[0] ? d.triggerUser[0].avatarUrl : '' %>"><div class="follower__info"><% if(d.triggerUser[0] && d.triggerUser[0].isFollowed){ %><button data-id="<%= d.triggerUser[0] ? d.triggerUser[0].id : '' %>"
+                                        class="btn btn-default btn-xs message__btn--unfollow pull-right active">
+                                    已关注
+                                </button><% }else{ %><button data-id="<%= d.triggerUser[0] ? d.triggerUser[0].id : '' %>"
+                                        class="btn btn-default btn-xs message__btn--follow pull-right">
+                                    关注
+                                </button><% } %><a href="<%= d.triggerUser[0] ? d.triggerUser[0].url : '' %>"><%= d.triggerUser[0].name
+                                    %></a><br><span><%= d.triggerUser[0].rank %> 声望</span></div></li><% }) %></script></div><p class="opts__item--message-loading follow-tips">loading</p></div><div class="panel-footer"><div class="row"><div class="col-sm-6"><a href="javascript:;" class="message-ingore-all hide"><span class="glyphicon glyphicon-ok-sign"></span>
+                        全部标记为已读</a></div><div class="col-sm-6"><a class="opts__item--message-view-all" href="https://segmentfault.com/user/notifications">查看全部
+                        »</a></div></div></div></div></div></li><li class="opts__item letter has-unread hidden-sm"><a id="dLabel" class="dropdown-toggle-letter" href="https://segmentfault.com/user/messages"><span class="sr-only">私信</span><span id="letterCount" class="fa fa-envelope-o"></span></a><div class="opts__item--letter hide"><div class="panel panel-default"><div class="panel-heading"><ul class="nav nav-tabs nav-tabs-letter"><li role="presentation" class="active"><span class="opts__item--letter-heading">最近的私信</span></li></ul></div><div class="panel-body"><div class="tab-content"><div id="messageInbox"></div><script type="text/template" id="messageInboxTpl"><ul class="mCustomScrollbar-message" data-proto="inbox" data-mcs-theme="minimal-dark"><% _.each(inboxes,function(d){ %><li class="<%= d.viewed>0 ?'':'bg-warning'%>" data-click="<%= d.url %>"><img class="follower__img avatar-32"
+                                     src="<%= d.targetUser.avatarUrl %>"><div class="follower__info"><a href="<%= d.url %>"><%= d.targetUser.name
+                                        %></a><br><% if (d.lastMessage.content){ %><span class="ellipsis inline-block" style="width: 245px;"><%= d.lastMessage.content.content %></span><% } %></div></li><% }) %><% if(inboxes.length ==0){ %><p class="text-center">没有人给你发私信</p><% } %></ul></script><script type="text/template" id="item--inboxes"><% _.each(inboxes,function(d){ %><li class="<%= d.viewed>0 ?'':'bg-warning'%>" data-click="<%= d.url %>"><img class="follower__img avatar-32"
+                                     src="<%= d.targetUser.avatarUrl %>"><div class="follower__info"><a href="<%= d.targetUser.url %>"><%= d.targetUser.name
+                                        %></a><br><span class="ellipsis inline-block" style="width: 245px;"><%= d.content %></span></div></li><% }) %></script></div><p class="opts__item--letter-loading follow-tips">loading</p></div><div class="panel-footer"><div class="row"><div class="col-sm-6"><a href="javascript:;" class="message-ingore-all hide"><span class="glyphicon glyphicon-ok-sign"></span>
+                        全部标记为已读</a></div><div class="col-sm-6"><a class="opts__item--message-view-all" href="https://segmentfault.com/user/messages">查看全部
+                        »</a></div></div></div></div></div></li><li class="opts__item user dropdown hoverDropdown"><a class="dropdownBtn user-avatar" data-toggle="dropdown" style="background-image: url(&#39;https://sfault-avatar.b0.upaiyun.com/335/059/335059255-57fc39112b6fd_big64&#39;)" href="https://segmentfault.com/u/zrliao"></a><ul class="dropdown-menu dropdown-menu-right"><li><a href="https://segmentfault.com/u/zrliao">我的主页</a></li><li><a href="https://segmentfault.com/u/zrliao/about">我的档案</a></li><li><a href="https://segmentfault.com/user/finance">我的资产</a></li><li><a href="https://segmentfault.com/user/settings">账号设置</a></li><li><a href="https://segmentfault.com/api/user/logout?_=b8475af0a8ee80fb1b8cd919d0a1c1ad">退出</a></li><li class="divider"></li><li><a href="https://segmentfault.com/">返回主页</a></li><li><a href="https://board.segmentfault.com/">建议反馈</a></li><li><a class="js__action--complain" href="javascript:void(0);">用户申诉</a></li><script type="text/template" id="js__action--complain-tpl"><form class="complain__form" method="post" action="/api/appeals/add"><div class="form-group"><label>理由</label><textarea name="description" class="form-control"
+                                                              rows="3"></textarea></div></form></script></ul></li></ul></div></div></nav></div><div class="global-navTags"><div class="container"><nav class=" nav"><ul class="nav__list"><li class="nav__item"><a href="https://segmentfault.com/"><i class="fa fa-home"></i>home
+                            </a></li><li class="nav__item nav__item--split"><a><span class="split"></span></a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/vue.js">vue.js</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/%E5%BE%AE%E4%BF%A1">微信</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/webapp">webapp</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/%E7%A7%BB%E5%8A%A8%E7%AB%AFweb">移动端web</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/es6">es6</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/jquery">jquery</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/css3">css3</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/html5">html5</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/javascript">javascript</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/weex">weex</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91">微信开发</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/weui">weui</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/%E5%BE%AE%E4%BF%A1js-sdk">微信js-sdk</a></li><li class="nav__item tag-nav__item"><a href="https://segmentfault.com/t/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%B9%B3%E5%8F%B0">微信公众平台</a></li><li class="nav__item nav__item--more" data-open="0"><a class="nav__item--more-link" href="javascript:void(0)"><div class="tag__more"><i class="tag__more--icon"></i><i class="tag__more--icon"></i><i class="tag__more--icon"></i></div></a></li></ul><div class="tag-mgr__box hide"><input class="tag-mgr__query" type="text" placeholder="搜索关注的标签" data-tags="[{&quot;id&quot;:&quot;1040000004003243&quot;,&quot;name&quot;:&quot;vue.js&quot;,&quot;url&quot;:&quot;\/t\/vue.js&quot;},{&quot;id&quot;:&quot;1040000000090818&quot;,&quot;name&quot;:&quot;\u5fae\u4fe1&quot;,&quot;url&quot;:&quot;\/t\/%E5%BE%AE%E4%BF%A1&quot;},{&quot;id&quot;:&quot;1040000000090825&quot;,&quot;name&quot;:&quot;webapp&quot;,&quot;url&quot;:&quot;\/t\/webapp&quot;},{&quot;id&quot;:&quot;1040000000646813&quot;,&quot;name&quot;:&quot;\u79fb\u52a8\u7aefweb&quot;,&quot;url&quot;:&quot;\/t\/%E7%A7%BB%E5%8A%A8%E7%AB%AFweb&quot;},{&quot;id&quot;:&quot;1040000000363835&quot;,&quot;name&quot;:&quot;es6&quot;,&quot;url&quot;:&quot;\/t\/es6&quot;},{&quot;id&quot;:&quot;1040000000089733&quot;,&quot;name&quot;:&quot;jquery&quot;,&quot;url&quot;:&quot;\/t\/jquery&quot;},{&quot;id&quot;:&quot;1040000000090141&quot;,&quot;name&quot;:&quot;css3&quot;,&quot;url&quot;:&quot;\/t\/css3&quot;},{&quot;id&quot;:&quot;1040000000089409&quot;,&quot;name&quot;:&quot;html5&quot;,&quot;url&quot;:&quot;\/t\/html5&quot;},{&quot;id&quot;:&quot;1040000000089436&quot;,&quot;name&quot;:&quot;javascript&quot;,&quot;url&quot;:&quot;\/t\/javascript&quot;},{&quot;id&quot;:&quot;1040000004990249&quot;,&quot;name&quot;:&quot;weex&quot;,&quot;url&quot;:&quot;\/t\/weex&quot;},{&quot;id&quot;:&quot;1040000000659227&quot;,&quot;name&quot;:&quot;\u5fae\u4fe1\u5f00\u53d1&quot;,&quot;url&quot;:&quot;\/t\/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91&quot;},{&quot;id&quot;:&quot;1040000004530717&quot;,&quot;name&quot;:&quot;weui&quot;,&quot;url&quot;:&quot;\/t\/weui&quot;},{&quot;id&quot;:&quot;1040000002500942&quot;,&quot;name&quot;:&quot;\u5fae\u4fe1js-sdk&quot;,&quot;url&quot;:&quot;\/t\/%E5%BE%AE%E4%BF%A1js-sdk&quot;},{&quot;id&quot;:&quot;1040000000189880&quot;,&quot;name&quot;:&quot;\u5fae\u4fe1\u516c\u4f17\u5e73\u53f0&quot;,&quot;url&quot;:&quot;\/t\/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%B9%B3%E5%8F%B0&quot;}]"><div class="mCustomScrollbar _mCS_1 mCS-autoHide mCS_no_scrollbar" data-mcs-theme="minimal-dark" style="position: relative; overflow: visible;"><div id="mCSB_1" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" style="max-height: 0px;" tabindex="0"><div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr"><ul class="tag-mgr__list"><li><a href="https://segmentfault.com/t/vue.js">vue.js</a></li><li><a href="https://segmentfault.com/t/%E5%BE%AE%E4%BF%A1">微信</a></li><li><a href="https://segmentfault.com/t/webapp">webapp</a></li><li><a href="https://segmentfault.com/t/%E7%A7%BB%E5%8A%A8%E7%AB%AFweb">移动端web</a></li><li><a href="https://segmentfault.com/t/es6">es6</a></li><li><a href="https://segmentfault.com/t/jquery">jquery</a></li><li><a href="https://segmentfault.com/t/css3">css3</a></li><li><a href="https://segmentfault.com/t/html5">html5</a></li><li><a href="https://segmentfault.com/t/javascript">javascript</a></li><li><a href="https://segmentfault.com/t/weex">weex</a></li><li><a href="https://segmentfault.com/t/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91">微信开发</a></li><li><a href="https://segmentfault.com/t/weui">weui</a></li><li><a href="https://segmentfault.com/t/%E5%BE%AE%E4%BF%A1js-sdk">微信js-sdk</a></li><li><a href="https://segmentfault.com/t/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%B9%B3%E5%8F%B0">微信公众平台</a></li></ul></div></div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-minimal-dark mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 50px; top: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="line-height: 50px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div><a href="https://segmentfault.com/tags" class="btn btn-primary btn-sm tag-mgr__btn">标签管理</a></div></nav></div></div>
+    <div class="wrap">
+    <div class="post-topheader custom-">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <span class="post-topheader__title--icon-symbol">文</span>
+
+                    <div class="post-topheader__info" data-username="波同学" data-userslug="meetbo" data-useravatar="https://sfault-avatar.b0.upaiyun.com/381/710/3817108384-576f60f397aff_big64">
+
+                        <h1 class="h3 post-topheader__info--title" id="articleTitle" data-id="1190000005848133">
+
+                            <a href="https://segmentfault.com/a/1190000005848133"> 浏览器中唤起native app || 跳转到应用商城下载</a>
+                        </h1>
+
+                        <ul class="taglist--inline inline-block article__title--tag mr10">
+                                                            <li class="tagPopup mb5"><a class="tag" href="https://segmentfault.com/t/html5/blogs" data-toggle="popover" data-img="https://sfault-avatar.b0.upaiyun.com/320/807/3208078129-1040000000089409_huge256" data-placement="top" data-original-title="html5" data-id="1040000000089409">html5</a></li>
+                                                            <li class="tagPopup mb5"><a class="tag" href="https://segmentfault.com/t/universal-links/blogs" data-toggle="popover" data-img="" data-placement="top" data-original-title="universal-links" data-id="1040000004481926">universal-links</a></li>
+                                                            <li class="tagPopup mb5"><a class="tag" href="https://segmentfault.com/t/ios9/blogs" data-toggle="popover" data-img="" data-placement="top" data-original-title="ios9" data-id="1040000002988972">ios9</a></li>
+                                                            <li class="tagPopup mb5"><a class="tag" href="https://segmentfault.com/t/javascript/blogs" data-toggle="popover" data-img="https://sfault-avatar.b0.upaiyun.com/195/823/1958237468-1040000000089436_huge256" data-placement="top" data-original-title="javascript" data-id="1040000000089436">javascript</a></li>
+                                                            <li class="tagPopup mb5"><a class="tag" href="https://segmentfault.com/t/css/blogs" data-toggle="popover" data-img="https://sfault-avatar.b0.upaiyun.com/122/960/1229606535-1040000000089434_huge256" data-placement="top" data-original-title="css" data-id="1040000000089434">css</a></li>
+                                                    </ul>
+
+                        <div class="article__author">
+                            <a href="https://segmentfault.com/u/meetbo" class="mr5 "><strong>波同学</strong></a>
+                            2016年07月01日发布
+                                                                                </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 hidden-xs">
+                    <ul class="post-topheader__side list-unstyled">
+                        <li>
+                                                                                                <button type="button" class="btn btn-success btn-sm" data-id="1190000005848133" id="sideLike">推荐
+                                    </button>
+                                                                                        <strong id="sideLiked">27</strong> 推荐
+                        </li>
+                        <li>
+                                                                                                <button type="button" id="sideBookmark" class="btn btn-default btn-sm active" data-id="1190000005848133" data-type="article">已收藏
+                                    </button>
+                                                                                        <strong id="sideBookmarked">160</strong> 收藏，<strong class="no-stress">8.8k</strong> 浏览
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div><!-- end .post-topheader -->
+
+    <div class="container mt30">
+        <div class="row">
+            <div class="col-xs-12 col-md-9 main ">
+
+                
+                <div class="article fmt article__content" data-id="1190000005848133" data-license="nd">
+                    
+<p>前段时间遇到一个小需求：要求在分享出来的h5页面中，有一个立即打开的按钮，如果本地安装了我们的app，那么点击就直接唤起本地app，如果没有安装，则跳转到下载。</p>
+<p>因为从来没有做过这个需求，因此这注定是一个苦逼的调研过程。</p>
+<p>我们最开始就面临2个问题：一是如何唤起本地app，二是如何判断浏览器是否安装了对应app。</p>
+<h5>如何唤起本地app</h5>
+<p>首先，想要实现这个需求，肯定是必须要客户端同学的配合才行，因此我们不用知道所有的实现细节，我们从前端角度思考看这个问题，需要知道的一点是，ios与Android都支持一种叫做schema协议的链接。比如网易新闻客户端的协议为</p>
+<div class="widget-codetool" style="display:none;">
+      <div class="widget-codetool--inner">
+      <span class="selectCode code-tool" data-toggle="tooltip" data-placement="top" title="" data-original-title="全选"></span>
+      <span type="button" class="copyCode code-tool" data-toggle="tooltip" data-placement="top" data-clipboard-text="newsapp://xxxxx" title="" data-original-title="复制"></span>
+      <span type="button" class="saveToNote code-tool" data-toggle="tooltip" data-placement="top" title="" data-original-title="放进笔记"></span>
+      </div>
+      </div><pre class="hljs cs"><code style="word-break: break-word; white-space: initial;">newsapp:<span class="hljs-comment">//xxxxx</span></code></pre>
+<p>当然，这个协议不需要我们前端去实现，我们只需要将协议放在a标签的href属性里，或者使用location.href与iframe来实现激活这个链接。而location.href与iframe是解决这个需求的关键。</p>
+<p>在ios中，还支持通过<code>smart app banner</code>来唤起app，即通过一个meta标签，在标签里带上app的信息，和打开后的行为，代码形如</p>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+      <span class="selectCode code-tool" data-toggle="tooltip" data-placement="top" title="" data-original-title="全选"></span>
+      <span type="button" class="copyCode code-tool" data-toggle="tooltip" data-placement="top" data-clipboard-text="&lt;meta name=&quot;apple-itunes-app&quot; content=&quot;app-id=1023600494, app-argument=tigerbrokersusstock://com.tigerbrokers.usstock/post?postId=7125&quot; /&gt;" title="" data-original-title="复制"></span>
+      <span type="button" class="saveToNote code-tool" data-toggle="tooltip" data-placement="top" title="" data-original-title="放进笔记"></span>
+      </div>
+      </div><pre><code class="html" style="word-break: break-word; white-space: initial;"><span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"apple-itunes-app"</span> <span class="hljs-attribute">content</span>=<span class="hljs-value">"app-id=1023600494, app-argument=tigerbrokersusstock://com.tigerbrokers.usstock/post?postId=7125"</span> /&gt;</span></code></pre>
+<p>我们还需要知道的一点是，微信里屏蔽了schema协议。除非你是微信的合作伙伴之类的，他们专门给你配置进白名单。否则我们就没办法通过这个协议在微信中直接唤起app。</p>
+<p>因此我们会判断页面场景是否在微信中，如果在微信中，则会提示用户在浏览器中打开。</p>
+<h5>如何判断本地是否安装了app</h5>
+<p>很无奈的是，在浏览器中无法明确的判断本地是否安装了app。因此我们必须采取一些取巧的思路来解决这个问题。</p>
+<p>我们能够很容易想到，采用设置一个延迟定时器setTimeout的方式，第一时间尝试唤起app，如果200ms没有唤起成功，则默认本地没有安装app，200ms以后，将会触发下载行为。</p>
+<p>结合这个思路，我们来全局考虑一下这个需求应该采用什么样的方案来实现它。</p>
+<p>使用location.href的同学可能会面临一个担忧，在有的浏览器中，当我们尝试激活schema link的时候，若本地没有安装app，则会跳转到一个浏览器默认的错误页面去了。因此大多数人采用的解决方案都是使用iframe</p>
+<blockquote><p>测试了很多浏览器，没有发现过这种情况</p></blockquote>
+<p>后来观察了网易新闻，今日头条，YY等的实现方案，发现大家都采用的是iframe来实现。好吧，面对这种情况，只能屈服。</p>
+<p>整理一下目前的思路，得到下面的解决方案</p>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+      <span class="selectCode code-tool" data-toggle="tooltip" data-placement="top" title="" data-original-title="全选"></span>
+      <span type="button" class="copyCode code-tool" data-toggle="tooltip" data-placement="top" data-clipboard-text="var url = {
+  open: &#39;app://xxxxx&#39;,
+  down: &#39;xxxxxxxx&#39;
+};
+var iframe = document.createElement(&#39;iframe&#39;);
+var body = document.body;
+iframe.style.cssText=&#39;display:none;width=0;height=0&#39;;
+var timer = null;
+
+// 立即打开的按钮
+var openapp = document.getElementById(&#39;openapp&#39;);
+openapp.addEventListener(&#39;click&#39;, function() {
+  if(/MicroMessenger/gi.test(navigator.userAgent) {
+    // 引导用户在浏览器中打开
+  }) else{
+    body.appendChild(iframe);
+    iframe.src = url.open;
+    timer = setTimeout(function() {
+      wondow.location.href = url.down;
+    }, 500);
+  }
+}, false)
+" title="" data-original-title="复制"></span>
+      <span type="button" class="saveToNote code-tool" data-toggle="tooltip" data-placement="top" title="" data-original-title="放进笔记"></span>
+      </div>
+      </div><pre><code class="js"><span class="hljs-keyword">var</span> url = {
+  open: <span class="hljs-string">'app://xxxxx'</span>,
+  down: <span class="hljs-string">'xxxxxxxx'</span>
+};
+<span class="hljs-keyword">var</span> iframe = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'iframe'</span>);
+<span class="hljs-keyword">var</span> body = <span class="hljs-built_in">document</span>.body;
+iframe.style.cssText=<span class="hljs-string">'display:none;width=0;height=0'</span>;
+<span class="hljs-keyword">var</span> timer = <span class="hljs-literal">null</span>;
+
+<span class="hljs-comment">// 立即打开的按钮</span>
+<span class="hljs-keyword">var</span> openapp = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'openapp'</span>);
+openapp.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-keyword">if</span>(<span class="hljs-regexp">/MicroMessenger/gi</span>.test(navigator.userAgent) {
+    <span class="hljs-comment">// 引导用户在浏览器中打开</span>
+  }) <span class="hljs-keyword">else</span>{
+    body.appendChild(iframe);
+    iframe.src = url.open;
+    timer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+      wondow.location.href = url.down;
+    }, <span class="hljs-number">500</span>);
+  }
+}, <span class="hljs-literal">false</span>)
+</code></pre>
+<p>想法很美好，现实很残酷。一测试，就发现简单的这样实现有许多的问题。</p>
+<p>第一个问题在于，当页面成功唤起app之后，我们再切换回来浏览器，发现跳转到了下载页面。</p>
+<p>为了解决这个问题，发现各个公司都进行了不同方式的尝试。</p>
+<p>也是历经的很多折磨，发现了几个比较有用的事件。</p>
+<p>pageshow： 页面显示时触发，在load事件之后触发。需要将该事件绑定到window上才会触发</p>
+<p>pagehide: 页面隐藏时触发</p>
+<p>visibilitychange： 页面隐藏没有在当前显示时触发，比如切换tab，也会触发该事件</p>
+<p>document.hidden 当页面隐藏时，该值为true，显示时为false</p>
+<p>由于各个浏览器的支持情况不同，我们需要将这些事件都给绑定上，即使这样，也不一定能够保证所有的浏览器都能够解决掉这个小问题，实在没办法的事情就不管了。</p>
+<p>因此需要扩充一下上面的方案，当本地app被唤起，则页面会隐藏掉，就会触发pagehide与visibilitychange事件</p>
+<div class="widget-codetool" style="display:none;">
+      <div class="widget-codetool--inner">
+      <span class="selectCode code-tool" data-toggle="tooltip" data-placement="top" title="" data-original-title="全选"></span>
+      <span type="button" class="copyCode code-tool" data-toggle="tooltip" data-placement="top" data-clipboard-text="$(document).on(&#39;visibilitychange webkitvisibilitychange&#39;, function() {
+    var tag = document.hidden || document.webkitHidden;
+    if (tag) {
+        clearTimeout(timer);
+    }
+})
+
+$(window).on(&#39;pagehide&#39;, function() {
+    clearTimeout(timer);
+})" title="" data-original-title="复制"></span>
+      <span type="button" class="saveToNote code-tool" data-toggle="tooltip" data-placement="top" title="" data-original-title="放进笔记"></span>
+      </div>
+      </div><pre><code class="js">$(<span class="hljs-built_in">document</span>).on(<span class="hljs-string">'visibilitychange webkitvisibilitychange'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">var</span> tag = <span class="hljs-built_in">document</span>.hidden || <span class="hljs-built_in">document</span>.webkitHidden;
+    <span class="hljs-keyword">if</span> (tag) {
+        clearTimeout(timer);
+    }
+})
+
+$(<span class="hljs-built_in">window</span>).on(<span class="hljs-string">'pagehide'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    clearTimeout(timer);
+})</code></pre>
+<p>而另外一个问题就是IOS9+下面的问题了。ios9的Safari，根本不支持通过iframe跳转到其他页面去。也就是说，在safari下，我的整体方案被全盘否决！</p>
+<p>于是我就只能尝试使用location.href的方式，这个方式能够唤起app，但是有一个坑爹的问题，使用schema协议唤起app会有弹窗而不会直接跳转去app！甚至当本地没有app时，会被判断为链接无效，然后还有一个弹窗。</p>
+<p>这个弹窗会造成什么问题呢？如果用户不点确认按钮，根据上面的逻辑，这个时候就会发现页面会自动跳转到下载去了。而且无效的弹窗提示在用户体验上是不允许出现的。</p>
+<p>好吧，继续扒别人的代码，看看别人是如何实现的。然后我又去观摩了其他公司的实现结果，发现网易新闻，今日头条都可以在ios直接从微信中唤起app。真是神奇了，可是今日头条在Android版微信上也没办法直接唤起的，他们在Android上都是直接到腾讯应用宝的下载里去。所以按道理来说这不是添加了白名单。</p>
+<p>为了找到这个问题的解决方案，我在网易新闻的页面中扒出了他们的代码，并整理如下，添加了部分注释</p>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+      <span class="selectCode code-tool" data-toggle="tooltip" data-placement="top" title="" data-original-title="全选"></span>
+      <span type="button" class="copyCode code-tool" data-toggle="tooltip" data-placement="top" data-clipboard-text="
+window.NRUM = window.NRUM || {};
+window.NRUM.config = {
+    key:&#39;27e86c0843344caca7ba9ea652d7948d&#39;,
+    clientStart: +new Date()
+};
+(function() {
+    var n = document.getElementsByTagName(&#39;script&#39;)[0],
+        s = document.createElement(&#39;script&#39;);
+
+    s.type = &#39;text/javascript&#39;;
+    s.async = true;
+    s.src = &#39;//nos.netease.com/apmsdk/napm-web-min-1.1.3.js&#39;;
+    n.parentNode.insertBefore(s, n);
+})();
+
+
+;
+(function(window,doc){
+
+    // http://apm.netease.com/manual?api=web
+    NRUM.mark &amp;&amp; NRUM.mark(&#39;pageload&#39;, true)
+
+    var list = []
+    var config = null
+
+    // jsonp
+    function jsonp(a, b, c) {
+        var d;
+        d = document.createElement(&#39;script&#39;);
+        d.src = a;
+        c &amp;&amp; (d.charset = c);
+        d.onload = function() {
+            this.onload = this.onerror = null;
+            this.parentNode.removeChild(this);
+            b &amp;&amp; b(!0);
+        };
+        d.onerror = function() {
+            this.onload = this.onerror = null;
+            this.parentNode.removeChild(this);
+            b &amp;&amp; b(!1);
+        };
+        document.head.appendChild(d);
+    };
+
+
+    function localParam(search,hash){
+        search = search || window.location.search;
+        hash = hash || window.location.hash;
+        var fn = function(str,reg){
+            if(str){
+                var data = {};
+                str.replace(reg,function( $0, $1, $2, $3 ){
+                    data[ $1 ] = $3;
+                });
+                return data;
+            }
+        }
+        return {search: fn(search,new RegExp( &quot;([^?=&amp;]+)(=([^&amp;]*))?&quot;, &quot;g&quot; ))||{},hash: fn(hash,new RegExp( &quot;([^#=&amp;]+)(=([^&amp;]*))?&quot;, &quot;g&quot; ))||{}};
+    }
+
+    jsonp(&#39;http://active.163.com/service/form/v1/5847/view/1047.jsonp&#39;)
+
+    window.search = localParam().search
+    window._callback = function(data) {
+        window._callback = null
+        list = data.list
+        if(search.s &amp;&amp; !!search.s.match(/^wap/i)) {
+            config = list.filter(function(item){
+                return item.type === &#39;wap&#39;
+            })[0]
+            return
+        }
+        config = list.filter(function(item){
+            return item.type === search.s
+        })[0]
+    }
+
+    var isAndroid = !!navigator.userAgent.match(/android/ig),
+        isIos = !!navigator.userAgent.match(/iphone|ipod/ig),
+        isIpad = !!navigator.userAgent.match(/ipad/ig),
+        isIos9 = !!navigator.userAgent.match(/OS 9/ig),
+        isYx = !!navigator.userAgent.match(/MailMaster_Android/i),
+        isNewsapp = !!navigator.userAgent.match(/newsapp/i),
+        isWeixin = (/MicroMessenger/ig).test(navigator.userAgent),
+        isYixin = (/yixin/ig).test(navigator.userAgent),
+        isQQ = (/qq/ig).test(navigator.userAgent),
+        params = localParam().search,
+        url = &#39;newsapp://&#39;,
+        iframe = document.getElementById(&#39;iframe&#39;);
+
+    var isIDevicePhone = (/iphone|ipod/gi).test(navigator.platform);
+    var isIDeviceIpad = !isIDevicePhone &amp;&amp; (/ipad/gi).test(navigator.platform);
+    var isIDevice = isIDevicePhone || isIDeviceIpad;
+    var isandroid2_x = !isIDevice &amp;&amp; (/android\s?2\./gi).test(navigator.userAgent);
+    var isIEMobile = !isIDevice &amp;&amp; !isAndroid &amp;&amp; (/MSIE/gi).test(navigator.userAgent);
+    var android_url = (!isandroid2_x) ? &quot;http://3g.163.com/links/4304&quot; : &quot;http://3g.163.com/links/6264&quot;;
+    var ios_url = &quot;http://3g.163.com/links/3615&quot;;
+    var wphone_url = &quot;http://3g.163.com/links/3614&quot;;
+    var channel = params.s || &#39;newsapp&#39;
+
+    // 判断在不同环境下app的url
+    if(params.docid){
+        if(params[&#39;boardid&#39;] &amp;&amp; params[&#39;title&#39;]){
+            url = url + &#39;comment/&#39; + params.boardid + &#39;/&#39; + params.docid + &#39;/&#39; + params.title
+        }else{
+            url = url + &#39;doc/&#39; + params.docid
+        }
+    }else if(params.sid){
+        url = url + &#39;topic/&#39; + params.sid
+    }else if(params.pid){
+        var pid = params.pid.split(&#39;_&#39;)
+        url = url + &#39;photo/&#39; + pid[0] + &#39;/&#39; + pid[1]
+    }else if(params.vid){
+        url = url + &#39;video/&#39; + params.vid
+    }else if(params.liveRoomid){
+        url = url + &#39;live/&#39; + params.liveRoomid
+    }else if(params.url){
+        url = url + &#39;web/&#39; + decodeURIComponent(params.url)
+    }else if(params.expertid){
+        url = url + &#39;expert/&#39; + params.expertid
+    }else if(params.subjectid){
+        url = url + &#39;subject/&#39; + params.subjectid
+    }else if(params.readerid){
+        url = url + &#39;reader/&#39; + params.readerid
+    }else{
+        url += &#39;startup&#39;
+    }
+    if(url.indexOf(&#39;?&#39;) &gt;= 0){
+        url += &#39;&amp;s=&#39; + (params.s || &#39;sps&#39;)
+    }else{
+        url += &#39;?s=&#39; + (params.s || &#39;sps&#39;)
+    }
+
+    // ios &amp;&amp; 易信  用iframe 打开
+    if((isIos||isIpad) &amp;&amp; navigator.userAgent.match(/yixin/i)) {
+        document.getElementById(&#39;iframe&#39;).src = url;
+    }
+
+    var height = document.documentElement.clientHeight;
+
+    // 通常情况下先尝试使用iframe打开
+    document.getElementById(&#39;iframe&#39;).src = url;
+
+    // 移动端浏览器中，将下载页面显示出来
+    if(!isWeixin &amp;&amp; !isQQ &amp;&amp; !isYixin &amp;&amp; !isYx){
+        document.querySelector(&#39;.main-body&#39;).style.display = &#39;block&#39;
+        if(isIos9){
+            document.querySelector(&#39;.main-body&#39;).classList.add(&#39;showtip&#39;)
+        }
+
+        setTimeout(function(){
+            document.body.scrollTop = 0
+        },200)
+    }else{
+        document.getElementById(&#39;guide&#39;).style.display = &#39;block&#39;
+    }
+
+    // Forward To Redirect Url
+    // Add by zhanzhixiang 12/28/2015
+    if (params.redirect) {
+        var redirectUrl = decodeURIComponent(params.redirect);
+        if ( typeof(URL) === &#39;function&#39; &amp;&amp; new URL(redirectUrl).hostname.search(&quot;163.com&quot;) !== -1) {
+            window.location.href = redirectUrl;
+        } else if (redirectUrl.search(&quot;163.com&quot;) !== -1){
+            window.location.href = redirectUrl;
+        };
+    }
+
+    // Forward To Redirect Url End
+    if ((isWeixin || isQQ) &amp;&amp; isAndroid) {
+        window.location.href = &#39;http://a.app.qq.com/o/simple.jsp?pkgname=com.netease.newsreader.activity&amp;ckey=CK1331205846719&amp;android_schema=&#39; +　url.match(/(.*)\?/)[1]
+    }
+
+    if(isIos||isIpad){
+        document.getElementById(&quot;guide&quot;).classList.add(&#39;iosguideopen&#39;)
+    }else if (isAndroid){
+        document.getElementById(&quot;guide&quot;).classList.add(&#39;androidguideopen&#39;)
+    }else{
+        // window.location.href = &#39;http://www.163.com/newsapp&#39;
+    }
+
+    document.getElementById(&#39;link&#39;).addEventListener(&#39;click&#39;, function(){
+
+        // 统计
+        neteaseTracker &amp;&amp; neteaseTracker(false,&#39;http://sps.163.com/func/?func=downloadapp&amp;modelid=&#39;+modelid+&#39;&amp;spst=&#39;+spst+&#39;&amp;spsf&amp;spss=&#39; + channel,&#39;&#39;, &#39;sps&#39; )
+
+        if (config) {
+            android_url = config.android
+        }
+        if (config &amp;&amp; config.iOS) {
+            ios_url = config.iOS
+        }
+        if(isWeixin || isQQ){
+            return
+        }
+        var msg = isIDeviceIpad ? &quot;检测到您正在使用iPad, 是否直接前往AppStore下载?&quot; : &quot;检测到您正在使用iPhone, 是否直接前往AppStore下载?&quot;;
+        if (isIDevice){
+            window.location = ios_url;
+            return;
+        }else if(isAndroid){
+            // uc浏览器用iframe唤醒
+            if(navigator.userAgent.match(/ucbrowser|yixin|MailMaster/i)){
+                document.getElementById(&#39;iframe&#39;).src = url;
+            } else {
+                window.location.href = url;
+            }
+            setTimeout(function(){
+                if(document.webkitHidden) {
+                    return
+                }
+                if (confirm(&quot;检测到您正在使用Android 手机，是否直接下载程序安装包？&quot;)) {
+                    neteaseTracker &amp;&amp; neteaseTracker(false,&#39;http://sps.163.com/func/?func=downloadapp_pass&amp;modelid=&#39;+modelid+&#39;&amp;spst=&#39;+spst+&#39;&amp;spsf&amp;spss=&#39; + channel,&#39;&#39;, &#39;sps&#39; )
+                    window.location.href = android_url;
+                } else {
+                    neteaseTracker &amp;&amp; neteaseTracker(false,&#39;http://sps.163.com/func/?func=downloadapp_cancel&amp;modelid=&#39;+modelid+&#39;&amp;spst=&#39;+spst+&#39;&amp;spsf&amp;spss=&#39; + channel,&#39;&#39;, &#39;sps&#39; )
+                }
+            },200)
+            return;
+        }else if(isIEMobile){
+            window.location = wphone_url;
+            return;
+        }else{
+            window.open(&#39;http://www.163.com/special/00774IQ6/newsapp_download.html&#39;);
+            return;
+        }
+    }, false)
+
+    setTimeout(function(){
+        if(isIDevice &amp;&amp; params.notdownload != 1 &amp;&amp; !isNewsapp &amp;&amp; !isIos9){
+            document.getElementById(&#39;link&#39;).click()
+        }
+    }, 1000)
+
+})(window,document);
+" title="" data-original-title="复制"></span>
+      <span type="button" class="saveToNote code-tool" data-toggle="tooltip" data-placement="top" title="" data-original-title="放进笔记"></span>
+      </div>
+      </div><pre><code class="js">
+<span class="hljs-built_in">window</span>.NRUM = <span class="hljs-built_in">window</span>.NRUM || {};
+<span class="hljs-built_in">window</span>.NRUM.config = {
+    key:<span class="hljs-string">'27e86c0843344caca7ba9ea652d7948d'</span>,
+    clientStart: +<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
+};
+(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">var</span> n = <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">'script'</span>)[<span class="hljs-number">0</span>],
+        s = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'script'</span>);
+
+    s.type = <span class="hljs-string">'text/javascript'</span>;
+    s.async = <span class="hljs-literal">true</span>;
+    s.src = <span class="hljs-string">'//nos.netease.com/apmsdk/napm-web-min-1.1.3.js'</span>;
+    n.parentNode.insertBefore(s, n);
+})();
+
+
+;
+(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(window,doc)</span></span>{
+
+    <span class="hljs-comment">// http://apm.netease.com/manual?api=web</span>
+    NRUM.mark &amp;&amp; NRUM.mark(<span class="hljs-string">'pageload'</span>, <span class="hljs-literal">true</span>)
+
+    <span class="hljs-keyword">var</span> list = []
+    <span class="hljs-keyword">var</span> config = <span class="hljs-literal">null</span>
+
+    <span class="hljs-comment">// jsonp</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">jsonp</span><span class="hljs-params">(a, b, c)</span> </span>{
+        <span class="hljs-keyword">var</span> d;
+        d = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'script'</span>);
+        d.src = a;
+        c &amp;&amp; (d.charset = c);
+        d.onload = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">this</span>.onload = <span class="hljs-keyword">this</span>.onerror = <span class="hljs-literal">null</span>;
+            <span class="hljs-keyword">this</span>.parentNode.removeChild(<span class="hljs-keyword">this</span>);
+            b &amp;&amp; b(!<span class="hljs-number">0</span>);
+        };
+        d.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">this</span>.onload = <span class="hljs-keyword">this</span>.onerror = <span class="hljs-literal">null</span>;
+            <span class="hljs-keyword">this</span>.parentNode.removeChild(<span class="hljs-keyword">this</span>);
+            b &amp;&amp; b(!<span class="hljs-number">1</span>);
+        };
+        <span class="hljs-built_in">document</span>.head.appendChild(d);
+    };
+
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">localParam</span><span class="hljs-params">(search,hash)</span></span>{
+        search = search || <span class="hljs-built_in">window</span>.location.search;
+        hash = hash || <span class="hljs-built_in">window</span>.location.hash;
+        <span class="hljs-keyword">var</span> fn = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(str,reg)</span></span>{
+            <span class="hljs-keyword">if</span>(str){
+                <span class="hljs-keyword">var</span> data = {};
+                str.replace(reg,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( $0, $1, $2, $3 )</span></span>{
+                    data[ $<span class="hljs-number">1</span> ] = $<span class="hljs-number">3</span>;
+                });
+                <span class="hljs-keyword">return</span> data;
+            }
+        }
+        <span class="hljs-keyword">return</span> {search: fn(search,<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>( <span class="hljs-string">"([^?=&amp;]+)(=([^&amp;]*))?"</span>, <span class="hljs-string">"g"</span> ))||{},hash: fn(hash,<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>( <span class="hljs-string">"([^#=&amp;]+)(=([^&amp;]*))?"</span>, <span class="hljs-string">"g"</span> ))||{}};
+    }
+
+    jsonp(<span class="hljs-string">'http://active.163.com/service/form/v1/5847/view/1047.jsonp'</span>)
+
+    <span class="hljs-built_in">window</span>.search = localParam().search
+    <span class="hljs-built_in">window</span>._callback = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> </span>{
+        <span class="hljs-built_in">window</span>._callback = <span class="hljs-literal">null</span>
+        list = data.list
+        <span class="hljs-keyword">if</span>(search.s &amp;&amp; !!search.s.match(<span class="hljs-regexp">/^wap/i</span>)) {
+            config = list.filter(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(item)</span></span>{
+                <span class="hljs-keyword">return</span> item.type === <span class="hljs-string">'wap'</span>
+            })[<span class="hljs-number">0</span>]
+            <span class="hljs-keyword">return</span>
+        }
+        config = list.filter(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(item)</span></span>{
+            <span class="hljs-keyword">return</span> item.type === search.s
+        })[<span class="hljs-number">0</span>]
+    }
+
+    <span class="hljs-keyword">var</span> isAndroid = !!navigator.userAgent.match(<span class="hljs-regexp">/android/ig</span>),
+        isIos = !!navigator.userAgent.match(<span class="hljs-regexp">/iphone|ipod/ig</span>),
+        isIpad = !!navigator.userAgent.match(<span class="hljs-regexp">/ipad/ig</span>),
+        isIos9 = !!navigator.userAgent.match(<span class="hljs-regexp">/OS 9/ig</span>),
+        isYx = !!navigator.userAgent.match(<span class="hljs-regexp">/MailMaster_Android/i</span>),
+        isNewsapp = !!navigator.userAgent.match(<span class="hljs-regexp">/newsapp/i</span>),
+        isWeixin = (<span class="hljs-regexp">/MicroMessenger/ig</span>).test(navigator.userAgent),
+        isYixin = (<span class="hljs-regexp">/yixin/ig</span>).test(navigator.userAgent),
+        isQQ = (<span class="hljs-regexp">/qq/ig</span>).test(navigator.userAgent),
+        params = localParam().search,
+        url = <span class="hljs-string">'newsapp://'</span>,
+        iframe = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'iframe'</span>);
+
+    <span class="hljs-keyword">var</span> isIDevicePhone = (<span class="hljs-regexp">/iphone|ipod/gi</span>).test(navigator.platform);
+    <span class="hljs-keyword">var</span> isIDeviceIpad = !isIDevicePhone &amp;&amp; (<span class="hljs-regexp">/ipad/gi</span>).test(navigator.platform);
+    <span class="hljs-keyword">var</span> isIDevice = isIDevicePhone || isIDeviceIpad;
+    <span class="hljs-keyword">var</span> isandroid2_x = !isIDevice &amp;&amp; (<span class="hljs-regexp">/android\s?2\./gi</span>).test(navigator.userAgent);
+    <span class="hljs-keyword">var</span> isIEMobile = !isIDevice &amp;&amp; !isAndroid &amp;&amp; (<span class="hljs-regexp">/MSIE/gi</span>).test(navigator.userAgent);
+    <span class="hljs-keyword">var</span> android_url = (!isandroid2_x) ? <span class="hljs-string">"http://3g.163.com/links/4304"</span> : <span class="hljs-string">"http://3g.163.com/links/6264"</span>;
+    <span class="hljs-keyword">var</span> ios_url = <span class="hljs-string">"http://3g.163.com/links/3615"</span>;
+    <span class="hljs-keyword">var</span> wphone_url = <span class="hljs-string">"http://3g.163.com/links/3614"</span>;
+    <span class="hljs-keyword">var</span> channel = params.s || <span class="hljs-string">'newsapp'</span>
+
+    <span class="hljs-comment">// 判断在不同环境下app的url</span>
+    <span class="hljs-keyword">if</span>(params.docid){
+        <span class="hljs-keyword">if</span>(params[<span class="hljs-string">'boardid'</span>] &amp;&amp; params[<span class="hljs-string">'title'</span>]){
+            url = url + <span class="hljs-string">'comment/'</span> + params.boardid + <span class="hljs-string">'/'</span> + params.docid + <span class="hljs-string">'/'</span> + params.title
+        }<span class="hljs-keyword">else</span>{
+            url = url + <span class="hljs-string">'doc/'</span> + params.docid
+        }
+    }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(params.sid){
+        url = url + <span class="hljs-string">'topic/'</span> + params.sid
+    }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(params.pid){
+        <span class="hljs-keyword">var</span> pid = params.pid.split(<span class="hljs-string">'_'</span>)
+        url = url + <span class="hljs-string">'photo/'</span> + pid[<span class="hljs-number">0</span>] + <span class="hljs-string">'/'</span> + pid[<span class="hljs-number">1</span>]
+    }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(params.vid){
+        url = url + <span class="hljs-string">'video/'</span> + params.vid
+    }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(params.liveRoomid){
+        url = url + <span class="hljs-string">'live/'</span> + params.liveRoomid
+    }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(params.url){
+        url = url + <span class="hljs-string">'web/'</span> + <span class="hljs-built_in">decodeURIComponent</span>(params.url)
+    }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(params.expertid){
+        url = url + <span class="hljs-string">'expert/'</span> + params.expertid
+    }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(params.subjectid){
+        url = url + <span class="hljs-string">'subject/'</span> + params.subjectid
+    }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(params.readerid){
+        url = url + <span class="hljs-string">'reader/'</span> + params.readerid
+    }<span class="hljs-keyword">else</span>{
+        url += <span class="hljs-string">'startup'</span>
+    }
+    <span class="hljs-keyword">if</span>(url.indexOf(<span class="hljs-string">'?'</span>) &gt;= <span class="hljs-number">0</span>){
+        url += <span class="hljs-string">'&amp;s='</span> + (params.s || <span class="hljs-string">'sps'</span>)
+    }<span class="hljs-keyword">else</span>{
+        url += <span class="hljs-string">'?s='</span> + (params.s || <span class="hljs-string">'sps'</span>)
+    }
+
+    <span class="hljs-comment">// ios &amp;&amp; 易信  用iframe 打开</span>
+    <span class="hljs-keyword">if</span>((isIos||isIpad) &amp;&amp; navigator.userAgent.match(<span class="hljs-regexp">/yixin/i</span>)) {
+        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'iframe'</span>).src = url;
+    }
+
+    <span class="hljs-keyword">var</span> height = <span class="hljs-built_in">document</span>.documentElement.clientHeight;
+
+    <span class="hljs-comment">// 通常情况下先尝试使用iframe打开</span>
+    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'iframe'</span>).src = url;
+
+    <span class="hljs-comment">// 移动端浏览器中，将下载页面显示出来</span>
+    <span class="hljs-keyword">if</span>(!isWeixin &amp;&amp; !isQQ &amp;&amp; !isYixin &amp;&amp; !isYx){
+        <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.main-body'</span>).style.display = <span class="hljs-string">'block'</span>
+        <span class="hljs-keyword">if</span>(isIos9){
+            <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.main-body'</span>).classList.add(<span class="hljs-string">'showtip'</span>)
+        }
+
+        setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+            <span class="hljs-built_in">document</span>.body.scrollTop = <span class="hljs-number">0</span>
+        },<span class="hljs-number">200</span>)
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'guide'</span>).style.display = <span class="hljs-string">'block'</span>
+    }
+
+    <span class="hljs-comment">// Forward To Redirect Url</span>
+    <span class="hljs-comment">// Add by zhanzhixiang 12/28/2015</span>
+    <span class="hljs-keyword">if</span> (params.redirect) {
+        <span class="hljs-keyword">var</span> redirectUrl = <span class="hljs-built_in">decodeURIComponent</span>(params.redirect);
+        <span class="hljs-keyword">if</span> ( <span class="hljs-keyword">typeof</span>(URL) === <span class="hljs-string">'function'</span> &amp;&amp; <span class="hljs-keyword">new</span> URL(redirectUrl).hostname.search(<span class="hljs-string">"163.com"</span>) !== -<span class="hljs-number">1</span>) {
+            <span class="hljs-built_in">window</span>.location.href = redirectUrl;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (redirectUrl.search(<span class="hljs-string">"163.com"</span>) !== -<span class="hljs-number">1</span>){
+            <span class="hljs-built_in">window</span>.location.href = redirectUrl;
+        };
+    }
+
+    <span class="hljs-comment">// Forward To Redirect Url End</span>
+    <span class="hljs-keyword">if</span> ((isWeixin || isQQ) &amp;&amp; isAndroid) {
+        <span class="hljs-built_in">window</span>.location.href = <span class="hljs-string">'http://a.app.qq.com/o/simple.jsp?pkgname=com.netease.newsreader.activity&amp;ckey=CK1331205846719&amp;android_schema='</span> +　url.match(<span class="hljs-regexp">/(.*)\?/</span>)[<span class="hljs-number">1</span>]
+    }
+
+    <span class="hljs-keyword">if</span>(isIos||isIpad){
+        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"guide"</span>).classList.add(<span class="hljs-string">'iosguideopen'</span>)
+    }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (isAndroid){
+        <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"guide"</span>).classList.add(<span class="hljs-string">'androidguideopen'</span>)
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-comment">// window.location.href = 'http://www.163.com/newsapp'</span>
+    }
+
+    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'link'</span>).addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+
+        <span class="hljs-comment">// 统计</span>
+        neteaseTracker &amp;&amp; neteaseTracker(<span class="hljs-literal">false</span>,<span class="hljs-string">'http://sps.163.com/func/?func=downloadapp&amp;modelid='</span>+modelid+<span class="hljs-string">'&amp;spst='</span>+spst+<span class="hljs-string">'&amp;spsf&amp;spss='</span> + channel,<span class="hljs-string">''</span>, <span class="hljs-string">'sps'</span> )
+
+        <span class="hljs-keyword">if</span> (config) {
+            android_url = config.android
+        }
+        <span class="hljs-keyword">if</span> (config &amp;&amp; config.iOS) {
+            ios_url = config.iOS
+        }
+        <span class="hljs-keyword">if</span>(isWeixin || isQQ){
+            <span class="hljs-keyword">return</span>
+        }
+        <span class="hljs-keyword">var</span> msg = isIDeviceIpad ? <span class="hljs-string">"检测到您正在使用iPad, 是否直接前往AppStore下载?"</span> : <span class="hljs-string">"检测到您正在使用iPhone, 是否直接前往AppStore下载?"</span>;
+        <span class="hljs-keyword">if</span> (isIDevice){
+            <span class="hljs-built_in">window</span>.location = ios_url;
+            <span class="hljs-keyword">return</span>;
+        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(isAndroid){
+            <span class="hljs-comment">// uc浏览器用iframe唤醒</span>
+            <span class="hljs-keyword">if</span>(navigator.userAgent.match(<span class="hljs-regexp">/ucbrowser|yixin|MailMaster/i</span>)){
+                <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'iframe'</span>).src = url;
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-built_in">window</span>.location.href = url;
+            }
+            setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+                <span class="hljs-keyword">if</span>(<span class="hljs-built_in">document</span>.webkitHidden) {
+                    <span class="hljs-keyword">return</span>
+                }
+                <span class="hljs-keyword">if</span> (confirm(<span class="hljs-string">"检测到您正在使用Android 手机，是否直接下载程序安装包？"</span>)) {
+                    neteaseTracker &amp;&amp; neteaseTracker(<span class="hljs-literal">false</span>,<span class="hljs-string">'http://sps.163.com/func/?func=downloadapp_pass&amp;modelid='</span>+modelid+<span class="hljs-string">'&amp;spst='</span>+spst+<span class="hljs-string">'&amp;spsf&amp;spss='</span> + channel,<span class="hljs-string">''</span>, <span class="hljs-string">'sps'</span> )
+                    <span class="hljs-built_in">window</span>.location.href = android_url;
+                } <span class="hljs-keyword">else</span> {
+                    neteaseTracker &amp;&amp; neteaseTracker(<span class="hljs-literal">false</span>,<span class="hljs-string">'http://sps.163.com/func/?func=downloadapp_cancel&amp;modelid='</span>+modelid+<span class="hljs-string">'&amp;spst='</span>+spst+<span class="hljs-string">'&amp;spsf&amp;spss='</span> + channel,<span class="hljs-string">''</span>, <span class="hljs-string">'sps'</span> )
+                }
+            },<span class="hljs-number">200</span>)
+            <span class="hljs-keyword">return</span>;
+        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(isIEMobile){
+            <span class="hljs-built_in">window</span>.location = wphone_url;
+            <span class="hljs-keyword">return</span>;
+        }<span class="hljs-keyword">else</span>{
+            <span class="hljs-built_in">window</span>.open(<span class="hljs-string">'http://www.163.com/special/00774IQ6/newsapp_download.html'</span>);
+            <span class="hljs-keyword">return</span>;
+        }
+    }, <span class="hljs-literal">false</span>)
+
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-keyword">if</span>(isIDevice &amp;&amp; params.notdownload != <span class="hljs-number">1</span> &amp;&amp; !isNewsapp &amp;&amp; !isIos9){
+            <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'link'</span>).click()
+        }
+    }, <span class="hljs-number">1000</span>)
+
+})(<span class="hljs-built_in">window</span>,<span class="hljs-built_in">document</span>);
+</code></pre>
+<p>虽然有一些外部的引用，和一些搞不懂是干什么用的方法和变量，但是基本逻辑还是能够看明白。好像也没有什么特别的地方。研究了许久，看到了一个jsonp请求很奇特。这是来干嘛用的？</p>
+<p>于是费尽千辛万苦，搜索了很多文章，最终锁定了一个关键的名词 <strong>Universal links</strong>。</p>
+<p>如果我早知道这个名词，那么问题就不会变的那么束手无策。所以这个东西是什么呢？</p>
+<blockquote>
+<p>Apple为iOS 9发布了一个所谓的通用链接的深层链接特性，即Universal links。虽然它并不完美，但是这一发布，让数以千计的应用开发人员突然意识到自己的应用体验被打破。</p>
+<p>Universal links，一种能够方便的通过传统的HTTP/HTTPS 链接来启动App，使用相同的网址打开网站和App。</p>
+</blockquote>
+<p>关于这个问题的提问与universal links的介绍 <a href="http://stackoverflow.com/questions/31891777/ios-9-safari-iframe-src-with-custom-url-scheme-not-working" target="_blank">点击这里查看</a></p>
+<p>ios9推行的一个新的协议！ </p>
+<p>关于本文的这个问题，国内的论坛有许许多多的文章来解决，但是提到universal links的文章少之又少，而我想吐槽的是，我们的ios开发也尼玛不知道这个名词，搞什么鬼。他改变了用户体验的关键在于，微信没有屏蔽这个协议。因此如果我们的app注册了这个协议，那么我们就能够从微信中直接唤起app。</p>
+<p>这个时候我就发现，上面贴的网易新闻代码中的jsonp请求的内容，就是这个协议必须的一个叫做<code>apple-app-site-association</code>的JSON文件</p>
+<div class="widget-codetool" style="display: none;">
+      <div class="widget-codetool--inner">
+      <span class="selectCode code-tool" data-toggle="tooltip" data-placement="top" title="" data-original-title="全选"></span>
+      <span type="button" class="copyCode code-tool" data-toggle="tooltip" data-placement="top" data-clipboard-text="{
+   &quot;applinks&quot;: {
+       &quot;apps&quot;: [ ],
+       &quot;details&quot;: {
+           &quot;TEAM-IDENTIFIER.YOUR.BUNDLE.IDENTIFIER&quot;: {
+               &quot;paths&quot;: [
+                   &quot;*&quot;
+               ]
+           }
+       }
+   }
+}" title="" data-original-title="复制"></span>
+      <span type="button" class="saveToNote code-tool" data-toggle="tooltip" data-placement="top" title="" data-original-title="放进笔记"></span>
+      </div>
+      </div><pre><code class="js">{
+   <span class="hljs-string">"applinks"</span>: {
+       <span class="hljs-string">"apps"</span>: [ ],
+       <span class="hljs-string">"details"</span>: {
+           <span class="hljs-string">"TEAM-IDENTIFIER.YOUR.BUNDLE.IDENTIFIER"</span>: {
+               <span class="hljs-string">"paths"</span>: [
+                   <span class="hljs-string">"*"</span>
+               ]
+           }
+       }
+   }
+}</code></pre>
+<p>大家可以直接访问这个链接，查看里面的内容</p>
+<p><a href="http://active.163.com/service/form/v1/5847/view/1047.jsonp" target="_blank">http://active.163.com/service...</a></p>
+<p>至于universal links具体如何实现，让ios的同学去搞定吧，这里提供两个参考文章</p>
+<p><a href="http://www.cocoachina.com/bbs/read.php?tid-1486368.html" target="_blank">http://www.cocoachina.com/bbs...</a></p>
+<p><a href="https://blog.branch.io/how-to-setup-universal-links-to-deep-link-on-apple-ios-9" target="_blank">https://blog.branch.io/how-to...</a></p>
+<p>支持了这个协议之后，我们又可以通过iframe来唤起app了，因此基本逻辑就是这样了。</p>
+<p>但是！并不是就没有坑了。</p>
+<p>universal links还有一个大坑，就是如果想要通过universal links只在在微信中打开app，同一个页面我们还得使用不同的两个域名。</p>
+<p>这个特性虽然有点坑，但是通过这个特性却能够完美判断本地是否安装了你们的app。</p>
+<p>比如我们正常访问当前页面的域名为A，对应的页面url为A+，而当我们点击按钮，需要打开app用到的域名为B，，对应的页面url为B+。</p>
+<p>A与B都被注册成为了对应app的universal links，A+ 与 B+ 都指向同一个页面。 </p>
+<p>我们通过js判断，如果是通过B+访问的该页面，则直接跳去下载app。这样，当我们从A+通过点击访问B+时，如果universal links生效并且本地安装了对应的app，app会直接被打开。如果本地没有安装App，则会直接执行刚才B+中跳去下载的设定。</p>
+<p>OK，这个问题，几乎所有的坑我都在上面说到了，如果想要做好兼容，就是一个针对每个坑做最优选择了，这是一个工作量的问题。</p>
+<p>不过最终的调研结果是</p>
+<p><strong>没有完美的解决方案</strong></p>
+<p>就算是网易新闻，这个按钮在使用过程中也会有一些小bug，无法做到完美的状态。</p>
+<p>因为我们面临许多没办法解决的问题，比如无法真正意义上的判断本地是否安装了app，pageshow，pagehide并不是所有的浏览器都支持等。很多其他博客里面，什么计算时间差等方案，我花了很久的时间去研究这个方案，结果是，根！本！没！有！用！</p>
+<p>老实说，从微信中跳转到外部浏览器，并不是一个好的解决方案，这样会导致很多用户流失，因此大家都在ios上实现了universal links。</p>
+<p>网易新闻的逻辑是，点击打开会跳转到一个下载页面，这个下载页面一加载完成就尝试打开app，如果打开了就直接跑到app里面去了，如果没有就在页面上有一个立即下载的按钮，按钮行只有下载处理。</p>
+<p>这个问题就总结到这里，如果大家有更好的方案，欢迎与我沟通。</p>
+<blockquote><p>如果大家觉得我的文章还不错，欢迎搜索isreact关注我的公众号</p></blockquote>
+
+                </div>
+                                                
+                <div class="clearfix mt10">
+
+                    <ul class="article-operation list-inline pull-left">
+                        <li><a href="https://segmentfault.com/a/1190000005848133" class="text-muted">2016年07月01日发布</a></li>
+                                                                                                                            <li class="dropdown js__content-ops" data-module="article" data-id="1190000005848133" data-typetext="文章">
+                                <a href="javascript:void(0);" class="dropdown-toggle text-muted" data-toggle="dropdown">更多<b class="caret"></b></a>
+                                <ul class="dropdown-menu dropdown-menu-left">
+                                    <li><a href="https://segmentfault.com/a/1190000005848133#911" data-toggle="modal" data-target="#911" data-action="report">举报</a></li>
+                                                                            
+                                                                                                                        
+                                        
+                                                                    </ul>
+                            </li>
+                                            </ul>
+                </div>
+                <div class="mt10 text-center"><button type="button" data-id="1190000005848133" class="btn btn-danger btn-lg mr15 article__reward-btn">
+                                    赞赏支持
+                                </button><button type="button" id="mainLike" data-id="1190000005848133" class="btn btn-success btn-lg mr15 ">
+                                27 推荐
+                            </button><button type="button" id="mainBookmark" data-type="article" data-id="1190000005848133" class="btn btn-default btn-lg mr15  active">
+                                 已收藏
+                            </button></div><div class="mt20 text-center article__reward-info"><span class="mr10">如果觉得我的文章对你有用，请随意赞赏</span></div>
+                                    <div class="recommend-post pt30 mt40 mb30 border-top">
+                        <div class="row">
+                            <div class="col-md-8">
+                                                                    <h4 class="mt0">你可能感兴趣的文章</h4>
+                                    <ul class="widget-links list-unstyled">
+                                                                                    <li class="widget-links__item">
+                                                <a href="https://segmentfault.com/a/1190000000738105" title="JavaScript、jQuery、HTML5、Node.js实例大全-读书笔记2">JavaScript、jQuery、HTML5、Node.js实例大全-读书笔记2</a>
+                                                <small class="text-muted">
+                                                    18 收藏，2.8k
+                                                    浏览
+                                                </small>
+                                            </li>
+                                                                                    <li class="widget-links__item">
+                                                <a href="https://segmentfault.com/a/1190000002884052" title="[译]让web app更快的HTML5最佳实践">[译]让web app更快的HTML5最佳实践</a>
+                                                <small class="text-muted">
+                                                    76 收藏，4.1k
+                                                    浏览
+                                                </small>
+                                            </li>
+                                                                                    <li class="widget-links__item">
+                                                <a href="https://segmentfault.com/a/1190000000732617" title="有趣的HTML5：离线存储">有趣的HTML5：离线存储</a>
+                                                <small class="text-muted">
+                                                    123 收藏，19.3k
+                                                    浏览
+                                                </small>
+                                            </li>
+                                                                            </ul>
+                                                            </div>
+                            <div class="col-md-4">
+                                                                    <div class="article-license">
+                                                                                                                        <div class="license-item text-muted">
+                                            本作品 <a href="https://segmentfault.com/tos#sec-licence-4" target="_blank" class="alert-link">保留所有权利</a> 。未获得许可人许可前，不允许他人复制、发行、展览和表演作品。不允许他人基于该作品创作演绎作品
+                                            。
+                                        </div>
+
+                                    </div>
+                                                            </div>
+                        </div>
+
+                    </div>
+                                <!-- <ul class="list-unstyled text-muted mt30">
+                                        <li>上一篇：<a href="/a/1190000005830987">$q 实例分析 Angular 中的 Promise</a></li>
+                                                            <li class="mt5">下一篇：<a href="/a/1190000005851663">Angular directive 实例详解</a></li>
+                                    </ul> -->
+
+                <h2 class="h4 post-comment-title"></h2>
+                
+        <div class="comments--news comments--default" data-id="1190000005848133" data-user-id="1030000006728639" data-author-id="1030000003946460 " data-is-admin="false">
+        <div class="mb10">
+            <strong class="comments-stat pull-left mr10">22 条评论</strong>
+            <div class="btn-group comments-sort">
+                <button type="button" class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <span class="comments-sort-text">默认排序</span> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="javascript:;" data-sort="default">默认排序</a></li>
+                    <li><a href="javascript:;" data-sort="asc">时间排序</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="comments-container">
+                                <div class="comments-list">
+                <div class="comments-item" data-id="1050000005848861">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/pvfg" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/2781472782-57cc95950c255_medium40" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000005848861" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/pvfg">lopop</a></strong>
+                    <span class="comments-isAuthor hide"></span>
+                    <span class="comments-date">  ·  2016年07月01日</span>
+                </div>
+
+                <div class="fmt mb10"><p>所以做前端的真的是累得蛋疼啊。。。</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000005849446">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/leevi" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/1031281669-571823dfe9840_medium40" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000005849446" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/leevi">leevi</a></strong>
+                    <span class="comments-isAuthor hide"></span>
+                    <span class="comments-date">  ·  2016年07月01日</span>
+                </div>
+
+                <div class="fmt mb10"><p>先顶再看!</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000005851257">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/leevi" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/1031281669-571823dfe9840_medium40" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000005851257" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/leevi">leevi</a></strong>
+                    <span class="comments-isAuthor hide"></span>
+                    <span class="comments-date">  ·  2016年07月01日</span>
+                </div>
+
+                <div class="fmt mb10"><p>可以直接使用你从网易新闻里整理的代码吗?有点看不懂呢,你上面自己写的比较好理解</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000005851420">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/meetbo" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/3817108384-576f60f397aff_medium40" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000005851420" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/meetbo">波同学</a></strong>
+                    <span class="comments-isAuthor ">作者</span>
+                    <span class="comments-date">  ·  2016年07月01日</span>
+                </div>
+
+                <div class="fmt mb10"><p>不能，因为网易的代码他自己配置了自己的apple-app-site-association，这个每个app都会有所不同，网易的代码也不是太难理解，我文章后面有讲到他们的逻辑。如果你们的app支持的universal links，你可以用我的代码里面的思路，但是有些小坑需要根据自己的实际情况来处理逻辑，毕竟要兼容和处理的场景太多。</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000005851429">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/meetbo" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/3817108384-576f60f397aff_medium40" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000005851429" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/meetbo">波同学</a></strong>
+                    <span class="comments-isAuthor ">作者</span>
+                    <span class="comments-date">  ·  2016年07月01日</span>
+                </div>
+
+                <div class="fmt mb10"><p>有的时候是挺累的! 习惯就好</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000005864499">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/wxt2005" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/1216317471-556c6fb636023_medium40" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000005864499" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/wxt2005">wxt2005</a></strong>
+                    <span class="comments-isAuthor hide"></span>
+                    <span class="comments-date">  ·  2016年07月03日</span>
+                </div>
+
+                <div class="fmt mb10"><p>我们现在的解决方案，就是 iOS9 以下用传统的 Schema，iOS9+ 用 Universal Link 跳转。其实 Universal Link 不是拿来做这种事情用的，但是需求如此，也没办法。</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000005889855">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/tierney" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/2561646339-573421f4be03d_medium40" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000005889855" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/tierney">ti0xer</a></strong>
+                    <span class="comments-isAuthor hide"></span>
+                    <span class="comments-date">  ·  2016年07月06日</span>
+                </div>
+
+                <div class="fmt mb10"><p>可是楼主，在iOS9的Safari里面，通过iframe跳转到新的url这个功能貌似失效了啊</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000005890335">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/meetbo" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/3817108384-576f60f397aff_medium40" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000005890335" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/meetbo">波同学</a></strong>
+                    <span class="comments-isAuthor ">作者</span>
+                    <span class="comments-date">  ·  2016年07月06日</span>
+                </div>
+
+                <div class="fmt mb10"><p>恩，我也有提到这点</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000005891733">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/heby" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/2973508904-547ab66e7dca5_medium40" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000005891733" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/heby">Heby</a></strong>
+                    <span class="comments-isAuthor hide"></span>
+                    <span class="comments-date">  ·  2016年07月06日</span>
+                </div>
+
+                <div class="fmt mb10"><p>safari可以用a标签传schema跳转，href="app://xxxxx"</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000005912508">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/fssdf" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/user-40.png" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000005912508" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/fssdf">fssdf</a></strong>
+                    <span class="comments-isAuthor hide"></span>
+                    <span class="comments-date">  ·  2016年07月08日</span>
+                </div>
+
+                <div class="fmt mb10"><p>实际上实现这个功能要考虑许多上下文细节，比如已安装app和未安装app时的不同情况，微信里ios9以上需要使用universal link，没有实现的话，需要提示浏览器打开，如果下载地址是应用宝，又不应该让他在浏览器打开等等等等，包括android成千上万台机型的兼容性。所以最好一家第三方做deeplink工具的公司，直接用他们的产品，国外的有<a href="https://branch.io/" target="_blank">branch metrics</a>,国内的有<a href="http://www.magicwindow.cn/" target="_blank">魔窗</a></p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000005912963">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/meetbo" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/3817108384-576f60f397aff_medium40" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000005912963" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/meetbo">波同学</a></strong>
+                    <span class="comments-isAuthor ">作者</span>
+                    <span class="comments-date">  ·  2016年07月08日</span>
+                </div>
+
+                <div class="fmt mb10"><p>谢谢，了解一下先</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000006031649">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/luozuojia" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/user-40.png" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000006031649" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/luozuojia">罗雀</a></strong>
+                    <span class="comments-isAuthor hide"></span>
+                    <span class="comments-date">  ·  2016年07月21日</span>
+                </div>
+
+                <div class="fmt mb10"><p>话说我在网易的json里没有找到有关apple-app-site-association里格式的内容啊，还是有点云里雾里，这问题真的麻烦。想问一下楼主，安卓就没有这问题是吧</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000006035153">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/meetbo" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/3817108384-576f60f397aff_medium40" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000006035153" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/meetbo">波同学</a></strong>
+                    <span class="comments-isAuthor ">作者</span>
+                    <span class="comments-date">  ·  2016年07月21日</span>
+                </div>
+
+                <div class="fmt mb10"><p>恩，Android没有，但是Android没办法在微信中直接打开。</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000006105998">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/wjsgtxy" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/user-40.png" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000006105998" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/wjsgtxy">wjsgtxy</a></strong>
+                    <span class="comments-isAuthor hide"></span>
+                    <span class="comments-date">  ·  2016年07月28日</span>
+                </div>
+
+                <div class="fmt mb10"><p>赞一个，正好在弄这方面的东西。</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000006796379">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/heiyanquan" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/user-40.png" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000006796379" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/heiyanquan">heiyanquan</a></strong>
+                    <span class="comments-isAuthor hide"></span>
+                    <span class="comments-date">  ·  2016年09月02日</span>
+                </div>
+
+                <div class="fmt mb10"><p>不错不错，还是很需要的</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000007126090">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/zangge" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/user-40.png" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000007126090" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/zangge">藏歌</a></strong>
+                    <span class="comments-isAuthor hide"></span>
+                    <span class="comments-date">  ·  2016年10月11日</span>
+                </div>
+
+                <div class="fmt mb10"><p>请教下楼主 为啥在android中pagehide visibilitychange 在手机上测试打开app后方法并没有执行 还是跳到了下载页面 是什么原因 是手机的原因吗？</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000007713983">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/aierbuper" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/user-40.png" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000007713983" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/aierbuper">哀而不傷</a></strong>
+                    <span class="comments-isAuthor hide"></span>
+                    <span class="comments-date">  ·  2016年12月06日</span>
+                </div>
+
+                <div class="fmt mb10"><p>楼主。。所以最后无论是安卓还是IOS都是用iframe配合pagehide与visibilitychange事件唤起，IOS9+用新协议，是这意思么？</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000007713987">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/aierbuper" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/user-40.png" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000007713987" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/aierbuper">哀而不傷</a></strong>
+                    <span class="comments-isAuthor hide"></span>
+                    <span class="comments-date">  ·  2016年12月06日</span>
+                </div>
+
+                <div class="fmt mb10"><p>有实例代码么。。我最近也在做这个，好累啊</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000007742660">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/meetbo" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/3817108384-576f60f397aff_medium40" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000007742660" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/meetbo">波同学</a></strong>
+                    <span class="comments-isAuthor ">作者</span>
+                    <span class="comments-date">  ·  2016年12月08日</span>
+                </div>
+
+                <div class="fmt mb10"><p>啊，文章忘了更新，总体来说就是自己做适配做兼容的话需要考虑很多情况，所以建议用第三方的插件来完成，这样也不用自己维护了。比如说魔窗。</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+                <div class="comments-item" data-id="1050000007843672">
+            <div class="pull-left">
+                <a href="https://segmentfault.com/u/kirito_h" target="_blank"><img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/1406429891-1030000000367417_medium40" alt=""></a>
+            </div>
+            <div class="comments-content">
+                <div class="comment-trigger">
+                    <div class="pull-right">
+                        <a href="https://segmentfault.com/a/1190000005848133#911" class="ml10" data-toggle="modal" data-target="#911" data-action="report" data-action-text="举报" data-module="comment" data-id="1050000007843672" data-typetext="评论" data-placement="top" title="举报"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>
+                                            </div>
+                    <strong><a target="_blank" href="https://segmentfault.com/u/kirito_h">枭羊</a></strong>
+                    <span class="comments-isAuthor hide"></span>
+                    <span class="comments-date">  ·  2016年12月18日</span>
+                </div>
+
+                <div class="fmt mb10"><p>请问知乎的两个按钮是怎么弄的？</p></div>
+
+                <p class="comment-ops">
+                    <span class="comments-zan ">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="comments-zan-text">赞</span>
+                        <span class="comments-zan-value"></span>
+                    </span>
+                    <span class="ml15 comments-reply-btn">回复</span>
+                </p>
+
+                <div class="reply-list reply-list--empty">
+                    
+                    <div class="reply-item reply-item--ops">
+                        <a class="reply-inner-btn" href="javascript:;">添加回复</a>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+            </div>
+    <div class="comments-loading hide">载入中...</div>
+    <div class="comments-more "><a href="javascript:;">显示更多评论</a></div>
+
+                        <div class="comments-box">
+                <div class="pull-left">
+                    <img class="avatar-32 " src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/335059255-57fc39112b6fd_big64" alt="">
+                </div>
+                <div class="comments-box-content">
+                    <form action="https://segmentfault.com/api/article/[id]/comments/add">
+                        <div class="form-group mb0">
+                                            <textarea name="text" rows="3" class="form-control" placeholder="文明社会，理性评论"></textarea>
+
+                            <div class="mt15 text-right">
+                                <button type="button" class="hide"></button>
+                                <button class=" btn btn-primary" type="button">发布评论</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+                    </div>
+    </div>
+
+
+
+
+
+
+                
+            </div><!-- /.main -->
+
+
+            <div class="col-xs-12 col-md-3 side">
+                <div class="sfad-sidebar google-ad">
+<div class="sfad-item">
+<script async="" src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/adsbygoogle.js.下载"></script>
+<ins class="adsbygoogle" style="display:inline-block;width:234px;height:60px" data-ad-client="ca-pub-6330872677300335" data-ad-slot="5044940404" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:234px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:234px;background-color:transparent"><iframe width="234" height="60" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/saved_resource.html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</div>
+
+
+                <div class="widget-box widget-box--blog-info">
+                    <div class="blog__sidebar-author ">
+                                                    <button type="button" class="btn btn-sm btn-success follow-user ml10 pull-right" data-do="follow" data-type="user" data-id="1030000003946460">关注作者
+                            </button>
+                        
+                        <div class="article__widget--author">
+                            <a href="https://segmentfault.com/u/meetbo">
+                                <img class="avatar-40" src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/3817108384-576f60f397aff_big64" alt="波同学">
+                            </a>
+                            <a class="article__widget-author-name" href="https://segmentfault.com/u/meetbo">
+                                <strong>波同学</strong>
+                            </a>
+                            <p class="article__widget-author-text-muted mb0">
+                                <span>5.3k 声望</span>
+
+                            </p>
+
+
+                        </div>
+
+
+                    </div>
+                                        <div class="blog__sidebar-blog-name">
+                        <p class="article__widget-author-text-muted mt15 mb5">发布于专栏</p>
+
+                        <h4 class="fz16"><a href="https://segmentfault.com/blog/yangbo">web前端之路</a></h4>
+                        <p class="article__widget-author-desc">内容包括html5/css3, javascript，jQuery等各类插件，gulp构建工具，git版本管理库等</p>
+
+                        <p>
+                            <span class="article__widget-author-text-muted">84 人关注</span>
+                            
+                                                                    <button type="button mb20" class="btn btn-sm btn-default follow-article pull-right" data-do="follow" data-type="blog" data-id="1200000003947382">关注专栏
+                                    </button>
+                                
+                                                    </p>
+
+                    </div>
+                    
+
+                </div>
+
+
+                
+                    <div data-type="widget" data-api="/api/bookmarkArchive/hots" data-api-overwrite="/api/bookmarkArchive/1190000005848133/related">
+        <script type="text/template">
+            <div class="widget-box widget-box--bookmark no-border">
+                <h4 class="widget-box__title">相关收藏夹 <a id="widgetBookmarkRefresh" class="userstab pull-right"
+                                                          href="javascript:;">换一组</a></h4>
+                <ul class="widget-links list-unstyled media">
+                    <% _.each(data,function(d){ %>
+                    <li class="widget-links__item">
+                        <img class="pull-left pattern pattern-<%= d.id%19 %> mr10" src="https://static.segmentfault.com/v-58f8626d/global/img/pattern/<%= d.id%10 ? d.id%10 : 10 %>.svg" width="32">
+                        <div class="media-body">
+                            <a target="_blank" class="ellipsis mr0" href="<%- d.url %>"><%= d.name %></a>
+                            <p class="mb0">
+                                <span><%- d.num %></span> 个条目 <span class="division">|</span> <span><%- d.followers %></span> 人关注
+                            </p>
+                        </div>
+                    </li>
+                    <% }) %>
+                </ul>
+            </div>
+        </script>
+    
+            <div class="widget-box widget-box--bookmark no-border">
+                <h4 class="widget-box__title">相关收藏夹 <a id="widgetBookmarkRefresh" class="userstab pull-right" href="javascript:;">换一组</a></h4>
+                <ul class="widget-links list-unstyled media">
+                    
+                    <li class="widget-links__item">
+                        <img class="pull-left pattern pattern-8 mr10" src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/10.svg" width="32">
+                        <div class="media-body">
+                            <a target="_blank" class="ellipsis mr0" href="https://segmentfault.com/bookmark/1230000008578790">干货收集</a>
+                            <p class="mb0">
+                                <span>4</span> 个条目 <span class="division">|</span> <span>0</span> 人关注
+                            </p>
+                        </div>
+                    </li>
+                    
+                    <li class="widget-links__item">
+                        <img class="pull-left pattern pattern-17 mr10" src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/2.svg" width="32">
+                        <div class="media-body">
+                            <a target="_blank" class="ellipsis mr0" href="https://segmentfault.com/bookmark/1230000008569432">前端技术</a>
+                            <p class="mb0">
+                                <span>5</span> 个条目 <span class="division">|</span> <span>0</span> 人关注
+                            </p>
+                        </div>
+                    </li>
+                    
+                    <li class="widget-links__item">
+                        <img class="pull-left pattern pattern-9 mr10" src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/6.svg" width="32">
+                        <div class="media-body">
+                            <a target="_blank" class="ellipsis mr0" href="https://segmentfault.com/bookmark/1230000008482936">RegExp</a>
+                            <p class="mb0">
+                                <span>4</span> 个条目 <span class="division">|</span> <span>1</span> 人关注
+                            </p>
+                        </div>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+
+
+                <div class="widget-share__full" data-text="浏览器中唤起native app || 跳转到应用商城下载" data-url="https://segmentfault.com/a/1190000005848133?share_user=1030000006728639" data-shorturl="http://sfau.lt/b5yHwT"><div style="margin-bottom:10px;">分享扩散：</div><div class="widget-share-network sharer-0" style="display: block;"><ul class="sn-inline"><li data-network="weibo"><a href="javascript:void(0);" class="entypo-weibo icon-sn-weibo share-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="分享至新浪微博">新浪微博</a></li><li data-network="wechart"><a href="javascript:void(0);" class="entypo-wechart icon-sn-weixin share-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="分享至微信">微信</a></li><li data-network="twitter"><a href="javascript:void(0);" class="entypo-twitter icon-sn-twitter share-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="分享至 Twitter">Twitter</a></li><li data-network="facebook"><a href="javascript:void(0);" class="entypo-facebook icon-sn-facebook share-4" data-toggle="tooltip" data-placement="top" title="" data-original-title="分享至 Facebook">Facebook</a></li></ul></div><a type="button" class="btn btn-sm shareMore btn-sn-more" data-toggle="popover" data-placement="top" data-url="https://segmentfault.com/a/1190000005848133?share_user=1030000006728639" data-shorturl="http://sfau.lt/b5yHwT"><span class="icon-sn-dotted" data-original-title="" title=""></span><strong class="visible-xs-inline">•••</strong></a></div>
+
+                <div class="post-nav hidden-xs">
+                    <div class="panel panel-default widget-outline">
+                        <div class="panel-heading">文章目录</div>
+                        <div class="panel-body">
+                            <div class="nav-body">
+                                <div class="highlight-title"></div>
+                                <ul class="articleIndex"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.side -->
+        </div>
+    </div>
+</div>
+
+<div id="shareToWeiboModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">分享</h4>
+            </div>
+            <div class="modal-body">
+                <p class="sfModal-content">
+                    分享到微博？
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default dont-likeweibo" data-dismiss="modal">取消</button>
+                <a href="https://segmentfault.com/a/1190000005848133" id="shareLink" class="btn btn-primary done-btn" target="_blank" onclick="$(&#39;#shareToWeiboModal&#39;).modal(&#39;hide&#39;)">分享</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal widget-911" id="911" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">×</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title"><span data-model="action"></span><span data-model="type"></span></h4>
+      </div>
+      <div class="modal-body">
+        <form id="reportForm">
+          <!-- 后台返回信息 -->
+          <p class="alert alert-warning" data-model="returnMsg"></p>
+          <div data-role="base">
+            <p>
+              <strong class="required">我要<span data-model="action"></span>该<span data-model="type"></span>，理由是：</strong>
+            </p>
+            <ul class="list-unstyled" data-model="list"></ul>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default pull-left" type="button" data-role="back" style="display:none">返回重选</button>
+                <button class="btn btn-default" data-dismiss="modal" type="button">取消</button>
+        <button class="btn btn-primary" data-role="submit" type="button">提交</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<footer id="footer">
+    <div class="container">
+        <div class="row hidden-xs">
+            <dl class="col-sm-2 site-link">
+                <dt>网站相关</dt>
+                <dd><a href="https://segmentfault.com/about">关于我们</a></dd>
+                <dd><a href="https://segmentfault.com/tos">服务条款</a></dd>
+                <dd><a href="https://segmentfault.com/faq">帮助中心</a></dd>
+                <dd><a href="https://segmentfault.com/repu">声望与权限</a></dd>
+                <dd><a href="https://segmentfault.com/markdown">编辑器语法</a></dd>
+                <dd><a href="https://weekly.segmentfault.com/">每周精选</a></dd>
+                <dd><a href="https://segmentfault.com/app">App 下载</a></dd>
+                <dd><a href="https://segmentfault.com/community">社区服务中心</a></dd>
+            </dl>
+            <dl class="col-sm-2 site-link">
+                <dt>联系合作</dt>
+                <dd><a href="https://segmentfault.com/contact">联系我们</a></dd>
+                <dd><a href="https://segmentfault.com/hiring">加入我们</a></dd>
+                <dd><a href="https://segmentfault.com/link">合作伙伴</a></dd>
+                <dd><a href="https://segmentfault.com/press">媒体报道</a></dd>
+                <dd><a href="https://board.segmentfault.com/">建议反馈</a></dd>
+                            </dl>
+            <dl class="col-sm-2 site-link">
+                <dt>常用链接</dt>
+                                                <dd><a href="https://chrome.google.com/webstore/detail/segmentfault-%E7%AC%94%E8%AE%B0/pjklfdmleagfaekibdccmhlhellefcfo" target="_blank">笔记插件: Chrome</a></dd>
+                                                                <dd><a href="https://addons.mozilla.org/zh-CN/firefox/addon/sf-note-ext/" target="_blank">笔记插件: Firefox</a></dd>
+                                                                <dd>订阅：<a href="https://segmentfault.com/feeds">问答</a> / <a href="https://segmentfault.com/feeds/blogs">文章</a></dd>
+                                                                <dd><a href="https://mirrors.segmentfault.com/" target="_blank">文档镜像</a></dd>
+                                                                <dd><a href="https://segmentfault.com/blog/interview" target="_blank">社区访谈</a></dd>
+                                                                <dd><a href="https://segmentfault.com/d-day" target="_blank">D-DAY 技术沙龙</a></dd>
+                                                                <dd><a href="https://segmentfault.com/hackathon" target="_blank">黑客马拉松 Hackathon</a></dd>
+                                                                <dd><a href="https://namebeta.com/" target="_blank">域名搜索注册</a></dd>
+                                                                <dd><a href="https://shop165859711.taobao.com/" target="_blank">周边店铺</a></dd>
+                                            </dl>
+            <dl class="col-sm-2 site-link">
+                <dt>关注我们</dt>
+                                <dd><a href="https://github.com/SegmentFault" target="_blank">Github</a></dd>
+                                <dd><a href="https://twitter.com/segment_fault" target="_blank">Twitter</a></dd>
+                                <dd><a href="http://weibo.com/segmentfault" target="_blank">新浪微博</a></dd>
+                                <dd><a href="https://segmentfault.com/blog/segmentfault_team" target="_blank">团队日志</a></dd>
+                                <dd><a href="https://segmentfault.com/blog/segmentfault" target="_blank">产品技术日志</a></dd>
+                                <dd><a href="https://segmentfault.com/blog/community_admin" target="_blank">社区运营日志</a></dd>
+                                <dd><a href="https://segmentfault.com/blog/segmentfault_news" target="_blank">市场运营日志</a></dd>
+                            </dl>
+            <dl class="col-sm-4 site-link" id="license">
+                <dt>内容许可</dt>
+                <dd>除特别说明外，用户内容均采用 <a rel="license" target="_blank" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a> 进行许可
+                </dd>
+                <dd>本站由 <a target="_blank" href="https://www.upyun.com/?utm_source=segmentfault&amp;utm_medium=link&amp;utm_campaign=upyun&amp;md=segmentfault">又拍云</a> 提供 CDN 存储服务
+                </dd>
+            </dl>
+        </div>
+        <div class="copyright">
+            Copyright © 2011-2017 SegmentFault. 当前呈现版本 17.02.05<br>
+            <a href="http://www.miibeian.gov.cn/" rel="nofollow">浙ICP备 15005796号-2</a> &nbsp;
+            <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602002000" rel="nofollow">浙公网安备 33010602002000号</a>
+        </div>
+        <p class="text-center">
+            <a class="js__view--selector hidden-sm hidden-md hidden-lg" data-action="mobile" href="javascript:;">移动版</a>
+            <a class="js__view--selector hidden-sm hidden-md hidden-lg" data-action="desktop" href="javascript:;">桌面版</a>
+        </p>
+    </div>
+</footer>
+
+<div id="fixedTools" class="hidden-xs hidden-sm">
+    <a id="backtop" class="border-bottom hidden" href="https://segmentfault.com/a/1190000005848133#">回顶部</a>
+
+    <div class="qrcodeWraper">
+        <a href="https://segmentfault.com/app#qrcode"><span class="glyphicon glyphicon-qrcode"></span></a>
+        <img id="qrcode" class="border" alt="sf-wechat" src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/appQrcode.png">
+
+        <p class="qrcode-text">扫扫下载 App</p>
+    </div>
+</div>
+
+<script id="loginModal" type="text/template">
+    <div class="row bg-white login-modal">
+        <div class="col-md-4 col-sm-12 col-md-push-7 login-wrap">
+            <h1 class="h4 text-muted login-title">用户登录</h1>
+            <form action="/api/user/login" method="POST" role="form" class="mt30">
+                <div class="form-group">
+                    <label for="username" class="control-label">手机号 或 Email</label>
+                    <input type="text" class="form-control" name="username" required placeholder="11 位手机号 或 Email"
+                           autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">密码</label><span class="pull-right"><a
+                                href="/user/forgot">忘记密码</a></span>
+                    <input type="password" class="form-control" name="password" required placeholder="密码">
+                </div>
+                <div class="form-group clearfix">
+                    <div class="checkbox pull-left">
+                        <label><input name="remember" type="checkbox" value="1" checked> 记住登录状态</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right pl20 pr20"
+                            onclick='ga("send", "event", "email login button", "clicked", "login modal");'>登录
+                    </button>
+                </div>
+            </form>
+            <p class="h4 text-muted visible-xs-block h4">快速登录</p>
+            <div class="widget-login mt30">
+                <p class="text-muted mt5 mr10 pull-left hidden-xs">快速登录</p>
+                <a href="/user/oauth/google" class=""
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "google"});'><span
+                            class="icon-sn-google"></span> <strong class="visible-xs-inline">Google 账号</strong></a>
+                <a href="/user/oauth/github" class=""
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "github"});");'><span
+                            class="icon-sn-github"></span> <strong class="visible-xs-inline">Github 账号</strong></a>
+                <a href="/user/oauth/weibo" class=""
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "weibo"});'><span
+                            class="icon-sn-weibo"></span> <strong class="visible-xs-inline">新浪微博账号</strong></a>
+                <a href="/user/oauth/qq" class=""
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "qq"});'><span
+                            class="icon-sn-qq"></span> <strong class="visible-xs-inline">QQ 账号</strong></a>
+                <a href="/user/oauth/weixin" class=""
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "qq"});'><span
+                            class="icon-sn-weixin"></span> <strong class="visible-xs-inline">微信账号</strong></a>
+                <a href="/user/oauth/linkedin" class=""
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "linkedin"});'><span
+                            class="icon-sn-linkedin"></span> <strong class="visible-xs-inline">LinkedIn 账号</strong></a>
+                <span id="loginShowMore" style="cursor: pointer" class="mb5"><span class="icon-sn-dotted"></span><strong
+                            class="visible-xs-inline">•••</strong></span>
+                <a href="/user/oauth/twitter" class=" hidden"
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "twitter"});'><span
+                            class="icon-sn-twitter"></span> <strong class="visible-xs-inline">Twitter 账号</strong></a>
+                <a href="/user/oauth/facebook" class=" hidden"
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "facebook"});'><span
+                            class="icon-sn-facebook"></span> <strong class="visible-xs-inline">Facebook 账号</strong></a>
+                <a href="/user/oauth/douban" class=" hidden"
+                   onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "douban"});'><span
+                            class="icon-sn-douban"></span> <strong class="visible-xs-inline">豆瓣账号</strong></a>
+            </div>
+        </div>
+        <div class="login-vline hidden-xs hidden-sm"></div>
+        <div class="col-md-4 col-md-pull-3 col-sm-12 login-wrap">
+            <h1 class="h4 text-muted login-title">注册新账号</h1>
+            <form action="/api/user/phone/register" method="POST" role="form" class="mt30">
+                <div class="form-group">
+                    <label for="name" class="control-label">名字</label>
+                    <input type="text" class="form-control" name="name" required placeholder="真实姓名或常用昵称">
+                </div>
+
+
+                <div class="form-group js-register-switch-box">
+                    <div class="mb10">
+                        <label class="radio-inline">
+                            <input type="radio" name="register_type" value="phone" checked> 用手机号注册
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="register_type" value="mail"> 用 Email 注册
+                        </label>
+                    </div>
+                    <div class="js-register-switch-content">
+                        <input type="phone" class="form-control mb15" name="phone" required placeholder="仅支持大陆手机号"
+                               autocomplete="off">
+                        <div class="input-group"><input name="code" type="text"
+                                                        class="form-control js-user-login__phone-code-value"
+                                                        placeholder="短信验证码">
+                            <span class="input-group-btn"><button class="btn btn-default js-user-login__phone-vaild-btn"
+                                                                  style="width:96px;" type="button">获取验证码</button></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="password" class="control-label">密码</label>
+                    <input type="password" class="form-control" name="password" required placeholder="不少于 6 位">
+                </div>
+                <div class="form-group" style="display:none;">
+                    <label class="required control-label">验证码</label>
+                    <input type="text" class="form-control" id="captcha" name="captcha" placeholder="请输入下方的验证码">
+                    <div class="mt10"><a id="loginReloadCaptcha" href="javascript:void(0)"><img
+                                    data-src="/user/captcha?w=240&h=50" class="captcha" width="240" height="50"/></a>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <div class="checkbox pull-left">
+                        同意并接受<a href="/tos" target="_blank">《服务条款》</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary pl20 pr20 pull-right"
+                            onclick='ga("send", "event", "email register button", "clicked", "login modal");'>注册
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div style="position: absolute;transform: scale(0.5,0.5) translate(136%,-114%);">
+        <img src="https://static.segmentfault.com/v-58f8626d/global/img/fool/login@2x.png">
+    </div>
+
+    <div class="text-center text-muted mt30">
+    </div>
+</script>
+<script id="bindPhoneModal" type="text/template">
+    <div class="row bg-white bindphone-model">
+        <div class="col-md-12">
+            <div class="alert alert-warning" role="alert">
+                为了保证账号安全，请先绑定手机
+            </div>
+            <div>
+                <form class="form-horizontal form__bindphone-apply" style="background-color:#fff;padding:0;">
+                    <div class="form-group ">
+                        <label for="phoneNumber" class="col-sm-3 control-label required" >手机号码</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control bindphone--phone" id="phoneNumber" name="phone" placeholder="仅只支持大陆手机号">
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="authCode" class="col-sm-3 control-label required">验证码</label>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control bindphone--code" name="code" placeholder="短信验证码">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default user-bind__phone-vaild-btn" type="button">获取验证码</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</script>
+
+
+
+<script>
+    (function (w) {
+        w.SF = {
+            staticUrl: "https://static.segmentfault.com/v-58f8626d"
+        };
+        w.SF.token = (function () {
+    var _43Smx = //'k'
+'b84'+'7'//'A'
++'5af'//'g'
++'0'//'iw0'
++//'l'
+'l'+'a8e'//'MA1'
++//'j4'
+'e80'+'fb1'//'Zo'
++//'Jh'
+'b8c'+'d'//'j'
++//'G'
+'919'+'d'//'4f'
++'0'//'rgH'
++'p'//'p'
++'a'//'70z'
++'1c'//'vWd'
++//'bA'
+'bA'+'1a'//'s'
++'b2'//'b2'
++'DLM'//'DLM'
++''///*'f1'*/'f1'
++'d'//'6F7'
+, _Lyc = [[8,9],[26,27],[29,31],[31,33],[31,34]];
+
+    for (var i = 0; i < _Lyc.length; i ++) {
+        _43Smx = _43Smx.substring(0, _Lyc[i][0]) + _43Smx.substring(_Lyc[i][1]);
+    }
+
+    return _43Smx;
+})();;
+    })(window);
+
+                var lock = {
+        type: "",
+        text: '',
+        table: {"ban_post":[1,"\u4f60\u5df2\u7ecf\u88ab\u7981\u8a00, \u65e0\u6cd5\u8fdb\u884c\u6b64\u64cd\u4f5c, \u5982\u6709\u7591\u4e49\u8bf7\u63d0\u4ea4\u7533\u8bc9, \u6216\u8005\u53d1\u90ae\u4ef6\u5230pr@segmentfault.com"]}
+    };
+</script>
+    <script crossorigin="" src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/assets.js.下载"></script>
+    <script crossorigin="" src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/post.min.js.下载"></script>
+
+<script async="" src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/asyncjs.php"></script>
+
+<script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-918487-8']);
+    _gaq.push(['_trackPageview']);
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            
+        
+
+                        
+
+    ga('create', 'UA-918487-8', 'auto', {
+        'userID'
+    : 1030000006728639,
+        'createdTime'
+    : 1472202994,
+        'now'
+    : 1492823220 });
+    ga('set', 'dimension1', 'active_registed_visitor');
+    ga('send', 'pageview');
+
+</script>
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?e23800c454aa573c0ccb16b52665ac26";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<iframe id="p_analyse_iframe" src="./浏览器中唤起native app __ 跳转到应用商城下载 - web前端之路 - SegmentFault_files/saved_resource(1).html" style="display: none;"></iframe><div id="noteWidget" class="noteWidget hidden hidden-xs">
+    <div class="noteWidget-header clearfix">
+        <h2 class="h4 pull-left">记笔记</h2>
+        <ul class="list-inline pull-right mb0">
+            <li id="noteWidgetMinimize"><span class="icon-minimize"></span></li><li id="noteWidgetZoom"><span class="icon-zoom"></span></li><li id="noteWidgetClose"><span class="icon-close"></span></li>
+        </ul>
+    </div>
+    <form method="POST" action="https://segmentfault.com/api/notes/add" role="form">
+        <div class="form-group">
+            <label for="title" class="sr-only">标题</label>
+            <input type="hidden" value="" id="draftId">
+            <input type="text" name="title" data-error="" autocomplete="off" class="form-control" placeholder="笔记描述" value="">
+        </div>
+        <div class="editor-config clearfix">
+            <select name="lang" class="form-control pull-left input-sm">
+                <optgroup label="文本语法">
+                    <option value="text" data-mode="text">纯文本</option>
+                    <option value="markdown" data-mode="markdown">Markdown</option>
+                    <option value="javascript" data-mode="javascript">Javascript</option>
+                    <option value="css" data-mode="css">CSS</option>
+                    <option value="html5" data-mode="htmlmixed">HTML</option>
+                    <option value="php" data-mode="php">PHP</option>
+                    <option value="python" data-mode="python">Python</option>
+                    <option value="ruby" data-mode="ruby">Ruby</option>
+                    <option value="go" data-mode="go">Go</option>
+                    <option value="c" data-mode="clike">C/C++</option>
+                    <option value="java" data-mode="java">Java</option>
+                    <option value="bash" data-mode="shell">Shell/Bash</option>
+                </optgroup>
+            </select>
+            <div class="pull-right hidden-xs">
+                <select name="indentWithTabs" class="form-control inline-block input-sm">
+                    <optgroup label="缩进模式">
+                        <option value="false">空格缩进</option>
+                        <option value="true">Tabs 缩进</option>
+                    </optgroup>
+                </select>
+                <select name="tabSize" class="form-control inline-block input-sm">
+                    <optgroup label="缩进大小">
+                        <option value="2">2</option>
+                        <option value="4" selected="">4</option>
+                    </optgroup>
+                </select>
+                <select name="lineWrap" class="form-control inline-block input-sm">
+                    <optgroup label="换行方式">
+                        <option value="true">自动换行</option>
+                        <option value="false">不换行</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+        <textarea id="codeMirror" class="form-control" style="display: none;"></textarea><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;" tabindex="0"></textarea></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px;"><div style="position: relative;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"></div><div class="CodeMirror-code"></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px;"></div><div class="CodeMirror-gutters"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 1px;"></div></div></div></div>
+        <div class="mt20 clearfix">
+            <div class="pull-right">
+                <span class="text-muted hidden" id="editorStatus">已保存</span>
+                <a id="dropIt" href="javascript:void(0);" class="mr10 hidden">[舍弃]</a>
+                <button data-type="note" id="publishIt2" class="btn btn-default ml10" data-id="" data-do="add" data-url="" data-text="保存私密笔记" data-name="">保存私密笔记</button>
+                <button data-type="note" id="publishIt" class="btn btn-primary ml10" data-id="" data-do="add" data-url="" data-text="保存公开笔记" data-name="">保存公开笔记</button>
+                </div>
+            </div>
+        </form></div>
+    
+<div id="atwho-container"><div id="atwho-ground-b0c724f91492823212986"><div class="atwho-view" id="at-view-64"><ul class="atwho-view-ul"></ul></div></div></div></body></html>

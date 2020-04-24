@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+What is AutoPrefixer
+
+Autoprefixer 是一个后处理程序，它可以同 Sass，Stylus 或 LESS 等预处理器共通使用。
+
+它适用于普通的 CSS，而你无需关心要为哪些浏览器加前缀，只需关注于使用 W3C 最新的规范。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+AutoPrefixer 可以简单的通过下载 plugin 配置到 Sublime，Brackets 或 Atom 等 IDE 里
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+在sublime里配置  autoprefixer
+
+
+设置快捷键，选择菜单Preferences > Key Bindings – User
+
+[
+    { "keys": ["ctrl+alt+shift+p"], "command": "autoprefixer" }
+]
+
+------------------------------------------------------------------------------
+
+选择菜单：Preferences > Package Settings > Autoprefixer > Settings - User
+
+输入下列配置即可：
+
+{
+    "browsers": ["last 2 versions","Firefox >= 20","ie 6-8","> 10%","> 5% in US","iOS 7"]
+}
+-------------------------------------------------------------------------------------
+
+然后输入完要添加前缀的 代码后，按下ctrl+alt+shift+p 快捷键即可。
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+Webpack
+
+而在最近很火的 webpack 中使用 AutoPrefixer 更是轻而易举、如虎添翼。
+
+使用 webpack 可以通过简单的配置将本文开头提到的 sass 这样的预处理器同 autoprefixer 这样的后处理程序结合在一起。
+<script>
+
+    var autoprefixer = require('autoprefixer');
+    module.exports = {
+        module: {
+            loaders: [{
+                test: /\.css$/,
+                loader: "style!css!postcss"
+            }, {
+                test: /\.scss$/,
+                loader: "style!css!postcss!sass"
+            }]
+        },
+        postcss: [autoprefixer({
+            browsers: ['last 2 versions']
+        })]
+    }
+
+
+</script>
+
+注： 另外 webpack 还有一个 autoprefixer-loader，
+
+但 npm 官网已将其标为【deprecated】，推荐使用上面示例中通过 postcss-loader 的方式使用 autoprefixer。
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+</body>
+</html>

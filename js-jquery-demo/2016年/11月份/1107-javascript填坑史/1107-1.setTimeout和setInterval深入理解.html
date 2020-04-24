@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+在setTimeout和setInterval深入理解这篇博客里笔者曾做过总结，我们知道JavaScript试单线程的产物，两个函数就是利用了插入代码的方式实现了伪异步，和AJAX的原理实际上是一样的。下面来看下这个例子：
+<script>
+    console.log("1");
+    setTimeout(function() {
+        console.log("3")
+    }, 0);
+    console.log("2");
+
+    // 结果： 控制台依次输出1, 2, 3;
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+<script>
+    function fn() {
+        setTimeout(function() {
+            alert('can you see me?');
+        }, 1000);
+        while (true) {}
+    }
+    // fn()//其实加不加fn()这个函数alert都是不会执行的
+    // 换成if的话是可以的，但是while(true){}是不会的，因为while这段代码没有执行完（相当于死循环了。）
+    
+</script>
+
+你觉得这段代码的执行结果是什么呢？答案是，alert永远不会出现。
+
+这是为什么呢？因为，while这段代码没有执行完，所以插入在后面的代码便永远不会执行。
+
+综上所述，其实JS终归是单线程产物。无论如何“异步”都不可能突破单线程这个障碍。所以许多的“异步调用”（包括Ajax）事实上
+
+也只是“伪异步”而已。只要理解了这么一个概念，也许理解setTimeout和setInterval也就不难了。
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  Object.defineProperty(obj, prop, descriptor)
+
+  该方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象。
+
+  我们可以使用
+
+  Object.defineProperty(..)来添加一个新属性或者修改一个已有属性（ 如果它是 configurable） 并对特性进行设置。
+
+  例如：
+
+  <script>
+
+      var myObj = {}
+
+      Object.defineProperty(myObj, "a", {
+          value: 2,
+          writable: true,
+          configurable: true,
+          enumerable: true
+      });
+
+      myObj.a; // 2
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  Object.defineProperties(obj, props)
+
+  该方法可以在一个对象上同时添加（定义）多个属性的属性描述符。
+
+  <script>
+
+      var myObj = {}
+
+      Object.defineProperties(myObj, {
+          a: {
+              value: 2,
+              writable: true
+          },
+          b: {
+              value: 3,
+              writable: true
+          }
+      })
+
+      myObj.a; // 2
+
+      myObj.b; // 3
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

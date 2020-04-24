@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+github地址：
+https://github.com/fsjohnhuang/preview
+
+<head>
+    <meta http-equiv="x-UA-Compatible" content="Edge">
+    <meta http-equiv="ContentType" content="text/html;charset=utf-8">
+    <title>Preview by fsjohnhuang</title>
+    <style type="text/css">
+        .preview {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+    <script type="text/javascript" src="js/preview.js"></script>
+</head>
+
+<body>
+    <input type="file" id="icon1" accept="" />&nbsp;<button onclick="pv1.reset()">重置</button>
+    <div class="preview" id="pv1">
+    </div>
+
+    <input type="file" id="icon2" accept="image/jpeg" />&nbsp;<button onclick="pv2.reset()">重置</button>
+    <div class="preview" id="pv2">
+    </div>
+    <script type="text/javascript">
+        var $ = function(id) {
+            return document.getElementById(id.substring(1));
+        };
+    </script>
+
+    <script type="text/javascript">
+        var get = function(id) {
+            return document.getElementById(id);
+        };
+        Preview.defaults.onlegal = false;
+        Preview.defaults.onillegal = true;
+        var pv1 = new Preview(get('icon1'), get('pv1'), {
+            onlegal: function(path, ext, accept) {
+                // alert(this === pv1);
+                // alert('path:' + path);
+                // alert('extension:' + ext);
+                // alert('accept:' + accept);
+                return true;
+            },
+            onillegal: false
+        });
+        var pv2 = Preview(get('pv2'), get('icon2'));
+    </script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+v1.2.0
+1. Preview构造函数添加opts配置入参，具体配置项如下：
+
+onlegal,当路径后缀与file的accept属性值匹配时触发，返回true(默认值)时将预览图片，false则预览图片。
+
+onillegal,当路径后缀与file的accept属性值不匹配时触发，返回true时将预览图片，false(默认值)则预览图片。
+
+2. 添加Preview.defaults.onlegal=true和Preview.defaults.onillegal=false默认配置项。
+
+<!-- ------------------------------------------------------------------------------------------ -->
+
+v1.1.0
+
+1. 图片预览实例添加reset()方法，用于重置组件；
+2. Preview构造函数入参由原来的顺序设置fileEl,previewEl改为无序设置。
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

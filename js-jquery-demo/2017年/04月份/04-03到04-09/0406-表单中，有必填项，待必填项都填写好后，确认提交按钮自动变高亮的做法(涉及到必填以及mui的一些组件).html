@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+我们在项目中，经常会碰到 一些表单输入以及选择 之类的，
+
+会有一些必填项，当这些必填项还没填写完毕的时候，下一步 或者是确认提交按钮应该是灰色的。
+
+当这些必填项 都填完之后，此时，下一步 或者是 确认提交按钮应该是变为高亮的了。
+
+做法就是 当填完一个必填项的数据后，就把这个必填项的数据push到一个数组里面，
+
+然后在判断 这个数组的长度是否等于当前这个页面的所有必填项，当大于等于时，则将
+这个提交按钮 变为高亮。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+<body>
+    <script>
+        //  一些数据处理
+        var vm = new Vue({
+            el: 'body',
+            data: {
+                num: 0,
+                panduan: true
+            },
+            methods: {
+                keyup: function(e) {
+                    var len = e.target.value.length;
+                    if (len <= 500) {
+                        this.num = len;
+                        this.panduan = true;
+                    } else {
+                        tanchu("反馈描述最多限制为500字数！");
+                        this.num = 500;
+                        this.panduan = false;
+                    }
+                }
+            }
+        });
+
+        // 创建全局变量
+        var arr = [];
+        var arr_length = '';
+        var sure_btn_c = $("#sure_btn");
+        (function($) {
+            $.init();
+
+            // 项目经理
+            var pro_arr = [{
+                text: "zzz"
+            }, {
+                text: "xxxx"
+            }, {
+                text: "aaa"
+            }];
+            project_jingli.addEventListener('tap', function() {
+                var cardPicker = new $.PopPicker({
+                    layer: 1
+                });
+                cardPicker.setData(pro_arr);
+                cardPicker.show(function(items) {
+                    cardVal0.innerText = items[0].text;
+                    cardPicker.dispose();
+                    
+                    // 选好后，自动将选好的这个值push到一个空数组里面，然后在判断这个数组的长度是否
+                    // 大于等于 当前这个页面的必填项的长度，如果条件成立的话，则将高亮确认提交按钮
+                    arr.push(cardVal0.innerText);
+                    arr_length = arr.length;
+                    if (arr_length >= 3) {
+                        sure_btn_c.addClass("gaoliang")
+                    }
+                });
+            }, false);
+            // 工程经理
+            var gong_arr = [{
+                text: "zzz"
+            }, {
+                text: "xxxx"
+            }, {
+                text: "aaa"
+            }];
+            gongcheng_jingli.addEventListener('tap', function() {
+                var cardPicker = new $.PopPicker({
+                    layer: 1
+                });
+                cardPicker.setData(gong_arr);
+                cardPicker.show(function(items) {
+                    cardVal1.innerText = items[0].text;;
+                    cardPicker.dispose();
+
+                    // 选好后，自动将选好的这个值push到一个空数组里面，然后在判断这个数组的长度是否
+                    // 大于等于 当前这个页面的必填项的长度，如果条件成立的话，则将高亮确认提交按钮
+                    arr.push(cardVal1.innerText);
+                    arr_length = arr.length;
+                    if (arr_length >= 3) {
+                        sure_btn_c.addClass("gaoliang")
+                    }
+                });
+            }, false);
+
+            // 督导员
+            var dudao_arr = [{
+                text: "zzz"
+            }, {
+                text: "xxxx"
+            }, {
+                text: "aaa"
+            }];
+            dudaoyuan.addEventListener('tap', function() {
+                var cardPicker = new $.PopPicker({
+                    layer: 1
+                });
+                cardPicker.setData(dudao_arr);
+                cardPicker.show(function(items) {
+                    cardVal2.innerText = items[0].text;;
+                    cardPicker.dispose();
+
+                    // 选好后，自动将选好的这个值push到一个空数组里面，然后在判断这个数组的长度是否
+                    // 大于等于 当前这个页面的必填项的长度，如果条件成立的话，则将高亮确认提交按钮
+                    arr.push(cardVal2.innerText);
+                    arr_length = arr.length;
+                    if (arr_length >= 3) {
+                        sure_btn_c.addClass("gaoliang")
+                    }
+                });
+            }, false);
+        })(mui);
+
+        // 点击确认提交按钮
+        sure_btn.addEventListener("tap", function() {
+            var jingli_value = cardVal0.innerText;
+            var gongcheng_value = cardVal1.innerText;
+            var dudao_value = cardVal2.innerText;
+            if (!isBlank(jingli_value) && !isBlank(gongcheng_value) && !isBlank(dudao_value) && vm.panduan) {
+
+                // 输入成功后要做的事情
+            } else if (!vm.panduan) {
+                tanchu("反馈描述最多限制为500字数！");
+                return false;
+            } else {
+                tanchu("您还有必填的信息没填，请填写完整！");
+                return false;
+            }
+        }, false)
+
+        /**判断是否为空**/
+        function isBlank(_value) {
+            if (_value == null || _value == "" || _value == undefined) {
+                return true;
+            }
+            return false;
+        }
+
+        //弹出框函数
+        function tanchu(cont) {
+            layer.open({
+                btn: ['OK'],
+                content: cont, //内容
+                shade: [0.5, '#000'], //遮罩层  透明度，颜色
+                shadeClose: true, //点击遮罩层 关闭弹出层
+                time: 0 //  自动关闭时间，  0表示不自动关闭
+            });
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+  <script>
+
+        var p1 = Promise.resolve(1),
+            p2 = Promise.resolve(2),
+            p3 = Promise.resolve(3);
+
+        Promise.all([p1, p2, p3]).then(function(results) {
+
+            console.log(results);
+            //  打印出的结果是： [1, 2, 3]
+
+        });
+
+    </script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+    all 的主要用途就是多个请求，同时成功了，再做某事
+    参数是一个数组，数组里面是Promise实例
+
+    注意这个方法是构造函数上的方法，用于将多个Promise实例，包装成一个新的Promise实例
+    两个Promise，请求 1.getExams  2.getQuestion
+
+    Promise.all([getExams(examId), getQuestion(questionId)]).then((exams,questions)=>{
+        console.log(exams,questions)
+    })
+
+    应用场景就是我们多个请求都成功，才能做什么。
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+    生成并返回一个新的promise对象。
+
+    参数传递promise数组中所有的promise对象都变为resolve的时候，该方法才会返回， 新创建的promise则会使用这些promise的值。
+
+    如果参数中的任何一个promise为reject的话，则整个Promise.all调用会立即终止，并返回一个reject的新的promise对象。
+
+    由于参数数组中的每个元素都是由 Promise.resolve 包装（wrap）的，所以Paomise.all可以处理不同类型的promose对象。
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

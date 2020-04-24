@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+     安装 ejs
+
+     在项目中
+
+     cnpm i ejs --save
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+     然后在项目 的入口路径 app.js 文件里  加入  下面 这些代码
+
+     var ejs =require('ejs');
+
+     app.engine('.html',ejs.__express)
+
+     app.set('view engine', 'html');
+     <!-- 用 html 代替 原来的 jade(如下面那段被注释了的代码)  -->
+
+     <!-- app.set('view engine', 'jade'); -->
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+    然后就可以把  views 目录下的 jade文件 删除掉了
+
+    记得这里 要重新跑 项目 ，记得 重新 node bin/www 一下
+
+    然后在 views目录 下的 文件命名 记得 要跟 路由里面路径命名是要一致的，跟vue的脚手架 的原理 是类似的。
+
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+    index.js 路由文件
+
+    var express = require('express');
+    var router = express.Router();
+
+    /* GET home page. */
+    router.get('/', function(req, res, next) {
+       res.render('index');
+    });
+
+    module.exports = router;
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+    users.js 路由文件
+
+    var express = require('express');
+    var router = express.Router();
+
+    /* GET users listing. */
+    router.get('/', function(req, res, next) {
+
+      // res.send('respond with a resource');
+
+      res.render('users');
+
+    });
+
+    module.exports = router;
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+    通过什么路径来访问这些视图 是 在 app.js里面 配置的。
+
+    var indexRouter = require('./routes/index');
+    var usersRouter = require('./routes/users');
+
+    app.use('/', indexRouter);
+    app.use('/index', indexRouter);
+    app.use('/users', usersRouter);
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

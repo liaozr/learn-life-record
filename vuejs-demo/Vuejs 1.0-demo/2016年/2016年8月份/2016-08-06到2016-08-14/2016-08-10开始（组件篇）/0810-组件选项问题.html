@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+</head>
+<body>
+	<pre>组件关于 data 选项，错误写法</pre>
+    <div id="app">
+        {{a}}
+    </div>
+    <script>
+    //*******************************
+    // 故意让 data 交错使用，不用 function
+    // vuejs 会自动检查，出现错误讯息
+    // [Vue warn]: The "data" option should be a function that returns a per-instance value in component definitions.
+    
+
+    // 用Vue.extend({})  的。里面若是要用到 data数据的话，data得是一个 function 函数，且里面还得有一个 return
+    // 组件之间的data  是独立的，如下面组件data return 返回来的数据键值都是 a,是互不干扰的
+    var data = {
+        a: 1
+    }
+    var MyComponent = Vue.extend({
+        data: data
+    });
+    var vm = new Vue({
+        el:'#app'
+    })
+    </script>
+<!-- ------------------------------------------------------------	 -->
+
+    <pre>组件关于data 选项，错误写法</pre>
+
+    <div id="app2">
+        <cc></cc>
+    </div>
+    <script>
+    var MyComponent = Vue.extend({
+        data: function() {
+            a: 1 // [Vue warn]: data functions should return an object.
+        }
+    });
+    var vm = new Vue({
+        el: '#app2',
+        components: {
+            'cc': MyComponent
+        }
+    })
+    </script>
+ <!-- -----------------------------------------------------------------------------    -->
+
+
+    <pre>组件选项关于 data 正确写法</pre>
+    <div id="app3">
+    	<cc></cc>
+    </div>
+    <script>
+
+    // MyComponent构造器
+    // 因此应当使用一个函数作为data选项，让这个函数返回一个新对象。
+
+    // 小凡： 用Vue.extend 就要：
+    // data:function(){
+    //   return {}
+    // }
+    // 这是规定，不然data会乱掉。
+
+    //同理，el选项用在 Vue.extend()中时，也须是一个函数 
+
+    var MyComponent = Vue.extend({
+        template:'{{a}}',
+        data: function() {
+            return {
+                a: 1 // 正确的用法
+            }
+        }
+    });
+    var vm = new Vue({
+        el: '#app3',
+        components:{  //组件的注册
+            'cc':MyComponent //cc是一个tag,在view 层就是一个HTML标签。
+        }
+    })
+    </script>
+<!-- -------------------------------------------------------------------------------------- -->
+
+    <pre>
+    组件选项关于 el 的注意事项
+    </pre>
+    <div id="app4">
+        ABC
+    </div>
+    <script>
+    // MyComponent 构造器
+    var MyComponent = Vue.extend({
+        el: function() {
+            return '#app4' // 在 vue.extend 中，el 正确的用法，使用函数
+        },
+        template: '<div>{{a}}</div>',
+        data: function() {
+            return {
+                a: '学 vue ，还蛮开心的~'
+            }
+        }
+    });
+    var vm = new MyComponent({  // new一个 MyComponent实例，然后可以直接给定义 MyComponent构造器 构造组件用  var MyComponent=Vue.extend({ })
+
+    });
+    </script>
+<!-- ------------------------------------------------------------ -->
+
+    <pre>
+    自定义的元素，使用 is 的特性
+    </pre>
+    <div id="app5">
+    	<!--  <template>不能用在 <table>内， 这时应使用 <tbody>, <table>可以有多个 <tbody>   -->
+
+        <table border='1'>
+            <tr is="my-component1"></tr>
+            <tr is="my-component2"></tr>
+        </table>
+    </div>
+    <script>
+    // tr1 构造器，构造组件
+    var tr1 = Vue.extend({
+        template: '<tr><td>项目1</td><td>{{a}}</td></tr>',
+        data: function() {
+            return {
+                a: '学 vue ，还蛮开心的~'
+            }
+        }
+    });
+
+    // tr2 构造器，构造组件
+    var tr2 = Vue.extend({
+        template: '<tr><td>项目2</td><td>{{a}}</td></tr>',
+        data: function() {
+            return {
+                a: '每一个示例，都有价值'
+            }
+        }
+    });
+
+    var vm = new Vue({
+        el: '#app5',
+        components: {  //注册组件
+            'my-component1': tr1,  // tag 为 my-component1,有用is 特性的话，就对应 view 层的 is的值。
+            'my-component2': tr2  
+        }
+    });
+    </script>
+<!-- ------------------------------------------------------------------------ -->
+
+
+
+<!--                                模版解析                                                                 -->
+
+
+    <pre>
+        使用 x-template, 增加组件的弹性
+    </pre>
+<!-- ----------------------------------------------------------------------- -->
+
+    <!-- 从这里开始是模版来的 -->
+
+    <!--    <script type="text/x-template" id="userform">   -->
+    <script type="text/x-template" id="userform">
+        <div>
+            <h2>{{title}}</h2>
+            <label for="username">Name:</label>
+            <input id="username" v-model="user.name">
+            <label for="useremail">Email:</label>
+            <input id="useremail" v-model="user.email" >
+            <button v-on:click="save">Submit</button>
+            {{tmp1}}<br>
+            {{user.name}}<br>
+            {{user.email}}<br>
+        </div>
+    </script>
+    <!-- 到这里结束   -->
+
+<!-- ----------------------------------------------------------------------- -->
+
+    <div id="app6">
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#app6',
+        template: "#userform",  
+       // <script type="text/x-template" id="userform"> 
+       // 到script结束尾的 这一段会当为成一个模版
+        data: function() {
+            return {
+                title: '使用者登录',
+                user: {
+                    name: '台湾小凡',
+                    email: 'bhnddowinf@yahoo.com.tw'
+                },
+                tmp1:''
+            }
+        },
+        methods:{
+            'save' : function (){
+                this.tmp1='clicked'
+            }
+        }
+    })
+    </script>
+<!-- ---------------------------------------------------------- -->
+
+    <pre>
+        使用 < template >, 效果等同 < script x-template >
+    </pre>
+
+
+    <!--     使用 < template >, 效果等同 < script x-template >    -->
+
+    <template id="template1">
+        <div>
+            <h2>{{title}}</h2>
+            <label for="username">Name:</label>
+            <input id="username" v-model="user.name">
+            <label for="useremail">Email:</label>
+            <input id="useremail" v-model="user.email">
+            <button v-on:click="save">Submit</button>
+            {{tmp1}}
+            <br> {{user.name}}
+            <br> {{user.email}}
+            <br>
+        </div>
+    </template>
+    <div id="app7">
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#app7',
+        template: "#template1",
+        data: function() {
+            return {
+                title: '使用者登录',
+                user: {
+                    name: '台湾小凡',
+                    email: 'bhnddowinf@yahoo.com.tw'
+                },
+                tmp1: ''
+            }
+        },
+        methods: {
+            'save': function() {
+                this.tmp1 = 'clicked'
+            }
+        }
+    })
+    </script>
+<!-- ------------------------------------------------------------------------------- -->
+
+    <pre>
+        table 使用 < template > ，规定不能用，所以没有正确渲染。
+    </pre>
+
+    <!--  <template>不能用在 <table>内， 这时应使用 <tbody>, <table>可以有多个 <tbody>   -->
+
+    <div id="app8">
+        <table>
+            <template v-if="show" v-for="item in items">
+                <tr>
+                    <td>台湾小凡 {{$index}}</td>
+                </tr>
+            </template>
+        </table>
+    </div>
+    <script>
+    Vue.config.debug = true;
+    var vm = new Vue({
+        el: '#app8',
+        data: function() {
+            return {
+                show: true,
+                items:{
+                    msg:'A',
+                    msg:'B',
+                    msg:'C',
+                    msg:'D'
+                }
+            }
+        }
+    })
+    </script>
+
+<!-- ------------------------------------------------------- -->
+
+
+    <pre>
+        table 使用 < tbody >
+    </pre>
+    <div id="app9">
+        <table>
+            <tbody v-for="item in items">
+                <tr>
+                    <td>{{$index}}.{{item.message}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <ul>
+            <li v-for="item in items">{{$index}}{{item.message}}</li>
+        </ul>
+        <hr> {{$data | json }}
+    </div>
+    <script>
+    Vue.config.debug = true; //开启调试功能。
+    var vm = new Vue({
+        el: '#app9',
+        data: {
+            items: [{
+                message: 'Foo'
+            }, {
+                message: 'Bar'
+            }]
+        }
+    });
+    </script>
+<!-- ------------------------------------------------------------- -->
+</body>
+</html>

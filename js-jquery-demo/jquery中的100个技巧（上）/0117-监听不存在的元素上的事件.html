@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    jQuery拥有一个先进的事件处理机制，通过on()方法可以监听还不存在的事件。 这是因为on方法可以传递一个元素的子元素选择器作为参数。看下面的例子：
+
+    <ul id="testList">
+        <li>Old</li>
+        <li>Old</li>
+        <li>Old</li>
+        <li>Old</li>
+    </ul>
+
+    <script>
+        var list = $('#testList');
+
+        // Binding an event on the list, but listening for events on the li items:
+        list.on('click', 'li', function() {
+            $(this).remove();
+        });
+
+
+        // This allows us to create li elements at a later time,
+        // while keeping the functionality in the event listener
+
+        list.append('<li>New item (click me!)</li>');
+    </script>
+
+    这样，即使li是后创建的，也可以通过on()方法来监听。
+    
+</body>
+
+</html>

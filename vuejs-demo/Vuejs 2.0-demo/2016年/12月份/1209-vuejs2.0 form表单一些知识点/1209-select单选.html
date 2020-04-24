@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+    <div id="app">
+        <select v-model="dom">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <span>dom:{{dom}}</span>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                dom: ''
+            }
+        })
+    </script>
+
+<!-- ---------------------------------------------------------------------- -->
+
+    <!-- 当选中时，`selected` 为字符串 "abc" -->
+
+    <select v-model="selected">
+      <option value="abc">ABC</option>
+    </select>
+
+</body>
+
+</html>

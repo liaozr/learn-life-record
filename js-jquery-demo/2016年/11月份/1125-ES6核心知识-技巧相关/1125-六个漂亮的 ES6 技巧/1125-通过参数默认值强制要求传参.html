@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+ES6 指定默认参数在它们被实际使用的时候才会被执行，这个特性让我们可以强制要求传参：
+
+<script>
+    /**
+     * Called if a parameter is missing and
+     * the default value is evaluated.
+     */
+    function mandatory() {
+        throw new Error("Missing parameter");
+    }
+
+    function foo(mustBeProvided = mandatory()) {
+        return mustBeProvided;
+    }
+</script>
+
+
+函数调用 mandatory() 只有在参数 mustBeProvided 缺失的时候才会被执行。
+
+在控制台测试:
+
+> foo()
+
+  Error: Missing parameter
+
+<!-- ------------------------------------------------------- -->
+
+> foo(123)
+
+  123
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

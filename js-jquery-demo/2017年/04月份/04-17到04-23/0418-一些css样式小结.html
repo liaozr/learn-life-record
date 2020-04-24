@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        /*:focus 表示的是 获取到焦点时候的样式*/
+
+        input:focus {
+            width: 100%;
+        }
+/*----------------------------------------------------------------------------------*/
+        .list .list-center {
+            border-right: 1px solid red;
+            width: 100px;
+            height: 200px;
+            display: inline-block;
+        }
+        /* 加上下面这句的话，则表明 最后一个list 的 list-center块是 没有 右边框的  */
+        /* 加上下面这句的话，则表明 最后一个list 的 list-center块是 没有 右边框的  */
+
+        .list:last-child .list-center {
+            border-right: none;
+        }
+/*----------------------------------------------------------------------------------*/
+    </style>
+
+    <input type="text">
+    <div class="layout">
+        <div class="list">
+            <div class="list-center">
+            </div>
+        </div>
+        <div class="list">
+            <div class="list-center">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

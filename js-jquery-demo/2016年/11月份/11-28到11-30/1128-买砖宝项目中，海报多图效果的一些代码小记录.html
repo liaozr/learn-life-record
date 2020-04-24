@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var store_value = [];
+        var gindex;
+        var _index_index;
+        $(".store_banner").live('click', function() {
+            var _this = $(this);
+
+            // 获取当前元素的序列号 _index_index
+            _index_index = _this.index('.store_banner');
+            var _parent = $(this).parent().parent().parent();
+            var _parent_prev = _parent.prev();
+
+            var img_store_banner = _parent_prev.find('.ipad_tu');
+            var store_banner1 = _parent_prev.find('.store_banner1');
+            var tips_haiao_icon = _parent_prev.find('.tips_haiao_icon');
+            var haibao_btn_zhedang = _this.parent().next().next('.haibao_btn_zhedang');
+
+            var haibao_new_btn = _this.parent().next('.haibao_new_btn');
+            var ipad_thumb = _parent_prev.find(".ipad_thumb");
+            var zhedang_p = _parent_prev.find(".zhedang_p");
+
+            $(this).fileupload({
+                dataType: 'json',
+                url: '<?=U('
+                shop / app_basic / image_upload ')?>',
+                formData: {
+                    name: 'store_banner'
+                },
+                add: function(e, data) {
+                    img_store_banner.attr('src', SHOP_TEMPLATES_URL + '/images/loading.gif');
+                    data.submit();
+                },
+                done: function(e, data) {
+                    var param = data.result;
+                    if (typeof(param.error) != 'undefined') {
+                        alert(param.error);
+                        img_store_banner.attr('src', "<?=UPLOAD_SITE_URL.'/shop/common/default_store_banner.gif'?>");
+                        store_banner1.val('');
+                    } else {
+                        zhedang_p.hide();
+                        img_store_banner.attr('src', param.thumb_name);
+
+                        var store_banner_value = param.true_name;
+
+                        gindex = $(".haibao_ipad_layout").index();
+                        store_banner1.val(store_banner_value);
+                        // console.log(gindex);
+
+                        // 每上传成功一张图片就把当前图片对应的input:hidden的值赋给一个数组
+                        // 参数是当前元素的下标，也对应着当前数组的下标
+                        count_haibao_ipad_all(_index_index);
+
+                        haibao_btn_zhedang.hide();
+                        haibao_new_btn.addClass('haibao_new');
+
+                        tips_haiao_icon.addClass('last_tips_icon');
+
+
+                        if (gindex !== 0) {
+                            ipad_thumb.addClass("ipad_thumbs");
+                        }
+                        if (gindex == 4) {
+                            $(".haibaoi_layout_main .ncsc-upload-btn span.haibao_new").hide();
+                            var em_wen = $(this).parent().parent().find("em").html("重新上传");
+                        }
+                    }
+                }
+            });
+        });
+
+        var haibao_ipad_all_valuee = $("#haibao_ipad_all").val();
+
+        // 建一个数组，数组的值就是当前input:hidden（name值为haibao_ipad_all）
+        // 为所有已经上传成功图片的值。作用是第二次刷新后，再改动或者是重新上传图片。
+        // 这个数组就直接拿到当前所有已上传成功图片的值。然后在通过
+        // count_haibao_ipad_all(_index_index)来改动对应下标的值。
+        haibao_ipad_all_value = haibao_ipad_all_valuee.split(',');
+        console.log(haibao_ipad_all_value);
+
+        function count_haibao_ipad_all(_index_index) {
+
+            console.log(_index_index);
+
+            var _ip_length = $(".haibao_ipad_layout").length;
+            var _last_ip_value = $(".haibao_ipad_layout").eq(_ip_length - 1).find(".store_banner1").val();
+
+            // 拿到当前input:hidden的值。
+            var _index_value = $(".haibao_ipad_layout").eq(_index_index).find(".store_banner1").val();
+
+            console.log(_index_value);
+
+            console.log(_ip_length);
+
+            for (var i = 0; i <= _ip_length - 1; i++) {
+                if (i == _index_index) {
+                    haibao_ipad_all_value[i] = _index_value;
+                } else {
+                    // 把当前的值赋给对应数组下标的值，从而更新了数组元素。
+                    haibao_ipad_all_value[_index_index] = _index_value;
+                }
+            }
+            // 数组去重
+            repeat2(haibao_ipad_all_value)
+            console.log(haibao_ipad_all_value);
+            $("#haibao_ipad_all").val(haibao_ipad_all_value);
+        }
+
+        //  数组删除操作。
+        function reduce_haibao_ipad_all(cindex) {
+            var _ip_length = $(".haibao_ipad_layout").length;
+
+            $.each(haibao_ipad_all_value, function(index, item) {
+                if (cindex == index && _ip_length !== 1) {
+                    haibao_ipad_all_value.splice(index, 1);
+                }
+            });
+            $("#haibao_ipad_all").val(haibao_ipad_all_value);
+        }
+
+        function repeat2(arr) {
+            //遍历arr中每个元素，同时声明hash
+            for (var i = 0, hash = {}; i < arr.length; i++) {
+                //hash中是否包含当前元素值的建
+                //如果不包含,就hash添加一个新元素，以当前元素值为key，value默认为1
+                if (hash[arr[i]] === undefined) {
+                    hash[arr[i]] = 1;
+                }
+            } //(遍历结束)
+            //将hash转为索引:
+            var i = 0;
+            var arr2 = [];
+            for (arr2[i++] in hash);
+            return arr2;
+        }
+
+        function isBlank(_value) {
+            if (_value == null || _value == "" || _value == undefined) {
+                return true;
+            }
+            return false;
+        }
+    </script>
+</body>
+
+</html>

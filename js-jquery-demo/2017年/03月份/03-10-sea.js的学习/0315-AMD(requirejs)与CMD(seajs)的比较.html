@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+AMD与CMD的比较
+
+AMD：依赖前置，预执行（异步加载：依赖先执行）。(require.js)
+
+CMD：依赖就近，懒（延迟）执行（运行到需加载，根据顺序执行） (sea.js)
+
+<script>
+
+    // CMD
+    define(function(require, exports, module) {
+
+        var a = require('./a')
+
+        a.doSomething();
+
+        // 省略1万行
+        var b = require('./b') // 依赖可以就近书写
+
+        b.doSomething();
+
+    })
+
+    // AMD 默认推荐的是
+    define(['./a', './b'], function(a, b) { // 依赖必须一开始就写好
+
+        a.doSomething();
+
+        // 省略1万行
+
+        b.doSomething();
+
+    })
+
+</script>
+
+
+</body>
+</html>

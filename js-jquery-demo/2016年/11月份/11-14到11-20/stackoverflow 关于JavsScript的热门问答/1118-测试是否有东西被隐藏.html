@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+问题描述：
+
+在jQuery中，可以切换元素的可见性，使用方法.hide(), .show() 或者.toggle().
+
+使用jQuery，你如何测试一个元素是可见的还是隐藏的？
+Best Answers：
+因为这个问题是指一种单一的元素，所以该代码可能更适合：
+
+<script>
+    // 检查display:[none|block], 忽略 visible:[true|false]
+    $(element).is(":visible");
+    $(element).is(":visible");
+    // Other Answers:
+    // 你可以使用hidden选择器：
+
+    // 匹配的是隐藏的所有元素
+    $('element:hidden')
+
+    // 和visible选择器：
+    // 匹配所有可见的元素
+    $('element:visible')
+
+</script>
+
+</body>
+</html>

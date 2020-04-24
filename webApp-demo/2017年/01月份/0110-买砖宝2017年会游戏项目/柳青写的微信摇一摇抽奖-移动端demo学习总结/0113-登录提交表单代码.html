@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- html 代码  -->
+    <form id="form">
+        <input type="text" name="name" placeholder="您的称呼" />
+        <input type="text" name="phone" placeholder="您的手机号" />
+        <input type="text" name="id" placeholder="抽奖编号" />
+        <a class="sub">提 交</a>
+    </form>
+
+    <script>
+    
+        //  这段代码的作用就是 点击 第一屏的时候，判断要不要进入 第二屏填写表单数据那块
+        //  也就是判断他是不是第一次进入、
+        //  填写过表单，cookie cid 存在的话，即直接将进入第三屏这样子。
+
+        $('.screen1 .btn').click(function() {
+            $('.screen1').addClass('animated bounceOutLeft');
+
+            if (!!getCookie('cid')) { // 存在cookie
+                $('.screen3').addClass('animated bounceInRight');
+                $('.screen2').hide();   // 将表单给隐藏
+            } else {
+                $('.screen2').addClass('animated bounceInRight');
+            }
+        });
+    </script>
+
+    <script>
+
+        //提交表单要填写的 数据
+        $('.screen2 .sub').click(function() {
+            var name = $('input[name="name"]').val();
+            var phone = $('input[name="phone"]').val();
+            var id = $('input[name="id"]').val();
+
+            if (name == '' || phone == '' || id == '') {
+                alert("请填写完整再提交！");
+                return false;
+            }
+            //编号超过450或者编号位数不对禁止提交
+            if (parseInt(id) > 450 || id.length != 3) {
+                alert("请输入有效的入场编号！");
+                return false;
+            }
+
+            $('.screen2').css('opacity', '1').removeClass('animated bounceInRight');
+
+            // 这里就是 提交登录表单数据到后台的做法。
+            // 有个序列化表单的做法。
+            //  提交成功后 保存用户编号这个 cookie，待第二次进入 项目的时候，就不用再
+            //  填写这个表单数据了、
+
+            $.post('./php/user.php', $("#form").serialize(), function(res) {
+                var msg = eval('(' + res + ')');
+                if (msg.errcode == 0) {
+                    //提交成功储存cookie
+                    setCookie('cid', id);
+                    $('.screen2').addClass('animated bounceOutLeft');
+                    $('.screen3').addClass('animated bounceInRight');
+                } else {
+                    alert(msg.errmsg);
+                }
+            });
+
+        });
+    </script>
+</body>
+
+</html>

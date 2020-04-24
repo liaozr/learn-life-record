@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    从数组中随便拿一个数与后一位比较，如果前者比后者大，那么两者交换位置，从而遍历数组可以得到排序的效果
+
+    <script>
+        var arr = [1, 9, 4, 50, 49, 6, 3, 2];
+
+        function test() {
+            for (var i = 0; i < arr.length - 1; i++) {
+                for (var j = i + 1; j < arr.length; j++) {
+                    var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                    var tempj = arr[j];
+                    if (tempi > tempj) {
+                        arr[i] = tempj;
+                        arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                    }
+                }
+            }
+            console.log(arr); //return arr；
+        }
+        
+        test(); //调用函数
+        //  [1, 2, 3, 4, 6, 9, 49, 50]
+
+    </script>
+</body>
+
+</html>

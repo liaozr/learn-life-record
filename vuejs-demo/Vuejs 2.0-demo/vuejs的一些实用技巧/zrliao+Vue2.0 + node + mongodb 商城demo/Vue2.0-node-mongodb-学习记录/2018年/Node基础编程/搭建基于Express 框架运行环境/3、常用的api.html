@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+  <script>
+
+      let express = require('express');
+      let app = express();
+      app.listen(8080, () => {
+          console.log(8080)
+      });
+
+  </script>
+
+  <!-- ---------------------------------------------------------------------------------------------------------- -->
+
+  1. app[method](path, function(req, res){})
+
+  根据请求路径来处理客户端发出的GET等各种请求。第一个参数path为请求的路径， 第二个参数为处理请求的回调函数。
+
+  app.get('/', function (req, res) {
+      res.end('ok');
+  });
+
+  <!-- ---------------------------------------------------------------------------------------------------------- -->
+
+  2 app.use([path,] function [, function...])
+
+  中间件就是处理HTTP请求的函数，用来完成各种特定的任务，比如检查用户是否登录、检测用户是否有权限访问等。如果path没有写，那么默认就是"/"，同时需要注意的是：中间件的执行是有顺序的
+  app.use中放入的函数称为中间件函数，一般有三个特点：
+
+  一个中间件处理完请求和响应可以把相应数据再传递给下一个中间件。
+  回调函数的next参数,表示接受其他中间件的调用，函数体中的next(),表示将请求数据继续传递。
+  可以根据路径来区分返回执行不同的中间件。
+
+  使用use来定义一个中间件 next也是一个函数，调用它则意味着当前的中间件执行完毕，可以继续向下执行别的中间件了
+
+  <script>
+
+      app.use(function(req, res, next) {
+          res.setHeader('Content-Type', 'text/html;charset=utf8');
+          console.log('没有路径的中间件');
+          //调用next的时候如果传一个任意参数就表示此函数发生了错误，
+          //然后express就会跳过后面所有的中间件和路由
+          //交给错误处理中间件来处理
+          next('我错了');
+      });
+
+      app.use('/user1', function(req, res, next) {
+          console.log('user1')
+          next()
+      });
+
+      app.use('/user2', function(req, res, next) {
+          console.log('user2')
+          res.end('user2');
+      });
+
+      //错误处理中间件有四个参数
+      app.use('/hello', function(err, req, res, next) {
+          res.end('hello ' + err);
+      });
+
+  </script>
+
+  <!-- ---------------------------------------------------------------------------------------------------------- -->
+
+
+
+
+</body>
+
+</html>

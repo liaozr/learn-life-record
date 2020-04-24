@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+    <form id="uploadForm">
+        <p>上传文件： <input type="file" name="file" accept="application/msword,text/plain,application/pdf" /></p>
+        <input type="button" value="上传" onclick="doUpload()" />
+    </form>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+    <script>
+        function doUpload() {
+            var formData = new FormData($("#uploadForm")[0]);
+            console.log(formData);
+
+            // FormData它会读取所有有name属性的表单，然后是name值=其value值，传递到后台
+            $.ajax({
+                url: 'http://localhost:8080/cfJAX_RS/rest/file/upload',
+                type: 'post',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(returndata) {
+                    alert(returndata);
+                },
+                error: function(returndata) {
+                    alert(returndata);
+                }
+            });
+
+        }
+    </script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+    使用FormData，在构造这个对象的时候，把表单的对象，作为一个参数放进去，就可以了，然后FormData，就会得到这个表单对象里面的所有的参
+
+    数，甚至我们在表单中，都不需要声明enctype ="multipart/form-data" ，就可以直接提交。
+
+    使用FormData，第一是在提交表单的时候，不需要写大量的js来获得表单数据，直接把表单对象构造就行了。
+
+    第二就是可以直接异步上传文件，简单牛逼爆了！
+
+<!-- --------------------------------------------------------------------------------- -->
+
+     注意：使用FormData提交的时候，大家会注意到表单提交的是request payload，具体有兴趣的同学可以自己百度，
+
+     它不是之前的Form data提交的，所以后台也是要经过处理的，比如springMVC就需要配置
+
+     <!-- 配置nultipartresolver,注意：id名必须这样写，不然会报错 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"></property>
+        <property name="maxInMemorySize" value="10240000"></property>
+    </bean>
+
+    不然会接收不到数据，当然，后台的话，我们这里就先不管。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

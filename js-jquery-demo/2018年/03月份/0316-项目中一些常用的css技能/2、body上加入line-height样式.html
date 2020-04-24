@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+  导致低样式效率（inefficient stylesheets）的一件事就是不断的重复声明。
+
+  最好是做下项目规划和组合规则，这样CSS会更流畅。
+
+  实现这一点，就需要我们理解级联（cascade）,以及如何在通用选择器写的样式可以继承在其他地方。
+
+  行间距（line-height）可以作为 给你的整个项目设置的一个属性，不仅可以减小代码量，而且可以让你的网站的样式给一个标准的外观
+
+  <style>
+
+      body {
+          line-height: 1.5;
+      }
+
+  </style>
+
+  请注意，这里的声明没有单位，我们只是告诉浏览器 让它渲染行高是 渲染字体大小的1.5倍
+
+
+</body>
+
+</html>

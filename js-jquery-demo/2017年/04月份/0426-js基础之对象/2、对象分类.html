@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+<!-- ------------------------------------------------------------------------------- -->
+
+本地对象（native object）
+ECMA-262把本地对象（native object）定义为“独立于宿主环境的 ECMAScript 实现提供的对象”。
+
+常用的本地对象主要包括以下：
+
+Object
+Function
+Boolean
+Symbol
+Array
+Number
+Date
+String
+RegExp
+Map
+Set
+
+<!-- ------------------------------------------------------------------------------- -->
+
+内置对象（built-in object）
+“ 由ECMAScript实现提供的，独立与宿主环境的所有对象，在ECMAScript程序开始执行时出现”。这意味着开发者不必明确实例化内置对象，它已经被实例化了。ECMA只定义了两个内置对象，即Global和Math（它们也是本地对象，根据定义，所有内置对象都是本地对象）。
+在 JavaScript 中，所有的本地对象、全局属性、全局函数都是 Global 对象的属性。ECMAScript 虽然没有指出如何直接访问 Global 对象，但 Web 浏览器都是将这个全局对象作为 window 对象的一部分加以实现的。
+
+Global
+Math
+<!-- ------------------------------------------------------------------------------- -->
+
+BOM 对象
+window
+location
+navigator
+screen
+history
+
+<!-- ------------------------------------------------------------------------------- -->
+
+DOM 对象
+Document
+Body
+Event
+Form
+Image
+事件对象 event
+
+<!-- ------------------------------------------------------------------------------- -->
+
+属性
+
+prototype
+
+返回对象类型原型的引用。
+
+prototype 属性是 object 共有的。
+
+一般用来给实例添加方法和属性。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

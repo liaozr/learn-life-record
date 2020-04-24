@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<script>
+var b = 5;
+function a() {
+    var b = 10;
+    alert(this.b); 
+}
+a.call(null);  
+</script>
+
+<!-- alert结果是为5的 -->
+
+<!-- 原因是当传入函数为null或undefined时 -->
+<!-- 
+If thisArg is null or undefined, the called function is passed 
+the global object as the this value。 Otherwise, 
+the called function is passed ToObject(thisArg) as the this value
+ -->
+
+<!-- 所以是当传入函数为null或undefined时 等价于 global object (全局对象)作为 
+ 当前call的指向。所以这里this指向的是window,在这里就是 window.b=5
+-->
+
+<!-- 所以此时传入的是window -->
+
+
+
+<!-- 你应该理解关于JavaScript的两个方面。 -->
+
+
+<!-- 首先， 你应该理解this对象是什么。 看看下面的例子： -->
+
+<script>
+var object = {
+    method: function() {
+        alert(this === object); 
+    }
+}
+object.method(); // true
+</script>
+
+<!-- 在上面的代码中， this指向object对象, 所以结果是true -->
+
+<!-- 在全局作用域中， this指向window，因此下面的this指向的则是window -->
+
+<script>
+
+function method() {
+    alert(this === window); //true
+}
+method();
+</script>
+
+<!-- 理解了第一点你才能理解第二点， call()是干嘛的。  -->
+
+<!-- 
+通过call()可以重新定义函数的执行环境，即this的指向,
+第一个参数将成为this的指向对象, 随后的参数将作为参数传入函数。
+ -->
+
+<script>
+function method() {
+    alert(this === window);
+}
+method(); // true
+method.call(document); // false
+</script>
+
+<!-- 当执行method.call(document)时， this指向的将是document。 -->
+
+
+
+
+<!-- 当传入函数为null或undefined时会怎样呢？ -->
+
+<!-- 
+If thisArg is null or undefined, the called function is passed 
+the global object as the this value。 Otherwise, 
+the called function is passed ToObject(thisArg) as the this value
+ -->
+
+<!-- 所以此时传入的是window -->
+
+<!-- PS: 还有一个apply()与call()类似，不过只有两个参数，第二参数应该是数组。 -->
+
+<!-- 理解上面讲的，很容易就可以知道答案是 5 -->
+
+</body>
+</html>

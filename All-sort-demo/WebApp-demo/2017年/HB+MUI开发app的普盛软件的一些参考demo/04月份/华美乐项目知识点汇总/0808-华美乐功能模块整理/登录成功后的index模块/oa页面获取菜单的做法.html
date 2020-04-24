@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="item-lists">
+        <div class="list" v-for="item in secondMenus" :class="{ 'huiyi': item.menuIcon == 'ICON_HYYD',
+  																		'cheliang': item.menuIcon == 'ICON_CLGL',
+  																		'qiye': item.menuIcon == 'ICON_QYXY',
+  																		'tongzhi': item.menuIcon == 'ICON_TZGG',
+  																		'shigong': item.menuIcon == 'ICON_TXL',
+  																		'yunpan': item.menuIcon == 'ICON_YP',
+  																		'fakuandan-oa': item.menuIcon == 'ICON_FKD'}" @tap="clickItem(item)">
+            <a>
+  						{{item.menuName}}
+  					</a>
+        </div>
+    </div>
+
+
+    <script>
+
+        var vm = new Vue({
+            el: 'body',
+            data: {
+                secondMenus: [],
+                showloading: true
+            },
+            methods: {
+                clickItem: function(menu) {
+                    console.log("" + JSON.stringify(menu));
+                    var menuIcon = menu.menuIcon;
+
+                    var url;
+                    switch (menuIcon) {
+                        case "ICON_HYYD":
+                            url = "./oa/huiyishi-yuding.html";
+                            break;
+                        case "ICON_CLGL":
+                            url = "./oa/cheliang-yuding.html";
+                            break;
+                        case "ICON_QYXY":
+                            url = "./oa/qiyexueyuan.html";
+                            break;
+                        case "ICON_TZGG":
+                            url = "./oa/tongzhi-gonggao.html";
+                            break;
+                        case "ICON_TXL":
+                            url = "./oa/tongxunlu.html";
+                            break;
+                        case "ICON_YP":
+                            url = "./oa/yunpan-details.html";
+                            break;
+                        case "ICON_FKD":
+                            url = "./oa/fakuan-dan.html";
+                            break;
+
+                    }
+                    openNew(url);
+
+                }
+            },
+            ready: function() {
+                findMenu();
+            }
+        });
+
+        function findMenu() {
+
+            seajs.config({});
+            //加载多个模块，在加载完成时，执行回调
+
+            seajs.use("db", function(sql) {
+                sqlObj = sql;
+                //创建数据库
+                seajs.use("$");
+                sqlObj.createDataBase($.locStorage.dbName, "", "数据库", 2 * 1024 * 1024);
+                console.log("menuId:" + localStorage.getItem($.locStorage.oaId));
+                sqlObj.findMenuByParentName(localStorage.getItem($.locStorage.oaId), findMenuByParentNameResult);
+
+            });
+
+            function findMenuByParentNameResult(data) {
+                console.log("findMenuByParentNameResult" + JSON.stringify(data));
+                vm.secondMenus = [];
+                for (var i = 0; i < data.length; i++) {
+                    var item = {
+                        id: data[i].id,
+                        menuIcon: data[i].menuIcon,
+                        menuLevel: data[i].menuLevel,
+                        menuName: data[i].menuName,
+                        menuFunc: data[i].menuFunc,
+                        parentName: data[i].parentName,
+                        parentId: data[i].parentId
+                    };
+                    vm.secondMenus.push(item);
+                }
+                vm.showloading = false;
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

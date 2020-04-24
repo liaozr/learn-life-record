@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var doc = window.document;
+        var docEl = doc.documentElement;
+        var width = docEl.getBoundingClientRect().width;
+        var dpr = 1;
+        if (width > 540) {
+            width = 540 * dpr;
+        }
+        var rem = width / 10;
+        var fontSize = rem;
+        var bottomheight = parseInt(fontSize) * 1.562 + 'px';
+
+        var subStyles = {
+            top: "0px",
+            bottom: bottomheight
+        };
+
+        if (window.plus) {
+            plusReady()
+        } else {
+            document.addEventListener('plusready', plusReady, false);
+        }
+
+        function plusReady() {
+            plus.webview.create("section.html", "section", subStyles);
+            plus.webview.create("baoliao.html", "baoliao", subStyles);
+            plus.webview.create("us.html", "us", subStyles);
+
+            plus.webview.getWebviewById("section").show("fade-in", 200);
+
+        }
+
+        $(".dot").on("tap", function() {
+
+            $(".dot").removeClass("cur");
+            $(this).addClass("cur");
+
+            var id = $(this).data("id");
+
+            plus.webview.getWebviewById(id).evalJS("init()");
+            plus.webview.getWebviewById(id).show("fade-in", 200);
+
+        });
+    </script>
+</body>
+
+</html>

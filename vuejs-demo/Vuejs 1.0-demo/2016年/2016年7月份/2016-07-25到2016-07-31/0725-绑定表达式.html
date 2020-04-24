@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.min.js"></script>
+</head>
+<body>
+	 <!--
+    java script 表达式, 错误宣告，见 控制台
+    -->
+    <div id="app">
+        <!-- 这是一个语句，不是一个表达式： -->
+        {{ var a = 1 }}
+        <!-- 流程控制也不可以，可改用三元表达式 -->
+
+        <!-- {{ if (ok) { return message } }}  >>>这样子写是错误的 -->
+
+        <div>{{ ok? message :'0' }}</div> <!-- 值为i love vue.js! -->
+
+        <div>{{ number + 1}}</div> <!-- 值为101 -->
+        <div>{{ ok ? 'yes': 'no'}}</div> <!-- 值为yes -->
+    </div>
+    <script>
+	    new Vue({
+	        el: '#app',
+	        data: {
+	            number: 100,
+	            ok: true,
+	            message: 'i love vue.js!'
+	        }
+	    })
+    </script>
+<!-- -------------------------------------------------------------- -->
+
+
+   <!--
+    过滤器，capitalize 第一个文字转大写
+    -->
+    <div id="app2">
+        <h1>{{ message | capitalize }}</h1>
+        <br>
+        <h1>{{ message1| capitalize }}</h1>
+    </div>
+    <script>
+    new Vue({
+        el: '#app2',
+        data: {
+            message: 'i love vue.js!',
+            message1: 'are you?'
+        }
+    })
+    </script>
+<!-- ----------------------------------------------------- -->
+
+
+ <!--
+    过滤器，capitalize 第一个文字转大写
+    lowercase  是全部转小写
+    此示例：讲解 连续使用两个过滤器     | 意为管道服
+    -->
+    <div id="app3">
+        <h1>{{ message | capitalize | lowercase }}</h1>
+        <br>
+        <h1>{{ message1| capitalize }}</h1>
+    </div>
+    <script>
+    new Vue({
+        el: '#app3',
+        data: {
+            message: 'i love vue.js!',
+            message1: 'are you?'
+        }
+    })
+    </script>
+<!-- ------------------------------------------------------- -->
+
+    <!--
+    过滤器，可以传递参数
+    json
+    输出经 JSON.stringify() 处理后的结果
+    此示例：分别用 4个空格，8个空格的json格式，显示对象
+    -->
+    <div id="app4">
+    <h1><pre>{{ message | json 4 }}</pre></h1>
+        <br>
+        <h1><pre>{{ message1| json 8 }}</pre></h1>
+    </div>
+    <script>
+    new Vue({
+        el: '#app4',
+        data: {
+            message: {
+                1: 'i love vue.js!',
+                2: 'very true'
+            },
+            message1: {
+                3: 'vue.js is mvvm!',
+                4: 'very good'
+            },
+        }
+    })
+    </script>
+
+
+    
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+     <!--
+
+    自定义过滤器，简单示例
+    -->
+    <div id="app5">
+        <!-- 'hello' => 'before hello after' -->
+        <span v-text="message | wrap 'before' 'after'"></span>
+    </div>
+    <script>
+    // // 过滤器函数始终以表达式的值作为第一个参数，带引号的参数视为字符串，
+    // 而不带引号的参数按表达式来计算。这里，字符串'arg1'将传给过滤器作为第二个参数，
+    // 表达式arg2的值在计算出来之后作为第三个参数。(在这里，是 字符串 'after'作为第三个参数的。)
+
+    Vue.filter('wrap', function(value, begin, end) 
+      // value对应的是v-text指令里的 message begin 对应的都是before、end对应的是after。
+    {
+        return begin + value + end
+    })
+
+    new Vue({
+        el: '#app5',
+        data: {
+            message:' hello '
+        }
+    })
+    </script>
+</body>
+</html>

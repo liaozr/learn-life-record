@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+seajs.use主要用于载入入口模块。
+
+入口模块相当于C程序的main函数，同时也是整个模块依赖树的根。
+
+seajs.use用法如下：
+
+<script>
+
+    //单一模式
+    seajs.use('./a');
+
+    //回调模式
+    seajs.use('./a', function(a) {
+        a.run();
+    });
+
+    //多模块模式
+    seajs.use(['./a', './b'], function(a, b) {
+        a.run();
+        b.run();
+    });
+
+</script>
+
+一般seajs.use只用在页面载入入口模块，SeaJS会顺着入口模块解析所有依赖模块并将它们加载。
+
+如果入口模块只有一个，也可以通过给引入sea.js的script标签加入”data-main”属性来省略seajs.use，如下所示。
+
+<script src="" data-main="./init"></script>
+
+这种写法会令html更加简洁。
+
+<!-- ---------------------------------------------------------------------- -->
+
+seajs.use方法有两个参数,第一个参数是要加载的模块,第二个是加载完模块后的回调函数（可选）
+
+其中要加载的模块，可以为一个字符串，也可以为一个数组。
+
+譬如：
+
+<script>
+
+  seajs.use("a",function(){})
+
+  seajs.use(['a','b'],function(){})
+
+</script>
+
+<!-- ---------------------------------------------------------------------- -->
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+关于手机网站的图片加载，canvas方法加载图片，占用内存最小，效果最佳
+
+一、canvas图片加载
+
+关于canvas加载，我的方法是，将文章中所有用到图片的地方，都用canvas代替，给canvas一个data-src，
+
+里面存放img的路径，通过canvas方法渲染图片。
+
+因为图片渲染需要时间，一般会给canvas一个背景，背景可以用gif图片。
+
+图片渲染好了之后把背景去掉。
+
+<!-- 用法： -->
+
+用法很简单，直接在页面中引用 canvasload() 这个函数就可以了，注意，所有canvas外层要包裹一个id.
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+<body>
+    <div class="m-news" id='mainsection'>
+        <div class="flag flag-middle">
+            <div class="flag__item flag_img">
+                <div class="img-center">
+                    <canvas data-src="images/fang.jpg"></canvas>
+                </div>
+            </div>
+            <div class="flag__item flag__item_body">
+                <div class="heading">
+                    买砖宝终端订单王亮剑，陶瓷行业磐涅重生速度 速度
+                </div>
+                <div class="p">
+                    2016-05-24
+                </div>
+                <div class="p">
+                    12000元/一平
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------------------------------- -->
+
+    <style>
+        .img-center img,
+        .img-center canvas {
+            max-width: 300px;
+            max-height: 300px;
+        }
+        .m-news .flag canvas {
+           background-color: #efefef;
+           background-image: url(../images/loading.gif);
+           background-repeat: no-repeat;
+           background-position: center center;
+           background-size:16px 16px;
+         }
+    </style>
+
+    <!-- ------------------------------------------------------------------------------ -->
+    <script src='js/jquery.min.js'></script>
+    <script>
+        // 加载 canvas图片
+        function canvasload(id) {
+            //canvas加载图片
+            var imglength = $("#" + id).find("canvas").length;
+            if (imglength > 0) {
+                $("#" + id).find("canvas").each(function() {
+                    var imgSrc = $(this).data("src");
+                    var imageObj = new Image();
+                    imageObj.canvs = $(this)[0];
+                    // $(this)[0]
+                    // 这种'jQuery对象'加下标的方式可以将“jQuery对象”转换为“js对象”
+                    // 这样我们就可以使用“js对象”的属性和方法了
+                    var cvs = imageObj.canvs.getContext('2d');
+                    if (cvs) {
+                        imageObj.onload = function() {
+                            imageObj.canvs.width = this.width;
+                            imageObj.canvs.height = this.height;
+                            cvs.drawImage(this, 0, 0);
+                            $(imageObj.canvs).css("background-image", "none");
+                        }
+                        imageObj.src = imgSrc;
+                    }
+                })
+            }
+        }
+
+        canvasload("mainsection");
+        // 用法很简单，直接在页面中引用这个函数就可以了，注意，所有canvas外层要包裹一个id
+
+        // 下面这段代码是建议加上的，表明是一滚动就立即加载执行canvasload这个函数，使得canvas图片渲染出来.
+        $(window).scroll(function() {
+            // 一滚动就立马加载canvas图片
+            canvasload("mainsection");
+        });
+    </script>
+
+    <!-- ----------------------------------------------------------------------------- -->
+
+    <script>
+          $("#" + bb)[0] 把 jquery 对象转换成 dom 对象。
+
+          $("#"+bb)[0] 相当于document.getElementById(bb)
+
+          jQuery对象与js对象之间的转换：
+// ------------------------------------------------------------------------------------
+          $(this)[0]
+          这种“jQuery对象”加下标的方式可以将“jQuery对象”转换为“js对象”
+
+          这样我们就可以使用“js对象”的属性和方法了
+
+    </script>
+
+    <!-- --------------------------------------------------------------------------------- -->
+
+    jQuery 数据 - jQuery.data() 方法
+
+    向元素附加数据，然后取回该数据：
+
+    <script>
+
+        $("#btn1").click(function() {
+            $("div").data("greeting", "Hello World");
+        });
+        $("#btn2").click(function() {
+            alert($("div").data("greeting"));
+        });
+
+    </script>
+<!-- ----------------------------------------------------------------------------------- -->
+
+    举个栗子：
+
+    <div id="aaa" data-src='bbb'>
+
+    </div>
+    <style>
+        #aaa {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+        }
+    </style>
+    <script>
+        $(function() {
+            $("#aaa").click(function() {
+                console.log($(this).data('src')); // 会打印出 bbb
+            })
+        })
+    </script>
+  <!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

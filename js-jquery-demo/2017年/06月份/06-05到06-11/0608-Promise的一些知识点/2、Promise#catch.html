@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        var promise = new Promise(function(resolve, reject) {
+            // resolve("传递给then的值");
+            reject()
+        });
+
+        promise.then(function(value) {
+            console.log(value);
+        }).catch(function(error) {
+            console.error('error');
+        });
+
+    </script>
+
+    这是一个等价于promise.then(undefined, onRejected) 的语法糖。
+
+    也就是说，这个方法用来注册当promise对象状态变为Rejected时的回调函数。
+
+</body>
+
+</html>

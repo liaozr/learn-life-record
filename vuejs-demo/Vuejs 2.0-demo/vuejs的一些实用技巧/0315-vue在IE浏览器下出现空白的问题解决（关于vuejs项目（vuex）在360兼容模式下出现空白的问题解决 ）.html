@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+解决办法：
+
+1、先在 index.html 里面 的head头部加上下面这段代码表示 以IE的最高内核来渲染
+   文档模式。
+
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" / >
+
+<meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" / >
+
+<!-- ------------------------------------------------------------------------------- -->
+
+2、
+Vuex为什么不能在IE11中使用
+发布于2017-02-12 15:59 最佳答案
+
+IE浏览器没有内置Promise对象。
+不仅如此，几乎所有的ES6新增的方法在IE都不能用，比如Array.from。
+因为babel只会转译语法，并不会新增方法。
+此时你需要babel Polyfill
+
+vuex在ie9中提示错误
+
+[vuex] vuex requires a Promise polyfill in this browser.
+
+<!-- ------------------------------------------------------------------------------- -->
+
+3、
+所以先在你的项目里安装这个 babel-polyfill 这个依赖
+
+cnpm install --save babel-polyfill
+cnpm install --save babel-polyfill
+cnpm install --save babel-polyfill
+
+<!-- ------------------------------------------------------------------------------- -->
+
+4、
+
+然后在webpack.base.conf.js配置这个：
+
+module.exports = {
+  entry: {
+    app: ['babel-polyfill','./src/main.js']
+  }
+}
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+
+</body>
+</html>

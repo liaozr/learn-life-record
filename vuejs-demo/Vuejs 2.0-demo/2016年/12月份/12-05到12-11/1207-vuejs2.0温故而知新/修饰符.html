@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src='vue.js'></script>
+</head>
+<body>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+修饰符
+
+.lazy
+
+默认地，v-model 在每次 input 事件后都会同步输入到数据。
+
+加上 lazy 修饰符后就会在 change 事件后才同步:
+
+<input v-model.lazy="msg" >
+
+<!-- --------------------------------------------------------------------------------- -->
+
+.number
+
+会自动把输入转为 number:
+<input v-model.number="age" type="number">
+
+这还是挺有用的，因为就算限制了 input 的 type 为 number，元素的 value 仍然会返回 string。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+.trim
+
+好像不用多说了？大家都懂吧。
+
+<input v-model.trim="msg">
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+事件修饰符
+
+在事件处理器中，通常需要使用到event.stopPropagation()和
+
+event.preventDefault()，
+
+在Vue.js中为v-on指令添加了.stop和.prevent两个命令修饰符
+
+
+<!-- 阻止单击事件冒泡 -->
+<a v-on:click.stop="doThis"></a>
+<!-- 提交事件不再重载页面 -->
+<form v-on:submit.prevent="onSubmit"></form>
+<!-- 修饰符可以串联 -->
+<a v-on:click.stop.prevent="doThat"></a>
+<!-- 只有修饰符 -->
+<form v-on:submit.prevent></form>
+
+<!-- 添加事件侦听器时使用 capture 模式 -->
+<div v-on:click.capture="doThis">...</div>
+
+<!-- 只当事件在该元素本身（而不是子元素）触发时触发回调 -->
+<div v-on:click.self="doThat">...</div>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+按键修饰符
+
+在监听键盘事件时，经常需要检测keyCode。
+
+Vue.js允许为v-on添加按键修饰符
+
+<!-- 同上 -->
+<input v-on:keyup.enter="submit">
+<!-- 缩写语法 -->
+<input @keyup.enter="submit">
+
+全部按键的别名包括：
+
+enter
+tab
+delete
+esc
+space
+up
+down
+left
+right
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+</html>

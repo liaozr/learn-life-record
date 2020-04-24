@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+通过define定义许多模块后，得让它们能跑起来，如下：
+
+<script type="text/javascript" src="../gb/sea.js"></script>
+<script>
+  seajs.use('./index.js');
+</script>
+
+直接使用 script 标签同步引入sea.js文件后，就可以使用seajs.use(id, callback?)在页面中加载模块了！
+
+最佳实践：
+
+seajs.use 理论上只用于加载启动，不应该出现在 define 中的模块代码里。
+
+为了让 sea.js 内部能快速获取到自身路径，推荐手动加上 id 属性：
+<script src="../gb/sea.js" id="seajsnode"></script>
+
+讲到seajs.use，当然要提一下Sea.js 的调试接口。
+
+seajs.cache：Object，查阅当前模块系统中的所有模块信息。
+seajs.resolve：Function，利用模块系统的内部机制对传入的字符串参数进行路径解析。
+seajs.require：Function，全局的 require 方法，可用来直接获取模块接口。
+seajs.data：Object，查看 seajs 所有配置以及一些内部变量的值。
+seajs.log：Function，由 seajs-log 插件提供。
+seajs.find：Function，由 seajs-debug 插件提供。
+
+
+</body>
+</html>

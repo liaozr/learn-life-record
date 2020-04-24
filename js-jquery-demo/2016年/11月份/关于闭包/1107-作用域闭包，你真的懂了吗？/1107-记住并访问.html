@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+记住并访问
+
+上面的代码，稍微修改一下就会产生闭包现象了：
+
+<script>
+    function apple() {
+        var count = 0
+
+        function output() {
+            console.log(count)
+        }
+        fruit(output)
+    }
+
+    function fruit(arg) {
+        arg()
+    }
+    apple() // 0
+</script>
+
+现在，调用 fruit 时，apple 的局部作用域处于“记住”的状态，这时候， fruit 内部调用了 arg()，因为传引用，实际上访问并执行了 apple 局部作用域的 output，不仅仅是这样，output 内部还访问了 count 变量，这两次对 apple 局部作用域的引用都是闭包！
+
+所以，之所以说所有回调函数的调用都会产生闭包现象，也是因为这个回调函数被传给了另外一个函数的参数，
+
+所以在另外一个函数的作用域消失之前，回调函数所在的词法作用域都被记住了，由于回调函数一定会被执行，所以回调函数所
+
+在的词法作用域至少被访问了一次，也就是至少访问回调函数本身，而这个对作用域的引用就是闭包。
+
+
+</body>
+</html>

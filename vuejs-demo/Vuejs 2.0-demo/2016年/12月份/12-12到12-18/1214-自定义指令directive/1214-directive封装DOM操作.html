@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+Vue提供了两中注册方法，一种是全局注册，在Vue.directive中定义组件的名字和相关指令操作
+
+<script>
+    Vue.directive('指令的名字', {
+        //一些option，提供许多hook function 定义directive的具体操作，如inserted、bind...
+        inserted: function(el) {
+            //指令插入元素后的操作
+        }
+    })
+</script>
+
+
+另一种是局部注册，在对应组件的directives属性里注册组件名，传入指令的option对象
+
+<script>
+    directives: {
+        name: { //指令的名字
+            // 指令的定义
+        }
+    }
+</script>
+
+在定义时，Vue提供了许多hook function，例如 inserted 、bind等，
+
+bind是只会在绑定的对象节点被插入父节点时调用一次的函数，
+
+与unbind相对应，unbind将也只会在元素被解除绑定时调用。
+
+<script>
+    Vue.directive('指令的名字', {
+        bind: function(el, binding, vnode， oldVnode) {
+            //绑定指令时调用
+        },
+        unbind: function() {
+            //指令解除绑定时调用
+        }
+    })
+</script>
+
+bind函数中的binding，是一个包含了众多属性的对象，关于它的所有的性质的介绍可以自行查看官方文档 ,比较常用的一个属性binding.value，与其对应的是在指令中传入的字符串，Vue会自动解析这个值并执行。
+
+与此相对应的另一个属性binding.expression里的值则就是原始值。
+
+
+</body>
+</html>

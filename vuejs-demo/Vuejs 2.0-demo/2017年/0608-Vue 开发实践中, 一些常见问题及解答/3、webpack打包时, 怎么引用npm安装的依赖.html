@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+    正常情况, npm安装的包, 根目录下package.json, 都有个main的配置项,
+
+    如Vue的: "main": "dist/vue.common.js",, 意思就是当用import Vue from 'vue'时,
+
+    直接引用dist/vue.common.js文件, 如果package.json里没配置main或者是要引用其他文件, 该怎么引用呢?
+
+    其实只要在依赖名后面加上路径和文件名即可,
+
+    如: import Vue from 'vue/dist/vue.min.js'即可,
+
+    一些依赖需要引用 css 文件的, 方法和这一致
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+    一般来说, import 的原则是:
+
+    引用自己写的组件, 前面全部加上相对路径, 如: import test from './test.js'
+    或者 import test from '../test/test.js'
+
+    引用 npm 安装的依赖, 直接以依赖名开始,
+
+    如: import React from 'react'
+
+    或者
+
+    import IndexRoute from 'react-router/lib/IndexRoute'
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+    如 在 项目中  使用  Muse-ui 组件的时候
+    如 在 项目中  使用  Muse-ui 组件的时候
+
+    <script>
+
+        先在项目 中  安装  muse-ui  这个组件的依赖
+        npm install muse-ui --save
+
+        然后在 package.json  这个文件里 可以 看到 刚刚 安装 的muse-ui 这个组件的相关版本状态信息。
+
+        {
+          "dependencies": {
+            "muse-ui": "^2.0.3",
+            "vue-router": "^2.5.3",
+            "vuex": "^2.3.1"
+          }
+        }
+
+        // 在 index.js文件里
+
+        // 使用 Muse UI 组件
+
+        //  一般情况 下，相关组件  都会告诉你 怎么 在项目中使用 该组件的
+        //  怎么import 进去的，这个得看相关组件的 import 方式 使用文档。
+        
+        import MuseUI from 'muse-ui'
+        import 'muse-ui/dist/muse-ui.css'
+        Vue.use(MuseUI)
+
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<div class="car_t">购物车 [ <span>{$cart.typenum}</span> ]</div>
+<div class="car_bg">
+    <!--Begin 购物车未登录 Begin-->
+    <empty name="Think.session.userId">
+        <div class="un_login">还未登录！<a href="__MODULE__/User/Login" style="color:#ff4e00;">马上登录</a> 查看购物车！</div>
+        <!--End 购物车未登录 End-->
+        <else/>
+        <!--Begin 购物车已登录 Begin-->
+        <ul class="cars">
+            <volist name="cart.goods" id="goods">
+                <li>
+                    <div class="img"><a href="#"><img src="__PUBLIC__/Uploads/{$goods.picName}" width="58" height="58"/></a></div>
+                    <div class="name"><a href="#">{$goods.goodsName}</a></div>
+                    <div class="price" id="{$goods.id}"><font color="#ff4e00">￥{$goods.price}</font> X{$goods.number}</div>
+                    <button id="cartdel" cartid="{$goods.id}">删除</button>
+                </li>
+            </volist>
+        </ul>
+        <div class="price_sum">共计&nbsp; <font color="#ff4e00">￥</font><span>{$cart.total}</span></div>
+        <div class="price_a"><a href="#">去购物车结算</a></div>
+        <!--End 购物车已登录 End-->
+
+    </empty>
+</div>

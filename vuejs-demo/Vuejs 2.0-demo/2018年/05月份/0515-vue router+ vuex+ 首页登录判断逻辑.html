@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+  1.vue router
+
+  路由判断首先我们想到的是router.beforeEach 前置导航守卫 ，这个方法接受三个参数 to from next 。
+
+  to参数为即将跳转的路由路径，from为当前导航正要离开的路由，next方法用来resolve这个钩子。
+
+  下面以工作中写的一个判断为为例子：
+
+  <script>
+
+      router.beforeEach(async (to, from, next) => {
+
+        const { name, meta } = to;
+        const { requireLogin } = meta;
+        if (name === 'login') {  // 如果是登录页则用next方法resolve掉这个钩子，如果不是，进行到下一个判断
+          return next();
+        }
+
+        const needLogin = requireLogin && !store.getters.user.isLogin;  // 从store中读取是否获取了已登录的信息
+
+        if (needLogin) {
+          return next({   //  如果没有则跳转到登录页，将当前路由路径放到参数中
+            name: 'login',
+            params: { back: to },
+          });
+        }
+
+        return next();
+
+      });
+
+</script>
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+2. this.$router 与 this.$route   this.$router.push 与 this.$router.replace
+
+在登录页完成登录请求后进行下面的操作
+
+获取路径中存放前一个路径的参数 ,然后跳转到该页面
+
+ loginSuccess() {
+      const { params: { back } } = this.$route;
+      const route = back || { name: 'home' };
+      const { name, params, query } = route;
+      this.$router.replace({ name, params, query });
+  },
+
+在上面这段代码中出现了两个我们经常混淆的概念:
+
+我们知道this.$router是router实例，可以用来直接访问路由。我们称router配置中每一个对象为一个路由记录，this.$route是暴露出来用来访问每个路由记录的。因此我们获取参数时使用的是this.$route 跳转路由时使用的是道this.$router。
+
+上端代码中我们使用了replace而不是push来跳转路由，这两者的区别是会不会在history中产生记录。replace不会新增记录，而是直接替换掉了这条路由记录。
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

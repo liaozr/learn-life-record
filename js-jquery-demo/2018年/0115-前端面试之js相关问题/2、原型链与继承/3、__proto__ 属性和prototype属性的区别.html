@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+  prototype是function对象中专有的属性。
+
+  __proto__是普通对象的隐式属性，在new的时候，会指向prototype所指的对象；
+
+  __proto__实际上是某个实体对象的属性，而prototype则是属于构造函数的属性。
+
+  __proto__只能在学习或调试的环境下使用。
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+  这里抓住两点：
+
+  构造函数通过 prototype 属性访问原型对象
+
+  实例对象通过 [[prototype]] 内部属性访问原型对象，
+
+  浏览器实现了 __proto__属性用于实例对象访问原型对象
+
+  Object 为构造函数时，是Function的实例对象；
+
+  Function为构造函数时，Function.prototype 是对象，那么他就是Object的实例对象。
+
+  来看一个题目：
+  
+  var F = function(){};
+  Object.prototype.a = function(){};
+  Function.prototype.b = function(){};
+  var f = new F();
+
+  // f 能取到a,b吗？原理是什么？
+
+  根据原型链的关系：f是F的实例对象，其原型链：f.__proto__ -> [F prototype].__proto__ -> [Object prototype].__proto__ -> null
+  F是构造函数，是Function的实例，他的原型链：F.__proto__ -> [Function prototype].__proto__ -> [Object prototype].__proto__ -> null
+  由此，只有F能够访问到Function的prototype,答案就是：“f只能a,但是F可以访问a,b”
+
+  <!-- --------------------------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

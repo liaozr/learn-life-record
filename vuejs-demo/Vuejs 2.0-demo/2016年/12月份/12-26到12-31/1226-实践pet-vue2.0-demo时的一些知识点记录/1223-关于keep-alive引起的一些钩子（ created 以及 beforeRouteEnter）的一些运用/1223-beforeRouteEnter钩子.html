@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+<div id="app">
+    <transition :name="transitionName" mode="out-in">
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
+    </transition>
+</div>
+
+我一直是这样写的，keep-alive把router-view套住，不需要缓存的就在路由钩子里面做文章
+
+不需要缓存的就在路由钩子里面做文章
+
+可以在beforeRouteEnter钩子里做请求，
+
+这样进去这个页面得到的就不是缓存的内容了
+
+<script>
+    export default {
+        data: function() {
+            return {
+                msg: 'page1',
+                count: 0
+            }
+        },
+        computed: {
+            reversedMessage: function() {
+                return this.msg.split('').reverse().join('')
+            }
+        },
+        beforeRouteEnter(to,from ,next){
+            next(vm =>{
+                vm.petName='';
+                vm.imgSrc='';
+                vm.$store.dispatch("comm_conf",settings);
+                console.log("组件又进来了");
+                vm.gitlists();
+            })
+        },
+        methods: {
+            change() {
+                this.count++
+            },
+            gitlists(){
+              // do something
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

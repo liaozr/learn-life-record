@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+表单处理
+
+使用 Vuex 的严格模式时，如果对 Vuex 管理的状态使用 v-model 的话，会有点棘手。
+
+<input v-model="obj.message">
+
+假设 obj 是一个计算属性，从 store 返回一个对象，当用户在输入框输入时，这里的 v-model 会试图直接修改 obj.message，这在严格模式下就会报错，因为不是在 mutation 处理器内改变状态。
+
+<!-- -------------------------------------------------------------------- -->
+
+『Vuex 式』的解决方案是，绑定 <input> 的 value 然后在 input 或 change 事件中提交修改：
+
+<input :value="message" @input="updateMessage">
+
+<script>
+    // ...
+    computed: {
+      ...mapState({
+        message: state => state.obj.message
+      })
+    },
+    methods: {
+      updateMessage (e) {
+        this.$store.commit('updateMessage', e.target.value)
+      }
+    }
+</script>
+
+<!-- -------------------------------------------------------------------------- -->
+
+然后这里是 mutation 处理器：
+
+<script>
+    // ...
+    mutations: {
+      updateMessage (state, message) {
+        state.obj.message = message
+      }
+    }
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+</body>
+</html>

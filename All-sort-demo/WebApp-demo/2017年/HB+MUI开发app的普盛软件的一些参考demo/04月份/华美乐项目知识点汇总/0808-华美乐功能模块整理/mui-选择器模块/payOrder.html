@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,minimal-ui" />
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="yes" name="apple-touch-fullscreen">
+	<meta content="telephone=no,email=no" name="format-detection">
+	<meta name="Keywords" content="投保信息" />
+	<meta name="Description" content="投保信息" />
+	<title>投保信息</title>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/public.css" />
+	<link rel="stylesheet" href="css/mui.min.css" />
+	<link href="picker/mui.picker.min.css" rel="stylesheet" />
+	<link href="picker/mui.poppicker.css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/ww.css">
+	<script type="text/javascript" src="js/flexible.debug.js"></script>
+	<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+	<script src="less/less.min.js"></script>
+</head>
+
+<body class="payOrder">
+	<section>
+		<div class="item">
+			<div class="tab">投保计划</div>
+			<div class="info border-1px">
+				<span>投保计划/投保费</span>
+				<span class="txt" style="color: #FF5454;">300元（C计划）</span>
+			</div>
+			<div class="info border-1px">
+				<span>客户编号</span>
+				<span class="txt" id="userNo"><span id="userNoVal" class="selectDiv">123</span><i class="next right"></i></span>
+			</div>
+			<div class="info border-1px">
+				<span>房地产地址</span>
+				<span class="txt" id="address"><span id="addressVal" class="selectDiv">深圳福田</span><i class="next right"></i></span>
+			</div>
+			<div class="info border-1px">
+				<span>保险生效日期<span>*</span></span>
+				<span class="txt" id="startDate"><span id="startDateValue" class="selectDiv"></span><i class="next right"></i></span>
+			</div>
+			<div class="info border-1px">
+				<span>保险到期日期<span>*</span></span>
+				<span class="txt" id="endDate"><span id="endDateValue" class="selectDiv"></span><i class="next right"></i></span>
+			</div>
+		</div>
+		<div class="item">
+			<div class="tab">投保人信息</div>
+			<div class="info border-1px">
+				<span>姓名<span>*</span></span>
+				<input id="userName1" class="txt" placeholder="请输入真实姓名" />
+			</div>
+			<div class="info border-1px">
+				<span>联系电话<span>*</span></span>
+				<input id="userTel1" class="txt" placeholder="请输入正确的电话号码" />
+			</div>
+			<div class="info noBorder border-1px">
+				<span>证件类型<span>*</span></span>
+				<span class="txt" id="selectCard"><span id="cardVal1" class="selectDiv">身份证</span><i class="next right"></i></span>
+			</div>
+			<div class="info border-1px">
+				<span>证件号码<span>*</span></span>
+				<input id="cardTxt1" class="txt" placeholder="请输入正确的证件号码" />
+			</div>
+		</div>
+		<div class="item">
+			<div class="tab">被投保人信息</div>
+			<div class="info border-1px">
+				<span></span>
+				<span class="right"><i class="toCopy"></i>同投保人</span>
+			</div>
+			<div class="info border-1px">
+				<span>姓名<span>*</span></span>
+				<input id="userName2" class="txt" placeholder="请输入真实姓名" />
+			</div>
+			<div class="info border-1px">
+				<span>联系电话<span>*</span></span>
+				<input id="userTel2" class="txt" placeholder="请输入正确的电话号码" />
+			</div>
+			<div class="info noBorder border-1px">
+				<span>证件类型<span>*</span></span>
+				<span class="txt" id="selectCard2"><span id="cardVal2" class="selectDiv">身份证</span><i class="next right"></i></span>
+			</div>
+			<div class="info border-1px">
+				<span>证件号码<span>*</span></span>
+				<input id="cardTxt2" class="txt" placeholder="请输入正确的证件号码" />
+			</div>
+		</div>
+		<div class="rule">
+			<div><i class="checkIcon"></i>本人已充分了解本保险产品,</div>
+			<div>同意并接受<a>《投保须知》</a><a>《保险条款》</a></div>
+		</div>
+		<div class="btn-div">
+			<span class="btn">立即投保</span>
+		</div>
+	</section>
+</body>
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="js/mui.min.js"></script>
+<script type="text/javascript" src="js/zepto1.1.6.min.js"></script>
+<script type="text/javascript" src="picker/mui.picker.min.js"></script>
+<script type="text/javascript" src="picker/mui.poppicker.js"></script>
+<script type="text/javascript" src="layer-m/layer.js"></script>
+
+<script>
+	(function($) {
+		$.init();
+		var now = new Date();
+		startDateValue.innerText = now.getFullYear() + "-" + formatMonth((now.getMonth() + 1).toString()) + "-" + formatMonth(now.getDate().toString());
+		endDateValue.innerText = now.getFullYear() + "-" + formatMonth((now.getMonth() + 1).toString()) + "-" + formatMonth(now.getDate().toString())
+
+		var optionsJson = '{"type":"date","beginYear":' + (now.getFullYear() - 1) + ',"endYear":' + (now.getFullYear() + 1) + '}';
+		var options = JSON.parse(optionsJson);
+
+		startDate.addEventListener('tap', function() {
+			var picker = new $.DtPicker(options);
+			picker.show(function(rs) {
+				startDateValue.innerText = rs.text;
+				picker.dispose();
+			});
+		}, false);
+
+		endDate.addEventListener('tap', function() {
+			var picker = new $.DtPicker(options);
+			picker.show(function(rs) {
+				endDateValue.innerText = rs.text;
+				picker.dispose();
+			});
+		}, false);
+
+		var arr = [{
+			text: "身份证"
+		}, {
+			text: "军官证"
+		}, {
+			text: "护照"
+		}];
+		selectCard.addEventListener('tap', function() {
+			var cardPicker = new $.PopPicker({
+				layer: 1
+			});
+			cardPicker.setData(arr);
+			cardPicker.show(function(items) {
+				cardVal1.innerText = items[0].text;;
+				cardPicker.dispose();
+			});
+		}, false);
+
+		selectCard2.addEventListener('tap', function() {
+			var cardPicker = new $.PopPicker({
+				layer: 1,
+			});
+			cardPicker.setData(arr);
+			cardPicker.show(function(items) {
+				cardVal2.innerText = items[0].text;;
+				cardPicker.dispose();
+			});
+		}, false);
+
+		var userArr = [{
+			text: "1212"
+		}, {
+			text: "34343"
+		}, {
+			text: "56565"
+		}];
+		userNo.addEventListener('tap', function() {
+			var userPicker = new $.PopPicker({
+				layer: 1,
+			});
+			userPicker.setData(userArr);
+			userPicker.show(function(items) {
+				userNoVal.innerText = items[0].text;
+				userPicker.dispose();
+			});
+		}, false);
+
+		var addressArr = [{
+			text: "深圳"
+		}, {
+			text: "北京"
+		}, {
+			text: "福州"
+		}];
+		address.addEventListener('tap', function() {
+			var addressPicker = new $.PopPicker({
+				layer: 1,
+			});
+			addressPicker.setData(addressArr);
+			addressPicker.show(function(items) {
+				addressVal.innerText = items[0].text;
+				addressPicker.dispose();
+			});
+		}, false);
+
+	})(mui);
+
+	function formatMonth(month) {
+		if (month.length == 1) {
+			return "0" + month;
+		}
+		return month;
+	}
+
+	//身份证 护照 军官证验证
+	$("#cardTxt").on("blur", function() {
+		var type = $("#cardVal1").text();
+		var txt = $(this).val();
+		if (type == "身份证") {
+			if (!(/(^\d{15}$)|(^\d{17}([0-9]|X)$)/.test(txt))) {
+				tanchu("您输入的证件号码有误！");
+			}
+		} else if (type == "军官证") {
+			if (!(/^[a-zA-Z0-9]{7,21}$/.test(txt))) {
+				tanchu("您输入的证件号码有误！");
+			}
+		} else if (type == "护照") {
+			if (!(/^(P\d{7})|(G\d{8})$/.test(txt))) {
+				tanchu("您输入的证件号码有误！");
+			}
+		}
+	});
+	//身份证 护照 军官证验证
+	$("#cardTxt2").on("blur", function() {
+		var type = $("#cardVal2").text();
+		var txt = $(this).val();
+		if (type == "身份证") {
+			if (!(/(^\d{15}$)|(^\d{17}([0-9]|X)$)/.test(txt))) {
+				tanchu("您输入的证件号码有误！");
+			}
+		} else if (type == "军官证") {
+			if (!(/^[a-zA-Z0-9]{7,21}$/.test(txt))) {
+				tanchu("您输入的证件号码有误！");
+			}
+		} else if (type == "护照") {
+			if (!(/^(P\d{7})|(G\d{8})$/.test(txt))) {
+				tanchu("您输入的证件号码有误！");
+			}
+		}
+	});
+
+	$(".toCopy").on('tap', function() {
+		$(this).toggleClass("active");
+		if ($(this).hasClass("active")) {
+			$("#userName2").val($("#userName1").val());
+			$("#userTel2").val($("#userTel1").val());
+			cardVal2.innerText = cardVal1.innerText;
+			$("#cardTxt2").val($("#cardTxt1").val());
+		}
+	});
+
+	////弹出框函数
+	function tanchu(cont) {
+		layer.open({
+			btn: ['OK'],
+			content: cont, //内容
+			shade: [0.5, '#000'], //遮罩层  透明度，颜色
+			shadeClose: true, //点击遮罩层 关闭弹出层
+			time: 0 //  自动关闭时间，  0表示不自动关闭
+		});
+	}
+</script>
+
+</html>

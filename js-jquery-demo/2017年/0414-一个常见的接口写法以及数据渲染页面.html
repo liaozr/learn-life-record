@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <section class="g-content menmber">
+        <ul>
+            <li v-for="item in dataArr">
+                <div class="head">
+                    <img src="../images/cheliang.png" />
+                </div>
+                <div class="content">
+                    <div class="title"><span>{{item.roleName}}</span><span>{{item.empName}}</span></div>
+                    <div class="msg">{{item.empPhone}}</div>
+                    <div class="line"></div>
+                    <i class="icon-phone" v-on:tap="toPhone(item.empPhone)"></i>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <script>
+        var vm = new Vue({
+            el: 'body',
+            data: {
+                dataArr: []
+            },
+            methods: {
+                toPhone: function(num) {
+                    plus.device.dial(num, false);
+                }
+            },
+            ready: function() {
+                init();
+            }
+        });
+
+        function init() {
+            mui.ajax(getBaseServerUrl() + '/app/sitesEmp/findSitesEmpList', {
+                type: 'get', //HTTP请求类型
+                // localStorage.selectSitesId
+                // 这个localStorage 值一般怎么获取呢，一般是通过点进这个页面的那个点击事件把
+                // 这个localStorage 值存取下来的，然后进入到这个页面后，就能读到这个localStorage值了
+                data: {
+                    sitesRecordId: localStorage.selectSitesId
+                },
+                success: function(jsonData) {
+                    vm.dataArr = jsonData;
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+            });
+        }
+    </script>
+
+    </script>
+</body>
+
+</html>

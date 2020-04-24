@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        height: 5000px;
+    }
+
+    blockquote {
+        background-color: #f5f5f5;
+        font-size: 1.5rem;
+        line-height: 1.5;
+        margin: 2rem 0;
+        padding: 1.5rem;
+    }
+
+    .wrapper {
+        margin: 0 auto;
+        max-width: calc(100% - 2rem);
+        padding: 112px 0;
+    }
+
+    @media (min-width: 620px) {
+        .wrapper {
+            max-width: 600px;
+        }
+    }
+
+    .special {
+        font-size: 1.25rem;
+    }
+
+    .scrolling {
+        color: white;
+        left: 0;
+        margin: 0;
+        padding: 2rem 0;
+        position: fixed;
+        text-align: center;
+        width: 100%;
+    }
+
+    .scrolling--down {
+        background-color: green;
+        -webkit-transition: top .5s ease;
+        transition: top .5s ease;
+        top: 0px;
+    }
+
+    [data-scrolldir=down] .scrolling--down {
+        top: -91px;
+    }
+
+    p {
+        min-height: 1000px;
+    }
+</style>
+
+<body>
+
+    <!-- <h2 id="scroll-down" class="scrolling scrolling--down">Down</h2>
+    <h2 id="scroll-up" class="scrolling scrolling--up">Up</h2> -->
+
+    <h2 id="scrolling--down" class="scrolling scrolling--down">Up</h2>
+
+    <div class="wrapper">
+        <h1>This is an example of <a href="https://github.com/dollarshaveclub/scrolldir">ScrollDir, a JS Plugin</a></h1>
+        <blockquote>
+            <a href="https://github.com/dollarshaveclub/scrolldir"> ScrollDir</a> is a micro Javascript library that makes it easy Leverage Vertical Scroll Direction with CSS. From there, do what want.&nbsp;💪
+        </blockquote>
+        <p class="special">Scroll the window to tell if you're scrolling up or down.</p>
+        <p>
+            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up
+            one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from "de Finibus Bonorum et Malorum" by Cicero
+            are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+        </p>
+        <p>
+            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at rom a line in section 1.10.32. The standard chunk
+            of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from
+            the 1914 translation by H. Rackham.
+        </p>
+    </div>
+    <script src='scrolldir.js'></script>
+    <script>
+        // 监听 滚轮事件的。
+        
+        /*注册事件*/
+        if (document.addEventListener) {
+            document.addEventListener('DOMMouseScroll', scrollDir, false);
+        }
+        //W3C
+        window.onmousewheel = document.onmousewheel = scrollDir; //IE/Opera/Chrome
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+    <script>
+
+        const promise = Promise.resolve()
+
+        promise.then(() => {
+            console.log('promise')
+        })
+
+        process.nextTick(() => {
+            console.log('nextTick')
+        })
+
+        setImmediate(() => {
+            console.log(3)
+        })
+
+
+        // 输出结果：
+        //
+        // nextTick
+        // promise
+        //
+        // 理由：
+        // promise.then也是注册在tick阶段的， 但是
+        //
+        // process.nextTick的优先级高于promise，
+        //
+        //  故而先调用process.nextTick
+
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+<script>
+
+    setTimeout(() => {
+        console.log(1)
+    }, 0)
+
+    new Promise((resolve, reject) => {
+        console.log(2)
+        for (let i = 0; i < 10000; i++) {
+            i === 9999 && resolve()
+        }
+        console.log(3)
+    }).then(() => {
+        console.log(4)
+    })
+
+    console.log(5)
+
+    // 输出结果：
+
+    // 2
+    // 3
+    // 5
+    // 4
+    // 1
+
+</script>
+
+理由：
+
+new promise是个同步操作，故而输出2和3，然后执行最后一行代码输出5。
+
+接下来就是promise.then和setTimeout的问题了。
+
+我们知道promise.then和process.nextTick一样是注册在tick阶段的，而setTimeout是注册在timer阶段的，
+
+先进入tick阶段执行，然后在进入到下一个轮询的setTimeout。
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+<script>
+
+    setImmediate(() => {
+        console.log(1)
+        setTimeout(() => {
+            console.log(2)
+        }, 100)
+        setImmediate(() => {
+            console.log(3)
+        })
+        process.nextTick(() => {
+            console.log(4)
+        })
+    })
+
+    setImmediate(() => {
+        console.log(5)
+        setTimeout(() => {
+            console.log(6)
+        }, 100)
+        setImmediate(() => {
+            console.log(7)
+        })
+        process.nextTick(() => {
+            console.log(8)
+        })
+    })
+
+
+
+    // 输出结果
+    // 1
+    // 5
+    // 4
+    // 8
+    // 3
+    // 7
+    // 2
+    // 6
+
+</script>
+
+  理由：
+
+  promise.then也是注册在tick阶段的，但是process.nextTick的优先级高于promise，故而先调用process.nextTick
+
+  process.nextTick() 的 优先级一般 是比较高的，也高于 setImmediate() 方法。
+
+  所以，process.nextTick() 也是会优先于  setImmediate() 这个方法执行。
+  
+  所以，process.nextTick() 也是会优先于  setImmediate() 这个方法执行。
+
+  这里的tick会合并，所以4和8连续输出
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.4/vue.js"></script>
+
+</head>
+
+<body>
+
+    这里封装了一个自定义指令，添加了一个点击事件，
+
+    对于已经登陆的则调用传进来的函数，否则通过vuex去控制登陆（此处的登陆是通过弹窗实现的）
+
+<!-- ------------------------------------------------------------------------------------------------------------ -->
+
+    <div id="app">
+        <div class="aa" v-permission-click='doSomething'>按钮点击</div>
+    </div>
+
+    <script>
+
+        Vue.directive("permission-click", function(el, binding) {
+
+            console.log(el); // <div class="aa">按钮点击</div>
+            console.log(binding.value); // function ....
+
+            el.addEventListener('click',function(){
+
+                //  alert(111)
+
+                if (!store.getters.isLogin) {
+                    store.dispatch('showLogin')
+                } else {
+                    typeof binding.value === 'function' && binding.value()
+                }
+                
+            })
+
+        })
+
+        new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+                doSomething: function() {
+
+                }
+            }
+        })
+
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

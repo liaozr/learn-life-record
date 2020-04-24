@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+作用域和this
+
+每一个作用域都绑定了一个不同值的this,这取决于这个函数是如何调用的.我们都使用过this关键词,但是并不是所有的人都理解它,还有当它被调用的时候是如何的不同. 默认情况下,this指向的是最外层的全局对象window.我们可以很容易的展示关于不同的调用方式我们绑定的this的值也是不同的:
+
+<script>
+    var myFunction = function() {
+        console.log(this); // this = global, [object Window]
+    };
+    myFunction();
+
+    var myObject = {};
+    myObject.myMethod = function() {
+        console.log(this); // this = Object { myObject }
+    };
+
+    var nav = document.querySelector('.nav'); // <nav class="nav">
+    var toggleNav = function() {
+        console.log(this); // this = <nav> element
+    };
+    nav.addEventListener('click', toggleNav, false);
+    
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+当我们处理this的值的时候我们又遇到了一些问题,举个例子
+
+如果我添加一些代码在上面的例子中.就算是在同一个函数内部,作用域和this都是会发生改变的:
+<script>
+    var nav = document.querySelector('.nav'); // <nav class="nav">
+    var toggleNav = function() {
+        console.log(this); // <nav> element
+        setTimeout(function() {
+            console.log(this); // [object Window]
+        }, 1000);
+    };
+    nav.addEventListener('click', toggleNav, false);
+</script>
+
+所以这里发生了什么?我们创建了一个新的作用域,
+
+这个作用域没有被我们的事件处理程序调用,所以默认情况下,这里的this指向的是window对象.
+
+当然我们可以做一些事情不让这个新的作用域影响我们,以便我们能够访问到这个正确的this值.
+
+你也许已经见到过我们这样做的方法了,我们可以使用that变量缓存当前的this值,
+
+然后在新的作用域中使用它.
+
+<!-- -------------------------------------------------------------------------------- -->
+
+<script>
+    var nav = document.querySelector('.nav'); // <nav class="nav">
+    var toggleNav = function() {
+        var that = this;
+        console.log(that); // <nav> element
+        setTimeout(function() {
+            console.log(that); // <nav> element
+        }, 1000);
+    };
+    nav.addEventListener('click', toggleNav, false);
+</script>
+
+这是一个小技巧,让我们能够使用到正确的this值,并且在新的作用域解决一些问题.
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+</html>

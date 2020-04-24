@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  javascript 用一种有趣的方式处理未声明的变量：当引用一个未声明的变量时，
+
+  在 global 对象中创建一个新变量。在浏览器中，全局对象将是 window，这意味着
+
+  <script>
+
+      function foo(arg) {
+          bar = "some text";
+      }
+
+      // 等同于:
+      function foo(arg) {
+          window.bar = "some text";
+      }
+
+  </script>
+
+  我们假设 bar 的目的只是引用 foo 函数中的一个变量。
+
+  然而，如果你不使用 var 来声明它，就会创建一个冗余的全局变量。在上面的情况中，这不会造成很严重的后果。你可以想象一个更具破坏性的场景。
+
+  你也可以用 this 意外地创建一个全局变量：
+
+  <script>
+
+      function foo() {
+          this.var1 = "potential accidental global";
+      }
+
+      // Foo called on its own, this points to the global object (window)
+      // rather than being undefined.
+      foo();
+
+  </script>
+
+  你可以通过在 javascript 文件的开头添加 'use strict';
+
+  来避免这些后果，这将开启一种更严格的 javascript 解析模式，从而防止意外创建全局变量。
+
+  意外的全局变量当然是个问题，然而更常出现的情况是，你的代码会受到显式的全局变量的影响，
+
+  而这些全局变量无法通过垃圾收集器收集。需要特别注意用于临时存储和处理大量信息的全局变量。
+
+  如果你必须使用全局变量来存储数据，当你这样做的时候，要保证一旦完成使用就把他们赋值为 null 或重新赋值 。
+
+
+</body>
+
+</html>

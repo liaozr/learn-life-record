@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+二、Array.prototype.push.apply()
+
+思路：该方法优点是不会产生一个新的数组。
+
+<script>
+
+    // Array.prototype.push.apply(a, b);
+    
+    //a=[1,2,3,4,5,6]
+    //等效于:a.push.apply(a, b);
+    //也等效于[].push.apply(a, b);
+
+// ----------------------------------------------------------------------
+    var arr1 = [1, 2, 5,4,7];
+    var arr2 = [4, 5, 6];
+    function concatArray(arr1, arr2) {
+        Array.prototype.push.apply(arr1, arr2);
+        arr = unique1(arr1);
+        return arr;
+    }
+    function unique1(arr){
+       for(var i=0,len=arr.length; i<len;i++){
+           for(var j=i+1;j<len;j++){
+               if(arr[i] === arr[j]){//获取没重复的最右一值放入新数组
+                   arr.splice(j, 1);
+               }
+           }
+        }
+        console.log(arr)
+        return arr;
+     }
+    concatArray(arr1,arr2)
+</script>
+
+</body>
+</html>

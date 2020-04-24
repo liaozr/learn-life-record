@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+http://www.haorooms.com/post/html5_storageimage
+
+http://www.haorooms.com/post/html5_storageimage
+
+<!-- -------------------------------------------------------------------------------- -->
+思路
+
+我们知道Localstorage只能存储字符串，那么我们可以把图片转换为base64编码的字符串，不就可以存储了吗？
+
+图片编码的数据一般以如下开头
+
+data:image/gif;base64,base64编码的gif图片数据
+data:image/png;base64,base64编码的png图片数据
+data:image/jpeg;base64,base64编码的jpeg图片数据
+data:image/x-icon;base64,base64编码的icon图片数据
+
+关键是如何转换呢？
+我们canvas中有个toDataURL()方法，貌似可以转换！拿我们就用这个方法试一试！
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <script type="text/javascript">
+        function saveImg(key) {
+            var img = new Image,
+                canvas = document.createElement("canvas"),
+                ctx = canvas.getContext("2d"),
+                src = "image/aaaa.png"; // insert image url here
+            img.crossOrigin = "Anonymous";
+
+            img.onload = function() {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+                localStorage.setItem(key, canvas.toDataURL("image/png"));
+            }
+            img.src = src;
+            // make sure the load event fires for cached images too
+            if (img.complete || img.complete === undefined) {
+                img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+                img.src = src;
+            }
+        }
+
+
+        function get(div, key) { //读取get(容器,图片)
+            var srcStr = localStorage.getItem(key);
+            var imgObj = document.createElement('img');
+            imgObj.src = srcStr;
+            div.appendChild(imgObj);
+        }
+    </script>
+
+    <script>
+        window.onload = function() {
+            saveImg("savedImageData");
+            var Ipt = document.getElementById('input1');
+            var oDiv = document.getElementById('div1');
+            Ipt.onclick = function() {
+                get(oDiv, "savedImageData");
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <input id="input1" type="button" value="图片显示">
+    <div id="div1"></div>
+</body>
+
+</html>

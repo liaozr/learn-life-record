@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.min.js"></script>
+</head>
+
+
+<!-- 
+
+计算属性 computed ：自动追踪依赖
+
+methods 方法 是要被 调用才能起作用
+
+ -->
+
+<body>
+	<div id="example">
+        a = {{a}}, b = {{b}}
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            a: 1
+        },
+        computed: {  //computed是计算属性
+            // a computed getter
+            b: function() {
+                // `this` points to the vm instance
+                return this.a + 1
+                // this指的就是这个Vue的实例。
+            }
+        }
+    })
+    </script>
+
+    <!-- -------------------------------------------------------------- -->
+
+     <div id="demo2">
+     	{{fullName}}
+     </div>
+    <script>
+    var vm = new Vue({
+        el:'#demo2',
+        data: {
+            firstName: 'Foo',
+            lastName: 'Bar',
+            fullName: 'Foo Bar'
+        }
+    })
+     // vm.$watch是监听vuejs的变化。
+     // 下列程序代表的是监听 firstName  跟  lastName这两个值的变化。从而改变view层 fullName这个值的显示。
+    vm.$watch('firstName', function(val) {
+        this.fullName = val + ' ' + this.lastName
+    })
+
+    vm.$watch('lastName', function(val) {
+    this.fullName = this.firstName + ' ' + val
+    })
+
+    </script>
+
+<!-- ----------------------------------------------------------------------     -->
+
+ <div id="demo3">
+ 	{{fullName}}
+ </div>
+<script>
+var vm = new Vue({
+    el:'#demo3',
+    data: {
+        firstName: 'Foo',
+        lastName: 'Bar'
+    },
+    computed: { //这里的效果等同于上个demo的$watch监听数据变化。
+        fullName: function() {
+            return this.firstName + '--' + this.lastName
+        }
+    }
+})
+</script>
+
+<!-- ------------------------------------------------- -->
+
+<div id="demo4">{{fullName}}</div>
+  <script>
+  var vm = new Vue({
+    el: '#demo4',
+    data: {
+      firstName: 'Foo',
+      lastName: 'Bar'
+    },
+    computed: {
+      fullName: {
+        // getter, Vue 取出 model 资料
+        get: function() {
+          return this.firstName + ' ' + this.lastName
+        },
+        // setter， Vue 设定 model 资料，请见控制台 vm.fullName='vue.js good'
+
+        set: function(newValue) {
+
+        //调用vm.fullName='aaa'时，setter将会被调用  vm.firstName  vm.lastName也会相应的更新。
+          console.log('----执行 setter')
+          console.log('传入的字串:' + newValue)
+          var names = newValue.split(' ')
+          this.firstName = names[0]
+          this.lastName = names[names.length - 1]
+        }
+      }
+    }
+  })
+  </script>
+<!-- -------------------------------------------------------------------------------- -->
+
+    <div id="test">
+        <!-- v-for 是vuejs循环数组用的 -->
+        <div v-for="(index, item) in items">
+            <div>
+              <span style="background-color: yellow; width: 80px; display: inline-block;">{{item.name}}</span>
+                <input type="text" v-model="item.value" lazy number>
+                <!--  lazy 跟 number 都是 vuejs里面设定的   -->
+                <!-- lazy 表明并不想你按一个键就马上变动数据，而是当输入值到这个input后，失去焦点后再变动数据 -->
+                <!-- number 表明的是只能输入数字 -->
+            </div>
+        </div>
+        计算后：{{total}}
+    </div>
+    <script>
+        //开启调试模式，方便找bug 
+        Vue.config.debug = true 
+        var vm = new Vue({
+            el: "#test",
+            data: {
+                items: [{//中括号代表是一个数组，大括号代表着一个物件
+                    name: '安全手套',
+                    value: 100
+                }, {
+                    name: '手电筒',
+                    value: 200
+                }, {
+                    name: '雨鞋',
+                    value: 300
+                }]
+
+            },
+            computed: {
+                total: function() {
+                    self = this;
+                    var tmp = 0;
+                    for (var i = 0; i < self.items.length; ++i) {
+                        tmp = tmp + self.items[i].value;
+                    }
+                    return tmp; //返回值给total
+                }
+            }
+
+        })
+    </script>
+
+
+
+
+</body>
+</html>

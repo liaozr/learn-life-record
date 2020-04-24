@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ============================================================================================================ -->
+
+  <router-link tag="div" class="tab-item" to="/recommend">
+     <span class="tab-link">推荐</span>
+   </router-link>
+
+   <!-- 也可以 用name的写法的  -->
+
+   <router-link tag="div" class="tab-item" :to="{name:'recommend'}">
+     <span class="tab-link">推荐2</span>
+   </router-link>
+
+<!-- ============================================================================================================ -->
+
+    默认组件的路由配置，直接用redirect 方便快捷
+    {
+        path: '/',
+        redirect: '/recommend'
+    }
+
+    <script>
+
+        import recommend from './recommend'
+        import singer from './singer'
+        import rank from './rank'
+        import search from './search'
+
+        const routes = [
+            //    ...home,
+            // ...Users,
+
+            ...recommend,
+            ...singer,
+            ...rank,
+            ...search,
+            {
+                path: '/',
+                redirect: '/recommend'
+            }
+        ]
+
+    </script>
+<!-- ============================================================================================================ -->
+
+</body>
+
+</html>

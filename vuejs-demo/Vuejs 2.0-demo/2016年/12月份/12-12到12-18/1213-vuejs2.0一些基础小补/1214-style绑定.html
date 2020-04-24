@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+2.5.2 style
+
+这里css属性名支持中划线命名法及驼峰命名法。
+
+（1）对象语法
+
+<div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+
+<script>
+    data: {
+        activeColor: 'red',
+        fontSize: 30
+    }
+</script>
+
+对象的属性是css属性名，值是表达式的返回值。当然推荐你把表达式对象抽离出来
+
+<!-- ------------------------------------------------------------------------------ -->
+
+（2）数组语法
+
+v-bind:style 的数组语法可以将多个样式对象应用到一个元素上，每个元素都是一个返回CSS对象的表达式。
+
+<div v-bind:style="[baseStyles, overridingStyles]">
+
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+</html>

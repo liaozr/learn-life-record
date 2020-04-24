@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery3.js'></script>
+</head>
+
+<body>
+
+    <script>
+        $(window).on("mousewheel DOMMouseScroll", function(event) {
+            // chrome & ie || // firefox
+            var delta = (event.originalEvent.wheelDelta && (event.originalEvent.wheelDelta > 0 ? 1 : -1)) || (event.originalEvent.detail && (event.originalEvent.detail > 0 ? -1 : 1));
+
+            if (delta > 0) {
+                // 向上滚动
+                console.log('mousewheel top');
+            } else if (delta < 0) {
+                // 向下滚动
+                console.log('mousewheel bottom');
+            }
+        });
+    </script>
+</body>
+
+</html>

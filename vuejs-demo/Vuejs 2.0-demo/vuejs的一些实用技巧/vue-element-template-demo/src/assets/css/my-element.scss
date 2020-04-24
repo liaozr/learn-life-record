@@ -1,0 +1,135 @@
+#my-pageing-box {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    width: $width1170;
+    padding: 26px 0 61px 0;
+    .el-pagination {
+        top: 0;
+        right: 0;
+    }
+    .btn-next,
+    .btn-prev {
+        width: 48px;
+        height: 48px;
+        margin: 0;
+        i {
+            font-size: 20px;
+        }
+    }
+    .btn-next:active,
+    .btn-prev:active {
+        border: 1px solid #F2F2F4;
+        background: #BEC2CC;
+    }
+    .el-pager {
+        .number {
+            line-height: 48px;
+            font-size: 14px;
+            height: 48px;
+            width: 48px;
+            background: #FFFFFF;
+            border: 1px solid #F2F2F4;
+        }
+        .active {
+            background: #303030;
+        }
+        .el-icon-d-arrow-right,
+        .el-icon-more,
+        .el-icon-d-arrow-left {
+            line-height: 48px;
+            font-size: 20px;
+            height: 48px;
+            width: 48px;
+            background: #FFFFFF;
+            border: 1px solid #F2F2F4;
+        }
+        li {
+            margin: 0;
+        }
+    }
+}
+
+#my-select-box {
+    width: 100%;
+    .el-select {
+        width: 100%;
+    }
+    .el-input__inner {
+        height: $inputheight;
+        border-radius: 0;
+    }
+}
+
+#my-date-pick-box {
+    width: 100%;
+    .el-date-editor,
+    .el-input__inner {
+        border-radius: 0;
+        width: 100%;
+        height: $inputheight;
+    }
+    .el-input__icon,
+    .el-icon-time {
+        line-height: 35px;
+    }
+}
+
+#my-table-box {
+    margin-bottom: 23px;
+    .el-table--group,
+    .el-table--border {
+        /*表格最外层边框*/
+        border: 1px solid #CACACA;
+    }
+    .el-table th.is-leaf,
+    .el-table td {
+        border-bottom: 1px solid #CACACA;
+    }
+    .el-table--border th,
+    .el-table--border td {
+        border-right: 1px solid #CACACA;
+    }
+    .has-gutter {
+        >tr>th {
+            padding: 0;
+            height: 49px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #000000;
+            background: #F2F2F2;
+        }
+    }
+    .el-table th,
+    .el-table td {
+        font-weight: bold;
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.54);
+        height: 95px;
+        padding: 0;
+    }
+}
+
+.loading-box {
+    .el-icon-loading {
+        font-size: 30px;
+    }
+}
+
+.my-element-message {
+    top: auto !important;
+    border: none !important;
+    background: rgba(0,0,0,.6) !important;
+    bottom: 120px !important;
+}
+
+.el-checkbox__inner {
+    padding: 8px;
+    border-radius: 0;
+}
+
+.el-checkbox__inner:after {
+    left: 6px !important;
+    top: 2px !important;
+}
+

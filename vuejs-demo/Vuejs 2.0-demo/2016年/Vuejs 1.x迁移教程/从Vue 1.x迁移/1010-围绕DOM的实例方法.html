@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+vm.$appendTo 弃用
+
+使用 DOM 原生方法:
+
+myElement.appendChild(vm.$el)
+
+<!-- ---------------------------------------------------- -->
+
+vm.$before 弃用
+
+使用 DOM 原生方法：
+
+myElement.parentNode.insertBefore(vm.$el, myElement)
+
+<!-- ------------------------------------------------------------------------- -->
+
+vm.$after 弃用
+
+使用 DOM 原生方法：
+
+myElement.parentNode.insertBefore(vm.$el, myElement.nextSibling)
+
+如果 myElement 是最后一个节点也可以这样写：
+myElement.parentNode.appendChild(vm.$el)
+
+<!-- ------------------------------------------------------------------------------- -->
+
+vm.$remove 弃用
+
+使用 DOM 原生方法：
+
+vm.$el.remove()
+
+<!-- ------------------------------------------------------------------- -->
+
+
+
+
+
+</body>
+</html>

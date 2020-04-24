@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--
+       若只是简单的删除操作的话，下面那个删除还是起作用的的，
+       因为它是根据index下标来删除数组的。
+       但是有查找的话，查找出来的数据在有这个删除按钮的话，点击这个删除按钮会报错的。
+       因为index值已经变了。
+    -->
+    <script>
+        // 点击删除操作
+        [types.SHANCHU_USER](state, index) {
+            state.curEditUser = ''
+            state.users.splice(index, 1)
+        }
+    </script>
+
+
+    <!-- ---------------------------------------------------------------------- -->
+
+    <!-- 所以除了用上面的那种方法去删除，还可以直接删除数据的做法 -->
+
+    当你通过数组索引赋值来改动数组时 (比如 arr[1] = value)，Vue 是无法侦测到这类操作的。
+
+    类似地，你可以使用扩展方法来确保 Vue.js 收到了通知。被观察的数组有两个扩展方法：
+
+    arr.$set(index, value)
+    arr.$remove(index | value)
+
+    <script>
+        // 点击删除操作
+        [types.SHANCHU_USER](state, user) {
+            // state.curEditUser =''
+            // state.users.splice(index,1)
+            state.users.$remove(user)
+        }
+    </script>
+
+    <!-- -------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  let
+  ------------
+  let
+  ------------
+
+1、let只在所在的代码块中有效
+<script>
+    for (var i = 0; i < 10; i++) {}
+    console.log(i); //10
+
+    for (let j = 0; j < 10; j++) {}
+    console.log(j); // Error: j is not define
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+2、以前我们需要用IIFE解决的问题
+<script>
+  for (var i = 0; i < 5; i++) {
+    setTimeout(function () {
+      console.log(i); // 输出5次5
+    },0);
+  }
+
+  for (var k = 0; k < 5; k++) {
+    (function (k) {
+      setTimeout(function () {
+        console.log(k); //输出0,1,2,3,4
+      },0);
+    })(k);
+  }
+
+  // -----------------------------------------------------------------------------
+  for (let j = 0; j < 5; j++) {
+    setTimeout(function () {
+      console.log(j); //输出0,1,2,3,4
+    },0);
+  }
+</script>
+<!-- ------------------------------------------------------------------------------------- -->
+
+3、不存在变量声明提升
+<script>
+    console.log(foo); // 输出undefined
+    console.log(bar); // 报错ReferenceError
+
+    var foo = 2;
+    let bar = 2;
+</script>
+
+可能动手实践的同学会发现在webpack配置的es6环境中。
+并不会出现这种情况，那主要是babel转码是还是讲let转成了var,不要纠结这个。
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+4、暂时性死区TDZ
+<script>
+    var temp = 123;
+    if (true) {
+        //TDZ start
+        temp = "abc"; //ReferenceError
+        console.log(temp); //ReferenceError
+        //TDZ end
+        let temp;
+        console.log(temp); //undefined
+
+        temp = 12;
+        console.log(temp); //12
+    }
+</script>
+
+其实这个也可以解释上面那条 不存在变量声明提升。
+同时在TDZ区域中使用typeof temp 也是不安全的。
+但是你typeof 未声明的变量 倒是返回undefined, 这就是TDZ的效果。
+同样这里你也可能试验不出来，你看一下bundle.js,你就懂了。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+5、let不允许重复声明
+<script>
+    {
+        let a = 1;
+        let a = 10; //这里在转码的时候就报错了。
+    }
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+  const
+  ----------
+    const
+  ----------
+
+  1、大部分与let差不多。
+
+  2、const （只读）（一旦声明必须赋值）
+
+  const MAX = 123;
+  MAX = 1; //转码阶段就爆错了。
+
+  3、对于复合类型变量 (可以给他的属性赋值)
+  const a = {};
+  a.name = "dai";
+  a.age = 21;
+
+  4、如何你不想添加属性
+  const b = Object.freeze({});
+  b.name = 'dai'; //TypeError
+
+ <!-- ------------------------------------------------------------------------------------ -->
+
+插曲--ES6引入了块级作用域
+
+其实这也解释了为什么let、const在自己所在的代码块有效了。
+
+<script>
+    {
+        var b = 1; {
+            var b = 10;
+            console.log(b); //10
+        }
+        console.log(b); //10
+    }
+
+    {
+        let a = 1;
+        {
+            let a = 2;
+            console.log(a); //2
+        }
+        console.log(a); //1
+    }
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+    import
+  -----------
+    import
+  -----------
+  1、ES6引入了自己的模块系统。通过export导出(暴露)，import导入。
+
+  2、与CommonJS不同的是，它是获取模块的引用，到用的时候才会真正的去取值。
+
+  3、例如student.js中:
+
+<script>
+    let student = [
+        {
+            name: 'xiaoming',
+            age: 21,
+        },
+        {
+            name: 'xiaohong',
+            age: 18
+        }
+    ]
+    export default student; // 这种导出方式，你可以在import时指定它的名称。
+</script>
+
+  4、在app.js中我们就可以这样用:
+  <script>
+
+      import StudentList from './student.js'; //指定名称
+      console.log(StudentList[0].name); //xiaoming
+
+ </script>
+
+ <!-- --------------------------------------------------------------------------------- -->
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+.postBody h3
+{
+            margin:15px auto 2px;
+            display:block;
+            font-size:1.17em;
+            font-weight:bold;
+}
+h3
+{
+  background-color:#0E6EB8;
+  color:#fff;
+  padding:10px;
+  border-radius:5px;
+  border-radius:5px;
+  font-size:18px;
+  font-family:"幼圆";
+  font-weight:500;
+            
+}
+
+
+
+h4
+{
+   background-color: #2b3e53;
+   height: 35px;
+   line-height: 35px;
+   color: #ffffff;
+   padding: 5px 10px;
+   border-radius: 3px;
+   box-shadow: 3px 3px 5px #2b3e53;
+   display: inline; 
+}
+
+
+.postTitle a:link, .postTitle a:visited, .postTitle a:active {
+color: #390;
+transition: all 0.4s linear 0s;
+}
+
+#div_digg {
+float: right;
+font-size: 12px;
+margin: 10px;
+text-align: center;
+width: 120px;
+position: fixed;
+right: 0px;
+bottom: 0px;
+z-index: 10;
+background-color: white;
+margin: 10px;
+padding: 10px;
+border: 1px solid #CCC;
+}
+
+#MySignature {
+    background-color: lightgreen;
+    border: 2px solid green;
+}
+#MySignature table {
+    border: 2px solid green;
+    margin: 3px auto;
+    width: 99%;
+}
+#tdSign {
+    width: 100px;
+}
+blockquote {
+    background-color: #d5d5d5;
+}

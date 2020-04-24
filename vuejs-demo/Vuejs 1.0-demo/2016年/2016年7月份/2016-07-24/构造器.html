@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.min.js"></script>
+</head>
+<body>
+	<div id="app"></div>
+
+
+	<script>
+       var vm=new Vue({
+       	//选项
+       });//（请记得 new Vue就是 根实例，这是规则）
+       // 一个Vue实例其实正是一个MVVM模式中所描述的ViewModel  因此在文档中经常会使用vm这个变量名。
+	</script>
+
+	<!--   
+
+	MVVM 是 Model -View -ViewModel 的简写  
+	View借由ViewModel操作 Model 
+	Model借由ViewModel送出至View
+
+	构造器（Constructor）：是用来设定物件的property或者呼叫method，以让未来物件能正确操作。
+
+	实例是构造器 new 以后的物件
+
+-->
+<script>
+// 可以扩展 Vue构造器，从而用预定义选项创建可复用的组件构造器
+ var MyComponent= Vue.extend({
+ 	//扩展选项
+ 	template:'<div>我是vue的组件实例，有看到么</div>'
+ })
+//所有的MyComponent 实例都将以预定义的扩展选项被创建
+var myComponentInstance=new MyComponent();//打印出MyComponent
+console.log(myComponentInstance.$mount('#app'));//控制台打印出我是vue的组件实例，有看到么
+// vm.$mount是一个实例方法，当然这里vm是指myComponentInstance
+
+</script>
+
+
+<script>
+	var data={a:1};
+	var vm =new Vue({
+		data:data
+	})
+	// console.log(data.a);
+	// console.log(vm.a);
+</script>
+
+</body>
+</html>

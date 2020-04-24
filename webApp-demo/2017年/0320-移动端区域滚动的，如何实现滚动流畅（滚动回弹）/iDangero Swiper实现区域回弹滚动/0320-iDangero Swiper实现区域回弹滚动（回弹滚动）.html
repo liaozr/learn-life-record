@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiper中文网Scrollbar使用方法演示(www.swiper.com.cn)</title>
+
+
+    <link rel="stylesheet" href="css/idangerous.swiper.css">
+    <link rel="stylesheet" href="css/idangerous.swiper.scrollbar.css">
+    <script src="js/idangerous.swiper.min.js"></script>
+    <script src="js/idangerous.swiper.scrollbar.js"></script>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .blue-slide {
+            background: #4390EE;
+        }
+
+        .red-slide {
+            background: #CA4040;
+        }
+
+        .orange-slide {
+            background: #FF8604;
+        }
+
+        .swiper-scrollbar {
+            height: 10px;
+            margin: 20px auto;
+            width: 880px;
+        }
+
+        p {
+            line-height: 100px;
+        }
+
+        .swiper-container {
+            height: 500px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam velit sapien, eleifend in tempus volutpat, posuere ullamcorper augue. Proin dignissim risus ut quam aliquam dignissim. In erat elit, bibendum vitae commodo vitae, bibendum non
+                    justo. Nunc erat eros, cursus et commodo vitae, pulvinar ac libero. Nullam et scelerisque erat. Cras vestibulum justo eget lorem semper ac facilisis nulla porta. Nunc at enim a dolor elementum imperdiet. Cras a massa nisl. Mauris semper
+                    pulvinar mi, a tincidunt urna fermentum vitae. Cras egestas dignissim massa, at blandit quam faucibus et. Sed ut felis non arcu pulvinar molestie.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam velit sapien, eleifend in tempus volutpat, posuere ullamcorper augue. Proin dignissim risus ut quam aliquam dignissim. In erat elit, bibendum vitae commodo vitae, bibendum non
+                    justo. Nunc erat eros, cursus et commodo vitae, pulvinar ac libero. Nullam et scelerisque erat. Cras vestibulum justo eget lorem semper ac facilisis nulla porta. Nunc at enim a dolor elementum imperdiet. Cras a massa nisl. Mauris semper
+                    pulvinar mi, a tincidunt urna fermentum vitae. Cras egestas dignissim massa, at blandit quam faucibus et. Sed ut felis non arcu pulvinar molestie.</p>
+            </div>
+        </div>
+        <div class="swiper-scrollbar"></div>
+    </div>
+
+
+    <script type="text/javascript">
+        var mySwiper = new Swiper('.swiper-container', {
+            scrollContainer: true,
+            mousewheelControl: true,
+            mode: 'vertical',
+            //Enable Scrollbar
+            scrollbar: {
+                container: '.swiper-scrollbar',
+                hide: true,
+                draggable: false
+            }
+        });
+    </script>
+
+</body>
+
+</html>

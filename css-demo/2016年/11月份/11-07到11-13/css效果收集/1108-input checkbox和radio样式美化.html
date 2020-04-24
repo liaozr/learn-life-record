@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src='jquery.js'></script>
+</head>
+<body>
+
+  今天，我们来讲一下checkbox美化和radio美化，关于select下拉框的美化的话，要用一个jquery插件了，
+
+  这个插件后面我们再讲！急用的同学可以留言！
+
+  但是像checkbox美化和radio美化，input美化，根本就不用插件了。
+
+  思路都一样的，先把之前的按钮透明度opacity设置为0,然后，外层用div包裹，就实现了美化功能。
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+radio单选框的美化
+
+<br><br><br>
+
+<span class="pay_list_c1 on">
+     <input type="radio" checked="checked" name="paylist" value="1" class="radioclass">
+</span>
+
+<style>
+    .pay_list_c1 {
+        width: 24px;
+        height: 18px;
+        float: left;
+        padding-top: 3px;
+        cursor: pointer;
+        text-align: center;
+        margin-right: 10px;
+        background-image: url(images/inputradio.gif);
+        background-repeat: no-repeat;
+        background-position: -24px 0;
+    }
+
+    .radioclass {
+        opacity: 0;
+        cursor: pointer;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+        filter: alpha(opacity=0);
+    }
+    .on {
+        background-position: 0 0;
+    }
+</style>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+checkbox复选框的美化
+<br><br><br><br><br>
+
+<div class="piaochecked on_check">
+    <input name="need_inv" type="checkbox" style="height:20px;width:20px;" class="radioclass input" value="1">1
+</div>
+<div class="piaochecked">
+    <input name="need_inv" type="checkbox" style="height:20px;width:20px;" class="radioclass input" value="1">2
+</div>
+<div class="piaochecked">
+    <input name="need_inv" type="checkbox" style="height:20px;width:20px;" class="radioclass input" value="1">3
+</div>
+
+<style>
+    .piaochecked {
+        width: 20px;
+        height: 20px;
+        float: left;
+        cursor: pointer;
+        margin-left: 10px;
+        text-align: center;
+        background-image: url(images/checkbox_01.gif);
+        background-repeat: no-repeat;
+        background-position: 0 0;
+    }
+
+    .on_check {
+        background-position: 0 -21px;
+    }
+
+    .radioclass {
+        opacity: 0;
+        cursor: pointer;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+        filter: alpha(opacity=0);
+    }
+</style>
+<!-- --------------------------------------------------------------------------------- -->
+
+关于checkbox：
+
+因为是可以多选的，所以对其class做toggle就可以了，因为jquery新版本已经废弃了toggle事件，只保留toggle方法。所有我们要自己写toggle写法如下：
+
+注：默认input checkbox的选中状态和外面父级的div的class是一致的。
+
+<script>
+    $(".piaochecked").on("click", function() {
+        // $(this).hasClass("on_check")? $(this).removeClass("on_check"):$(this).addClass("on_check");
+        //或者这么写
+        $(this).toggleClass("on_check");
+    })
+</script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

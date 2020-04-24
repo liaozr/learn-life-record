@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- ------------------------------------------------------------------------------------- -->
+
+    我们去新建的 store.js
+    <!-- store.js -->
+    <script>
+        import Vue from 'vue';
+        import Vuex from 'vuex';
+
+        Vue.use(Vuex)
+
+        export default new Vuex.Store({
+            state: {
+                platform: ''
+            },
+            mutations: {
+                SET_APP(state, platform) {
+                    state.platform = platform;
+                }
+            },
+            actions: {
+                setApp({commit}, platform) {
+                    commit('SET_APP', platform);
+                }
+            },
+            getters: {
+                getApp: (state) => state.platform
+            }
+        })
+    </script>
+
+    <!-- ----------------------------------------------------------------------------------- -->
+
+    说到组件先来看看完整的 App.vue
+
+    <template>
+      <div id="app">
+        <div class="logo">
+          <img src="./assets/logo.png">
+        </div>
+        <article-content></article-content>
+        <share></share>
+        <comment></comment>
+      </div>
+    </template>
+
+    <script>
+
+        import comment from './component/Comment.vue';
+        import articleContent from './component/ArticleContent.vue';
+        import share from './component/Share.vue';
+
+        export default {
+            data() {
+                return {}
+            },
+            components: {
+                articleContent,
+                comment,
+                share
+            },
+            mounted() {
+                let u = navigator.userAgent;
+
+                if (u.indexOf('Android') > -1 || u.indexOf('Adr') > -1) {
+                    this.$store.dispatch('setApp', 'android');
+                } else if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+                    this.$store.dispatch('setApp', 'ios');
+                }
+            }
+        }
+    </script>
+
+    <style lang="sass">
+        @import "/style/base.scss";
+    </style>
+
+    这里引入了三个组件，在 mounted() 里我们判断设备类型并发起 dispatch ，
+    关键方法是 this.$store.dispatch('setApp', ...args);
+
+    简单易懂我们 dispatch 了一个 action（setApp），然后 commit 到 mutations（SET_APP），
+
+    在 SET_APP 中修改了 state.platform
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+下面看看子组件是怎么获取,因为都是重复的用法所以只给一个 share 组件
+
+<template>
+  <div class="article-share-block">
+    <div class="divider-line" layout="row" layout-align="center center">
+      <div class="left-line" flex></div>
+      <p class="label">分享到</p>
+      <div class="right-line" flex></div>
+    </div>
+    <div layout="row" layout-align="space-between center">
+      <img class="share-icon" v-tap="{ methods: share, target: 'wechatTimeline' }" src="../img/wechat_timeline.png" alt="">
+      <img class="share-icon" v-tap="{ methods: share, target: 'wechatFriend' }" src="../img/wechat_friend.png" alt="">
+      <img class="share-icon" v-tap="{ methods: share, target: 'weibo' }" src="../img/weibo.png" alt="">
+      <img class="share-icon" v-tap="{ methods: share, target: 'qq' }" src="../img/qq.png" alt="">
+    </div>
+  </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                platform: ''
+            }
+        },
+        mounted() {
+            this.platform = this.$store.getters.getApp;
+        },
+        methods: {
+            initIOS() {
+                window.connectWebViewJavascriptBridge((bridge) => {
+                    this.webviewBridge = bridge;
+                });
+            },
+            share(target) {
+                if (this.platform === 'ios') {
+                    this.initIOS();
+                    this.webviewBridge.callHandler('invokeArticleShare', {
+                        shareTarget: target
+                    });
+                } else if (this.platform === 'android') {
+                    window.idarex.invokeArticleShare(target);
+                }
+            }
+        }
+    }
+</script>
+
+<style lang="sass">
+    @import "../style/component/share.scss";
+</style>
+
+还是看关键语句 this.platform = this.$store.getters.getApp; ，
+
+这样我们可以取到 state 中的 platform 完成一个完整存取数据的循环。
+
+说到这，不要急着把完整的组件粘贴运行，一定会抱错的，因为引入了第三方指令库（v-tap 实现移动端 tap 事件）
+
+，这些都是次要的也没必要还原我的项目，整个原理和流程说的已经很清楚了，直接创建自己的组件跑一下就没什么问题了，大同小异。
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+总结
+vuex 的原理其实简单易懂，本文通过一个小 demo 完成了一个简单流程，但真实项目里我不推荐这么做，
+
+最好把 store.js 模块化，方便后期维护，官方还提供了中间件等概念，准备在项目应用的可以研读源代码，
+
+从工程化的角度规划一下项目，当前 vue2 比较盛行，相信不久在 github 上会有大量的优秀项目供大家参考。
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

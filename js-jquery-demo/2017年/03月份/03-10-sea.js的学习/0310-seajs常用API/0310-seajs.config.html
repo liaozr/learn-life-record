@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+seajs.config是对全局进行配置，配置项有下面几种。
+
+base    在解析顶级标识时，会相对 base 路径来解析。
+alias   当模块标识很长时，可以使用 alias 来简化。
+charset 表示下载js时script标签的charset属性。
+timeout 表示下载文件的最大时长，以毫秒为单位。
+debug   表示是否工作在调试模式下。
+
+这几个都是很常用的配置，举个例子如下
+
+<script>
+
+    seajs.config({
+        base: 'path/to/js/',
+        alias: {
+            'jquery': 'jquery.js'
+        },
+        charset: 'utf-8',
+        timeout: 20000,
+        debug: false
+    });
+
+</script>
+
+base用来指定根路径，可以指定为绝对路径或者相对路径。
+
+譬如使用require("a") 则加载文件path/to/js/a.js
+
+debug:可用的有三种 0|1|2
+
+0： 普通状态，你就当啥也没发生
+1： 调试状态，combo 会失效，其他和 0 的时候一样
+2： 无缓存状态，所有请求都会自动在后面添加一个时间戳，其他和 1 的时候一样
+
+比较不常用的：
+
+map方法，可将某个文件映射到另一个。可用于在线调试，非常方便。
+map: [
+    ['.css', '.css?v=' + version],
+    ['.js', '.js?v=' + version]
+]
+
+preload方法
+
+</body>
+</html>

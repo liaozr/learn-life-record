@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+2. 片段实例
+
+在控制台中报类似警告: Attribute "id" is ignored on component <div> because the component is a fragment instance, 这个就是组件是片段实例的问题, 通常来讲, 组件里的template不要有多个顶级元素
+
+<template>
+    <div>hello</div>
+    <div>world</div>
+</template>
+
+上面代码是极不推荐的, 应该改成下面格式:
+
+<template>
+    <div>
+        <div>hello</div>
+        <div>world</div>
+    </div>
+</template>
+
+注意: 在 vue2 中已经不允许组件里有多个顶级元素
+
+<!-- --------------------------------------------------------------------------- -->
+
+3. webpack打包时css背景图片/字体路径的问题
+
+在 .vue 文件中引入 css 样式的方法有两种:
+
+在 script 里用 import 引用
+
+在 style 里用 @import 引用
+
+那么这两种引用方式有什么区别呢?
+
+用方法1的方式引入, 那么 css 文件中图片路径, 应该相对当前css文件, 而不是当前引入该 css 文件的 .vue 文件
+
+用方法2的方式引入, 那么 css 文件中图片路径, 应该相对当前引入该css文件的.vue文件, 而不是当前 css 文件
+
+个人不推荐用方法2引入, 特别是, 你在/src/app.vue和/src/components/main.vue这样不同目录的 .vue 文件中分别引入, 那么总有一个要报图片路径不存的错误
+
+PS: 如果用引用第三方依赖的 css 文件, 几乎只能用第一种方法引用, 因为第三方依赖的 .css 文件里的图片, 肯定是相对 .css 文件的
+
+<!-- ----------------------------------------------------------------------------- -->
+
+5. webpack打包时, 怎么引用npm安装的依赖?
+
+正常情况, npm安装的包, 根目录下package.json, 都有个main的配置项, 如Vue的: "main": "dist/vue.common.js",, 意思就是当用import Vue from 'vue'时, 直接引用dist/vue.common.js文件, 如果package.json里没配置main或者是要引用其他文件, 该怎么引用呢?
+
+其实只要在依赖名后面加上路径和文件名即可, 如: import Vue from 'vue/dist/vue.min.js'即可,
+
+一些依赖需要引用 css 文件的, 方法和这一致
+
+一般来说, import 的原则是:
+
+引用自己写的组件, 前面全部加上相对路径,
+
+如: import test from './test.js'或者 import test from '../test/test.js'
+
+引用 npm 安装的依赖, 直接以依赖名开始,
+
+如: import React from 'react'或者
+
+import IndexRoute from 'react-router/lib/IndexRoute'
+
+<!-- ------------------------------------------------------------------------------ -->
+
+6. webpack 的 path 和 publishPath 怎么配置?
+
+经常有群友在群里问, 用 vue-cli build 后, 把文件放到服务器, 访问后, 各种静态文件 404
+
+这里以vue-cli的 webpack 完整版做下说明
+
+用vue-cli生成项目后, 在config/index.js文件里能看到一些配置, 有关于目录的
+
+主要是以下 3 个:
+<script>
+
+assetsRoot: path.resolve(__dirname, '../dist'),
+assetsSubDirectory: 'static',
+assetsPublicPath: '/',
+assetsRoot
+
+</script>
+
+就是你build后文件生成在哪个文件夹, 上面的配置就是在项目根目录的 dist 文件夹下
+
+assetsSubDirectory
+
+这个是静态文件的前置文件夹
+
+在build/utils.js文件里, 可以找到一个函数:
+<script>
+
+    exports.assetsPath = function(_path) {
+        var assetsSubDirectory = process.env.NODE_ENV === 'production' ?
+            config.build.assetsSubDirectory :
+            config.dev.assetsSubDirectory
+        return path.posix.join(assetsSubDirectory, _path)
+    }
+
+</script>
+
+
+在build/webpack.prod.conf.js文件里, 可以找到
+
+filename: utils.assetsPath('js/[name].[chunkhash].js'),
+chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
+
+上面的两个路径, 经过assetsPath函数后, 最终生成路径static/js/[name].[chunkhash].js,
+
+意思就是最后 webpack 会把生成的 js 文件放在dist/static/js/文件夹下, 图片,样式配置原理一样,
+
+ 所以assetsSubDirectory的作用就是上面路径中的static
+
+assetsPublicPath
+
+这个静态资源的引用前缀, 默认的是/
+
+按照上面的配置,
+
+当你把 dist 文件夹下的文件放到服务器,
+
+能用http://www.xxx.com/static/js/xxx.js路径访问到时, 那么assetsPublicPath就不需要修改了
+
+需要用http://www.xxx.com/aaa/bbb/static/js/xxx.js路径访问到时, 那么assetsPublicPath就得改成/aaa/bbb/, 然后重新 build 一次, 上传到服务器
+
+
+当你把静态文件传到 cdn, 需要用http://stacic.yyy.com/aaa/bbb/static/js/xxx.js路径访问到时,
+
+ 那么assetsPublicPath就得改成http://stacic.yyy.com/aaa/bbb/, 然后重新 build 一次,
+
+上传到服务器
+
+<!-- ----------------------------------------------------------------------------- -->
+
+用绝对路径听起来好像很复杂啊, 能不能用相对路径呢?
+
+当然也是可以的, 不过配置起来要比用绝对路径复杂的多, 主要是涉及到 css 文件的里图片和字体等
+
+首先, assetsSubDirectory要设置成空
+
+将assetsPublicPath, 改成./
+
+修改
+
+new ExtractTextPlugin(utils.assetsPath('css/[name].[contenthash].css')),
+
+改成
+
+new ExtractTextPlugin('[name].[contenthash].css')
+
+<!-- ----------------------------------------------------------------------------- -->
+
+7. vue 中如何绑定内联样式
+
+这个其实很简单, 如果 style 里的样式没有变量, 那么和正常的写法一样, 如果有变量:
+
+<script>
+    data() {
+            return {
+                color: '#fff',
+                img: '/a.jpg'
+            }
+        }
+        // .....
+</script>
+
+<!-- // 法1: -->
+<div :style="`color:${color}; background:url(${img});`"></div>
+
+<!-- // 写法2: -->
+<div :style="{width: '100px', height: '100px', background: 'url('+img+')'}"></div>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+</body>
+</html>

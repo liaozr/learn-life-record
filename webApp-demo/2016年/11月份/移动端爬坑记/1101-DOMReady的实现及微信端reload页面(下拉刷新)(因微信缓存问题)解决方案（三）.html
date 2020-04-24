@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    问题1 : DOMReady的实现 刚好有一个页面是注册成功的,就单单一个成功图片和文字描述和下载按钮. 由于临时需要增加一个倒计时重定向到下载页面 想了想原生有这么个参数就直接拿来用了,兼容性非常不错,移动端基本清一色的绿色, PC端支持也不错.IE9+ 这里写图片描述 实现代码 – 很简单的一个事件监听,第三那个参数capture[false为冒泡,true为捕获]
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+                var count = 5;
+                setInterval(function() {
+                    count--;
+                    if (count <= 1) {
+                        window.location.href = "https://www.wolianw.com/index2.html";
+                    }
+                    document.querySelector('.count').innerHTML = count;
+                }, 1000);
+            },
+            false);
+    </script>
+    <!-- ------------------------------------------------------------------------------------- -->
+
+    问题2.微信端reload页面解决方案 H5站点首页需要增加下拉刷新,在其他浏览器试的好好的…用微信打开测试,一脸懵逼..一直卡在loading团出来而不重载页面 解决方案: 增加一个没用的参数
+    <script>
+        //window.location.reload 在微信端用不了,应该是微信做了缓存...就是不能重载...
+        //location.href增加一个随机参数,可以避免给缓存[我感觉是缓存.就这么称呼把]
+        window.location.href = window.location.href + "?uncache=" + 123 * Math.random();
+    </script>
+    
+    <!-- -------------------------------------------------------------------------------------------------     -->
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.staticfile.org/vue/2.2.6/vue.js'></script>
+</head>
+
+<body>
+    <div id="app">
+        {{celiang}} <br> {{anzhuang}}
+    </div>
+    <script>
+        var jinduVM = new Vue({
+            el: '#app',
+            data: {
+                celiang: '4/5',
+                anzhuang: '5/8',
+                songhuo: '2/8',
+                jiancha: '5/8',
+                yanshou: '2/5',
+            }
+        });
+
+        // eval 会执行脚本代码的作用的
+        // eval 会执行脚本代码的作用的
+        // eval 会执行脚本代码的作用的
+
+        var celiangb = eval(jinduVM.celiang);
+        console.log(celiangb) // 0.8
+        var anzhuangb = eval(jinduVM.anzhuang);
+        var songhuob = eval(jinduVM.songhuo);
+        var jianchab = eval(jinduVM.jiancha);
+        var yanshoub = eval(jinduVM.yanshou);
+
+    </script>
+</body>
+
+</html>

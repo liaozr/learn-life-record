@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<!-- --------------------------------------------------------------------------------- -->
+
+教程网址：
+
+https://1657413883.github.io/2016/11/28/H5%E7%A6%BB%E7%BA%BF%E7%BC%93%E5%AD%98/
+
+https://1657413883.github.io/2016/11/28/H5%E7%A6%BB%E7%BA%BF%E7%BC%93%E5%AD%98/
+
+https://1657413883.github.io/2016/11/28/H5%E7%A6%BB%E7%BA%BF%E7%BC%93%E5%AD%98/
+
+<!-- --------------------------------------------------------------------------------- -->
+
+离线缓存服务整个web应用,网页缓存只服务于单个网页.
+
+安全性
+
+本地缓存是安全的,我们自己可以控制,网页缓存不安全.
+
+manifest文件:一个具有特定格式的文本文件
+
+作用: 指定哪些资源可以被缓存哪些资源不被缓存,以及其路径.我们可以对整个web应用指定一个总的manifest文件,也可以单独对一个页面指定一个manifest文件.
+
+manifest格式
+
+CACHE MANIFEST
+
+#文件开头必须写 CACHE MANIFEST
+Version : 8
+#这个manifest文件的版本号,非必需
+
+CACHE:
+index.html
+index.js
+index.png
+
+NETWORK:
+http:www.scdn/blog
+app.java
+*
+
+FALLBACK:
+online.js
+CACHE:
+new.js
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+解释：
+
+CACHE MANIFEST：放在第一行,让浏览器告知服务器对此文件进行配制
+
+Version:指定版本号,推荐加上,文件更新时候可以同步更新.
+
+CACHE:指定需要被缓存在本地的资源文件 ,如果某个文件有manifest文件,浏览器会自动对这个文件进行本地缓存
+
+NETWORK:显示指定不进行本地缓存的文件,*通配符,表示没有指定的文件都不在本地缓存.
+
+FALLBACK:该类型下有两个类型文件,第一个为在线访问时候可以使用的资源文件,第二个为不能在线访问时候使用的备用文件.
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+manifest文件的引入
+
+<html manifest="cache.manifest">
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- html 代码  -->
+    <form id="form">
+        <input type="text" name="name" placeholder="您的称呼" />
+        <input type="text" name="phone" placeholder="您的手机号" />
+        <input type="text" name="id" placeholder="抽奖编号" />
+        <a class="sub">提 交</a>
+    </form>
+
+    <!-- 从上可以看出， 用上 serialize() 的话，基本上form表单 没有action值，也没有 input type为submit提交按钮的 -->
+
+    <!-- 从上可以看出， 用上 serialize() 的话，基本上form表单 没有action值，也没有 input type为submit提交按钮的 -->
+
+    <script>
+        //提交表单要填写的 数据
+        $('.screen2 .sub').click(function() {
+            var name = $('input[name="name"]').val();
+            var phone = $('input[name="phone"]').val();
+            var id = $('input[name="id"]').val();
+
+            if (name == '' || phone == '' || id == '') {
+                alert("请填写完整再提交！");
+                return false;
+            }
+            //编号超过450或者编号位数不对禁止提交
+            if (parseInt(id) > 450 || id.length != 3) {
+                alert("请输入有效的入场编号！");
+                return false;
+            }
+
+            $('.screen2').css('opacity', '1').removeClass('animated bounceInRight');
+
+            // 这里就是 提交登录表单数据到后台的做法。
+            // 有个序列化表单的做法。
+            //  提交成功后 保存用户编号这个 cookie，待第二次进入 项目的时候，就不用再
+            //  填写这个表单数据了、
+
+            $.post('./php/user.php', $("#form").serialize(), function(res) {
+                var msg = eval('(' + res + ')');
+                if (msg.errcode == 0) {
+                    //提交成功储存cookie
+                    setCookie('cid', id);
+                    $('.screen2').addClass('animated bounceOutLeft');
+                    $('.screen3').addClass('animated bounceInRight');
+                } else {
+                    alert(msg.errmsg);
+                }
+            });
+
+        });
+    </script>
+
+    <!-- ---------------------------------------------------------------------------- -->
+
+    一、serialize()定义和用法：
+
+    serialize()方法通过序列化表单值，创建标准的URL编码文本字符串，它的操作对象是代表表单元素集合的jQuery 对象。你可以选择一个或多个表单元素（比如input或文本框），或者 form 元素本身。序列化的值可在生成 AJAX 请求时用于 URL 查询字符串中。
+
+    语法：
+    $(selector).serialize()
+
+    <!-- --------------------------------------------------------------------------- -->
+
+    详细说明
+
+    1、.serialize() 方法创建以标准 URL 编码表示的文本字符串。它的操作对象是代表表单元素集合的 jQuery 对象。
+    2、.serialize() 方法可以操作已选取个别表单元素的 jQuery 对象，比如 <input>, <textarea> 以及 <select>。不过，选择 <form>
+
+    3、只会将”成功的控件“序列化为字符串。如果不使用按钮来提交表单，则不对提交按钮的值序列化。如果要表单元素的值包含到序列字符串中，元素必须使用 name 属性。
+
+    4、form里面的name不能够用 Js、jquery里的关键字。
+
+    <!-- -------------------------------------------------------------------------- -->
+
+    <form id="myForm">
+        昵称 <input type="text" name="username" value="admin" /><br />
+        密码 <input type="password" name="password" value="admin123" /><br />
+        <input type="button" id="submit" value="序列化表单" />
+    </form>
+
+    <!--
+       从上可以看出， 用上 serialize() 的话，基本上form表单 没有action值，
+    也没有 input type为submit提交按钮的
+    -->
+    <script>
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: ajaxCallBack,
+            data: $('#myForm').serialize(), // 要提交表单的ID
+            success: function(msg) {
+                alert(msg);
+            }
+        });
+    </script>
+
+    <!-- --------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

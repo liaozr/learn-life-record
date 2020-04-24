@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.min.js'></script>
+</head>
+
+<body>
+
+  图片加载 若您遇到图片加载很慢的问题，对这种情况，手机开发一般用canvas方法加载：
+
+  下面举例说明一个canvas的例子：
+
+  动态加载图片和li 总共举例5张图片！
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+    <div class="aa"></div>
+    <style>
+      .aa canvas{
+        max-width: 100px;max-height: 100px;display: block;
+      }
+      .aa img{
+        max-width: 100px;max-height: 100px;display: block;
+      }
+    </style>
+
+    <script>
+        $(function() {
+            var total = 5;
+            var zWin = $(window);
+            var render = function() {
+                var padding = 2;
+                var winWidth = zWin.width();
+                var picWidth = Math.floor((winWidth - padding * 3) / 4);
+                var tmpl = '';
+                for (var i = 1; i <= total; i++) {
+                    var p = padding;
+                    var imgSrc = 'images/' + i + '.png';
+                    if (i % 4 == 1) {
+                        p = 0;
+                    }
+                    tmpl += '<li style="width:' + picWidth + 'px;height:' + picWidth + 'px;padding-left:' + p + 'px;padding-top:' + padding + 'px;"><canvas id="cvs_' + i + '"></canvas></li>';
+                    var imageObj = new Image();
+                    imageObj.index = i;
+                    imageObj.onload = function() {
+                        var cvs = $('#cvs_' + this.index)[0].getContext('2d');
+                        cvs.width = this.width;
+                        cvs.height = this.height;
+                        cvs.drawImage(this, 0, 0);
+                    }
+                    imageObj.src = imgSrc;
+                }
+                $(".aa").html(tmpl);
+            }
+            render();
+        })
+    </script>
+</body>
+
+</html>

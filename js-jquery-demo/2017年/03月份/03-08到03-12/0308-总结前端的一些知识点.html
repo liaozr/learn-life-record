@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+二、querySelectorAll 与 getElementsBy 系列的区别：
+
+根据该问题下的答案 querySelectorAll 方法相比 getElementsBy 系列方法有什么区别？，我简单地总结一下：
+
+querySelectorAll 属于 W3C 中 Selectors API 规范， 而 getElementsBy 系列则属于 W3C DOM 规范。
+
+
+querySelectorAll 方法接受参数是 CSS 选择符，当传入的是不符合 CSS 选择符规范时会抛出异常，而 getElementsBy 系列则接受的参数是单一的 className，tagName 等等。
+
+
+从返回值角度来看，querySelectorAll 返回的是不变的结点列表，而 getElementsBy 系列返回的是动态的结点列表。
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+<script>
+    // Demo 1
+    var ul = document.querySelectorAll('ul')[0],
+        lis = ul.querySelectorAll("li");
+    for (var i = 0; i < lis.length; i++) {
+        ul.appendChild(document.createElement("li"));
+    }
+
+    // Demo 2
+    var ul = document.getElementsByTagName('ul')[0],
+        lis = ul.getElementsByTagName("li");
+    for (var i = 0; i < lis.length; i++) {
+        ul.appendChild(document.createElement("li"));
+    }
+
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+四、动态作用域和静态作用域的区别：
+
+静态作用域又称之为词法作用域：即词法作用域的函数中遇到既不是形参也不是函数内部定义的局部变量的变量时，它会根据函数定义的环境中查询。
+
+
+<script>
+    var foo = 1;
+
+    function static() {
+        console.log(foo);
+    }
+
+    (function() {
+        var foo = 2;
+        static();
+    }());
+
+</script>
+
+
+JS 的变量是遵循静态作用域的，在上述代码中会打印出 1 而非 2，因为 static 函数在作用域创建的时候，记录的 foo 是 1，如果是动态作用域的话，那么它应该打印出 2
+
+静态作用域是产生闭包的关键，即它在代码写好之后就被静态决定它的作用域了。
+
+动态域的函数中遇到既不是形参也不是函数内部定义的局部变量的变量时，到函数调用的环境去查询
+
+在 JS 中，关于 this 的执行是基于动态域查询的，下面这段代码打印出 1，如果按静态作用域的话应该会打印出 2
+
+<script>
+    var foo = 1;
+
+    var obj = {
+        foo: 2,
+        bar: function() {
+            console.log(this.foo);
+        }
+    };
+
+    var bar = obj.bar;
+    bar();
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+
+instanceof：只要在当前实例的原型链上，用 instanceof 检测出来的结果都是 true，
+所以在类的原型继承中，最后检测出来的结果未必是正确的。
+
+
+1. 使用 instanceof 判断基本类型：
+
+<script>
+
+    var str1 = 'abc';
+    var str2 = new String('abc');
+
+    console.log(str1 instanceof String); //false
+    console.log(str2 instanceof String); //true
+
+
+    console.log( typeof str1); //string
+
+    console.log(false instanceof Boolean); //false
+    console.log(new Boolean(false) instanceof Boolean) //true
+
+</script>
+
+  判断基本类型还是用 typeof 吧，instanceof 不适合。
+
+  <!-- ----------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

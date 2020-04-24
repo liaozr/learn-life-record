@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+    如果你也想根据条件切换列表中的 class ，可以用三元表达式：
+
+    <div v-bind:class="[isActive ? activeClass : '', errorClass]">
+
+    此例始终添加 errorClass ，但是只有在 isActive 是 true 时添加 activeClass 。
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+    <div v-for='item in dataArr' class="item-list" :class="[item.purchaseType == '20' ? 'yigou' : 'weigou']">
+
+        <div class="item-center">
+
+            <span v-show="item.purchaseType == '10' " class='weigou-wen'>[未购]</span>
+            <span class="name" v-text='item.goodsType'></span><br>
+
+            <div class="th">计划采购日期： {{item.purchaseTime}}</div>
+
+            <div v-show=" item.purchaseType == '20' " class="right">已购</div>
+
+            <div v-else class="right">已自购</div>
+
+        </div>
+
+    </div>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

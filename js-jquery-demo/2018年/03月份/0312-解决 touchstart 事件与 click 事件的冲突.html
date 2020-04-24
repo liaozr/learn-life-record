@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+    我们可以通过判断浏览器是否支持 touchstart 事件来封装元素的点击事件，
+
+    这样客户端会根据当前环境判定元素应该绑定的事件类型，
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+    在桌面端浏览器开发调试切换mobile和desktop的时候，会造成功能失效(click跟 touchstart 会混淆)，
+
+    解决办法：
+    
+    当mobile模式跟desktop模式变动的时候，刷新浏览器页面即可。
+
+    只能刷新页面解决。
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+    <div id="targetButton">点击事件的触发</div>
+
+    <script>
+
+        const Button = document.getElementById("targetButton")
+
+        const clickEvent = (function() {
+            if ('ontouchstart' in document.documentElement === true)
+                return 'touchstart';
+            else
+                return 'click';
+        })();
+
+        Button.addEventListener(clickEvent, e => {
+
+            console.log(clickEvent)
+            console.log("things happened!")
+        })
+
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

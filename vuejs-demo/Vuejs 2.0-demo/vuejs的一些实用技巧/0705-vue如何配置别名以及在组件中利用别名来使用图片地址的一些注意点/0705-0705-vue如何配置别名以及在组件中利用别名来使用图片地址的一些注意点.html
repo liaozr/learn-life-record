@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+特别声明的注意点：
+
+配置别名后，需要重新跑一次项目 （重新 cnpm run dev ）
+
+重启后 ，如果 模板中的图片地址使用 webpack 定义的别名后，发现
+项目 还是报错了的话，如下段代码所示，还是报错了的话
+<img src="~assets/images/aaa.png" />
+
+建议 就是 再次 重启下项目 再（cnpm run dev）重新跑项目
+
+在代码没有写错的情况下。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  <!-- 使用的别名 -->
+
+  <script>
+
+    resolve: {
+
+      extensions: ['.js', '.vue', '.json'],
+
+      alias: {
+
+        'vue$': 'vue/dist/vue.esm.js',
+        '@': resolve('src'),
+        '@a': resolve('src/api'),
+        'assets': resolve('src/assets'),
+        '@c': resolve('src/components'),
+        '@v': resolve('src/views')
+
+      }
+
+    }
+
+    // 导入各个组件 (如何使用)
+    import axiosdata from '@c/axiosdata' // 导入 axiosdata.vue 组件
+
+    import Home from '@v/Home'
+
+  </script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+   在 组件中使用
+
+   <img src="~assets/images/aaa.png" />
+
+   在组件 样式中 使用
+
+   <style>
+
+        background-image:url('~assets/images/aaa.png');
+
+   </style>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  在 sass 中 使用
+
+  <style>
+      .cc{
+      		@include background('~assets/images/ccc.png',right center,50px 50px)
+
+      }
+
+      @mixin background($imgpath,$position:center center,$size:auto auto,$bgcolor:transparent) {
+          background: {
+              image: url($imgpath);
+              position: $position;
+              repeat:no-repeat;
+              size:$size;
+              color:$bgcolor
+          }
+      }
+
+  </style>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

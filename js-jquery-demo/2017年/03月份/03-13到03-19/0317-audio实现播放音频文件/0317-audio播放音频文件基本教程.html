@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+html5 audio
+关于html5 audio标签，有很多属性，大家可以搜索一下，
+
+例如preload、autoplay、loop、controls等等。让其隐藏，我们可以添加一个隐藏参数，
+
+代码如下：
+
+<audio preload="auto" hidden="true">
+    <source src="mp3/Kalimba.mp3" type="audio/mpeg">
+</audio>
+
+这样，这个audio 就可以隐藏显示，接下来我们就可以用js对其进行操作控制了。
+
+audio常用方法
+
+addTextTrack()    向音频/视频添加新的文本轨道
+
+canPlayType()     检测浏览器是否能播放指定的音频/视频类型
+
+load()    重新加载音频/视频元素
+
+play()    开始播放音频/视频
+
+pause()    暂停当前播放的音频/视频
+
+<!-- -------------------------------------------------------------------------------- -->
+
+<script>
+    // loadedmetadata    当浏览器已加载音频/视频的元数据时
+    audio.onloadedmetadata = function() {
+        $(_this).removeClass("loading");
+        $(_this).addClass("playing");
+    }
+</script>
+
+当音频文件已经加载到浏览器之后，去除加载动画，增加播放动画。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+js 操作音频文件播放暂停
+
+如下代码可以控制audio播放还是暂停
+
+<script>
+    var audio = document.getElementById('haorooms');
+    if (audio !== null) {
+        //检测播放是否已暂停.audio.paused 在播放器播放时返回false.
+        alert(audio.paused);
+        if (audio.paused) {
+            audio.play(); //audio.play();// 这个就是播放
+        } else {
+            audio.pause(); // 这个就是暂停
+        }
+    }
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+当然也可以通过jquery轻松操作！
+
+<script>
+    var audio = $(that).children("audio")[0];
+    //获取，这段代码直接从我们文件中copy而来，可以直接写$("audio")[0]
+    audio.load(); //加载
+    audio.play(); //播放
+    audio.pause(); //暂停
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+值得注意的是，我们可以用定时器来让语音播放结束之后，动画去掉。
+
+定时器可以用setTimeout来写！
+
+定时器是一个变量！
+
+<script>
+    var second = $(that).data("second"); //获取音频秒数
+    _this.dshiqi = setTimeout(function() { //dshiqi是外层定义好的一个变量！
+        $(that).removeClass("playing"); //播放完毕去除动画
+    }, second * 1000)
+</script>
+
+记得在每次切换点击的时候，清除之前的定时器
+
+clearTimeout(_this.dshiqi);
+
+不清除定时器，来回点击录音，会有问题！
+
+<!-- -------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

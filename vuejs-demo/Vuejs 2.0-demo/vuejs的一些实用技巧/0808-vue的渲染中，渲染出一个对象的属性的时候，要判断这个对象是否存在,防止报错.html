@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <template>
+
+     <div class="app">
+
+         <cHeader></cHeader>
+         <div class="content">
+
+            这里的 sitesRecord 对象 是 来自于  上个页面的，是通过 路由的params 传递过来的
+
+            this.sitesRecord = this.$route.params.sitesRecord
+
+            所以，为了防止页面出现意外性的错误，倘若 页面上的一些元素的渲染值 有用到
+
+            sitesRecord这个对象的话，应该先用 在最外层 判断一下 是否  存在 sitesRecord 这个对象
+
+            以免页面 报错，同时，得用  v-if='sitesRecord' 来判断
+
+            因为 v-if 不存在 就不渲染，而 v-show只是控制显示隐藏 。
+
+            所以 这里 必须用 v-if ,如果 sitesRecord 不存在，即不渲染下面的元素标签之类的。
+
+            否则是会报错的。
+
+            v-show的场景是控制显示跟隐藏，但是还是会渲染元素标签的。
+
+            <div v-if='sitesRecord'>
+
+                <div>{{sitesRecord.empName}}</div>
+                <div>{{sitesRecord.sitesAddr}}</div>
+                <div>{{sitesRecord.stateName}}</div>
+                <div>{{sitesRecord.cityName}}</div>
+                
+            </div>
+
+         </div>
+
+      </div>
+
+  </template>
+
+    <script>
+
+        import cHeader from '@c/header/header'
+
+        export default {
+            data() {
+                return {
+                    sitesRecord: {}
+                }
+            },
+            components: {
+                cHeader
+            },
+            created() {
+                this.sitesRecord = this.$route.params.sitesRecord
+                console.log(this.sitesRecord)
+            }
+        }
+
+    </script>
+
+
+</body>
+
+</html>

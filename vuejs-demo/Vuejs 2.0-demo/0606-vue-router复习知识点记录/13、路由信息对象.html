@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+<!---------------------------------------------------------------------------------------->
+
+    <script>
+
+        watch: {
+
+           '$route' (to, from) {
+
+                const toDepth = to.path.split('/')
+                const fromDepth = from.path.split('/')
+
+                if (toDepth.length === fromDepth.length) {
+
+                    if (toDepth[toDepth.length - 1] === '') {
+                        this.transitionName = 'vux-pop-in'
+                    } else {
+                        this.transitionName = 'vux-pop-out'
+                    }
+
+                } else {
+
+                  this.transitionName = toDepth < fromDepth ? 'vux-pop-in' : 'vux-pop-out'
+
+                }
+            }
+        }
+
+    </script>
+
+<!---------------------------------------------------------------------------------------->
+
+<script>
+
+    router.beforeEach((to, from, next) => {
+      // to 和 from 都是 路由信息对象
+    })  
+
+</script>
+
+<!---------------------------------------------------------------------------------------->
+
+this.$route
+
+$route.path 绝对路径
+
+$route.params 路由参数
+
+关于动态片段（如/user/:username)的键值对信息,如{username: ‘paolino’}
+
+$route.query URL查询参数
+
+请求参数，如/foo?user=1获取到query.user = 1
+
+$route.hash
+当前路由的 hash 值 (带 #) ，如果没有 hash 值，则为空字符串。
+
+$route.fullPath
+完成解析后的 URL，包含查询参数和 hash 的完整路径。
+
+$route.matched
+数组，包含当前匹配的路径中所包含的所有片段所对应的配置参数对象。
+
+<!------------------------------------------------------------------------------------------------------------->
+
+<script>
+
+    const router = new VueRouter({
+        routes: [
+            // 下面的对象就是 route record
+            { 
+                path: '/foo', 
+                component: Foo,
+                children: [
+                    // 这也是个 route record
+                    { 
+                        path: 'bar', 
+                        component: Bar
+                    }
+                ]
+            }
+        ]
+    })
+
+</script>
+
+当 URL 为 /foo/bar，$route.matched 将会是一个包含从上到下的所有对象（副本）。
+
+<!------------------------------------------------------------------------------------------------------------->
+
+$route.name
+
+当前路由的名称，如果有的话
+
+<script>
+
+    {
+        path: '/user/:userId',
+        name: 'user',
+        component: User
+    }
+
+</script>
+
+<!------------------------------------------------------------------------------------------------------------->
+
+<!-- 路由元信息 -->
+
+  meta: { 
+     requiresAuth: 
+  }
+
+<!------------------------------------------------------------------------------------------------------------->
+
+
+</body>
+</html>

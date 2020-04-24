@@ -1,0 +1,57 @@
+<!-- ---------------------------------------------------------------------------------------- -->
+
+<!--   http://vuex.vuejs.org/zh-cn/intro.html   Vuex 学习网址-->
+
+第一步：加入 store
+<!-- 
+store 存储应用所需的数据。所有组件都从 store 中读取数据。在我们开始之前，先用 npm 安装 Vuex：
+
+$ npm install --save vuex
+建一个新文件 vuex/store.js
+
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+// 告诉 vue “使用” vuex
+Vue.use(Vuex)
+
+// 创建一个对象来保存应用启动时的初始状态
+const state = {
+  // TODO: 放置初始状态
+}
+
+// 创建一个对象存储一系列我们接下来要写的 mutation 函数
+const mutations = {
+  // TODO: 放置我们的状态变更函数
+}
+
+// 整合初始状态和变更函数，我们就得到了我们所需的 store
+// 至此，这个 store 就可以连接到我们的应用中
+export default new Vuex.Store({
+  state,
+  mutations
+})
+我们需要修改根组件来让应用注意到 store 的存在位置。
+
+修改 components/App.vue，注入 store。
+
+import Display from './Display.vue'
+import Increment from './IncrementButton.vue'
+import store from '../vuex/store' // import 我们刚刚创建的 store
+
+export default {
+  components: {
+    Display: Display,
+    Increment: Increment
+  },
+  store: store // 在根组件加入 store，让它的子组件和 store 连接
+}
+提示：如果使用 ES6 和 babel 你可以这样写：
+
+components: {
+  Display,
+  Increment,
+},
+store
+
+ -->

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+数组（Arrays）
+
+数组就是数值索引的任何类型值的集合。
+
+数组不需要你提前定义长度。
+delete会删除对应位置的值，但即使你delete了所有值，数组的长度不会变化。
+
+这样的数组是稀疏数组（"sparse" array），即留下或创建了空槽。
+
+注意，稀疏数组看起来是索引对应的值为undefined，但这和显示设置arr[index] = undefined不同。
+
+数组是数值索引的，但同时它是对象，所以可以有字符串键值对。
+
+一般，你设置字符串属性时，不会影响length，但如果这个key可以转换成十进制数字时，会假设你想使用数值索引：
+
+<script>
+    var a = [];
+
+    a['key'] = 'value';
+    console.log( a.length ); // 0
+
+    a['13'] = 42;
+    console.log( a.length ); // 14, a: [undefined × 13, 42]
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+类数组
+
+类数组可以通过Array.prototype.slice.call或Array.from（ES6）来转换成数组。
+
+<script>
+    Array.prototype.slice.call({length: 2}) // [undefined × 2]
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+字符串（Strings）
+
+认为字符串就是字符数组的想法很常见。但不管字符串的底层实现是否使用数组，字符串与数组有很多不同，相似只是表面的。
+
+尽管字符串和数组有indexOf，length等等相似属性，但注意：JS字符串是不可变的（immutable），而数组是可变的。
+
+更进一步，字符串的不可变性：没有一个字符串方法可以就地改变字符串的内容，相反，这些方法都创建并返回一个新字符串。而数组的许多方法可以改变数组本身的内容。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+数字（Numbers）
+
+JS只有一个数值类型：number。这个类型包括"整数"和小数。"整数"之所以有引号是因为JS并不像其它语言有真的整数。
+
+所以，在JS中，"整数"就是没有小数部分的数字：42.0和42一样是"整数"。
+
+像大多数现代语言，包括实际上所有脚本语言，JS的number基于IEEE 754标准，常称为"浮点数"。JS尤其使用了标准的双精度（double precision）格式（64位二进制）。
+
+toFixed(..)可以指定小数部分的输出位数（0-20）
+
+<script>
+    var a = 42.59;
+
+    console.log( a.toFixed(0) ); // "43"
+    console.log( a.toFixed(1) ); // "42.6"
+    console.log( a.toFixed(2) ); // "42.59"
+    console.log( a.toFixed(3) ); // "42.590"
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+特殊值（Special Values）
+
+不是值的值（The Non-value Values）
+
+undefined类型的值有且只有undefined一个。
+
+null类型的值有且只有null一个。
+
+undefined和null通常被用来当作可互换的空值或非值。可以这么区分：
+
+null是空值（empty value）;undefined是无值（missing value）。
+
+null有值但不做任何事;undefined还没有值。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+特殊数字（Special Numbers）
+
+NaN
+
+NaN--Not a number。
+NaN是一个哨兵值，表示数字范围内的一种错误情况。
+
+NaN不等于任何值，包括自己。一般用isNaN来测试是否是NaN，但：
+
+window.isNaN(2 / "foo"); // true
+window.isNaN("foo"); // true -- ouch!
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

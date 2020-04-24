@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    4、some()
+
+    some()可以检测数组中是否有某一项符合条件
+
+    使用for：
+
+    <script type="text/javascript">
+        /*
+        * 是否存在小于0的项
+        */
+
+        var ary = [12,23,-24,42,1];
+        var result = function(){
+          for (var i = 0; i < ary.length; i++) {
+            if(ary[i] < 0){
+               return true;
+            }
+          }
+          return false; //只需满足一个
+        }
+
+        console.log(result())  //有一项小于0，返回true
+
+// --------------------------------------------------------------------------------------
+
+        // 使用some：
+
+        var ary = [12,23,-24,42,1];
+        var result = ary.some(function(item, index){
+          return item < 0
+        })
+
+        console.log(result) // true 
+
+    </script>
+
+  </body>
+</html>

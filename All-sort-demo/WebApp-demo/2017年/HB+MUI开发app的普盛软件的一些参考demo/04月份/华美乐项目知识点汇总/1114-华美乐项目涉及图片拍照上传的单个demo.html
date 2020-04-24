@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>任务明细</title>
+    <!-- Mobile Devices Support @begin -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <!-- Mobile Devices Support @end -->
+    <link rel="stylesheet" href="../css/base-reset.css">
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/swiper-3.3.1.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/lzr.css">
+    <link rel="stylesheet" href="../css/ww.css" />
+    <link href="../js/picker/mui.picker.min.css" rel="stylesheet" />
+    <link href="../js/picker/mui.poppicker.css" rel="stylesheet" />
+</head>
+<style>
+    .photo-div {
+        position: relative;
+        width: 33%;
+        height: auto;
+        float: left;
+        box-sizing: border-box;
+        text-align: center;
+        margin-top: 0.3rem;
+    }
+
+    .photo-div .uploadPic {
+        width: 80%;
+        height: 2.5rem;
+        margin: 0 auto;
+    }
+
+    .photo-div .close {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: -0.2rem;
+        width: 0.5rem;
+    }
+
+    .mui-preview-image.mui-fullscreen {
+        position: fixed;
+        z-index: 20;
+        background-color: #000;
+    }
+
+    .mui-preview-header,
+    .mui-preview-footer {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        z-index: 10;
+    }
+
+    .mui-preview-header {
+        height: 44px;
+        top: 0;
+    }
+
+    .mui-preview-footer {
+        height: 50px;
+        bottom: 0px;
+    }
+
+    .mui-preview-header .mui-preview-indicator {
+        display: block;
+        line-height: 25px;
+        color: #fff;
+        text-align: center;
+        margin: 15px auto 4;
+        width: 70px;
+        background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 12px;
+        font-size: 16px;
+    }
+
+    .mui-preview-image {
+        display: none;
+        -webkit-animation-duration: 0.5s;
+        animation-duration: 0.5s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+
+    .mui-preview-image.mui-preview-in {
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+    }
+
+    .mui-preview-image.mui-preview-out {
+        background: none;
+        -webkit-animation-name: fadeOut;
+        animation-name: fadeOut;
+    }
+
+    .mui-preview-image.mui-preview-out .mui-preview-header,
+    .mui-preview-image.mui-preview-out .mui-preview-footer {
+        display: none;
+    }
+
+    .mui-zoom-scroller {
+        position: absolute;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        -webkit-backface-visibility: hidden;
+    }
+
+    .mui-zoom {
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+
+    .mui-slider .mui-slider-group .mui-slider-item img {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+        width: 100%;
+    }
+
+    .mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+        display: inline-table;
+    }
+
+    .mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .mui-preview-loading {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: none;
+    }
+
+    .mui-preview-loading.mui-active {
+        display: block;
+    }
+
+    .mui-preview-loading .mui-spinner-white {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -25px;
+        margin-top: -25px;
+        height: 50px;
+        width: 50px;
+    }
+
+    .mui-preview-image img.mui-transitioning {
+        -webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    @-webkit-keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+    .tr-beizhu {
+        padding-left: 0.267rem;
+        height: 0.8rem;
+        line-height: 0.8rem;
+        display: inline-block;
+        padding-top: 0.4rem;
+        font-size: 0.35rem;
+        color: #eb6d00;
+    }
+
+    .g-content-daichuli {
+        bottom: 1.37rem;
+        background-color: #f6f6f6;
+    }
+</style>
+
+<body class="check">
+    <div class="mui-bar mui-bar-nav header project-list-head">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        临时检查
+    </div>
+    <div v-show='!showloading' class="g-content g-content-daichuli g-renwu-mingxi" style='display:none;'>
+        <div class="user-info" style="margin-top: .4rem;">
+            <div class="title">{{xiangmuData.sitesRecord.sitesAddr}}</div>
+            <div class="sub-title"><span>客户：</span>{{xiangmuData.sitesRecord.customerName}}<span>&nbsp;&nbsp;|&nbsp; </span> <span style="color: #F0AD4E;font-size:0.4rem;" @tap="callTel(xiangmuData.sitesRecord.phone)">{{xiangmuData.sitesRecord.phone}}</span></div>
+        </div>
+
+        <div class="errorItem">
+            <div class="line"></div>
+            <div class="title left">
+                检查项目
+            </div>
+            <div class="selectItem right f-overflow" style='width:60%;' id="choseErr" @click="choseJiancha()">
+                {{indexwen}}
+            </div>
+            <i></i>
+        </div>
+        <div class="tr-beizhu">
+            备注：如有异常的项目，才选择下面的异常项目选择项
+        </div>
+        <div class="errorItem">
+            <div class="line"></div>
+            <div class="title left">
+                异常项目
+            </div>
+            <div class="selectItem right f-overflow" id="choseErr" @click="choseCheck()">
+                {{indexwenyichang}}
+            </div>
+            <i></i>
+        </div>
+        <!--
+			<ul v-if='jianchaflag' class="errorList">
+				<li v-for="item in checkArr">
+					{{item.checkAcceptStandard}}
+				</li>
+			</ul>
+
+			<ul v-if='!jianchaflag' class="errorList">
+				<li>
+					检查一切正常
+				</li>
+			</ul> -->
+
+        <ul v-if="jianchaflag === 'true'" class="errorList">
+            <li v-for="item in checkArr">
+                {{item.checkAcceptStandard}}
+            </li>
+        </ul>
+
+        <ul v-if="jianchaflag !== 'true' " class="errorList">
+            <li>
+                检查一切正常
+            </li>
+        </ul>
+
+        <div class="errorItem">
+            <div class="line"></div>
+            <div class="title left">
+                拍照
+            </div>
+        </div>
+        <div class="photoList">
+            <div class="photo-div" v-for="img in pictures">
+                <img :src="setSrc(img)" class="uploadPic" data-preview-src="{{img | previewImg }}" data-preview-group="0" />
+                <img src="../images/check-close.png" class="close" v-on:click="close(index,$index)" />
+                <span class="title" v-if="img.state == 'net'" style="color: #30C37C;display:inline-block">
+						已上传
+					</span>
+                <span class="title" v-if="img.state == 'local'" style="color: lightgray;display:inline-block">
+						待上传
+					</span>
+            </div>
+
+            <div class="photo-div">
+                <a>
+                    <img id="upploadImg" src="../images/addphoto.png" class="uploadPic" @click="takePicture(index)" />
+                </a>
+            </div>
+
+            <div style="clear: both;"></div>
+        </div>
+
+        <div class="remark">
+            <div class="txt">反馈描述:</div>
+            <div style="width:100%">
+                <textarea v-model="content" placeholder="说点什么吧..." rows="2" style="display: inline;width: 8rem !important;margin: 0px 0px !important;padding: 0.3rem 0.2rem !important;"></textarea>
+                <i id='msg-speech' class="mui-icon mui-icon-mic" style="width: 1.2rem;display: inline;" @click="startRecognize()"></i>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- 暂存表单到本地 -->
+    <footer>
+
+        <div id="preSave" class="left" @click="preSave()">
+            预保存
+        </div>
+
+        <div id="sure" class="right" @click="save()">
+            确认完成
+        </div>
+
+    </footer>
+
+
+    <div class="shadow" style="display: none;">
+        <div class="photeUpDiv">
+            <div class="item" id="getCamera">拍照</div>
+            <div class="item" id="getPhoto">相册</div>
+            <div class="item" id="closePhoto">取消</div>
+        </div>
+    </div>
+
+    <div v-show='showloading' class="loader">
+        <div class="loader-inner ball-spin-fade-loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <div class="upload-shadow mui-hidden" id="upload-state">
+        <div>
+            <div style="text-align: center;color:#EB6D00 ;padding: .3rem .5rem .3rem .5rem;font-size:.4rem">
+                <div class="left" style="color: #666;">图片上传<span v-if="isAuto">完成</span>
+                    <span>({{hasComplete}}/{{totalCount}})</span></div>
+                <div class="right">
+                    {{percent}}%
+                </div>
+            </div>
+            <p id="progressbar1" class="mui-progressbar mui-progressbar-royal " style="margin: .5rem;">
+                <span></span>
+            </p>
+            <div style="text-align: left;padding: .3rem .5rem .3rem .5rem;color: lightgray;" v-if="!isAuto">网络慢？试试暂存数据重新提交</div>
+            <div id="button-group" style="border-top: 1px solid #EFEFEF;" v-if="!isAuto">
+                <div class=" upload-btn" @tap="continueSave()" style="width:100%">
+                    终止任务
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../js/zepto1.1.6.min.js" type="text/javascript"></script>
+<script src="../js/flexible.js" type="text/javascript"></script>
+<script src="../js/flexible_css.js" type="text/javascript"></script>
+<script src='../js/swiper-3.3.1.min.js' type="text/javascript"></script>
+<script src='../js/mui.min.js'></script>
+<script src='../js/vue.min.js'></script>
+<script src="../js/public.js"></script>
+<script src="../js/global.js"></script>
+<script type="text/javascript" src="../js/picker/mui.picker.min.js"></script>
+<script type="text/javascript" src="../js/picker/mui.poppicker.js"></script>
+<script src="../upload/LocalResizeIMG.js"></script>
+<script src="../upload/mobileBUGFix.mini.js"></script>
+
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/mui.previewimage.js"></script>
+<script src="../js/locStorage.js"></script>
+<!--Sea.js 前端模块化开发框架-->
+<script src="../js/sea.js"></script>
+<script type="text/javascript" src="../js/exif/exif.js"></script>
+
+<script>
+    var sqlObj = null;
+    seajs.config({});
+    //加载多个模块，在加载完成时，执行回调
+    seajs.use("db", function(sql) {
+        sqlObj = sql;
+        //创建数据库
+        seajs.use("$");
+        sqlObj.createDataBase($.locStorage.dbName, "", "数据库", 2 * 1024 * 1024);
+    });
+
+    var currentPhotoItem = {};
+    var currentPos = 0;
+    var vm = new Vue({
+        el: 'body',
+        data: {
+            isTS: false,
+            batch: '',
+            batchCodejiancha: '',
+            isConfirm: 0, //未确认传0，已确认传1
+            imageArr: [],
+            xiangmuData: {},
+            indexwen: '检查项目',
+            jianchaflag: 'false',
+            indexwenyichang: '选择异常项目',
+            yichangflag: false,
+            checkArr: [],
+            pictures: [],
+            content: '',
+            hasComplete: 0,
+            totalCount: 0,
+            percent: 0,
+            isAuto: false,
+            showloading: true,
+            sitesId: '',
+        },
+        methods: {
+            setSrc: function(img) {
+                if (isDefine(img.state) && img.state == 'net') {
+                    return getBaseImgUrl() + getThumbImg(img.pictureUrl);
+                } else {
+                    return img.photoImgUrl;
+                }
+            },
+
+            callTel: function(telPhone) {
+                if (isDefine(telPhone)) {
+                    plus.device.dial(telPhone, false);
+                } else {
+                    mui.toast('号码无效');
+                }
+            },
+            takePicture: function(index) {
+                console.log("=========" + index);
+                $(".shadow").fadeIn(300);
+                currentPos = index;
+                currentPhotoItem = {};
+                console.log(JSON.stringify(currentPhotoItem));
+            },
+            close: function(parentIndex, index) {
+                vm.pictures.splice(index, 1);
+            },
+            toDetail: function(item) {},
+            preSave: function() {
+                preSave();
+            },
+            continueSave: function() {
+                console.log("=================" + this.isAuto);
+                $("#upload-state").addClass("mui-hidden");
+                if (this.isAuto) {
+                    return;
+                }
+                console.log("=================" + task);
+                if (task != null) {
+                    console.log("=================" + task);
+                    task.pause();
+                    console.log("=================" + task);
+                }
+                preSave();
+            },
+            save: function() {
+                save();
+            },
+            choseCheck: function() {
+                choseCheck();
+            },
+            choseJiancha: function() {
+                choseJiancha()
+            },
+            isDefine: function(para) {
+                if (typeof para == 'undefined' || para == "" || para == null || para == undefined || para == 'undefined')
+                    return false;
+                else
+                    return true;
+            },
+            startRecognize: function() {
+                if (plus.os.name == 'Android' && navigator.userAgent.indexOf('StreamApp') > 0) {
+                    plus.nativeUI.toast('当前环境暂不支持语音识别插件');
+                    return;
+                }
+                var options = {};
+                options.engine = 'iFly';
+                //options.punctuation = false;	// 是否需要标点符号
+                console.log("开始语音识别：");
+                plus.speech.startRecognize(options, function(s) {
+                    console.log(s);
+                    vm.content += s;
+
+                }, function(e) {
+                    console.log("语音识别失败：" + e.message);
+                });
+
+            },
+
+        },
+        ready: function() {
+            this.xiangmuData = JSON.parse(localStorage.xiangmuData);
+            this.sitesId = this.xiangmuData.sitesSchedule.sitesId;
+            console.log("=============================" + this.sitesId);
+
+            var _this = this;
+            setTimeout(function() {
+                _this.showloading = false;
+            }, 500)
+
+        }
+    });
+
+
+    function findTsCallback(TSArray) {
+        console.log("暂存数据====================================：" + JSON.stringify(TSArray));
+
+        if (isDefine(TSArray) && TSArray.length > 0) {
+
+            var TS = TSArray[0];
+            vm.batch = TS.tmp3;
+
+            vm.batchCodejiancha = TS.tmp4;
+
+            vm.indexwen = TS.tmp5;
+
+            vm.jianchaflag = TS.tmp6;
+
+            vm.indexwenyichang = TS.tmp7;
+
+            vm.yichangflag = TS.tmp8;
+
+            vm.checkArr = JSON.parse(TS.tmp10);
+
+            vm.pictures = JSON.parse(TS.tmp11);
+
+            vm.content = TS.tmp12;
+            vm.isTS = true;
+
+        }
+    }
+
+    Vue.filter('previewImg', function(img) {
+        if (isDefine(img.state) && img.state == 'net') {
+            return getBaseImgUrl() + img.pictureUrl;
+        } else {
+            return img.photoImgUrl;
+        }
+    });
+    Vue.filter('formatDate', function(value) {
+        if (isDefine(value) && value.indexOf('.') != -1) {
+            return value.substring(0, value.lastIndexOf("."));
+        } else {
+            return value;
+        }
+
+    });
+
+    mui.init();
+
+    // mui.plusReady(function() {
+    // 	sqlObj.findTSById(vm.sitesId,findTsCallback);
+    // });
+
+    mui.plusReady(function() {
+
+        sqlObj.findTSById(vm.sitesId, findTsCallback);
+
+        if (isDefine(vm.TS)) {
+            vm.isTS = true;
+            processTS(JSON.parse(self.TS));
+
+            console.log('是否暂存' + vm.isTS)
+
+            if (vm.isTS) {
+
+                vm.jianchaflag = localStorage.jianchaflag3;
+
+                console.log(localStorage.jianchaflag3)
+
+                console.log('xxxxxxxxxx')
+                console.log(localStorage.jianchaflag3)
+                console.log(vm.jianchaflag)
+
+                // vm.indexwenyichang='选择异常项目'
+            }
+            return;
+
+        }
+
+
+
+    });
+
+    /*
+     * 处理暂存数据
+     * id  Comtype task sitesTask  check photo historyAccept content loginEmpId
+     */
+    function processTS(TS) {
+        console.log(TS);
+        if (isDefine(TS.tmp2)) {
+            vm.Comtype = TS.tmp2;
+        }
+        if (isDefine(TS.tmp4)) {
+            vm.sitesTask = JSON.parse(TS.tmp4);
+        }
+        if (isDefine(TS.tmp5)) {
+            vm.checkArr = JSON.parse(TS.tmp5);
+        }
+        if (isDefine(TS.tmp6)) {
+            vm.photoArr = JSON.parse(TS.tmp6);
+        }
+        if (isDefine(TS.tmp7)) {
+            vm.historyAcceptList = JSON.parse(TS.tmp7);
+        }
+        if (isDefine(TS.tmp8)) {
+            vm.content = TS.tmp8;
+        }
+        closeProgress();
+    }
+
+
+    $(".shadow").on('click', function() {
+        $(this).fadeOut(300);
+    });
+
+    $(".closePhoto").on('click', function() {
+        $(this).fadeOut(300);
+    });
+
+    $("#getPhoto").on('click', function() {
+        pickGallery();
+    });
+
+    $("#getCamera").on('click', function() {
+        captureImage();
+    });
+
+    var curnow = new Date();
+    var curyear = curnow.getFullYear();
+
+    var month = curnow.getMonth() + 1;
+    if (month < 10) {
+        month = "0" + month;
+    }
+    var day = curnow.getDate();
+    var cusid = localStorage.customerId;
+
+    // 拍照
+    function captureImage() {
+        var dataStr = new Date().getTime();
+        var cmr = plus.camera.getCamera();
+        var res = cmr.supportedImageResolutions[0];
+        var fmt = $.locStorage.fmt;
+
+        console.log('qqqqqq')
+        console.log(fmt)
+        var dst_path = "_doc/img/" + dataStr + "Z." + fmt; //存储本地路径
+
+        // var pictureUrl = "/upload/" + localStorage.tenantId + "/img/" + dataStr + "Z." + fmt; //存储服务器路径（注意 img）
+
+        var pictureUrl = "/upload/" + localStorage.tenantId + '/' + curyear + '/' + month + '/' + day + '/' + cusid + '/' + dataStr + "Z." + fmt; //存储服务器路径（注意 img）
+
+        var Orientation;
+        cmr.captureImage(function(path) {
+                console.log("拍照本地URL路径:" + path);
+                console.log("拍照平台绝对路径:" + plus.io.convertLocalFileSystemURL(path)); //将本地URL路径转换成平台绝对路径
+                var wt = plus.nativeUI.showWaiting();
+                var http = new XMLHttpRequest();
+                http.open("GET", "file://" + plus.io.convertLocalFileSystemURL(path), true);
+                http.responseType = "blob";
+                http.onload = function(e) {
+                    //通过图片读取
+                    var image = new Image();
+                    image.onload = function() {
+                        EXIF.getData(image, function() {
+                            console.log("图像数据===============" + new Date());
+                            Orientation = EXIF.getTag(this, 'Orientation');
+                            console.log("Orientation:" + Orientation);
+                            process();
+                        });
+                    };
+                    image.src = URL.createObjectURL(http.response);
+
+                };
+                http.send();
+
+                function process() {
+                    plus.io.resolveLocalFileSystemURL(path, function(entry) {
+                        var rotate = 0;
+                        var quality = 20;
+                        switch (Orientation) {
+                            case 6:
+                                rotate = 90;
+                                break;
+                            case 3:
+                                rotate = 180;
+                                break;
+                            case 8:
+                                rotate = 3 / 2 * 180;
+                                break;
+                        }
+                        if (plus.os.name == "iOS") {
+                            rotate = 0; //iOS不旋转
+                            quality = 1;
+                        }
+
+                        plus.zip.compressImage({
+                                src: path,
+                                dst: dst_path,
+                                quality: quality, ////width:480,
+                                overwrite: true,
+                                rotate: rotate,
+                            },
+                            function() {
+                                console.log("Compress success!");
+                                var absPath = "file://" + plus.io.convertLocalFileSystemURL(dst_path);
+                                var picture = {
+                                    pictureUrl: pictureUrl,
+                                    photoImgUrl: absPath,
+                                    isView: '',
+                                    tplId: '',
+                                    state: 'local'
+                                }
+                                vm.pictures.push(picture);
+                                console.log("vm.pictures:" + JSON.stringify(vm.pictures));
+                                wt.close();
+                                wt = null;
+                                console.log('删除目标对象');
+                                entry.remove(); //递归删除目录
+
+                            },
+                            function(error) {
+                                console.log("Compress error!");
+                                wt.close();
+                                wt = null;
+                                alert("Compress error!");
+                            });
+                    }, function(e) {
+                        outLine("读取拍照文件错误：" + e.message);
+                        wt.close();
+                        wt = null;
+                    });
+                }
+
+            },
+
+            function(error) {
+                console.log("Capture image failed: " + error.message);
+            }, {
+                //filename: dst_path,
+                resolution: res,
+                format: fmt
+            }
+        );
+    }
+
+    //从相册中选
+    function pickGallery() {
+        var dataStr = new Date().getTime();
+        var dst_path = "_doc/img/" + dataStr + "Z.jpg"; //存储本地路径
+
+        // var pictureUrl = "/upload/" + localStorage.tenantId + "/img/" + dataStr + "Z.jpg"; //存储服务器路径（注意 img）
+
+        var pictureUrl = "/upload/" + localStorage.tenantId + '/' + curyear + '/' + month + '/' + day + '/' + cusid + '/' + dataStr + "Z.jpg"; //存储服务器路径（注意 img）
+
+        plus.gallery.pick(function(path) {
+            var wt = plus.nativeUI.showWaiting();
+            console.log("从相册中选:" + path);
+            var quality = 20;
+            if (plus.os.name == "iOS") {
+                quality = 1;
+            }
+            plus.zip.compressImage({
+                    src: path,
+                    dst: dst_path,
+                    quality: quality,
+                    overwrite: true,
+                },
+                function() {
+                    console.log("Compress success!");
+                    wt.close();
+                    wt = null;
+                    var absPath = "file://" + plus.io.convertLocalFileSystemURL(dst_path);
+                    console.log("存储本地 平台绝对路径：" + absPath);
+                    var picture = {
+                        pictureUrl: pictureUrl,
+                        photoImgUrl: absPath,
+                        isView: '',
+                        tplId: '',
+                        state: 'local'
+                    }
+                    vm.pictures.push(picture);
+                    console.log("vm.pictures:" + JSON.stringify(vm.pictures));
+                },
+                function(error) {
+                    console.log("Compress error!");
+                    wt.close();
+                    wt = null;
+                    alert("Compress error!");
+                });
+
+        }, function(err) {}, {
+            filename: dst_path
+        });
+    }
+
+    /*
+     * 存入数据库 key image_path
+     */
+    function insertImageTable(filePath) {
+        if (isDefine(filePath)) {
+            sqlObj.insertImageTable(filePath.substring(filePath.lastIndexOf("/") + 1), filePath, callback)
+        }
+    }
+
+    var tempArr = [];
+
+    function callback(filePath) {
+        tempArr.push(filePath);
+        console.log("插入成功============" + filePath);
+
+        if (tempArr.length == vm.imageArr.length) {
+            uploadImg(0);
+        }
+    }
+
+    /*
+     * 图片上传
+     */
+    var task;
+
+    function uploadImg(index) {
+        var server = getBaseimgServerUrl() + "/core/common/upload";
+        task = plus.uploader.createUpload(server, {
+                method: "POST"
+            },
+            function(t, status) { //上传完成
+                if (status == 200) {
+                    vm.hasComplete++;
+                    console.log("图片上传成功!");
+                    console.log(status + "：" + t.responseText)
+
+                    if (isDefine(t.responseText)) {
+                        var uploadRs = JSON.parse(t.responseText);
+
+                        for (var i = 0; i < uploadRs.length; i++) {
+                            if (uploadRs[i].uploadResult.toString() == 'true') {
+                                var key = uploadRs[i].fileKey;
+                                console.log("============================" + key);
+                                for (var i = 0; i < vm.pictures.length; i++) {
+                                    var picture = vm.pictures[i];
+                                    if (picture.pictureUrl.indexOf(key) != -1) {
+                                        vm.pictures[i].state = "net";
+                                        setTimeout(function() {
+                                            sqlObj.findImagePathByKey(key, deleteFile); //删除本地对象
+                                            sqlObj.deleteImageTable(key); //删除数据库数据
+                                        }, 10);
+                                    }
+
+                                }
+
+
+
+                            }
+                        }
+                    }
+                } else {
+                    mui.toast("上传失败：" + status);
+                    console.error(status + "：" + t.responseText)
+                }
+                if (index == vm.imageArr.length - 1) {
+                    vm.isAuto = true;
+                    toast("图片上传完成!")
+                    $("#upload-state").addClass("mui-hidden");
+                    //图片上传完成-提交数据
+                    saveData();
+                    return;
+                }
+                uploadImg(index + 1);
+            }
+        );
+        task.setRequestHeader("auth", getAuth());
+
+
+        var path = vm.imageArr[index];
+        console.log("本地文件路径:" + path);
+        var dir = path.substring(path.indexOf('doc/') + 4, path.lastIndexOf('/'));
+        // dir += "/";
+        dir = curyear + '/' + month + '/' + day + '/' + cusid + '/';
+
+        console.log(dir); //定义上传到服务器的dir
+
+        task.addFile(path, {
+            key: new Date().getTime() + "", //Math.random() * 1000,
+            name: dir + path.substring(path.lastIndexOf("/") + 1),
+            mime: 'image/jpeg'
+        });
+
+
+        task.addEventListener('statechanged', function() {
+            $("#upload-state").removeClass("mui-hidden");
+            $("#progressbar1").removeClass("mui-hidden");
+            var percent = Math.round(task.uploadedSize / task.totalSize * 100);
+            percent = isNaN(percent) ? 0 : percent;
+            console.log(percent + '%');
+            vm.percent = percent;
+            mui("#progressbar1").progressbar({
+                progress: percent
+            }).show();
+            if (percent >= 100) {
+                //mui("#progressbar1").progressbar({ progress: 0 }).show();
+                if (index == vm.imageArr.length - 1) {
+                    $("#upload-state").addClass("mui-hidden");
+                }
+            }
+        });
+        task.start();
+    }
+
+    function deleteFile(path) {
+        //通过URL参数获取目录对象或文件对象
+        plus.io.resolveLocalFileSystemURL(path, function(entry) {
+            console.log('删除目标对象');
+            entry.remove(); //递归删除目录
+        }, function(e) {
+            console.log('目标对象不存在');
+        });
+    }
+
+
+    /*
+     * 检查项
+     */
+    function choseCheck() {
+
+        if (vm.isTS) {
+            console.log('qqqqqqqqq')
+        } else {
+            if (vm.batch == '') {
+                toast("请先选择检查项目")
+                return false
+            }
+        }
+        mui.openWindow({
+            url: "tplchecklist-yichang.html",
+            id: "tplchecklist-yichang.html",
+            extras: {},
+            show: {
+                autoShow: true,
+                aniShow: 'pop-in',
+                duration: 300
+            },
+            waiting: {
+                autoShow: true
+            }
+        });
+
+    }
+
+    /*
+     * 检查项目
+     */
+    function choseJiancha() {
+
+        // localStorage.removeItem( " jianchaflag3 ");
+        mui.openWindow({
+            url: "tplchecklist-jiancha.html",
+            id: "tplchecklist-jiancha.html",
+            extras: {
+                //扩展参数
+            },
+            show: {
+                autoShow: true,
+                aniShow: 'pop-in',
+                duration: 300
+            },
+            waiting: {
+                autoShow: true
+            }
+        });
+    }
+
+    /*
+     * 执行类任务-数据暂存功能
+     */
+    function preSave() {
+
+        if ((vm.batch == '' && !vm.isTS) || localStorage.ybatch2 == undefined) {
+            toast('请先选择检查项目再预保存')
+            return false
+        }
+
+        if (localStorage.ybatch2 == '' || localStorage.ybatch2 == undefined || localStorage.ybatch2 == null) {
+            localStorage.ybatch2 = vm.batch;
+            localStorage.ybatchCode2 = vm.batchCodejiancha;
+            localStorage.localindexwen2 = vm.localindexwen;
+
+            // localStorage.jianchaflag2=vm.jianchaflag;
+
+
+            localStorage.indexwenyichang2 = vm.indexwenyichang2
+        } else {
+            if (vm.batch == '') {
+
+                localStorage.localindexwen2 = localStorage.localindexwen2;
+
+                localStorage.indexwenyichang2 = localStorage.indexwenyichang2
+
+                localStorage.ybatch2 = localStorage.ybatch2;
+                localStorage.ybatchCode2 = localStorage.ybatchCode2;
+
+                // localStorage.jianchaflag2=localStorage.jianchaflag2;
+
+
+            } else {
+                localStorage.ybatch2 = vm.batch;
+                localStorage.ybatchCode2 = vm.batchCodejiancha;
+                localStorage.localindexwen2 = vm.localindexwen;
+                localStorage.indexwenyichang2 = vm.indexwenyichang2
+
+                // localStorage.jianchaflag2=vm.jianchaflag;
+
+            }
+        }
+
+        if (localStorage.ybatch2 == '' || localStorage.ybatch2 == undefined || localStorage.ybatch2 == null) {
+            localStorage.jianchaflag3 = vm.jianchaflag;
+        } else {
+            if (vm.batch == '' && vm.jianchaflag == false) {
+                localStorage.jianchaflag3 = localStorage.jianchaflag3;
+
+            } else {
+                localStorage.jianchaflag3 = vm.jianchaflag;
+            }
+        }
+
+
+
+        console.log("====================" + vm.sitesId);
+        var preSave = {
+            id: vm.sitesId, //存储新增数据-唯一标识
+            xiangmuData: JSON.stringify(vm.xiangmuData),
+            batch: vm.batch,
+            batchCodejiancha: vm.batchCodejiancha,
+            indexwen: vm.indexwen,
+            jianchaflag: vm.jianchaflag,
+            indexwenyichang: vm.indexwenyichang,
+            yichangflag: vm.yichangflag,
+            checkArr: JSON.stringify(vm.checkArr),
+            pictures: JSON.stringify(vm.pictures),
+            content: vm.content
+        }
+        console.log("pre save===========" + JSON.stringify(preSave));
+        sqlObj.insertTsTable(preSave, 'LSJC', insertTsTableCallback);
+
+    }
+
+    function insertTsTableCallback() {
+        toast("数据暂存本地成功！");
+        plus.webview.currentWebview().opener().evalJS("initjiancha()");
+        mui.currentWebview.close('pop-out');
+    }
+
+    /*
+     * 确认完成
+     */
+    var wt = null;
+    var pictures = [];
+
+    function save() {
+        if (wt) {
+            return;
+        }
+        if (vm.checkArr.length == 0) {
+            toast("请选择检查项目")
+            return;
+        }
+        if (vm.pictures.length == 0) {
+            toast("请先进行拍照")
+            return;
+        }
+        vm.imageArr = []; //文件本地存储路径 列表--上传文件
+        pictures = [];
+        for (var i = 0; i < vm.pictures.length; i++) {
+            var photoTemplete = vm.pictures[i];
+            var picture = photoTemplete;
+            var savePic = {};
+            savePic.pictureUrl = picture.pictureUrl;
+            savePic.isView = ''
+            savePic.tplId = ''
+            savePic.pictureExplain = ''
+            pictures.push(savePic);
+            if (!(isDefine(picture.state) && picture.state == 'net')) {
+                vm.imageArr.push(picture.photoImgUrl);
+            } // : "file:///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/apps/HBuilder/doc/img/1498790040762Z.jpg"
+        }
+        console.log(JSON.stringify(pictures))
+
+        var btnArray = ['确认', '取消'];
+        var title = '提示';
+        var content = "请再次确认是否已完成当前任务的工作？";
+        mui.confirm(content, title, btnArray, function(e) {
+            if (e.index == 0) {
+                if (vm.imageArr.length > 0) {
+                    vm.totalCount = vm.imageArr.length;
+                    for (var i = 0; i < vm.imageArr.length; i++) {
+                        insertImageTable(vm.imageArr[i]);
+                    }
+                } else {
+                    saveData();
+                }
+
+            } else {
+                return;
+            }
+        });
+    }
+
+    function saveData() {
+        var saveCheck = {};
+        saveCheck.empId = localStorage.empId;
+        saveCheck.sitesId = vm.sitesId;
+        saveCheck.sitesTaskId = '';
+        saveCheck.schedule = '1'; //接口任务列表需返回schedule：第几次检查
+        saveCheck.remark = vm.content;
+        saveCheck.picture = pictures;
+        if (vm.batch !== '') {
+            saveCheck.batch = vm.batch.toString();
+            saveCheck.batchCode = vm.batchCodejiancha;
+        }
+
+        var detailArr = [];
+        console.log("异常项目：" + JSON.stringify(vm.checkArr));
+        for (var i = 0; i < vm.checkArr.length; i++) {
+            var item = {};
+            item.checkId = vm.checkArr[i].id;
+            item.checkAcceptStandard = vm.checkArr[i].checkAcceptStandard;
+            item.isFine = vm.checkArr[i].isFine;
+            item.unqualifiedFine = vm.checkArr[i].unqualifiedFine;
+            detailArr.push(item);
+        }
+        if (vm.jianchaflag == 'true') {
+            saveCheck.detail = detailArr;
+        } else {
+            saveCheck.detail = [];
+        }
+
+        console.log("saveCheck" + JSON.stringify(saveCheck));
+        console.log("检查确认完成：" + getBaseServerUrl() + "/app/handle/saveCheckForErp");
+
+        wt = plus.nativeUI.showWaiting();
+        mui.ajax({
+            url: getBaseServerUrl() + '/app/handle/saveCheckForErp',
+            dataType: 'json',
+            headers: {
+                "auth": localStorage.headParam
+            },
+            contentType: "application/json",
+            data: JSON.stringify(saveCheck),
+            type: 'post',
+            success: function(jsonData) {
+                console.log(JSON.stringify(jsonData));
+                if (jsonData.status.toString() == 'true') {
+                    toast(jsonData.msg);
+                    if (vm.isTS) {
+                        sqlObj.deleteTSByTaskId(vm.sitesId);
+                    }
+
+                    plus.webview.currentWebview().opener().evalJS("shuaxin()");
+
+                    mui.currentWebview.close('pop-out');
+                    wt.close();
+                    wt = null;
+                } else {
+                    wt.close();
+                    wt = null;
+                    plus.nativeUI.alert(jsonData.msg);
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                wt.close();
+                wt = null;
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus);
+            }
+        });
+    }
+
+    function checklist(checkArr) {
+        vm.checkArr = JSON.parse(checkArr);
+    }
+
+    /*
+     * 检查
+     */
+    function deliverindex(index22, canshu, indexwen) {
+        vm.batch = index22;
+        vm.batchCodejiancha = localStorage.batchCodejiancha;
+        if (localStorage.indexwen == '' || localStorage.indexwen == undefined || localStorage.indexwen == null || localStorage.indexwen == 'undefined') {
+            vm.indexwen = '检查项目'
+        } else {
+            vm.indexwen = localStorage.indexwen;
+
+        }
+
+        localStorage.ybatch2 = localStorage.batchCodejiancha;
+
+        console.log("检查================================" + localStorage.indexwen);
+        // vm.jianchaflag=canshu;
+
+        vm.jianchaflag = 'false';
+
+        console.log("检查================================" + vm.jianchaflag);
+    }
+
+    /*
+     * 异常
+     */
+    function deliverindex2(index22, canshu) {
+        if (localStorage.indexwenyichang == ' ' || localStorage.indexwenyichang == undefined || localStorage.indexwenyichang == null || localStorage.indexwenyichang == 'undefined') {
+            vm.indexwenyichang = '选择异常项目'
+        } else {
+            vm.indexwenyichang = localStorage.indexwenyichang;
+
+        }
+        // vm.yichangflag=true;
+        console.log(canshu)
+
+        // vm.jianchaflag=canshu;
+
+        vm.jianchaflag = 'true';
+
+        console.log("异常================================" + localStorage.indexwenyichang);
+        console.log("异常================================" + canshu);
+    }
+
+
+    function close() {
+        plus.webview.currentWebview().opener().evalJS("initjiancha()");
+        mui.currentWebview.close('pop-out');
+    }
+
+    window.onload = function() {
+        mui.previewImage();
+    }
+</script>
+
+</html>

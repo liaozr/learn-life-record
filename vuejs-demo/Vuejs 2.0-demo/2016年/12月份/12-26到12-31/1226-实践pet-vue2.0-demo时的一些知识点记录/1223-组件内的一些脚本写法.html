@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- 一个组件内分发多个actions的时候，是可以这样子来异步分发其他 actions 的 -->
+    <script>
+        var vm = this;
+        vm.$store.dispatch('indexGetList').then(function() {
+            vm.$store.dispatch('indexGetImg');
+        }, 500);
+    </script>
+
+  <!-- -------------------------------------------------------------------------- -->
+
+    <script>
+        import '../css/home.scss'
+        import {
+            mapGetters
+        } from 'vuex'
+        export default {
+            data() {
+                return {
+                    uid: 123
+                }
+            },
+            activated() {
+                //head的修改
+                this.$store.dispatch('comm_conf', {
+                    isFooter: true,
+                    isSearch: false,
+                    loading: false,
+                    isBack: false,
+                    isShare: false,
+                    title: '个人首页'
+                });
+                if (!this.info.name) {
+                    this.$store.dispatch('getHomeIndex', this.uid);
+                }
+            },
+            created: function() {
+                console.log("当设置了keep-alive后，created钩子只会在第一次进入该组件的时候才会执行的")
+            },
+            computed: {
+                ...mapGetters(['info'])
+            }
+        }
+    </script>
+
+    <!-- ------------------------------------------------------------------------- -->
+
+    <script>
+        import imgScroll from '../components/imgScroll'
+        import comList from '../components/list'
+
+        import '../css/index.scss'
+
+        import {
+            mapGetters
+        } from "vuex"
+
+        export default {
+            data() {
+                return {
+                    data: 'index',
+                    num: 1,
+                    imgData: {}
+                }
+            },
+            created() {
+                // 组件创建完后获取数据，
+                // 此时 data 已经被 observed 了
+                /*
+                 *
+                 *分发
+                 * */
+                var vm = this;
+                if (vm.$store.state.index.shouye.imgs.length == 0) {
+
+                    // 刚创建首页的时候，让其loading变为true,就是让其显示loading,好让其加载数据
+                    vm.$store.dispatch('comm_conf', {
+                        isFooter: true,
+                        isSearch: true,
+                        loading: true,
+                        isBack: false,
+                        isShare: false,
+                        title: ''
+                    });
+
+                    vm.$store.dispatch('indexGetList').then(function() {
+                        vm.$store.dispatch('indexGetImg');
+                    }, 500);
+                }
+            },
+            components: {
+                imgScroll,
+                comList
+            }
+        }
+    </script>
+
+    <!-- ------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

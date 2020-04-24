@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ------------------------------------------------------------------------------------------------------ -->
+
+  构造函数本身就是一个函数，只不过该函数是出于创建新对象的目的而定义的。
+
+  按照惯例，构造函数始终都应该以一个
+
+  大写字母开头，而非构造函数则应该以一个小写字母开头。
+
+  例如：
+
+  const arr = new Array(2,3,4)
+
+  这里的 Array 就是个构造函数。
+
+  <!-- ------------------------------------------------------------------------------------------------------ -->
+
+  在 ES6 Class 特性出现以前，我们经常使用 构造函数来模拟类的特性。
+
+  思路基本都是：首先创建一个构造函数，然后定义另一个方法并复制给构造函数的原型。
+
+  <script>
+
+      function Person(name) {
+          this.name = name
+      }
+
+      Person.prototype.sayName = function() {
+          console.log(this.name)
+      }
+
+      const person = new Person('Tumars')
+      person.sayName() // "Tumars"
+
+      // console.log(person instance Person) // true
+      // console.log(person instance Object) // true
+
+  </script>
+
+
+  上面代码中 Person 是一个构造函数，其执行后创建了一个名为 name 的属性；
+
+  给 Person 的原型添加一个 sayName() 方法，
+
+  所以 Person 对象的所有实例都会共享这个方法。由于存在原型继承的特性，person 对象是 Person 的实例，也是 Object 的实例。
+
+  注意，intanceof 经常被用来检测实例与构造函数之间的关系，但实际上这里 intanceof 回答的问题是：在 person 的整条 [[ProtoType]] 链中是否有指向 Person.prototype 和 Object.prototype 的对象。
+
+  当我们对一个函数使用 new 调用时，实际是生成一个对象，并把这个对象内部的 [[ProtoType]] 链关联到构造函数的 prototype 属性上，同时将函数的 this 绑定到该对象。
+
+  许多模拟类的 JavaScript 库都是基于这个模式进行开发，
+
+  <!-- ------------------------------------------------------------------------------------------------------ -->
+
+  而 ES6 中的类也借鉴了类似的方法。ES6 中的类是对构造函数写法的一种语法糖，它简化了构造函数的写法。我们使用 class 来复写上一段示例：
+
+  <script>
+
+      class PersonCLass {
+          constructor(name) {
+              this.name = name
+          }
+
+          // 等价于 Person.prototype.sayName()
+          sayName() {
+              console.log(this.name)
+          }
+          aa(){
+            console.log(this.name+'111111')
+          }
+      }
+
+      var person2=new PersonCLass('zrliao')
+
+      var person3=new PersonCLass('zrliao3333')
+
+      person2.sayName() // zrliao
+
+      person2.aa() // zrliao111111
+
+      person3.sayName()  // zrliao3333
+
+// ---------------------------------------------------------------------------------------------------------------
+
+      class PersonCLass2{
+          constructor( { name,id,text } ) {
+
+              this.name = name
+              this.id = id
+              this.text = text
+          }
+
+          // 等价于 Person.prototype.sayName()
+          sayName() {
+              console.log(this.name)
+          }
+          aa(){
+            console.log(this.name+'111111')
+          }
+
+          bb(){
+            console.log(this.name+this.text)
+          }
+      }
+
+      var person4=new PersonCLass2({
+         name:'liaozhongren',
+         id:'1',
+         text:'测试1'
+      })
+
+      person4.bb()  // liaozhongren测试1
+
+// ---------------------------------------------------------------------------------------------------------------
+
+  </script>
+
+  通过类声明语法定义 PersonClass 的行为与之前创建 Person 构造函数的过程相似，只是这里直接在类中通过特殊的 constructor 方法名来定义构造函数，
+
+  且由于这种类使用简介语法拉定义方法，因而不需要添加 function 关键字。
+
+  不过本质上 PersonClass 仍是函数，sayName 也是 PersonClass.prototype 上的方法。
+
+  PersonClass 声明实际上是创建了一个具有构造函数方法行为的函数。
+
+  需要注意的是，类属性不可被赋予新值，在这个示例中，PersonClass.prototype 就是这样一个只可读的类属性，
+
+  而 Person.prototype 则可读可写。
+
+  <!-- ------------------------------------------------------------------------------------------------------ -->
+
+
+</body>
+
+</html>

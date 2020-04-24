@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+2、获取和设置非标准HTML属性
+
+元素节点提供四个方法来操作属性。
+
+<script>
+
+    getAttribute() //获取属性
+
+    setAttribute() //设置属性
+
+    hasAttribute() //检测属性是否存在
+
+    removeAttribute() //删除属性
+</script>
+
+getAttribute()方法返回当前元素节点的指定属性。如果指定属性不存在，则返回null。
+
+<div id="top" name="div"></div>
+
+<script>
+    var t = document.getElementById('top');
+    t.getAttribute('name');   //div
+</script>
+
+<!-- --------------------------------------------------------------------------- -->
+
+2.2 Element.setAttribute()
+
+setAttribute()方法用于为当前元素节点新增属性。
+
+如果属性已经存在，则相当于修改已存在的属性。
+
+t.setAttribute('name','top2');
+
+<!-- --------------------------------------------------------------------------- -->
+
+2.4 Element.removeAttribute()
+
+removeAttribute()方法用于从当前元素节点移除属性。
+
+<script>
+    t.removeAttribute('name')
+    //<div id="top"></div>
+</script>
+
+<!-- --------------------------------------------------------------------------- -->
+
+3、数据集（dataset）属性
+
+在HTML5文档中，任意以“data-”为前缀的小写的属性名字都是合法的。
+
+HTML5还在Element对象上定义了dataset属性。该属性指代一个对象，它的各个属性对应于去掉前缀的data-属性。
+
+因此dataset.x应该保存data-x属性的值。带连字符的属性对应于驼峰命名法属性名：data-jquery-test属性就变成dataset.jqueryTest属性。
+
+<div id="top" data-tip="title"></div>
+
+<script>
+    var t = document.getElementById('top');
+
+    t.dataset.tip //title
+
+    t.dataset.tip = 'title2'
+</script>
+
+注意：dataset属性是元素的data-属性的实时、双向接口。
+
+设置或删除dataset的一个属性就等同于设置或移除对应元素的data-属性。
+
+<!-- --------------------------------------------------------------------------- -->
+
+
+
+
+
+</body>
+</html>

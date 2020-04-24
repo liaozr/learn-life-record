@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id='aa' class="btn">121212</div>
+
+    <style>
+
+        .btn {
+            font-size: 1.5em;
+            line-height: 2em;
+            text-align: center;
+            color: #fff;
+            background: #ce4f54;
+            width: 200px;
+        }
+
+        .btn:active {
+            background: #043d5d;
+        }
+
+    </style>
+
+    <script>
+    
+        // 先对body标签绑定了一个touchstart事件。
+        // document.body.addEventListener('touchstart', function () { });
+
+        // 然后在要实现hover效果的标签比如<a>标签加一个:active伪类。
+        // a:active {
+        //     background-color: #ff6d23;
+        // }
+        // 如果不绑定事件，在pc和安卓上可以实现
+        // 绑定事件为了在ios中生效
+
+        document.body.addEventListener('touchstart', function() {});
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+-----------------------------------------------------------------------------------------------
+
+深度监听
+
+在监听对象时，对象内部的属性被改变时无法触发 watch ，我们可以为其设置深度监听
+
+<script type="text/javascript">
+	export default {
+	    data: {
+	        studen: {
+	            name: 'Joe',
+	            skill: {
+	                run: {
+	                    speed: 'fast'
+	                }
+	            }
+	        }
+	    },
+	    watch: {
+	        studen: {
+	            handler: 'sayName',
+	            deep: true
+	        }
+	    },
+	    methods: {
+	        sayName() {
+	            console.log(this.studen)
+	        }
+	    }
+	}
+</script>
+
+-----------------------------------------------------------------------------------------------
+
+watch监听多个变量
+
+watch本身无法监听多个变量。
+
+但我们可以将需要监听的多个变量通过计算属性返回对象，再监听这个对象来实现“监听多个变量”
+
+<script type="text/javascript">
+	export default {
+	    data() {
+	        return {
+	            msg1: 'apple',
+	            msg2: 'banana'
+	        }
+	    },
+	    compouted: {
+	        msgObj() {
+	            const { msg1, msg2 } = this
+	            return {
+	                msg1,
+	                msg2
+	            }
+	        }
+	    },
+	    watch: {
+	        msgObj: {
+	            handler(newVal, oldVal) {
+	                if (newVal.msg1 != oldVal.msg1) {
+	                    console.log('msg1 is change')
+	                }
+	                if (newVal.msg2 != oldVal.msg2) {
+	                    console.log('msg2 is change')
+	                }
+	            },
+	            deep: true
+	        }
+	    }
+	}
+</script>
+
+-----------------------------------------------------------------------------------------------
+
+</body>
+</html>

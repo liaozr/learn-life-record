@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ----------------------------------------------------------------------------------------------------- -->
+
+  mySwiper.update(updateTranslate)
+
+  更新Swiper，这个方法包含了updateContainerSize，updateSlidesSize，updateProgress，updatePagination，updateClasses方法。
+
+  可选参数：updateTranslate，默认false，设置为true则重新计算Wrapper的位移。
+
+
+  <script language="javascript">
+
+      var mySwiper = new Swiper('.swiper-container', {
+          pagination: '.swiper-pagination',
+      })
+
+      $('#btn1').click(function() {
+          $(".swiper-wrapper .swiper-slide1").remove();
+      })
+
+      $('#btn2').click(function() {
+          mySwiper.update()
+          alert('更新成功');
+      })
+
+  </script>
+
+  <!-- ----------------------------------------------------------------------------------------------------- -->
+
+  observer
+
+  启动动态检查器(OB/观众/观看者)，当改变swiper的样式（例如隐藏/显示）或者修改swiper的子元素时，自动初始化swiper。
+
+  默认false，不开启，可以使用update()方法更新。
+
+  <!-- ----------------------------------------------------------------------------------------------------- -->
+
+  observeParents
+
+  将observe应用于Swiper的父元素。当Swiper的父元素变化时，例如window.resize，Swiper更新。
+
+  <!-- ----------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

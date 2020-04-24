@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+        <script>
+
+              plus.webview.getWebviewById( plus.runtime.appid ).evalJS("init()");
+
+              //   evalJS 执行 的方法 带参数的做法
+
+              wvA.evalJS("showAG('"+document.getElementById("pb").innerHTML+"')");
+              plus.webview.currentWebview().opener().evalJS("getData('"+task+"')");
+
+
+
+              plus.webview.currentWebview().opener().evalJS("checklist('" + JSON.stringify(checkArr) + "')");
+
+        </script>
+
+</body>
+
+</html>

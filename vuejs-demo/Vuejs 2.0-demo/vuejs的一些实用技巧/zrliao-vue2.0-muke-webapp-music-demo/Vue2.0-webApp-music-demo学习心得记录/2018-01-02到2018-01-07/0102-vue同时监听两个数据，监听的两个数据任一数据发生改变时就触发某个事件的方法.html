@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="aa">
+              <input type="text" v-model='a'>a数据
+              <input type="text" v-model='b'>b数据
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+              a:'',
+              b:''
+            },
+            computed:{
+              change(){
+                
+                // 监听的两个值都是数组的话就这样
+                // 利用两个数组合并在一起的做法
+                // return this.hotkey.concat(this.getHistory)
+                // return this.hotkey.concat(this.getHistory)
+
+                return this.a + this.b
+              }
+            },
+            watch:{
+               change(){
+                 console.log('input值被改变了')
+               }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  props向下传递，事件向上传递！
+
+  当遇到 props 和 events 难以实现的功能时，通过 this.$refs来实现。
+
+  当需要操作 dom 无法通过指令来做的时候可使用 this.$ref
+
+  而不是 JQuery、document.getElement*、document.queryElement。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  <!-- 推荐，并未使用 this.$refs -->
+  <range :max="max"
+    :min="min"
+    @current-value="currentValue"
+    :step="1"></range>
+
+  <!-- 使用 this.$refs 的适用情况-->
+  <modal ref="basicModal">
+    <h4>Basic Modal</h4>
+    <button class="primary" @click="$refs.basicModal.hide()">Close</button>
+  </modal>
+
+  <button @click="$refs.basicModal.open()">Open modal</button>
+
+  <!-- ---------------------------------------------------------------------------------- -->
+
+  <!-- Modal component -->
+  <template>
+      <div v-show="active">
+        <!-- ... -->
+      </div>
+    </templaste>
+
+  <script>
+
+      export default {
+          // ...
+          data() {
+              return {
+                  active: false,
+              };
+          },
+          methods: {
+              open() {
+                  this.active = true;
+              },
+              hide() {
+                  this.active = false;
+              },
+          },
+          // ...
+      };
+
+  </script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  <!-- 如果可通过 emited 来做则避免通过 this.$refs 直接访问 -->
+
+  <template>
+      <range :max="max"
+        :min="min"
+        ref="range"
+        :step="1"></range>
+    </template>
+
+  <script>
+
+      export default {
+          // ...
+          methods: {
+              getRangeCurrentValue() {
+                  return this.$refs.range.currentValue;
+              },
+          },
+          // ...
+      };
+      
+  </script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

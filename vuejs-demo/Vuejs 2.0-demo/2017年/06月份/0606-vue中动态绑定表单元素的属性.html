@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <select v-model='issues' class="ui dropdown t-select-list" :disabled='isDisabled'>
+      <option></option>
+  </selected>
+
+  disabled是表单元素的原生属性，可以直接使用属性绑定的语法 :disabled 来绑定，
+
+  然后加上一个条件就可以控制这个属性动态添加删除，如：
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  <script>
+
+      watch: {
+          issueDatas() {
+              if (this.issueDatas.state == 5) {
+                  this.isDisabled = true;
+              }
+          }
+      }
+
+  </script>
+
+  <!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

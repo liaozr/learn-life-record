@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    // filters 目录 下 的 index.js 文件
+
+    //价格保留小数点后两位  如 ￥12.34
+    export function formatMoney(money) {
+      return money.toFixed(2);
+    }
+
+// -----------------------------------------------------------------------------------
+
+    // 然后在入口 main.js 里面
+
+    // 全局 Vue filter
+    // 统一导入到 filters 这个 对象里面
+
+    import * as filters from './filters';
+    // register global utility filters.
+    Object.keys(filters).forEach(key => {
+       Vue.filter(key, filters[key])
+    });
+
+  </script>
+
+</body>
+
+</html>

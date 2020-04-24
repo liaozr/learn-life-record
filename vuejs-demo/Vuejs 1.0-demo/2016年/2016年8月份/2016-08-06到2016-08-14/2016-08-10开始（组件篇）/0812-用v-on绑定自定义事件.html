@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+	<style>
+    .component3 {
+        margin: 10px 10px 10px 100px;
+        display: block;
+        background-color: #ffcc66;
+    }
+
+    .component2 {
+        background-color: yellow;
+        padding: 10px;
+        margin: 10px;
+    }
+    </style>
+</head>
+<body>
+
+
+	<!-- 最小的组件模板-->
+    <template id="component3">
+        <div class="component3">
+            <br> 组件 c3
+            <input v-model="msg">
+            <button @click="c3_do1">c3 广播事件至根组件</button>
+            <button @click="c3_do2">c3 $parent 设定资料</button>
+            <button @click="c3_do3">c3 $root 设定资料</button>
+            <button @click="c3_do4">c3 all_events 事件</button>
+            <button @click="c3_do5">c3 all_events1事件</button>
+        </div>
+    </template>
+
+
+
+    <!-- 子组件模板 -->
+    <template id="component2">
+        <div class="component2">
+            <p>组件 c2 msg: {{ msg | json }}</p>
+            <input v-model="msg">
+            <button v-on:click="c2_do1">c2 广播事件至根组件</button>
+            <button v-on:click="c2_do2">c2 清空 $parent 资料</button>
+            <button v-on:click="c2_do3">c2 eventc2 事件</button>
+            <button v-on:click="c2_do4">c2 eventc3 事件</button>
+            <button v-on:click="c2_do5">c2 eventc4 事件</button>
+            <component3></component3>
+        </div>
+    </template>
+
+
+
+    <!-- 根组件模板 -->
+    <div id="component1">
+        <hr>
+        <p>根组件 Messages: {{ messages | json }}</p>
+        <button v-on:click="c1_do1">组件 c2[0] 设值 子组件的资料 </button>
+        <button v-on:click="c1_do2">组件 c2[1] 设值 子组件的资料 </button>
+        <button v-on:click="c1_do3">组件 c2[2] 设值 子组件的资料 </button>
+
+        <c2 v-on:eventc4="handle_it2"></c2>
+        <c2 v-on:eventc2="handle_it"></c2>
+        <c2 v-on:eventc3="handle_it1"></c2>
+
+        <!-- <child v-on:child-msg='handleft'></child>	 -->
+
+        <!--  当子组件触发了'child-msg'事件，父组件的handleft方法将被调用。
+         所有影响父组件状态的代码放到父组件的handleft方法中；子组件只关注触发事件。  
+        -->
+    </div>
+
+
+    <div id="app">
+        <my-component></my-component>
+    </div>
+
+
+
+    <script>
+    Vue.component('component3', {
+        template: '#component3',
+        data: function() {
+            return {
+                msg: 'c3 台湾小凡',
+
+            }
+        },
+        methods: {
+            'c3_do1': function() {
+                if (this.msg.trim()) {
+                    this.$dispatch('c1_events', this.msg)
+                    this.msg = ''
+                }
+            },
+            'c3_do2': function() {
+                this.$parent.$set('msg', "设定子组件完成");
+            },
+            'c3_do3': function() {
+                this.$root.messages.push(this.msg);
+                this.msg = '';
+            },
+            'c3_do4': function() {
+                this.$dispatch('all_events', this.msg);
+            },
+            'c3_do5': function() {
+                this.$dispatch('all_events1', this.msg);
+            }
+        }
+    });
+
+
+    // 注册子组件
+    // 将当前消息派发出去
+    Vue.component('c2', {
+        template: '#component2',
+        data: function() {
+            return {
+                msg: 'c2 感谢 群友'
+            }
+        },
+        methods: {
+            'c2_do1': function() {
+                if (this.msg.trim()) {
+                    this.$dispatch('c1_events', this.msg)
+                    this.msg = ''
+                }
+            },
+            'c2_do2': function() {
+                this.$parent.messages = [];
+            },
+            'c2_do3': function() {
+                this.$dispatch('eventc2', this.msg)
+            },
+            'c2_do4': function() {
+                this.$dispatch('eventc3', this.msg)
+            },
+            'c2_do5': function() {
+                this.$dispatch('eventc4', this.msg)
+            },
+
+        },
+        events: {
+            'all_events': function(msg) {
+                console.log('all_events c2:' + msg);
+                return true;
+            },
+            'all_events1': function(msg) {
+                console.log('all_events1 c2:' + msg);
+            },
+            'eventc2': function(msg) {
+                console.log('eventc2:' + msg);
+            },
+            'eventc3': function(msg) {
+                console.log('eventc3:' + msg);
+            },
+            'eventc4': function(msg) {
+                console.log('eventc4:' + msg);
+            }
+
+        }
+    });
+
+
+    // 初始化父组件
+    // 将收到消息时将事件推入一个数组
+    var Parent = new Vue({
+        el: '#component1',
+        data: {
+            messages: []
+        },
+        // 在创建实例时 `events` 选项简单地调用 `$on`
+        events: {
+            'c1_events': function(msg) {
+                // 事件回调内的 `this` 自动绑定到注册它的实例上
+                this.messages.push(msg)
+                console.log('c1_events:' + msg);
+            },
+            'all_events': function(msg) {
+                console.log('all_events Praent:' + msg);
+            },
+            'all_events1': function(msg) {
+                console.log('all_events1 Praent:' + msg);
+            }
+        },
+        methods: {
+            'c1_do1': function() {
+                this.$emit('c1_events', 'Parent events do')
+                this.$children[0].msg = '组件c2[0]设值';
+            },
+            'c1_do2': function() {
+                this.$children[1].msg = '组件c2[1]设值';
+            },
+            'c1_do3': function() {
+                this.$children[2].msg = '组件c2[2]设值';
+            },
+            'handle_it': function() {
+                console.log('Parent Handle It');
+                this.messages.push('HandleIt');
+            },
+            'handle_it1': function() {
+                console.log('Parent Handle It1');
+                this.messages.push('HandleIt1');
+            },
+            'handle_it2': function() {
+                console.log('Parent Handle It2');
+                this.messages.push('HandleIt2');
+            }
+        }
+    });
+    var vm = new Vue({
+        el: '#app',
+        components: {
+            'my-component': Parent
+        },
+        ready() {
+            this.$on('events3', function(msg) {
+                console.log(msg);
+            });
+        },
+        events: {
+            'events4': function(msg) {
+                console.log(msg);
+            }
+        }
+    });
+
+    vm.$on('events1', function(msg) {
+        console.log(msg);
+    });
+    vm.$once('events1-once', function(msg) {
+        console.log('once:' + msg);
+    });
+
+    //vm.$emit('events1', 'events1 do 1');
+    //vm.$emit('events1', 'events1 do 2');
+    //vm.$emit('events1-once', 'events1-once do1');
+    //vm.$emit('events1-once', 'events1-once do2');
+    //vm.$emit('events3', 'events3 do 1');
+    //vm.$emit('events3', 'events3 do 2');
+    //vm.$emit('events4', 'events4 do 1');
+    //vm.$emit('events4', 'events4 do 2');
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+
+</head>
+
+<body>
+
+    <!-- ------------------------------------------------------------------------------------------------ -->
+
+    直接使用，this.xxx，这个xxx在data中没有定义，这样vue也就没有加watcher了
+
+    2万条数据的话，是不是应该不在vue的data中保存，因为vue会对data里数据进行监听，
+
+    而是在create中直接挂载到this上
+
+    大数据直接挂载到 data里面的话，会 影响 页面渲染的性能的
+
+    <!-- ------------------------------------------------------------------------------------------------ -->
+
+    所以，页面组件上 不用watch ,不用跟随事件改变的 变量 尽量不要放到 data里面,会影响页面性能的。
+
+    <!-- ------------------------------------------------------------------------------------------------ -->
+
+    <div id="app">
+
+      <div @click='dianji'>点击事件</div>
+
+         {{aa}}
+         <div v-for="item in dataArr">
+           {{item.text}}
+
+           {{item.value}}
+
+         </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+            },
+            methods:{
+               dianji(){
+                 console.log(33333)
+                 this.aa ='liaozhongren'
+               }
+            },
+            created(){
+              this.aa='廖仲仁'
+              this.dataArr=[
+                {
+                  text:111,
+                  value:'zrliao'
+                },
+                {
+                  text:2222,
+                  value:'zrliao2'
+                }
+              ]
+            }
+
+        })
+    </script>
+</body>
+
+</html>

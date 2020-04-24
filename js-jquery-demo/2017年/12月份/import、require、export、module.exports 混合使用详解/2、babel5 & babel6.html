@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+
+  我们在上文 babel 对导出模块的转换提到，
+
+  es6 的 export default 都会被转换成 exports.default，即使这个模块只有这一个输出。
+
+  这也解释了问题1
+
+  为何有的地方使用 require 去引用一个模块时需要加上 default？ require('xx').default
+
+  我们经常会使用 es6 的 export default 来输出模块，而且这个输出是这个模块的唯一输出，我们会误以为这种写法输出的是模块的默认输出。
+
+  // a.js
+
+  export default 123;
+  // b.js 错误
+
+  var foo = require('./a.js')
+
+  在使用 require 进行引用时，我们也会误以为引入的是a文件的默认输出。
+
+  结果这里需要改成 var foo = require('./a.js').default
+
+  这个场景在写 webpack 代码分割逻辑时经常会遇到。
+
+  require.ensure([], (require) => {
+     callback(null, [
+       require('./src/pages/profitList').default,
+     ]);
+   });
+
+  这是 babel6 的变更，在 babel5 的时候可不是这样的。
+
+  http://babeljs.io/docs/plugins/transform-es2015-modules-commonjs/#strict
+
+  在 babel5 时代，大部分人在用 require 去引用 es6 输出的 default，只是把 default 输出看作是一个模块的默认输出，所以 babel5 对这个逻辑做了 hack，如果一个 es6 模块只有一个 default 输出，那么在转换成 commonjs 的时候也一起赋值给 module.exports，即整个导出对象被赋值了 default 所对应的值。
+
+  这样就不需要加 default，require('./a.js') 的值就是想要的 default值。
+  
+  但这样做是不符合 es6 的定义的，在es6 的定义里，default 只是个名字，没有任何意义。
+
+  export default = 123;
+  export const a = 123;
+
+  这两者含义是一样的，分别为输出名为 default 和 a 的变量。
+
+  还有一个很重要的问题，一旦 a.js 文件里又添加了一个具名的输出，那么引入方就会出麻烦。
+
+  // a.j
+  export default 123;
+  export const a = 123; // 新增
+
+  // b.js
+  var foo = require('./a.js');
+
+  // 由之前的 输出 123
+  // 变成 { default: 123, a: 123 }
+
+  所以 babel6 去掉了这个hack，这是个正确的决定，升级 babel6 后产生的不兼容问题 可以通过引入 babel-plugin-add-module-exports 解决。
+
+  <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

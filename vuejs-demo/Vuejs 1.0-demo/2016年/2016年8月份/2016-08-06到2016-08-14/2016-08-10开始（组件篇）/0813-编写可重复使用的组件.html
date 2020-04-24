@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+
+	<style>
+    .fade-transition {
+        transition: opacity .3s ease;
+    }
+
+    .fade-enter,
+    .fade-leave {
+        opacity: 0;
+    }
+
+    .box {
+        width: 250px;
+        border: 1px solid #9325BC;
+        padding: 10px;
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .box:hover {
+        -moz-box-shadow: 0 0 10px #ccc;
+        -webkit-box-shadow: 0 0 10px #ccc;
+        box-shadow: 0 0 10px #ccc;
+        border: 10px solid #9325BC;
+    }
+    </style>
+</head>
+<body>
+
+	<h3>可重复使用的组件</h3>
+
+	<!--  在编写组件时，记住是否要复用组件有好处。一次性组件跟其它组件紧密耦合没关系，但是可复用组件应当定义一个清晰的公开接口。
+
+	Vue.js 组件 API 来自三部分——prop，事件和 slot：
+
+	prop 允许外部环境传递数据给组件；
+
+	事件 允许组件触发外部环境的 action；
+
+	slot 允许外部环境插入内容到组件的视图结构内。
+
+	使用 v-bind 和 v-on 的简写语法，模板的缩进清楚且简洁： -->
+
+    <div id="app">
+        <my-component
+        :foo="baz"
+        :bar="qux"
+        @click="doThis('click')"
+        @mouseover="onMouseOver('mouseover')">
+            <img slot="icon" src="http://vuejs.org.cn/images/logo.png" width='200'>
+            <p slot="main-text">Hello!</p>
+        </my-component>
+
+
+         
+        <my-component
+         :foo="baz"
+         :bar="qux"
+         @click="doThis('台湾小凡')"
+         @mouseover="onMouseOver('喜欢 vuejs')">
+            <img slot="icon" src="http://vuejs.org.cn/images/logo.png" width='200'>
+            <p slot="main-text">Hello!</p>
+        </my-component>
+
+
+         <my-component
+         :foo="baz"
+         :bar="qux"
+         @click="doThis('感谢 vue群')"
+         @mouseover="onMouseOver('Vuejs 364912432')">
+            <img slot="icon" src="http://vuejs.org.cn/images/logo.png" width='200'>
+            <p slot="main-text">Hello!</p>
+        </my-component>
+    </div>
+    <br>
+
+
+    <template id='aaa'>
+    	 <div class='box'>
+            <slot name="icon"></slot>
+
+            <slot name="main-text"></slot>
+
+         </div>
+    </template>
+    <script>
+    Vue.component('my-component', {
+        template: '#aaa',
+        props: ['foo', 'bar'],
+        data: function() {
+            return {
+                items: {
+                    a: '1', // 子组件的作用域跟父组件的作域是独立不连系
+                    b: '2',
+                    c: '3'
+                }
+            }
+        }
+
+    });
+
+
+
+    new Vue({
+        el: '#app',
+        data: {
+            items: {
+                'a': '4',
+                'b': '5',
+                'c': '6'
+            }
+        },
+        methods: {
+            'doThis': function(msg) {
+                console.log(msg);
+            },
+            'onMouseOver': function(msg) {
+                console.log(msg)
+            }
+        }
+
+    });
+    </script>
+</body>
+</html>

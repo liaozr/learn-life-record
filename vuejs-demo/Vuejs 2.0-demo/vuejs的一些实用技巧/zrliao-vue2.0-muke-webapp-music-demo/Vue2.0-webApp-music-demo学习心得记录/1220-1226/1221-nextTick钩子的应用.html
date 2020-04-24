@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <audio ref="audio" :src="currentSong.url"></audio>
+
+    <script>
+
+        watch: {
+
+            currentSong() {
+
+                // 等 audio dom 更新 获取到 src 的 值  后 在执行 play方法，所以 得用 nextTick钩子，不用的话，会报错的。因为dom还没更新，就执行play方法，src为空的话，执行play方法就已经报错了，所以 得用 nextTick 这个钩子。
+                
+                this.$nextTick(() => {
+                    this.$refs.audio.play()
+                })
+
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

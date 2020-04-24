@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+网站中，图片文件（jpg，png,gif），如何点击下载？而非点击预览？
+
+我们平时在网站中的图片，假如我们要下载，如下写：
+
+<a href="images/close.jpg">下载</a>
+
+我们点击下载按钮，只会预览“haorooms博客.jpg”这张图片，并不会出现下载框，另存为那种？那么我们如何做呢？
+
+<!-- -------------------------------------------------------------------------------- -->
+
+我们只需要如下写
+
+<a href="images/close.jpg" download >下载</a>
+
+就可以下载了。点击如下进行尝试吧！下载
+
+不但如次，我们还可以指定文件名称，如下写法：
+
+<a href="images/close.jpg" download="close图片下载">下载</a>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

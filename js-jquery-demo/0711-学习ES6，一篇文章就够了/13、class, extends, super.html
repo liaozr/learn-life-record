@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+  class, extends, super
+
+  这三个特性涉及了ES5中最令人头疼的的几个部分：原型、构造函数，继承...你还在为它们复杂难懂的语法而烦恼吗？你还在为指针到底指向哪里而纠结万分吗？
+
+  有了ES6我们不再烦恼！
+
+  ES6提供了更接近传统语言的写法，引入了Class（类）这个概念。新的class写法让对象原型的写法更加清晰、更像面向对象编程的语法，也更加通俗易懂。
+
+
+    <script>
+
+        class Animal{
+            constructor(name){
+                this.name = name;
+            }
+
+            sayName(){
+                return this.name;
+            }
+        }
+
+        const animal = new Animal('dog');
+
+        console.log(animal.sayName());  // 'dog'
+        
+    </script>
+
+    其内部的constructor：指向的就是整个类的constructor
+
+    其内部的函数：这些函数的定义在类的原型上面
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+  <script>
+
+      class Animal {
+          constructor() {
+              this.type = 'animal'
+          }
+          says(say) {
+              console.log(this.type + ' says ' + say)
+          }
+      }
+
+      let animal = new Animal()
+
+      animal.says('hello') //animal says hello
+
+      class Cat extends Animal {
+          constructor() {
+              super()
+              this.type = 'cat'
+          }
+      }
+
+      let cat = new Cat()
+
+      cat.says('hello') //cat says hello
+
+  </script>
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+  上面代码首先用class定义了一个“类”，可以看到里面有一个constructor方法，这就是构造方法，
+
+  而this关键字则代表实例对象。简单地说，constructor内定义的方法和属性是实例对象自己的，
+
+  而constructor外定义的方法和属性则是所有实例对象可以共享的。
+
+  <!-- ----------------------------------------------------------------------------------------------- -->
+
+  Class之间可以通过extends关键字实现继承，这比ES5的通过修改原型链实现继承，要清晰和方便很多。
+
+  上面定义了一个Cat类，该类通过extends关键字，继承了Animal类的所有属性和方法。
+
+  super关键字，它指代父类的实例（即父类的this对象）。子类必须在constructor方法中调用super方法，否则新建实例时会报错。
+
+  这是因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工。如果不调用super方法，子类就得不到this对象。
+
+
+  <!-- ----------------------------------------------------------------------------------------------- -->
+
+
+  ES6的继承机制，实质是先创造父类的实例对象this（所以必须先调用super方法），然后再用子类的构造函数修改this。
+
+  <!-- ----------------------------------------------------------------------------------------------- -->
+
+  以用一个更为直观的办法，用更加正规的类（class）和构造器（constructor）。
+  Class
+  打上码：
+
+<script>
+
+    class Hero {
+        constructor(name, birth) {
+            this.name = name;
+            this.birth = birth;
+        }
+    }
+
+    var iron1 = new Hero('iron01', 2017);
+    var iron2 = new Hero('iron02', 2017);
+
+    console.log(iron1.name);
+    console.log(iron2.name);
+
+    // 运行结果：
+    // iron01
+    // iron02
+
+    // 一切正常， 这个时候如果拿掉new：
+
+// -------------------------------------------------------------------------------------------------------------------
+
+    class Hero2 {
+        constructor(name, birth) {
+            this.name = name; // note, here we can still declare properties within constructor
+            this.birth = birth;
+        }
+    }
+
+    var iron1 = Hero2('iron01', 2017); // error: Uncaught TypeError: Class constructor Hero cannot be invoked without 'new'
+    var iron2 = Hero2('iron02', 2017);
+
+    console.log(iron1.name);
+    console.log(iron2.name);
+
+</script>
+
+
+这段代码在我们创建iron1的时候就直接报错了。所以总体来说class会比构造函数更加安全。
+
+<!-- ----------------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

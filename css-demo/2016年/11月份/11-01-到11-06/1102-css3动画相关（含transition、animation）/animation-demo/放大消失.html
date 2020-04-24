@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <img class="setImg animated zoomOut2 " src="1-2.png">
+
+    <style>
+        .animated {
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+        /*放大消失*/
+
+        .zoomOut2 {
+            -webkit-animation-name: zoomOut2;
+            animation-name: zoomOut2;
+            -webkit-animation-duration: 3s;
+            animation-duration: 3s;
+            animation-delay: 1s;
+        }
+
+        @-webkit-keyframes zoomOut2 {
+            0% {
+                opacity: 1;
+                transform: scale3d(1, 1, 1);
+            }
+            100% {
+                opacity: 0;
+                -webkit-transform: scale3d(3, 3, 3);
+                transform: scale3d(3, 3, 3);
+                -ms-transform: scale3d(3, 3, 3);
+                display: none;
+            }
+        }
+
+        @keyframes zoomOut2 {
+            0% {
+                opacity: 1;
+                transform: scale3d(1, 1, 1);
+            }
+            100% {
+                opacity: 0;
+                -webkit-transform: scale3d(3, 3, 3);
+                -ms-transform: scale3d(3, 3, 3);
+                transform: scale3d(3, 3, 3);
+                display: none;
+            }
+        }
+    </style>
+</body>
+
+</html>

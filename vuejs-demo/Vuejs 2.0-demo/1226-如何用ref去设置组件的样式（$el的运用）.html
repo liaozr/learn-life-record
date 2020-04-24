@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  
+    <scroll :lists="currentLyric && currentLyric.lines" class="middle-r" ref='lyricList'>
+
+        <div class="lyric-wrapper" ref='lyricWrapper'>
+            <div v-if='currentLyric'>
+                <p ref='lyricLine' class='text' :class="{'current':currentLineNum == index }" v-for='(line,index) in currentLyric.lines' :key='line.id'>
+                    {{line.txt}}
+                </p>
+            </div>
+        </div>
+
+    </scroll>
+
+    <script>
+
+        // this.$refs.lyricList 获取到的是 组件 scrolL,并不是标签的话，并不能直接style去改变样式，应该得加多个 $el 的
+        this.$refs.lyricList.$el.style[transform] = `translate3d(${width}px,0,0)`
+
+        // this.$refs.lyricWrapper 获取到的 是 dom元素 lyric-wrapper，这个是可以直接 设置 style 属性的
+        this.$refs.lyricWrapper.style.width = '120px'
+
+    </script>
+
+
+</body>
+
+</html>

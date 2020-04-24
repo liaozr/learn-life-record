@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+this的常用场景:
+
+<!-- --------------------------------------------------------------------------------- -->
+
+this位于一个对象的方法内,此时this指向该对象
+
+<script>
+    var name = 'window';
+    var Student = {
+        name: 'kobe',
+        getName: function() {
+            console.log(this == Student);  //true
+            console.log(this.name);       //kobe
+        }
+    }
+    Student.getName();
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+this位于一个普通的函数内,表示this指向全局对象,(浏览器是window)
+
+因为是在全局环境下来调用这个getName()函数的。
+
+<script>
+    var name = 'window';
+    var getName = function() {
+        var name = 'kobe';        // 迷惑性而已
+        console.log(this.name)   // 打印出的是 window
+        return this.name;
+    }
+    console.log(getName());    // window
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+this使用在构造函数(构造器)里面,表示this指向的是那个返回的对象.
+
+<script>
+    var name = 'window';
+    //构造器
+    var Student = function() {
+        this.name = 'student';
+    }
+    var s1 = new Student();
+
+    console.log(s1.name); // student
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+注意: 如果构造器返回的也是一个Object的对象(其他类型this指向不变遵循之前那个规律),这时候this指的是返回的这个Objec.
+
+<script>
+    var name = 'window';
+    //构造器
+    var Student = function() {
+        this.name = 'student';
+        return {
+            name: 'boyStudent'
+        }
+    }
+    var s1 = new Student();
+    console.log(s1.name); //boyStudent
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+this指向失效问题
+
+<script>
+
+    var name = 'window';
+    var Student = {
+        name: 'kobe',
+        getName: function() {
+            console.log(this.name);
+        }
+    }
+    Student.getName(); // kobe
+    var s1 = Student.getName;
+    s1();  //window
+</script>
+
+原因: 此时s1是一个函数,  s1函数是在全局环境下调用的，所以，s1()的this指向应该是指向
+
+全局环境下的window。所以s1()打印出来的数据应该是  window
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+function () {
+		console.log(this.name);
+}
+
+对一个基本的函数,前面提过this在基本函数中指的是window.
+
+在开发中我们经常使用的this缓存法 ,缓存当前作用域下this到另外一个环境域下使用
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+<script>
+    var a = 10;
+    var foo = {
+        a: 20,
+        bar: function() {
+            var a = 30;
+            return this.a;
+        }
+    }
+    console.log( foo.bar() )
+    //20
+
+    console.log( (foo.bar)() )
+    //20
+
+    console.log( (foo.bar = foo.bar)() )
+    //10
+
+    console.log( (foo.bar, foo.bar)() )
+    //10
+
+/*
+foo.bar=foo.bar,就是普通的复制,一个匿名函数赋值给一个全局变量,你可以把右边的foo.bar换成b,
+即(b = foo.bar)(),博客里面说过普通的函数里面的this指向window,自然this.a == 10
+*/
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+</body>
+</html>

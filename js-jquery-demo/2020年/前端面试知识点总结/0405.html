@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+-----------------------------------------------------------------------------------------
+
+最基本的Promise长什么样？
+
+代码如下：
+
+new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(1)
+    })
+}).then(value => {
+    console.log('value',value)
+},reason => {
+    console.log('reason',reason)
+})
+
+
+
+promise对象的用法,手写一个promise
+
+promise是一个构造函数，下面是一个简单实例
+
+var promise = new Promise((resolve,reject) => {
+    if (操作成功) {
+        resolve(value)
+    } else {
+        reject(error)
+    }
+})
+
+promise.then(function (value) {
+    // success
+},function (value) {
+    // failure
+})
+
+
+-----------------------------------------------------------------------------------------
+
+水平垂直居中
+
+Flex布局
+
+display: flex  //设置Flex模式
+
+flex-direction: column  //决定元素是横排还是竖着排
+
+flex-wrap: wrap     //决定元素换行格式
+
+justify-content: space-between  //同一排下对齐方式，空格如何隔开各个元素
+
+align-items: center     //同一排下元素如何对齐
+
+align-content: space-between    //多行对齐方式
+
+
+水平居中
+
+行内元素：display: inline-block;
+
+块级元素：margin: 0 auto;
+
+Flex: display: flex; justify-content: center
+
+垂直居中
+
+行高 = 元素高：line-height: height
+flex: display: flex; align-item: center
+
+-----------------------------------------------------------------------------------------
+
+多行元素的文本省略号
+
+overflow : hidden;
+
+text-overflow: ellipsis;
+
+display: -webkit-box;
+
+-webkit-line-clamp: 3;
+
+-webkit-box-orient: vertical
+
+-----------------------------------------------------------------------------------------
+
+补充get和post请求在缓存方面的区别
+
+
+get请求类似于查找的过程，用户获取数据，可以不用每次都与数据库连接，所以可以使用缓存。
+
+
+post不同，post做的一般是修改和删除的工作，所以必须与数据库交互，
+
+所以不能使用缓存。因此get请求适合于请求缓存。
+
+-----------------------------------------------------------------------------------------
+
+
+绑定class的数组用法
+
+对象方法 v-bind:class="{'orange': isRipe, 'green': isNotRipe}"
+
+数组方法  v-bind:class="[class1, class2]"
+
+行内 v-bind:style="{color: color, fontSize: fontSize+'px' }"
+
+-----------------------------------------------------------------------------------------
+
+props: {
+    msg: {
+        type: String,
+        required: true
+    }
+}
+
+-----------------------------------------------------------------------------------------
+
+
+
+
+</body>
+</html>

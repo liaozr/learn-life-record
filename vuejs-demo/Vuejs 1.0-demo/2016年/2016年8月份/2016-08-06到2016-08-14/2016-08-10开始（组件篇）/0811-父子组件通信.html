@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+	 <style>
+    .blue {
+        color: blue;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .greed {
+        color: #ffffff;
+        background-color: #00cccc;
+    }
+    </style>
+</head>
+<body>
+    
+
+    <!-- 子组件可以 用this.$parent  访问它的父组件。根实例的后代可以用 this.$root 访问它。
+
+    父组件有一个数组 this.$children 包含它所有的子元素。 -->
+
+    <!-- 子组件应当避免直接依赖父组件的数据，尽量显式地使用props 传递数据。另外，在子组件中修改父组件的状态是非常糟糕的做法，因为：
+    
+    1、这让父组件与子组件紧密的耦合；
+    2、只看父组件，很难理解父组件的状态。因为它可能被任意子组件修改！理想情况下，只有组件自己能修改它的状态。  
+
+     -->
+
+
+<!-- $children示例 -->
+<div id="app00">
+    <parent-component></parent-component>
+</div>
+
+  <!-- $refs示例 -->
+  <!-- 组件个数较多时，我们难以记住各个组件的顺序和位置，通过序号访问子组件不是很方便。
+  在子组件上使用v-ref指令，可以给子组件指定一个索引ID： -->
+
+<template id="parent-component00">
+    <child-component1 v-ref:cc1 ></child-component1>
+    <child-component2></child-component2>
+    <button v-on:click="showChildComponentData">显示子组件的数据</button>
+</template>
+
+<template id="child-component001">
+    <h2>This is child component 1</h2>
+</template>
+
+<template id="child-component002">
+    <h2>This is child component 2</h2>
+</template>
+
+ 
+<script>
+    Vue.component('parent-component', {
+        template: '#parent-component00',
+        components: {
+            'child-component1': {
+                template: '#child-component001',
+                data: function() {
+                    return {
+                        msg: 'child component 111111'
+                    }
+                }
+            },
+            'child-component2': {
+                template: '#child-component002',
+                data: function() {
+                    return {
+                        msg: 'child component 222222'
+                    }
+                }
+            }
+        },
+        methods: {
+            showChildComponentData: function() {
+                for (var i = 0; i < this.$children.length; i++) {
+                    // console.log(this.$children[i].msg)
+                    console.log(this.$refs.cc1.msg)
+
+                  //  <!-- $refs示例 -->
+
+                  // <!-- 组件个数较多时，我们难以记住各个组件的顺序和位置，通过序号访问子组件不是很方便。
+                  //  在子组件上使用v-ref指令，可以给子组件指定一个索引ID： -->
+                }
+            }
+        }
+    })
+
+    new Vue({
+        el: '#app00'
+    })
+</script>
+
+<!-- --------------------------------------------------------------------------- -->
+
+
+
+<!-- $parent示例
+
+下面这段代码定义了两个组件：child-component和它的父组件parent-component。
+在子组件中，通过this.$parent可以访问到父组件的实例 -->
+
+
+<div id="app002">
+    <parent-component></parent-component>
+</div>
+
+<template id="parent-component">
+    <child-component></child-component>
+</template>
+
+<template id="child-component">
+    <h2>This is a child component</h2>
+    <button v-on:click="showParentComponentData">显示父组件的数据</button>
+</template>
+
+<script>
+    Vue.component('parent-component', {
+        template: '#parent-component',
+        components: {
+            'child-component': {
+                template: '#child-component',
+                methods: {
+                    showParentComponentData: function() {
+                        console.log(this.$parent.msg)
+                    }
+                }
+            }
+        },
+        data: function() {
+            return {
+                msg: 'parent component message'
+            }
+        }
+    })
+    new Vue({
+        el: '#app002'
+    })
+</script>
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+
+	 <!-- 最小的组件模板-->
+    <template id="ccc">
+        <br> ccc
+        <input v-model="msg" class="red">
+        <button @click="set_parent1"> $parent 设值上级资料</button>
+        <button @click="set_root1"> $root 设值根组件的资料</button>
+    </template>
+
+
+    <!-- 子组件模板 -->
+    <template id="bbb">
+        <hr> bbb
+        <input v-model="msg" class="blue">
+        <button v-on:click="set_parent1"> $parent 清空上级资料</button>
+        msg: {{ msg | json }}
+        <ccc></ccc>
+    </template>
+
+
+
+    <!-- 根组件模板 -->
+    <div id="aaa">
+        <hr>
+        <p class="greed">aaa Messages: {{ messages | json }}</p>
+        <button v-on:click="set_bbb0"> $children[0] 设值 子组件的资料 </button>
+        <button v-on:click="set_bbb1"> $children[1] 设值 子组件的资料 </button>
+        <button v-on:click="set_bbb2"> $children[2] 设值 子组件的资料 </button>
+        <bbb></bbb>
+        <bbb></bbb>
+        <bbb></bbb>
+    </div>
+
+
+    <div id="app">
+        <my-component></my-component>
+    </div>
+
+
+    <script>
+    Vue.component('ccc', {
+        template: '#ccc',
+        data: function() {
+            return {
+                msg: '台湾小凡',
+
+            }
+        },
+        methods: {
+            set_parent1: function() {
+                this.$parent.$set('msg', this.msg);
+            },
+            set_root1: function() {
+                this.$root.messages.push(this.msg);
+                this.msg = '';
+            }
+        }
+    });
+
+    // 注册子组件
+    // 将当前消息派发出去
+    Vue.component('bbb', {
+        template: '#bbb',
+        data: function() {
+            return {
+                msg: 'hello'
+            }
+        },
+        methods: {
+            set_parent1: function() {
+                this.$parent.messages = [];
+            }
+        }
+    });
+
+    // 初始化父组件
+    // 将收到消息时将事件推入一个数组
+    var Parent = new Vue({
+        el: '#aaa',
+        data: {
+            messages: []
+        },
+        methods: {
+            'set_bbb0': function() {
+                this.$children[0].msg = '子组件[0]设值';
+            },
+            'set_bbb1': function() {
+                this.$children[1].msg = '子组件[1]设值';
+            },
+            'set_bbb2': function() {
+                this.$children[2].msg = '子组件[2]设值';
+            }
+        }
+    });
+    var vm = new Vue({
+        el: '#app',
+        components: {
+            'my-component': Parent
+        }
+    });
+    </script>
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

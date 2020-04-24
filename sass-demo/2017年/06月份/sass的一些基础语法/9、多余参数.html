@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+多余参数也可以称为不确定参数。
+
+有些CSS样式(比如box-shadow，text-shadow等)可以有多个以逗号分隔的值列表，
+
+这样在定义Mixin时我们就无法确定传入几个参数，这时就需要借助多余参数的写法($name...):
+
+<style>
+
+    @mixin box-shadow($shadows...) {
+        box-shadow: $shadows;
+    }
+
+    div {
+        @include box-shadow(0 0 3px black, 0 0 5px red);
+    }
+
+    /*输出为： */
+    div {
+        box-shadow: 0 0 3px black, 0 0 5px red;
+    }
+</style>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+此外，多余参数也可以用在传参时:
+
+<style>
+
+    @mixin colors($text, $background, $border) {
+        color: $text;
+        background-color: $background;
+        border-color: $border;
+    }
+
+    $values: #ff0000,#00ff00,#0000ff;
+
+    .primary {
+        @include colors($values...);
+    }
+
+    /*输出为： */
+
+    .primary {
+        color: #ff0000;
+        background-color: #00ff00;
+        border-color: #0000ff;
+    }
+
+</style>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

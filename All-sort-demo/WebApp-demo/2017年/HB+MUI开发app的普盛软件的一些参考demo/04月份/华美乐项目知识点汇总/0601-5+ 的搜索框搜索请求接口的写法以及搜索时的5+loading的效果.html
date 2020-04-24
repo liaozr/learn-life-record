@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        //  plus.nativeUI.showWaiting  这个是 原生系统效果的 等待框来的
+        //  搜索调用接口 请求 数据 ，用的等待狂 应该用的就是这种才对
+
+        function showloading(msg) {
+            if (!mui.os.plus) {
+                console.log("loading!!!!" + msg);
+                return;
+            } else {
+                plus.nativeUI.showWaiting(msg);
+            }
+        }
+
+        function closeloading() {
+            if (!mui.os.plus) {
+                console.log("closeloading!!!!");
+                return;
+            } else {
+                plus.nativeUI.closeWaiting();
+            }
+        }
+
+        function alertMsg(msg, callback) {
+            if (!mui.os.plus) {
+                alert(msg);
+                return;
+            } else {
+                plus.nativeUI.alert(msg, callback, "华美乐");
+            }
+        }
+
+        function log(str) {
+            console.log(str)
+        }
+
+        function showProgress() {
+            $(".loader-shadow").css("display", "block");
+        }
+
+        function closeProgress() {
+            $(".loader-shadow").css("display", "none");
+        }
+
+        function onError(xhr, textStatus, errorThrown) {
+            closeProgress();
+            log(textStatus + " " + logJson(errorThrown));
+            alertMsg('网络请求错误！', null);
+        }
+
+        function doget(url, data, successcallback, errcallback) {
+            ajax(url, 'get', data, '', successcallback, errcallback);
+        }
+
+        function dopost(url, data, successcallback, errcallback) {
+            ajax(url, 'post', data, "application/json", successcallback, errcallback);
+        }
+
+        function ajax(url, mothd, data, contentType, successcallback, errcallback) {
+            url = getBaseServerUrl() + url;
+            log('request:' + url + " " + JSON.stringify(data));
+            mui.ajax(url, {
+                data: data,
+                dataType: 'json', //服务器返回json格式数据
+                type: mothd, //HTTP请求类型
+                timeout: 20000, //超时时间设置为8秒；
+                contentType: contentType,
+                success: function(data, textStatus, xhr) {
+                    //服务器返回响应，根据响应结果，分析是否登录成功；
+                    log('success:' + url + " " + JSON.stringify(data));
+                    if (data.status === "true") {
+                        successcallback(data.data, url);
+                    } else {
+                        alert(data.msg, null);
+                    }
+                },
+                error: function(xhr, type, errorThrown) {
+                    console.log(type + ':' + url + ' ' + xhr.status)
+                    //异常处理；
+                    if (errcallback == null) {
+                        alertMsg('网络请求错误！ 错误码：' + xhr.status, null);
+                    } else {
+                        errcallback(url);
+                    }
+                }
+            });
+        }
+
+// ---------------------------------------------------------------------------------
+
+        //  页面上请求数据 的写法
+        doget('/app/order/findProductInventory', {
+            empId: localStorage.empId,
+            productId: productId
+        }, function(data, url) {
+            if (data.length > 0) {
+                vm.dataArr = data;
+            } else {
+                alertMsg('没有查询到数据！', null);
+            }
+        }, null);
+        
+// ---------------------------------------------------------------------------------
+
+    </script>
+</body>
+
+</html>

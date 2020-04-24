@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+前端开发中，经常遇到有些场景需要用到服务器环境，例如AngularJS中的路由，或者是模拟ajax获取数需求时，这个时候并不需要考虑到服务端逻辑，只是搭建简单的静态资源服务，因此解决方法有很多，下绍几种简单快捷的常用方式：
+
+<!-- ------------------------------------------------------------------------------ -->
+
+使用browser-sync
+
+browser-sync，非常棒的工具，最吸引人的是它的监控和同步功能，体验非常好，可以不用一直f5刷新浏览器即可实时看到修改了的变化。只要在同个局域网，还可以在手机上也同步看到变化，不需要手动刷新，非常适合移动端调试，很推荐使用。
+
+安装：
+npm install -g browser-sync
+
+<!-- ------------------------------------------------------------------------------ -->
+
+使用http-server
+
+如果你安装了node，那么http-server就是个不错的选择，只需要一行命令就可以快速启动。
+
+安装：
+npm install -g http-server
+
+在项目根目录执行：
+http-server
+
+<!-- -------------------------------------------------------------------------------- -->
+
+使用Nginx
+
+几乎所有的web应用在最终部署到Linux上时都会用到Nginx做反向代理服务器，所以很有必要会用Nginx。
+下载，解压，运行nginx.exe，在浏览器输入localhost或127.0.0.1，如果出现
+Welcome to nginx!
+则说明Nginx已经成功安装。
+
+
+下面是Nginx常用到的命令：
+
+<script>
+
+    nginx - s reload // 重新加载nginx配置
+    nginx - s stop
+
+</script>
+
+如果你的需求只是实现静态资源服务，那么只需要如下简单配置即可：root代表项目的根目录，index代表默认的入口文件。
+
+server {
+    listen       80;
+    server_name  localhost;
+
+    location / {
+        root   E:\Work\Workspace;
+        index  index.html index.htm;
+    }
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   html;
+    }
+}
+
+<!-- ------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

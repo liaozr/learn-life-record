@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+存储
+
+客户端出于不同的原因，我们会存储一些相应的用户数据，如：
+
+在页面间共享数据——适用于同一个网站，页面间使用不同的框架
+
+存储用户的 token——缓存在内存或者 localstorage 用于登录，在重要的操作时再验证权限
+
+缓存数据，加快下次打开速度
+临时保存用户未完成的表单
+存储 JavaScript 代码，以加快打开速度
+
+数据存储并不是一件很难的事。只需要：
+
+选择一个合适的存储介质
+决定要存储的数据内容及形式
+创建存储和读取接口
+
+我们只需要想一个 key，再想一个 value 就可以保存这个值了，
+如 localStorge 的setItem 和 getItem 就可以轻松达到这个要求了。而对于常用的数据格式来说，
+
+加上个 JSON.stringify 来转换对象为字符 串，从 localStorage 中读取数据时，再用 JSON.parse 去解析即可。
+
+
+在客户端上存储数据的时候，就那么几种情况：
+
+单条数据。主要用于存储一些简单的数据，如用户 Token、功能开关、临时数据等等。
+一个模型的数据集合。
+多个模型的数据集合。
+而后，复杂的地方就是处理这些数据模型。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+
+
+
+</body>
+</html>

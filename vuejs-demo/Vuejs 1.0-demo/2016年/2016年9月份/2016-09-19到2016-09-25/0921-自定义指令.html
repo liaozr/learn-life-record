@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+
+<!-- 自定义指令 -->
+ 
+<!-- 
+钩子函数
+
+定义对象可以提供几个钩子函数（都是可选的）：
+
+bind：只调用一次，在指令第一次绑定到元素上时调用。
+
+update： 在 bind 之后立即以初始值为参数第一次调用，之后每当绑定值变化时调用，参数为新值与旧值。
+
+unbind：只调用一次，在指令从元素上解绑时调用。
+-->
+
+<script>
+Vue.directive('my-directive', {
+  bind: function () {
+    // 准备工作
+    // 例如，添加事件处理器或只需要运行一次的高耗任务
+  },
+  update: function (newValue, oldValue) {
+    // 值更新时的工作
+    // 也会以初始值为参数调用一次
+  },
+  unbind: function () {
+    // 清理工作
+    // 例如，删除 bind() 添加的事件监听器
+  }
+})
+</script>
+
+<!-- // 在注册之后，便可以在 Vue.js 模板中这样用（记着添加前缀 v-）： -->
+
+<div v-my-directive="someValue"></div>
+
+<!-- 当只需要 update 函数时，可以传入一个函数替代定义对象： -->
+<script>
+Vue.directive('my-directive', function (value) {
+  // 这个函数用作 update()
+})
+</script>
+
+<!-- 
+
+指令实例属性
+
+所有的钩子函数将被复制到实际的指令对象中，钩子内 this 指向这个指令对象。这个对象暴露了一些有用的属性：
+
+el: 指令绑定的元素。
+vm: 拥有该指令的上下文 ViewModel。
+expression: 指令的表达式，不包括参数和过滤器。
+arg: 指令的参数。
+name: 指令的名字，不包含前缀。
+modifiers: 一个对象，包含指令的修饰符。
+descriptor: 一个对象，包含指令的解析结果。
+
+ -->
+<!-- --------------------------------------------------------------------------------------------------- -->
+
+
+<template>  
+  <!--<textarea id="myTextArea2" cols="10" rows="10" v-snippet="msg" v-model="msg"></textarea>-->
+  <div id="app" v-snippet="msg"></div>
+</template>
+
+<script>
+	export default {
+	  data () {
+	    return {
+	      msg: ''
+	    }
+	  },
+	  directives: {
+	    'snippet': {
+	      twoWay: true,
+	      bind: function () {
+	        this.editor = CodeMirror(this.vm.$el, {
+	          lineNumbers: true,
+	          mode: 'javascript'
+	      })
+	      this.handler = function () {
+	          this.set(this.editor.getValue(), true)
+	        }.bind(this)
+	        this.editor.on('change', this.handler)
+	      },
+	      update: function (value, oldValue) {
+	        this.editor.setValue(value || '')
+	        console.log(this.editor.getMode())
+	      }
+	    }
+	  }
+	}
+</script>
+	
+</body>
+</html>

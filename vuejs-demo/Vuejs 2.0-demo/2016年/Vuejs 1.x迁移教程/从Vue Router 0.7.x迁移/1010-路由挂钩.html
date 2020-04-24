@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+activate 弃用
+
+使用beforeRouteEnter这一组件进行替代.
+
+<!-- ----------------------------------------------------- -->
+
+canActivate 弃用
+
+使用beforeEnter 在路由中作为替代.
+
+<!-- ------------------------------------------------------------------------------ -->
+
+deactivate 弃用
+
+使用beforeDestroy or destroyed 钩子作为替代.
+
+<!-- ----------------------------------------------------------------- -->
+
+canDeactivate 弃用
+
+在组件中使用beforeRouteLeave 作为替代.
+
+<!-- ---------------------------------------------------------- -->
+
+canReuse: false 弃用
+
+在新的Vue 路由中将不再被使用.
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+data 弃用
+
+$route属性是可反应的，所有你可以就使用一个观察者去反应路由的改变，就像这样:
+
+<script>
+	watch: {
+	  '$route': 'fetchData'
+	},
+	methods: {
+	  fetchData: function () {
+	    // ...
+	  }
+	}
+</script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+$loadingRouteData 弃用
+
+定义你自己的属性(举例说明isLoading),然后在路由上的观察者中更新加载状态.举例说明，如果使用axios获取数据:
+
+<script>
+	data: function () {
+	  return {
+	    posts: [],
+	    isLoading: false,
+	    fetchError: null
+	  }
+	},
+	watch: {
+	  '$route': function () {
+	    this.isLoading = true
+	    this.fetchData().then(() => {
+	      this.isLoading = false
+	    })
+	  }
+	},
+	methods: {
+	  fetchData: function () {
+	    return axios.get('/api/posts')
+	      .then(function (response) {
+	        this.posts = response.data.posts
+	      })
+	      .catch(function (error) {
+	        this.fetchError = error
+	      })
+	  }
+	}
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+
+
+</body>
+</html>

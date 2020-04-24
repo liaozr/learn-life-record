@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+  第一种是最常用的手段，通常还会自定义一个按钮，然后盖在它上面，因为type="file"的input不好改变样式。
+
+  如下代码写一个选择控件，并放在form里面：
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+  <form>
+      <input type="file" id="fileinput" onchange='readAsDataURL()' name="fileContent">
+  </form>
+
+  把input的value和formData打印出来是这样的：可以看到文件的路径是一个假的路径，也就是说在浏览器无法获取到文件的真实存放位置。
+
+  同时FormData打印出来是一个空的Objet，但并不是说它的内容是空的，只是它对前端开发人员是透明的，无法查看、修改、删除里面的内容，只能append添加字段。
+
+  FormData无法得到文件的内容，而使用FileReader可以读取整个文件的内容。用户选择文件之后，input.files就可以得到用户选中的文件，
+
+  如下代码
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+  <script>
+  
+      //判断浏览器是否支持FileReader接口
+      if (typeof FileReader == 'undefined') {
+          result.InnerHTML = "<p>你的浏览器不支持FileReader接口！</p>";
+          //使选择控件不可操作
+          fileinput.setAttribute("disabled", "disabled");
+      }
+
+      function readAsDataURL(){
+
+          var file = document.getElementById("fileinput").files[0];
+
+          let fileReader = new FileReader();
+
+          // base64方式读取
+          fileReader.readAsDataURL(file);
+          fileReader.onload = function() {
+              if (/image\/\w+/.test(file.type)) {
+                  // 读取结果在fileReader.result里面
+                  $(`<img src="${this.result}">`).appendTo("body");
+                  console.log(this.result)
+              }
+          }
+          // 打印原始File对象
+          console.log(file);
+      };
+
+  </script>
+
+  <!-- ----------------------------------------------------------------------------------------- -->
+
+  把原始的File对象打印出来是这样的：它是一个window.File的实例，包含了文件的修改时间、文件名、文件的大小、文件的mime类型等。
+
+  如果需要限制上传文件的大小就可以通过判断size属性有没有超，单位是字节，而要判断是否为图片文件就可以通过type类型是否以image开头。
+
+  通过判断文件名的后缀可能会不准，而通过这种判断会比较准。上面的代码使用了一个正则判断，如果是一张图片的话就把它赋值给img的src，并添加到dom里面，
+
+  但其实这段代码有点问题，就是web不是所有的图片都能通过img标签展示出来，通常是jpg/png/gif这三种，所以你应该需要再判断一下图片格式，
+
+  如可以把判断改成：/^image\/[jpeg|png|gif]/.test(this.type)然后实例化一个FileReader，调它的readAsDataURL并把File对象传给它，
+
+  监听它的onload事件，load完读取的结果就在它的result属性里了。
+
+  它是一个base64格式的，可直接赋值给一个img的src.使用FileReader除了可读取为base64之外，还能读取为以下格式：
+
+  <!-- ----------------------------------------------------------------------------------------- -->
+
+  <script>
+
+      // 按base64的方式读取，结果是base64，任何文件都可转成base64的形式
+      // fileReader.readAsDataURL(this.files[0]);
+
+      // 以二进制字符串方式读取，结果是二进制内容的utf-8形式，已被废弃了
+      // fileReader.readAsBinaryString(this.files[0]);
+
+      // 以原始二进制方式读取，读取结果可直接转成整数数组
+      // fileReader.readAsArrayBuffer(this.files[0]);
+
+  </script>
+
+  <!-- ----------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

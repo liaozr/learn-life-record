@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+jQuery是没有必要的，并且window.location.replace（...）将最佳模拟HTTP重定向。
+
+这比使用window.location.href =要好，因为replace()并不把起始页放入会话历史（session history）里，这意味着用户不会陷入永无休止的后退按钮的窘境。
+
+如果你想要模拟人点击一个链接，请使用location.href。如果要模拟一个HTTP重定向，使用location.replace。
+
+例如:
+
+<script>
+    // 类似HTTP重定向的行为
+    window.location.replace("http://stackoverflow.com");
+
+    // 类似点击一个链接的行为
+    window.location.href = "http://stackoverflow.com";
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+</html>

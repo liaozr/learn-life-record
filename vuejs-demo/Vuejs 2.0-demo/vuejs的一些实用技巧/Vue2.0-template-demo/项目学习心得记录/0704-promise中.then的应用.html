@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    //  以下两个数据是从mockjs里面出来的
+
+    api_types.indexGetList()
+    
+      .then((data) => {
+
+        console.log("list数据")
+
+        // 要想在下个then 中 使用 这个then里面的data数据 ，
+
+        // 需要把 这个data 数据 return  出去，然后就能在 下个then中接收到
+
+        //  上个then里面的 data 数据了。
+
+        return data
+
+      }).then((data) => {
+
+        console.log('list数据2222')
+        console.log(data)
+
+      })
+
+  </script>
+
+
+</body>
+
+</html>

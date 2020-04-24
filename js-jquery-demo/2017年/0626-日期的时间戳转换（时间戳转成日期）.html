@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        // 1496736976000 这个是 时间戳，记得这个不能是字符串形式的
+        var tricketTime = 1496736976000;
+
+        var dataTime = new Date(tricketTime);
+
+        var date = dataTime.getFullYear() + "-" + formatStr((dataTime.getMonth() + 1).toString()) + "-" + formatStr((dataTime.getDate()).toString());
+
+        console.log(date)
+
+        function formatStr(str) {
+            if (str.length == 1) {
+                return "0" + str;
+            }
+            return str;
+        }
+
+    </script>
+    
+</body>
+
+</html>

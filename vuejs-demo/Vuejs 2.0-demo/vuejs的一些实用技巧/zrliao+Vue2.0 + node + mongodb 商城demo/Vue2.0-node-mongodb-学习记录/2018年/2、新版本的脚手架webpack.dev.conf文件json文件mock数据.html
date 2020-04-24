@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- --------------------------------------------------------------------------------------------- -->
+
+    webpack.dev.conf.js 文件代码
+
+    <script>
+
+        // 后期新增的代码
+        const express = require('express')
+        const app = express()
+        var jsonData = require('../src/mock/goods.json')
+        var apiRoutes = express.Router()
+        app.use('/api', apiRoutes)
+
+        // -------------------------------------------------------------------------------------
+
+        devServer 代码段 新增 下面 那段代码
+
+        devServer: {
+
+            before(app) {
+                app.get('/api/goodsList', (req, res) => {
+                    res.json({
+                        // 这里是你的json内容
+                        errno: 0,
+                        data: jsonData
+                    })
+                })
+            }
+
+        }
+
+    </script>
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+    组件里使用
+
+    <script>
+
+        axios.get('/api/goodsList').then((res) => {
+
+            var result = res.data.data.result;
+
+            console.log(1111)
+
+            console.log(result)
+
+        })
+
+    </script>
+
+
+</body>
+
+</html>

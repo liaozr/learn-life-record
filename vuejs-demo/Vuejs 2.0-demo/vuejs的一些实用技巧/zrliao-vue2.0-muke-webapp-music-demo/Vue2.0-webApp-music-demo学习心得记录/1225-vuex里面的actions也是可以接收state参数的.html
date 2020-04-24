@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        actions: {
+
+            // 一些异步操作，以及对 mutations的 封装
+            // 如通过调用一个actions，去修改多个mutations的目的
+
+            // 传多个参数的时候，可以利用对象的解构，{ list,index },这样拿到的值就是list 跟 index
+
+            // vuex 里面的  actions 也是 可以 接收一个 state 参数的。用于获取 state状态下的一些值。
+            // vuex 里面的  actions 也是 可以 接收一个 state 参数的。用于获取 state状态下的一些值。
+            // selectPlay( {commit,state}, {list,index}) {
+
+            selectPlay( {commit,state}, {list,index} ) {
+                console.log('qqqqq')
+                console.log(list)
+                console.log(index)
+
+                commit('SET_SEQUENCE_LIST', list)
+
+                // 当播放模式为随机播放的时候
+                if (state.mode == playMode.random) {
+                    let randomlist = shuffle(list)
+                    commit('SET_PLAYLIST', randomlist)
+                    index = findIndex(randomlist, list[index])
+                } else {
+                    commit('SET_PLAYLIST', list)
+                }
+
+                commit('SET_CURRENT_INDEX', index)
+                commit('SET_FULL_SCREEN', true)
+                commit('SET_PLAYING_STATE', true)
+
+            },
+            nextIndex({commit}, index) {
+                commit('SET_CURRENT_INDEX', index)
+            }
+        }
+
+    </script>
+</body>
+
+</html>

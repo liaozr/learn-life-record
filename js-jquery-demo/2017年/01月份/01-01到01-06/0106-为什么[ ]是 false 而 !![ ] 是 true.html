@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+ <!-- ----------------------------------------------------------------------------- -->
+
+  问题：为什么 [ ] == false，而 !![ ] == true？
+
+  这是一个很有迷惑性的问题。咋一看，不可能啊？如果 [ ] == false，那么 !![ ] 相当于 !!false，难道不是为 false 吗，为什么会是 true 呢？会不会是引擎 bug，搞错了？
+
+  <script>
+       console.log( [] == false )  // true
+       console.log( !![] == true );  //true
+ </script>
+
+ [] == false 而 !![] == true 的真正原因了。
+
+ 这也是为什么我们不能用 if(!array) 来判断空数组而要用
+
+ if(array.length == 0) 来判断空数组的原因。
+
+ 同样，还有 [0] == false 而 !![0] == true，现在你自己能分析出原因了。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+
+</body>
+
+</html>

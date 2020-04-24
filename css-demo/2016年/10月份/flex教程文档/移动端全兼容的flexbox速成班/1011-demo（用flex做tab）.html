@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+   做均分的tab，应该是flexbox最常见的一个功能了，实现原理很简单，只需要给“父元素”，
+
+   “子元素”分别赋予“display：flex”,”flex：1″即可。
+
+   子元素的宽度不会根据内容的长短而发生改变。
+
+<style>
+.flex-tab li{
+    -webkit-box-flex:1;
+    -webkit-flex:1;
+    flex:1;
+}
+</style>
+
+</body>
+</html>

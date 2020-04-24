@@ -1,0 +1,153 @@
+<!-- 
+vue-router
+http://router.vuejs.org/zh-cn/index.html 
+-->
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+	<script type="text/javascript" src='vue-router.js'></script>
+</head>
+<body>
+
+<!-- 嵌套路由是个常见的需求，假设用户能够通过路径/home/news和/home/message访问一些内容，一个路径映射一个组件，访问这两个路径也会分别渲染两个组件。 -->
+
+
+<!-- 实现嵌套路由有两个要点：
+
+在组件内部使用<router-view>标签
+在路由器对象中给组件定义子路由
+
+ -->
+
+<div id="app">
+	<div>
+		<div class="list-group">
+			<a class="list-group-item" v-link="{ path: '/home'}">Home</a>
+			<a class="list-group-item" v-link="{ path: '/about'}">About</a>
+		</div>
+	</div>
+
+	<!--用于渲染匹配的组件-->
+    <!-- 在页面上使用 <router-view></router-view> 标签，它用于渲染匹配的组件。 -->
+ 	<router-view></router-view>
+</div>
+<!-- 组件模板： -->
+<template id="home">
+    <div>
+        <h1>Home</h1>
+        <p>{{msg}}</p>
+    </div>
+    <div>
+        <ul class="nav nav-tabs">
+            <li>
+                <a v-link="{ path: '/home/news'}">News</a>
+            </li>
+            <li>
+                <a v-link="{ path: '/home/message'}">Messages</a>
+            </li>
+        </ul>
+
+        <!-- 在组件内部使用<router-view>标签 -->
+        
+		<!--用于渲染匹配的组件-->
+	    <!-- 在页面上使用 <router-view></router-view> 标签，它用于渲染匹配的组件。 -->
+        <router-view></router-view>
+    </div>
+</template>
+
+<template id="news">
+    <ul>
+        <li>News 01</li>
+        <li>News 02</li>
+        <li>News 03</li>
+    </ul>
+</template>
+<template id="message">
+    <ul>
+        <li>Message 01</li>
+        <li>Message 02</li>
+        <li>Message 03</li>
+    </ul>
+</template>
+
+
+<template id="about">
+	<div>
+		<h1>About</h1>
+		<p>This is the tutorial about vue-router.</p>
+	</div>
+</template>
+
+
+<script type="text/javascript">
+
+
+// 组件构造器：
+
+var Home = Vue.extend({
+    template: '#home',
+    data: function() {
+        return {
+            msg: 'Hello, vue router!'
+        }
+    }
+})
+
+var News = Vue.extend({
+    template: '#news'
+})
+
+var Message = Vue.extend({
+    template: '#message'
+})
+
+var About = Vue.extend({
+			template: '#about'
+})
+
+
+var router = new VueRouter()
+router.redirect({
+			'/': '/home'
+		})
+
+
+
+// 路由映射：
+router.map({
+    '/home': {
+        component: Home,
+        // 定义子路由
+        // 在路由器对象中给组件定义子路由
+
+        // 当匹配到/home/news时，会在home  <router-view>内渲染
+        // 一个Bar组件
+        subRoutes: {
+            '/news': {
+                component: News
+            },
+            '/message': {
+                component: Message
+            }
+        }
+    },
+    '/about': {
+        component: About
+    }
+})
+
+// 在/home路由下定义了一个subRoutes选项，/news和/message是两条子路由，它们分别表示路径/home/news和/home/message，这两条路由分别映射组件News和Message。
+
+
+// 这里有一个概念要区分一下，/home/news和/home/message是/home路由的子路由，
+// 与之对应的News和Message组件并不是Home的子组件。
+
+
+var App = Vue.extend({})
+router.start(App, '#app')
+</script>
+</body>
+</html>

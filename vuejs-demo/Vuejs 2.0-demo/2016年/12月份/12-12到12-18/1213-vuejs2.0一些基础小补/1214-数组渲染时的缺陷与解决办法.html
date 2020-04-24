@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+2.7.9 数组渲染时的缺陷与解决办法
+
+由于 JavaScript 的限制， Vue 不能检测以下变动的数组：
+
+当你直接设置一个项的索引时，例如： vm.items[indexOfItem] = newValue
+
+当你修改数组的长度时，例如： vm.items.length = newLength
+
+<script>
+    // Vue也提供了解决问题的办法，解决第一个问题：
+    // Vue.set
+    Vue.set(example1.items, indexOfItem, newValue)
+
+    // Array.prototype.splice`
+    example1.items.splice(indexOfItem, 1, newValue)
+
+    // ------------------------------------------------------
+
+    // 解决第二个问题：
+    example1.items.splice(newLength)
+</script>
+
+</body>
+</html>

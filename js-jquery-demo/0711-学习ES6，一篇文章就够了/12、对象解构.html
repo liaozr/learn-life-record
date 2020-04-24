@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  对象解构语法在赋值语句的左侧使用了对象字面量，例如：
+
+<script>
+
+    let node = {
+        type: "Identifier",
+        name: "foo"
+    };
+
+    let { type, name } = node;
+
+    console.log(type); // "Identifier"
+    console.log(name); // "foo"
+
+</script>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+  代码中，node.type的值被存储到type本地变量中，node.name的值则存储到name变量中。
+
+  当使用解构赋值语句时，如果所指定的本地变量在对象中没有找到同名属性，那么该变量会被赋值为undefined。例如：
+
+  <script>
+
+      let node = {
+          type: "Identifier",
+          name: "foo"
+      };
+
+      let { type, name, value } = node;
+
+      console.log(type); // "Identifier"
+      console.log(name); // "foo"
+      console.log(value); // undefined
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------------- -->
+
+  我们可以选择性地定义一个默认值，以便在指定属性不存在时使用该值。就像这样：
+
+  let node = {
+      type: "Identifier",
+      name: "foo"
+  };
+
+  let { type, name, value = true } = node;
+
+  console.log(type); // "Identifier"
+  console.log(name); // "foo"
+  console.log(value); // true
+
+  上面的示例都使用了对象中的属性名作为本地变量的名称。但ES6允许我们在给本地变量赋值时使用一个不同的名称。就像这样：
+
+  <script>
+
+      let node = {
+          type: "Identifier",
+          name: "foo"
+      };
+
+      let { type: localType, name: localName } = node;
+
+      console.log(localType); // "Identifier"
+      console.log(localName); // "foo"
+
+
+      // 我们也可以给变量别名加默认值
+      let node = {
+          type: "Identifier"
+      };
+
+      let { type: localType, name: localName = "bar" } = node;
+
+      console.log(localType); // "Identifier"
+      console.log(localName); // "bar"
+
+  </script>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

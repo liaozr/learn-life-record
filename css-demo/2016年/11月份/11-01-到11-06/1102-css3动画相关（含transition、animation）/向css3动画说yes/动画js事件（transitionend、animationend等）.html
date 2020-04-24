@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    动画js事件
+
+   1、transition动画只有一个transitionend事件，而webkit现在既支持webkitTransitionEnd，也支持标准的transitionend事件，所以只能绑定一个，不然会触发两次事件，见demo
+
+   2、如有多个属性参与动画，就会出现多个transitionend事件（这个事件标准还是有不少bug的），所以请使用jquery的one事件，或者绑定事件调用函数中随即取消绑定事件
+
+  3、Detect the End of CSS Animations and Transitions
+
+    with JavaScript
+
+    <script>
+        function whichTransitionEvent() {
+            var t,
+                el = document.createElement("div");
+
+            var transitions = {
+                "transition": "transitionend",
+                "MozTransition": "transitionend",
+                "WebkitTransition": "webkitTransitionEnd"
+            }
+
+            for (t in transitions) {
+                if (el.style[t] !== undefined) {
+                    return transitions[t];
+                }
+            }
+        }
+
+        var transitionEvent = whichTransitionEvent();
+
+        // jquery 调用
+        $(".button").click(function() {
+            $(this).addClass("animate");
+            $(this).one(transitionEvent,function(event) {
+                    // Do something when the transition ends
+            });
+        });
+
+// -------------------------------------------------------------------------------------
+
+        // 原生js调用
+        var button = document.querySelector(".button"),
+            transitionEvent = whichTransitionEvent();
+
+        button.addEventListener("click", function() {
+            if (button.classList) {
+                button.classList.add("animate");
+            } else {
+                button.className += " " + "animate";
+            }
+            button.addEventListener(transitionEvent, customFunction);
+        });
+
+        function customFunction(event) {
+            button.removeEventListener(transitionEvent, customFunction);
+
+            // Do something when the transition ends
+        }
+    </script>
+    
+    4、animation动画有三个js事件，分别为animationstart、animationiteration、animationend
+
+</body>
+
+</html>

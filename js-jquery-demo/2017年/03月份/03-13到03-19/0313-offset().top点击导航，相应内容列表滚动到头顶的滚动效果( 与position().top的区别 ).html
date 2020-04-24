@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+</head>
+<body>
+
+    教程网址：
+    http://www.jquery001.com/position()-offset().html
+    http://www.jquery001.com/position()-offset().html
+
+    使用jQuery获取元素位置时，我们会使用position()或offset()方法，
+    
+    两个方法都返回一个包含两个属性的对象－左边距和上边距，它们两个的不同点在于位置的相对点不同。
+
+    <!------------------------------------------------------------------------------->
+
+    从图中我们可以大体看出两者的区别。
+    
+    position()获取相对于它最近的具有相对位置(position:relative)的父级元素的距离，
+    如果找不到这样的元素，则返回相对于浏览器的距离。
+
+    offset()始终返回相对于浏览器文档的距离，它会忽略外层元素。
+
+    <!------------------------------------------------------------------------------->
+
+   下边看个简单的例子，这里外层的div元素(position:relative)仅一个：
+
+    <div id="outer" style="width:200px;position:relative;left:100px;">
+        <div id="inner" style="position:absolute;left:50px;top:60px;">           
+        </div>
+    </div>
+
+    <script>
+        //获取相对于最近的父级(position:relative)的位置
+        var vposition = $("#inner").position();
+        alert(vposition.left);   //输出：50
+        alert(vposition.top);    //输出：60
+
+        var voffset = $("#inner").offset();
+        alert(voffset.left);   //输出：$("#outer").offset().left+50
+        alert(voffset.top);    //输出：$("#outer").offset().top+60
+    </script>
+
+    在不同浏览器中,offset()得到的相对于浏览器的位置不同，
+    相信你看了上边相应的注释，已经掌握了position()同offset()方法的区别。
+
+   <!------------------------------------------------------------------------------->
+   
+    所以在做普盛实业公司的一个移动端项目的时候，
+
+
+    <div class="mui-content banshi-dating gonggong-fuwu">
+       <div class="layout">
+            <div class="sort-list" id='cont0'>
+                <div class="title">
+                最新上线
+                </div>
+                <div class="box-list">
+                    <div class="list">
+                        <a href="##">
+                            <img src="images/banshidating/a.png" alt="">
+                            <span class='wen'>智慧药房</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="sort-list" id='cont1'>
+                <div class="title">
+                    教育培训
+                </div>
+                <div class="box-list">
+                    <div class="list">
+                        <a href="##">
+                            <img src="images/banshidating/a.png" alt="">
+                            <span class='wen'>教育资讯</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="sort-list" id='cont2'>
+                <div class="title">
+                    医疗健康
+                </div>
+                <div class="box-list">
+                    <div class="list">
+                        <a href="##">
+                            <img src="images/banshidating/a.png" alt="">
+                            <span class='wen'>预约挂号</span>
+                        </a>
+                    </div>
+                    <div class="list">
+                        <a href="##">
+                            <img src="images/banshidating/b.png" alt="">
+                            <span class='wen'>检验结果</span>
+                        </a>
+                    </div>
+                </div>
+            </div>            
+      </div>
+  </div>
+
+  <script>
+
+        $(".fuwu-sort .list").on('click',function(){
+            
+            $(".fuwu-sort .list").removeClass("cur");
+            $(this).addClass("cur");
+            var indexs = $(this).index();
+
+            //  获得  $('#cont' + indexs + '')这个选择器获得的元素相对于
+            //  class类为 .gonggong-fuwu .layout的这个父div块的垂直（top）方向上的偏移量。 
+            var bbb = $('#cont' + indexs + '').position().top;
+            
+            // 实现滚动
+            $(".gonggong-fuwu").animate({
+                scrollTop: bbb
+            }, 500);
+
+        })
+        
+  </script>
+
+  <!--  核心样式代码 外层得加个 position:relative 属性 -->
+
+  <style>
+
+     .gonggong-fuwu .layout {
+        position: relative;
+     }
+
+  </style>
+  
+   <!------------------------------------------------------------------------------->
+
+</body>
+</html>

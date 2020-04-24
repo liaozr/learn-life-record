@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+0407-前后端分离的项目一般都是涉及到跨域的了，如何更好的处理跨域(Dcloud的webview好像是不存在跨域问题的)
+
+0407-前后端分离的项目一般都是涉及到跨域的了，如何更好的处理跨域(Dcloud的webview好像是不存在跨域问题的)
+
+0407-前后端分离的项目一般都是涉及到跨域的了，如何更好的处理跨域(Dcloud的webview好像是不存在跨域问题的)
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+跨域常用解决办法：
+
+当然是后端添加 Access-Control-Allow-Origin
+至于你说的前端域名过多的问题，让后端用点小技巧能处理好的，不麻烦
+思路：为 Access-Control-Allow-Origin 添加目标域名 (Origin 请求头) 而不是写死的域名或 *
+
+大概实现 (伪代码)：
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+<script>
+    // 允许跨域访问的域名数组
+    string[] allowOrigins = {
+        "http://www.godtail.cn/",
+        "http://godtail.cn/",
+        "http://m.godtail.cn/",
+    };
+
+    // 判断 origin 是否是自己的前端域名，如果是则添加
+    if (allowOrigins.Count(x => x.Contains(Request.Headers["Origin"])) > 0)
+        Response.Header.Add("Access-Control-Allow-Origin", Request.Headers["Origin"]);
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+
+</body>
+</html>

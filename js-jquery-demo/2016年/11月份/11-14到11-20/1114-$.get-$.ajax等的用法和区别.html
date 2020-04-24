@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<!-- ------------------------------------------------------------------------------------ -->
+
+在jquery中的
+
+$.ajax()方法属于最底层的方法，
+
+第2层是load()、$.get()、$.post();
+
+第3层是$.getScript()、$.getJSON()
+
+
+第2层使用频率很高
+
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+一，$.get(url,[data],[callback])
+
+说明：url为请求地址，data为请求数据的列表，
+
+callback为请求成功后的回调函数，该函数接受两个参数，第一个为服务器返回的数据，
+
+第二个参数为服务器的状态，是可选参数。
+
+而其中，服务器返回数据的格式其实是字符串形势，并不是我们想要的json数据格式，在此引用只是为了对比说明
+复制代码 代码如下:
+
+
+$.get()和$.post()方法是jquery中的全局函数
+
+
+$.get()方法
+
+$.get()方法使用GET方式来进行异步请求
+
+结构为：$.get(url,[data],callback,type)
+
+如果服务器返回的内容格式是xml文档，需要在服务器端设置Content-Type类型 代码如下：
+
+header("Content-Type:text/xml:charset=utf-8") //php
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+<script>
+    $.get("data.php", $("#firstName.val()"), function(data) {
+            $("#getResponse").html(data);
+        } //返回的data是字符串类型
+    );
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+$.post()方法
+
+它与$.get()方法的结构和使用方式相同，有如下区别
+
+GET请求会将参数跟张乃URL后进行传递，而POST请求则是作为Http消息的实体内容发送给web服务器，
+
+在ajax请求中，这种区别对用户不可见
+
+GET方式对传输数据有大小限制（通常不能大于2KB），
+
+而使用POST方式传递的数据量要比GET方式大得多（理论不受限制）
+
+GET方式请求的数据会被浏览器缓存起来，因此其他人可以从浏览器的历史纪录中读取这些数据，如：账号、密码。
+
+在某种情况下，GET方式会带来严重的安全问题，而POST相对来说可以避免这些问题
+
+GET和POST方式传递的数据在服务端的获取也不相同。
+
+在PHP中，GET方式用$_GET[]获取；POST方式用$_POST[]获取;
+
+两种方式都可用$_REQUEST[]来获取
+
+<!-- --------------------------------------------------------------------------------- -->
+
+如果还需要复杂的Ajax程序，就需要用到$.ajax()方式
+
+$.ajax()方法
+
+$.ajax()方法是jquery最底层的Ajax实现，它的结构为$.ajax(options)
+
+该方法只有一个参数，但在这个对象里包含了$.ajax()方式所需要的请求设置以及回调函等信息，
+
+参数以key / value存在，所有参数都是可选的
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+更底层的ajax()函数
+
+虽然get()和post()函数非常简洁易用，但是对于更复杂的一些设计需求还是无法实现，
+
+比如在ajax发送的不同时段做出不同的动作等。
+
+jQuery提供一个更为具体的函数：ajax()。
+
+你可以指定xml、script、html、json作为其数据类型
+
+可以为beforeSend、error、sucess、complete等状态设置 处理函数，
+
+众多其它参数也可以订完完全全定义用户的Ajax体验。
+
+下面的例子中，我们用ajax()来调用一个XML文档：
+
+代码如下:
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+<script>
+    $.ajax({
+        url: 'doc.xml',
+        type: 'GET',
+        dataType: 'xml',
+        timeout: 1000,
+        error: function() {
+            alert('Error loading XML document');
+        },
+        success: function(xml) {
+            alert(xml);
+            //此处xml就是XML的jQuery对象了，你可以用find()、next()或XPath等方法在里面寻找节点，
+            // 和用jQuery操作HTML对象没有区别
+        }
+    });
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+<script>
+    $.ajax({
+        type: 'GET',
+        url: './js/more.json',
+        dataType: 'json',
+        success: function(data) {
+            // 为了测试，延迟1秒加载
+            setTimeout(function() {
+                $('.m-news').append(result);
+                // 每次数据加载完，必须重置
+                me.resetload();
+            }, 1000);
+        },
+        error: function(xhr, type) {
+            alert('Ajax error!');
+            // 即使加载出错，也得重置
+            me.resetload();
+        }
+    });
+</script>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

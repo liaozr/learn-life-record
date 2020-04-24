@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+获取当前窗口id：
+
+<script>
+    var ws = plus.webview.currentWebview();
+    console.log("窗口标识: " + ws.id);
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+我们首先由id这个概念才能更加灵活管理webview，比如通过id获取对象关闭窗口:
+
+<script>
+
+    var ws = plus.webview.getWebviewById(id);
+    plus.webview.close(ws);
+
+    // 等效于：
+    plus.webview.getWebviewById(id).close();
+
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+</html>

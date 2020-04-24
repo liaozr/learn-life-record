@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+  在 main.js 配置 axios
+
+  <script>
+
+      import axios from 'axios'
+
+      const host = process.env.NODE_ENV === 'development' ? 'dev api host' : 'prod api host'
+
+      // 根据 process.env.NODE_ENV 的值判断当前是什么环境
+
+      const instance = axios.create({
+          baseURL: host
+      })
+
+      Vue.prototype.$http = instance
+
+
+  </script>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

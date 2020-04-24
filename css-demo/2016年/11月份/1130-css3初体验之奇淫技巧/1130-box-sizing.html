@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+box-sizing
+
+我们知道，在标准盒子模型中，元素的总宽＝content + padding + border + margin。
+
+css中的盒子模型大家可能都知道，但是这个盒子模型的属性可能没有那么多人知道，
+
+box-sizing属性就是用来重定义这个计算方式的，它有三个取值，分别是：content-box（默认）、
+border-box、padding-box
+
+一般来说，假如我们需要有一个占宽200px、padding10px、border5px的div，经过计算，要这么定义样式。
+
+<style>
+    div {
+        width: 170px;
+        /*//这里的宽度要使用200-10*2-5*2 = 170得到。*/
+        height: 50px;
+        padding: 10px;
+        border: 5px solid red;
+    }
+</style>
+
+然后我们来使用一下box-sizing属性。
+
+<style>
+    div {
+        box-sizing: border-box;
+        width: 200px;
+        /*//这里的宽度就是元素所占总宽度，不需要计算*/
+        height: 50px;
+        padding: 10px;
+        border: 5px solid red;
+    }
+</style>
+
+</body>
+</html>

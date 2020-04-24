@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <script src="flexible.js" type="text/javascript"></script>
+    <script src="flexible_css.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="mui.min.css">
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://cdn.bootcss.com/mui/3.4.0/js/mui.min.js"></script>
+
+    <script src='vconsole.min.js'></script>
+
+    <script src='common.js'></script>
+
+    <script src="https://cdn.bootcss.com/vue/2.4.3/vue.min.js"></script>
+
+    <script src='component.js'></script>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <chead :title='biaoti'></chead>
+
+        <loading v-show='showloading'></loading>
+
+    </div>
+
+</body>
+
+<style>
+
+</style>
+
+<script>
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            showloading: true,
+            biaoti: '预算'
+        }
+    })
+
+    var canshu = {
+        memId: 'CK0001011704009'
+    }
+
+    getAjax('get', getBaseServerUrl() + '/app/contractInfo/findContractInfo', canshu, suscallback, errorcallback)
+
+    function suscallback(jsonData) {
+        console.log("接口请求成功")
+        console.log(jsonData)
+        vm.showloading = false;
+    }
+
+    function errorcallback(errormsg) {
+        alert(errormsg);
+        vm.showloading = false;
+    }
+    
+</script>
+
+</html>

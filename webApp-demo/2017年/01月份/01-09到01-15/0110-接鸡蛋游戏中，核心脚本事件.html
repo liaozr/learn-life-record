@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //开始挑战按钮
+        $(".pt-scaleButton").bind('click', function() {
+            $(".p1-02").hide();
+            $(".p1-00").addClass("pt-fromTop pt-delay3200");
+            $(".p1-djs").show();
+            $(".p1-18").show();
+            $(".p1-00").removeClass("pt-scaleUpDown pt-delay400");
+
+            setTimeout(function() {
+                $(".p1-djs").hide();
+            }, 3200);
+            setTimeout(function() {
+                $(".p1-04").addClass("pt-circle");
+            }, 3200);
+
+            setTimeout(function() {
+                firststate()
+            }, 3200)
+
+            setTimeout("rulerAnimate()", 3200);
+
+            setTimeout("chickenmove()", 3200);
+
+
+            $("body").addClass("gostart");
+
+        });
+    </script>
+
+    <!-- ------------------------------------------------------------------------ -->
+
+    <script>
+        $('#circle').click(function() {
+
+            $(".p1-01").stop(true).removeClass("chickenmove");
+
+            var rulerY = $('#ruler').offset().top; //尺子TOP
+            var rulerH = $('#ruler').height(); //尺子HEIGHT
+            var rulerT = rulerY + rulerH; //尺子的下落HEIGHT
+
+            var lineY = $('.p1-lanzi').offset().top; //篮子TOP
+            var lineT = lineY + 55;
+
+            $(".p1-lanzi").stop(true).addClass("dong");
+
+            var scaleline = rulerH / 11;
+            var screeH = document.body.clientHeight;
+
+            var rulerCssTop = (rulerY / screeH) * 100 + "%";
+
+            $("#ruler").removeClass('pt-fromTop');
+            $(".p1-00").removeClass('pt-delay3200');
+            $("#ruler").css('top', rulerCssTop);
+
+            if ((rulerT < lineT) || (rulerT > lineT + rulerH)) {
+                $(".p1-jg-" + (i0 % 3)).show();
+                $(".tck").click(function() {
+                    $(this).hide();
+                    $("#ruler").addClass('pt-fromTop pt-delay300');
+                    $("#ruler").css('top', '7%');
+                });
+                // alert(0);
+                i0 += 1;
+            }
+
+            // 判断下落的高度
+            if ((rulerT >= lineT) && (rulerT < lineT + scaleline * 2)) {
+                $.fn.fullpage.setAllowScrolling(true);
+                $(".p1-jg-00-" + (i100 % 2)).show();
+                $(".tck").click(function() {
+                    $(this).hide();
+                    $("#ruler").addClass('pt-fromTop pt-delay300');
+                    $("#ruler").css('top', '7%');
+                });
+                i100 += 1;
+            }
+            
+        })
+    </script>
+
+    <!-- --------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

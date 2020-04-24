@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src='vue.js'></script>
+</head>
+<body>
+
+自定义指令
+
+除了Vue内置的指令外，还可以自定义指令。
+
+自定义指令提供一种机制将数据变化映射为DOM行为。
+
+通过Vue.directive(id, definition)方法注册一个全局自定义指令，它接收两个参数，指令ID和定义对象。
+
+在HTML元素中使用自定义指令时，需要添加v-前缀
+
+<!-- ------------------------------------------------------------------------------- -->
+
+钩子函数
+
+定义对象中定义了几个可选的钩子函数
+
+bind：只调用一次，在指令第一次绑定到元素上时调用
+
+update：在bind后立即以初始值为参数第一次调用，以后每次绑定的值发生变化时，触发一次，参数为新值和旧值
+
+unbind：只调用一次，在指令元素上解绑时调用
+
+<script>
+    Vue.directive('my-directive', {
+
+        bind: function() {
+            // 准备工作
+            // 例如，添加事件处理器或只需要运行一次的高耗任务
+        },
+        update: function(newValue, oldValue) {
+            // 值更新时的工作
+            // 也会以初始值为参数调用一次
+        },
+        unbind: function() {
+            // 清理工作
+            // 例如，删除 bind() 添加的事件监听器
+        }
+    })
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+指令实例属性
+
+在钩子函数内this执行这个指令对象。这个对象暴露了一些实例属性：
+
+el：指令绑定的元素
+
+vm：拥有该指令的上下文ViewModel
+
+expression：指令表达式
+
+arg：指令参数
+
+name：指令名称
+
+modifiers：指令修饰符对象
+
+descriptor：指令解析的结果对象
+
+注意:这些属性我们应该将其视为可读的，不要修改他们。可以添加自定义属性，但不要覆盖已有的内部属性
+
+
+<div id="demo" v-demo:hello.a.b="msg"></div>
+
+<script>
+    Vue.directive('demo', {
+        bind: function() {
+            console.log('demo bound!')
+        },
+        update: function(value) {
+            this.el.innerHTML =
+                'name - ' + this.name + '<br>' +
+                'expression - ' + this.expression + '<br>' +
+                'argument - ' + this.arg + '<br>' +
+                'modifiers - ' + JSON.stringify(this.modifiers) + '<br>' +
+                'value - ' + value
+        }
+    });
+    var demo = new Vue({
+        el: '#demo',
+        data: {
+            msg: 'hello!'
+        }
+    })
+</script>
+
+结果为：
+name - demo
+expression - msg
+argument - hello
+modifiers - {a: true, b: true}
+value - hello!
+
+<!-- --------------------------------------------------------------------------------- -->
+
+高级选项-params
+
+类似于自定义组件的props属性，自定义指令提供params属性，指令一个数组列表，Vue编译器将自动提取绑定元素的这些特性。而且params还支持动态属性，另外还可以指定一个回调，在值变化时调用
+
+
+<div v-example v-bind:a="someValue"></div>
+
+<script>
+    Vue.directive('example', {
+        params: ['a'],
+        paramWatchers: {
+            a: function(val, oldVal) {
+                console.log('a changed!')
+            }
+        }
+    })
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+</body>
+</html>

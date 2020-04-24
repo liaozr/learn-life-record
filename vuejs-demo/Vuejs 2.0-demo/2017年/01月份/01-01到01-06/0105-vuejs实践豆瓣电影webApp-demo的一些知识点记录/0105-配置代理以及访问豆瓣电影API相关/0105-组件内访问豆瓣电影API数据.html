@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div v-if="inTheater.title">
+        <h2>{{inTheater.title}}
+		          <router-link tag="span" :to="{name:'movielist', query:{type:inTheater.type}}" class="more">  更多>
+		          </router-link>
+		        </h2>
+        <div class="card">
+            <router-link :to="{name: 'moviedetail', params: {id: item.id}}" class="item" v-for="item in inTheater.subjects">
+                <div class="cover">
+                    <div class="wp">
+                        <img class="img-show" :src="item.images.medium" />
+                    </div>
+                </div>
+                <div class="info">
+                    <h3>{{item.title}}</h3>
+                </div>
+            </router-link>
+        </div>
+    </div>
+
+
+    <script>
+        // 从api.js引入 暴露出的函数、引入暴露出的变量 ，是需要 这个 { }包着的
+        import { API_TYPE,fetchMoviesByType } from './../api/api';
+        export default {
+            data() {
+                return {
+                    loading: true,
+                    inTheater: {
+                        type: ''
+                    },
+                    comingSoon: {
+                        type: ''
+                    }
+                }
+            },
+            mounted() {
+                var start = 0,
+                    count = 9;
+                fetchMoviesByType(API_TYPE.movie.in_theaters, start, count)
+                    .then((data) => {
+                        this.inTheater = data;
+                        this.inTheater.type = API_TYPE.movie.in_theaters;
+                        this.loading = false;
+                });
+                fetchMoviesByType(API_TYPE.movie.coming_soon, start, count)
+                    .then((data) => {
+                        this.comingSoon = data;
+                        this.comingSoon.type = API_TYPE.movie.coming_soon;
+                        this.loading = false;
+                });
+            }
+        }
+    </script>
+
+    <!-- -------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

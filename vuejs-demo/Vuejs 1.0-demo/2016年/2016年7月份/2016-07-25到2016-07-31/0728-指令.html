@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.min.js"></script>
+</head>
+<body>
+
+	<!--
+
+    指令, 简单示例
+    -->
+    <div id="app">
+        <p v-if="greeting">Hello!</p>
+        <!-- 根据表达式的值的真假条件渲染元素。在切换时元素及它的
+        数据绑定 / 组件被销毁并重建。如果元素是 <template>，将提出它的内容作
+        为条件块。 -->
+    </div>
+    <script>
+    new Vue({
+        el: '#app',
+        data: {
+            greeting: true
+        }
+    })
+    </script>
+
+
+<!-- ---------------------------------------------------------------------- -->
+
+
+    <!--
+
+    指令-参数, 简单示例
+    -->
+    <div id="app2">
+        <a v-bind:href="url">{{text}}</a>
+
+<!--         动态地绑定一个或多个 attribute，或一个组件 prop 到表达式。
+
+在绑定 class 或 style 时，支持其它类型的值，如数组或对象。
+
+在绑定 prop 时，prop 必须在子组件中声明。可以用修饰符指定不同的绑定类型。
+
+没有参数时，可以绑定到一个对象。注意此时 class 和 style 绑定不支持数组和对象。 -->
+    </div>
+    <script>
+    new Vue({
+        el: '#app2',
+        data: {
+            url: 'http://www.baidu.com',
+            text:'百度'
+        }
+    })
+    </script>
+
+
+<!-- ------------------------------------------------------------------------ -->
+
+
+
+    <!--
+
+    指令-事件, 简单示例
+    -->
+    <div id="app3">
+        <a v-on:click="doSomething1">将 a = 1</a>
+        <br>
+        <a v-on:click="doSomething2">将 a = 2</a>   
+        <!--          v-on指令用于监听DOM事件   doSomething1、doSomething2 就是被监听事件的名字     -->
+        <!--   分别单击a标签可以将h1里面的 a值  变为 1和2     -->
+        <h1>{{a}}</h1>
+    </div>
+    <script>
+    new Vue({
+        el: '#app3',
+        data: {
+            a: 100
+        },
+        methods: { //  注意v-on指令要记得建立 methods这个方法。
+            doSomething1: function() {
+                this.a = 1 // this指的就是 new这个实例   this.a指向的也就是这个实例的data下的键值a的属性值。
+            },
+            doSomething2: function() {
+                this.a = 2
+            },
+        }
+    })
+    </script>
+</body>
+</html>

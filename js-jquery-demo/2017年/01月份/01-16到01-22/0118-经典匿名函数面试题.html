@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+    function aa() {
+        alert("aaa");
+        return function() {
+            alert("bbb");
+            // return 'ccc'
+        };
+    }
+    alert(aa);
+    alert(aa());
+    alert(aa()());
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+（1）
+alert(aa);的结果为：
+
+页面弹出
+function aa()
+{
+alert(“aaa”);
+return function(){alert(“bbb”);};
+}
+
+<!-- ----------------------------------------------------------------------------- -->
+
+（2）alert(aa());的结果为：
+先弹出aaa，——执行的是aa（）里的alert(“aaa”);
+再弹出function(){alert(“bbb”);}——执行的是alert(aa())，弹出aa（）的返回值
+
+<!-- ----------------------------------------------------------------------------- -->
+
+（3）alert(aa()());
+结果为：
+先弹出aaa，——执行的是aa（）里的alert(“aaa”);
+再弹出bbb, ——执行的是(function(){alert(“bbb”);}) ()，这是定义的同时直接调用该函数
+
+最后弹出undefined——执行的是alert();，因为function(){alert(“bbb”);}没有返回值，所以弹出undefined
+
+<!-- ----------------------------------------------------------------------------- -->
+
+当一个函数没有明确的返回值（没有return或return后面没有任何内容）,接收后的结果就是undefined.
+
+<!-- ----------------------------------------------------------------------------- -->
+
+</body>
+</html>

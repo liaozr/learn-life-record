@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <div class="aa">
+            <input type="text" v-model='a'>a数据
+            <input type="text" v-model='b'>b数据
+        </div>
+    </div>
+
+    <script>
+
+        new Vue({
+            el: '#app',
+            data: {
+                a: '',
+                b: ''
+            },
+            computed: {
+                change() {
+                    return this.a + this.b
+                }
+            },
+            watch: {
+                // newValue 应该是写在第一个的。oldValue写在第二个
+                change(newValue,oldValue) {
+                   console.log(newValue)  // 1112
+                   console.log(oldValue)  // 111
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

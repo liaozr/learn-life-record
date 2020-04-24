@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Pragma" content="no-cache">
+		<title>公司信息</title>
+		<link rel="stylesheet" href="cropbox.js/css/app.min.css" />
+		<link rel="stylesheet" href="cropbox.js/css/style2.css" />
+		<link rel="stylesheet" href="js/easyform/easyform.css" />
+		<link rel="stylesheet" href="css/base-reset.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="datepicker/datepicker.css" />
+		<link rel="stylesheet" href="css/public.css" />
+		<link rel="stylesheet" href="css/yhn.css" />
+		<script src="js/jquery-1.11.3.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/domain.js"></script>
+		<script src="js/vue.min.js"></script>
+		<script src="js/easyform/easyform.js"></script>
+		<script src="cropbox.js/cropbox.js"></script>
+		<script src="js/Validform_v5.3.2.js"></script>
+		<script src="datepicker/bootstrap-datepicker.js"></script>
+		<script src="layer/layer.js"></script>
+	</head>
+	<style>
+		.titleBox {
+			background: #586068;
+			height: 200px;
+			margin-bottom: 60px;
+			overflow: hidden;
+			box-sizing: border-box;
+			padding: 30px;
+		}
+		
+		.titleBox>h5 {
+			color: #fff;
+		}
+	</style>
+
+	<body id="scope">
+		<header class="navbar navbar-default" id="top" role="banner" style="margin-top:20px">
+			<div class="container">
+				<img class="logo left" src="img/logo.png" />
+				<div id="navbar" class="navbar-collapse collapse" style='padding-right:0'>
+					<ul class="nav navbar-nav">
+						<li class="">
+							<a href="index.html">主页</a>
+						</li>
+						<li class="">
+							<a href="selectFun.html">自助评估</a>
+						</li>
+						<li class="">
+							<a href="projectApplication.html">项目申请</a>
+						</li>
+						<li class="">
+							<a href="together.html">合作条款</a>
+						</li>
+						<li class="">
+							<a href="aboutUs.html">关于我们</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" v-if="haslogin">
+						<li id="goCenter" class="headBox">
+							<img id="head" style="cursor: pointer;" src="img/cgx.jpg" alt="" />
+							<span id="userTips"></span>
+							<div class="downList" style="display:none;">
+								<strong></strong>
+								<div>
+									<ul>
+										<li>
+											<p id="unameTitle"></p>
+										</li>
+										<li id="makeCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-zoom-in"></span></span><strong class="down-title">创建公司</strong></li>
+										<li id="gomyCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-briefcase"></span></span><strong class="down-title">我管理的公司</strong></li>
+										<li id="assess" class="hov"><span class="dot2"><span class="glyphicon glyphicon-usd"></span></span><strong class="down-title">估价</strong></li>
+										<li id="mypaper" class="hov"><span class="dot2"><span class="glyphicon glyphicon-list-alt"></span></span><strong class="down-title">我的报价单</strong></li>
+										<li id="exit" class="hov"><span class="dot2"><span class="glyphicon glyphicon-off"></span></span><strong class="down-title">退出登录</strong></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" v-else>
+						<li>
+							<a href="login.html">登录</a>
+						</li>
+						<li>
+							<a href="register.html">注册</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+		<div id="" class="form-box w1170" style="border:1px solid #ddd;margin-top:100px;">
+			<div class="titleBox w1170">
+				<h5 style="font-size:20px;">{{dataArr.companyRename}}</h5>
+				<h5>{{dataArr.companyName}}</h5>
+				<h5>{{dataArr.companyUrl}}</h5>
+				<button id="delBtn" type="button" class="btn btn-toolbar" style="width:100px;margin-top:16px;">删除此公司</button>
+				
+			</div>
+			<table class="table1">
+				<tr>
+					<td>公司全称</td>
+					<td><input id="in2" value="{{dataArr.companyName}}" v-model="dataArr.companyName" type="text" class="form-control kup" style="width:480px;" placeholder="请填写公司的完整名称" data-easytip="position:bottom" datatype="*1-30"></td>
+				</tr>
+				<tr>
+					<td>公司网址</td>
+					<td><input id="in3" value="{{dataArr.companyUrl}}" v-model="dataArr.companyUrl" type="text" class="form-control kup" style="width:480px;" datatype="url" data-easytip="position:bottom" placeholder="如：http://www.qq.com"></td>
+				</tr>
+				<tr id="ssq">
+						<td>所在地</td>
+						<td>
+							<select id="sheng" class="prov form-control" style="width:150px;float:left;">
+								<option class="{{key.p|provinceSel}}" v-for="key in city.citylist" value="{{key.p}}">{{key.p}}</option>
+							</select>
+							<select  id="shi" class="city form-control" style="width:150px;float:left;margin-left:10px" }>
+								<option class="{{key.n|citySel}}" v-for="key in city.citylist[page2Data.shengInd].c" value="{{key.n}}" v-show="page2Data.shengInd!=0">{{key.n}}</option>
+							</select>
+							<select  id="qu" class="dist form-control" style="width:150px;float:left;margin-left:10px" v-show="city.citylist[page2Data.shengInd].c[page2Data.shiInd].a">
+								<option class="{{key.s|regionSel}}" v-for="key in city.citylist[page2Data.shengInd].c[page2Data.shiInd].a" value="{{key.s}}">{{key.s}}</option>
+							</select>
+						</td>
+					</tr>
+				<tr id="doma">
+					<td>所属领域</td>
+					<td>
+						<select id="doma-fa" class="form-control" style="width:150px;float:left;">
+							<option class="{{key.f|domafaSel}}"  v-for="key in domaArr" value="{{key.f}}">{{key.f}}</option>
+						</select>
+						<select id="doma-son" class="form-control" style="width:150px;float:left;margin-left:10px" v-show="Ind!=0">
+							<option class="{{item|domaSonSel}}" v-for="item in domaArr[Ind].s" value="{{item}}">{{item}}</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			<table id="gsjs" class="table1">
+				<tr>
+					<td style="height:120px;">一句话介绍</td>
+					<td><textarea id="t1" value="{{dataArr.introduce}}" v-model="dataArr.introduce" class="form-control" style="height:100px;padding:10px;" placeholder="如：悠米科技是关注互联网创业的科技媒体及投融资平台" name="" rows="" cols=""></textarea></td>
+				</tr>
+				<tr>
+					<td style="height:270px;">产品与优势</td>
+					<td><textarea id="t2" value="{{dataArr.products}}" v-model="dataArr.products" class="form-control" style="height:250px;padding:10px;" placeholder="介绍一下公司的主营业务和产品模式，写明产品优势，突显亮点，获得可投资人第一眼关注" name="" rows="" cols=""></textarea></td>
+				</tr>
+				<tr>
+					<td style="height:270px;">目标用户</td>
+					<td><textarea id="t3" value="{{dataArr.targetUsers}}" v-model="dataArr.targetUsers" class="form-control" style="height:250px;padding:10px;" placeholder="说说市场规模及目标用户，服务的人群，典型的用户是什么样的" name="" rows="" cols=""></textarea></td>
+				</tr>
+				<tr>
+					<td style="height:270px;">团队优势</td>
+					<td><textarea id="t4" value="{{dataArr.team}}" v-model="dataArr.team" class="form-control" style="height:250px;padding:10px;" placeholder="首先简要概括团队做这个项目的核心优势，然后分别介绍创世团队成员的背景和工作分工" name="" rows="" cols=""></textarea></td>
+				</tr>
+			</table>
+			<table id="part3" class="table1">
+				<tr>
+					<td>职位</td>
+					<td>
+						<select id="job" class="form-control" style="width:150px;float:left;">
+							<option value="创始人">创始人</option>
+							<option id="ccc" value="联合创始人">联合创始人</option>
+						</select>
+						<input v-model="dataArr.jobInfo" type="text" class="form-control" style="width:150px;float:left;margin-left:10px;" placeholder="如：CEO/市场/产品/技术" />
+					</td>
+				</tr>
+				<tr>
+					<td>任职时间段</td>
+					<td>
+						<input value="{{dataArr.dateTime}}" v-model="dataArr.dateTime" placeholder="请输入日期" class="form-control datepicker" style="width:150px;float:left;padding-left:10px;">
+						<span style="float:left;margin-top:6px;margin-left:10px;">至今</span>
+					</td>
+				</tr>
+			</table>
+			<div style="width:250px;margin:40px auto;">
+				<button id="finish" type="button" class="btn btn-primary" style="width:100px;">保存</button>
+				<button id="returnBtn" type="button" class="btn btn-toolbar" style="width:100px;margin-left:40px;">返回</button>
+			</div>
+		</div>
+	</body>
+	<script src="js/city.min.js"></script>
+	<script src="js/login.js"></script>
+	<script type="text/javascript" src="layer/layer.js" ></script>
+	<script>
+		Vue.filter('formatDate', function(dateStr) {
+			var arr = dateStr.split("-");
+	     	return arr[2]+"/"+arr[1]+"/"+arr[0];
+		})
+		
+		window.onload=function(){
+			$("#sheng").change();
+			$("#doma-fa").change();
+			setTimeout(function(){
+				$("#shi").change();
+				$(".selected").attr('selected',true);
+			},500);
+			setTimeout(function(){
+				$(".selected").attr('selected',true);
+			},600);
+			
+		}
+		
+
+		//表单提示
+		$('#in1').focusin(function() {
+			$(this).easytip().show("公司简称<br>此处请填写产品名称或项目名称。如：腾讯<br>1-30个字");
+		});
+		$('#in1').focusout(function() {
+			$(this).easytip().close();
+		});
+
+		$('#in2').focusin(function() {
+			$(this).easytip().show("公司全称<br>此处请填写公司的工商登记名称。<br>不超过40个字");
+		});
+		$('#in2').focusout(function() {
+			$(this).easytip().close();
+		});
+
+		$('#in3').focusin(function() {
+			$(this).easytip().show("公司网址<br>此处请填写公司的网址或APP下载地址。<br>网址的合法性");
+		});
+		$('#in3').focusout(function() {
+			$(this).easytip().close();
+		});
+
+		$('#t1').focusin(function() {
+			$(this).easytip().show("老夫聊发少年狂，左牵黄，右擎苍，锦帽貂裘，千骑卷平岗。");
+		});
+
+		$('#t2').focusin(function() {
+			$(this).easytip().show("为报倾城随太守，亲射虎，看孙郎。");
+		});
+
+		$('#t3').focusin(function() {
+			$(this).easytip().show("酒酣胸胆尚开张。鬓微霜。又何妨？持节云中，何日遣冯唐？");
+		});
+
+		$('#t4').focusin(function() {
+			$(this).easytip().show("会挽雕弓如满月，西北望，射天狼。");
+		});
+        console.log(sessionStorage.companyDetail);
+		var info = JSON.parse(sessionStorage.companyDetail);
+		var vm = new Vue({
+			el: '#scope',
+			data: {
+				city: {},
+				page2Data:{
+					shengInd: '0',
+					shiInd: 'no',
+					quInd: '',
+					province: '',
+					city:'',
+					region: '',
+				},
+				domaArr:'',
+					Ind:'0',
+					sslyData:{
+						fieldType:'',
+						fieldInfo:''
+					},
+				dataArr: info
+			},
+			ready: function() {
+				this.city = cityPrj;
+				this.domaArr= domain;
+			}
+		});
+
+		$("#finish").on('click', function() {
+			console.log(JSON.stringify(vm.dataArr));
+			$.ajax({
+				type: "post",
+				url: "/services/ws/res/info",
+				contentType: "application/json",
+				data: JSON.stringify(info),
+				success: function(jsonData) {
+					if(JSON.parse(jsonData).status == "true") {
+						layer.msg("修改成功");
+					}
+				}
+			});
+		});
+		$("#returnBtn").on('click', function() {
+			window.location.href = "personal.html";
+		});
+		
+		
+		//省市区三联动	
+		$("#sheng").bind("change", function() {
+			$(".selected").attr('selected',true);
+			var index = $(this).find("option:selected").index();
+			vm.page2Data.shengInd = index;
+			info.province = $(this).val();
+
+		});
+
+		$("#shi").bind("change", function() {
+			$(".selected").attr('selected',true);
+			var index = $(this).find("option:selected").index();
+			vm.page2Data.shiInd = index;
+			info.city = $(this).val();
+
+		});
+
+		$("#qu").bind("change", function() {
+			info.region = $(this).val();
+		});
+		//省市区selected
+		Vue.filter('provinceSel', function(value) {
+			if(value==vm.dataArr.province){
+				return "selected";
+			}else{
+				return "";
+			}
+		});
+		
+		Vue.filter('citySel', function(value) {
+			if(value==vm.dataArr.city){
+				return "selected";
+			}else{
+				return "";
+			}
+		});
+		
+		Vue.filter('regionSel', function(value) {
+			if(value==vm.dataArr.region){
+				return "selected";
+			}else{
+				return "";
+			}
+		});
+		
+		//所属领域	
+		$("#doma-fa").bind("change", function() {
+			var index = $(this).find("option:selected").index();
+			vm.Ind = index;
+			vm.dataArr.fieldType = $(this).val();
+
+		});
+		
+		Vue.filter('domafaSel', function(value) {
+			if(value==vm.dataArr.fieldType){
+				return "selected";
+			}else{
+				return "";
+			}
+		});
+		
+		Vue.filter('domaSonSel', function(value) {
+			if(value==vm.dataArr.fieldInfo){
+				return "selected";
+			}else{
+				return "";
+			}
+		});
+
+		$("#doma-son").bind("change", function() {
+			vm.dataArr.fieldInfo = $(this).val();
+
+		});
+		$('.datepicker').datepicker();
+		
+		
+		//删除此公司
+		$("#delBtn").click(function(){
+			var data={id:info.id};
+			tanchu1("确认删除此公司？",data);
+		});
+		
+		////弹出框函数
+		function tanchu(cont) {
+			layer.open({
+				btn: ['OK'],
+				content: cont, //内容
+				shade: [0.5, '#000'], //遮罩层  透明度，颜色
+				shadeClose: true, //点击遮罩层 关闭弹出层
+				time: 0 //  自动关闭时间，  0表示不自动关闭	           
+			});
+		}
+		
+		//删除本公司
+		function tanchu1(cont,data) {
+			layer.open({
+				btn: ['确认', '取消'],
+				content: cont, //内容
+				shade: [0.5, '#000'], //遮罩层  透明度，颜色
+				shadeClose: true, //点击遮罩层 关闭弹出层
+				time: 0, //  自动关闭时间，  0表示不自动关闭	           
+				yes:function(){
+					$.ajax({
+						type: "post",
+						url: "/services/ws/cen/delete",
+						contentType: "application/json",
+						data: JSON.stringify(data),
+						success: function(jsonData) {
+							if(JSON.parse(jsonData).status == "true") {
+								window.location.href="personal.html";
+							}
+						}
+					});
+				},
+				no:function(){
+					
+				}
+			});
+		}
+
+	</script>
+
+</html>

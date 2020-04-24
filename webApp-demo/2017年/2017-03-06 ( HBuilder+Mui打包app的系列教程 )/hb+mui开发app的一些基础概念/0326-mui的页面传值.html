@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+页面传值
+
+我们点击了列表，我们会进入一个详情页，我们肯定是想知道我们究竟点了哪一个我们想把一些数据传入到详情页面，
+
+这里我们使用了mui.openWindow()方法中的拓展参数extras传入几个值，
+
+在详情页面通过plus.webview.currentWebview获取：
+
+<script>
+
+	//列表点击事件
+	mui("#list").on('tap','li a',function(){
+				 var id = this.getAttribute('id');
+				 var audio = this.getAttribute('data-audio');
+				 //打开详情页面
+				 mui.openWindow({
+						 url:'music.html',
+						 id:'music.html',
+						 extras:{
+								 musicId:id
+				 }
+    });
+
+	// music.html页面
+	mui.plusReady(function(){
+	    var self = plus.webview.currentWebview();
+	    var musicId = self.musicId;
+	    var audioUrl = self.audioUrl;
+	    document.write("musicId:" + musicId + "<br />");
+	    document.write("audioUrl:" + audioUrl);
+	});
+
+</script>
+
+
+</body>
+</html>

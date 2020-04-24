@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ------------------------------------------------------------------------------------ -->
+
+  v-model 在自定义组件中的使用
+
+  自定义组件中也可以使用 v-model
+
+  <custom-component v-model="custom" />
+
+  和这种用法是一样的:
+
+  <custom-component :value="custom" @input="val => custom = val" />
+
+  在 2.2.0+ 的版本中可以使用 model 属性在自定义组件中来实现属性和事件的自定义：
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+  <script>
+
+      export default {
+          name: 'custom-component',
+          model: {
+              prop: 'customVal',
+              event: 'customEvent'
+          }
+      }
+
+  </script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+  v-model 将会查询所有的属性来替代 value 属性，并使用 prop 中来替代 input 事件的监听。
+
+  因此上面的那个 custom-component 组件被改写为
+
+  <custom-component :customVal="custom" @customEvent="val => custom = val" />
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

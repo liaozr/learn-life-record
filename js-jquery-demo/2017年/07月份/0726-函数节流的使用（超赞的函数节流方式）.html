@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+   </head>
+  <body>
+
+  接下来我们需要监听'scroll'事件，判断元素是否出现在可视区域内。
+
+  对于scroll事件的优化之一，我们需要使用函数节流。
+
+  你可以选择导入underscore.js的throttle函数，
+
+  但是这里我尝试了一下requestAnimationFrame来实现函数节流：
+
+  <div class="" id='app'>
+
+    <div class="" ref='zfbitem'>
+
+    </div>
+
+  </div>
+
+  <script type="text/javascript">
+
+    new Vue({
+      el:"#app",
+      data:{
+         LOCK:false,
+         active:''
+      },
+      mounted(){
+        document.addEventListener('scroll', this.onScroll , false);
+      },
+      methods:{
+        onScroll (e) {
+            if (!this.LOCK) {
+                this.LOCK = true;
+                window.requestAnimationFrame(this.scrollAction);
+            }
+        },
+        scrollAction () {
+            const flag = this.isElementInViewport(this.$refs.zfbitem, 100);
+            if (!flag) {
+                this.LOCK = false;
+            } else {
+                //触发元素高度过渡动画
+                this.active = true;
+                //去除掉事件监听
+                document.removeEventListener('scroll', this.onScroll , false);
+            }
+        }
+      }
+    })
+
+  </script>
+  </body>
+</html>

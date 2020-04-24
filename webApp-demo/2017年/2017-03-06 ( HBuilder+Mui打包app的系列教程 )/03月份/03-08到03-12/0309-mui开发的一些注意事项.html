@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- --------------------------------------------------------------------------------------- -->
+
+  mui是一个高性能的HTML5开发框架，从UI到效率，都在极力追求原生体验；这个框架自身有一些规则，刚接触的同学不很熟悉，特总结本文；
+
+  想了解mui更详细的信息，请访问mui官网
+
+  DOM结构 关于mui页面的dom，你需要知道如下规则。
+
+  固定栏靠前 所谓的固定栏，也就是带有.mui-bar属性的节点，都是基于fixed定位的元素；
+
+  常见组件包括：顶部导航栏（.mui-bar-nav）、底部工具条(.mui-bar-footer)、底部选项卡（.mui-bar-tab）;这些元素使用时需遵循一个规则：放在.mui-content元素之前，即使是底部工具条和底部选项卡，也要放在.mui-content之前，否则固定栏会遮住部分主内容；
+  ### 一切内容都要包裹在mui-content中
+
+  除了固定栏之外，其它内容都要包裹在.mui-content中，否则就有可能被固定栏遮罩，
+
+  原因：固定栏基于Fixed定位，不受流式布局限制，普通内容依然会从top:0的位置开始布局，这样就会被固定栏遮罩，mui为了解决这个问题，
+
+  定义了如下css代码：
+
+  <!-- --------------------------------------------------------------------------------------- -->
+
+  <style>
+      .mui-bar-nav~.mui-content {
+          padding-top: 44px;
+      }
+
+      .mui-bar-footer~.mui-content {
+          padding-bottom: 44px;
+      }
+
+      .mui-bar-tab~.mui-content {
+          padding-bottom: 50px;
+      }
+  </style>
+
+  <!-- --------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

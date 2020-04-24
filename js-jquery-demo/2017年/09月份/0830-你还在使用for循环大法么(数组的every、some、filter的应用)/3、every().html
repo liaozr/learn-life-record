@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+3、every()
+
+every()可是检测数组中的每一项是否符合条件
+
+<script type="text/javascript">
+
+    // 使用for：
+
+    /*
+    * 是否全部大于0
+    */
+
+    var ary = [12,23,24,42,1];
+    var result = function(){
+      for (var i = 0; i < ary.length; i++) {
+        if(ary[i] < 0){
+           return false;
+        }
+      }
+      return true; //需全部满足
+    }
+
+    console.log(result()) //全部满足,返回true
+
+// -----------------------------------------------------------------------------------------
+
+    // 使用every：
+
+    var ary = [12,23,24,42,1];
+    var result = ary.every(function(item, index){
+       return item > 0
+    })
+
+    console.log(result)  // true
+
+</script>
+
+  </body>
+</html>

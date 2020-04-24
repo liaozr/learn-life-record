@@ -1,0 +1,125 @@
+
+<script type="text/javascript">
+	import "bootstrap/dist/css/bootstrap.min.css"
+	import "font-awesome/css/font-awesome.min.css"
+	import  './assets/index.css'
+
+	import 'jqueryui/jquery-ui.js'
+
+	import 'move-js/index.js'
+
+	import "iswiper/dist/swiper.css"
+	import "components-bootstrap/css/bootstrap.min.css"
+</script>
+<!-- ------------------------------------------------------------------------------------------ -->
+
+然后就是在页面中引入了，这些是局部安装的，所以，得要import 进去
+
+import的方式就是 参考github上面的 你想要引入的这个组件的目录以及文件的相对路径
+
+倘若是通过cnpm install 这种方式安装的， 一般import 后面跟着的就是 安装依赖的名字 （就是package.json文件里面的那些依赖名字 ，紧接着就是github上面的你想要引入进来的这个文件的路径了。）
+
+例如：我要引入 bootstrap
+import "bootstrap/dist/css/bootstrap.min.css"
+
+而其他普通的样式文件则可以通过这样子引入
+import  './assets/index.css'
+
+<!-- ------------------------------------------------------------------------------- -->
+
+<!-- 一般先是要  -->
+
+cnpm install bootstrap --save
+cnpm install font-awesome --save
+cnpm install jqueryui --save
+cnpm install move-js --save
+
+<!-- -------------------------------------------------------------------- -->
+
+先安装这些依赖的
+依赖名字得自己去github 上找，一般在 下方点点，就可以告诉你 怎么用npm or cnpm 安装这些组件的
+没有的话，就直接按照github上 的较上面的那个组件名字去install 就行的了。
+
+如：
+Package Managers
+npm: components-font-awesome
+
+再如：
+With npm:
+$ npm install move-js
+
+再比如有些是这样子的：
+NPM
+npm install --save normalize.css  （ 表明当时的依赖名字是  normalize.css ）
+
+上面的那个跟这样子（ npm install normalize --save ）install 很大可能上是不同的 。
+
+这些都可以在github上找到的
+
+<!-- ------------------------------------------------------------------------- -->
+
+
+安装完可以在项目里的package.json这个文件里面找到这些依赖
+
+ "dependencies": {
+    "babel-runtime": "^6.0.0",
+    "bootstrap": "^3.3.7",
+    "components-bootstrap": "^3.3.7",
+    "components-font-awesome": "^4.6.1",
+    "font-awesome": "^4.6.3",
+    "highlightjs": "^8.7.0",
+    "iswiper": "^1.4.1",
+    "jquery": "^3.1.0",
+    "jqueryui": "^1.11.1",
+    "move": "^0.4.9",
+    "move-js": "^0.5.0",
+    "normalize": "^0.3.1",
+    "normalize.css": "^4.2.0",
+    "sass": "^0.5.0",
+    "swiper": "^3.3.1",
+    "vue": "^1.0.21",
+    "vue-resource": "^0.9.3",
+    "vue-router": "^0.7.13",
+    "vuex": "^1.0.0-rc.2"
+  }
+<!-- --------------------------------------------------------------------------- -->
+
+
+3. webpack打包时图片路径的问题
+
+在.vue文件中引入css样式的方法有两种:
+
+在script里用import引用
+
+在style里用@import引用
+
+那么这两种引用方式有什么区别呢?
+用方法1的方式引入, 那么css文件中图片路径, 应该相对当前css文件, 而不是当前引入该css文件的.vue文件
+
+用方法2的方式引入, 那么css文件中图片路径, 应该相对当前引入该css文件的.vue文件, 而不是当前css文件
+
+个人不推荐用方法2引入, 特别是, 你在/src/app.vue和/src/components/main.vue这样不同目录的.vue文件中分别引入,
+
+那么总有一个要报图片路径不存的错误
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+
+3. webpack打包时图片路径的问题
+
+在.vue文件中引入css样式的方法有两种:
+
+在script里用import引用
+
+在style里用@import引用
+
+那么这两种引用方式有什么区别呢?
+用方法1的方式引入, 那么css文件中图片路径, 应该相对当前css文件, 而不是当前引入该css文件的.vue文件
+
+用方法2的方式引入, 那么css文件中图片路径, 应该相对当前引入该css文件的.vue文件, 而不是当前css文件
+
+个人不推荐用方法2引入, 特别是, 你在/src/app.vue和/src/components/main.vue这样不同目录的.vue文件中分别引入,
+
+那么总有一个要报图片路径不存的错误
+
+<!-- ---------------------------------------------------------------------------------------------------- -->

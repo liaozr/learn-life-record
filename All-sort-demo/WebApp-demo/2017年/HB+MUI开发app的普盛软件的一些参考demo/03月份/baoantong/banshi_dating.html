@@ -1,0 +1,130 @@
+ <!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	 <meta charset="UTF-8" />
+	<!-- Mobile Devices Support @begin -->
+    <meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" / >
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <!-- Mobile Devices Support @end -->
+    <link rel="stylesheet" href="css/base-reset.css">
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link rel="stylesheet" href="css/icons-extra.css">
+    <link rel="stylesheet" type="text/css" href="css/swiper-3.3.1.min.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+
+    <script src="js/zepto1.1.6.min.js" type="text/javascript"></script>
+    <script src="js/flexible.js" type="text/javascript"></script>
+    <script src="js/flexible_css.js" type="text/javascript"></script>
+    <script src='js/swiper-3.3.1.min.js' type="text/javascript"></script>
+    <script src='js/mui.min.js'></script>
+</head>
+<body>
+    <div class="mui-bar mui-bar-nav header">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    	<h1 class="mui-title">网上办事大厅</h1>
+    	<span class="mui-icon-extra mui-icon-extra-dictionary"></span>
+    </div>
+    <div class="mui-content banshi-dating">
+        <form action="##">
+        	<span class="mui-icon mui-icon-search mui-icon-zi"></span><input class='search-input' type="text" name="" id="" placeholder="请输入事项名称/编号">
+        	<input type="submit" class='sousuo' value="搜索">
+        </form>
+        <div class="sort-list">
+        	<div class="title">
+        		办事服务
+        	</div>
+        	<div class="box-list">
+        		<div class="list">
+        			<a href="##">
+        				<img src="images/banshidating/a.png" alt="">
+        				<span class='wen'>企业办事</span>
+        			</a>
+        		</div>
+        		<div class="list">
+        			<a href="##">
+        				<img src="images/banshidating/b.png" alt="">
+        				<span class='wen'>个人办事</span>
+        			</a>
+        		</div>
+        		<div class="list">
+        			<a href="##">
+        				<img src="images/banshidating/c.png" alt="">
+        				<span class='wen'>我要预约</span>
+        			</a>
+        		</div>
+        		<div class="list">
+        			<a href="##">
+        				<img src="images/banshidating/d.png" alt="">
+        				<span class='wen'>进度查询</span>
+        			</a>
+        		</div>
+        		<div class="list">
+        			<a href="##">
+        				<img src="images/banshidating/e.png" alt="">
+        				<span class='wen'>服务网点</span>
+        			</a>
+        		</div>
+        		<div class="list">
+        			<a href="##">
+        				<img src="images/banshidating/f.png" alt="">
+        				<span class='wen'>我要咨询</span>
+        			</a>
+        		</div>
+        	</div>
+        </div>
+        <div class="sort-list">
+        	<div class="title">
+        		状态查询
+        	</div>
+        	<div class="box-list">
+        		<div class="list">
+        			<a href="##">
+        				<img src="images/banshidating/g.png" alt="">
+        				<span class='wen'>我的申报</span>
+        			</a>
+        		</div>
+        		<div class="list">
+        			<a href="##">
+        				<img src="images/banshidating/h.png" alt="">
+        				<span class='wen'>我的预约</span>
+        			</a>
+        		</div>
+        		<div class="list">
+        			<a href="##">
+        				<img src="images/banshidating/i.png" alt="">
+        				<span class='wen'>我的收藏</span>
+        			</a>
+        		</div>
+        		<div class="list">
+        			<a href="##">
+        				<img src="images/banshidating/j.png" alt="">
+        				<span class='wen'>我的咨询</span>
+        			</a>
+        		</div>
+        	</div>
+        </div>
+	</div>
+	<script>
+	         $(".box-list .list a").on("touchstart",function(){
+	         	 var _this=$(this);
+		         _this.addClass("cur")
+	         })
+	         $(".banshi-dating .sort-list .box-list .list a").on("touchend",function(){
+	         	  var _this=$(this);
+		         _this.removeClass("cur")
+	         })
+	         
+	        
+
+	</script>
+	
+	<script>
+		var oldback = mui.back;
+		mui.back = function() {			 
+			plus.webview.currentWebview().close();
+		}
+	</script>
+	
+</body>
+</html>

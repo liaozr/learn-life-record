@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    
+        function loadData() {
+            mui.ajax(getBaseServerUrl() + '/app/contractInfo/findContractInfo?memId=', {
+                type: 'get', //HTTP请求类型
+                data: {
+                    // 合同信息编号
+                    memId: localStorage.selectContractId
+                },
+                success: function(jsonData) {
+                    hetongVM.hetongMsg = jsonData.data;
+                    var details = jsonData.data.detail;
+                    // hetongVM.items=[].slice.call(details);
+                    hetongVM.items = details;
+
+
+                     // 异步加载进度条
+                    // 异步加载进度条
+                    setTimeout(function() {
+                        progressBar()
+                    }, 0)
+
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+            });
+        }
+
+        //进度条展示
+        function progressBar() {
+            var progressbar1 = mui('.progress');
+            var progress_length = progressbar1.length;
+            for (var i = 0; i < progress_length; i++) {
+                var progress_e = progressbar1[i];
+                var progressnum = progress_e.getAttribute('data-progress');
+
+                var progress = progressbar1[i];
+                mui(progress).progressbar().setProgress(progress.getAttribute('data-progress'));
+            }
+        }
+    </script>
+</body>
+
+</html>

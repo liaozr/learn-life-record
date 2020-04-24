@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    Spread Operator（ 展开运算符）
+
+    第一个用途： 组装数组
+
+    <script>
+
+        let color = ['red', 'yellow'];
+        let colorful = [...color, 'green', 'blue'];
+
+        console.log(colorful); // ["red", "yellow", "green", "blue"]
+
+
+        // 第二个用途： 获取数组除了某几项的其他项
+
+        let num = [1, 3, 5, 7, 9];
+        let [first, second, ...rest] = num;
+        
+        console.log(rest); // [5, 7, 9]
+
+    </script>
+
+</body>
+
+</html>

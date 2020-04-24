@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 检查字符串是否为合法日期格式 yyyy-mm-dd
+        function isDate(str) {
+            var reg = /^[1-2][0-9][0-9][0-9]-[0-1]{0,1}[0-9]-[0-3]{0,1}[0-9]$/;
+            if (reg.test(str)) {
+                console.log(str + ' 是合法的日期格式');
+                return true;
+            } else {
+                console.log(str + ' 是不合法的日期格式，yyyy-mm-dd');
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>

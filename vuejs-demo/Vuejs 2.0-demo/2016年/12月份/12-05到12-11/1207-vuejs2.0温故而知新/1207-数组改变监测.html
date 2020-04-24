@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+替换方法（mutation）
+
+push()
+pop()
+shift()
+unshift()
+splice()
+sort()
+reverse()
+
+这些方法会改变原来的 array，并自动触发 view 的更新。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+替换 array
+
+filter()
+concat()
+slice()
+
+这几个方法会返回新的 array，如：
+
+<script>
+    example1.items = example1.items.filter(function(item) {
+        return item.message.match(/Foo/)
+    })
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+附加说明
+
+如果
+
+直接 set array 的值，如 vm.items[indexOfItem] = newValue
+
+修改 array 的长度，如 vm.items.length = newLength
+
+都是没法触发更新的，需要使用
+
+<script>
+    Vue.set(example1.items, indexOfItem, newValue)
+
+    // Array.prototype.splice`
+    example1.items.splice(indexOfItem, 1, newValue)
+
+    example1.items.splice(newLength)
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+过滤/排序
+
+配合 computed 以及 filter，或者也可以使用 v-for 的条件渲染：
+
+<li v-for="n in even(numbers)">{{ n }}</li>
+
+<script>
+    data: {
+            numbers: [1, 2, 3, 4, 5]
+    },
+    methods: {
+            even: function(numbers) {
+                return numbers.filter(function(number) {
+                    return number % 2 === 0
+                })
+            }
+    }
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+
+
+
+
+</body>
+</html>

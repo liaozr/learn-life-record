@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+    <script src='store.everything.min.js'></script>
+</head>
+
+<body>
+    <div class="aa">
+        <div class="bb">
+            <label for="user">用户名：</label>
+            <input type="text" name="" id="user" value=''>
+        </div>
+        <div class="tijiao">提交</div>
+    </div>
+
+    <div class="cc">
+
+    </div>
+
+    <script>
+        $(".tijiao").on("click", function() {
+            var username = $("#user").val();
+            if (username !== '' || username !== undefined || username !== NULL) {
+                store.set('username', username)
+                console.log("信息已提交成功")
+            }
+        })
+        $("#user").val(store.get('username'));
+    </script>
+
+    <style>
+      .tijiao{
+        cursor: pointer;
+      }
+    </style>
+</body>
+
+</html>

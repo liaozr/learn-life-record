@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Foo() {
+            var i = 0;
+            return function() {
+                console.log(i++);
+            }
+        }
+
+        var f1 = Foo(),
+            f2 = Foo();
+        f1();
+        f1();
+        f2();
+    </script>
+
+ 查了红宝石，要点如下：
+
+（1）Function是引用类型：保存在堆中，变量f1,f2是保存在栈中；
+
+（2）闭包：一个函数（产生新的作用域）定义的局部变量、子函数的作用域在函数内，
+         但是一旦离开了这个函数，局部变量就无法访问，所有通过返回子函数到一个变量f1的方法，让
+         f1指向堆中的函数作用域，这样可以使用局部变量i.
+
+ (3) 过程：
+
+ 第一次f1()  :f1=Foo()中，先执行Foo(): i = 0,return值返回给f1
+ (f1指向子函数   f1()=function(){.....},因为子函数没有 定义i，所以向上找到父函数定义的 i:  )并执行子函数 输出i=0,再自加 i =1(覆盖了父函数Foo 的 i值);
+
+ 第二次f1() : 执行的是子函数 Function(){  ..},输出的是父函数 的 i=1,再自加 i =2;
+
+ 第一次f2():同第一次f1(),不同的是 f2指向堆中一个新的对象 function(){ ...},所有此i非彼i,输出i=0;如果
+               如果再次f2(),那么和第二次f1(),一样输出i=1;
+<!-- ------------------------------------------------------------------------------------------- -->
+
+<!-- 答案输出是 0 1 0 -->
+
+</body>
+
+</html>

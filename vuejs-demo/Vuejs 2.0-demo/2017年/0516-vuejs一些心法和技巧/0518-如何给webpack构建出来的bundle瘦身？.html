@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  
+  <!-- --------------------------------------------------------------------------------- -->
+
+  如何给webpack构建出来的bundle瘦身？
+
+  用过webpack你一定会发现往往就几行代码加到entry里面最终做出来的bundle却好几百k，
+
+  对于带宽资源非常昂贵的主机来说是一个噩梦，一方面加载龟速，另一方面如果是手机访问更是噩梦。
+
+  如何给他瘦身？首先找到哪些是我们需要的，哪些是不应该出现的，对解决问题就做对了一半：
+
+  source-map-explorer 这个工具可以对build出来的sourcemap做分析，给出依赖关系，你可以慢慢研究
+
+<!-- --------------------------------------------------------------------------------- -->
+
+  webpack-bundle-analyzer：
+  https://www.npmjs.com/package/webpack-bundle-analyzer
+
+  这个也很棒，他可以可视化地列出你的bundle最终是由哪些个js代码构成的，
+
+  都是哪些臃肿的代码导致了你最终的bundle过于庞大了
+
+  <!-- --------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

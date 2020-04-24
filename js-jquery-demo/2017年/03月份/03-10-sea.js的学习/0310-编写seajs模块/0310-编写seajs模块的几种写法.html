@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  关于模块的几种写法：
+
+  第一种是教科书式的写法，也是最常用的一种写法。
+
+  <!-- ------------------------------------------------------------------------------- -->
+
+  <script>
+      define(function(require, exports, module) {
+          var a = require('a'); //引入a模块
+          var b = require('b'); //引入b模块
+
+          var data1 = 1; //私有数据
+
+          var func1 = function() { //私有方法
+              return a.run(data1);
+          }
+
+          exports.data2 = 2; //公共数据
+
+          exports.func2 = function() { //公共方法
+              return 'hello';
+          }
+      });
+  </script>
+
+  <!-- ------------------------------------------------------------------------------- -->
+
+  第二种方法是抛弃exports和module的方式：
+
+  <script>
+      define(function(require) {
+          var a = require('a'); //引入a模块
+          var b = require('b'); //引入b模块
+
+          var data1 = 1; //私有数据
+
+          var func1 = function() { //私有方法
+              return a.run(data1);
+          }
+
+          return {
+              data2: 2,
+              func2: function() {
+                  return 'hello';
+              }
+          };
+      });
+  </script>
+
+  <!-- ------------------------------------------------------------------------------- -->
+
+  第三种方式：类似于JSON写法，其实就是没有方法的一种写法。
+
+  <script>
+      define({
+          data: 1,
+          func: function() {
+              return 'hello';
+          }
+      })
+  </script>
+
+  <!-- ------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

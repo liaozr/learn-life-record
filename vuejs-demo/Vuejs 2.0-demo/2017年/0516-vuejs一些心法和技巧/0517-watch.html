@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- --------------------------------------------------------------------------------------- -->
+
+  watch
+
+  <script>
+      watch:{
+          // whenever question changes, this function will run
+          question: function(newQuestion) {
+              this.answer = 'Waiting for you to stop typing...'
+              this.getAnswer()
+          },
+          deepwachedArrayOrObject:{
+              handler: function(nv, ov) {
+                  // watch handler function body
+              },
+              deep: true // 指示深度侦测
+          }
+      }
+  </script>
+
+  需要注意的是在vuejs2.0中初次mount的组件并不会调用这个watch,而只有数据变化后才会调用，不像1.0中初次mount时也会调用
+
+  注意： 对于object对象或者array对象最好使用deep: true的参数，否则可能不会对对象key值变更做出反应
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

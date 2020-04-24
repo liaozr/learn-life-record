@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+用新建一个webview装弹出层我觉得是一种最合适的方案。
+
+知道思路了，方案实施很简单的，其实就是当我们点击那个弹出层的时候，然后显示webview，
+
+当关闭的时候隐藏或者关闭webview。打开时候的关键代码如下：
+
+<script>
+    //弹出菜单
+    var menuWebview;
+    var menuTab = 'menu.html';
+    mui.plusReady(function() {
+        //预加载弹出菜单子页面
+        menuWebview = mui.preload({
+            url: menuTab,
+            id: menuTab,
+            styles: {
+                top: '0px',
+                bottom: '0px',
+                background: 'transparent'
+            }
+        });
+    })
+
+    //...此处略去若干代码
+
+    // 如果点击中间的菜单栏弹出菜单
+    if (targetTab == menuTab) {
+        if (window.plus) {
+            // 创建mask遮罩
+            plus.webview.create("", "mask", {
+                mask: "rgba(0,0,0,0.4)",
+                background: "transparent"
+            }).show();
+            // 打开弹出层
+            plus.webview.show(menuWebview, "slide-in-bottom", 300);
+        } else {
+            mui.alert("请在html5+引擎环境使用");
+        }
+        return;
+    }
+</script>
+
+我们设置弹出层webview中的background: 'transparent'，
+
+以及弹出层页面的body{background: transparent;}是为了得到一个透明的弹出层，如果不需要可以忽略
+
+同时可以可以通过设置top和bottom设置弹出层的范围，这些具体配置参数在上面的内容中都有讲解，
+
+具体的大家可以详细看看。另外考虑到有人需要遮罩这种布局，我们专门新建了一个webview创建mask遮罩，
+
+<!-- -------------------------------------------------------------------------------- -->
+
+至于关闭弹出层也很简单，我们在弹出层的页面重写mui.back()方法。
+
+<script>
+
+     /*
+     * 这里重写mui.back()方法，在需要执行关闭命令的地方
+     * 加上 mui-action-back 类，可以绑定back()方法。
+     */
+
+    mui.back = function() {
+        // 隐藏弹出层
+        plus.webview.currentWebview().hide();
+        // 关闭遮罩
+        plus.webview.getWebviewById('mask').close();
+    }
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+</html>

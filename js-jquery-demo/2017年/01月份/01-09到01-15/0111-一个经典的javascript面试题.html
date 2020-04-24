@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        var j = 100;
+        ~(function test() {
+            console.log(j)
+        })();
+
+        // 输出的值是 100 -1
+
+        //  第一个输出的值 是100 ，因为是自执行函数，所以 第一个打印出的值 100。
+
+        // 第二个是那个 ~ 波浪线， ~后面跟着的是数字的时候，执行的结果是按位取反。
+
+        // 按位取反只对返回值负责，如果没有返回值，就是为null的时候，就~null
+
+        // ~null = (-null)-1 = -1 就这么记吧
+
+        // 所以是-1
+        // 所以函数是啥都没干系
+
+    </script>
+
+    <!-- --------------------------------------------------------------------------- -->
+
+    <script>
+        var j = 100;
+        ~(function test() {
+            console.log(j);
+            return j
+        })();
+        //  100
+        // -101
+    </script>
+
+    <!-- --------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+    
+	倘若项目中有用到手淘的rem布局 以及项目中有部分样式布局等是用到mui框架里面的一些样式的话，
+	则不建议把下面这段meta viewport代码给去掉了，下面的这段代码的作用就是不强制缩放，不缩放，
+
+	相当于柳青的那种固定viewport布局，就是写死viewport宽度的布局方式，但是那种的话页面元素就完全可以用px了。
+    
+    倘若加上了下面这段代码，但是又没强制写死viewport的宽度大小的话，则还可以利用手套的flexible布局方案，只是没有缩放了，dpr一直都为1了。
+
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+
+	所以，加上上面那段代码后，计算出来的html的font-size值，如果是iphone5的话，则为32px，iphone6的话则为 37.5px
+
+	这个基准值，手淘是根据 屏幕宽度 x dpr 再除以10计算出来的。
+
+	所以，倘若接到的设计稿是320px的，则就按iphone5的标准做，sublime里面的rem插件基准值设置为32即可。
+
+	倘若拿到的设计稿为640px的话，则就按iphone5的标准做，虽然现在页面上的html的font-size为32px，理论上sublime里面的rem基准值应该设置为32，但是这样子的话，设计稿量出来的宽度高度那些就得先除以2再转换，所以，可以把sublime里面的rem插件基准值设置为64，这样，640的设计稿的宽度高度大小则直接转换为64的rem基准值即可。这样算出来的rem大小放到页面上的html的font-size为32px的效果是一样的。
+
+	举个例子。640px的设计稿的某个元素宽为100px。则
+	100/64=1.5625rem;
+
+	因为<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+	
+	手动再加上这段代码的缘故，相当于页面没有缩放，所以，页面的宽度就为320px的大小，html的font-size为32px;
+
+	所以 算出来的1.5625rem 乘以 32= 50px;
+	刚好是640px设计稿中的100px的一半，也就是50px，所以这种做法也是对的，
+
+	相比于不加上上面那段代码所产生的效果而言，会多了个缩放效果，高清屏上会比较清晰这样子。
+    
+    <!-- ------------------------------------------------------------------------ -->
+
+     这样子的话，页面上的一些元素则可以完全用px的布局方式了，从而较小的调整改动，因mui UI框架
+     引入到项目里面的修改，改动的成本。
+
+    <!-- ----------------------------------------------------------------------- -->
+
+
+
+</body>
+</html>

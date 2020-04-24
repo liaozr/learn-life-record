@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="易送气" />
+		<meta name="Description" content="易送气" />
+		<title>我的推广</title>
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/yhn.css" />
+		<script src="js/zepto1.1.6.min.js"></script>
+		<script src="js/vue.min.js"></script>
+		<script src="js/global.js"></script>
+	</head>
+
+	<body id="scope">
+		<div id="loadpage">
+			<img src="img/loading2.gif" alt="" />
+		</div>
+		<div class="clear"></div>
+		<!--头部-->
+		<header class="y-mytop">
+			<h1>我的推广</h1>
+			<div class="return-box">
+				<img src="img/icon-return.png" alt="" />
+				<span>返回</span>
+			</div>
+		</header>
+
+		<section class="under-top extend-box" style="margin-top:1.25rem;">
+			<h1 class="extend-title">推广二维码</h1>
+			<img src="img/exend.png" alt="" />
+			<div class="extend-btn">分享到朋友圈</div>
+		</section>
+
+		<div class="linkBox">
+			<h1 class="extend-title">推广链接</h1>
+			<h2>
+				<p class="extend-link left">http://wwww.baidu.com/</p>
+				<button id="copyBtn" class="right" data-clipboard-action="copy" data-clipboard-target="p">复制</button></h2>
+		</div>
+		
+		<div class="extend-people">
+			<h1 class="extend-title">我的推广人</h1>
+			<div v-for="key in ext" class="w50 left">
+				<img src="img/person1.png" alt="" />
+				<h2>{{key.memberName}}</h2>
+			</div>
+			<div class="w50 left">
+				<img src="img/person2.png" alt="" />
+				<h2>利刃</h2>
+			</div>
+		</div>
+	</body>
+	<script src="js/clipboard.min.js"></script>
+	<script>
+		window.onload = function() {
+			$("#loadpage").css("display", "none");
+		}
+
+
+		var ua = navigator.userAgent.toLowerCase();
+			if(ua.match(/MicroMessenger/i) == "micromessenger") {
+				$(".y-mytop").css("display", "none");
+				$(".under-top").css("margin-top", 0);
+			}
+		
+		var clipboard = new Clipboard('#copyBtn');
+		////////////////////页面跳转/////////////////////
+		//返回
+		$(".return-box").on("tap1",function(){
+			window.history.go(-1);
+		});
+		
+		//数据交互
+		
+		function getVal() {
+			$.ajax({
+				type: "get",
+				url: getBaseServerUrl() + "/client/customer/myRecommend",
+				contentType: "application/json",
+				data: {
+					"memberId": "4028b881568dbee701568dc0fb390001",
+					"openId": "o7ej-t02ke9fVN4jh3l_W0RcoBoM",
+					"franchiseId": "FRCH1608030007",
+				},
+				success: function(data) {
+					console.log(data);
+					vm.ext = data;
+				},
+
+			});
+			
+			$.ajax({
+				type: "get",
+				url: getBaseServerUrl() + "/client/customer/myQrCode",
+				contentType: "application/json",
+				data: {
+					"memberId": "4028b881568dbee701568dc0fb390001",
+					"openId": "o7ej-t02ke9fVN4jh3l_W0RcoBoM",
+					"franchiseId": "FRCH1608030007",
+					"expireDay":"20",
+				},
+				success: function(data) {
+					console.log(data);
+					//vm.getData = data;
+				},
+
+			});
+		};
+		
+		var vm = new Vue({
+			el: '#scope',
+			data: {
+				//瓶类信息对象 
+				ext:'',
+			},
+			ready: function() {
+				getVal();
+			}
+
+		});
+	</script>
+
+</html>

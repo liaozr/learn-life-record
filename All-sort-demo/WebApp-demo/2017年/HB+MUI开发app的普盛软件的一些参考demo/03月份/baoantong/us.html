@@ -1,0 +1,171 @@
+  <!DOCTYPE html>
+<html>
+<head>
+	 <title>us</title>
+	 <meta charset="UTF-8" />
+	<!-- Mobile Devices Support @begin -->
+    <meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" / >
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <!-- Mobile Devices Support @end -->
+    <link rel="stylesheet" href="css/base-reset.css">
+    <link rel="stylesheet" href="css/resett.css" />
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link rel="stylesheet" href="css/icons-extra.css">
+    <link rel="stylesheet" type="text/css" href="css/swiper-3.3.1.min.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+
+    <script src="js/zepto1.1.6.min.js" type="text/javascript"></script>
+    <script src="js/flexible.js" type="text/javascript"></script>
+    <script src="js/flexible_css.js" type="text/javascript"></script>
+    <script src='js/swiper-3.3.1.min.js' type="text/javascript"></script>
+    <script src="js/mui.min.js"></script>  
+    <script src='js/vue.min.js'></script>
+</head>
+<body>
+    <div class="header us-header">
+       
+      <div class="user">
+    	     <a v-el:user_icon data-url="denglu.html" href="javascript:void(0)"><span class="mui-icon mui-icon-person"></span></a>
+    	</div>    	 
+    	
+    	<div class="denglu-btn" v-if='aaaa'>
+    		<a  class='denglu-btn-a' data-url="denglu.html" href="javascript:void(0)" >登录</a> | <a href="##">注册</a>
+    	</div>
+    	<div class="denglu-btn userInfo" v-else v-html='userinfo'>    		 
+    	</div>   
+    	
+    </div>
+    <div class="g-content g-us-content">
+        <div class="mui-con-list">
+	    	 <ul class="mui-table-view">
+			    <li class="mui-table-view-cell ">
+			        <a data-url="denglu.html" href="javascript:void(0)" class="mui-navigate-right dingdan">我的订单</a>
+			    </li>
+			    <li class="mui-table-view-cell ">
+			        <a data-url="denglu.html" href="javascript:void(0)" class="mui-navigate-right huodong">活动预约</a>
+			    </li>
+			    <li class="mui-table-view-cell ">
+			        <a data-url="denglu.html" href="javascript:void(0)" class="mui-navigate-right guahao">我的挂号</a>
+			    </li>
+			     <li class="mui-table-view-cell ">
+			        <a data-url="denglu.html" href="javascript:void(0)" class="mui-navigate-right baoliao">我的报料</a>
+			    </li>
+			    <li class="mui-table-view-cell ">
+			        <a data-url="denglu.html" href="javascript:void(0)" class="mui-navigate-right shoucang">我的收藏</a>
+			    </li>
+			</ul>
+		    <ul class="mui-table-view mui-table-two">
+			    <li class="mui-table-view-cell ">
+			        <a class="mui-navigate-right shezhi">设置</a>
+			    </li>
+			    <li class="mui-table-view-cell ">
+			        <a class="mui-navigate-right fankui">意见反馈</a>
+			    </li>
+			    <li class="mui-table-view-cell ">
+			        <a class="mui-navigate-right banben">当前版本</a>
+			    </li>
+			    <li class="mui-table-view-cell ">
+			        <a class="mui-navigate-right about">关于我们</a>
+			    </li>
+			</ul>
+		</div>
+
+    </div>
+    <script>                
+		   var str="";
+		   function init(){
+		    				    	 
+		    		if( localStorage.getItem("user_name") !== '' &&  localStorage.getItem("user_name") !==undefined && localStorage.getItem("user_name") !==null ){
+    	 	  	   str=localStorage.getItem("user_name");
+		    		   vm.userinfo=str;
+    	 	  	   vm.aaaa=false;  
+    	 	  	   var url3='gerenzhongxin.html'
+    	 	  	   vm.$els.user_icon.setAttribute("data-url",url3);    	 	  	    
+    	 	    }     	 	
+		   }
+    
+    	 var vm=new Vue({
+    	 	  el:'body',
+    	 	  data:{
+    	 	  	userinfo:str,
+    	 	  	aaaa:true
+    	 	  },
+    	 	  ready:function(){     	 	  	        	 	  	
+    	 	  	if( localStorage.getItem("user_name") !== '' &&  localStorage.getItem("user_name") !==undefined && localStorage.getItem("user_name") !==null ){
+    	 	  	   var username=localStorage.getItem("user_name");        	 	  	   
+    	 	  	   this.userinfo=username;  
+               this.aaaa=false; 
+               var url3='gerenzhongxin.html'
+    	 	  	   this.$els.user_icon.setAttribute("data-url",url3);
+    	 	  	}    	 	  		 	  	  	 
+    	 	  }   	 	  
+    	 })
+    	
+    </script>
+    
+  <script>
+    var subStyles = {
+			top: "0px",
+			bottom: "0px"
+		};
+		
+  	function webviewchange(_this) {
+			var url = _this.data("url");
+			var str = _this.html();
+            // plus.webview.currentWebview().opener().evalJS("changeTit('" + str + "')");
+			mui.openWindow({
+				url: url,
+				id: url,
+				styles: subStyles,
+				createNew: false,
+				show: {
+					autoShow: true,
+					aniShow: 'slide-in-right',
+					duration: 200
+				},
+				waiting: {
+					autoShow: true,
+					title: "正在加载..."
+				}
+			})
+		}
+  	
+		$(".user a").on("tap",function(){			
+			var _self = $(this);
+			webviewchange(_self);
+		})
+		$(".denglu-btn .denglu-btn-a").on("tap",function(){			
+			var _self = $(this);
+			webviewchange(_self);
+		})
+		$(".mui-table-view-cell a").on("tap",function(){			
+			var _self = $(this);
+  		webviewchange(_self);
+
+		})
+		
+  </script>
+  
+  <script>
+		var oldback = mui.back;
+		mui.back = function() {
+			if(confirm('确认退出？')) {
+				plus.runtime.quit();
+			}
+		}
+		
+		
+		
+		$(".mui-con-list .mui-table-view-cell ").on("touchstart",function(){
+	     	 var _this=$(this);
+	         _this.addClass("cur")
+	  })
+	  $(".mui-con-list .mui-table-view-cell ").on("touchend",function(){
+	     	  var _this=$(this);
+	         _this.removeClass("cur")
+	  })
+	  
+  </script>
+  
+</body>
+</html>

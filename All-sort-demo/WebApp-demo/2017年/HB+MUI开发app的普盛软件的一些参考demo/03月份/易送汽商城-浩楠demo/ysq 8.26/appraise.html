@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,minimal-ui" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="评价" />
+		<meta name="Description" content="评价" />
+		<title>评价</title>
+		<link rel="stylesheet" href="css/base.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+		<link rel="stylesheet" href="css/public.css" />
+		<link rel="stylesheet" href="css/ww.css" />
+		<!--手机适配-->
+		<!--<script src="js/setFont.js"></script>-->
+
+	</head>
+
+	<body class="appraise">
+		<div id="loadpage">
+			<img src="img/loading2.gif" alt="" />
+		</div>
+		<header class="y-mytop header">
+			<h1>评价</h1>
+			<div class="return-box">
+				<img src="img/icon-return.png" alt="" />
+				<span>返回</span>
+			</div>
+		</header>
+		<!--消除浮动并且在ios微信浏览器下取消1.25rem上间距-->
+		<div class="clear under-top" style="margin-top:1.25rem"></div>
+		<!--产品列表-->
+		<section>
+			<div class="info">商品：<span>11.88kg液化气</span></div>
+			<div class="content">
+				<div class="title">评价</div>
+				<div class="btn-div">
+					<div><i name="1" class="icon-advice star-rank"></i></label><label>好评</label></div>
+					<div><i name="2" class="icon-advice star-rank"></i></label><label>中评</label></div>
+					<div><i name="3" class="icon-advice star-rank"></i><label>差评</label></div>
+				</div>
+				<textarea placeholder="分享你的购买心得"></textarea>
+			</div>
+			<div class="rank">
+				<div class="title">评分</div>
+				<div class="tab">
+					<span>送气及时性</span>
+					<i id="star-1-1" class="star star1"></i>
+					<i id="star-1-2" class="star star1"></i>
+					<i id="star-1-3" class="star star1"></i>
+					<i id="star-1-4" class="star star1"></i>
+					<i id="star-1-5" class="star star1"></i>
+				</div>
+				<div class="tab">
+					<span>送气员服务</span>
+					<i id="star-2-1" class="star star2"></i>
+					<i id="star-2-2" class="star star2"></i>
+					<i id="star-2-3" class="star star2"></i>
+					<i id="star-2-4" class="star star2"></i>
+					<i id="star-2-5" class="star star2"></i>
+				</div>
+				<div class="tab">
+					<span>产品质量</span>
+					<i id="star-3-1" class="star star3"></i>
+					<i id="star-3-2" class="star star3"></i>
+					<i id="star-3-3" class="star star3"></i>
+					<i id="star-3-4" class="star star3"></i>
+					<i id="star-3-5" class="star star3"></i>
+				</div>
+				<div class="tab">
+					<span>热线服务</span>
+					<i id="star-4-1" class="star star4"></i>
+					<i id="star-4-2" class="star star4"></i>
+					<i id="star-4-3" class="star star4"></i>
+					<i id="star-4-4" class="star star4"></i>
+					<i id="star-4-5" class="star star4"></i>
+				</div>
+			</div>
+			<div class="btn">发表评价</div>
+		</section>
+	</body>
+	<script src="js/zepto1.1.6.min.js"></script>
+	<script>
+	
+	// 返回上一页
+		$(".return-box").on('tap1',function(){
+			window.history.go(-1);
+		});
+		
+		
+		$(".star-rank").on('tap1', function(e) {
+			$(".star-rank").removeClass("active");
+			$(this).addClass("active");
+		});
+
+		$(".rank .tab").on('tap1', '.star', function(e) {
+			var rowNum = $(this).attr('id').split('-')[1];
+			var columnNum = $(this).attr('id').split('-')[2];
+			$(".star" + rowNum).removeClass("active");
+			for (var i = 1; i <= columnNum; i++) {
+				$("#star-" + rowNum + "-" + i).addClass("active");
+			}
+		});
+		var ua = navigator.userAgent.toLowerCase();
+			if (ua.match(/MicroMessenger/i) == "micromessenger") {
+				$(".y-mytop").css("display", "none");
+				$(".under-top").css("margin-top",0);
+			}
+		//页面加载完毕删除遮罩层
+		window.onload = function() {
+			$("html").css("overflow", "auto");
+			$("#loadpage").css("display", "none");
+		}
+		//按钮点击变色
+		$(".btn").on('touchstart',function(){
+			$(this).addClass('active');
+		});
+		$(".btn").on('touchend',function(){
+			$(this).removeClass('active');
+		});
+		
+	</script>
+
+</html>

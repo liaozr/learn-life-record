@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+同步优先、异步靠边、回调垫底（读起来不顺）
+
+用公式表达就是：
+
+同步 => 异步 => 回调
+
+<!-- -------------------------------------------------------------------------------- -->
+
+<script>
+    for (var i = 0; i < 5; i++) {
+        setTimeout(function() {
+            console.log('i: ', i);
+        }, 1000);
+    }
+
+    console.log(i);
+
+    //输出
+    // 5
+    // i: 5
+    // i: 5
+    // i: 5
+    // i: 5
+    // i: 5
+</script>
+
+for循环和循环体外部的console是同步的，所以先执行for循环，再执行外部的console.log。（同步优先）
+
+2、for循环里面有一个setTimeout异步回调，他是垫底的存在，只能最后执行。（回调垫底）
+
+那么，为什么我们最先输出的是5呢？
+
+非常好理解，for循环先执行，但是不会给setTimeout传参（回调垫底），等for循环执行完，就会给setTimeout传参，
+
+而外部的console打印出5是因为for循环执行完成了。
+
+
+现在告诉大家为什么setTimeout全都是5，JavaScript在把setTimeout放到消息队列的过程中，循环的i是不会及时保存进去的，相当于你写了一个异步的方法，但是ajax的结果还没返回，只能等到返回之后才能传参到异步函数中。
+
+在这里也是一样，for循环结束之后，因为i是用var定义的，所以var是全局变量（这里没有函数，如果有就是函数内部的变量），这个时候的i是5，从外部的console输出结果就可以知道。那么当执行setTimeout的时候，由于全局变量的i已经是5了，所以传入setTimeout中的每个参数都是5。很多人都会以为setTimeout里面的i是for循环过程中的i，这种理解是不对的。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+<script>
+    for (var i = 0; i < 5; ++i) {
+        setTimeout(function() {
+            console.log('2: ', i);
+        }, 1000);
+        console.log('1: ', i); //新加一行代码
+    }
+
+    console.log(i);
+
+    //输出
+    // 1: 0
+    // 1: 1
+    // 1: 2
+    // 1: 3
+    // 1: 4
+    // 5
+    // 2: 5
+    // 2: 5
+    // 2: 5
+    // 2: 5
+    // 2: 5
+</script>
+
+这个例子可以很清楚的看到先执行for循环，for循环里面的console是同步的，所以先输出，
+for循环结束后，执行外部的console输出5，最后再执行setTimeout回调 55555。。。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+<script>
+    for (let ii = 0; ii < 5; ++ii) {
+        setTimeout(function() {
+            console.log('2: ', ii);
+        }, 1000);
+    }
+
+    console.log(ii);
+
+    //输出
+    // ii is not defined
+    // 2: 0
+    // 2: 1
+    // 2: 2
+    // 2: 3
+    // 2: 4
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+上面主要讲了同步和回调执行顺序的问题，接着我就举一个包含同步、异步、回调的例子。
+
+<script>
+    let aa = new Promise(
+        function(resolve, reject) {
+            console.log(1)
+            setTimeout(() => console.log(2), 0)
+            console.log(3)
+            console.log(4)
+            resolve(true)
+        }
+    )
+    aa.then(v => {
+        console.log(8)
+    })
+
+    let bb = new Promise(
+        function() {
+            console.log(5)
+            setTimeout(() => console.log(6), 0)
+        }
+    )
+
+    console.log(7)
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+1、看同步代码：a变量是一个Promise，我们知道Promise是异步的，是指他的then()和catch()方法，
+
+Promise本身还是同步的，所以这里先执行a变量内部的Promise同步代码。（同步优先）
+
+console.log(1)
+setTimeout(() => console.log(2), 0) //异步回调
+console.log(3)
+console.log(4)
+
+2、Promise内部有4个console，第二个是一个setTimeout回调（回调垫底）。
+
+所以这里先输出1，3，4回调的方法丢到消息队列中排队等着。
+
+3、接着执行resolve(true)，进入then()，then是异步，下面还有同步没执行完呢，
+所以then也滚去消息队列排队等候。（真可怜）（异步靠边）
+
+4、b变量也是一个Promise，和a一样，执行内部的同步代码，输出5，setTimeout滚去消息队列排队等候。
+
+5、最下面同步输出7。
+
+6、同步的代码执行完了，JavaScript就跑去消息队列呼叫异步的代码：异步，出来执行了。这里只有一个异步then，所以输出8。
+
+7、异步也over，轮到回调的孩子们：回调，出来执行了。这里有2个回调在排队，他们的时间都设置为0，所以不受时间影响，只跟排队先后顺序有关。则先输出a里面的回调2，最后输出b里面的回调6。
+
+*** 这里要注意的是：
+回调函数正常情况下是在消息队列顺序执行的，但是使用setTimeout的时候，
+还需要注意时间的大小也会改变它的顺序。
+
+8、最终输出结果就是：1、3、4、5、7、8、2、6。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

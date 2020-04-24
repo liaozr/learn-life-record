@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    新接口：引入KE.html, KE.text, KE.selectedHtml
+
+    KE.insertHtml, KE.appendHtml, KE.isEmpty 等函数。
+
+    <script>
+        /* 插入编辑器 */
+        function insert_editor(file_path) {
+            KE.appendHtml('goods_body', '<img src="' + file_path + '">');
+        }
+    </script>
+
+    只要传入图片参数路径，即可实现把图片插入到iframe中。
+
+    <!-- ------------------------------------------------------------------------------ -->
+
+    <script>
+
+        $('#goods_image2').fileupload({
+            dataType: 'json',
+            url: "<?=U('goods_add/image_upload',['upload_type'=>uploadedfile])?>",
+            add: function(e, data) {
+                data.submit();
+            },
+            done: function(e, data) {
+                var param = data.result;
+                var apic_name = param.apic_name;
+                if (typeof(param.message) != 'undefined') {
+                    alert(param.message);
+                }
+                if (typeof(param.error) != 'undefined') {
+                    alert(param.error);
+                } else {
+                    $(".image_upload_news").attr('src', param.thumb_name);
+                    var img_path_new = $(".image_upload_news").attr("src");
+                    insert_editor(img_path_new)
+                }
+            }
+        });
+
+    </script>
+
+    <!-- ----------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

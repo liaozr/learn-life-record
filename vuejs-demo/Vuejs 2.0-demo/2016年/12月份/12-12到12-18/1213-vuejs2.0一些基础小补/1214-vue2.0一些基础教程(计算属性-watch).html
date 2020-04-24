@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+2.4 计算指令
+
+在模板中表达式不宜过于复杂，可以使用计算指令讲逻辑抽离出来。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+<script>
+    new Vue({
+        // ...
+        computed: {
+            sum: function() {
+                var result = 0;
+                for (var i = 0; i < this.books.length; i++) {
+                    result = Number(this.books[i].price) + result;
+                };
+                return result;
+            }
+        }
+        // ...
+    })
+</script>
+
+在app.html中使用插值表达式:
+
+{{sum}}
+
+<!-- ---------------------------------------------------------------------------- -->
+
+2.4.1 基础例子：
+
+<div id="example">
+    <p>Original message: "{{ message }}"</p>
+    <p>Computed reversed message: "{{ reversedMessage }}"</p>
+</div>
+
+<script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            message: 'Hello'
+        },
+        computed: {
+            reversedMessage: function() {
+                return this.message.split('').reverse().join('')
+            }
+        }
+    })
+</script>
+
+渲染结果：
+
+Original message: "Hello"
+Computed reversed message: "olleH"。
+
+计算属性在选项对象的computed对象中编写。该对象的属性名即为需要计算得到的属性名，值为一个匿名函数。
+
+但这并不意味着把这个匿名函数的值赋给该属性（上例中的reversedMessage），
+
+事实上，在渲染的时候，该匿名函数会被执行，然后将return的值赋给computed对象的属性。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+2.4.2 计算setter
+
+以上例中,reversedMessage依赖于vm.message属性，并随之变化。
+
+相当于我们为之创建了一个getter。
+
+然而如果我们希望reversedMessage改变也会引起message的改变，则需要再为之创建一个setter
+
+<script>
+     // ...
+     computed: {
+            fullName: {
+                // getter
+                get: function() {
+                    return this.firstName + ' ' + this.lastName
+                },
+                // setter
+                set: function(newValue) {
+                    var names = newValue.split(' ')
+                    this.firstName = names[0]
+                    this.lastName = names[names.length - 1]
+                }
+            }
+     }
+     // ...
+</script>
+
+现在在运行 vm.fullName = 'John Doe' 时， setter 会被调用，
+
+vm.firstName 和 vm.lastName 也会被对应更新。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+2.4.3 计算缓存 vs Methods
+
+<div>{{getFullName()}}</div>
+
+你可能已经注意到我们可以通过调用表达式中的method来达到同样的效果，与计算属性的区别在于计算属性是基于它的依赖缓存的。
+
+只有当其依赖的数据发生变化时才会重新计算取值。
+
+相比而言，每当重新渲染时，method调用总会执行函数。
+
+所以制作计时器的计划会因此失败
+
+computed: {
+    now:function () {
+        return new Date()
+    }
+}
+
+<!-- --------------------------------------------------------------------------------- -->
+
+2.4.5 计算属性 vs watcher
+
+Vue.js提供了$watch，当制定数据变化是其中的相关函数会被调用，也可以起到计算属性的效果。
+
+<script>
+    watch: {
+        // 如果 question 发生改变，这个函数就会运行
+        question: function(newQuestion) {
+            this.answer = 'Waiting for you to stop typing...'
+            this.getAnswer()
+        }
+    }
+</script>
+
+二者区别在于计算属性将会在依赖的数据改变后立即发生变化，
+
+而watcher更适合处理异步的情况，直到我们得到最终结果时，才设置中间状态。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+
+
+</body>
+</html>

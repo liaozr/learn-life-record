@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+  toString
+
+  返回一个表示操作对象的字符串，就是将当前对象转换为字符串并输出。
+
+  因为JS万物始于对象(笑)并且 ``` toString ``` 属性定义在 ``` Object.prototype ```上 所以所有数据类型都有 ``` toString ``` 方法，但是 ``` Array ```,``` Date ```等对象会重写从 ``` Object.prototype ``` 继承来的 ``` toString ```,所以最好用 ``` Object.prototype.toString ``` 来进行检测
+
+  <script>
+
+      var toString = Object.prototype.toString;
+
+      console.log( toString.call(new Date) ); // [object Date]
+      console.log( toString.call(new String) ); // [object String]
+      console.log( toString.call(Math) ); // [object Math]
+      console.log( toString.call(3) ); // [object Number]
+      console.log( toString.call([]) ); // [object Array]
+      console.log( toString.call({}) ); // [object Object]
+
+
+      // Since JavaScript 1.8.5
+      console.log( toString.call(undefined) ); // [object Undefined]
+      console.log( toString.call(null) ); // [object Null]
+
+      var arr=[]
+
+      console.log(toString.call(arr))
+
+      var msg={}
+      console.log(toString.call(msg))
+
+      var str=''
+
+      console.log(toString.call(str))  // '[object String]'
+
+      var bb=null
+      console.log(typeof bb)  // object
+
+      console.log(toString.call(bb))  //  '[object Null]'
+
+  </script>
+
+  不过 toString 无法检测用户的自定义类型，只能检测ECMA 标准中的那些内置类型
+
+  结语
+
+  如果你要判断的是基本数据类型或JavaScript内置对象，使用 toString；
+
+  如果要判断的时自定义类型，请使用 instanceof 。
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

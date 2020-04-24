@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- ---------------------------------------------------------------------------- -->
+
+    <script>
+
+        setTimeout(function() {
+            console.log(1)
+        }, 0);
+
+        new Promise(function executor(resolve) {
+            console.log(2);
+            for (var i = 0; i < 10000; i++) {
+                i == 9999 && resolve();
+            }
+            console.log(3);
+        }).then(function() {
+            console.log(4);
+        });
+        console.log(5);
+
+        // 打印出的结果为： 2 3 5 4 1
+
+        // 打印出的结果为： 2 3 5 4 1
+
+    </script>
+
+    Promise执行输出2，调用resolve，再输出3，然后调用then将输出4置于事件循环末尾，然后输出5，
+
+    到达末尾，输出4，下一个事件循环，输出刚开始的1，所以顺序是 23541
+
+    <!-- ---------------------------------------------------------------------------- -->
+
+    实际上， .then 中指定的方法调用是异步进行的。
+
+    <script>
+
+        var promise = new Promise(function(resolve) {
+            console.log("inner promise"); // 1
+            resolve(42);
+        });
+
+        promise.then(function(value) {
+            console.log(value); // 3
+        });
+
+        console.log("outer promise"); // 2
+
+        // 运行
+
+        // 执行上面的代码会输出下面的log， 从这些log我们清楚地知道了上面代码的执行顺序。
+        // inner promise  
+        // outer promise
+        // 42
+
+    </script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

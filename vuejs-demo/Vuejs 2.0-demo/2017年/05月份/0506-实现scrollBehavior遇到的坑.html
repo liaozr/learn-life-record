@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+在router配置相对简单，仅需要添加一个方法即可：
+
+配置后，并没有得到预想的效果。在测试过程中，打印savedPosition的值，始终为“0，0”，
+
+猜想scroll触发的事件没有正确获得滚动位置，于是查阅了VueRouter的实现代码
+
+这里监控的是整个页面的滚动位置，而我们在实现上对body、#app挂载节点上做了height=100%的处理，导致滚动时并没有触发window的scroll。
+
+于是，通过改造页面部局，将height=100%的定义去掉后，scrollBehavior终于生效了。
+
+但新的问题也随之而来，当body的高度没有超过window的高度时，会影响到页面上定义的浮层效果，所以优化无止境，还在探索中。
+
+
+</body>
+</html>

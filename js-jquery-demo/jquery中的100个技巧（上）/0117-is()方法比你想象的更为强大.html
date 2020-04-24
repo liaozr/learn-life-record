@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // First, cache the element into a variable:
+        var elem = $('#elem');
+
+        // Is this a div?
+        elem.is('div') && log("it's a div");
+
+        // Does it have the bigbox class?
+        elem.is('.bigbox') && log("it has the bigbox class!");
+
+        // Is it visible? (we are hiding it in this example)
+        elem.is(':not(:visible)') && log("it is hidden!");
+
+        // Animating
+        elem.animate({
+            'width': 200
+        }, 1);
+
+        // is it animated?
+        elem.is(':animated') && log("it is animated!");
+        
+    </script>
+</body>
+
+</html>

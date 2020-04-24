@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+    <!-- index.html页面 -->
+    <script>
+
+        // 点击常用服务的切换
+        $(".sort-fuwu").on("click", function() {
+            window.location.href = 'gonggong_fuwu.html'
+            var index = $(this).data(index).index;
+            localStorage.setItem('index', index)
+        })
+
+    </script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+    <!-- gonggong_fuwu 页面 -->
+
+    <script>
+
+        // 一进来页面判断是否存在localStorage
+        $(function() {
+            if (localStorage.getItem('index')) {
+
+                var _index = localStorage.getItem('index');
+                $(".fuwu-sort .list").removeClass("cur");
+                $(".fuwu-sort .list").eq(_index).addClass("cur");
+
+                var bbb = $('#cont' + _index + '').position().top;
+
+                // setTimeout(function(){
+                    $(".gonggong-fuwu").animate({
+                        scrollTop: bbb
+                    }, 500);
+                // },500)
+            }
+        })
+
+    </script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

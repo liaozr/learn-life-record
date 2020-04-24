@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+<script>
+
+    // 构建路由表信息
+    const routes = [
+        {
+           path:'/rank',
+           component:rank,
+           name:'rank',
+           children:[
+                 {
+                   path:'topList/:id',
+                   component:topList,
+                   name:'topList'
+                 }
+            ]
+        }
+    ]
+    export default routes
+</script>
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+发现，在路由表里，有配这种参数的 path:'topList/:id',组件里面，直接使用name值 去作
+
+路由跳转的话，会发现地址是不会变的，而当路由表的 path:'topList' 是这种的时候，不带有任何参数的时候，用name值取左路由跳转
+
+会发现，路径是正常显示出来的，所以，路由表里有参数的，建议还是用 path 好点。
+
+<script>
+
+    // 组件里使用
+    selectItem(item){
+          this.$router.push({
+              path:`/rank/topList/${item.id}`,
+              // name:'topList',
+              params:{
+                  id:item.id
+              }
+          })
+
+          // 这样也是可以的。
+          this.$router.push({
+               name:'topList',
+               params:{
+                   id:item.id
+               }
+          })
+          
+          this.$store.dispatch('topList',item)
+      }
+
+</script>
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

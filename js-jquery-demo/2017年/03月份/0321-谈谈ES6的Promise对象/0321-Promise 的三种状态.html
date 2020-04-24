@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+Promise 的三种状态
+
+上面提到了 resolve 和 reject 可以改变 Promise 对象的状态，那么它究竟有哪些状态呢？
+
+<!-- ------------------------------------------------------------------------ -->
+
+
+Promise 对象有三种状态：
+
+Fulfilled 可以理解为成功的状态
+
+Rejected 可以理解为失败的状态
+
+Pending 既不是 Fulfilld 也不是 Rejected 的状态，可以理解为 Promise 
+对象实例创建时候的初始状态
+
+<!-- ------------------------------------------------------------------------ -->
+
+
+helloWorld 的例子中的 then 方法就是根据 Promise 对象的状态来确定执行的操作，resolve 时执行第一个函数（onFulfilled），reject 时执行第二个函数（onRejected）。
+
+<!-- ------------------------------------------------------------------------ -->
+
+</body>
+</html>

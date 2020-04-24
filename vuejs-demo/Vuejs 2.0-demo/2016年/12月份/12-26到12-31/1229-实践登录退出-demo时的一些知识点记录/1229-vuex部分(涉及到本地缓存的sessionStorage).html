@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // import * as types from '../mutation-types' 这个的做法就是 将所有常量导成一个对象, 从而更方便的使用
+        // 但引入了这样子写法的该模块的mutations的写法就将变成 types.GETSTARTLIST代表着原有的GETSTARTLIST的了
+
+        // 如下所示：
+        // const mutations = {
+        //   [types.GETSTARTLIST] (state)
+        //   {
+        //     state.curlisttype=''
+        //     state.curlisttype=state.hot
+        //   }
+        // }
+
+        import * as types from '../mutation-types'
+
+
+         // Web Storage的API只能操作字符串
+        // Web Storage的API只能操作字符串
+        
+        // JSON.stringify()用于从一个对象解析成字符串
+        // JSON.parse() 用于把一个字符串转换成一个对象
+        // JSON.parse()用于将JavaScript对象表示法的JSON字符串转换为对象
+
+        // 该模块的初始状态
+        const state = {
+            users_msg: JSON.parse(sessionStorage.getItem('user')) || {}
+        }
+
+        // Web Storage在官方建议中为每个网站5M。
+        // Web Storage的API只能操作字符串
+
+        // 在使用上，sessionStorage和localStorage大同小异，只是
+        // sessionStorage是将数据临时存储在session中，浏览器关闭，数据随之消失。
+        // 而localStorage则是将数据存储在本地，理论上来说数据永远不会消失，除非人为删除。
+
+        // API：
+        // 保存数据 localStorage.setItem(key, value); sessionStorage.setItem( key, value );
+
+        // 读取数据 localStorage.getItem(key); sessionStorage.getItem( key );
+
+        // 删除单个数据localStorage.removeItem(key); sessionStorage.removeItem( key );
+
+        // 删除全部数据localStorage.clear(); sessionStorage.clear( );
+
+        // 获取索引的 keylocalStorage.key(index); sessionStorage.key( index );
+
+
+        // ----------------------------------------------------------------------------------
+        // 相关的 mutations
+        const mutations = {
+            // 登录操作
+            [types.USER_SIGNIN](state, user_message) {
+                // JSON.stringify()用于从一个对象解析出字符串
+
+                // 保存 本地缓存，值为 JSON.stringify(user_message)
+                sessionStorage.setItem('user', JSON.stringify(user_message))
+
+                // 刚开始不刷新时，赋值给 state.users_msg
+                state.users_msg = user_message
+            },
+            // 退出登录操作
+            [types.QUIT_CLEAR](state) {
+                sessionStorage.removeItem('user')
+                state.users_msg = ''
+            }
+        }
+
+        export default {
+            state,
+            mutations
+        }
+    </script>
+</body>
+
+</html>

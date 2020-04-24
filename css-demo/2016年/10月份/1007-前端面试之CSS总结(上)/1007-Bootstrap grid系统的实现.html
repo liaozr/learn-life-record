@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+ bootstrap 它提供了一套响应式，移动设备优先的流式栅格系统
+
+ 随着屏幕或视窗尺寸增加，系统会自动分为最多12列。
+
+栅格系统用于通过一系列的行（row）与列（column）的组合来创建页面布局，
+你的内容就可以放入这些创建好的布局中。Bootstrap栅格系统的工作原理如下：
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+
+行(row)必须包含在.container(固定宽度)或.container-fluid(100% 宽度)中,
+以便为其赋予合适的排列(alignment)和内补(padding)。
+
+通过行(row)在水平方向创建一组列(column)。
+
+你的内容应当放置于列(column)内，并且，只有列(column)可以作为行(row)的直接子元素。
+
+类似.row和.col-xs-4这种预定义的类，可以用来快速创建栅格布局。
+
+Bootstrap 源码中定义的 mixin 也可以用来创建语义化的布局。
+通过为列(column)设置padding属性，从而创建列与列之间的间隔(gutter)。通过为.row元素设置负值margin 从而抵消掉为.container元素设置的padding，也就间接为行(row)所包含的列(column)抵消掉了padding。
+
+<div class="container-fluid">
+
+    <div class="row">
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+      <div class="col-md-1">.col-md-1</div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-8">.col-md-8</div>
+      <div class="col-md-4">.col-md-4</div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-4">.col-md-4</div>
+      <div class="col-md-4">.col-md-4</div>
+      <div class="col-md-4">.col-md-4</div>
+    </div>
+
+</body>
+</html>

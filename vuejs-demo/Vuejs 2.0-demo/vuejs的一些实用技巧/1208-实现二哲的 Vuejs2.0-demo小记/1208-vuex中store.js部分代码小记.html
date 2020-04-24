@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // 该模块的初始状态
+        const state = {
+                plans: [
+
+                ],
+                curEditPlans: {
+                }
+        }
+        // 相关的 mutations
+        const mutations = {
+            [types.SAVE](state) {
+                state.plans.push(state.curEditPlans)
+            },
+
+            //重点是看这一部分代码，因为这一部分的作用是新建一个计划的。
+            // 所以事先先新建 一个 newPlans这个对象 ，让里面的值都为空。
+
+            [types.SETNEWPLAN](state) {
+                var newPlans = {
+                    date: '',
+                    totaltime: '',
+                    commitss: ''
+                }
+                state.curEditPlans = newPlans
+            }
+        }
+        export default {
+            state,
+            mutations
+        }
+    </script>
+
+    <!-- ---------------------------------------------------------------------- -->
+
+</body>
+
+</html>

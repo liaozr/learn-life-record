@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  通常，JavaScript开发者使用下划线作为私有变量的前缀。
+
+  但是实际上，这些变量依然可以被访问和修改，并非真正的私有变量。这时，使用闭包可以定义真正的私有变量：
+
+  <script>
+
+      function Product() {
+
+          var name;
+
+          this.setName = function(value) {
+              name = value;
+          };
+
+          this.getName = function() {
+              return name;
+          };
+      }
+
+      var p = new Product();
+      p.setName("Fundebug");
+
+      console.log(p.name); // 输出undefined
+      console.log(p.getName()); // 输出Fundebug
+      
+  </script>
+
+  代码中，对象p的的name属性为私有属性，使用p.name不能直接访问。
+
+</body>
+
+</html>

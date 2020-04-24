@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+
+      process.nextTick(() => {
+          console.log('nextTick')
+      })
+
+      Promise.resolve()
+          .then(() => {
+              console.log('then')
+          })
+
+      setImmediate(() => {
+          console.log('setImmediate')
+      })
+
+      console.log('end')
+
+  </script>
+
+  运行结果：
+
+  end
+  nextTick
+  then
+  setImmediate
+
+  解释：
+  
+  process.nextTick 和 promise.then 都属于 microtask，而
+
+  setImmediate 属于 macrotask，在事件循环的 check 阶段执行。事件循环的每个阶段（macrotask）之间都会执行 microtask，
+
+  事件循环的开始会先执行一次 microtask。
+
+</body>
+</html>

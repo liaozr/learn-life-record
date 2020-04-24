@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        /*  点击中间按钮，使得左边的篮子快速移到中间  */
+
+        .p1-lanzi {
+            position: absolute;
+            height: auto;
+            width: 90px;
+            top: 63.3%;
+            left: 0%;
+            z-index: 5;
+        }
+
+        .p1-lanzi.dong {
+            transform: translateX(-73%);
+            -webkit-transform: translateX(-73%);
+            left: 50%;
+        }
+        /*---------------------------------------------------------------------*/
+        /* 母鸡的左右摇摆效果 */
+
+        .chickenmove {
+            animation: move 1.5s infinite linear;
+            -webkit-animation: move 1.5s infinite linear;
+        }
+
+        @keyframes move {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            25% {
+                webkit-transform: rotate(-20deg);
+                transform: rotate(-20deg);
+            }
+            50% {
+                webkit-transform: rotate(20deg);
+                transform: rotate(20deg);
+            }
+            100% {
+                webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+        }
+
+        @-webkit-keyframes move {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            25% {
+                webkit-transform: rotate(-20deg);
+                transform: rotate(-20deg);
+            }
+            50% {
+                webkit-transform: rotate(20deg);
+                transform: rotate(20deg);
+            }
+            100% {
+                webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+        }
+        /*------------------------------------------------------------------------*/
+
+        .animate .pt-fadeIn {
+            animation: fadeIn 1s linear both;
+            -webkit-animation: fadeIn 1s linear both;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /*----------------------------------------------------------------------*/
+
+    </style>
+</body>
+
+</html>

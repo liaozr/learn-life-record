@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .animate{
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: black;
+        margin: 0 auto;
+    }
+
+    * {
+        padding: 0;
+        margin: 0;
+    }
+</style>
+
+<body>
+    <div class="animate pt-fromTop">
+    </div>
+
+    <style>
+        .animate.pt-fromTop{
+            animation: fromTop 1.5s linear both infinite;
+            -webkit-animation: fromTop 1.5s linear both infinite;
+            -moz-animation: fromTop 1.5s linear both infinite;
+            -ms-animation: fromTop 1.5s linear both infinite;
+            -o-animation: fromTop 1.5s linear both infinite;
+        }
+
+        @keyframes fromTop {
+            0% {
+                transform: translate(0%, -5%);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(0%, 900%);
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes fromTop {
+            0% {
+                -webkit-transform: translate(0%, -5%);
+                opacity: 1;
+            }
+            100% {
+                -webkit-transform: translate(0%, 900%);
+                opacity: 1;
+            }
+        }
+    </style>
+</body>
+
+</html>

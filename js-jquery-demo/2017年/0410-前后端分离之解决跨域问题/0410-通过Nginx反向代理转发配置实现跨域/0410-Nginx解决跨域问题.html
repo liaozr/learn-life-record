@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+解决跨域问题
+
+自定义本地的url请求规则 ，如 http://www.720ui.com/blog 则对应要nginx服务转发到 http://blog.720ui.com 。
+
+配置 nginx.conf 文件，将本地带有特定前缀的URL接口请求转发到要跨域的真实物理服务器上。
+
+server
+{
+   listen 80;
+   server_name www.720ui.com;
+
+   location ^~ /blog/ {
+       proxy_pass http://blog.720ui.com/;
+   }
+}
+
+Nginx服务转发请求到真实物理服务器。Nginx服务将真实物理服务器传回的数据转发给web端。
+
+
+</body>
+</html>

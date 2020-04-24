@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+<!-- --------------------------------------------------------------------------- -->
+ 
+<!-- slot的用法  -->
+
+<div id="app9">
+    <modal-dialog v-bind:show.sync="show" v-bind:class="dialogClass">
+
+        <header class="dialog-header" slot="header">
+            <h1 class="dialog-title">提示信息</h1>
+        </header>
+
+        <div class="dialog-body" slot="body">
+            <p>你想在对话框中放什么内容都可以！</p>
+            <p>你可以放一段文字，也可以放一些表单，或者是一些图片。</p>
+        </div>
+
+        <footer class="dialog-footer" slot="footer">
+            <button class="btn" @click="closeDialog">关闭</button>
+        </footer>
+    </modal-dialog>
+
+    <button class="btn btn-open" @click="openDialog">打开对话框</button>
+</div>
+
+<template id="dialog-template">
+    <div class="dialogs">
+        <div class="dialog" v-bind:class="{ 'dialog-active': show }">
+            <div class="dialog-content">
+                <div class="close rotate">
+                    <span class="iconfont icon-close" @click="close"></span>
+                </div>
+                <slot name="header"></slot>
+                <slot name="body"></slot>
+                <slot name="footer"></slot>
+            </div>
+        </div>
+        <div class="dialog-overlay"></div>
+    </div>
+</template>
+
+<script>
+    Vue.component('modal-dialog', {
+        template: '#dialog-template',
+        props: ['show'],
+        methods: {
+            close: function() {
+                this.show = false
+            }
+        }
+    })
+
+    new Vue({
+	    el: '#app9',
+	    data: {
+	        show: false,
+	        dialogClass: 'dialog-info'
+	    },
+	    methods: {
+	        openDialog: function(dialogClass) {
+	            this.show = true
+	            this.dialogClass = dialogClass
+	        },
+	        closeDialog: function() {
+	            this.show = false
+	        }
+	    }
+   })
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+<!-- slot分发内容 -->
+<!--
+
+ 比如你自己做了个一个button组件，在根组件里注册为vButton，从而复用。
+那么各个button上的文字肯定是不同的，但是这些文字大部分情况下也是不需要动态更新的，
+那么就不必用props之类的方法从根组件向子组件传递文字，直接用slot即可。
+ -->
+
+<!--   button组件假如是这样：  -->
+
+<template>
+
+<!-- button按钮 -->
+  <button>
+    <slot></slot>
+  </button>
+</template>
+
+<!--   根组件就可以这样用它： -->
+<v-button>按钮文字</v-button>
+
+<!-- 这是最简单的一个用法示例。 -->
+
+
+
+<!-- 用slot 分发改造 -->
+<!-- 在父组件上 -->
+<ad>
+  <div class="showbar"> 
+    <div class="cover-image" :style="{'background-image':'url('+adbg+')'}"></div>
+    <div class="text" style="text-shadow:1px 1px 1px #000000"> <h1>简书</h1> 
+        <h3>交流故事，沟通想法</h3> 
+        <p>一个基于内容分享的社区</p>
+         <a href="#"><i class="fa fa-home"></i>提笔写篇文章</a>
+    </div> 
+  </div>           
+</ad>
+
+<!-- 然后在ad.vue这个文件里，使用slot分发内容即可 -->
+<!-- 这个是用slot分发内容的方式 -->
+<template>
+    <slot></slot>	
+</template>
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+<!-- 1.匿名slot使用 -->
+
+<!-- //定义组件my-component -->
+
+<div class="myComponent">
+  <slot></slot>
+</div>
+
+<!-- //使用方法 -->
+<my-component>
+  <p>我就是slot的替代内容，这里可以放任何标签元素，即使是一长串ul>li列表</p>
+</my-component>
+
+
+<!-- 2.具名slot使用 -->
+
+<!-- //定义组件my-component -->
+
+<div class="myComponent">
+  <slot name="mySlot"></slot>
+</div>
+
+<!-- //使用方法 -->
+<my-component>
+  <p slot="mySlot">我就是这个叫mySlot的slot替代内容，这里可以放任何标签元素，即使是一长串ul>li列表，但是我是一个有名字的宝宝，所以你必须给我加上slot="mySlot"，不然我就报错给你看！</p>
+</my-component>
+
+
+<!-- -------------------------------------------------------------------------------------------------------- -->
+
+<!-- -------------------------------------------------------------------------------------------------------- -->
+
+    <div id="app61">
+        1.
+        <input v-model="parentMsg">
+        <br> 2.
+        <example
+        :prop-a="100"
+        prop-b="100"
+        :prop-c=""
+        :prop-d=""
+        :prop-e.sync="parentMsg"
+        :prop-f="13"
+        :prop-g="100"
+        prop-h="100"
+        prop-m="100"
+        ></example>
+    </div>
+
+    <template id="pp">
+	    <ul>
+	        <li>propA : {{propA+1}}</li>
+	        <li>propB : {{propB+1}}</li>
+	        <li>propC : {{propC+1}}</li>
+	        <li>propD : <pre>{{ propD | json 4 }}</pre></li>
+	        <li>propE : {{propE+1}}</li>
+	        <li>propF : {{propF+1}}</li>
+	        <li>propG : {{propG+1}}</li>
+	        <li>propH : {{propH+1}}  <pre>{{ propH | json 4 }}</pre></li>
+	        <li>propM : {{propM+1}}</li>
+	    </ul>
+    </template>
+
+    <script>
+	    Vue.config.debug = true;
+	    Vue.component('example', {
+	        props: {
+	            // 基础类型检测 （`null` 意思是任何类型都可以）
+	            propA: Number,
+	            // 多种类型 (1.0.21+)
+	            propM: [String, Number],
+	            // 必需且是字符串
+	            propB: {
+	                type: String,
+	                required: true
+	            },
+	            // 数字，有默认值
+	            propC: {
+	                type: Number,
+	                default: 100
+	            },
+	            // 对象/数组的默认值应当由一个函数返回
+	            propD: {
+	                type: Object,
+	                default: function() {
+	                    return {
+	                        msg: 'hello'
+	                    }
+	                }
+	            },
+	            // 指定这个 prop 为双向绑定
+	            // 如果绑定类型不对将抛出一条警告
+	            propE: {
+	                twoWay: true
+	            },
+	            // 自定义验证函数
+	            propF: {
+	                validator: function(value) {
+	                    return value > 10
+	                }
+	            },
+	            // 转换函数（1.0.12 新增）
+	            // 在设置值之前转换值
+	            propG: {
+	                coerce: function(val) {
+	                    return val + '' // 将值转换为字符串
+	                }
+	            },
+	            propH: {
+	                coerce: function(val) {
+	                    return JSON.parse(val) // 将 JSON 字符串转换为对象
+	                }
+	            }
+	        },
+	        template:'#pp'
+	    });
+	    var vm = new Vue({
+	        el: '#app61',
+	        data: {
+	            parentMsg: '台湾小凡'
+	        }
+	    });
+    </script>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+<!--  :class的用法  -->
+
+   <div id="app2">
+	    <div class="static" v-bind:class="{ 'class-a': isA, 'class-b': isB }">台湾小凡 vue.js 官网讲解</div>
+	    <div align="center">
+	      <!--  isA =!isA  这里的 =号代表着的是赋值的意思 把 !isA赋给 isA 从而改变了 vm里面的data下 的键值isA的值  -->
+
+	      <!-- 这里面也有双向数据绑定的概念在的了 -->
+	      <button @click="isA =!isA">isA ={{isA}}</button>
+	      <button @click="isB =!isB">isB ={{isB}}</button>
+	    </div>
+  </div>
+  <script>
+	  var vm = new Vue({
+	    el: '#app2',
+	    data: {
+	      isA: true,
+	      isB: true
+	    }
+	  });
+  </script>
+
+
+
+ <li v-for='topic in topicnavlist' :class="{'active': topic.type==topiccurarticle[0].type}" > 
+     <a @click='topiclistchange(topic.type)' href="#" v-link="{name:'topicarticle'}" class="v-link-active" v-text='topic.title'></a>
+ </li>
+
+ <li v-for='nav in getnavlists' :class="{'active': getcurlist[0].type==nav.type}">
+	  <a @click="getterlists(nav.type)" v-link="{name:'article'}" class="v-link-active" v-text='nav.title'></a>
+</li>
+
+
+
+<div id="app5">
+    <div v-bind:class="[classA, classB]">台湾小凡 vue.js 官网讲解</div>
+</div>
+<script>
+  var vm = new Vue({
+    el: '#app5',
+    data: {
+      classA: 'class-a',
+      classB: 'class-b'
+    }
+
+  });
+</script>
+
+
+<div id="app7">
+  <!-- 但是要记得这个vue的版本是要在1.0.19+版本中，才会有这个功能的 -->
+  <div :class="[classA, { classB: isB, classC: isC }]">1111111111111111</div>
+</div>
+
+<script>
+	var vm = new Vue({
+		el:'#app7',
+		data:{
+		  classA: 'class-a',
+		  isB: true,
+		  isC: true
+		}
+	});
+</script>
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+<!--   :style  -->
+
+<!-- 绑定内联样式 -->
+ <div id="app8">
+  <!--  v-bind:style  -->
+  <!--    fontSize驼峰写法是不用加引号的，但是如果background-color 要这么写的话，就得加上引号
+           了，跟js的方法写法是一样的。        
+    -->
+    <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' ,'background-color':bgcolor}">
+      台湾小凡 vue.js 官网讲解</div>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app8',
+    data: {
+      activeColor: 'red',
+      fontSize: 30,
+      bgcolor: 'yellow'
+    }
+  });
+  </script>
+
+
+
+   <!-- 
+     :style中，倘若遇到有 绑定背景图片background-image的，一般都可以用此方法去做。
+   -->
+
+  <div class="cover-image" :style="{'background-image':'url('+adbg+')'}"></div>
+  <script type="text/javascript">
+	   export default {
+			data() {
+			  return {
+	            adbg:require('../assets/images/vue-demo-bg3.jpg')
+	 		  }
+			}			 
+		}
+   </script>
+
+
+   <!-- 有用到vuex的项目，倘若vuex 的store里的state 下，也有图片数据的话 -->
+
+   <!--    图片是这么引用的 -->
+   <!--    imgbg:require('../../assets/images/bonus_3.jpg')    -->
+   <script type="text/javascript">
+   	 {
+       type:'hot',
+	   id:1,
+       name:'阿俊',
+       time:'大约6小时之前',
+       title:'我不是学霸，只是比你努力一点而已2333333',
+       readnum:3398,
+       pinglun:258,
+       like:232,
+       dashang:68,
+       imgbg:require('../../assets/images/bonus_3.jpg')
+	  }
+   </script>
+
+   
+   <!--    页面上用 getters 取到 store里面的数据   -->
+
+   <span class="image" :style="{'background-image':'url('+list.imgbg+')','background-size': '100%','background-repeat': 'no-repeat'}">
+   </span>    
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+<!-- v-for所在的标签是会被算做for循环的一部分的  v-for 跟 v-if作用在同一个会报错的。 -->
+<!-- v-for所在的标签是会被算做for循环的一部分的  v-for 跟 v-if作用在同一个会报错的。 -->
+
+<!-- 这样是会报错的，不推荐 v-for v-if 作用在同一个dom元素上 -->
+<div v-for='nav in navlists' v-if=''></div>
+
+<!-- ------------------------------------------------------------------------------------------- -->
+
+<!-- subRoutes 子路由的配置 -->
+<!-- subRoutes 子路由的配置 -->
+
+<script type="text/javascript">
+	
+export default  router => {   // 等价于下面的 function(router)写法的
+    router.map({  
+      '/index': {
+        name: 'index',
+        component: Index,
+        activeClass:'active',
+        subRoutes:{
+          '/article':{
+            component:article,
+            name:'article'
+          }
+        }
+      },
+      '/topic': {
+        name: 'topic',
+        component: Topic,
+        activeClass:'active',
+        subRoutes:{
+          '/article':{
+            component:topicarticle,
+            name:"topicarticle"
+          }
+        }
+      }    
+    })
+}
+</script>
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+<!--   vue 2.0 ready() 已经没有的了  -->
+
+<script type="text/javascript">
+
+    // vue 2.0 已经把ready() 给取消了，所以就不再建议使用 ready() 这个钩子了 
+	// ready(){
+	//     this.initStore()
+	//     // initStore 是一个actions  初始化 一个store，state状态
+	// }
+
+    created(){  
+	    this.initStore()
+	    // initStore 是一个actions  初始化 一个store，state状态
+    }
+   
+    import { getcurlist }  from '../vuex/getters'
+    import { getnavlists } from '../vuex/getters'
+
+    import { getterlists } from '../vuex/actions'
+    import { getstartlist } from '../vuex/actions'
+
+    export default{
+		data(){
+			return {
+				
+			}
+		},
+		created(){
+			this.getstartlist()  //作用，一开始就从store里，获取到state里，赋值给state里的一个空数组。
+			// 初始化 store  state的一个空数组，让它有值。
+		},
+		vuex:{
+			actions:{
+				getterlists,
+				getstartlist
+			},
+			getters:{
+                getnavlists,
+                getcurlist
+			}
+		}	 
+	}
+</script>
+
+
+<script>
+   var vm=new Vue({
+   	data:{
+   		a:1
+   	},
+   	created:function(){//实例建造以后
+   		console.log('a is:'+this.a)  // this 指向 vm 实例
+
+   		// 也有一些其它的钩子，在实例生命周期的不同阶段调用，如 compiled、 ready 、destroyed。
+   		// 钩子的 this 指向调用它的 Vue 实例。
+   	}
+   })
+</script>
+
+<!-- 
+
+第一次创建会调用created
+
+不过重新进入页面组件后面就不会调用了
+
+这样就会有缓存，那些表单或者什么以前的状态就会不清空了
+
+ -->
+<!-- -------------------------------------------------------------------------------------------------- -->
+
+
+<!-- router  data钩子 -->
+
+<script type="text/javascript">
+	route: {
+	    data: function (transition) {
+	       this.$dispatch('menuUpdate', this.$route.path);
+	   }
+	}
+//  route的data这个钩子 是每当路由切换时都会执行的  是每当路由切换时都会执行的 是每当路由切换时都会执行的
+</script>
+
+<!-- -------------------------------------------------------------------------------------------------- -->
+
+ <!--    v-link  与 @click 一起用  -->
+ <!--    v-link  跟 @click 一起用没报错 -->
+
+ <li v-for='nav in getnavlists' :class="{'active': getcurlist[0].type==nav.type}">
+	   <a @click="getterlists(nav.type)" v-link="{name:'article'}" class="v-link-active" v-text='nav.title'></a>
+ </li>
+
+ 
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+
+<!--    router-view  的 transition  动态效果切换     -->
+
+<router-view transition = 'display' keep-alive transition-mode='out-in'></router-view>
+
+<!-- 常用样式效果 -->
+<style>
+  .display-transition{
+     transition:0.5s all;
+  }
+  .display-enter{
+     opacity: 1;
+  }
+  .display-leave{
+    opacity: 0;
+    transform: translateX(50px);
+  }
+</style>
+
+<!-- ------------------------------------------------------------------------------------------------------- -->
+
+<!-- 关于 vue-router  中的activeClass -->
+
+<a class="list-group-item" v-link="{ path: '/about', activeClass: 'active'}">About</a> 
+
+<a  v-link="{name:'register',activeClass:'active'}" ></a>
+
+<script>
+   router.map({  
+      '/index': {
+        name: 'index',
+        component: Index,
+        activeClass:'active',
+        subRoutes:{
+          '/article':{
+            component:article,
+            name:'article'
+          }
+        }
+      },
+      '/topic': {
+        name: 'topic',
+        component: Topic,
+        activeClass:'active',
+        subRoutes:{
+          '/article':{
+            component:topicarticle,
+            name:"topicarticle"
+          }
+        }
+      }    
+    })
+</script>
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+<!-- input 点击 选中 切换样式问题 -->
+<!-- 还是涉及到了双向数据绑定的概念了这里  -->
+
+<span style="float:left" class="checkbox" :class="{'checked': checked == true}"
+            @click="checked = !checked">
+</span>
+
+<script>
+  export default {
+      data() {
+        return{
+            checked:false
+        }
+      },
+      methods:{
+
+      }
+  }
+</script>
+<!-- ---------------------------------------------------------------------------------------------- -->
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- --------------------------------------------------------------------- -->
+
+常用方法
+
+Object.prototype.hasOwnProperty():返回一个布尔值，表示某个对象是否含有指定的属性，而且此属性非原型链继承。
+
+Object.prototype.toString():返回对象的字符串表示。
+
+Object.prototype.watch():给对象的某个属性增加监听。
+
+Object.prototype.unwatch():移除对象某个属性的监听。
+
+Object.prototype.valueOf():返回指定对象的原始值。
+
+<!-- --------------------------------------------------------------------- -->
+
+二、方法
+
+Object.assign(target, …sources):把任意多个的源对象自身的可枚举属性拷贝给目标对象，然后返回目标对象。
+
+Object.create(proto,[propertiesobject]):创建一个拥有指定原型和若干个指定属性的对象。
+
+Object.defineProperties(obj, props)：在一个对象上添加或修改一个或者多个自有属性，并返回该对象。
+
+Object.defineProperty(obj, prop, descriptor)：直接在一个对象上定义一个新属性，或者修改一个已经存在的属性， 并返回这个对象。
+
+obj：需要定义属性的对象。
+
+prop：需定义或修改的属性的名字。descriptor：将被定义或修改的属性的描述符。
+
+<!-- --------------------------------------------------------------------- -->
+
+Object.keys(obj)：返回一个由给定对象的所有可枚举自身属性的属性名组成的数组，数组中属性名的排列顺序和使用for-in循环遍历该对象时返回的顺序一致
+
+举例：
+
+<script>
+
+	var arr = ['a', 'b', 'c'];
+	alert(Object.keys(arr)); // 弹出”0,1,2”
+
+
+	// 类数组对象
+	var obj = { 0 :'a', 1 :'b', 2 :'c'};
+	alert(Object.keys(obj)); // 弹出”0,1,2”
+
+</script>
+
+<!-- --------------------------------------------------------------------- -->
+
+1.使用in关键字。
+
+该方法可以判断对象的自有属性和继承来的属性是否存在。
+
+var o={x:1};
+"x" in o;            //true，自有属性存在
+"y" in o;            //false
+"toString" in o;     //true，是一个继承属性
+
+
+2.使用对象的hasOwnProperty()方法。
+
+该方法只能判断自有属性是否存在，对于继承属性会返回false。
+
+var o={x:1};
+o.hasOwnProperty("x");    　　 //true，自有属性中有x
+o.hasOwnProperty("y");    　　 //false，自有属性中不存在y
+
+o.hasOwnProperty("toString"); //false，这是一个继承属性，但不是自有属性
+
+<!-- --------------------------------------------------------------------- -->
+
+
+
+</body>
+</html>

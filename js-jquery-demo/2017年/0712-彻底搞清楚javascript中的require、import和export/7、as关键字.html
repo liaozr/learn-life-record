@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+as关键字
+
+as简单的说就是取一个别名,export中可以用，import中其实可以用：
+
+<script>
+
+    // a.js
+    var a = function() {};
+    export {  a as fun };
+
+    // b.js
+    import {  fun as a } from './a';
+
+    a();
+
+</script>
+
+上面这段代码，export的时候，对外提供的接口是fun，它是a.js内部a这个函数的别名，但是在模块外面，认不到a，只能认到fun。
+
+import中的as就很简单，就是你在使用模块里面的方法的时候，给这个方法取一个别名，好在当前的文件里面使用。之所以是这样，是因为有的时候不同的两个模块可能通过相同的接口，比如有一个c.js也通过了fun这个接口：
+
+c.js
+export function fun() {};
+
+如果在b.js中同时使用a和c这两个模块，就必须想办法解决接口重名的问题，as就解决了。
+
+
+</body>
+</html>

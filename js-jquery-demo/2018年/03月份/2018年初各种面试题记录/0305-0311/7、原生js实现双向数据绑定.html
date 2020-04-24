@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ---------------------------------------------------------------------------------------------------- -->
+
+  Object.defineProperty()定义一个存储器属性，今天我们介绍如何用Object.defineProperty()实现双向数据绑定。
+
+  我们知道一个存储器属性有四个属性描述符：get，set，configurable，enumerable。我们来复习一下如何创建一个存储器属性：
+
+  <!-- ---------------------------------------------------------------------------------------------------- -->
+
+  var user = {
+      name: ''
+  }
+  Object.defineProperty(user, 'nickname', {
+      configurable: true,
+      enumerable: true,
+      get: function() {
+          return this.name
+      },
+      set: function(value) {
+          this.name = value
+      }
+  })
+
+  以上代码我们给user创建了一个名为nickname的存储器属性。
+
+  接下来我们改写get和set，让它们与DOM绑定，并实现双向数据绑定，以下为具体实现的伪代码：
+
+  <!-- ---------------------------------------------------------------------------------------------------- -->
+
+
+  <input type="text" id="foo">
+
+  <script>
+
+      var user = {}
+
+      Object.defineProperty(user, 'inputValue', {
+          configurable: true,
+          get: function() {
+              return document.getElementById('foo').value
+          },
+          set: function(value) {
+              document.getElementById('foo').value = value
+          }
+      })
+
+  </script>
+
+  <!-- ------------------------------------------------------------------------------------------------------ -->
+  
+
+  思考：其实实现双向数据绑定并不一定要用Object.defineProperty()，其主要是运用存储器属性的get和set，以下代码也可以实现双向数据绑定：
+
+  <input type="text" id="foo">
+
+  <p id="test"></p>
+
+  <script>
+
+      var user = {
+          get inputValue() {
+            return document.getElementById('foo').value
+          },
+          set inputValue(value) {
+            document.getElementById('foo').value = value
+            document.getElementById('test').innerHTML = value
+          }
+      }
+
+      document.getElementById('foo').addEventListener('keyup',function() {
+        document.getElementById('test').innerHTML = user.inputValue
+      })
+
+  </script>
+
+  <!-- ---------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

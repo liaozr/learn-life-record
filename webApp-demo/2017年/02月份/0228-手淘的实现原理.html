@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+
+此段代码实现动态计算，事实上他做了这几样事情：
+
+动态改写 <meta> 标签
+给 <html> 元素添加 data-dpr 属性，并且动态改写 data-dpr 的值
+给 <html> 元素添加 font-size 属性，并且动态改写 font-size 的值
+
+html font-size:
+
+<script>
+	function refreshRem(){  
+        var width = docEl.getBoundingClientRect().width;  
+        // if (width / dpr > 540) {  
+        //     width = 540 * dpr;  
+        // }  
+        var rem = width / 10;  
+        docEl.style.fontSize = rem + 'px';  
+        flexible.rem = win.rem = rem;  
+    }  
+</script>
+
+两个viewport:虚拟的viewportvisualviewport和布局的viewportlayoutviewport。
+
+iphone 5   320  640
+iphone 6   375  750
+iphone 6s  414
+
+
+
+设备像素比(device pixel ratio)
+
+设备像素比简称为dpr，其定义了物理像素和设备独立像素的对应关系
+
+
+<style>
+
+[data-dpr="1"] .selector {
+    height: 32px;
+    font-size: 14px;
+}
+
+[data-dpr="2"] .selector {
+    height: 64px;
+    font-size: 28px;
+}
+
+[data-dpr="3"] .selector {
+    height: 96px;
+    font-size: 42px;
+}
+
+</style>
+
+
+gulp (ga)  
+sublime  px->rem   
+
+
+
+
+
+</body>
+</html>

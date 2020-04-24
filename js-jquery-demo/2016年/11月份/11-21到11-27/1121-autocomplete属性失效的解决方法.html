@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+当我们做一个登陆页面时，如果用户选择了浏览器弹出的记住密码，那么，每次进登陆页面的时候，表单都会自动注入内容，但是，
+
+我们有些时候并不需要这样，那我们如何去禁止表单中注入内容呢？
+
+很多人都会使用autocomplete属性，可是在chrome浏览器下，这个属性完全失效，真是让人头疼。
+
+下面介绍两种方法：
+
+1. 加一个隐藏input
+
+<input name="a" autocomplete="off">
+<input type="password" style="display:none">
+<input type="password" name="b">
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+2. 通过js改变type类型
+这是进入页面时的密码表单
+<input type="text" id="pwd">
+
+当然，由于text是明文，这显然不符合我们输入密码的初衷，那我们就要加上focus事件来改变type类型。
+
+<script>
+
+    document.getElementById("pwd").onfocus = function() {
+        this.setAttribute("type", "password");
+    }
+
+    /* jquery */
+    $("#pwd").on("focus", function() {
+        $(this).attr("type", "password");
+    });
+
+</script>
+
+完美解决了！
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

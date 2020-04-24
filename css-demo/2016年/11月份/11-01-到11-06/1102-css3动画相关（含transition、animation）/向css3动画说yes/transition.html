@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  transition
+
+  transition: [property] [duration] [timing-function] [delay];
+
+  1、不可自动触发，可以通过改变class，改变状态(:hover, :active, :checked等)触发
+
+  2、display的none与其他值的切换不行 ( display的none与其他值的切换不行 )， 通过delay设置也不行，除非通过回调函数或setTimeout先切换display，再设置动画样式改变。
+
+<!-- ---------------------------------------------------------------------------- -->
+
+有transform  translate的 translate最好就写成translate3d
+，如下面的这个写法，在手机上跑的话会没那么卡的。
+
+<style>
+    .aa {
+        -webkit-transform: translate3d(0, 60px, 0);
+        -ms-transform: translate3d(0, 60px, 0);
+        transform: translate3d(0, 60px, 0);
+    }
+</style>
+
+<!-- --------------------------------------------------------------------------- -->
+
+
+<!-- ---------------------------------------------------------------------------- -->
+
+有transform  translate的 translate最好就写成translate3d
+，如下面的这个写法，在手机上跑的话会没那么卡的。
+
+<style>
+    .aa {
+        -webkit-transform: translate3d(0, 60px, 0);
+        -ms-transform: translate3d(0, 60px, 0);
+        transform: translate3d(0, 60px, 0);
+    }
+</style>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+<style>
+    .demo {
+        display: none;
+        width: 100px;
+        transition: width .3s;
+        /*在none和其他值之间切换，动画无效*/
+    }
+
+    .demo:hover {
+        display: block;
+        width: 200px;
+    }
+</style>
+
+  3、可设置delay为负值，表示动画已经运行到了该时间，前面的动画效果忽略，见demo
+
+  4、可对自己或子元素进行动画动画: combined transitions 1
+
+  5、或对同级下面的元素及其子元素进行动画控制: combined transitions 2
+
+  6、可在状态内添加transition，覆盖默认的transition，见demo
+
+
+  鼠标滑过会采用hover的transition即1s（覆盖了默认的transition），滑出会采用默认的transition即5s
+
+<div class="demo-a">
+
+</div>
+
+<style>
+    .demo-a {
+        width: 200px;
+        height: 200px;
+        background: #f00;
+        transition: all 5s;
+    }
+
+   /*鼠标滑过会采用hover的transition即1s（覆盖了默认的transition），滑出会采用默认的transition即5s*/
+
+    .demo-a:hover {
+        transition: all 1s;
+        background: #000;
+    }
+</style>
+
+推荐使用transform的translate带替代margin或position定位的top/right/bottom/left值了，
+
+而用transform的scaleX/Y替代width/height的运动。
+
+</body>
+</html>

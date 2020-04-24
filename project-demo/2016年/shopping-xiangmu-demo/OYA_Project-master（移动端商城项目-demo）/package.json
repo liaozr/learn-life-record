@@ -1,0 +1,30 @@
+{
+  "name": "oyamall",
+  "version": "1.0.0",
+  "description": "oya商城",
+  "main": "index.html",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/XYQgithup/OYA_Project.git"
+  },
+  "author": "8th_group",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XYQgithup/OYA_Project/issues"
+  },
+  "homepage": "https://github.com/XYQgithup/OYA_Project#readme",
+  "devDependencies": {
+    "browser-sync": "^2.17.5",
+    "gulp": "^3.9.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
+    "gulp-uglify": "^2.0.0"
+  }
+}

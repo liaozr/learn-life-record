@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+</head>
+<body>
+	<div id="example">
+        <span>Message is: {{ message }}</span>
+        <br>
+        input text 双向绑定 demo<br>
+        <input type="text" v-model="message" placeholder="edit me">
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            message: 'Vue.js 很好用!'
+        },
+
+    })
+    </script>
+<!-- ----------------------------------------------------------- -->
+
+    <div id="example2">
+        input checkbox 双向绑定 demo<br>
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{ checked }}</label>
+
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example2',
+        data: {
+            checked: true
+        }
+    })
+    </script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+    <div id="example3">
+
+    	<!--   input:checkbox 还是radio	 如果有input value属性 ，所以v-model绑定的值基本上都跟input的value属性值相关 -->
+
+        input checkbox 数组, 双向绑定 demo<br>
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+        <label for="jack">Jack</label>
+        <input type="checkbox" id="john" value="John" v-model="checkedNames">
+        <label for="john">John</label>
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+        <label for="mike">Mike</label>
+        <br>
+        <!--   输出checkedNames 这个数组，以json的格式 输出 这个数组  -->
+        <span>Checked names: {{ checkedNames | json }}</span>
+    </div>
+
+    <script>
+    var vm = new Vue({
+        el: '#example3',
+        data: {
+            checkedNames: [] //checkedNames 的值为[]，表明 它是一个数组来的.
+        }
+    })
+    </script>
+
+
+    <!-- --------------------------------------------------------------- -->
+
+
+    <div id="example4">
+         radio, 双向绑定 demo
+        <br>
+        <input type="radio" id="one" value="One" v-model="picked">
+        <label for="one">One</label>
+        <br>
+        <input type="radio" id="two" value="Two" v-model="picked">
+        <label for="two">Two</label>
+        <br>
+        <span>Picked: {{ picked }}</span>
+    </div>
+
+    <!--   input:checkbox 还是radio	 如果有input value属性 ，所以 v-model 绑定的值基本上都跟input的value属性值相关 -->
+    <script>
+    var vm = new Vue({
+        el: '#example4',
+        data: {
+            picked: 'Two'
+        }
+    })
+    </script>
+    
+<!-- -------------------------------------------------------------------------------------- -->
+
+    <div id="example5">
+
+    <!--   input:checkbox 还是radio	 如果有input value属性 ，所以 v-model 绑定的值基本上都跟input的value属性值相关 -->
+    
+    <!--  从这个栗子可以看出，select标签也是一样的 -->
+        select, 双向绑定 demo, 注：这个范例，依照小凡平时业务的写法，来写 示例
+        <br>
+        <!--    <select v-model="selected">  这里是默认选中哪个option  -->
+        <select v-model="selected"> 
+            <option value="a">Apple</option>
+            <option value="b">Bule</option>
+            <option value="c">Chunk</option>
+        </select>
+        <br>
+        <span>Selected: {{ selected }}</span>
+ </div>
+    <script>
+    var vm = new Vue({
+        el: '#example5',
+        data: {
+            selected: 'c'
+        },
+
+    })
+    </script>
+<!-- -------------------------------------------------------------------------------------------------------------------- -->
+
+    <div id="example6">
+        多选（绑定到一个数组） demo
+        <br>
+        <!--  multiple  表示是可以双选 -->
+        <!--  select可以双选的，取决于selected 哪个是默认选中    -->
+        <select v-model="selected" multiple>
+            <option selected>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <br>
+        <!-- 这里是将选中的option 的值 以json格式输出，可以多选这里 -->
+        <span>Selected: {{ selected | json }}</span>
+        <br>
+        <span>注：mac book pro , 按住 command, 来多选</span>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example6',
+        data: {
+            selected: 'a'
+        },
+
+    })
+    </script>
+<!-- ------------------------------------------------------------------------------- -->
+
+    <div id="example7">
+        select and v-for demo
+        <br>
+        <select v-model="selected">
+            <option v-for="option in options" v-bind:value="option.value">
+                {{ option.text }}
+            </option>
+        </select>
+        <span>Selected: {{ selected }}</span>
+        <br>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example7',
+        data: {
+            selected: 'A', //这里相当于默认显示 value为A的，也就是默认显示第一个option值
+            options: [
+                {
+                    text: 'One',
+                    value: 'A'
+                },
+                {
+                    text: 'Two',
+                    value: 'B'
+                },
+                {
+                    text: 'Three',
+                    value: 'C'
+                }
+            ]
+        }
+    })
+    </script>
+<!-- ----------------------------------------------------------------------------- -->
+
+    <div id="example8">
+        value bindings demo
+        <br>
+        <!-- 当选中时，`picked` 为字符串 "a" -->
+        <input type="radio" v-model="picked" value="a">
+        <!-- `toggle` 为 true 或 false -->
+        <input type="checkbox" v-model="toggle">
+        <!-- 当选中时，`selected` 为字符串 "abc" -->
+        <select v-model="selected">
+            <option value="abc">ABC</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+        <br>
+        <pre>{{$data | json}}</pre>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example8',
+        data: {
+            selected: '',
+            picked:'',
+            toggle:''
+        }
+    })
+    </script>
+<!-- ------------------------------------------------------------------ -->
+
+ <div id="example9">
+        checkbox value bindings demo, 注： v-bind 后面的双引号，是 js 表达式，不是字串。
+        <br>
+        <!--    v-model='toggle',双向数据绑定的是toggle这个值   -->
+        <!--   checkbox value bindings demo, 注： v-bind 后面的双引号，是 js 表达式，不是字串。  -->
+        <input type="checkbox" v-model="toggle" v-bind:true-value="a" v-bind:false-value="b">
+        <br>
+        <pre>{{ toggle }}</pre>
+</div>
+    <script>
+
+    // 当选中时，
+    // vm.toggle === vm.a
+    // 当没有选中时，
+    // vm.toggle === vm.b
+
+    var vm = new Vue({
+        el: '#example9',
+        data: {
+            toggle: '',
+            a: '台湾',
+            b: '小凡'
+        }
+    })
+    </script>
+<!-- --------------------------------------------------------------------- -->
+
+    <div id="example10">
+        radio value bindings demo
+        <br>
+        <!--  注： v-bind 后面的双引号，是 js 表达式，不是字串。是一个js表达式来的。     -->
+        <input type="radio" v-model="pick" v-bind:value="a">
+        <input type="radio" v-model="pick" v-bind:value="b">
+
+        <br>
+        <pre>{{ pick }}</pre>
+    </div>
+
+    <script>
+    // 当选中时
+    // vm.pick === vm.a
+    var vm = new Vue({
+        el: '#example10',
+        data: {
+            pick: '',
+            a: '台湾',
+            b: '小凡'
+        }
+    })
+    </script>
+
+    <!-- ------------------------------------------------------------- -->
+
+
+    <div id="example11">
+        select options value bindings demo
+        <br>
+        <select v-model="selected">
+            <!-- 对象字面量 -->
+            <option v-bind:value="{ number: 123 }">123</option>
+            <option v-bind:value="{ number: 456 }">456</option>
+            <option v-bind:value="{ number: 789 }">789</option>
+            <option v-bind:value="{ number: 'abc' }">abc</option>
+        </select>
+        <br>
+        <pre>{{$data | json}}</pre>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example11',
+        data: {
+            selected: ''
+        }
+    })
+    </script>
+<!-- ------------------------------------------------------------ -->
+
+    <div id="example12">
+        <h4>input box lazy demo</h4>
+        <!-- 在 "change" 而不是 "input" 事件中更新 -->
+
+        <!--  加了lazy 的效果是 等input输入框 输入完 失去焦点后 再把数据同步绑定显示出来的效果  -->
+        <input v-model="msg" lazy> {{msg}}
+        <br>
+        <!-- 没加lazy的效果相当于 一边在input框输入数据，那数据就同步绑定显示出来的效果 -->
+        <input v-model="msg1" > {{msg1}}
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example12',
+        data: {
+            msg: '',
+            msg1: ''
+        }
+    })
+    </script>
+<!-- ----------------------------------------------------------------- -->
+
+    <div id="example13">
+        <h4>input box number demo</h4>
+         
+         <!--  加了 number 的，绑定数据后输出的是一个数值 -->
+        <input v-model="age" number> {{age}}
+        <br>
+
+        <!--  没有加 number 的，绑定数据后输出的是一个字符串还带有引号的 -->
+        <input v-model="age1" > {{age1}}
+        <br>
+        <h3>注意：绑定后是数值或是字串</h3>
+        {{$data|json}}
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example13',
+        data: {
+            age: '',
+            age1: ''
+        }
+    })
+    </script>
+<!-- --------------------------------------------------------------------- -->
+
+    <div id="example14">
+        <h4>input box debounce demo</h4>
+
+         <!-- 加了这个 debounce 的效果是延迟数据绑定的（延迟多久看延迟时间），也有在input输入框失去焦点后再绑定数据的效果  -->
+
+         <!-- 所以这个debounce 跟lazy 效果有点类似，但本质上不是一样的   -->
+
+        <input v-model="msg" debounce="2500"> {{msg}}
+        <br>
+ 
+        <input v-model="msg1" > {{msg1}}
+        <br>
+        <h3>第一次文字框，会延时几秒钟才会绑定</h3>
+        {{$data|json}}
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example14',
+        data: {
+            msg: '',
+            msg1: ''
+        }
+    })
+    </script>
+<!-- --------------------------------------------------------------------- -->
+
+
+    <div id="example15">
+        <!-- debounce 限制 指令的值须是函数，如 v-on等等，作用的有效果的也是在methods那块的函数 上执行才会有延迟效果的   -->
+        <h4>input box debounce demo(键盘的反应 0.5 秒, this.msgkeup +1 )</h4>
+        <input v-model="msg" @keyup="onKeyup | debounce 3000"> {{msg}}
+        <br>
+        <input v-model="msg1"> {{msg1}}
+        <br> {{$data|json}}
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example15',
+        data: {
+            msg: '',
+            msg1: '',
+            msgkeyup:1
+        },
+        methods :{
+            onKeyup:function (){
+                this.msgkeyup=this.msgkeyup+1
+            }
+        }
+    })
+    </script>
+
+</body>
+</html>

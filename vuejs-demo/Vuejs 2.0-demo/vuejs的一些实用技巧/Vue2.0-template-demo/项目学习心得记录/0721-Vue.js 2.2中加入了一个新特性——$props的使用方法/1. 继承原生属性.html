@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.bootcss.com/vue/2.4.1/vue.min.js"></script>
+</head>
+
+<body>
+
+  <div id='app'>
+    <div>
+      <label>{{ label }}</label>
+
+      <input @input="$emit('input', $event.target.value)" :value="value" :placeholder="placeholder">
+    </div>
+  </div>
+
+  <script>
+       new Vue({
+          el:'#app',
+          data:{
+
+          },
+          props: ['value', 'placeholder', 'label']
+      })
+  </script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+  但是如果需要支持其他原生属性就需要继续写模板内容：
+
+  <div id='app2'>
+    <div>
+      <label>{{ label }}</label>
+
+      <input
+        @input="$emit('input', $event.target.value)"
+        :value="value"
+        :placeholder="placeholder"
+        :maxlength="maxlength"
+        :minlength="minlength"
+        :name="name"
+        :form="form"
+        :value="value"
+        :disabled="disabled"
+        :readonly="readonly"
+        :autofocus="autofocus">
+    </div>
+  </div>
+
+  <script>
+       new Vue({
+          el:'#app2',
+          data:{
+
+          },
+          props: ['label', 'placeholder', 'maxlength', 'minlength', 'name', 'form', 'value', 'disabled', 'readonly', 'autofocus']
+      })
+  </script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+如果你留意过 Vue 文档介绍 v-bind 是可以传对象 的话，那我们的代码用 Vue 模板写的话就更简单了：
+
+  <div>
+
+    <label>{{ label }}</label>
+    <input v-bind="$props">
+    
+  </div>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+</head>
+
+<body>
+    <!-- -------------------------------------------------------------------------------- -->
+
+    jquery 删除字符串最后一个字符的方法
+
+    <script>
+        // 字符串：
+        var s = "1,2,3,4,5,"
+
+        // 目标：删除最后一个 ","
+
+        // 方法：
+        s = s.substring(0, s.length - 1);
+        console.log(s); // 1,2,3,4,5
+    </script>
+
+    <!-- ---------------------------------------------------------------------------------- -->
+
+    jquery如何删除数组中的一个元素？
+
+    <script>
+        var a = [3, 4, 5, 6, 7, 8, 9];
+        $.each(a, function(index, item) {
+            // index是索引值（即下标）   item是每次遍历得到的值；
+            if (item == 7) {
+                a.splice(index, 1);
+            }
+        });
+        console.log(a); // [3, 4, 5, 6, 8, 9]
+    </script>
+
+    <!-- ----------------------------------------------------------------------------------- -->
+
+    <script>
+        function reduce_haibao_ipad_all(cindex) {
+            var _ip_length = $(".haibao_ipad_layout").length;
+            console.log(_ip_length);
+            $.each(haibao_ipad_all_value, function(index, item) {
+                if (cindex == index && _ip_length !== 1) {
+                    haibao_ipad_all_value.splice(index, 1);
+                }
+            });
+            $("#haibao_ipad_all").val(haibao_ipad_all_value);
+        }
+    </script>
+
+    <!-- ------------------------------------------------------------------------------------- -->
+
+
+    jquery字符串转数组 如何把字符串"123,abc,xy,hi"转换成数组或者jQuery数组
+
+    <script>
+        var arr = '123,abc,xy,hi'.split(',');
+        for (var i in arr) {
+            arr[i]
+        }
+        console.log(arr);
+        console.log(arr instanceof Array)
+    </script>
+
+    <!-- -------------------------------------------------------------------------------------- -->
+
+
+    jquery获取index()元素序号的问题
+
+    <script>
+        $(function() {
+            $("dt").on("click", function() {
+                alert($(this).index("dt"));  //获取到 元素dt的 下标值。
+            });
+        });
+        //index索引从0开始
+        
+    </script>
+
+    <!-- --------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

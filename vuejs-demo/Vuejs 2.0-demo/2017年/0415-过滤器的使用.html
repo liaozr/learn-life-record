@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+  过滤器用法：{{item.productPrice |  formatMoney}}
+
+  这个是局部的过滤器，在当前的这个vue实例 才能够使用的。
+  filters:{
+     formatMoney:function(default){
+         return "Y"+value.toFixed(2);
+     }
+  }
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+  写在外部的是全局过滤器(value:默认值 ，type参数)
+
+  Vue.filter("money", function (vaule, type) {
+      return "￥" + vaule.toFixed(2) + type;
+  })
+
+  例如：{{item.productPrice |  money(元)}}
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+<div id="app">
+    <div>
+        {{ money | formatMoney }}
+    </div>
+    <span>{{timeg | formatTime }}</span>
+    <!-- 输出的值 是 ￥19.00  -->
+    <!-- 输出的值 是 ￥19.00  -->
+</div>
+<script>
+
+    //  这里要注意的是 全局过滤器 一定要 放到 new Vue({ }) 这个的前面
+    //  全局过滤器 一定要 放到 new Vue({ }) 这个的前面
+    //  就像 全局 注册组件 一样的，如下面那段代码，也是一定要放到
+    //  new Vue({}) 的前面的，不然也是会报错的
+    // Vue.component("compa", {
+    // })
+// -----------------------------------------------------------------------------------
+    // 全局过滤器
+    Vue.filter("formatTime", function(value) {
+        return value + '年';
+    })
+
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            money: 19,
+            timeg: 2016
+        },
+        filters: {
+            formatMoney: function(value) {
+                //  toFixed有精度缺失（四舍五入），所以价格一般有后台传入
+                //   toFixed是将保留 2位小数点，但这个是有精度缺失的
+                //    所以价格什么的，一般是直接由后台传入的
+                return '￥' + value.toFixed(2)
+            }
+            //  formatTime:function(value){
+            //    return  value + '年'
+            //  }
+        }
+    })
+
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

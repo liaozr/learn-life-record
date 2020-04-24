@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+  different router the same component vue。
+
+  真实的业务场景中，这种情况很多。
+
+  我创建和编辑的页面使用的是同一个component,默认情况下当这两个页面切换时
+
+  并不会触发vue的created或者mounted钩子，官方说你可以通过watch $route的变化来做处理，
+
+  但其实说真的还是蛮麻烦的。
+
+  后来发现其实可以简单的在 router-view上加上一个唯一的key，来保证路由切换时都会重新渲染触发钩子了。
+
+  这样简单的多了。
+
+  <!-- --------------------------------------------------------------------------------- -->
+
+  <router-view :key="key"></router-view>
+
+  <script>
+
+      computed: {
+          key() {
+              return this.$route.name !== undefined ? this.$route.name + +new Date(): this.$route + +new Date()
+          }
+       }
+
+  </script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

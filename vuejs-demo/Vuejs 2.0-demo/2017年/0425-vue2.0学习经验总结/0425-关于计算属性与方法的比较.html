@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.2.6/vue.js"></script>
+</head>
+
+<body>
+
+计算属性可以处理模板语法中的复杂业务逻辑
+
+计算属性 vs methods
+
+我们看到计算属性和methods的效果基本你一样，那么他们的区别是什么？
+
+计算属性的依赖如果没有发生变化，当你再次调用计算属性的时候，能够立即返回上次缓存的计算值，
+
+计算属性的依赖如果没有发生变化，当你再次调用计算属性的时候，能够立即返回上次缓存的计算值，
+
+而不需要从新执行计算属性的方法
+
+而方法需要从新执行方法体
+
+<!-- ------------------------------------------------------------------------------- -->
+
+<div id="app">
+    <div>
+        <p>Original message: "{{ message }}{{name}}"</p>
+        <p>Computed reversed message: "{{ reversedMessage }}"</p>
+        <p>Computed reversed message: "{{ reverseMessage() }}"</p>
+    </div>
+</div>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            message: 'Hello',
+            name: 'a'
+        },
+        mounted() {
+            this.name = "b"
+        },
+        computed: {
+            reversedMessage: function() {
+                console.log('计算属性被调用了')
+                return this.message.split('').reverse().join('')
+            }
+        },
+        methods: {
+            reverseMessage: function() {
+                console.log('方法被执行了')
+                return this.message.split('').reverse().join('')
+            }
+        }
+    })
+</script>
+
+上面的结果是 ：
+计算属性被调用了
+方法被执行了
+方法被执行了
+
+之所以 计算属性 只会执行一次是因为依赖的值状态没变
+
+而方法会执行两次是因为  计算属性的那个 reversedMessage 也会当做 方法来计的
+
+<!-- ------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  CSS 作用域与模块
+
+  组件内样式
+
+  通常，组件中 <style></style> 标签里的样式是全局的，在使用第三方 UI 库（如：Element）时，
+
+  全局样式很可能影响 UI 库的样式。我们可以通过添加 scoped 属性来使 style 中的样式只作用于当前组件：
+
+  <style lang="less" scoped>
+
+      @import 'other.less';
+      .title {
+        font-size: 1.2rem;
+      }
+
+  </style>
+
+  在有 scoped 属性的 style 标签内导入其他样式，同样会受限于作用域，变为组件内样式。
+
+  复用程度较高的样式不建议这样使用。
+
+  另，在组件内样式中应避免使用元素选择器，原因在于元素选择器与属性选择器组合时，性能会大大降低。
+  --- 两种组合选择器的测试：classes selector，elements selector
+
+  
+</body>
+
+</html>

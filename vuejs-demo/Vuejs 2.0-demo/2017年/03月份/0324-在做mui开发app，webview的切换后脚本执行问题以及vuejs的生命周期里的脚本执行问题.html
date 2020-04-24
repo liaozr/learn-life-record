@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+   在做mui开发app，webview的切换后脚本执行问题以及vuejs的生命周期里的脚本执行问题
+
+   在开发的时候都发现。
+
+   webview也是 跟 vue 的单页面路由切换 是很像的。
+
+   倘若 webview 不是新打开的话， 如下面所示，即为新打开 一个webview 的。
+
+  <script>
+
+      plus.webview.open();
+
+      mui.openWindow({
+          url: url,
+          id: url,
+          styles: subStyles,
+          createNew: false,
+          show: {
+              autoShow: true,
+              aniShow: 'slide-in-right',
+              duration: 200
+          },
+          waiting: {
+              autoShow: true,
+              title: "正在加载..."
+          }
+      })
+
+  </script>
+
+  <!-- ------------------------------------------------------------------------------- -->
+
+  如果，webview只是在已打开的webview里面只是做切换的话，
+  即。
+  一个app里面的底部导航栏（如果有四个栏目的话），则一开始创建一般都是创建了四个webview的了，
+  其他webview只是做一个切换的，
+  则切换 这些webview是不会重复执行里面的脚本的，因为此时的webview只是一个切换隐藏的关系，并不是新打开一个webview，
+
+  也并没有存在什么刷新页面什么的。
+
+  就跟vue的单页面组件开发是差不多的，组件里面如果是每次进入组件都想干点事执行点什么的话。
+  一般是可以把要执行的事件那些写到 路由钩子里面的。
+  就是说每次一切换进路由，就是执行这个路由钩子，从而触发事件。
+
+  <!-- ------------------------------------------------------------------------------- -->
+
+
+  而在webview 里面呢，
+
+  index.html页面里，一般都是得这样
+
+  plus.webview.getWebviewById(id).evalJS("init()");
+
+	plus.webview.getWebviewById(id).show("fade-in",200);
+
+      <script>
+        var doc = window.document;
+        var docEl = doc.documentElement;
+        var width = docEl.getBoundingClientRect().width;
+        var dpr = 1;
+        if (width > 540) {
+            width = 540 * dpr;
+        }
+        var rem = width / 10;
+        var fontSize = rem;
+        var bottomheight = parseInt(fontSize) * 1.562 + 'px';
+
+        var subStyles = {
+            top: "0px",
+            bottom: bottomheight
+        };
+
+        if (window.plus) {
+            plusReady()
+        } else {
+            document.addEventListener('plusready', plusReady, false);
+        }
+
+        //  这里 就是一打开页面就创建 三个 webview 了，从而这些webview就只存在切换隐藏的关系，
+        // 而不存在 新打开一个webview的关系
+        function plusReady() {
+            plus.webview.create("section.html", "section", subStyles);
+            plus.webview.create("baoliao.html", "baoliao", subStyles);
+            plus.webview.create("us.html", "us", subStyles);
+
+            // 这里就是 当plusReady的时候 默认让 section 这个webview 显示在页面上。
+            plus.webview.getWebviewById("section").show("fade-in", 200);
+        }
+
+        var lastId = "section"
+
+        $(".dot").on("tap", function() {
+
+            var array = plus.webview.all();
+            if (array) {
+                for (var i = 0, len = array.length; i < len; i++) {
+                    // console.log(array[i].getURL());
+                }
+            }
+
+            $(".dot").removeClass("cur");
+            $(this).addClass("cur");
+
+            var id = $(this).data("id");
+
+            //  这里 就是切换 webview 了
+
+            // 查找指定标识的WebviewObject窗口
+            // plus.webview.getWebviewById( id );
+
+            // 查找指定标识的WebviewObject窗口，并让其一进入这个webview就执行 init() 这个方法。
+
+            //  所以，一般 webview里面 都会有一个 init()方法
+            // 用于 webview之间要切换的时候，要执行的一些脚本代码。
+
+            plus.webview.getWebviewById(id).evalJS("init()");
+
+            // 查找指定标识的WebviewObject窗口，并让这个webview显示出来。
+            plus.webview.getWebviewById(id).show("fade-in", 200);
+
+            lastId = id;
+
+            var arr = plus.webview.getWebviewById(id).opened();
+            for (var i = 0; i < arr.length; i++) {
+                //arr[i].close();
+            }
+        });
+    </script>
+
+    <!-- baoliao  webview 里面的init() 方法  -->
+
+    <div class="baoliao-btn">
+
+    		<a v-el:baoliao data-url="denglu.html"  href="javascript:void(0)">我要报料</a>
+
+    </div>
+
+    <script>
+        function init() {
+            if (localStorage.getItem("user_name") !== '' && localStorage.getItem("user_name") !== undefined && localStorage.getItem("user_name") !== null) {
+                var username = localStorage.getItem("user_name");
+                vm.userinfo = username;
+                var url2 = 'woyao_baoliao.html';
+                vm.$els.baoliao.setAttribute("data-url", url2);
+            }
+        }
+        var vm = new Vue({
+            el: 'body',
+            data: {
+                userinfo: str,
+                aaaa: true
+            }
+        })
+    </script>
+
+    <!-- ------------------------------------------------------------------------------- -->
+
+
+    <!--  webview 处理 登录页面的时候    -->
+    <script>
+
+        //  用于清除localStorage  手机上测试登录的时候用
+        //  localStorage.clear();
+
+        // 点击登录状态
+        $('.denglu-btn').on("tap", function() {
+            var user_name = $("#user_name");
+            var pasword = $("#pasword");
+            var use_name = user_name.val();
+            var paword = pasword.val();
+
+            // 当 用户名 跟密码都不为空的时候
+            if (!isBlank(use_name) && !isBlank(paword)) {
+
+                localStorage.setItem("user_name", use_name);
+                form.submit();
+
+                var subStyles = {
+                    top: "0px",
+                    bottom: "0px"
+                };
+
+                // 让当前这个webview的打开者 执行 init()这个方法。
+                // 也就是 当前webview的 上一个webview
+                //  一般登录进去的时候，在webview里面来讲，就是回到 当前
+                // 登录webview 的打开者。也就是上一个webview的状态下 的。
+
+                // 一般登录进去之后的一些 状态变化 是可以 写到这个 init()方法里面的。
+                // 一般登录进去之后的一些 状态变化 是可以 写到这个 init()方法里面的。
+
+                plus.webview.currentWebview().opener().evalJS("init()");
+
+                // 把当前的这个 登录状态的webview 关掉，也就是回到当前这个webview的打开者的状态的
+                // 回到当前这个webview的打开者的状态的
+                plus.webview.currentWebview().close();
+
+            } else {
+                tanchu("请输入用户名和密码")
+                return false
+            }
+        })
+    </script>
+
+    <!-- ------------------------------------------------------------------------------ -->
+
+    正比如 vue的 生命周期也是一样 的，
+    如下面的ready 钩子，也是当第一次进入到该组件的时候会执行
+    ready里面的一些代码，当进行组件间的切换的时候 ( 如果不是新打开一个组件的时候 )，他里面的代码也是不会重复执行的。
+    因为也不存在页面的刷新问题，所以也就不会重复执行了。
+
+    所以vue的一些生命周期 适用于一些 数据的渲染，后端拿回数据，一些初始化状态的一些数据 以及
+    状态的改变等。
+
+    <script>
+        var vm = new Vue({
+            el: 'body',
+            data: {
+                userinfo: ''
+            },
+            ready: function() {
+                if (localStorage.getItem("user_name") !== '' && localStorage.getItem("user_name") !== undefined && localStorage.getItem("user_name") !== null) {
+                    var username = localStorage.getItem("user_name");
+                    this.userinfo = username;
+                    var url2 = 'woyao_baoliao.html';
+                    var url3 = 'baoliao_guangchang.html'
+                    this.$els.baoliao.setAttribute("data-url", url2);
+                    this.$els.head_baoliao.setAttribute("data-url", url3);
+                }
+            }
+        })
+    </script>
+
+    生命周期总结
+
+    这么多钩子函数，我们怎么用呢，我想大家可能有这样的疑问吧，我也有，哈哈哈。
+
+    beforecreate : 举个栗子：可以在这加个loading事件
+
+    created ：在这结束loading，还做一些初始化，实现函数自执行
+              created阶段做一些初始化，实现函数自执行
+
+    mounted ： 在这发起后端请求，拿回数据，配合路由钩子做一些事情
+
+    beforeDestory： 你确认删除XX吗？
+
+    destoryed ：当前组件已被删除，清空相关内容
+
+    <!-- ------------------------------------------------------------------------------ -->
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+  组合式继承优化2
+
+  这是继承的最完美方式
+
+  <!-- --------------------------------------------------------------------------------------- -->
+
+  <script type="text/javascript">
+
+      function Parent4(){
+          this.name = "parent4";
+          this.colors = ["red","blue","yellow"];
+      }
+
+      Parent4.prototype.sex = "男";
+
+      Parent4.prototype.say = function(){
+          console.log("Oh, My God！")
+      }
+
+      function Child4(){
+          Parent4.call(this);
+          this.type = "child4";
+      }
+
+      Child4.prototype = Object.create(Parent4.prototype);
+      Child4.prototype.constructor = Child4;
+
+      Child4.prototype.say()  // Oh, My God！
+
+      console.log(Child4.prototype.sex) // 男
+
+// ------------------------------------------------------------------------------------
+      // Object.create是一种创建对象的方式，它会创建一个中间对象
+
+      var p = {
+        name: "p"
+      }
+
+      var obj = Object.create(p)
+
+      // Object.create({ name: "p" })
+
+// -----------------------------------------------------------------------------------
+
+  </script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+  通过这种方式创建对象，新创建的对象obj的原型就是p，同时obj也拥有了属性name，这个新创建的中间对象的原型对象就是它的参数。
+  这种方式解决了上面的所有问题，是继承的最完美实现方式。
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+ES6中继承
+
+Class 可以通过extends关键字实现继承，这比 ES5 的通过修改原型链实现继承，要清晰和方便很多。
+
+<script type="text/javascript">
+
+  class Parent {
+  }
+
+  class Child1 extends Parent {
+      constructor(x, y, colors) {
+           super(x, y); // 调用父类的constructor(x, y)
+           this.colors = colors;
+      }
+      toString() {
+           return this.colors + ' ' + super.toString(); // 调用父类的toString()
+      }
+  }
+
+</script>
+
+上面代码中，constructor方法和toString方法之中，都出现了super关键字，它在这里表示父类的构造函数，用来新建父类的this对象。
+
+子类必须在constructor方法中调用super方法，否则新建实例时会报错。如果子类没有定义constructor方法，这个方法会被默认添加，不管有没有显式定义，任何一个子类都有constructor方法。
+
+ES5 的继承，实质是先创造子类的实例对象this，然后再将父类的方法添加到this上面（Parent.apply(this)）。
+
+ES6 的继承机制完全不同，实质是先创造父类的实例对象this（所以必须先调用super方法），然后再用子类的构造函数修改this。
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+
+  </body>
+</html>

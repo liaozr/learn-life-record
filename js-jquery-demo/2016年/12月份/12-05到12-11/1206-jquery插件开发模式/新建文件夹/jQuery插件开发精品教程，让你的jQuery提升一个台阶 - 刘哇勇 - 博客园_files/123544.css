@@ -1,0 +1,238 @@
+body{
+font-family:Microsoft YaHei,arial;
+}
+#cnblogs_post_body h1{
+font-size: 28px;
+font-weight: bold;
+border-bottom:1px solid #999;
+}
+/*hide pace circle progress icon*/
+.pace-activity{
+	display: none!important;
+}
+#sideBar,.post{
+border:none;
+border-radius:0;
+box-shadow:none;
+background-color:#fff;
+}
+#navList li{
+border-bottom:2px solid;
+}
+#navList li:hover{
+border-bottom:2px solid #4281F3;
+}
+.cnblogs_code{
+background-color: #CEE0E3;
+border:none;
+border-left: 5px solid #8BB4BC;
+}
+
+.cnblogs_code_toolbar,.cnblogs_code_toolbar a:link img{
+background-color: #CEE0E3!important;
+}
+
+.cnblogs-markdown code{
+border:none!important;
+font-size: inherit!important;
+line-height:20px!important;
+}
+.postTitle{
+margin:20px 0;
+}
+#cb_post_title_url{
+font-size:2em;
+}
+
+#tbCommentBody{
+border-color:#ddd;
+height:150px;
+}
+#green_channel{
+border:none;
+}
+#green_channel a{
+background-image:none;
+border-radius:0;
+}
+/*blog list*/
+.day .postTitle2{
+color:#3E73A0!important;
+}
+.day .postTitle2:hover{
+text-decoration:underline;
+}
+
+#MySignature{
+border-left: 5px solid #F0DE9B;
+color:#666;
+background-color: rgba(255,251,198,.5);
+margin: 15px 0 10px 0;
+padding:3px 0;
+}
+
+.emphasis_block{
+padding:5px 5px 5px 15px;
+border-left:5px solid #ddd;
+background-color:#eee;
+}
+#cnblogs_post_body h1,#cnblogs_post_body  h2,#cnblogs_post_body h3{
+margin:20px;
+}
+
+.postBody{color:black;}
+
+
+#cnblogs_post_body p{
+font-size:16px;
+text-indent:0;
+}
+
+#cnblogs_post_body div.highlight{
+color:#fff;
+padding: 15px 20px;
+margin: 15px 0;
+border-left: 5px solid #aaa;
+}
+
+
+#cnblogs_post_body ol,#cnblogs_post_body ul{
+margin-left:30px;
+}
+::selection {
+background-color: transparent;
+color: #4281F3;
+}
+
+#myposts .PostList{
+border-bottom:none;
+}
+
+.diggit{
+position:fixed;
+right:0;
+bottom:50px;
+}
+#digg_tips,.buryit{display:none;}
+
+.feedbackCon{
+background-image:url('http://images.cnblogs.com/cnblogs_com/Wayou/399998/o_speaker_close.png');
+background-size:30px 30px;
+background-position:0 10px;
+}
+.feedbackCon:hover{
+background-image:url('http://images.cnblogs.com/cnblogs_com/Wayou/399998/o_speaker.png');
+background-size:30px 30px;
+background-position: 0 10px;
+}
+.fastCom{
+-webkit-transform: scaleX(-1);
+-moz-transform: scaleX(-1);
+-ms-transform: scaleX(-1);
+transform: scaleX(-1);
+background-size: 45px 45px;
+opacity:.5;
+position:fixed;
+right:0;
+bottom:105px;
+width:45px;
+height:45px;
+background-image:url('http://images.cnblogs.com/cnblogs_com/Wayou/399998/o_speaker_close.png');
+}
+.fastCom:hover{ 
+opacity:1;
+background-image:url('http://images.cnblogs.com/cnblogs_com/Wayou/399998/o_speaker.png');
+}
+/*diggit shine style*/
+.diggit:after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 0%;
+    height: 100%;
+    background-color: rgba(255, 255, 0, 0.4);
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+
+.diggit:hover:after {
+    width: 120%;
+    background-color: rgba(255, 0, 0, 0);
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+/*wanker*/
+.wanker {
+          box-sizing: border-box;
+     -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  background: #000;
+  color: #FFF;
+  display: none;
+  font-family: Helvetica, Arial, sans-serif;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2014;
+}
+
+.wanker-content {
+  position: relative;
+  margin: 3em auto 0;
+  width: 80%;
+}
+
+.wanker-content h1 {
+  font-size: 4em;
+  line-height: .9em;
+  margin-bottom: 2em;
+}
+
+.wanker-content a {
+  color: #e9522f;
+}
+
+#myposts .PostList{
+margin:2px;
+padding:0;
+}
+#myposts .PostList a:hover{
+text-decoration:underline;
+}
+
+
+.cnblogs-markdown pre{
+border-left: 3px solid #999;
+background-color: #fff;
+}
+.cnblogs-markdown pre>code,.cnblogs-markdown pre>code.hljs{
+border: none!important;
+background-color: #F7F5F5!important;
+}
+
+
+
+blockquote {
+margin:0;
+padding: 5px!important;
+border: none;
+border-left: 3px solid #999;
+background: #F7F5F5;
+}
+
+#cnblogs_post_body h1,#cnblogs_post_body h2,#cnblogs_post_body h3,#cnblogs_post_body h4{
+margin-left:0;
+}
+
+.postTitle a:hover{
+color: #0069D6;
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+  懒加载的方式，我们就不需要再用import去引入组件了，直接如下即可。
+
+  懒加载的好处是当你访问到这个页面的时候才会去加载相关资源，这样的话能提高页面的访问速度。
+
+  component: resolve => require(['./page/linkParamsQuestion.vue'], resolve)
+
+  <!-- ----------------------------------------------------------------------------------- -->
+
+  <script>
+
+      const routes = [
+         {
+              path: '/home',
+              component: resolve => require(['./page/linkParamsQuestion.vue'], resolve),
+              name: 'home',
+          },
+          {
+              path: '/user',
+              component: user,
+              name: 'user',
+          }
+      ]
+
+  </script>
+  
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

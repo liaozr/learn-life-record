@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ----------------------------------------------------------------------------- -->
+
+    <script>
+        var callbacks = []
+
+        for (var i = 0; i < 2; i++) {
+            callbacks[i] = function() {
+                return i * 2
+            }
+        }
+
+        // 典型 的闭包
+
+        // var 会提升变量 ，所以这个闭包的作用域是全局。
+        // 在执行 callbacks[0]()的时候，i的值已经变成2了。
+
+        console.log(callbacks[0]())  // 4
+
+        console.log(callbacks[1]())  // 4
+    </script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+
+<script>
+    var callbacks = []
+
+    for (let i = 0; i < 2; i++) {
+        callbacks[i] = function() {
+            return i * 2
+        }
+    }
+
+    // let 会有一个块作用域的 概念，这时候的闭包 取决于当前的 块作用域，这个作用域 在这 是 这个大括号 {}，
+
+    // 这个时候，它会把当前块作用域下的变量值保存下来，供后面的闭包使用，每循环一次，就新生成一个新的作用域
+
+    console.log(callbacks[0]())  // 0
+    console.log(callbacks[1]())  // 2
+
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+立即执行函数
+
+立即执行函数里面的 代码块 是封闭的，只能在这个块里面执行的。
+
+<script>
+
+    (function() {
+       var a = '1111'
+       console.log(a) // 1111
+    })()
+
+    console.log(a)  // a is not defined
+
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+   ES6 如何实现一个块作用域 像 立即执行函数那样??
+
+   很简单，只需要 一对大括号即可、
+
+   ES6中，一对大括号，就已经实现块作用域了，就已经实现隔离了。
+
+ <script>
+
+  {
+
+// --------------------------------------------------------------------------------
+
+      function foo(){
+        return 1
+      }
+      console.log(foo()) //1
+
+// --------------------------------------------------------------------------------
+
+      {
+        function foo(){
+          return 2
+        }
+        console.log(foo()) // 2
+      }
+
+      console.log(foo())   // 1
+
+// --------------------------------------------------------------------------------
+
+     let  ccc= 'zrliao'
+
+     console.log(ccc)  // zrliao
+
+  }
+
+  console.log(ccc)  // ccc is not  defined
+
+ </script>
+
+ <!-- ----------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

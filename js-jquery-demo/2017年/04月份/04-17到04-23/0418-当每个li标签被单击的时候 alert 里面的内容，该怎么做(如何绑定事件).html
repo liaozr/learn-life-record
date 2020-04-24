@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id='ul'>
+        <li class='list'>1111</li>
+        <li class='list'>2222</li>
+        <li class='list'>3333</li>
+    </ul>
+
+    <script>
+        var length = document.querySelectorAll('.list').length;
+        var list = document.querySelectorAll('.list');
+        for (var i = 0; i < length; i++) {
+            list[i].addEventListener('click', function() {
+                alert(this.innerHTML);
+            }, false)
+        }
+    </script>
+</body>
+
+</html>

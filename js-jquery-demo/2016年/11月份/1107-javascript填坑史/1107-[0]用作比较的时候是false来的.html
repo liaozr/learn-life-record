@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+    var a = [0];
+    if ([0]) {
+        console.log(a == true);
+    } else {
+        console.log("wut");
+    }
+   //输出的结果是false
+</script>
+
+读者们你们觉得此题答案是什么呢？true?因为[0]被看做Boolean是被认为是true，理所当然的推出来[0]==true,控制台输出true
+
+…看似没错，然而并不是这样滴~[0]这个玩意儿在单独使用的时候是被认为是true的，但用作比较的时候它是false…
+
+所以正确答案是false；不信的话，F12控制台输出[0]==false；看是不是true……
+
+
+</body>
+</html>

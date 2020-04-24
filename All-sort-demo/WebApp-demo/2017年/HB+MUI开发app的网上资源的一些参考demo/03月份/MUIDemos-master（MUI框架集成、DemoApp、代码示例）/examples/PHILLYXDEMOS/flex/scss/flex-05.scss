@@ -1,0 +1,22 @@
+section {
+    padding: 0.2rem 0 0.8rem;
+    width: 15rem;
+    margin: 0 auto;
+    aside {
+        ul {
+            li {
+                height: 120px;
+                background: #FFF;
+                margin: 0.2rem 0.1rem 0 0;
+//              text-align: center;
+            }
+        }
+        &.aside-2 {
+            ul {
+                li {
+                    margin: 0.2rem 0 0 0.1rem;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 大概实现思路 -->
+    <script>
+        $('.ul_parent ul').width($('.ul_parent li').length * 107 + "px");
+        var ul_per_distance = 642;
+        var ul_parent = $('.ul_parent ul').width();
+        var n = parseInt(ul_parent / ul_per_distance);
+        var mm = 1;
+        var p_left;
+        $('.w_prev').bind('click', function() {
+            p_left = $('.ul_parent ul').position().left;
+            if (n >= mm) {
+                $('.ul_parent ul').animate({
+                    left: -ul_per_distance * mm + 'px'
+                }, 300, function() {
+                    mm = mm + 1
+                });
+            } else {
+                $('.ul_parent ul').animate({
+                    left: p_left + ul_per_distance + 'px'
+                }, 300, function() {
+                    if (p_left == -ul_per_distance) {
+                        $('.ul_parent ul').css({
+                            left: 0
+                        })
+                        mm = 1
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="a">
+            111
+        </div>
+    </div>
+
+    <script>
+
+        var vm = new Vue({
+
+            el: '#app',
+            data: {
+                    songReady: false,
+                    currentTime: 0,
+                    radius: 32,
+                    currentLyric: null,
+                    currentLineNum: 0,
+                    currentShow: 'cd'
+                    // touch:{} 之所以不在 data里面定义，是因为 在data里面定义的变量，
+                    // vue会帮这些变量 加上 getter setter的 监听的，不用页面上监听的变量建议应该都写在 created 钩子里面，从而
+                    // 减少了 对 vue效率的消耗，会极大的提升 vue的效率的。
+            },
+            created() {
+                // 不存在 getter setter
+                // 不用在页面上监听的变量建议应该都写在created钩子里面。
+
+                // 写法就跟下面一样的，建议这样子养成习惯。
+                // 把不用监听，不用 getter setter 监听的变量 都写在 created 钩子里面。
+                this.touch = {
+                    text: 111
+                }
+            }
+        })
+
+        console.log(vm.touch) //  打印出的数据为： Object {text: 111}
+
+    </script>
+
+</body>
+
+</html>

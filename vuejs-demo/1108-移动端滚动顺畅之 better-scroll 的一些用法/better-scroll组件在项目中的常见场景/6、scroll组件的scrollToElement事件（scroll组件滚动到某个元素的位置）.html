@@ -1,0 +1,101 @@
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+<scroll :refreshDelay="refreshDelay" ref='scroll' class="list-content" :lists='sequencelist'>
+
+    <transition-group name='list' tag='ul'>
+
+        <li ref='listItem' class="item" @click='selectItem(item,index)' v-for="(item,index) in sequencelist" :key='item.id'>
+            <i class="current" :class='getCurrentIcon(item)'></i>
+            <span class="text">{{item.name}}</span>
+            <span @click.stop="toggleFavorite(item)" class="like">
+                 <i :class="getFavoriteIcon(item)"></i>
+             </span>
+            <span class="delete" @click.stop='deleteOne(item)'>
+                 <i class="icon-delete"></i>
+             </span>
+        </li>
+
+    </transition-group>
+
+</scroll>
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+scrollToElement事件 是 scroll组件滚动到某个元素的位置
+
+常见需求是某个元素要在固定的区域上展示，如歌词的向上滚动，使当前播放的歌词 时刻在屏幕的正中央
+
+还有就是 点开播放列表的时候，当前播放的歌曲要滚动到正中央，这时候就可以 用到  better-scroll的
+
+scrollToElement 事件了。
+
+this.$refs.scroll.scrollToElement(this.$refs.listItem[index], 300)
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+scrollToElement 要求的是 scroll组件 里面 要滚动的数据 是只要一个的，如上面的 数据 sequencelist
+
+要滚动的元素获取的 ref 是 listItem
+
+所以，scrollToElement 常用的是 滚动到 当前列表的 第几项，是有个过渡效果的
+
+所以，scrollToElement 常用的是 滚动到 当前列表的 第几项，是有个过渡效果的
+
+this.$refs.scroll.scrollToElement(this.$refs.listItem[index], 300)
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+<script>
+    export default {
+        data() {
+            return {
+                showFlag: false,
+                refreshDelay: 100
+            }
+        },
+        methods: {
+            show() {
+                this.showFlag = true
+                // 显示隐藏的 也要调用 scroll组件的 refresh 方法
+                setTimeout(() => {
+                    this.$refs.scroll.refresh()
+                    this.scrollToCurrent(this.currentSong)
+                }, 20)
+            },
+            getCurrentIcon(item) {
+                if (this.currentSong.id == item.id) {
+                    return 'icon-play'
+                } else {
+                    return ''
+                }
+            },
+            scrollToCurrent(current) {
+                const index = this.sequencelist.findIndex((song) => {
+                    return current.id == song.id
+                })
+                this.$refs.scroll.scrollToElement(this.$refs.listItem[index], 300)
+            },
+        },
+        watch: {
+            currentSong(newSong, oldSong) {
+                if (!this.showFlag || newSong == oldSong) {
+                    return
+                }
+                this.scrollToCurrent(newSong)
+            }
+        },
+        computed: {
+            ...mapGetters(['sequencelist', 'currentSong', 'playlist', 'mode']),
+            iconMode() {
+                return this.mode == playMode.sequence ? 'icon-sequence' : this.mode == playMode.loop ? "icon-loop" : 'icon-random'
+            },
+            modeText() {
+                return this.mode == playMode.sequence ? '顺序播放' : this.mode == playMode.loop ? "单曲循环" : '随机播放'
+            }
+        }
+    }
+
+</script>
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->

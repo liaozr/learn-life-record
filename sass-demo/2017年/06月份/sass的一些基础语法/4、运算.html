@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  
+<!-- -------------------------------------------------------------------------------- -->
+
+  运算
+
+  Sass支持数字的加减乘除、取整等运算 (+, -, *, /, %) 关系运算 <, >, <=, >= 也可用于数字运算，
+
+  相等运算 ==, != 可用于所有数据类型
+
+  <style>
+
+      div {
+          font-size: 10px + 10px;
+          height: 40px - 5px;
+          width: 100 % 3px;
+      }
+
+      /*输出为： */
+      div {
+          font-size: 20px;
+          height: 35px;
+          width: 1px;
+      }
+
+  </style>
+
+  注意：在进行加减乘除时，建议使用统一单位，否则就需记住哪些单位是可以转换，
+
+  哪些是不可以转换的，稍不注意，Sass就会报错。
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+  特殊的除法
+
+  由于原生CSS中的斜杠(/)是有用途的（比如定义圆角的不同半径时，border-radius: 10px/20px，表示水平半径为10px，垂直半径为20px）
+
+  所以在Sass中使用时要注意,只有下面三种情况才会被视为除法运算：
+
+  如果值被圆括号包裹： (20px / 10px)
+
+  如果值是算数表达式的一部分： (10px + 20px / 10px)
+
+  如果值的一部分是变量或函数的返回值：$width / 10
+
+  如果你想显式的让斜杠(/)不做除法运算,只需使用插值语句(#{}):
+
+  div { #{$font-size}/#{$line-height}; }
+
+  如JavaScript中的+号一样，Sass中的+号也可以连接字符串：
+
+  <style>
+
+      div {
+          cursor: e + -resize;
+      }
+
+      /*输出为： */
+      div {
+          cursor: e-resize;
+      }
+
+  </style>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

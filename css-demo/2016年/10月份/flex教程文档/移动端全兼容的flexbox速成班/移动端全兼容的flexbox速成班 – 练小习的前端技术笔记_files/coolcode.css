@@ -1,0 +1,83 @@
+/********************************************************************************
+ * CoolCode Style
+ *******************************************************************************/
+.hl-title {
+    background-color: #f2f3f7;
+    border: 1px solid #ccc;
+    border-bottom: 0;
+    padding: 6px 24px;
+    margin: 0;
+    width: auto;
+    line-height: 180%;
+    overflow : auto;
+    text-align: left;
+    font-size: 14px;
+	 font-family: Arial;
+}
+
+.hl-surround {
+    background-color: #f2f3f7;
+    border: 1px solid #ccc;
+    margin: 0;
+    margin-bottom: 5px;
+    width: auto;
+    height: auto;
+    overflow : auto;
+    text-align: left;
+    font-family: Arial;
+}
+
+ol.hl-main {
+    padding: 0 12px 0 56px;
+    margin: 0;
+    background-color: #f2f3f7;
+    background-image: url(images/hide.gif);
+    background-repeat: no-repeat;
+    background-position : 5px 5px;
+	 font-size: 12px;
+	 font-family: ËÎÌו;
+}
+
+div.hl-main {
+    padding: 6px 24px;
+    margin: 0;
+    line-height: 180%;
+    background-color: #f2f3f7;
+}
+
+.ln-show {
+    padding-left: 56px !important;
+    background-image: url(images/hide.gif) !important;
+    list-style: decimal outside !important;
+}
+
+.ln-show li {
+    list-style: decimal outside !important;
+}
+
+.ln-hide {
+    padding-left: 24px !important;
+    background-image: url(images/show.gif) !important;
+    list-style-type: none !important;
+}
+
+.ln-hide li {
+    list-style-type: none !important;
+}
+
+ol.hl-main li {
+    display: list-item !important;
+    font-size: 12px !important;
+    margin: 0 !important;
+    line-height: 20px !important;
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-top-color: #ccc !important;
+    padding: 0 0 0 12px !important;
+    background-color: #f2f3f7 !important;
+	 font-family: ËÎÌו;
+}
+
+li.hl-firstline {
+    border-top: 0 !important;
+}

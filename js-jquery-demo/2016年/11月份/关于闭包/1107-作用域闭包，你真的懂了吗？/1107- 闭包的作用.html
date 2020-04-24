@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+闭包的作用
+
+根据上面的讲解，估计你自己都能倒背如流了：
+
+记住了函数所在的词法作用域，使其不被销毁；
+能够访问函数所在词法作用域的变量；
+创建模块（设计私有变量、公有函数等等）
+还有很多，就不一一说了，下面就是利用闭包来解决一个常见的问题：
+
+<script>
+    for (var i = 0; i < 5; i++) {
+        // 为了方便说明，给函数起名叫 apple
+        setTimeout(function apple() {
+            console.log(i) // 5 个 5
+        }, 0)
+    }
+</script>
+
+首先读者们先思考一个问题，这会产生闭包吗？
+
+其实，上面也也会产生闭包，只不过 apple 记住并访问的是全局作用域，为什么呢？因为回调函数被当做 setTimeout 的参数传引用过去了，假设 setTimeout 实现如下
+
+<script>
+    var setTimeout = function(callback, delay) {
+        // 延迟
+        callback()
+    }
+</script>
+
+
+看到没，因为 setTimeout 属于异步函数，所以会等到 JS 执行完毕之后再调用 callback，所以这段时间 callback 一直存在，所以函数 apple 也一直存在，所以全局作用域并不会等 JavaScript 执行完毕后就销毁（函数 apple 属于全局作用域的），这时候循环早结束了，所以 i 也变成了 5，于是乎，这个时候 apple 对全局作用域的引用称为闭包！
+
+
+上面也说了回调函数调用都会产生闭包，这里就当举例说明一下！
+
+那么怎么解决以上问题呢，很简单，让回调函数记住不同的作用域就行了！
+
+<script>
+    for (var i = 0; i < 5; i++) {
+        // 为了方便说明，给函数起名叫 apple
+        (function baz(i) {
+            setTimeout(function apple() {
+                console.log(i)
+            }, 0)
+        })(i) // 0 1 2 3 4
+    }
+</script>
+
+上面用立即执行函数解决了问题，因为函数有局部作用域，所以调用 5 次函数会产生 5 个局部作用域，每个作用域的 i 由各次循环的 i 传递赋值，而每个作用域内都存在 apple ，都记住了各自的作用域，也就取到了不同的 i！
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+不过通常来说，闭包都是按以下方式产生：
+
+<script>
+    function apple() {
+        var name = 'apple'
+        var output = function() {
+            console.log(name)
+        }
+        return output
+    }
+    var out = apple()
+    out() // apple
+</script>
+
+上述将函数传引用给了全局作用域的变量，显然，闭包（对 apple 作用域的引用）在全局作用域都存在的情况下都可能发生，而且后面也执行了 out()！
+
+<!-- ----------------------------------------------------------------------------- -->
+
+更常见的写法是下面这种：
+
+<script>
+
+    function Apple() {
+        var name = 'apple'
+        var output = function() {
+            console.log(name)
+        }
+        var setName = function(arg) {
+            name = arg
+        }
+        return {
+            output: output,
+            setName: setName
+        }
+    }
+    var apple = Apple()
+    apple.output() // apple
+    apple.setName('Apple')
+    apple.output() // Apple
+
+</script>
+
+这就是模块的一个例子，name 通常被称为私有变量！
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+</html>

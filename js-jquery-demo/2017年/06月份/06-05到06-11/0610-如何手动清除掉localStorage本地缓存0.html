@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+     <script>
+
+        localStorage.login_status='login';
+
+        //  手动清除掉localStorage的 本地缓存  需用  removeItem 好点
+        //  用 localStorage.login_status = '' 是 不行的，清除掉 本地缓存 必须 得用  removeItem 才行的。
+
+        localStorage.removeItem('login_status');
+        console.log(localStorage.login_status)
+        // undefined
+
+        localStorage.removeItem('empName');
+
+    </script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

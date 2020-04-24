@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+2.1、CMD规范
+
+CMD 规范的前身是Modules/Wrappings规范。
+
+SeaJS遵循的CMD（Common Module Definition） 模块定义规范就是属于Modules/2.0流派阵营。
+
+在 CMD 规范中，一个模块就是一个文件。
+
+代码的书写格式如下：
+
+define(factory)
+factory 为对象、字符串时，表示模块的接口就是该对象、字符串。
+factory 为函数时，表示是模块的构造方法。
+执行该构造方法，可以得到模块向外提供的接口。factory默认会传入三个参数：require、exports 和 module。
+
+<script>
+
+    // factory 为对象
+    define({
+        "foo": "bar"
+    });
+
+    // factory 为函数
+    define(function(require, exports, module) {
+        // 模块代码
+    });
+
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+2.2、Modules/Transport 规范
+
+SeaJS 只支持 CMD 模块的话，没法实现 JS 文件的合并了，所以SeaJS 还支持一种 Transport 格式。
+Transport 格式其实就是加上了名字的 CMD 模块，SeaJS 在遇到这种模块时通过定义的 id 来缓存模块：
+
+define(id?, deps?, factory)
+
+id：模块标识。
+deps：一个数组，表示模块依赖。
+
+在用普通压缩工具压缩时，如果项目需要支持 IE，务必写上第一个参数id或通过工具提取 id；而且如果项目对性能有要求，上线后需要合并文件，也确保手工写上 id 参数。
+
+如何理解：SeaJS 只支持 CMD 模块的话，没法实现 JS 文件的合并了？
+没有id的两个模块JS文件a.js和b.js合并成一个文件index.js如下：
+
+<script>
+
+    // a.js
+    define(function(require, exports) {
+        exports.add = function(a, b) {
+            return a + b;
+        };
+    });
+
+    // b.js
+    define(function(require) {
+        var a = require('./a');
+        var c = a.add(1, 2);
+        alert(c);
+    });
+
+</script>
+
+首先，CMD 规范 中一个模块就是一个文件，一个文件里面定义了两个，所以出现异常也不奇怪了。
+另外，CMD 模块没有显式地指定该模块的 id，同时SeaJS 会用这个 JS 文件的 URL 作为它的 id ，
+
+并缓存 id 与 模块之间的关系，因此只有最后一个定义的 CMD 模块会被识别，因为前面定义的模块都被它覆盖了。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

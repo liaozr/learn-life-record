@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<!-- -------------------------------------------------------------------------------- -->
+
+default很简单，意思就是默认值。大家可以看下面的例子，调用animal()方法时忘了传参数，传统的做法就是加上这一句type = type || 'cat'来指定默认值。
+
+<script>
+    function animal(type) {
+        type = type || 'cat'
+        console.log(type)
+    }
+    animal()  //  cat
+</script>
+
+如果用ES6我们而已直接这么写：
+
+<script>
+    function animal(type = 'cat') {
+        console.log(type)
+    }
+    animal()  // cat
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+最后一个rest语法也很简单，直接看例子：
+
+<script>
+    function animals(...types) {
+        console.log(types)
+    }
+    animals('cat', 'dog', 'fish')
+
+    // ["cat", "dog", "fish"]
+    
+</script>
+
+而如果不用ES6的话，我们则得使用ES5的arguments。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+</html>

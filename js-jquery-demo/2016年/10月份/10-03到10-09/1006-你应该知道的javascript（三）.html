@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<script>
+function b(x, y, a) {
+    arguments[2] = 10;
+    alert(a);
+}
+b(1, 2, 3);
+</script>
+
+<!-- 这段代码相对简单， 你只需回答是3, 或是 10。 ECMA-262, 
+	3rd Edition, 10。1。8节解释关于arguments对象：
+ -->
+<!-- 
+
+简而言之， 每一个参数在arguments对象中都是一个同名的副本。
+也就是
+arguments[0]指向x, 
+arguments[1]指向y, 
+而arguments[2]指向a。 
+
+当传入的参数是b(1, 2, 3, 4)时， 
+arguments[3]没有指向那个变量，但是它的值为4。
+
+所以这里arguments[2]指向的就是参数a了
+所以相当于这里a是等于10的了
+
+显而易见，这里alert 的是10。
+ -->
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    冒泡排序 相邻两项进行比较 如果当前值大于后一项 则交换位置
+
+    <script>
+
+        function bubleSort(arr) {
+
+            let length = arr.length;
+
+            let temp = null;
+
+            for (let i = 0; i < length - 1; i++) { // 控制轮数
+
+                let flag = false; // 当前这轮是否交换过标识
+
+                for (let l = 0; l < length - i - 1; l++) { // 控制每轮比较次数
+
+                    if (arr[l] > arr[l + 1]) {
+
+                        temp = arr[l];
+
+                        arr[l] = arr[l + 1];
+
+                        arr[l + 1] = temp;
+
+                        flag = true; // 如果发生过交换flag则为true
+                    }
+                }
+
+                if (!flag) { // 优化  如果从头到尾比较一轮后 flag依然为false说明 已经排好序了 没必要在继续下去
+                  
+                    temp = null;
+                    return arr;
+                }
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>

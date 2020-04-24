@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='localforage.min.js'></script>
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+  <img id='img' src="banner.png" alt="">
+
+	<script>
+
+			var msg = {
+				text: '1',
+				value: 'zrliao',
+				msg: '666666666666666'
+			}
+			var imgsrc=$("#img").attr('src');
+
+			var dataArr=[
+				{
+					msg:'1',
+					value:'zrliao'
+				},
+				{
+					msg:'2',
+					value:'zrliao222'
+				},
+				{
+					msg:'3',
+					value:'zrliao333'
+				}
+			]
+
+			localforage.setItem('somekey', msg);
+
+			localforage.setItem('imgsrc', imgsrc);
+
+			localforage.setItem('dataArr', dataArr);
+			
+	</script>
+
+
+</body>
+
+</html>

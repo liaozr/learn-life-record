@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="warp">
+            <div class="in1"></div>
+            <div class="hand cursor_move"> <span style="color:white;">>>></span> </div>
+        </div>
+    </div>
+    <style>
+        div {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            top: 20px;
+            -moz-user-select: none;
+            /*火狐*/
+            -webkit-user-select: none;
+            /*webkit浏览器*/
+            -ms-user-select: none;
+            /*IE10*/
+            -khtml-user-select: none;
+            /*早期浏览器*/
+            user-select: none;
+        }
+
+        .warp {
+            position: relative;
+            width: 280px;
+            height: 40px;
+            background-color: #eee;
+            border: 1px;
+            margin: 0 auto;
+        }
+
+        .in1 {
+            width: 0px;
+            height: 40px;
+            position: relative;
+            display: inline-block;
+            float: left;
+            cursor: pointer;
+            background-color: #55acee;
+        }
+
+        .hand {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            display: inline-block;
+            background-color: #444;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        .cursor_move {
+            cursor: move;
+        }
+
+        .right {
+            background-color: #DB1;
+        }
+    </style>
+
+    <script>
+        $(function load() {
+            var down = false; //是否为点下状态
+            var initX = 0; //点下时的坐标
+            var handX; //当前长度
+            var maxX; //最大可滑动的长度
+            var warpWidth = $('.warp').width();
+            var handWidth = $(".hand").width();
+
+            function downHandler(event) {
+                handX = $(".hand").offset().left; //当前长度
+                maxX = handX + ($('.warp').width() - 0 - $(".hand").width()); //最大可滑动的长度
+                down = true;
+                initX = event.pageX;
+                $(document).on('mousemove', move);
+                $(document).on('mouseup', stop);
+
+            };
+
+            function move(event) {
+                if (down) {
+                    var move = event.pageX - initX;
+                    var w = (warpWidth - 0 - handWidth);
+                    $(".in1").stop();
+                    $(".in1").width(move < 0 ? 0 : (move >= w ? w : move));
+                    $(".hand").css({
+                        left: move < 0 ? 0 : (move >= w ? w : move)
+                    });
+                    if (handX + move >= maxX) {
+                        $(".hand").unbind('mousedown');
+                        $(document).unbind('mousemove');
+                        $(document).unbind('mouseup');
+                        $(".hand").removeClass('cursor_move').addClass('right');
+                    }
+                }
+            }
+
+            function stop(event) {
+                down = false;
+                $(document).unbind('mousemove');
+                $(document).unbind('mouseup');
+                if ($(".hand").offset().left < maxX) {
+                    var move = event.pageX - handX;
+                    if (move < 0) {
+                        return;
+                    };
+                    $(".in1").animate({
+                        width: 0
+                    }, 300);
+                    $(".hand").animate({
+                        left: 0
+                    }, 300);
+
+                }
+            }
+
+            $(".hand").on('mousedown', downHandler);
+
+        });
+    </script>
+</body>
+
+</html>

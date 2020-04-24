@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // 检查字符串是否为合法手机号码
+        function isPhone(str) {
+            var reg = /^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57]|17[678])[0-9]{8}$/;
+            if (reg.test(str)) {
+                console.log('手机号码格式输入正确');
+                return true;
+            } else {
+                console.log('请输入正确格式的手机号码');
+                return false;
+            }
+        }
+        
+    </script>
+</body>
+
+</html>

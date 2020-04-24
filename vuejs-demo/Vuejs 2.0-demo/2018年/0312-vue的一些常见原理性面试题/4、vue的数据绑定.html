@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+  <!-- ------------------------------------------------------------------------------------------- -->
+
+  vue会遍历此data中对象所有的属性，并使用
+
+  Object.defineProperty把这些属性全部转为getter/setter，
+
+  而每个组件实例都有watcher对象，它会在组件渲染的过程中把属性记录为依赖，
+
+  之后当依赖项的 setter被调用时，会通知watcher重新计算，从而致使它关联的组件得以更新。
+
+  这就是响应实现的基本原理，Object.defineProperty无法shim，所以vue不支持IE8及以下不支持ES5的浏览器。
+
+  <!-- ------------------------------------------------------------------------------------------- -->
+
+
+  <input type="text" id="inputName">
+  <br>
+  <span id="showName"></span>
+
+<script>
+
+    // 传统方式处理数据
+
+    // document.getElementById('inputName').addEventListener('keyup', function (e) {
+    //   document.getElementById('showName').innerText = e.target.value;
+    // });
+
+    // 利用Object.defineProperty自动响应数据
+
+
+    var obj = {};
+
+    Object.defineProperty(obj, 'name', {
+        get: function() {},
+        set: function(val) {
+            document.getElementById('showName').innerText = val;
+        }
+    });
+
+    document.getElementById('inputName').addEventListener('keyup', function(e) {
+        obj.name = e.target.value;
+    });
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------------- -->
+
+  这个例子并不是什么复杂的实现，但是却体现了vue最核心的东西，
+
+  我们可以发现，Object.defineProperty下的get和set是可以自动相应的，
+
+  基于此vue实现了一套基于数据驱动视图的自动响应系统，使得开发模型得到了极大的简化。
+
+  <!-- ------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

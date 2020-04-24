@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>项目申请</title>
+		<link rel="stylesheet" href="css/base-reset.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/yhn.css" />
+		<link rel="stylesheet" href="css/action.css" />
+		<link rel="stylesheet" href="css/public.css"/>
+		<script src="js/jquery-1.11.3.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/vue.min.js"></script>
+	</head>
+	<style>
+		html {
+			background: #E9EAEE
+		}
+		
+		/*导航*/
+		#top{background:#1C6CD8}
+		#navbar .navbar-nav li a{color:#fff;cursor:pointer;}
+		#navbar .navbar-nav .active a{background:#0056C7;}
+		.logo{box-sizing:border-box;background:white;width:82px;border:5px solid white;margin-right: 50px;}
+		#navbar>ul>li:hover{background:#0056C7;}
+		/*footer*/
+		.icp{width:100%;height:50px;position:relative;margin-top:150px;}
+		.icp>div{position:absolute;width:100%;height:100%;background:#000;opacity: .8;}
+		.icp>p{position:absolute;width:100%;height:100%;text-align: center;line-height:50px;color:#fff;}
+		/*按钮*/
+		.btn-primary{background-color:#1C6CD8;}
+		::-webkit-scrollbar {
+			width: 10px;
+			height: 16px;
+			background-color: #F5F5F5;
+		}
+		
+		::-webkit-scrollbar-track {
+			-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+			border-radius: 10px;
+			background-color: #F5F5F5;
+		}
+		
+		::-webkit-scrollbar-thumb {
+			border-radius: 10px;
+			-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+			background-color: #AEBBC5;
+		}
+	</style>
+
+	<body>
+		<header class="navbar navbar-default" id="top" role="banner" style="margin-top:20px">
+			<div class="container">
+				<img class="logo left" src="img/logo.png" />
+				<div id="navbar" class="navbar-collapse collapse" style='padding-right:0'>
+					<ul class="nav navbar-nav">
+						<li class="">
+							<a href="index.html">主页</a>
+						</li>
+						<li class="">
+							<a href="selectFun.html">自助评估</a>
+						</li>
+						<li class="">
+							<a href="projectApplication.html">项目申请</a>
+						</li>
+						<li class="">
+							<a href="together.html">合作条款</a>
+						</li>
+						<li class="">
+							<a href="aboutUs.html">关于我们</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<!--<li>
+							<a href="login.html">登录</a>
+						</li>
+						<li>
+							<a href="register.html">注册</a>
+						</li>-->
+						<li class="headBox">
+							<img id="head" src="img/cgx.jpg" alt="" />
+							<span id="userTips"></span>
+							<div class="downList" style="display:none;">
+								<strong></strong>
+								<div>
+									<ul>
+										<li>
+											<p id="unameTitle"></p>
+										</li>
+										<li id="makeCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-zoom-in"></span></span><strong class="down-title">创建公司</strong></li>
+										<li id="gomyCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-briefcase"></span></span><strong class="down-title">我管理的公司</strong></li>
+										<li id="assess" class="hov"><span class="dot2"><span class="glyphicon glyphicon-usd"></span></span><strong class="down-title">技术评估</strong></li>
+										<li id="mypaper" class="hov"><span class="dot2"><span class="glyphicon glyphicon-list-alt"></span></span><strong class="down-title">团队管理</strong></li>
+										<li id="mypaper" class="hov"><span class="dot2"><span class="glyphicon glyphicon-list-alt"></span></span><strong class="down-title">协同办公</strong></li>
+										<li id="mypaper" class="hov"><span class="dot2"><span class="glyphicon glyphicon-list-alt"></span></span><strong class="down-title">CRM</strong></li>
+										<li id="mypaper" class="hov"><span class="dot2"><span class="glyphicon glyphicon-list-alt"></span></span><strong class="down-title">产品运营与维护</strong></li>
+										<li id="exit" class="hov"><span class="dot2"><span class="glyphicon glyphicon-off"></span></span><strong class="down-title">退出登录</strong></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+		<section class="w1000">
+			<div class="leftList">
+				<div class="leftList-top">
+					<img src="img/cgx.jpg" alt="" />
+					<h1 id="userName"></h1>
+				</div>
+				<ul>
+					<a href="projectApplication.html">
+						<li><span class="dot3"><img src="img/创建.png"/></span><strong class="down-title">创建公司</strong></li>
+					</a>
+					<li data-sel=".companyBox"><span class="dot3"><img src="img/管理.png"/></span><strong class="down-title">我管理的公司</strong></li>
+					<a href="selectFun.html">
+						<li ><span class="dot3"><img src="img/总结评估1.png"/></span><strong class="down-title">技术评估</strong></li>
+					</a>
+					<a href="member.html">
+						<li data-sel=".price"><span class="dot3"><img src="img/团队.png"/></span><strong class="down-title">团队管理</strong></li>
+					</a>
+					</li>
+					<a href="">
+						<li><span class="dot3"><img src="img/电脑办公.png"/></span><strong class="down-title">协同办公</strong></span>
+						<div class="submenu su scroll" style="overflow-x:hidden">
+							<ul>
+								<li class="no">日常</li>
+								<li><span class="dot5"><img src="img/日程.png" alt=""/><strong>我的日程</strong></span></li>
+								<li><span class="dot5"><img src="img/任务.png" alt=""/><strong>我的任务</strong></span></li>
+								<li><span class="dot5"><img src="img/新闻.png" alt=""/><strong>新闻公告</strong></span></li>
+								<li><span class="dot5"><img src="img/通讯录.png" alt=""/><strong>通讯录</strong></span></li>
+								<li><span class="dot5"><img src="img/微信.png" alt=""/><strong>企业微信</strong></span></li>
+								<li><span class="dot5"><img src="img/动态(2).png" alt=""/><strong>工作动态</strong></span></li>
+								<li><span class="dot5"><img src="img/案件上报.png" alt=""/><strong>数据上报</strong></span></li>
+								<li><span class="dot5"><img src="img/审批2.png" alt=""/><strong>我的审批</strong></span></li>
+								<li><span class="dot5"><img src="img/我的工资.png" alt=""/><strong>工资查询</strong></span></li>
+								<li><span class="dot5"><img src="img/楼盘审批.png" alt=""/><strong>附件审批</strong></span></li>
+								<li><span class="dot5"><img src="img/报告.png" alt=""/><strong></strong>工作报告</span></li>
+							</ul>
+							<ul>
+								<li>人事</li>
+								<li><span class="dot5"><img src="img/考勤.png" alt=""/><strong>考勤</strong></span></li>
+								<li><span class="dot5"><img src="img/历史.png" alt=""/><strong>历史轨迹</strong></span></li>
+								<li><span class="dot5"><img src="img/定位.png" alt=""/><strong>人员定位</strong></span></li>
+								<li><span class="dot5"><img src="img/申请.png" alt=""/><strong>入职申请</strong></span></li>
+								<li><span class="dot5"><img src="img/申请-拷贝.png" alt=""/><strong>离职申请</strong></span></li>
+								<li><span class="dot5"><img src="img/档案.png" alt=""/><strong>人事档案</strong></span></li>
+							</ul>
+							<ul>
+								<li>财务</li>
+								<li><span class="dot5"><img src="img/申请(1).png" alt=""/><strong>费用申请</strong></span></li>
+								<li><span class="dot5"><img src="img/收款.png" alt=""/><strong>应收款项</strong></span></li>
+								<li><span class="dot5"><img src="img/付款.png" alt=""/><strong>应付款项</strong></span></li>
+								<li><span class="dot5"><img src="img/收款(1).png" alt=""/><strong>销售收款</strong></span></li>
+								<li><span class="dot5"><img src="img/预算追加.png" alt=""/><strong>预算追加</strong></span></li>
+								<li><span class="dot5"><img src="img/预算调整-44.png" alt=""/><strong>预算调整</strong></span></li>
+								<li><span class="dot5"><img src="img/买卖赛事跟踪.png" alt=""/><strong>预算追踪</strong></span></li>
+							</ul>
+							<ul>
+								<li>知识</li>
+								<li><span class="dot5"><img src="img/客户(2).png" alt=""/><strong>客户</strong></span></li>
+								<li><span class="dot5"><img src="img/展示板.png" alt=""/><strong>产品展页</strong></span></li>
+								<li><span class="dot5"><img src="img/知识库.png" alt=""/><strong>知识库</strong></span></li>
+							</ul>
+							<ul>
+								<li>培训</li>
+								<li><span class="dot5"><img src="img/资料.png" alt=""/><strong>资料</strong></span></li>
+								<li><span class="dot5"><img src="img/随堂考试.png" alt=""/><strong>考试</strong></span></li>
+							</ul>
+						</div>
+						</li>
+					</a>
+
+					<li>
+						<span class="dot3"><img src="img/CRM.png" alt=""/></span><strong class="down-title">CRM</strong></span>
+						<div class="submenu su guanli" style="overflow:auto;height:600px;">
+							<ul>
+								<li class="no">市场管理</li>
+								<li><span class="dot5"><img src="img/活动(1).png" alt=""/><strong>市场活动</strong></span></li>
+								<li><span class="dot5"><img src="img/销售.png" alt=""/><strong>销售机会</strong></span></li>
+								<li><span class="dot5"><img src="img/客户(1).png" alt=""/><strong>潜在客户</strong></span></li>
+								<li><span class="dot5"><img src="img/拜访1.png" alt=""/><strong>客户拜访</strong></span></li>
+								<li><span class="dot5"><img src="img/计划.png" alt=""/><strong>拜访计划</strong></span></li>
+								<li><span class="dot5"><img src="img/排名.png" alt=""/><strong>拜访排名</strong></span></li>
+								<li><span class="dot5"><img src="img/竞品上报.png" alt=""/><strong>竞品上报</strong></span></li>
+								<li><span class="dot5"><img src="img/销售预测.png" alt=""/><strong>竞品销售上级</strong></span></li>
+								<li><span class="dot5"><img src="img/促销店家.png" alt=""/><strong>促销方案</strong></span></li>
+								<li><span class="dot5"><img src="img/顾客当前.png" alt=""/><strong>顾客意见</strong></span></li>
+								<li><span class="dot5"><img src="img/促销.png" alt=""/><strong>促销资源</strong></span></li>
+								<li><span class="dot5"><img src="img/员工业绩.png" alt=""/><strong>销售业绩</strong></span></li>
+								<li><span class="dot5"><img src="img/数据检查.png" alt=""/><strong>陈列检查</strong></span></li>
+
+							</ul>
+							<ul>
+								<li class="no">客户管理</li>
+								<li><span class="dot5"><img src="img/联系人.png" alt=""/><strong>联系人</strong></span></li>
+								<li><span class="dot5"><img src="img/客户.png" alt=""/><strong>客户</strong></span></li>
+								<li><span class="dot5"><img src="img/合同.png" alt=""/><strong>合同</strong></span></li>
+								<li><span class="dot5"><img src="img/联系人.png" alt=""/><strong>联系人</strong></span></li>
+								<li><span class="dot5"><img src="img/客户.png" alt=""/><strong>客户</strong></span></li>
+								<li><span class="dot5"><img src="img/合同.png" alt=""/><strong>合同</strong></span></li>
+								<li><span class="dot5"><img src="img/联系人.png" alt=""/><strong>联系人</strong></span></li>
+								<li><span class="dot5"><img src="img/客户.png" alt=""/><strong>客户</strong></span></li>
+								<li><span class="dot5"><img src="img/合同.png" alt=""/><strong>合同</strong></span></li>
+							</ul>
+						</div>
+					</li>
+					<a href="">
+						<li><span class="dot3"><img src="img/运营.png" alt=""/></span><strong class="down-title">产品运营与维护</strong></span>
+							<div class="submenu back">
+							  <ul>
+								 <li><span class="dot5"><img src="img/部署灵活.png" alt=""/><strong>部署</strong></span></li>
+								 <li><span class="dot5"><img src="img/入口左.png" alt=""/><strong>入口</strong></span></li>
+								 <li><span class="dot5"><img src="img/数据分析.png" alt=""/><strong>数据分析</strong></span></li>
+							 </ul>
+							</div>
+						</li>
+					</a>
+					<li class="rem"><span class="dot4"><img src="img/退出.png"/></span></span><strong>退出登录</strong></li>
+				</ul>
+			</div>
+			<div class="rightList">
+				<div id="companyList" class="companyBox" style="display:none;">
+					<p class="right-title">
+						<span>我管理的公司</span>
+						<button style="margin-top:2px" type="button" class="right btn btn-primary" id="gotoCreateCompany">
+  							<span class="glyphicon glyphicon-plus"></span>创建公司
+						</button>
+					</p>
+					<div id="noCom" style="display: none;font-size: 20px;">你还没有创建公司</div>
+					<div class="companyCard moveing1" v-for="item in dataArr" name = "{{item | jsonItem}}">
+						<div class="bg"></div>
+						<div class="com-logo" style="{{item.logoUrl | formatUrl}}"></div>
+						<h1>{{item.companyName}}</h1>
+						<p>{{item.companyRename}}</p>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="price">
+					<p class="right-title">
+						<img src="img/小人头.png" alt=""/>
+					<ul>
+						<li><div class="left-y"><span class="an">安全邮箱：</span><span class="on">12********63@qq.com</span><p>安全邮箱可以用于登录悠米账号，重置密码或其它安全验证</p></div><div class="right-x">修改</div></li>
+					    <li><div class="left-y"><span class="an">安全手机：</span><span class="on">186****1719</span><p>安全手机可以用于登录悠米账号，重置密码或其他安全验证</p></div><div class="right-x">修改</div></li>
+						<li><div class="left-y"><span class="an">账号密码：</span><p>用于保护账号信息和登录安全</p></div><div class="right-x">修改</div></li>
+						<li><div class="left-y"><span class="an">公司认证：</span><span class="on">未认证</span><p>用于保护账号信息和登录安全</p></div><div class="right-x">去认证</div></li>
+						<li><div class="left-y"><span class="an">上次身份证：</span><span class="on">未认证</span><p class="te">为了缩短办理入资手续时间，建议您提前上次身份证</p></div><div class="right-x">去认证</div></li>
+						<li></li>
+					</ul>
+					</p>
+
+					<!--<div class="priceCard" v-for="item in dataArr">-->
+						<!--<div class="priceCard-left">-->
+							<!--<img src="img/web.jpg" alt="" v-if="item.projectPoints | ifItem '1'"/>-->
+							<!--<img src="img/ios.jpg" alt="" v-if="item.projectPoints | ifItem '2'"/>-->
+							<!--<img src="img/andrid.jpg" alt="" v-if="item.projectPoints | ifItem '3'"/>-->
+							<!--<img src="img/wx.jpg" alt="" v-if="item.projectPoints | ifItem '4'"/>-->
+							<!--<img src="img/h5.jpg" alt="" v-if="item.projectPoints | ifItem '5'"/>-->
+							<!--<p><span class="glyphicon glyphicon-calendar"></span><strong>{{item.projectPoints | itemNum}}个平台，{{item.projectPoints | funNum}}个功能模块</strong></p>-->
+						<!--</div>-->
+						<!--<div class="priceCard-right">-->
+							<!--<h3>{{item.projectName}}</h3>-->
+							<!--<h5>{{item.projectRemark}}</h5>-->
+							<!--<div>-->
+								<!--<p>码市场预估报价：<span>{{parseInt(item.projectPrice * 0.9) + "-" +parseInt(item.projectPrice * 1.1)}}元</span></p>-->
+								<!--<p>预计开发周期：<span>{{parseInt(item.projectDay * 0.9) + "-" +parseInt(item.projectDay * 1.1)}}天</span></p>-->
+							<!--</div>-->
+							<!--<button style="margin-top:30px" type="button" id="check" class="btn btn-default" name = "{{item | jsonItem}}">-->
+								<!--查看功能清单-->
+							<!--</button>-->
+						<!--</div>-->
+					<!--</div>-->
+				</div>
+		</section>
+	</body>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script src="js/login.js"></script>
+	<script type="text/javascript" src="layer/layer.js" ></script>
+	<script>
+//	if(sessionStorage.userInfo == undefined || sessionStorage.userInfo == ""){
+//		window.location.href="index.html";
+//	}
+	
+	    Vue.filter('funNum', function(item) {
+	    	var arr = item.split(",");
+	    	arr.pop();
+			return arr.length;
+		})
+	    
+	    Vue.filter('jsonItem', function(item) {
+			return JSON.stringify(item);
+		})
+	    
+	     Vue.filter('formatUrl', function(url) {
+	     	var arr = url.split("/");
+			return "background:url(logo/"+arr[arr.length-1] +") no-repeat";
+		})
+	    
+	    
+	    Vue.filter('itemNum', function(item) {
+	    	var arr = item.split(",");
+	    	var indexArr = new Array();
+	    	arr.pop();
+	    	for (var i = 0; i < arr.length; i++) {
+	    		if(indexArr.indexOf(arr[i][0]) == -1){
+	    			indexArr.push(arr[i][0]);
+	    		}
+	    	}
+			return indexArr.length-1;
+		})
+	    Vue.filter('ifItem', function(item,num) {
+	    	var arr = item.split(",");
+	    	var indexArr = new Array();
+	    	arr.pop();
+	    	for (var i = 0; i < arr.length; i++) {
+	    		if(indexArr.indexOf(arr[i][0]) == -1){
+	    			indexArr.push(arr[i][0]);
+	    		}
+	    	}
+	    	if(indexArr.indexOf(num) == -1){
+	    		return false;
+	    	}
+			return true;
+		})
+	    
+	    if(sessionStorage.userInfo == undefined || sessionStorage.userInfo == ""){
+	    	$("#userTips").text("请登录");
+			$("#userName").text("");
+	    }else
+	    {
+	    	$("#userTips").text("您好，"+JSON.parse(sessionStorage.userInfo).name);
+			$("#userName").text(JSON.parse(sessionStorage.userInfo).name);
+	    }
+	    var sendData;
+		var vm = new Vue({
+			el: '#list',
+			data: {
+				dataArr: {},
+			},
+			ready: function() {
+				sendData = {
+					mobile: sessionStorage.mobile
+				};
+				$.ajax({
+					type: "post",
+					url: "/services/ws/project/info",
+					contentType: "application/json",
+					data: JSON.stringify(sendData),
+					success: function(jsonData) {
+						//console.log(jsonData);
+						if(JSON.parse(jsonData).status == "true") {
+							vm.dataArr = JSON.parse(jsonData).info;
+							if(vm.dataArr.length == 0){
+								$("#noTips").css('display','block')
+							}
+						} else {
+							layer.msg("请求列表出错");
+						}
+					}
+				});
+			}
+		});
+		
+		var companyVm = new Vue({
+			el: '#companyList',
+			data: {
+				dataArr: {},
+			},
+			ready: function() {
+				if(sessionStorage.mobile == undefined || sessionStorage.mobile == ""){
+					return;
+				}
+				sendData = {
+					mobile: sessionStorage.mobile
+				};
+				$.ajax({
+					type: "post",
+					url: "/services/ws/cen/manage",
+					contentType: "application/json",
+					data: JSON.stringify(sendData),
+					success: function(jsonData) {
+						setTimeout(romImg,100);
+						//console.log(jsonData);
+						if(JSON.parse(jsonData).status == "true") {
+							companyVm.dataArr = JSON.parse(jsonData).info;
+							if(companyVm.dataArr.length == 0){
+								$("#noCom").css('display','block');
+								
+							}
+						} else {
+							layer.msg("请求列表出错");
+						}
+					}
+				});
+			}
+		});
+		
+		$(".exit").on('click',function(){
+			sessionStorage.mobile="";
+			sessionStorage.haslogin="";
+			sessionStorage.userInfo  = "";
+			window.location.href = "index.html";
+		});
+		
+		$("#gotoSelectFun").on('click',function(){
+			window.location.href = "selectFun.html";
+		});
+		
+		$("#gotoCreateCompany").on('click',function(){
+			window.location.href = "companyInfo.html";
+		});
+		
+		$("#list").on('click','#check',function() {
+			sessionStorage.detail = $(this).attr('name');
+			window.location.href = "detail.html";
+		});
+		
+		$("#companyList").on('click','.companyCard',function() {
+			sessionStorage.companyDetail = $(this).attr('name');
+			window.location.href = "companyInfo.html";
+		});
+		
+
+		$("#head").mouseenter(function() {
+			$(".downList").fadeIn(300);
+		});
+		$(".downList").mouseleave(function() {
+			$('.downList').fadeOut(300);
+		});
+		//随机背景
+		function romImg(){
+			var a = $("#companyList").find(".bg");
+			console.log(a);
+			for(var i = 0; i < a.length; i++) {
+			var ran = Math.floor(Math.random() * 8 + 1);
+			$(a[i]).css("background", "url(./img/tuan" + ran + ".jpg)");
+			}
+		}
+		if(sessionStorage.selectTab == undefined){
+			$(".companyBox").fadeOut(150);
+			$(".price").fadeIn(150);
+		}else if(sessionStorage.selectTab == ".price"){
+			$(".companyBox").fadeOut(150);
+			$(".price").fadeIn(150);
+		}else if(sessionStorage.selectTab == ".companyBox"){
+			$(".companyBox").fadeIn(150);
+			$(".price").fadeOut(150);
+		}
+
+		$(".leftList>ul>li").click(
+			function() {
+				$(this).siblings().removeClass("active");
+				$(this).addClass("active");
+				var sel = $(this).data("sel");
+				sessionStorage.selectTab = sel;
+				$(".companyBox").fadeOut(150);
+				$(".price").fadeOut(150);
+				$(sel).fadeIn(150);
+			}
+		);
+	</script>
+
+</html>

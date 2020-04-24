@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src='vue.js'></script>
+</head>
+<body>
+
+通过官方demo可知，在绑定函数的时候可以带括号也可以不带括号，
+
+对于有参数的函数那必须带括号调用，
+
+但是对于无参函数带括号调用与不带括号调用的区别是什么？
+
+以下测试：
+
+<div id="app">
+
+    <button @click="dataFn">1.dataFn</button>
+    <!--输出：<button>,[MouseEvent]-->
+
+    <button @click="dataFn()">2.dataFn()</button>
+    <!--输出：Vue,[]-->
+
+    <button @click="methodsFn">3.methodsFn</button>
+    <!--输出：Vue,[MouseEvent]-->
+
+    <button @click="methodsFn()">4.methodsFn()</button>
+    <!--输出：Vue,[]-->
+</div>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            dataFn: function() {
+                console.log(this, arguments);
+            }
+        },
+        methods: {
+            methodsFn: function() {
+                console.log(this, arguments);
+            }
+        }
+    });
+    //xxcanghai@博客园
+</script>
+
+通过上述代码对比可以得到以下结论：
+
+若想要在事件响应函数中获得Event对象，那么事件绑定时不能加括号，参见上述1、3示例。
+
+若想在函数中this指向Vue实例化对象，函数调用时应当加括号。
+
+同时，所有在methods属性中的函数，无论如何调用，this都指向当前Vue实例化对象。
+
+遂最终结论为：
+
+应当把所有VM中的函数都放在methods中，同时对于事件的绑定应当使用无括号方式。
+
+即上述示例3中为最优方案。
+
+PS：当然你也可以使用vue内置的$event来显示的传递event对象，以保证函数写在任何位置都可以正常使用this和event。
+
+<div id="app">
+    <button @click="dataFn($event)">5.dataFn($event)</button>
+    <!--输出：Vue,[MouseEvent]-->
+
+    <button @click="methodsFn($event)">6.methodsFn($event)</button>
+    <!--输出：Vue,[MouseEvent]-->
+</div>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+</html>

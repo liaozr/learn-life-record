@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+当你给一个元素设置过position:absolute;或者position:relative;
+
+后再增加-webkit-overflow-scrolling: touch;属性后，
+
+你会发现，滑动几次后可滚动区域会卡主，不能在滑动，这时给元素增加个z-index值就可以了。
+
+<style>
+    .content {
+        /* 增加该属性，可以增加弹性*/
+        -webkit-overflow-scrolling: touch;
+        position: absolute;
+        z-index: 1;
+    }
+</style>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

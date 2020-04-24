@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+v-if directive:条件渲染：
+
+注意v-if会直接在DOM中插入删除对应的元素
+
+<h1 v-if="ok">Yes</h1>
+<h1 v-else>No</h1>
+<template v-if="ok">
+  <h1>Title</h1>
+  <p>Paragraph 1</p>
+  <p>Paragraph 2</p>
+</template>
+
+v-show条件显示
+
+不会删除元素，只会使用display:none css的方式
+
+<h1 v-show="ok">Hello!</h1>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+v-on内联语句访问event参数:如果是一个函数作为v-on绑定的表达式的话，该函数自动带有(event参数），这个和普通的js事件处理函数是一样的。
+
+<button v-on:click="say('hello!', $event)">Submit</button>
+
+methods: {
+  say: function (msg, event) {
+    // 现在我们可以访问原生事件对象
+    event.preventDefault()
+  }
+}
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+组件选项数据隔离问题(data和el选项）
+
+传入Vue构造器的多数选项(new Vue({el,data,components,prop...}))都可以用在Vue.extend()中，但是data和el是两个特例，不能直接简单地把一个对象作为data选项传给Vue.extend(),原因如下：
+
+var data = { a: 1 }
+var MyComponent = Vue.extend({
+  data: data
+})
+
+如果直接传入data对象给data选项，那么所有的MyComponent组件的实例都将共享同一个data对象！！
+
+因此我们正确的做法是利用javascript的闭包的概念，使用一个函数来返回对应的数据:
+
+var MyComponent = Vue.extend({
+  data: function () {
+    return { a: 1 }
+  }
+})
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+javascript模块化开发模式：
+
+每个文件都组织为一个模块；
+
+文件的开头通过import(es6)/require(cmd,amd)方式声明需要从外部导入的依赖；
+
+每个文件需要输出的比如component defination object, function，object等通过export定义;
+
+第三方组件通过npm install --save-dev或者bower install --save下载安装，通过require('jquery')（这种方式是通过npm安装的，可以不用传入路径）或者require('path/to/jquery/jquery')（这种是非npm安装模式从本地文件require）来引入
+
+所有第三方组件（如果本身不支持CMD,AMD,ES6模块化加载的话）或者自己写的过程式js文件需要做简单的改造，改造成ES6/CMD/AMD模块格式，以支持模块化开发模式
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+关于vuejs大小写，camcase等
+
+在使用vueify时，需要import一个组件的配置对象，这时建议全部使用首字母大写的命名方式，下例：
+
+<script>
+    import MyComponent from './my-component'
+
+    export default {
+        components: {
+            MyComponent // es2015 shorhand
+        }
+    }
+</script>
+
+然后在template中使用-代替非首单词大写字母:
+
+<my-component></my-component>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+vm.$set vs Vue.set vs Object.assign
+
+1. For Vue instances, you can use the $set(path, value) instance method:
+
+<script>
+    vm.$set('b', 2)
+    // `vm.b` and `data.b` are now reactive
+</script>
+
+2. For plain data objects, you can use the global Vue.set(object, key, value) method
+
+<script>
+    Vue.set(data, 'c', 3)
+    // `vm.c` and `data.c` are now reactive
+</script>
+
+3. 如果想使用.assign来一次性给一个object添加多个属性和value,需要注意：
+
+<script>
+    // instead of `Object.assign(this.someObject, { a: 1, b: 2 })`
+    this.someObject = Object.assign({}, this.someObject, { a: 1, b: 2 } )
+</script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

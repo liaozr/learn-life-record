@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ------------------------------------------------------------------------------------- -->
+
+  vm.$nextTick 的作用是将回调延迟到下次 DOM 更新循环之后执行。
+
+  正常在 ready/mounted 中获取数据, 那么操作是很简单的
+
+  <!-- ------------------------------------------------------------------------------------- -->
+
+<script>
+
+    ready() { // vue2 为 mounted() {
+
+        var request = $.ajax({
+            type: "POST",
+            dataType: 'json',
+            url: "api.php"
+        });
+
+        request.then((json) => {
+            // balabala
+            this.$nextTick(function() {
+                // balabala
+            })
+        });
+
+    }
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+
+  如果是用 vuex 的话, 由于vuex的数据操作都在 action 和 mutations,
+
+  然后在 ready/mounted 中调用 action 里的函数, 那么这时候该怎么用 vm.$nextTick 呢?
+
+  这时候我们就需要用到 Promise 了, 具体代码如下:
+
+  首页是api.js
+  
+<!-- ------------------------------------------------------------------------------------- -->
+
+<script>
+
+    export default {
+        getFromConfig(config) {
+            return $.ajax({
+                data: config
+            })
+        }
+    }
+
+    // 然后是action.js
+
+    export const getArticleList = ( {dispatch}, config) => {
+        return api.getFromConfig(config).then(({
+            data
+        }) => {
+            dispatch(types.RECEIVE_ARTICLE, data, config.page)
+        })
+    }
+
+    // 这里一定要加上return, 这样就可以返回一个Promise对象
+    //
+    // 最后是vue组件
+
+    methods: {
+        loadMore(page = this.page) {
+            var id = this.$route.params.id || ""
+            Promise.all([
+                this.getArticleList({
+                    id: id,
+                    page: page
+                })
+            ]).then(() => {
+                this.$nextTick(function() {
+                    // balabala
+                })
+            })
+        }
+    }
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

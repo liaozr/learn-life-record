@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        //判断地址有效性
+
+        var url='xxxxxxxxxxxxxxxxxxxxxx';
+
+        $.ajax({
+            url: url,
+            type: 'get',
+            complete: function(response) {
+                if (response.status == 404) {
+                    location.href = "http://www.baidu.com/404.html";
+                    alert('无效');
+                } else {
+                    alert('有效');
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>

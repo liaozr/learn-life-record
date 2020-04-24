@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        /*
+         * 获取菜单存储到本地数据库
+        */
+        function processMenu(empId) {
+            console.log(getBaseServerUrl() + '/system/auth/findAuthResource');
+            mui.ajax({
+                type:"get",
+                url: getBaseServerUrl() + '/system/auth/findAuthResource',
+                headers: {
+                    "auth": localStorage.headParam
+                },
+                data: {
+                    "empId": empId
+                },
+                success: function(menus) {
+                    console.log("菜单：" + JSON.stringify(menus));
+                    var menuInfos = menus.menuInfos;
+                    if (menuInfos.length > 0) {
+                        sqlObj.insertMenus(menuInfos, insertMenusResult);
+                        vm.clickflag = false;
+                    } else {
+                        wt.close();
+                        wt = null;
+                        alert("没有菜单配置，请联系系统管理员");
+                        vm.clickflag = false;
+                    }
+
+                    /*
+                     var firstMenu = [];
+                     for (var i = 0; i < menuInfos.length; i++) {//menuName
+                         if (Number(menuInfos[i].menuLevel) == 1) {
+                             firstMenu.push(menuInfos[i]);
+                         }
+                     };
+                     setMenu(firstMenu);*/
+                },
+                error: function(xhr, errorType, error, msg) {
+                    wt.close();
+                    wt = null;
+                    console.log("获取菜单失败：" + JSON.stringify(xhr));
+                    console.log(xhr.response);
+                    alert('网络异常');
+                    vm.clickflag = false;
+                }
+
+            });
+        }
+
+    </script>
+</body>
+
+</html>

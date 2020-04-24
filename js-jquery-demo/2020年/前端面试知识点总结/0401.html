@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+
+VueCli2和VueCli3的差别大概体现在：
+
+创建项目
+
+3.0：vue create。
+2.0：vue init webpack
+
+启动项目
+
+3.0启动npm run serve2.0启动npm run dev
+
+项目配置途径
+
+2.0 config、build文件夹中进行项目的webpack、多环境和打包等配置3.0 项目结构比2.0要简洁，缺少了build和confilg文件,可自行创建与package.json同级的 vue.config.js 文件，进行配置。
+
+-----------------------------------------------------------------------------------
+
+跨域处理
+
+尝试过两种解决跨域的方法：
+
+1.Node.js中间件代理在vue-cli中，里用node+webpack+webpack-dev-server代理接口跨域。
+
+devServer: {
+    hot: true,
+    open: true,
+    host: '127.0.0.1',
+    // host: '0.0.0.0',//如果是真机测试，就使用这个IP
+    port: 8899,
+    https: false,
+    hotOnly: false,
+    proxy: {
+      '/': {
+        target: 'http://xxx.xxx.xx.xx:xxxx/',
+        logLevel: 'debug',
+        ws: false,
+        changOrigin: true
+      }
+    }
+}
+
+2.Nginx反向代理
+
+通过nginx配置一个代理服务器，域名与本地域名A一致，但端口不同，反向代理访问对方B域名下的接口。
+
+-----------------------------------------------------------------------------------
+
+2.1.1 路由懒加载
+
+export default new Router({
+  routes:[
+    {
+     path: '/test',
+     name: 'test',
+      //懒加载
+     component: resolve => require(['../page/test.vue'], resolve),
+    },
+  ]
+})
+
+复制代码在路由懒加载下，代码根据路由被拆分为不同的代码块，在切换进入相应的路由时，才对对应的代码块进行加载，加载更加高效了
+
+-----------------------------------------------------------------------------------
+
+2.1.2 组件懒加载
+
+components: {
+  UpdateModal: resolve => { require(['./UpdateNormalTaskModal'], resolve); }
+},
+
+
+在路由懒加载的前提下，进行组件懒加载的对比实验。
+
+未使用组件懒加载：整个页面为一个js，大小为718KB，加载耗时166ms。
+
+在使用组件懒加载的时候：整个页面被拆分为三个js（53.js），其中懒加载的两个组件，各自一个js（78.js、91.js），可看出来，53.js的文件大小变小，加载速度变快，将一个js拆分为多个进行并行加载，可以提高加载的效率，从而提升性能。
+
+-----------------------------------------------------------------------------------
+
+2.2按需引入
+
+按需加载一般用于在使用第三方库的时候，为了避免第三方库过大，而造成的对首屏加载带来的过大的压力。以VantUI按需加载为例
+
+安装babel-plugin-import
+
+npm i babel-plugin-import -D
+
+在babel.config.js中配置plugins（插件）
+
+module.exports = {
+  plugins: [
+    ['import', {
+      libraryName: 'vant',
+      libraryDirectory: 'es',
+      style: true
+    }, 'vant']
+  ],
+  presets: [
+    '@vue/app'
+  ]
+};
+
+在要用到三方组件的vue文件中引入使用
+
+import { Swipe, SwipeItem, ImagePreview } from 'vant';
+
+export default {
+  components: {
+    vanSwipe: Swipe,
+    vanSwipeItem: SwipeItem,
+  }
+}
+
+-----------------------------------------------------------------------------------
+
+
+2.3.1.静态资源读取
+
+将图片资源放在static静态资源文件夹下，在使用src时，直接访问根目录下的资源
+
+比如图片放在public目录下，路径直接写为'/img/case/gkjg/7.jpg'
+
+-----------------------------------------------------------------------------------
+
+2.3.2导入资源
+
+在data中采用require的方式，将图片资源导入，然后使用imgUrl变量。
+
+data(){
+  return {
+		imgUrl:require("../assets/test.png")
+  }
+}
+
+-----------------------------------------------------------------------------------
+
+2.4 keep-alive
+
+<keep-alive></keep-alive>包含的组件会被缓存下来，不进行再次渲染DOM，
+
+从而节省性能，
+
+切换内容时会出发activated和deactivated两个生命周期钩子函数，
+
+被缓存的组件会保留当前组件的状态
+
+恰当使用keep-alive，结合activated和deactivated两个钩子函数，
+
+将不需要更新的内容缓存下来，将需要更新的内容放在两个钩子中去处理，
+
+这样可以减少不必要的http请求和DOM重复渲染，提升了不少性能
+
+-----------------------------------------------------------------------------------
+
+
+</body>
+</html>

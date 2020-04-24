@@ -1,0 +1,58 @@
+<!-- 
+        作者：dailc rayChenDay
+        时间：2016-03-10 17:51:20
+        描述：  html5 播放实现方案
+    PC浏览器,手机浏览器,plus下 实现方案不一样
+       注意:  在hbuild的测试调试服务器上,currentTime设置无效的,
+        请放到其它成熟第三方服务器上,才能正确测试出效果(比如tomcat,wampserver)
+    android,ios手机不受影响    
+    另外,内联播放需要在manifest里配置,参考111行
+-->
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>Video 示例</title>
+		<link rel="stylesheet" href="../../css/mui.min.css" />
+		<link rel="stylesheet" href="../../css/demo_videoPlaySimple.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">Video 示例</h1>
+		</header>
+		<div class="mui-content">
+			<div id="videoContainer">
+				<!--
+                	让ios支持内联播放,必须添加 webkit-playsinline 标签
+                -->
+				<video webkit-playsinline id="videoMedia" controls="controls" preload>
+					<!--<source src="http://192.168.23.1:8088/Wildlife.mp4" type='video/mp4'>-->
+					<!--
+                    	这里用的是自己本地的视频,请换位自己本地的
+                    -->
+					<source src="../../video/aa.mp4" type='video/mp4'>
+					<!--<source src="../../video/Wildlife.webm" type='video/webm'>	-->
+					<!--<source src="http://192.168.23.1:8088/Wildlife.mp4" type='video/mp4'>-->
+					<!--<source src="https://media.w3.org/2010/05/sintel/trailer.mp4" type='video/mp4'>-->
+					<!--<source src="../video/Wildlife.mp4" type='video/mp4'>
+					<source src="../video/Wildlife.webm" type='video/webm'>-->
+					<!--http://192.168.23.1:8088/Wildlife.mp4-->
+					<p>浏览器不支持Html5 Video!</p>
+				</video>
+				<img id="videoMediaDefaultImg" src="../../img/img_clickToPlay.png" />
+			</div>
+			<div id="TypeSwitch">
+				<button id="inlinePlayBtn" class="switchBtn choosed">内敛播放</button>
+				<button id="noInlinePlayBtn" class="switchBtn ">非内联播放</button>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/zepto.min.js"></script>
+		<script type="text/javascript" src="../../js/demo_videoPlaySimple.js"></script>
+	</body>
+
+</html>

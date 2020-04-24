@@ -1,0 +1,61 @@
+body{height: 100%;background-color: #f6f66;}
+/*头部样式代码*/
+.shadow{width: 100%;height: 100%;background-color: rgba(0,0,0,0.3);position: fixed;bottom: 0;left: 0;z-index: 99;}
+.shadow .handerBar{background-color: white;padding:0 0.4rem;border-radius: 0.2rem;position: fixed;right: 0.6rem;top: 1.6rem;}
+.shadow .handerBar{width: 3.4rem;font-size: 0.4rem;}
+.shadow .handerBar .item{height: 1rem;padding: 0.2rem;border-bottom: 1px solid #eee;position: relative;text-indent: 1.2rem;}
+.shadow .handerBar .item img{width: 0.6rem;height: 0.6rem;position: absolute;bottom: 0.2rem;left: 0.2rem;}
+.shadow .handerBar .triangle{width: 0px;height: 0px;border-left: 0.3rem solid rgba(0,0,0,0);border-right: 0.3rem solid rgba(0,0,0,0);border-bottom: 0.3rem solid white;position: absolute;right: 0.2rem;top: -0.3rem;}
+       
+.orderDetail section.content{margin-top: 1.5rem;font-size: 0.4rem;margin-bottom: 2rem;}
+.orderDetail .orderInfoDiv{background-color: white;padding: 0.4rem 0.4rem 0.2rem 0.4rem;}
+.orderDetail .orderInfoDiv .orderNum{height: 1rem;}
+.orderDetail .orderInfoDiv .orderNum span{color: #EB6D00;}
+.orderDetail .orderInfoDiv .orderInfo>div{width: 50%;float: left;height: 0.8rem;}
+.orderDetail .orderInfoDiv .orderInfo>div>span{width: 2rem;display: inline-block;color: #b2b2b2;white-space: nowrap;text-overflow: ellipsis;}
+.orderDetail .orderInfoDiv .orderInfo:after{clear: both;display: block;height: 0px;visibility: hidden;content: ',';}
+.orderDetail .userAddress{margin-top: 0.4rem;background-color: white;padding: 0.4rem;position: relative;}
+.orderDetail .userAddress .address{color: #b2b2b2;margin-top: 0.2rem;}
+.orderDetail .userAddress i{background: url(../images/icon-jiantou.png) no-repeat;width: 0.6rem;height: 0.6rem;background-size: contain;position: absolute;right: 0.2rem;top: 0.8rem;}
+.orderDetail .title-goods-info{height: 1.2rem;line-height: 1.2rem;padding-left: 0.4rem;color: #999;}
+ .orderDetail .item-list{background-color: white;border-bottom: 1px solid #eee;}
+.orderDetail .item-list .item{position: relative;padding: 0.4rem 0.4rem 0.2rem;}
+.orderDetail .item-list .item .line{width: 0.1rem;height: 0.5rem;display: inline-block;background-color: #EB6D00;position: absolute;left: 0;top: 0.45rem;}
+.orderDetail .item-list .item .spec{margin-top: 0.2rem;color: #b2b2b2;}
+.orderDetail .dispatchType{background-color: white;border-bottom: 1px solid #eee;padding: 0.4rem;}
+.orderDetail .dispatchType .item{line-height: 0.8rem;}
+.orderDetail .dispatchType .item>span{color: #b2b2b2;width: 2.8rem;display: inline-block;}
+.orderDetail .dispatchType .btn{width: 33.33%;box-sizing: border-box;float: left;text-align: center;}
+.orderDetail .dispatchType .btn>span{padding: 0.1rem 0.45rem;border: 1px solid #ccc;color: #ccc;border-radius: 0.4rem;}
+.orderDetail .dispatchType .btn.active>span{color: #EB6D00;border-color: #EB6D00;}
+.orderDetail .dispatchType:after{clear: both;display: block;height: 0px;visibility: hidden;content: ',';}
+.orderDetail .remark{height: 1.2rem;line-height: 1.2rem;padding:0 0.4rem;background-color: white;}
+.orderDetail .remark span{color: #b2b2b2;}	    
+.orderDetail .remark .unitPrice{color: #333;}
+.orderDetail .remark .num{color: #b2b2b2;width: 2rem;display: inline-block;margin-left: 0.2rem;}
+.orderDetail .remark .discountTxt{color: #b2b2b2;width: 1.6rem;display: inline-block;margin-left: 0.2rem;text-overflow: ellipsis;white-space: nowrap;}
+.orderDetail .remark .unitPrice{color: #000;}
+.orderDetail .remark .rmb{color:#EB4D4A;}
+.orderDetail .remark .totalNum{font-size: 0.5rem;color:#EB4D4A;}
+.orderDetail .totalMoney{height: 1.5rem;padding:0.6rem 0.4rem 0;background-color: white;border-top: 1px solid #eee;font-size: 0.4rem;box-sizing: border-box;position: fixed;bottom: 0;left: 0;width: 100%;}
+.orderDetail .totalMoney .totalNum{font-size: 1rem;color:#EB4D4A;position: relative;top: -0.2rem;}
+	
+.orderApprove .item-list .item .name>span:first-child{width: 7rem;display: inline-block;}
+
+.orderApprove .submitDiv{height: 1.3rem;width: 100%;position: fixed;bottom: 0px;left: 0px;background-color: #fff;z-index: 100;line-height: 1.3rem;border-top: 1px solid #eee;text-align: center;font-size: 0.45rem;}
+.orderApprove .submitDiv div:nth-child(1){width: 44%;background-color: #fff;float: left;position: relative;line-height: 1.3rem;}
+.orderApprove .submitDiv div:nth-child(1)>span:first-child{color: #EB4D4A;}
+.orderApprove .submitDiv div:nth-child(1)>span>span{font-size: 0.7rem;}
+.orderApprove .submitDiv div:nth-child(2){width: 28%;background-color: #ECECEC;float: left;color: #EB6D00;}
+.orderApprove .submitDiv div:nth-child(3){width: 28%;background-color: #EB6D00;float: left;color: #fff;}
+
+
+
+
+
+
+
+
+
+
+

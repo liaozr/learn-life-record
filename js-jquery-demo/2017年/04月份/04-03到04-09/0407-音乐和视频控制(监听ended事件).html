@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+获取视频播放结束之后的状态，用如下代码：
+
+<video class="vido" id="vidoid" poster="images/photo/video.jpg">
+  <source src="media/move.mp4" type="video/mp4">
+</video>
+
+<script>
+
+    $("#vidoid").bind('ended', function() {
+
+    })
+
+    // --------------------------------------------------------------------------------
+    
+    //或者js
+    var md = document.getElementById("vidoid");
+    if (md.ended) {
+        console.log("结束");
+    }
+    md.addEventListener("ended", function() {
+        console.log("结束");
+    })
+
+</script>
+
+监听ended事件，可以监听到视频是否播放结束。但是在微信中，不同手机效果不一样
+
+，有的手机播放结束之后会停止在结束页面，必须点击关闭才可以。
+
+
+</body>
+</html>

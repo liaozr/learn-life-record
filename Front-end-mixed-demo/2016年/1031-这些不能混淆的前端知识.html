@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+HTML类
+
+1、标准模式（严格模式）与怪异模式（混杂模式）
+相同：
+浏览器对文档的解析模式
+区别：
+（1）标准模式是指浏览器按 W3C 标准解析执行代码；怪异模式则是使用浏览器自己的方式解析执行代码，因为不同浏览器解析执行的方式不一样，所以我们称之为怪异模式；
+
+（2）<!DOCTYPE> 声明位于文档的最前面，决定浏览器解析时到底使用标准模式还是怪异模式，DTD 声明定义了标准文档的类型，会使浏览器使用标准模式解析网页，忽略 DTD 声明 , 将使网页进入怪异模式。
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+
+CSS类
+
+1、overflow:scroll;与overflow:auto;
+相同：
+都用于产生滚动条
+区别：
+参数是scroll时候，必会出现滚动条。
+参数是auto时候，子元素内容大于父元素时出现滚动条。
+
+------------------------------------------------------------------------------------
+
+2、display:none;与visibility:hidden;
+相同：
+都能隐藏对应的元素，但隐藏的内容都可以用js获取
+区别：
+（1）display:none;会让元素从渲染树中消失，渲染的时候不占据任何空间；
+visibility:hidden;不会让元素从渲染树中消失，渲染的时候仍然占据空间，只是内容不可见。
+
+（2）display:none;改变了dom的结构，所以产生了reflow（回流，回流会引起重绘），而visibility:hidden;没有改变dom结构，只产生repaint（重绘）。
+（3）display:none;是非继承属性，子孙节点消失是由于元素从渲染树中消失造成，通过设置display:inline-block|block;均不能让子孙节点显示；visibility:hidden;是继承属性，子孙节点消失是由于继承了hidden，通过设置visibility:visible;，可以让子孙节点显示。
+（4）读屏器不会读取display:none;的元素内容，而会读取visibility:hidden;的元素内容。
+
+--------------------------------------------------------------------------------------
+
+3、border:0;与border:none;
+相同：
+边框不显示
+区别：
+border:0; 被解析为 border-width:0; 表示边框宽度为0。
+
+border:none; 被解析为 border-style:none; 表示边框样式无。
+
+（1）性能差异
+在标准浏览器中，
+border:0;浏览器对border-width进行渲染，占用内存。
+border:none;浏览器不进行渲染，不占用内存。
+因此border:0;比border:none;多渲染了一个border-width:0;也就是说border:none;的性能要比border:0;高。
+
+（2）浏览器兼容
+IE7不支持border:none;
+为了少渲染border-width:0，和不占用内存，这里我们写一个兼容所有浏览器的最优写法：
+border：0 none；前面的0是针对ie6和ie7的兼容，后面的none是针对标准浏览器的。
+tips：请始终把border-style属性声明到border-color属性之前，元素必须在改变颜色之前获得边框。
+
+----------------------------------------------------------------------------------------
+
+4、IE(6)盒子模型与标准盒子模型
+相同：
+都包括 margin、border、padding、content（按照盒模型的图，我理解为这里的content指我们css里设置的width和height，而下面的width和height指内容的默认宽高）
+区别：
+标准盒子模型 ＝ margin + border + padding + content （content =  width | height）
+
+IE盒子模型 ＝ margin + content （content = border + padding + width | height）
+
+---------------------------------------------------------------------------------------
+
+5、伪元素与伪类
+相同：
+都用于给某些选择器添加特殊的效果
+区别：
+伪类的效果可以通过添加一个实际的类来达到，而伪元素的效果则需要通过添加一个实际的元素才能达到，这也是为什么他们一个称为伪类，一个称为伪元素的原因。
+下面罗列写常见的伪类与伪元素——
+伪类种类：
+伪类
+伪元素种类：
+伪元素
+tips：
+CSS3要求对伪元素使用两个冒号以便与伪类进行区别。但因为兼容性的问题，所以现在大部分还是统一的单冒号，但是抛开兼容性的问题，我们在书写时应该尽可能养成好习惯，区分两者。
+
+<!-- -------------------------------------------------------------------------------------------------------- -->
+
+JS类
+<script>
+
+1、obj.offsetHeight 与 obj.style.height     $(obj).height() 与 $(obj).css('height')
+
+相同：
+都可以获取obj的高度
+区别：
+（1）obj.offsetHeight可以获取外部、内嵌和内联中定义的高，而obj.style.height只能获取内联中定义的高；
+
+（2）obj.offsetHeight返回的是一个数值，而obj.style.height返回的是一个字符串，单位是“px”；
+
+（3）obj.offsetHeight是只读，而obj.style.height是可读写；
+
+（4）如果没有为元素设置高度，obj.offsetHeight会根据内容获取高度值，而obj.style.height会返回undefind或 (空字符串)；
+
+（5）$(obj).height()返回的是一个数值，而$(obj).css('height')返回的是一个字符串，单位是“px”。
+tips：
+与其他三个$(obj).height()、$(obj).css('height')、obj.style.height不同的是，obj.offsetHeight的高度就是height+padding，其他则不把padding计入高度。
+----------------------------------------------------------------------------------------------
+2、call() 与 apply()
+相同：
+都属于Function.prototype的一个方法，每个function实例都有call、apply属性；
+都可改变函数执行环境，从而改变this指向；
+都是调用一个对象的一个方法，以另一个对象替换当前对象。
+区别：
+两者传递的参数不同——
+apply传入的是一个参数数组，也就是将多个参数组合成为一个数组传入，即func.apply(thisObj,[var1,var2,var3])。
+call传入的则是直接的参数列表，即func.call(thisObj,var1,var2,var3)。
+
+call 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。
+如果没有提供 thisObj 参数，那么 Global 对象被用作 thisObj。
+
+javascript 代码效果预览
+
+function add(c, d){
+return this.a + this.b + c + d;
+}
+var o = {a:1, b:3};
+console.log(add.call(o, 5, 7)); // 1 + 3 + 5 + 7 = 16
+console.log(add.apply(o, [10, 20])); // 1 + 3 + 10 + 20 = 34
+
+----------------------------------------------------------------------------------------------
+
+3、undefined 与 null
+
+相同：
+都表示“无”，都为false
+区别：
+（1） undefined是一个表示"无"的原始值，转为数值时为NaN，null是一个表示"无"的对象，转为数值时为0；
+
+（2） 当声明的变量还未被初始化时，变量的默认值为undefined
+
+     null用来表示尚未存在的对象，常用来表示函数企图返回一个不存在的对象；
+
+undefined表示 “缺少值”，就是此处应该有一个值，但是还没有定义。
+
+undefined典型用法是：
+1. 变量被声明了，但没有赋值时，就等于 undefined
+
+2. 调用函数时，应该提供的参数没有提供，该参数等于 undefined
+
+3. 对象没有赋值的属性，该属性的值为 undefined
+
+4. 函数没有返回值时，默认返回 undefined
+
+
+null表示“没有对象”，即该处不应该有值。典型用法是：
+1. 作为函数的参数，表示该函数的参数不是对象
+2. 作为对象原型链的终点
+
+tips：javascript约定规则为：
+false、0、undefinded、null、”” 为 false；
+true、1、[Object]、”somestring” 为 true。
+
+----------------------------------------------------------------------------------------
+
+4、this 与 $(this)
+相同：
+一般情况下，this指向（就近）调用对象（除了call()、apply()等会转向，查阅了网上各种讨论，感觉实际上更复杂，暂且这么理解了。。。）
+区别：
+alert(this);      弹出来的是[object HTMLXXXElement] （XXX表示元素名）=>this表示的上下文对象是一个html的DOM对象，可以调用对象所拥有的属性；
+alert($(this));  弹出的结果是[object Object ] =>$(this)表示一个jquery的上下文对象，可以调用jquery的方法和属性值。
+例如，当获取文本框值时，this.value;或者$(this).val();
+
+-----------------------------------------------------------------------------------------
+
+5、typeof 与 instanceof
+相同：
+都常用来判断一个变量的类型（其实理解清楚了，感觉也无可比性）
+
+区别：
+typeof是判断基本数据类型的，返回类型；
+
+instanceof是判断对象类型的，返回true|false。
+
+javascript中的基本类型有boolean、number、string、object、null、undefined；
+
+常用的内部对象类型Array、Boolean、Date、Function、Global、Math、Number、Object、RegExp、String；
+
+String类型与string类型是不一样的。
+
+例如，判断类型为字符串时，因为JS里面字符串的初始化有两种方式：直接赋值或者String对象的实例化，
+直接赋值时（var a="123";），typeof 返回string，instanceof 返回false；
+
+实例化对象时（var a = new String("123");），typeof返回object，instanceof返回true。
+
+所以判断是字符串类型时，同时使用两者：
+//判断是否是字符串（类型|对象）
+function isString(str){
+    return ((str instanceof String) || (typeof str) == 'string');
+}
+
+-----------------------------------------------------------------------------------
+
+7、ceil()、floor()与round()
+相同：
+Math对象的方法，用于对数值取整。
+区别：
+Math.ceil()向上取整，即它总是将数值向上舍入为最接近的整数；
+Math.floor()向下取整，即它总是将数值向下舍入为最接近的整数；
+Math.round()四舍五入，即它总是将数值四舍五入为最接近的整数。
+（其实区别挺大的，但一直记不住：ceil有天花板的意思，所以是向上取整；floor有地板的意思，所以是向下取整；round有大约的意思，所以是约等于（四舍五入））
+
+-------------------------------------------------------------------------------------
+
+8、库与框架
+相同：
+都是一种有别于软件、面向程序开发者的产品形式。
+区别：
+库的英语为 Library ( 简写 Lib )，框架的英语为 Framework。（有些文章中称jQuery为框架，我认为是不够准确的，在jQuery官方网站上的介绍是“jQuery is a fast, small, and feature-rich JavaScript library.”，因此称jQuery为JavaScript库更为准确）
+
+库有类库，函数库等，面向对象的代码组织形式而成的库也叫类库。面向过程的代码组织形式而成的库也叫函数库。
+
+类库是类的集合，这些类之间可能是相互独立的。
+
+框架也往往是类的集合，但不同之处在于，框架中的各个类并不是孤立的，框架中的业务逻辑代码是将不同的类“连”在一起，在它们之间建立协作关系。
+文章《库和框架的区别》中比较形象的将框架比作组装好的电脑，而库比作提供部件，由用户自己组装成电脑。
+
+</script>
+<!-- --------------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

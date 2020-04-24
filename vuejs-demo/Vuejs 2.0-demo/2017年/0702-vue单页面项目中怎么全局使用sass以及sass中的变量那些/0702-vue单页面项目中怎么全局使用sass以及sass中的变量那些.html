@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+<!------------------------------------------------------------------------------------->
+  
+    在App.vue里面 import common.scss 进去
+    假如 common.scss里面 有 $colorgreen 这个变量
+    <script>
+
+        // 引入 项目的样式 （含有全局样式）
+        import index from '@/assets/css/common.scss'
+
+    </script>
+
+<!------------------------------------------------------------------------------------->
+
+    在user.vue组件 里面要想使用 $colorgreen 这个 变量
+    是不能直接 使用的，因为sass中的变量并不是全局的,
+    所以，下面这样子在其他组件里直接使用 $colorgreen
+
+    是会报错的，因为这样子的情况下，变量并不是全局的。
+
+    <style lang="scss">
+        
+        .aa{
+            color:$colorgreen;
+        }
+         
+
+     </style>
+
+<!------------------------------------------------------------------------------------->
+    
+    可以在user.vue组建里，使用下面的这种方式 则可以使用 $colorgreen这个变量的
+
+    但是 若是 这样子引入进去的话，虽然可以 使用 $colorgreen这个变量了，但是却重复引用了
+   
+    common.scss 导致了样是的 重复。 
+
+    这里要注意的是  倘若要想在.vue文件里的 style标签里 使用sass文件 中 的变量的时候，是 
+    不能 用import  的方式引入 sass文件 的，
+    
+    只能在 style 标签里  使用 @import 的 方式 
+
+    引入sass 文件才能 在 .vue文件的 style 标签里 使用 这个sass文件 中的变量。
+
+    如下面 这段 代码 所示 ，$colorgreen这个变量是来自于 common.scss这个 文件里面的
+
+    所以，只能用  @import 的 方式 引入 这个sass才行的 。
+
+    <style lang="scss">
+
+        /*scss语法就是用@import*/
+        
+        @import './../assets/css/common.scss';
+
+        .aa{
+            color:$colorgreen;
+        }
+
+     </style>
+
+<!------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------->
+
+sass-resources-loader
+
+先 安装 
+
+npm install sass-resources-loader --save
+npm install sass-resources-loader --save-dev
+
+这个东西就可以省去在每个.vue里都@import你需要的变量,mixin,function。
+
+（它不仅支持SASS，还支持LESS，POSTCSS等）👍。
+
+那么在这里分享下我是如何在vue工程里配置：
+
+1.vue-cli构建的vue工程里，都会有build文件夹，这里主要是放webpack的配置。
+
+找到utils.js
+
+<!---------------------------------------------------------------------------------->
+
+<script>
+
+//   function generateLoaders (loader, loaderOptions) {
+
+//         //  ...............
+
+//         // Extract CSS when that option is specified
+//         // (which is the case during production build)
+//         if (options.extract) {
+//         return ExtractTextPlugin.extract({
+//             use: loaders,
+//             fallback: 'vue-style-loader'
+//         })
+//         } else {
+//         return ['vue-style-loader'].concat(loaders)
+//         }
+//   }
+
+  在 generateLoaders() 这个 函数下增加下面两个 函数 
+
+  其中  resolveResouce() 这个函数的 作用 就是放scss文件的路径 的
+  
+  这里 我是将 scss文件放到src目录下的assets目录下的css文件夹中 ，所以
+
+  路径写成 '../src/assets/css/'
+
+// -----------------------------------------------------------------------------------------
+
+  generateSassResourceLoader() 这个函数的 主要作用就是配置 公共的全局的sass文件
+
+  如var.scss 以及 mixins.scss 这两个 scss。 这两个scss都是  全局的 scss文件 
+
+  这两个全局的scss 是不用 再用 import的方式  引入到组件中 去的了，
+
+  因为这两个scss 是全局 scss来的，直接 可以在组件中使用，不用 在用import 的方式引入这两个
+
+  这两个全局 scss 。这两个全局scss 放置的 都是 些 组件 公用的一些东西 如 
+
+  var.scss 这个 scss文件放的是 全局的scss变量那些。
+
+  mixins.scss 这个scss 文件放的是  全局的一些能够重复的 一些 代码块 。 
+  
+// -------------------------------------------------------------------------------
+
+  function resolveResouce(name) {
+      return path.resolve(__dirname, '../src/assets/css/' + name);
+  }
+
+  function generateSassResourceLoader() {
+      var loaders = [
+         cssLoader, 
+        // 'postcss-loader',
+        'sass-loader',
+          {
+              loader: 'sass-resources-loader',
+              options: {
+                // it need a absolute path
+                resources: [resolveResouce('var.scss'), resolveResouce('mixins.scss')]
+              }
+          }
+      ];
+      if (options.extract) {
+        return ExtractTextPlugin.extract({
+          use: loaders,
+          fallback: 'vue-style-loader'
+        })
+      } else {
+        return ['vue-style-loader'].concat(loaders)
+      }
+  }
+// -----------------------------------------------------------------------------------------
+
+ // https://vue-loader.vuejs.org/en/configurations/extract-css.html
+
+还有下面一段代码 ,着重看 下面那两段 被注视了的代码 
+
+分别替换为 下面两段 代码即可.
+
+sass: generateSassResourceLoader(),
+scss: generateSassResourceLoader(),
+
+ return {
+    css: generateLoaders(),
+    postcss: generateLoaders(),
+    less: generateLoaders('less'),
+    // sass: generateLoaders('sass', { indentedSyntax: true }),
+    sass: generateSassResourceLoader(),
+    // scss: generateLoaders('sass'),
+    scss: generateSassResourceLoader(),
+    stylus: generateLoaders('stylus'),
+    styl: generateLoaders('stylus')
+ }
+
+</script>
+
+<!-------------------------------------------------------------------------------------->
+
+</body>
+</html>

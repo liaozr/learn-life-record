@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+then
+
+helloWorld 的例子当中利用了 then(onFulfilld, onRejected) 方法来执行一个任务打印 "Hello World!"，在多个任务的情况下 then 方法同样可以用一个清晰的方式完成。
+
+<script>
+
+	function printHello (ready) {
+	    return new Promise(function (resolve, reject) {
+	        if (ready) {
+	            resolve("Hello");
+	        } else {
+	            reject("Good bye!");
+	        }
+	    });
+	}
+
+	function printWorld () {
+	    alert("World");
+	}
+
+	function printExclamation () {
+	    alert("!");
+	}
+
+	printHello(true)
+	    .then(function(message){
+	        alert(message);
+	    })
+	    .then(printWorld)
+	    .then(printExclamation);
+</script>
+
+<!-- --------------------------------------------------------------------------- -->
+
+上述例子通过链式调用的方式，按顺序打印出了相应的内容。
+
+then 可以使用链式调用的写法原因在于，每一次执行该方法时总是会返回一个 Promise 对象。
+
+另外，在 then onFulfilled 的函数当中的返回值，可以作为后续操作的参数，因此上面的例子也可以写成：
+
+<script>
+	printHello(true).then(function (message) {
+	    return message;
+	}).then(function (message) {
+	    return message  + ' World';
+	}).then(function (message) {
+	    return message + '!';
+	}).then(function (message) {
+	    alert(message);
+	});
+</script>
+
+同样可以打印出正确的内容。
+
+<!-- --------------------------------------------------------------------------- -->
+
+catch
+
+catch 方法是 then(onFulfilled, onRejected) 方法当中 onRejected 函数的一个简单的写法，也就是说可以写成 then(fn).catch(fn)，相当于 then(fn).then(null, fn)。使用 catch 的写法比一般的写法更加清晰明确。
+
+<!-- --------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

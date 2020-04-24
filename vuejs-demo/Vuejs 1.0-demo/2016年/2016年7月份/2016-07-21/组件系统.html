@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.min.js"></script>
+</head>
+<body>
+	<!-- view层  -->
+	<!-- 在view层找到自定义元素，找到了就把template的属性值渲染到自定义标签上去。-->
+	<!-- 这里的自定义标签是不会显示到页面上的 ，显示也是显示渲染过的属性值-->
+	<div id="app">
+	  <app-nav></app-nav>
+	  <app-view>
+	 
+      </app-view>
+    </div>
+
+
+	<script> 
+
+			// 组件树，每个组件都有个模版
+			// extend 继承 ，定义组件
+			 var appNav=Vue.extend({
+			 	template:'<div>appNav</div>'
+			 });
+
+			 var appView=Vue.extend({
+			 	template:'---<app-sidebar></app-sidebar><app-content></app-content>---'
+			 	// 渲染完app-view后，因里面有app-sidebar跟app-content，会继续渲染这两个的
+			 })
+			 
+			 var appSidebar= Vue.extend({
+			 	template:'<div>appSidebar</div'
+			 })
+			 var appContent=Vue.extend({
+			 	template:"<div> appContent</div>"
+			 })
+
+			 // 注册组件，去模版中找自定义标签
+			 Vue.component("app-nav",appNav)
+		     Vue.component("app-view",appView)
+		     Vue.component("app-sidebar",appSidebar)
+		     Vue.component("app-content",appContent)
+
+		    // 创建根实例
+		    new Vue({
+		    	el:'#app'	 
+		    })
+	</script>
+</body>
+</html>

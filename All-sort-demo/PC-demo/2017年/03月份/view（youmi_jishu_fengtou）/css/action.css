@@ -1,0 +1,28 @@
+.moveing1:hover{transform: translateY(-15px);box-shadow: 0px 5px 5px 0px #999}
+.moveing1{
+	transition: all .3s linear;
+}
+
+@-webkit-keyframes myfirst 
+{
+0%   {transform:rotate(0);}
+100% {transform:rotate(360deg);}
+}
+@-moz-keyframes myfirst 
+{
+0%   {transform:rotate(0);}
+100% {transform:rotate(360deg);}
+}
+@-moz-keyframes myfirst 
+{
+0%   {transform:rotate(0);}
+100% {transform:rotate(360deg);}
+}
+@-ms-keyframes myfirst 
+{
+0%   {transform:rotate(0);}
+100% {transform:rotate(360deg);}
+}
+.rote360{transition: all .3s linear;border-radius: 50%;}
+.rote360:hover{box-shadow: 0px 0px 1px 0px #999;animation:myfirst 0.5s linear 1;-webkit-animation:myfirst 0.5s linear 1;-moz-animation:myfirst 0.5s linear 1;-ms-animation:myfirst 0.5s linear 1;}
+

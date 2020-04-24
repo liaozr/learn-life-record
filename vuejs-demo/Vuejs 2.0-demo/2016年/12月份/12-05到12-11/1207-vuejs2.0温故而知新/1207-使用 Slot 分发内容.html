@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+在使用组件的时候，经常会像这样组合:
+
+<app>
+  <app-header></app-header>
+  <app-footer></app-footer>
+</app>
+
+有两点需要注意的:
+
+组件不知道在其挂载点内可能出现的的内容。这是由使用 父组件所决定的。
+组件很可能有它自己的模板。
+
+为了让组件可以组合，我们需要一种方式来混合父组件的内容与子组件自己的模板。
+
+这个处理称为内容分发。Vue.js 实现了一个内容分发 API，参照了当前 Web 组件规范草稿 中 Slot 的 proposal，使用特殊的 元素作为原始内容的插槽。
+
+单个Slot
+
+直接看例子吧:
+
+<div>
+    <h2>I'm the child title</h2>
+    <slot>
+        This will only be displayed if there is no content to be distributed.
+    </slot>
+</div>
+
+父组件这样使用它:
+
+<div>
+    <h1>I'm the parent title</h1>
+    <my-component>
+        <p>This is some original content</p>
+        <p>This is some more original content</p>
+    </my-component>
+</div>
+
+最后渲染出来的结果是:
+
+<div>
+    <h1>I'm the parent title</h1>
+
+    <div>
+        <h2>I'm the child title</h2>
+        <p>This is some original content</p>
+        <p>This is some more original content</p>
+    </div>
+</div>
+
+也就是外面的内容被插入到了slot里面。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+具名 Slot
+
+如果你需要多个 slot，也很简单：
+
+<div class="container">
+    <header>
+        <slot name="header"></slot>
+    </header>
+    <main>
+        <slot></slot>
+    </main>
+    <footer>
+        <slot name="footer"></slot>
+    </footer>
+</div>
+
+父组件这么使用
+
+<app-layout>
+    <h1 slot="header">Here might be a page title</h1>
+    <p>A paragraph for the main content.</p>
+    <p>And another one.</p>
+    <p slot="footer">Here's some contact info</p>
+</app-layout>
+
+
+渲染出来的结果是:
+
+<div class="container">
+    <header>
+        <h1>Here might be a page title</h1>
+    </header>
+    <main>
+        <p>A paragraph for the main content.</p>
+        <p>And another one.</p>
+    </main>
+    <footer>
+        <p>Here's some contact info</p>
+    </footer>
+</div>
+
+在设计需要组合到一起的组件时，内容分发 API 是非常有用的机制。
+
+</body>
+</html>

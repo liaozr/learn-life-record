@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+undefined
+
+对未初始化的变量执行typeof操作会返回undefined值，而对于未声明的变量执行typeof操作同样会返回undefined值。
+
+null
+typeof null    // -> object
+
+undefined值派生自null值。
+
+console.log(null == undefind)    // -> true
+
+<!-- ------------------------------------------------------------------------------- -->
+
+NaN
+
+在ECMAScript中，任何数值除以0会返回NaN。
+
+isNaN()接受一个参数，确定这个参数是否"不是数值"。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+数值转换
+
+Number()
+
+如果是null，返回0
+如果是undefined，返回NaN
+
+-----------------------------------------------------------------------------------
+
+parseInt()
+
+在ES5 中不支持解析八进制的能力。
+parseInt('070');    // -> 70 not 56
+
+<!-- ------------------------------------------------------------------------------- -->
+
+字符串
+
+ECMAScript中的字符串是不可变的
+
+toString()
+
+在调用数值的toString方法，可以传递一个参数：输出数值的基数。
+
+没有toString方法的则返回该值的字面量
+
+<script>
+    var num = 10;
+    console.log(num.toString(2)); // -> '1010'
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

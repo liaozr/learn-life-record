@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    table {
+        width: 1000px;
+        margin: 20px auto;
+    }
+    table th,  table tr td{
+       min-width: 140px;
+       text-align: center;
+    }
+
+    table,table tr th, table tr td { border:1px solid green; }
+    table { width: 1000px; min-height: 25px; line-height: 25px; text-align: center; border-collapse: collapse;}
+
+    .lists{
+      width:1200px;
+      /*margin:20px auto;*/
+      margin-left: 48px;
+      text-align: left
+    }
+    button{
+      display: inline-block;
+      line-height: 30px;
+      margin-top: 10px;
+      min-width: 200px;
+      margin-right: 20px;
+    }
+    .active{
+      background-color: red;
+      color:white;
+    }
+    .tip{
+      color:green;
+      margin-top: 15px;
+      display: inline-block;
+    }
+</style>
+
+<body>
+    <div id="app">
+
+        <div class="lists">
+             <span class="tip">排序都是从大到小排序的</span><br>
+             <span class="tip">综合排名需其他9个选择项都点击过了，点击综合排名才有效果(意思就是最后点)</span><br>
+
+             <button @click="select(0)">按1年内日最大日增长率排序</button>
+             <button @click="select(1)">按1年内日最小日增长率排序</button>
+             <button @click="select(2)">按1年内日平均日增长率排序</button>
+
+             <button @click="select(3)">按1年内日增长率大于0的次数排序</button>
+             <button @click="select(4)">按1年内日增长率大于1的次数排序</button>
+             <button @click="select(5)">按1年内日增长率大于1.5的次数排序</button>
+
+             <button @click="select(6)">按1年内日增长率小于0的次数排序</button>
+             <button @click="select(7)">按1年内日增长率小于-1的次数排序</button>
+             <button @click="select(8)">按1年内日增长率小于-1.5的次数排序</button>
+
+             <button @click="select(9)">综合排名</button>
+
+
+
+        </div>
+
+        <table>
+            <thead>
+               <th>序号</th>
+               <th>基金代号</th>
+               <th>基金名称</th>
+               <th :class="{'active':maxzengzhang3}">按1年内日最大日增长率</th>
+               <th :class="{'active':minzengzhang3}">按1年内日最小日增长率</th>
+               <th :class="{'active':pingjunzengzhang3}" >按1年内日平均日增长率</th>
+
+               <th :class="{'active':pernum3more0}">按1年内日增长率大于0的次数排序</th>
+               <th :class="{'active':pernum3more1}">按1年内日增长率大于1的次数排序</th>
+               <th :class="{'active':pernum3more15}" >按1年内日增长率大于1.5的次数排序</th>
+
+               <th :class="{'active':pernum3less0}">按1年内日增长率小于0的次数</th>
+               <th :class="{'active':pernum3less1}"> 按1年内日增长率小于-1的次数</th>
+               <th :class="{'active':pernum3less15}" >按1年内日增长率小于-1.5的次数</th>
+               <th v-if="paiming" :class="{'active':paiming}" >综合排名</th>
+            </thead>
+            <tbody>
+                <tr v-for="(item,index) in jijindata">
+                   <td>{{index+1}}</td>
+                   <td>{{item.code}}</td>
+                   <td>{{item.name}}</td>
+                   <td :class="{'active':maxzengzhang3}">{{item.maxzengzhang3}}</td>
+                   <td :class="{'active':minzengzhang3}">{{item.minzengzhang3}}</td>
+                   <td :class="{'active':pingjunzengzhang3}">{{item.pingjunzengzhang3}}</td>
+
+                   <td :class="{'active':pernum3more0}">{{item.pernum3more0}}</td>
+                   <td :class="{'active':pernum3more1}">{{item.pernum3more1}}</td>
+                   <td :class="{'active':pernum3more15}">{{item.pernum3more15}}</td>
+
+                   <td :class="{'active':pernum3less0}">{{item.pernum3less0}}</td>
+                   <td :class="{'active':pernum3less1}">{{item.pernum3less1}}</td>
+                   <td :class="{'active':pernum3less15}">{{item.pernum3less15}}</td>
+                   <td v-if="paiming" :class="{'active':paiming}">{{item.paiming}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<!-- <button @clcik="select(0)">按3年内日平均增长率排序</button>
+<button @clcik="select(1)">按2年内日平均增长率排序</button>
+<button @clcik="select(2)">按1年内日平均增长率排序</button>
+<button @clcik="select(3)">按2年内日最小增长率排序</button>
+<button @clcik="select(4)">按1年内日最小增长率排序</button> -->
+
+<script>
+  function test(arr) {
+      for (var i = 0; i < arr.length; i++) {
+          for (var j = i + 1; j < arr.length; j++) {
+              if ( arr[i] === arr[j] ){
+                 arr.splice(j, 1);
+              }
+              //如果前一个值与后一个值相等，那么就去掉后一个值，splice()可以修改原数组
+          }
+      }
+      console.log(arr)
+      return arr;
+  }
+
+
+    new Vue({
+        el: '#app',
+        methods:{
+           select:function(index){
+
+               this.maxzengzhang3 = false
+               this.minzengzhang3 = false
+               this.pingjunzengzhang3 = false
+               this.pernum3more0 = false
+               this.pernum3more1 = false
+               this.pernum3more15 = false
+               this.pernum3less0 = false
+               this.pernum3less1 = false
+               this.pernum3less15 = false
+
+               this.arrcishu.push(index);
+
+               console.log(this.arrcishu)
+
+               var arr = JSON.parse(JSON.stringify(this.jijindata) )
+
+               if(index == 0){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.maxzengzhang3) < Number( tempj.maxzengzhang3 ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.maxzengzhang3=true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+               if(index == 1){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.minzengzhang3) < Number( tempj.minzengzhang3 ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.minzengzhang3=true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+               if(index == 2){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.pingjunzengzhang3) < Number( tempj.pingjunzengzhang3 ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.pingjunzengzhang3=true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+
+               if(index == 3){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.pernum3more0 ) < Number( tempj.pernum3more0  ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.pernum3more0 =true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+               if(index == 4){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.pernum3more1) < Number( tempj.pernum3more1 ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.pernum3more1=true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+               if(index == 5){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.pernum3more15) < Number( tempj.pernum3more15 ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.pernum3more15=true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+
+               if(index == 6){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.pernum3less0) > Number( tempj.pernum3less0 ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.pernum3less0=true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+               if(index == 7){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.pernum3less1) > Number( tempj.pernum3less1 ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.pernum3less1=true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+               if(index == 8){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.pernum3less15) > Number( tempj.pernum3less15 ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.pernum3less15=true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+               if(index == 9){
+
+                   var arr3=test(this.arrcishu)
+                   if(arr3.length !== 10){
+                     return
+                   }
+                   
+                   this.paiming=true
+
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.paiming) > Number( tempj.paiming ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+               }
+
+           }
+        },
+        data: {
+
+            maxzengzhang3:false,
+            minzengzhang3:false,
+            pingjunzengzhang3:false,
+
+            pernum3more0:false,
+            pernum3more1:false,
+            pernum3more15:false,
+
+            pernum3less0:false,
+            pernum3less1:false,
+            pernum3less15:false,
+
+            paiming:false,
+            arrcishu:[],
+           jijindata:[
+             {
+               code:'160505',
+               name:'博时主题行业混合',
+               maxzengzhang3:4.01,
+               minzengzhang3:-6.02,
+               pingjunzengzhang3:0.01170040485829957,
+               pernum3more0:130,
+               pernum3more1:31,
+               pernum3more15:22,
+               pernum3less0:116,
+               pernum3less1:28,
+               pernum3less15:14,
+               paiming:0
+             },
+             {
+               code:'110003',
+               name:'易方达50指数',
+               maxzengzhang3:3.45,
+               minzengzhang3:-5.85,
+               pingjunzengzhang3:0.0018218623481781762,
+               pernum3more0:133,
+               pernum3more1:31,
+               pernum3more15:16,
+               pernum3less0:113,
+               pernum3less1:24,
+               pernum3less15:14,
+               paiming:0
+             },
+             {
+               code:'002001',
+               name:'华夏回报',
+               maxzengzhang3:2.51,
+               minzengzhang3:-4.06,
+               pingjunzengzhang3:-0.011538461538461551,
+               pernum3more0:122,
+               pernum3more1:22,
+               pernum3more15:8,
+               pernum3less0:124,
+               pernum3less1:16,
+               pernum3less15:15,
+               paiming:0
+             },
+             {
+               code:'160716',
+               name:'嘉实基本面',
+               maxzengzhang3:3.35,
+               minzengzhang3:-5.26,
+               pingjunzengzhang3:0.019919028340080962,
+               pernum3more0:132,
+               pernum3more1:27,
+               pernum3more15:15,
+               pernum3less0:114,
+               pernum3less1:22,
+               pernum3less15:15,
+               paiming:0
+             },
+             {
+               code:'163402',
+               name:'兴全趋势',
+               maxzengzhang3:2.54,
+               minzengzhang3:-4.34,
+               pingjunzengzhang3:0.00008097165991902639,
+               pernum3more0:129,
+               pernum3more1:26,
+               pernum3more15:15,
+               pernum3less0:117,
+               pernum3less1:23,
+               pernum3less15:16,
+               paiming:0
+             },
+             {
+               code:'000577',
+               name:'安信价值精选',
+               maxzengzhang3:4.03,
+               minzengzhang3:-7.63,
+               pingjunzengzhang3:0.04319838056680161,
+               pernum3more0:133,
+               pernum3more1:42,
+               pernum3more15:27,
+               pernum3less0:113,
+               pernum3less1:32,
+               pernum3less15:19,
+               paiming:0
+             },
+             {
+               code:'310398',
+               name:'申万菱信沪深300',
+               maxzengzhang3:3.58,
+               minzengzhang3:-5.92,
+               pingjunzengzhang3:-0.005182186234817858,
+               pernum3more0:128,
+               pernum3more1:30,
+               pernum3more15:14,
+               pernum3less0:118,
+               pernum3less1:26,
+               pernum3less15:16,
+               paiming:0
+             },
+             {
+               code:'040008',
+               name:'华安策略优选',
+               maxzengzhang3:4.24,
+               minzengzhang3:-7.19,
+               pingjunzengzhang3:-0.03303643724696356,
+               pernum3more0:123,
+               pernum3more1:38,
+               pernum3more15:27,
+               pernum3less0:123,
+               pernum3less1:35,
+               pernum3less15:23,
+               paiming:0
+             },
+             {
+               code:'519671',
+               name:'银河沪深300',
+               maxzengzhang3:3.74,
+               minzengzhang3:-5.67,
+               pingjunzengzhang3:-0.005101214574898743,
+               pernum3more0:121,
+               pernum3more1:32,
+               pernum3more15:13,
+               pernum3less0:125,
+               pernum3less1:27,
+               pernum3less15:15,
+               paiming:0
+             },
+             {
+               code:'165312',
+               name:'建信央视50',
+               maxzengzhang3:4.08,
+               minzengzhang3:-6.98,
+               pingjunzengzhang3:-0.002348178137651791,
+               pernum3more0:131,
+               pernum3more1:35,
+               pernum3more15:22,
+               pernum3less0:115,
+               pernum3less1:32,
+               pernum3less15:18,
+               paiming:0
+             },
+             {
+               code:'000742',
+               name:'国泰新经济',
+               maxzengzhang3:4.06,
+               minzengzhang3:-7.33,
+               pingjunzengzhang3:0.007935222672064741,
+               pernum3more0:129,
+               pernum3more1:42,
+               pernum3more15:28,
+               pernum3less0:117,
+               pernum3less1:38,
+               pernum3less15:22,
+               paiming:0
+             },
+             {
+               code:'000619',
+               name:'东方红产业',
+               maxzengzhang3:3.69,
+               minzengzhang3:-7.2,
+               pingjunzengzhang3:0.009514170040485832,
+               pernum3more0:124,
+               pernum3more1:39,
+               pernum3more15:26,
+               pernum3less0:122,
+               pernum3less1:34,
+               pernum3less15:23,
+               paiming:0
+             },
+             {
+               code:'001542',
+               name:'国泰互联网+',
+               maxzengzhang3:4.87,
+               minzengzhang3:-8.3,
+               pingjunzengzhang3:0.005708502024291444,
+               pernum3more0:122,
+               pernum3more1:54,
+               pernum3more15:32,
+               pernum3less0:124,
+               pernum3less1:47,
+               pernum3less15:27,
+               paiming:0
+             }
+           ]
+        }
+    })
+
+    function unique2(arr2) {
+        return Array.from(new Set(arr2));
+    }
+
+</script>
+
+</html>

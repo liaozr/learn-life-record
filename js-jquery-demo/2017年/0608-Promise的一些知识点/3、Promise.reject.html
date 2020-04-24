@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  
+<!-- --------------------------------------------------------------------------------- -->
+
+  返回一个使用接收到的值进行了reject的新的promise对象。
+
+  而传给Promise.reject的值也应该是一个 Error 类型的对象。
+
+  另外，和 Promise.resolve不同的是，
+
+  即使Promise.reject接收到的参数是一个promise对象，该函数也还是会返回一个全新的promise对象。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+<script>
+
+    var r = Promise.reject(new Error("error"));
+
+    console.log(r === Promise.reject(r)); // false
+
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

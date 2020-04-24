@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="易送气" />
+		<meta name="Description" content="易送气" />
+		<title>我的账户</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/yhn.css" />
+		<script src="js/zepto1.1.6.min.js"></script>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+		<script type="text/javascript" src="js/global.js"></script>
+	</head>
+
+	<body>
+		<div id="loadpage">
+			<img src="img/loading2.gif" alt="" />
+		</div>
+		<!--头部-->
+		<header class="y-mytop">
+			<h1>我的账户</h1>
+			<div class="return-box">
+				<img src="img/icon-return.png" alt="" />
+				<span>返回</span>
+			</div>
+		</header>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper under-top" style="top:1.25rem;padding-bottom:1.5rem;">
+			<div class="mui-scroll">
+				<div class="userHead">
+					<h2>余额</h2>
+					<h3><span id="jf" style="font-size:.8rem">9999999.00</span>元</h3>
+					<h2>押金</h2>
+					<h4><span id="yj">120.00</span>元</h4>
+				</div>
+				<!--账单明细，押金明细-->
+				<div class="y-mingxi" data-sel=".zd">
+					<span class="active">账单明细</span>
+				</div>
+				<div class="y-mingxi" data-sel=".yj">
+					<span>押金明细</span>
+				</div>
+				<div class="clear"></div>
+
+				<div class="mx-scrool-box">
+					<div id="account-div" class="zd mx-box active" style="display:block;">
+						 <h1 v-for="item in vueAccountArr.myAccount">
+					     <p>买商品余额付款<strong class="right">-¥<span>{{item.tradeAmount}}</span></strong></p>
+				 	     <span>{{item.tradeTime}}</span>
+				         </h1>
+					</div>
+					<div class="yj mx-box">
+						<h1>
+					        <p>增加12kg加钢瓶<strong class="right">¥<span>130</span></strong></p>
+					        <span>7-20</span>
+				        </h1>
+						<h1>
+					        <p>增加12kg加钢瓶<strong class="right">¥<span>130</span></strong></p>
+					        <span>7-20</span>
+				        </h1>
+						<h1>
+					        <p>增加12kg加钢瓶<strong class="right">¥<span>130</span></strong></p>
+					        <span>7-20</span>
+				        </h1>
+						<h1>
+					        <p>增加12kg加钢瓶<strong class="right">¥<span>130</span></strong></p>
+					        <span>7-20</span>
+				        </h1>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--用户状态栏-->
+
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script>
+		//明细切换
+		$(".y-mingxi").on("tap1", function() {
+			$(".y-mingxi").find("span").removeClass("active");
+			$(this).find("span").addClass("active");
+			var a = $(this).data("sel");
+			$(a).css("display", "block").animate({
+				"opacity": 1
+			}, 300).siblings().css({
+				"display": "none",
+				"opacity": 0
+			});
+		});
+		//判断ios android
+		var ua = navigator.userAgent.toLowerCase();
+		if (ua.match(/MicroMessenger/i) == "micromessenger") {
+			$(".y-mytop").css("display", "none");
+			$(".under-top").css("top", 0);
+		}
+
+		window.onload = function() {
+				$("#loadpage").css("display", "none");
+			}
+			//////////////////下拉刷新//////////////////////////////
+		mui.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: {
+					callback: pulldownRefresh
+				},
+			}
+		});
+		/**
+		 * 下拉刷新具体业务实现
+		 */
+		function pulldownRefresh() {
+			setTimeout(function() {
+				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+				//do something
+			}, 1500);
+		}
+		var count = 0;
+		/**
+		 * 上拉加载具体业务实现
+		 */
+
+		//页面跳转
+		$(".return-box").on("tap1", function() {
+			window.history.go(-1);
+		});
+		
+		
+		var accountData;
+		var vm = new Vue({
+			el: '#account-div',
+			data: {
+				vueAccountArr:accountData
+			},
+			ready: function() {
+				$.ajax({
+					type: "get",
+					url: getBaseServerUrl() + "/client/customer/myAccount",
+					data: {
+						memberId: "4028b881568dbee701568dc0fb390001",
+						openId: "o7ej-t02ke9fVN4jh3l_W0RcoBoM",
+						franchiseId: "FRCH1608030007"
+					},
+					success: function(jsonData) {
+						accountData = jsonData;
+						vm.vueAccountArr = accountData;
+					},
+				});
+			}
+		});
+	</script>
+
+</html>

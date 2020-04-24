@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+  <script>
+      function compareTime(a, b) {
+          var arr = a.split("-"); //log [2016,04,06]
+          var start = new Date(arr[0], (arr[1] - 1), arr[2]);
+          var starts = start.getTime(); //输出时间戳进行对比
+          var arrs = b.split("-");
+          var end = new Date(arrs[0], (arrs[1] - 1), arrs[2]);
+          var ends = end.getTime();
+          if (starts >= ends)
+              alert('开始日期大于结束日期');
+          else
+              alert('开始日期小于结束日期');
+      }
+      compareTime('2016-05-02', '2016-05-04');
+  </script>
+
+  <!-- ----------------------------------------------------------------------------------- -->
+
+  <script>
+      function compareTime2(a, b) {
+          var arr = a.split("-");
+          var start = new Date(arr[0], (arr[1] - 1), arr[2]);
+          var starts = start.getTime(); //输出时间戳进行对比
+          var arrs = b.split("-");
+          var end = new Date(arrs[0], (arrs[1] - 1), arrs[2]);
+          var ends = end.getTime();
+          if (starts >= ends)
+              alert('开始日期大于当前日期,设置正确');
+          else
+              alert('开始日期小于当前日期,设置有误');
+      }
+
+      var now = new Date();
+      var date = now.getFullYear() + "-" + formatTime((now.getMonth() + 1).toString()) + "-" + formatTime(now.getDate().toString());
+
+      console.log(date) // 2017-05-25
+
+      function formatTime(value) {
+          if (value.length == 1) {
+              return "0" + value;
+          }
+          return value;
+      }
+
+      compareTime2('2017-05-26', date);
+
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+   有一点要注意的就是这一句
+
+   var starttime = new Date(arr[0], (arr[1] - 1), arr[2]);
+
+   月份记得在函数里面减去1
+
+   因为在javascript中，月份的数值是从0到11之间的整数(1月至12月)，例如5就是代表6月，
+
+   这里要是要注意的
+
+   其他的话按照正常转换为时间戳进行对比即可
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+array.concat(item…)
+
+包含一个 array 的浅复制并把一个或多个参数 item 附加在其后。
+concat() 数组的合并
+
+<script>
+    var a = ['a', 'b'];
+    var b = ['c', 'd'];
+    var c = a.concat(b, [1, 2]);
+
+    console.log(c);   // ["a", "b", "c", "d", 1, 2]
+
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+array.join(separator)
+
+join 方法把一个 array 构造成字符串
+。默认分隔符 separator 是逗号’,’。使用 join 通常会比直接用+运算法快。
+
+<script>
+    var a = ['a', 'b', 'c'];
+    var c = a.join('');
+
+    console.log(c)   // abc
+</script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+array.pop()
+
+移除 array 最后一个元素并返回该元素。如果 array 是 empty，返回 undefined
+
+<script>
+    var a = ['a', 'b', 'c'];
+    var c = a.pop();
+
+    console.log(c) ;  // c
+    console.log(a);  // ["a", "b"]
+</script>
+
+<!-- -------------------------------------------------------------------------- -->
+
+array.push(item…)
+
+将一个或多个按照参数的顺序添加到数组尾部并返回添加后数组的长度。
+
+<script>
+    var a = ['a', 'b'];
+    var c = a.push('c');
+
+    console.log(c)    // 3
+    console.log(a)  // ["a", "b", "c"]
+</script>
+
+<!-- --------------------------------------------------------------------------- -->
+
+array.reverse()
+反转数组并返回本身
+
+<script>
+    var a = ['a', 'b'];
+    var c = a.reverse();
+
+    console.log(c) // ["b", "a"]
+ </script>
+
+ <!-- -------------------------------------------------------------------------- -->
+
+ array.shift()
+
+ 移除数组第一个元素并返回，当数组为空时返回undefined
+
+ <script>
+     var a = ['a', 'b', 'c'];
+     var c = a.shift();
+
+     console.log(c) ;  // a
+     console.log(a);  // ["b", "c"]
+ </script>
+
+ <!-- --------------------------------------------------------------------------- -->
+
+array.slice(start, end)
+
+对 array 中一段做浅复制，end 默认为 array.lenght。
+
+当start大于 length 时，结果为空数组。
+
+当start/end是负数时，则从尾部开始，如-1则是倒数第一个元素，-2是倒数第二个元素
+
+<script>
+    var a = ['a', 'b', 'c'];
+
+    var c = a.slice(1,2);
+    var d = a.slice(2,2);
+    var e = a.slice(-1,2);
+    var f = a.slice(-2,-1);
+    var g = a.slice(-1,-2);
+
+
+    console.log(c) ;  // ["b"]
+    console.log(d) ;  // []
+    console.log(e) ;  // []
+    console.log(f) ;  // ["b"]
+    console.log(g) ;  // []
+
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+array.sort(comparefn)
+
+sort方法对 array 中的内容进行排序。
+
+不能正确地给一组数字排序(这么由于 JavaScript 的默认比较函数把要被排序的元素都视为字符串)：
+
+<script>
+    var n = [1, 2, 3, 12];
+    console.log(  n.sort() ) // n: [1, 12, 2, 3]
+
+    // -----------------------------------------------------------------------
+
+    // 通过使用自己的比较函数来解决这个问题
+    n.sort(function(a, b) {
+        return a - b;
+    });
+    console.log(n)    // n: [1, 2, 3, 12]
+
+    // --------------------------------------------------------------------------
+
+    n.sort(function(a, b) {
+        return b - a;
+    });
+    console.log(n)    // n: [12, 3, 2, 1]
+
+</script>
+
+<!-- --------------------------------------------------------------------------- -->
+
+array.splice(start, deleteCount, item…)
+
+splice方法从 array 中移除一个或多个元素，并用新 item 替换它们。
+
+（如果有额外的参数）结果返回被移除元素的数组
+
+<script>
+
+    var a = ['a', 'b', 'c'];
+    var bb = ['a', 'b', 'c'];
+
+    var rr = a.splice(1, 1, 'bb', 'aa');
+    var dd=bb.splice(2,1);
+
+    console.log(rr); // ["b"]
+    console.log(a); // [ 'a', 'bb', 'aa', 'c'  ]
+
+    console.log(dd)  // ["c"]
+    console.log(bb) //["a", "b"]
+
+ </script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+array.unshift(item…)
+
+把 item 插入到 array 头部
+
+<script>
+    var a = ['a', 'b', 'c'];
+    var dd=a.unshift('d');
+
+    console.log(a)  //["d", "a", "b", "c"]
+    console.log(dd)  // 4
+
+</script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+ 而在现代浏览器中：
+
+ 脚本将在 DOM 解析器发现 body 尾部的 script 标签才进行加载，
+
+ 此时加载属于异步加载，不会阻塞 CSSOM（但其执行仍发生在 CSSOM 之后）。
+
+ <!-- ---------------------------------------------------------------------------------- -->
+
+ 综上所述，
+ 所有浏览器中推荐:
+
+ <html>
+   <head>
+     <link rel="stylesheet" href="main.css">
+   </head>
+   <body>
+
+     <!-- body goes here -->
+     <script src="main.js" async></script>
+
+   </body>
+ </html>
+
+ <!-- ---------------------------------------------------------------------------------- -->
+
+<script>
+
+    // 推荐的IIFE写法:
+
+    (function() {
+        'use strict';
+
+        // Code goes here
+
+    }());
+
+    // 如果你想引用全局变量或者是外层 IIFE 的变量， 可以通过下列方式传参：
+
+    (function($, w, d) {
+        'use strict';
+
+        $(function() {
+            w.alert(d.querySelectorAll('div').length);
+        });
+
+    }(jQuery, window, document));
+
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+变量声明
+
+总是使用 var 来声明变量。如不指定 var，变量将被隐式地声明为全局变量，例如
+
+var a = b = 0; //b会被隐式的创建为全局变量
+
+所以，请总是使用 var 来声明变量，并且使用单var模式（将所有的变量在函数最前面只使用一个var定义）。
+
+例如：
+
+<script>
+    (function() {
+        'use strict'
+        var a = 0,
+            b = 0,
+            c = 0,
+            i,
+            j,
+            myObject();
+    }())
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

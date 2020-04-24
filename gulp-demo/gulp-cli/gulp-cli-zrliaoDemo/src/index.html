@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="./static/favicon.ico" type="image/x-icon">
+
+    <link rel="shortcut icon" href="./static/favicon.ico" type="image/x-icon">
+
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+    css的引入方式：
+
+    记得是  是 src 目录下的 static目录下的  css目录，因为 会把scss文件编译到 css目录下的，所以，就引入css目录下的文件
+
+
+    在js里面，以下面这种形式引入进去的，发现是不会实时更新刚刚修改过的样式的，只有当这个脚本改变了，样式才会跟着变，所以，
+    不太建议 用这种方式 引入css样式
+
+    // import '../styles/test.scss'  // 此种方式引入进去的css样式，经测试，并不会实时更新修改的样式
+
+    <link rel="stylesheet" href="./static/css/test.css">
+
+
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+    <script src='./static/js/main.js'></script>
+    <script src='./static/js/vue.min.js'></script>
+
+    <!-- 
+      经测试，这个 component.js 是不能放到src目录下的，不能让它编译，不然，导出来的组件是会报错的，跟vue.js的源码一样，也是建议放在 一级目录下的static文件夹里面
+     -->
+    <script src='./static/js/component.js'></script>
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- 
+
+        vue.js 建议放在 一级目录下的static文件夹里面，经测试 放到 src目录的static文件夹下会报错开启了webpack的话
+
+        所以，建议，不用编译的文件静态内容，一些插件之类的文件都放到一级目录下的 static 文件夹下。
+
+        src 目录下的 文件 都是可以被编译的。
+
+ --------------------------------------------------------------------------------------------------------------------------------------------
+
+        一级目录中static文件夹，可以存放不需要编译的文件内容，比如一些插件，图片，字体文件等
+
+        每次 npm run dev or build 都会把static文件夹下的内容，打包到dist/static里 
+
+    -->
+
+<!-- -------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+    <title>gulpcli</title>
+
+     
+    经测试，入口index.html页面的脚本src以及href的路径等等，
+    都是一个点的，不是两个点，两个点的话，打包出来会有路径问题的
+
+  </head>
+  <body>
+
+    <div id="main">
+
+       组件化的方式有 如下两种：
+
+       一种是 gulp的include插件方式 
+
+       另一种是 vue的component的组件方式
+
+      <!--  @@include('header.html', {
+        "title":"1112222"
+      }) -->
+
+      <chead :title='biaoti'></chead>
+
+      <img src="./static/images/gulp.png" />
+
+      <p>zrliao</p>
+
+      <a href="./views/text.html">去测试页面</a>
+
+      <div class="aa">
+        <div class="bb">
+          1111111
+          <div class="cc">
+            sdsdsd
+          </div>
+        </div>
+      </div>
+
+      {{aa}}
+
+
+      @@include('footer.html')
+
+      <!-- 写在html里面的脚本是不会帮你自动编译的，如果其中有涉及到ES6语法的，只能自己在手动在线编译 把它 转成 ES5的语法了 -->
+
+      <!-- 写在html里面的脚本是不会帮你自动编译的，如果其中有涉及到ES6语法的，只能自己在手动在线编译 把它 转成 ES5的语法了 -->
+
+    </div>
+     <script>
+
+         var aa='11'
+         console.log(aa)
+
+         new Vue({
+           el:'#main',
+           data:{
+            aa:'廖仲仁',
+            biaoti:'liaozhongren666666'
+           },
+           mounted:function(){
+                 
+                 // ajax 的请求方式
+                $.ajax('/api/movie/coming_soon', {
+                    type: 'get', //HTTP请求类型
+                    data: {
+                        start:0,
+                        count:20
+                    },
+                    success: function(jsonData) {
+                       console.log('ee')
+                       console.log(jsonData)
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(XMLHttpRequest.status);
+                        console.log(XMLHttpRequest.readyState);
+                        console.log(textStatus);
+                    }
+                });
+
+           }
+         })
+
+      </script>
+
+  </body>
+
+</html>

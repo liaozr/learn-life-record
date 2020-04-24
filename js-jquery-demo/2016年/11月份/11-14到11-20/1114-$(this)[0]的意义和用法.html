@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+</head>
+
+<body>
+
+    <script>
+        $("#" + bb)[0] 把 jquery 对象转换成 dom 对象。
+
+        $("#" + bb)[0] 相当于document.getElementById(bb)
+
+        jQuery对象与js对象之间的转换：
+        // ------------------------------------------------------------------------------------
+        $(this)[0]
+        这种“ jQuery对象” 加下标的方式可以将“ jQuery对象” 转换为“ js对象”
+
+        这样我们就可以使用“ js对象” 的属性和方法了
+    </script>
+
+
+    举个栗子：
+    <div id="aaa" data-src='bbb'>
+
+    </div>
+    <style>
+        #aaa {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+        }
+    </style>
+    <script>
+        $(function() {
+            // $("#aaa").click(function() {
+            //     console.log($(this).data('src')); // 会打印出 bbb
+            // });
+
+            // 这个是正确的用法
+            $("#aaa")[0].onclick=function(){
+              console.log($(this).data('src')); // 会打印出 bbb
+              alert("yes")
+            }
+
+            //  这个是错误的用法
+            // $("#aaa")[0].click(function(){
+            //    console.log($("#aaa").data('src')); // 会打印出 bbb
+            // })
+
+        })
+    </script>
+</body>
+
+</html>

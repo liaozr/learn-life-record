@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    那么，为什么我们能删除一个对象的属性：
+
+    <script>
+        var x = {
+            a: 1
+        };
+        
+        delete x.a;
+        console.log( x.a);  // undefined
+
+// ----------------------------------------------------------------------------
+
+        // 但却不能删除一个变量：
+        var x = 1;
+        delete x;
+        console.log( x ); // 1
+
+// ------------------------------------------------------------------------------
+        // 也不能删除一个函数：
+        function ss() {};
+        delete ss;
+        console.log( typeof ss ); // "function"
+
+        // 注意：delete 只有当一个属性无法被删除时才返回 false。
+
+// ------------------------------------------------------------------------------
+
+    </script>
+
+变量和函数声明都是活化(Activation)全局(Global)对象的属性。
+
+属性拥有内部属性，其中一个—— DontDelete 负责确定一个属性是否能够被删除。
+
+全局代码或函数代码中的变量、函数声明都生成拥有 DontDelete 的属性。
+
+函数参数同样是活化对象的属性，也拥有 DontDelete。
+
+Eval代码中的变量和函数声明都生成没有 DontDelete 的属性。
+
+新的未声明的属性在生成时带空的内部属性，因此也没有 DontDelete。
+
+宿主对象允许以任何它们期望的方式来响应删除过程。
+
+<!-- ---------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

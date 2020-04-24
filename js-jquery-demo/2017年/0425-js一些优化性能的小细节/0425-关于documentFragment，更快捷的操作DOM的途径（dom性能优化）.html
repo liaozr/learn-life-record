@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+    程序员可以使用DocumentFragment将一批子元素添加到任何类似node的父节点上，
+
+    对这批子元素的操作不需要一个真正的根节点。
+
+    程序员可以不依赖可见的DOM来构造一个DOM结构，而效率高是它真正的优势，试验表明，它比直接操作DOM快70%。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+    我们要使用UL元素，然后往里面插入LI元素：
+
+    <ul id="list"></ul>
+
+    DOM插入和修改是一个很费力耗时的工作，所以，这样的交互越少越好。
+
+    这就是DocumentFragment发挥功用的地方了。第一步我们先创建一个DocumentFragment：
+
+    <script>
+        // Create the fragment
+        var frag = document.createDocumentFragment();
+
+        // DocumentFragment实际上像一个伪DOM节点， 在这个例子里你可以把它当成虚拟的UL元素。 现在， 我们开始往里面加入元素：
+
+        // Create numerous list items, add to fragment
+        for (var x = 0; x < 100; x++) {
+            var li = document.createElement("li");
+            li.innerHTML = "List item " + x;
+            frag.appendChild(li);
+        }
+    </script>
+
+往DocumentFragment里添加元素就跟你操作普通的DOM节点一样。一旦页面DOM加载完成，你可以访问了，你就可以把DocumentFragement挂到它的父节点上：
+
+
+<!-- --------------------------------------------------------------------------------- -->
+
+<script>
+    // Mass-add the fragment nodes to the list
+    list.appendChild(frag);
+</script>
+
+使用DocumentFragement要比直接对DOM节点操作要快的多，而且程序员可以利用新DOM节点来操作DocumentFragement，
+
+这样比操作整个页面DOM要更容易。
+
+所以，当需要进行大量DOM操作时，尽量使用DocumentFragement，它会让你的应用变的更快！
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

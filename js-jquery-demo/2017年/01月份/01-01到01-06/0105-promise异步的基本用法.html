@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+
+  //
+  // Promise的基本用法
+  // Promise的出现其实是作为异步编程的一种解决方案。
+  // 比传统的解决方案-回调函数和事件-更加合理、强大。
+
+  var p1 = new Promise((resolve, reject) => {
+    setTimeout(resolve, 1000, 'done');
+  })
+  p1.then(data=>{
+    console.log(data); // done
+  })
+
+// -----------------------------------------------------------------------------
+
+  // export function fetch(url) {
+  //     return new Promise((resolve, reject) => {
+  //         axios.get(HOST + url)
+  //             .then(response => {
+  //                 resolve(response.data);
+  //         })
+  //     })
+  // }
+
+// -------------------------------------------------------------------------------
+
+  </script>
+
+</body>
+</html>

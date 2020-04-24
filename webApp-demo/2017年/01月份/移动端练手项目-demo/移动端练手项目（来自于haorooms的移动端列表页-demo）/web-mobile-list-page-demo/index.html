@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
+    <link rel="stylesheet" href="css/dropload.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/first_index.css">
+</head>
+<body>
+   <div class="g-pages g-index">
+       <!--头部开始-->
+        <header class="g-header">
+            <div class="header">
+                   <div class="list index-icon current"><a href="index.html"></a></div>
+                   <div class="list shop-icon"><a href="cart.html"></a></div>
+                   <div class="list member-icon"><a href="##"></a></div>
+                   <div class="list prolists-icon"><a href="page-lists.html"></a></div>
+             </div>
+        </header>
+
+        <div class="g-banner">
+         	<div class="swiper-container" id="topSlider">
+                <div class="swiper-wrapper">
+
+			        <div class="swiper-slide">
+				        <img src="images/index/sliderbanner/1.jpg">
+				        <div class="topzhezhao">
+				        	<div class="leftslidecontent">
+				        		<p>微信价<span>500元</span></p>
+				        		<p>这里是简单地描述吧这里是简单地描述吧这里是简单地描述吧</p>
+				        	</div>
+				        	<a href="#">立即购买</a>
+				        </div>
+			        </div>
+
+			         <div class="swiper-slide">
+				        <img src="images/index/sliderbanner/2.jpg">
+				        <div class="topzhezhao">
+				        	<div class="leftslidecontent">
+				        		<p>微信价<span>1500元</span></p>
+				        		<p>这里是简单地描述吧这里是简单地描述吧这里是简单地描述吧</p>
+				        	</div>
+				        	<a href="#">立即购买</a>
+				        </div>
+			        </div>	    
+
+			        <div class="swiper-slide">
+				        <img src="images/index/sliderbanner/3.jpg">
+				        <div class="topzhezhao">
+				        	<div class="leftslidecontent">
+				        		<p>微信价<span>2500元</span></p>
+				        		<p>这里是简单地描述吧这里是简单地描述吧这里是简单地描述吧</p>
+				        	</div>
+				        	<a href="#">立即购买</a>
+				        </div>
+			        </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="g-news">
+            <div class="m-news" id='mainsection'>
+                <div class="flag flag-middle">
+                    <div class="triangle-topleft"></div>
+                    <span class='triangle-wen'>金属</span>
+                    <div class="flag__item flag_img">
+                        <div class="img-center">
+                            <a href="pro-details.html">
+                               <canvas data-src="images/index/product/product1.png"></canvas>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flag__item flag__item_body">
+                        <div class="heading">
+                            <a href="pro-details.html">
+                              买砖宝终端订单王亮剑，陶瓷行业磐涅重生速度 速度
+                            </a>
+                        </div>
+                        <div class="p">
+                            2016-05-24
+                        </div>
+                         <div class="p">
+                            <span class="key_txt">12,000</span>/元一平
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flag flag-middle">
+                    <div class="triangle-topleft"></div>
+                    <span class='triangle-wen'>金属</span>
+                    <div class="flag__item flag_img">
+                        <div class="img-center">
+                            <a href="##">
+                               <canvas data-src="images/index/product/product1.png"></canvas>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flag__item flag__item_body">
+                        <div class="heading">
+                            <a href="##">
+                              买砖宝终端订单王亮剑，陶瓷行业磐涅重生速度 速度
+                            </a>
+                        </div>
+                        <div class="p">
+                            2016-05-24
+                        </div>
+                         <div class="p">
+                            <span class="key_txt">12,000</span>/元一平
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div>
+
+
+
+<script src='js/jquery.min.js'></script>
+<script src='js/flexible_css.js'></script>
+<script src="js/flexible.js"></script> 
+<script src='js/swiper.min.js'></script>
+<script src="js/dropload.min.js"></script>        
+<script src='js/index.js'></script>  
+<script src='js/landscape.js'></script>  
+<script>
+	
+    var topSlider=new Swiper('#topSlider', {
+        slidesPerView: 1,
+        centeredSlides: true,
+        autoplay: 3000,
+        loop: true,
+        autoplayDisableOnInteraction: true
+    });
+    
+    var landscape = new landscape({
+            mode: 'portrait', //portrait,landscape
+            prefix: 'Shine'
+    });
+</script>
+</body>
+</html>

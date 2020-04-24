@@ -1,0 +1,215 @@
+/**
+ * Mark CSS framework
+ * CSS Reset based on YUI 3.4.1 (build 4118) and Alice
+ * By qiheng
+ * 2015-07-27
+*/
+
+/* 防止用户自定义背景颜色对网页的影响，同时让用户可以自定义字体的大小 */
+html {
+	background:#FFF;
+	-webkit-text-size-adjust:100%;
+	-ms-text-size-adjust:100%;
+	/*font-size:12px;*/
+	color:#666;
+}
+
+/* 重置所有浏览器的内外边距 */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+	margin:0;
+	padding:0;
+}
+
+/* 定义字体、行高，\5b8b\4f53 就是宋体的意思，防止有的浏览器不兼容 simsun 的用法 */
+body{
+
+	font-family:"Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+	font-size:inherit;
+	font-weight:inherit;
+	line-height:1.428;
+	/*line-height:1.42;*/
+}
+
+/* 重设 html5 的标签 */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display:block;
+	margin:0;
+	padding:0;
+}
+
+/*解决手机端下a标签按下的黑色阴影*/
+a{
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+/* html5 的媒体标签跟 img 标签保持一致 */
+audio, canvas, video {
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+}
+
+/* 去掉按钮和链接外围的虚线 */
+input:focus, a:focus {
+	outline:none;
+}
+
+/* 去掉这两个元素的默认边框 */
+fieldset, img {
+	border:0;
+}
+
+/* 重置它们默认的字体样式 */
+address, caption, cite, code, dfn, em, strong, th, var {
+	font-style:normal;
+	font-weight:normal;
+}
+
+/* 去掉项目符号，由于 li 可以继承，所以定义到 ol 和 ul 上就行了 */
+ol, ul {
+	list-style:none;
+}
+
+/* 默认样式为居中，但是习惯上一般不用居中 */
+caption, th {
+	text-align:left;
+}
+
+/* 重置标题的默认样式，让后期自定遥，来自 YUI */
+h1, h2, h3, h4, h5, h6 {
+	font-size:100%;
+	font-weight:normal;
+}
+
+q:before, q:after {
+	content:'';
+}
+
+/* firefox 下这两个元素有边框，去掉并重置字体样式 */
+abbr, acronym {
+	border:0;
+	font-variant:normal;
+}
+
+/* 统一的上标和下标，来自 Alice */
+sub, sup {
+    font-size:75%;
+	line-height:0;
+	position:relative;
+	vertical-align: baseline;
+}
+:root sub, :root sup{
+	vertical-align: baseline; /* for ie9 and other mordern browsers */
+}
+sup {
+	top:-0.5em;
+}
+sub {
+	bottom:-0.25em;
+}
+
+/* 表单元素不继承 font 样式，故而重设 */
+button, input, textarea, select {
+	font-family:微软雅黑,tahoma, arial, simsun, sans-serif;
+	font-size:inherit;
+	font-weight:inherit;
+	line-height:1.5;
+	vertical-align:middle;
+}
+button, input, textarea, select {
+	*font-size:100%;
+}
+
+/* 禁止新版本的火狐和谷歌下文本域可由用户自由拖动的问题 */
+textarea {
+	resize:none;
+}
+
+/* 默认重合单元格 */
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+
+/* IE 下的 th 不继承 text-align */
+th {
+	text-align:inherit;
+}
+
+/* 让链接以基线对齐，来自 YUI */
+a {
+	vertical-align:baseline;
+}
+
+/* 让链接在 hover 状态下具有下划线 */
+a:hover {
+	text-decoration:underline;
+}
+
+/* 这两个元素的下划线，默认去掉 */
+ins, a {
+	text-decoration:none;
+	color:#666;
+}
+
+/*functions*/
+/* 不易引起问题的清除浮动，但是与空标签配合使用 */
+.clear {
+	display:block;
+	float:none;
+	clear:both;
+	overflow:hidden;
+	visibility:hidden;
+	width:0;
+	height:0;
+	background:none;
+	border:0;
+	font-size:0;
+}
+
+/* 不需要用空标签的 clearfix，用于内部包含浮动 */
+.clearfix:before, .clearfix:after {
+	content:"";
+	display:table;
+}
+.clearfix:after {
+	clear:both;
+}
+.clearfix {
+	*zoom:1;
+}
+
+/* 向左右浮动的时候，同时解决 IE6 下的双边距问题 */
+.left {
+	float:left;
+	*display:inline;
+}
+.right {
+	float:right;
+	*display:inline;
+}
+
+/* 跨浏览器兼容的 inline-block，用于外围的包含元素 */
+.dib-wrap{
+	font-size:0;
+	*word-spacing:-1px;
+}
+
+/* 需要 display:inline-block 的元素，但是外围必须有 .dib-wrap */
+.dib-wrap .dib{
+	font-size:14px;
+	letter-spacing:normal;
+	word-spacing: normal;
+	vertical-align:top;
+}
+
+/* 为 webkit 单独优化字距 */
+@media screen and (-webkit-min-device-pixel-ratio:0){
+.dib-wrap{
+	letter-spacing:-5px;
+}
+}
+
+.loading{position:absolute;z-index: 999999;width:100%;height:16rem;background:#f1f1f1;top:1.8rem;}
+.loading>span{position:absolute;top:40%;left:46%}
+

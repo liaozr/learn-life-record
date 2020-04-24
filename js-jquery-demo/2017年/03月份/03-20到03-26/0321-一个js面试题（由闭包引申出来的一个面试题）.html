@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        for (var i = 0; i < 5; i++) {
+            setTimeout(function() {
+                console.log(new Date, i);
+            }, 1000);
+        }
+    </script>
+
+    <!-- ------------------------------------------------------------------------------- -->
+
+    <script>
+        for (var i = 0; i < 5; i++) {
+            (function(j) { // j = i
+                setTimeout(function() {
+                    console.log(new Date, j);
+                }, 1000);
+            })(i);
+        }
+        // 这样输出的就是 0 1 2 3 4 了
+    </script>
+
+    巧妙的利用 IIFE（Immediately Invoked Function Expression：
+
+    声明即执行的函数表达式）来解决闭包造成的问题
+
+    <!-- ------------------------------------------------------------------------------- -->
+
+    有没有更符合直觉的做法？答案是有，我们只需要对循环体稍做手脚，让负责输出的那段代码能拿到每次循环的 i 值即可。
+
+    该怎么做呢？
+
+    利用 JS 中基本类型（Primitive Type）的参数传递是按值传递（Pass by Value）的特征，
+
+    不难改造出下面的代码：
+
+    <script>
+        var output = function(i) {
+            setTimeout(function() {
+                console.log(new Date, i);
+            }, 1000);
+        };
+
+        for (var i = 0; i < 5; i++) {
+            output(i); // 这里传过去的 i 值被复制了
+        }
+
+        // 这样输出的也是 0 1 2 3 4
+    </script>
+
+    <!-- ------------------------------------------------------------------------------- -->
+
+    ES6的一个解决办法：
+
+    直接 用let  代替var ，因为let存在有块级作用域
+
+    <script>
+        for (let i = 0; i < 5; i++) {
+            setTimeout(function() {
+                console.log(new Date, i);
+            }, 1000);
+        }
+    </script>
+
+    <!-- ------------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Pragma" content="no-cache">
+		<title>关于我们</title>
+		<link rel="stylesheet" href="css/base-reset.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/public.css" />
+		<link rel="stylesheet" href="css/wwNew.css" />
+		<link rel="stylesheet" href="css/yhn.css" />
+		<script src="js/jquery-1.11.3.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/vue.min.js"></script>
+	</head>
+
+	<body class="aboutUs">
+		<header class="navbar navbar-default" id="top" role="banner" style="margin-top:20px">
+			<div class="container">
+				<img class="logo left" src="img/logo.png" />
+				<div id="navbar" class="navbar-collapse collapse" style='padding-right:0'>
+					<ul class="nav navbar-nav">
+						<li class="">
+							<a href="index.html">主页</a>
+						</li>
+						<li class="">
+							<a href="selectFun.html">自助评估</a>
+						</li>
+						<li class="">
+							<a href="projectApplication.html">项目申请</a>
+						</li>
+						<li class="">
+							<a href="together.html">合作条款</a>
+						</li>
+						<li class="active">
+							<a>关于我们</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" v-if="haslogin">
+						<li id="goCenter" class="headBox">
+							<img id="head" style="cursor: pointer;" src="img/cgx.jpg" alt="" />
+							<span id="userTips"></span>
+							<div class="downList" style="display:none;">
+								<strong></strong>
+								<div>
+									<ul>
+										<li>
+											<p id="unameTitle"></p>
+										</li>
+										<li id="makeCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-zoom-in"></span></span><strong class="down-title">创建公司</strong></li>
+										<li id="gomyCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-briefcase"></span></span><strong class="down-title">我管理的公司</strong></li>
+										<li id="assess" class="hov"><span class="dot2"><span class="glyphicon glyphicon-usd"></span></span><strong class="down-title">估价</strong></li>
+										<li id="mypaper" class="hov"><span class="dot2"><span class="glyphicon glyphicon-list-alt"></span></span><strong class="down-title">我的报价单</strong></li>
+										<li id="exit" class="hov"><span class="dot2"><span class="glyphicon glyphicon-off"></span></span><strong class="down-title">退出登录</strong></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" v-else>
+						<li>
+							<a href="login.html">登录</a>
+						</li>
+						<li>
+							<a href="register.html">注册</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+		<section class="content">
+			<div class="box1">
+				<img src="img/logo.png" />
+				<img src="img/icon-tech.png" />
+				<img src="img/icon-exp.png" />
+				<img src="img/icon-work.png" />
+				<img src="img/icon-quality.png" />
+				<img src="img/icon-service.png" />
+				<img src="img/icon-help.png" />
+			</div>
+			<div class="box2">
+				<div class="txt">悠米技术天使投资空间是深圳普盛软件开发有限公司和武汉网易通计算机网络有限公司联合推出的针对初创项目的技术股权服务，在项目早期缺乏技术的情况下以技术入股的方式帮助创业者实现自己的梦想，普盛是中国电信和中国联通的软件提供商，是移动电子商务的领先者，在智慧城市、供应链软件是行业的领先者。同国内知名风投机构做技术配套多年，帮初创项目解决技术开发瓶颈后，会对接北上广深的投资机构帮创业者进入A轮，自己也会择机退出，完成整个技术投资的动作。</div>
+				<div class="txt" style="margin-top: 20px;">悠米技术天使空间采用全互联网思维设计，用户自主注册进行项目申请，所有数据都在网上完成，可以极大提高沟通效率。我们把风投和股权投资的相关文件也公式出来，做到公开透明。</div>
+				<div class="title">我们的优势：</div>
+				<div class="title2">技术专业：</div>
+				<div class="txt">从产品设计到开发、运营，均有完整的专家团队参与实施。</div>
+				<div class="title2" style="margin-top: 60px;">经验丰富：</div>
+				<div class="txt">技术团队经历过多次互联网从0到1的创业过程，开发运营过亿级用户的网站和数千万级用户的APP，产品设计和开发方面都有丰富的经验。</div>
+
+				<div class="title2">最短工期：</div>
+				<div class="txt">组件化、跨平台快速开发技术，高效的沟通协作方式，敏捷开发、快速迭代管理模式，大幅减少产品开发周期。</div>
+
+				<div class="title2">质量可靠：</div>
+				<div class="txt">优秀的代码质量，清晰的逻辑结构，可读性强，方便交接及后续维护。</div>
+
+				<div class="title2">服务完善：</div>
+				<div class="txt">对于初期的创意梳理是我们独有的服务，只要项目符合条件，悠米技术天使专业的产品设计团队愿意帮助您从灵感闪现走到产品上线。</div>
+
+				<div class="title2">帮扶到位：</div>
+				<div class="txt">我们会帮助项目组建自己的技术团队，并长期提供技术咨询。在创业路上做大家坚实的技术后盾！</div>
+			</div>
+		</section>
+		<footer id="footer"></footer>
+	</body>
+	/<script src="js/login.js"></script>
+	<script>
+		$("#footer").load("footer.html");
+	</script>
+</html>

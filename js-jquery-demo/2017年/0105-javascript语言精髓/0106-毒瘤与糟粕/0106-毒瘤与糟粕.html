@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+作用域
+
+JavaScript 的语法来源于 C。JavaScript 采用了块语法，但是没有提供块级作用域：代码块中声明的变量在包含此代码块的函数的任何位置都是可见的。
+
+一个比较好的解决方式是在函数的开头部分声明所有变量。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+自动插入分号
+JavaScript 有一个自动修复机制，试图通过自动插入分号来修正有缺损的程序，
+
+但是这同时会掩盖更为严重的错误。
+
+例如下例，JavaScript 会在 return 后面插入分号导致函数结果是 undefined
+
+<script>
+      var a = function () {
+          return
+          {
+              status: true
+          };
+      }
+      console.log(a()); // undefined
+</script>
+
+避免这样的问题的解决方案就是把左括号放置在上一行的尾部而不是下一行的头部
+
+<script>
+    var a = function() {
+        return {
+            status: true
+        };
+    }
+    console.log(a());  // Object {status: true}
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+保留字
+JavaScript 中保留字不能用来命名变量或参数。当保留字被用做对象字面量的键值时，必须用引号括起来且不能用在点表示法中。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+typeof
+
+typeof 运算符返回一个用于识别其运算数类型的字符串。
+但是仍然会一些糟糕的问题存在
+
+无法识别 Array, 即伪数组，因为数组其实也是对象。解决方案
+无法识别 null
+无法识别 NaN 和数字
+
+<script>
+    console.log(typeof []); // object
+    console.log(typeof null); // object
+
+    // 识别 null 更简单方便的方法
+    myvalue = null
+    console.log(myvalue === null); // true
+
+    // typeof 不能辨别出 null 与对象, 也可以这样解决
+    if (myvalue && typeof myvalue === 'object') {
+        // myvalue 是一个对象或数组
+    } else {
+       console.log('is null');
+        // return 'null';
+    }
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+parseInt
+
+parseInt 是一个把字符串转换为整数的函数。
+
+它在遇到非数字时会停止解析，所以下面结果是一样的
+
+<script>
+    console.log(parseInt("16") === parseInt("16 tons")); // true
+</script>
+
+但是该函数并不会提醒我们字符串中出现了多余的字符。
+如果该字符串第一个字符是0，那么该字符换会基于八进制而不是十进制来求值。在八进制中8，9都不是数字。所以parseInt("08")等于parseInt("09")等于0。这个结果会导致程序解析日期和时间出现问题。
+解决方案是加上基数参数
+
+<script>
+    console.log(parseInt("08", 10)); // 8
+    console.log(parseInt("09", 10)); // 9
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
++ 运算符
+
+运算符用于加法运算或字符串连接
+
+当其中一个运算数是空字符串，会把另一个运算数转成字符串并返回
+
+当两运算数都为数字则做加法运算，否则两运算数都转换为字符换并连接起来返回。
+
+> '' + 4;
+'4'
+> '' + 4 + 4;
+'44'
+> '4' + 4;
+'44'
+
+<!-- ------------------------------------------------------------------------------ -->
+
+NaN
+
+NaN 是一个特殊的数量值，虽然
+
+<script>
+
+    console.log( typeof NaN === 'number' )  // true,
+    console.log( typeof NaN ) // number
+</script>
+
+但NaN表示的不是一个数字。
+
+当时试图转换非数字形式的字符串时就会产生NaN值，
+
+还有 NaN 并不等同于自己
+
+<script>
+
+    console.log(NaN === NaN) // false
+
+    console.log(NaN !== NaN) // true
+
+</script>
+
+
+不过 JavaScript 提供了一个 isNaN 函数，可以辨别数组和 NaN
+
+isNaN()  非数字是会返回true的
+
+<script>
+    console.log( isNaN(NaN) ) ;      // true
+    console.log( isNaN(0) );       // false
+    console.log( isNaN('opps') );  // true
+    console.log( isNaN('0') );   // false
+</script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+==
+
+== 只有在两个运算数类型一致时才会做出正确的判断。如果两个运算数类型不一致那么将会强制转换值的类型。
+
+== 运算符在某些特例上违背了传递性（x == y and y == z 为true, 那么 x == z为 true)
+
+<script>
+    console.log("test");
+
+    console.log(   '' == '0'          )    // false
+    console.log(   0 == ''            )  // true
+    console.log(   0 == '0'           )   // true
+    console.log(   false == 'false'   )           // false
+    console.log(   false == '0'       )       // true
+    console.log(   false == undefined )       // false
+    console.log(   false == null      )        // false
+    console.log(   null == undefined  )            // true
+</script>
+
+请不要使用==或者!=运算符，请使用 === 和 !==
+
+<!-- ---------------------------------------------------------------------------- -->
+
+function语句对比function表达式
+
+<script>
+    // function 语句
+    function foo() {
+    }
+
+// -------------------------------------------------------------------------------
+
+    // 推荐使用这个  函数表达式。因为函数声明是会提升的
+    // function  表达式
+    var foo2 = function() {
+      console.log("foo2")
+    }
+    foo2();
+</script>
+
+上面两种形式实际上是相同的。
+
+function 语句在解释时会发生提升的情况（关于提升可以参考我另一篇博文你应该知道的JavaScript)，这会导致一个混乱。
+
+因为提升放宽了函数必须先声明后使用的要求。
+
+所以尽量不要使用function语句，请使用function表达式。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+类型的包装对象
+
+JavaScript 有一套类型的包装对象，例如：
+
+new Boolean(false)
+
+这会返回一个对象，该对象有一个 valueOf 方法会返回被包装的值。
+
+这简直是多此一举。
+
+请避免使用 new Object 和 new Array。请使用对应的字面量{},[]来代替
+请避免使用 new Object 和 new Array。请使用对应的字面量{},[]来代替
+
+<!-- ---------------------------------------------------------------------------- -->
+
+new运算符
+
+new 运算符创建一个继承于其运算数(构造器函数)的原型的新对象，然后调用该运算数，把新对象绑定给 this。
+
+但是如果忘记使用 new，那么得到则是一个普通的函数调用，并且 this 被绑定到全局对象。这意味着当你的函数尝试去初始化新成员属性时它将会污染全局变量。
+并且这没有编译警告，也没有运行时警告。
+
+按照惯例，与 new 结合使用的函数应该以首字母大写的形式命名，
+并且首字母大写的形式应该只用来命名那些构造函数。
+
+一个更好的对策就是根本不使用 new。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

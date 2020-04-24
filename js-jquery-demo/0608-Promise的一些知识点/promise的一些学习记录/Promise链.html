@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+  上面提到在promise上调用then方法，会返回新的promise。
+
+  那新的promise的值和状态是什么呢？答案是取决于执行then中注册的回调方法时的返回值。
+
+  1.无return相当于调用了return Promise.resolve(undefined)，
+
+  Promise {[[PromiseStatus]]: "resolved", [[PromiseValue]]: undefined}也就是我们上文中，调用then方法时，除了打印回调中的日志，还打印了promise的原因。
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+  2.return 非promise、非thenable(后面介绍)值。比如 return 123。相当于调用了return Promise.resolve(123), 即返回包装了决议值为123的promise。
+
+  <script>
+
+      var p1 = Promise.resolve('p1Value')
+
+      p1.then(fullfilled => {
+          console.log(fullfilled) //p1Value
+          return 123
+      }, error => {
+          console.log(error)
+      })
+
+  </script>
+
+  我们看到控制台打印了
+  p1Value
+  Promise {[[PromiseStatus]]: "resolved", [[PromiseValue]]: 123}第二行打印的，就是then方法返回的promise实例。既然他返回的是promise，我们是不是可以接着对他调用then方法？我们试下
+
+  <script>
+
+      var p1 = Promise.resolve('p1Value')
+
+      p1.then(fullfilled => {
+          console.log(fullfilled) //p1Value
+          return 123
+      }, error => {
+          console.log(error)
+      }).then(fullfilled => {
+          console.log(fullfilled) //123
+      }, error => {
+          console.log(error)
+      })
+
+  </script>
+
+  我们在控制台会看到3行输出
+  p1Value
+  123
+  Promise {[[PromiseStatus]]: "resolved", [[PromiseValue]]: undefined}如果理解了以上两种return 情况，应该是能理解为什么会输出这三条日志的。
+
+  <!-- ------------------------------------------------------------------------------------------------------ -->
+
+
+  3. return promise or thenable首先说明下什么是thenable，即有then函数的对象。
+
+  <script>
+      var o = {
+          then：
+          function(resolve) {
+              resolve(123)
+          }
+      }
+
+      var o = {
+          then: function(resolve, reject) {
+              reject(456)
+          }
+      }
+  </script>
+
+  以上两例就是thenable对象。我们发现thenable和promise对象很像
+
+  。都有then方法。并且then函数 和 new Promise(function(resolve, reject))中传递的匿名函数很像。
+
+  我们看下在promise中返回thenabled对象，会是如何？
+
+  <script>
+      var o = {
+          then:function(resolve) {
+              resolve(123)
+          }
+      }
+
+      var p1 = Promise.resolve('p1Value')
+      p1.then(fullfilled => {
+          console.log(fullfilled)  //p1Value
+          return o
+      }, error => {
+          console.log(error)
+      })
+
+  </script>
+
+  打印的日志为：
+  p1Value
+  Promise {[[PromiseStatus]]: "resolved", [[PromiseValue]]: 123}
+
+  再来看个例子
+
+  <script>
+
+        var o = {
+            then:function(resolve, reject) {
+                reject(456)
+            }
+        }
+
+        var p1 = Promise.resolve('p1Value')
+        p1.then(fullfilled => {
+            console.log(fullfilled)  //p1Value
+            return o
+        }, error => {
+            console.log(error)
+        })
+
+  </script>
+
+  打印的日志为：
+  p1Value
+  Promise {[[PromiseStatus]]: "rejected", [[PromiseValue]]: 456}
+
+  Uncaught (in promise) 456  //先忽略这条通过以上两个例子，我们发现当传递thenable时，promise会把thenable对象拆开，根据thenable对象内的then方法，是调用了第一个回调函数（我们以resolve命名，当然也可以是其他），还是第二个回调，来决定如何处理这个thenable对象。是不是很像调用了 return new Promise(thenable.then)的表现，有可能内部的实现就是这么处理的。
+
+  还剩下最后一种情况，return promise呢，那就直接返回啦。
+
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+  then返回的 promise 情况小结
+
+  无return  =>  return Promise.resolve(undefined)
+  return 123    => return Promise.resolve(123)
+  return thenable  => return new Promise(thenable.then)
+  return promise  =>  return promise
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+  then的默认值
+
+  了解了调用then方法返回的promise的几种情况后，我们来看下then的默认回调，即少传或不传回调，then会如何处理。
+
+  var p1 = Promise.resolve(123)
+
+  p1.then(null, null)
+
+  //传递null或少传参数时，相当于调用了
+
+  p1.then(fullfilled => {return Promise.resolve(fullfilled)}, error => {return Promise.reject(error) })即把then所作用的promise的决议值
+
+  ，作为新生成的promise的决议值，再返回这个新的promise。我们来验证下
+
+  <script>
+
+// ---------------------------------------------------------------------------------------------
+
+    var p1 = Promise.resolve(123)
+
+    p1.then(null, null)
+    .then(value => {
+        console.log('onResolve', value)
+      }, error => {
+        console.log('onReject', error)
+      })
+
+    //onResolve 123
+
+    p1.then(fullfilled => {
+        return  Promise.resolve(fullfilled)
+    },error => {
+        return Promise.reject(error)
+    })
+    .then(value => {
+        console.log('onResolve', value)
+      }, error => {
+        console.log('onReject', error)
+      })
+
+    //onResolve 123
+
+// ---------------------------------------------------------------------------------------------
+
+    var p2 = Promise.reject(456)
+
+    p2.then(null, null)
+    .then(value => {
+        console.log('onResolve', value)
+      }, error => {
+        console.log('onReject', error)
+      })
+
+    //onReject 456
+
+// ---------------------------------------------------------------------------------------------
+
+    p2.then(fullfilled => {
+        return  Promise.resolve(fullfilled)
+    },error => {
+        return Promise.reject(error)
+    })
+    .then(value => {
+        console.log('onResolve', value)
+      }, error => {
+        console.log('onReject', error)
+      })
+
+// ---------------------------------------------------------------------------------------------
+
+    //onReject 456以上验证了当传递null时，then的默认行为。了解了默认行为后，我们可以简化调用方式。当只注册成功回调时，可以不传递第二个回调
+    p1.then(fullfilled=>{
+        //
+    })
+
+    只监听拒绝回调时，可以使用then的别名方法catch
+    p1.then(null, error=> {
+        //
+    })
+
+    等价于
+    p1.catch(error => {
+        //
+    })
+
+// ---------------------------------------------------------------------------------------------------------------
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

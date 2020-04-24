@@ -1,0 +1,125 @@
+ <!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="MobileOptimized" content="320" />
+    
+    <title>Hello H5+</title>
+    
+    <link rel="stylesheet" href="css/base-reset.css">
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link rel="stylesheet" href="css/icons-extra.css">
+    <link rel="stylesheet" type="text/css" href="css/swiper-3.3.1.min.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    
+    <script type="text/javascript" charset="utf-8">
+        var ws = null,
+            embed = null;
+        // 扩展API加载完毕，现在可以正常调用扩展API
+        function plusReady() {
+            ws = plus.webview.currentWebview();
+            ws.addEventListener('show', createEmbed, false);
+        }
+        // 判断扩展API是否准备，否则监听"plusready"事件
+        if (window.plus) {
+            plusReady();
+        } else {
+            document.addEventListener("plusready", plusReady, false);
+        }
+        // 创建子Webview
+        
+        var doc = window.document;
+        var docEl = doc.documentElement;
+        var width = docEl.getBoundingClientRect().width;
+        var dpr = 1;
+        if (width > 540) {
+            width = 540 * dpr;
+        }
+        var rem = width / 10;
+        var fontSize = rem;
+        var _botommheight=parseInt(fontSize) * 1.375;
+        var bottomheight = parseInt(fontSize) * 1.375 + 'px';
+        
+        function createEmbed() {
+            var topoffset = bottomheight;
+            if (plus.navigator.isImmersedStatusbar()) { // 兼容immersed状态栏模式
+                topoffset = (Math.round(plus.navigator.getStatusbarHeight()) + _botommheight) + 'px';
+            }
+            plus.nativeUI.showWaiting('', {
+                style: 'black',
+                modal: false,
+                background: 'rgba(0,0,0,0)'
+            });
+            embed = plus.webview.create('https://www.baidu.com/?tn=62095104_oem_dg', 'embed', {
+                top: topoffset,
+                bottom: '0px',
+                position: 'dock',
+                dock: 'bottom',
+                bounce: 'vertical'
+            });
+            ws.append(embed);
+            embed.addEventListener('loaded', function() {
+                plus.nativeUI.closeWaiting();
+            }, false);
+            embed.addEventListener('loading', function() {
+                plus.nativeUI.showWaiting('', {
+                    style: 'black',
+                    modal: false,
+                    background: 'rgba(0,0,0,0)'
+                });
+            }, false);
+        }
+        // 打开网址
+        function openUrl() {
+            var url = document.getElementById("url");
+            console.log(url);
+            console.log(embed);
+            embed.loadURL(url.value);
+            url.blur();
+        }
+        // 页面加载后自动打开
+        document.addEventListener("DOMContentLoaded", function() {
+            if (embed) {
+                console.log(embed);
+                embed.loadURL('https://www.baidu.com/?tn=62095104_oem_dg');
+                //openUrl();
+            } else {
+                auto = true;
+            }
+        }, false);
+        // 页面跳转完成事件
+        function onBrowserLoading() {
+            //document.getElementById("url").value = embed.getURL();
+        }
+    </script>
+</head>
+
+<body>
+	    <!--<header id="header">
+			<div class="nvbt iback" onclick="back(),plus.nativeUI.closeWaiting();"></div>
+			<div class="nvtt">
+				<form action="?" method="get" onsubmit="openUrl();return false;">
+				<input id="url" type="url" value="http://m.weibo.cn/u/3196963860"/>
+				</form>
+			</div>
+			<div class="nvbt" onclick="openUrl();">Go</div>
+		</header>-->
+		
+       <div class="mui-bar mui-bar-nav header">        				
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    	<h1 class="mui-title">本地新闻</h1>			
+		</div>
+		
+</body>
+
+<script src="js/jquery-1.9.1.js" type="text/javascript"></script>
+<script src="js/flexible.js" type="text/javascript"></script>
+<script src="js/flexible_css.js" type="text/javascript"></script>
+<script src='js/swiper-3.3.1.min.js' type="text/javascript"></script>
+<script src='js/mui.min.js'></script>
+
+</html>

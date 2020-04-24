@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+分发Action
+
+store.dispatch('increment')
+
+为什么要使用action而不是直接分发mutation呐？
+
+因为mutation必须执行同步函数，而在Action中可以执行异步函数。
+
+与mutation类似，Actions 支持同样的载荷(payload)方式和对象方式进行分发：
+
+<script>
+    // 以载荷形式分发
+    store.dispatch('incrementAsync', { amount: 10 } )
+
+
+    // 以对象形式分发
+    store.dispatch({
+      type: 'incrementAsync',
+      amount: 10
+    })
+    
+</script>
+
+<script>
+   methods:{
+
+     //传参形式分发
+     this.$store.dispatch("increme",aa);
+
+     // 以载荷形式分发
+     this.$store.dispatch('incrementAsync', { amount: 10 })
+     this.$store.dispatch('comm_conf',{
+       isFooter:true,
+       isSearch:true,
+       isBack:false,
+       isShare:false,
+       title:''
+     });
+   }
+</script>
+
+</body>
+</html>

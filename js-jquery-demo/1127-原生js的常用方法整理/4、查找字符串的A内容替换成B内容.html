@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        let str = "abacdasdfsd"
+
+        function replaceAll(str, AFindText, ARepText) {
+            raRegExp = new RegExp(AFindText, "g");
+            return str.replace(raRegExp, ARepText);
+        }
+
+        console.log(replaceAll(str, "a", "x")) // xbxcdxsdfsd      str：需要编辑的字符串本身
+
+    </script>
+
+    AFindText:需要替换的内容
+
+    ARepText:被替换成的内容 解析：创建正则，匹配内容，替换
+    
+</body>
+
+</html>

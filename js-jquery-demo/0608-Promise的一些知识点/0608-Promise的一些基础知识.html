@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- --------------------------------------------------------------------------------------- -->
+
+   一、 Promise对象有三种状态，他们分别是：
+
+  pending: 等待中，或者进行中，表示还没有得到结果
+
+  resolved(Fulfilled): 已经完成，表示得到了我们想要的结果，可以继续往下执行
+
+  rejected: 也表示得到结果，但是由于结果并非我们所愿，因此拒绝执行
+
+  这三种状态不受外界影响，而且状态只能从pending改变为resolved或者rejected，并且不可逆。
+
+  在Promise对象的构造函数中，将一个函数作为第一个参数。而这个函数，就是用来处理Promise的状态变化。
+
+  new Promise(function(resolve, reject) {
+      if(true) { resolve() };
+      if(false) { reject() };
+  })
+
+  <script>
+
+      new Promise(function(resolve) {
+          resolve(42);
+      });
+
+      // 在这段代码中的 resolve(42);
+      //
+      // 会让这个promise对象立即进入确定（ 即resolved） 状态，
+      // 并将 42 传递给后面then里所指定的 onFulfilled 函数。
+      //
+      // 方法 Promise.resolve(value);的返回值也是一个promise对象， 所以我们可以像下面那样接着对其返回值进行.then 调用。
+
+      Promise.resolve(42).then(function(value) {
+          console.log(value);
+      });
+      
+  </script>
+
+  上面的resolve和reject都为一个函数，他们的作用分别是将状态修改为resolved和rejected。
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+  二、 Promise对象中的then方法，可以接收构造函数中处理的状态变化，并分别对应执行。
+
+  then方法有2个参数，第一个函数接收resolved状态的执行，第二个参数接收reject状态的执行。
+
+  <script>
+
+      function fn(num) {
+          return new Promise(function(resolve, reject) {
+              if (typeof num == 'number') {
+                  resolve();
+              } else {
+                  reject();
+              }
+          }).then(function() {
+              console.log('参数是一个number值');
+          }, function() {
+              console.log('参数不是一个number值');
+          })
+      }
+
+      fn('hahha');
+      fn(1234);
+
+  </script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+三、Promise中的数据传递
+
+<script>
+
+    var fn = function(num) {
+        return new Promise(function(resolve, reject) {
+            if (typeof num == 'number') {
+                resolve(num);
+            } else {
+                reject('TypeError');
+            }
+        })
+    }
+
+    fn(2).then(function(num) {
+            console.log('first: ' + num);
+            return num + 1;
+    })
+    .then(function(num) {
+            console.log('second: ' + num);
+            return num + 1;
+    })
+    .then(function(num) {
+            console.log('third: ' + num);
+            return num + 1;
+    });
+
+    // 输出结果
+    // first: 2
+    // second: 3
+    // third: 4
+
+</script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+四、Promise.all
+
+当有一个ajax请求，它的参数需要另外2个甚至更多请求都有返回结果之后才能确定，
+那么这个时候，就需要用到Promise.all来帮助我们应对这个场景。
+
+Promise.all接收一个Promise对象组成的数组作为参数，
+
+当这个数组所有的Promise对象状态都变成resolved或者rejected的时候，它才会去调用then方法。
+
+<script>
+
+    function getJSON(url) {
+        return new Promise(function(resolve, reject) {
+            var XHR = new XMLHttpRequest();
+            XHR.open('GET', url, true);
+            XHR.send();
+
+            XHR.onreadystatechange = function() {
+                if (XHR.readyState == 4) {
+                    if (XHR.status == 200) {
+                        try {
+                            var response = JSON.parse(XHR.responseText);
+                            resolve(response);
+                        } catch (e) {
+                            reject(e);
+                        }
+                    } else {
+                        reject(new Error(XHR.statusText));
+                    }
+                }
+            }
+        })
+    }
+
+    var url = 'https://hq.tigerbrokers.com/fundamental/finance_calendar/getType/2017-02-26/2017-06-10';
+    var url1 = 'https://hq.tigerbrokers.com/fundamental/finance_calendar/getType/2017-03-26/2017-06-10';
+
+    function renderAll() {
+        return Promise.all([getJSON(url), getJSON(url1)]);
+    }
+
+    renderAll().then(function(value) {
+        // 建议大家在浏览器中看看这里的value值
+        console.log(value);
+    })
+</script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+五、 Promise.race
+
+与Promise.all相似的是，Promise.race都是以一个Promise对象组成的数组作为参数，不同的是，只要当数组中的其中一个Promsie状态变成resolved或者rejected时，就可以调用.then方法了。
+
+而传递给then方法的值也会有所不同，大家可以再浏览器中运行下面的例子与上面的例子进行对比。
+
+<script>
+
+    function renderRace() {
+        return Promise.race([getJSON(url), getJSON(url1)]);
+    }
+
+    renderRace().then(function(value) {
+        console.log(value);
+    })
+
+</script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.4/vue.js"></script>
+</head>
+
+<body>
+
+  我们可以为组件的 prop 指定验证规则。如果传入的数据不符合要求，Vue 会发出警告。这对于开发给他人使用的组件非常有用。
+
+  当 prop 验证失败，Vue 会抛出警告 (如果使用的是开发版本)。注意 prop 会在组件实例创建之前进行校验，
+
+  所以在 default 或 validator 函数里，诸如 data、computed 或 methods 等实例属性还无法使用。
+
+    <div id="app">
+
+      {{loop}}   {{interval}}
+      
+    </div>
+
+    <script>
+
+        new Vue({
+            el: '#app',
+            name: 'slider',
+            props: {
+                loop: {
+                    type: Boolean,
+                    default: true
+                },
+                autoplay: {
+                    type: Boolean,
+                    default: true
+                },
+                interval: {
+                    type: Number,
+                    default: 4000
+                }
+            },
+            mounted(){
+               this.interval=5000
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>

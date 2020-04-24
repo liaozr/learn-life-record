@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+keep-alive 属性 弃用
+
+keep-alive 不再是一个特殊属性而是一个包裹组件，类似于 <transition>
+
+比如：
+
+<keep-alive>
+  <component v-bind:is="view"></component>
+</keep-alive>
+
+
+
+这样可以在含多种状态子组件中使用 <keep-alive> ：
+
+<keep-alive>
+  <todo-list v-if="todos.length > 0"></todo-list>
+  <no-todos-gif v-else></no-todos-gif>
+</keep-alive>
+
+当 <keep-alive>含有不同子组件时，应该分别影响到每一个子组件。
+
+不仅是第一个而是所有的子组件都将被忽略。
+
+
+
+和 <transition>一起使用时，确保把内容包裹在内：
+
+<transition>
+  <keep-alive>
+    <component v-bind:is="view"></component>
+  </keep-alive>
+</transition>
+
+</body>
+</html>

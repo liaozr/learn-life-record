@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------------- -->
+
+  关于<keep-alive>组件的使用
+
+  在使用该组件时，需要考虑项目是否适用。下述情况不建议使用：
+
+  1）当数据交互相对较多的情况下，数据不会及时更新；
+
+  2）当页面需要带参数进行访问时，参数变化可能导致数据未更新；
+
+  3）需要及时鉴权的页面
+
+  <!-- -------------------------------------------------------------------------------------- -->
+
+  要让<keep-alive>生效，需要在顶层入口添加指令，模板如下：
+
+  <keep-alive>
+       <router-view></router-view>
+  </keep-alive>
+
+  <!-- -------------------------------------------------------------------------------------- -->
+
+  其中<router-view>即是动态组件，此时会将整个项目的路由缓存起来（有些路由我是不希望被缓存的），这也是我感到<keep-alive>不够灵活的地方。
+
+  当然，事实也并非不可解决，Vue提供了两个专用方法可以场景下使用：
+
+  1）activated：在keep-alive组件激活时调用；
+
+  2）deactivated：在keep-alive 组件停用时调用；
+
+  因此在部分场景下，可以借助activated钩子来对数据进行处理，
+
+  同时也借助watcher对$route做响应，可以实现带参数的页面动态起来。
+
+  当然，这将带来巨大的代码改造量，需要仔细评估。
+
+  <!-- -------------------------------------------------------------------------------------- -->
+
+  2.缓存部分页面或者组件
+
+  (1)使用router.mate属性
+
+  这是目前用的比较多的方式
+
+  <keep-alive>
+      <router-view v-if="!$route.meta.notKeepAlive"></router-view>
+  </keep-alive>
+  <router-view v-if="$route.meta.notKeepAlive"></router-view>
+
+  <script>
+          // router设置
+          // ...
+          routes: [
+            {
+               path: '/',
+               redirect: '/index',
+               component: Index,
+               mate: {
+                 keepAlive: true
+               }
+            },
+            {
+              path: '/common',
+              component: TestParent,
+              children: [
+                {
+                  path: '/test2',
+                  component: Test2,
+                  mate: {
+                    keepAlive: true
+                  }
+                }
+              ]
+            }
+            //....
+           // 表示index和test2都使用keep-alive
+         ]
+  </script>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+(2).使用新增属性inlcude/exclude
+
+2.1.0后提供了include/exclude两个属性 可以针对性缓存相应的组件
+
+include - 字符串或正则表达式。只有匹配的组件会被缓存。
+
+exclude - 字符串或正则表达式。任何匹配的组件都不会被缓存。
+
+当组件在 <keep-alive> 内被切换，它的 activated 和 deactivated 这两个生命周期钩子函数将会被对应执行。
+
+<!-- comma-delimited string -->
+<keep-alive include="a,b">
+    <component :is="view"></component>
+</keep-alive>
+
+<!-- regex (use v-bind) -->
+<keep-alive :include="/a|b/">
+    <component :is="view"></component>
+</keep-alive>
+
+其中a,b是组件的name
+
+注意:这种方法都是预先知道组件的名称的
+
+匹配首先检查组件自身的 name 选项，如果 name 选项不可用，
+
+则匹配它的局部注册名称（父组件 components 选项的键值）。匿名组件不能被匹配。
+
+-------------------------------------------------------------------------------------
+
+(2)动态判断
+
+<keep-alive :include="includedComponents">
+
+  <router-view></router-view>
+
+</keep-alive>
+
+includedComponents动态设置即可
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

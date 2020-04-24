@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+    <div class="g-content">
+    	
+    	<!-- 动态生成的代码 一开始页面结构不存在的元素。 用以展示历史记录 的 -->
+    	<div class="his-content">
+    		<ul>
+    			<li></li>
+    		</ul>
+    	</div>
+
+    </div>
+	
+	<script>
+	
+		    // 点击 模糊搜索出来的数据,也是执行 setHistoryData 这个方法
+
+		    // 绑定的 父元素是 g-content,是一开始就存在的dom元素
+	        $(".g-content").on("tap","li",function(){
+	        	var value=$(this).find('.sptitle').text();
+	        	setHistoryData(value);
+	        	vm.focusy=false;
+	            vm.search_cont=false;
+	        });
+
+	        // 绑定的 父元素是his-content ，这个是动态生成的一个父元素
+	        // 这样绑定的话也是 不会触发事件的
+	        // 事件委托是不成功的。
+	        $(".his-content").on("tap","li",function(){
+	        	var value=$(this).find('.sptitle').text();
+	        	setHistoryData(value);
+	        	vm.focusy=false;
+	            vm.search_cont=false;
+	        });
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+在 Vue 中使用 Pug 与 Less
+
+安装依赖
+
+Vue 中使用 vue-loader 根据 lang 属性自动判断所需要的 loader，所以不用额外配置 Loader，但是需要手动安装相关依赖：
+
+npm i pug -D
+npm i less-loader -D
+
+还是相当方便的，不用手动修改 webpack 的配置文件添加 loader 就可以使用了
+
+使用 pug 还是 pug-loader？sass 两种语法的 loader 如何设置？
+
+--- 请参考 预处理器 · vue-loader
+
+使用
+
+<!-- xxx.vue -->
+<style lang="less">
+
+   .action {
+     color: #ddd;
+       ul {
+         overflow: hidden;
+         li {
+           float: left;
+         }
+       }
+   }
+
+</style>
+
+<template lang="pug">
+
+   .action(v-if='hasRight')
+     ul
+       li 编辑
+       li 删除
+
+</template>
+
+<script>
+
+   export default {
+     data () {
+       return {
+         hasRight: true
+       }
+     }
+   }
+
+</script>
+
+
+</body>
+
+</html>

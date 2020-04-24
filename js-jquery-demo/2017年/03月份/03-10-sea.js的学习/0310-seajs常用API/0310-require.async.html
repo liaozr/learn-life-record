@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+require.async
+
+SeaJS会在html页面打开时通过静态分析一次性记载所有需要的js文件，如果想要某个js文件在用到时才下载，可以使用require.async：
+
+<script>
+    require.async('/path/to/module/file', function(m) {
+        //code of callback...
+    });
+</script>
+
+这样只有在用到这个模块时，对应的js文件才会被下载，也就实现了JavaScript代码的按需加载。
+
+seajs的API就先讲到这里，对于使用，大家可以看下课时的应用示例。
+
+模块是一段 JavaScript 代码，具有统一的基本书写格式。
+
+模块之间通过基本交互规则，能彼此引用，协同工作。
+
+
+</body>
+
+</html>

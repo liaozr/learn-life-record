@@ -1,0 +1,91 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
+
+<link rel="icon shortcut bookmark" type="image/png" href="compress-bg/ico1.ico">
+
+<title>简书demo</title>
+
+<base target="_blank" />
+
+<style type="text/css">
+
+	.bg{
+
+	margin: 0;
+
+	}
+	.allBox{
+
+	width: 80%;
+
+	margin: 0 auto;
+
+	}
+	p{
+
+	display: inline-block!important;
+
+	width: 50%;
+
+	font-size: 2rem;
+
+	float: left;
+
+	}
+	a{
+	text-decoration: none;
+
+	target= "_Blank";
+
+	color:#7e6b5a;
+
+	}
+	h1{
+	color: #d1c0a5;
+	text-align: center;
+	}
+</style>
+
+</head>
+
+<body class="bg">
+
+	<div class="allBox">
+		<h1>这里是简书demo</h1>
+		<p><a href="js-time/time-countDown.html">1.倒计时和获取时间的demo</a></p>
+	</div>
+
+</body>
+
+<script type="text/javascript">
+
+    //产生随机背景图片
+	var bodyBgs = [];
+
+	for (var i = 0; i < 2; i++) {
+	  //注意图片数量
+	  bodyBgs[i] = "banner"+i+".png";
+	};
+
+	var randomBgIndex = Math.round( Math.random() * 1 );
+	//随机获取字符串标识，注意图片数量
+
+    // 产生的随机数是 0 1
+	console.log(randomBgIndex);
+
+	document.write('<style>.bg{width:100%;background:url(');
+
+	document.write(bodyBgs[randomBgIndex]);
+
+	document.write(');background-size: cover;}</style>');
+
+	//上面的三个字符串可以用“+”连接成一个字符串，这里因为位置原因我拆开写了。
+
+</script>
+
+</html>

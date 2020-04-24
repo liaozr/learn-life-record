@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        export default {
+
+            name: 'slider',
+            props: {
+                loop: {
+                    type: Boolean,
+                    default: true
+                },
+                autoplay: {
+                    type: Boolean,
+                    default: true
+                },
+                interval: {
+                    type: Number,
+                    default: 4000
+                }
+            },
+            data() {
+                return {
+                    dots: [],
+                    currentPageIndex: 0
+                }
+            },
+            mounted() {
+            },
+
+            // 组件被销毁的时候，记得清掉定时器，有利于内存的释放
+            destroyed() {
+                clearTimeout(this.timer)
+            }
+            
+        }
+
+    </script>
+
+</body>
+
+</html>

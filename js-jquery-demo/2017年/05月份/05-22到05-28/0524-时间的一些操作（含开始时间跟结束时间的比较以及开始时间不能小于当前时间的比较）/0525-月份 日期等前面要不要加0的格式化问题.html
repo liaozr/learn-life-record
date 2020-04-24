@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+    <script>
+
+        var now = new Date();
+        var date = now.getFullYear() + "-" + formatTime((now.getMonth() + 1).toString()) + "-" + formatTime(now.getDate().toString());
+
+        console.log(date) //  打印出的结果是： 2017-05-25  当前日期
+
+// -----------------------------------------------------------------------------------
+        var now2 = new Date(2017,5,2);
+        var date2 = now2.getFullYear() + "-" + formatTime((now2.getMonth() + 1).toString()) + "-" + formatTime(now2.getDate().toString());
+
+        console.log(date2) //  打印出的结果是： 2017-06-02
+
+// -----------------------------------------------------------------------------------
+
+        var now3 = new Date(2017,9,24);
+        var date3 = now3.getFullYear() + "-" + formatTime((now3.getMonth() + 1).toString()) + "-" + formatTime(now3.getDate().toString());
+
+        console.log(date3) //  打印出的结果是： 2017-10-24
+
+// -----------------------------------------------------------------------------------
+
+        var now4 = new Date();
+        var date4 = now4.getFullYear() + "-" + formatTime((now4.getMonth() + 1).toString()) + "-" + formatTime(now4.getDate().toString()) +" "+formatTime(now4.getHours().toString()) +":"+formatTime(now4.getMinutes().toString());
+
+        console.log(date4) //  打印出的结果是： 2017-05-25 13:21
+
+// -----------------------------------------------------------------------------------
+
+        function formatTime(value) {
+            if (value.length == 1) {
+                return "0" + value;
+            }
+            return value;
+        }
+
+// -----------------------------------------------------------------------------------
+
+    </script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+    <script>
+        var route = {
+            _routes: {}, // The routes will be stored here
+
+            add: function(url, action) {
+                this._routes[url] = action;
+            },
+
+            run: function() {
+                jQuery.each(this._routes, function(pattern) {
+                    if (location.href.match(pattern)) {
+                        // "this" points to the function to be executed
+                        this();
+                    }
+                });
+            }
+        }
+
+        // Will execute only on this page:
+        route.add('002.html', function() {
+            alert('Hello there!')
+        });
+
+        route.add('products.html', function() {
+            alert("this won't be executed :(")
+        });
+
+        // You can even use regex-es:
+        route.add('.*.html', function() {
+            alert('This is using a regex!')
+        });
+
+        route.run();
+        
+    </script>
+</body>
+
+</html>

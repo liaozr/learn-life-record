@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://www.jianshu.com/p/7064613bf9f8 -->
+<html><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+  <!-- Start of Baidu Transcode -->
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="mobile-agent" content="format=html5;url=http://www.jianshu.com/p/7064613bf9f8">
+  <!-- End of Baidu Transcode -->
+
+    <meta name="description" content="  取这样的标题可能会被打，可是我确实顺带解决了淘宝flexible.js的问题。  ———————7.14更新 start—————————  确实被打脸了，产生这种情况是因为安卓部分webview修改了默认字体，导致1rem和html.fontSize不一致。想当然以为根据屏幕宽度设置html的字体，会和默认字体无关。最后代码贴的代码还是有效的。祝好！  ———————7.14更新 en...">
+
+  <meta name="360-site-verification" content="604a14b53c6b871206001285921e81d8">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=http://www.jianshu.com/p/7064613bf9f8">
+
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="简书">
+
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/14536683">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="淘宝flexible.js漏洞修补" property="twitter:title">
+  <meta content="  取这样的标题可能会被打，可是我确实顺带解决了淘宝flexible.js的问题。  ———————7.14更新 start—————————  确实被打脸了，产生这种情况是因为安卓部分webview修改了默认字体，导致1rem和html.fontSize不一致。想当然以为根据屏幕宽度设置html的字体，会和默认字体无关。最后代码贴的代码还是有效的。祝好！  ———————7.14更新 end—————————  先声明两个变量供下文使用：   rem是根据html的最终font-size进行响应： 1rem === finalDocElementFontSize（重点！） 。对于大部分..." property="twitter:description">
+  <meta content="http://www.jianshu.com/p/7064613bf9f8" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="淘宝flexible.js漏洞修补">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.jianshu.com/p/7064613bf9f8">
+  <meta property="og:description" content="  取这样的标题可能会被打，可是我确实顺带解决了淘宝flexible.js的问题。  ———————7.14更新 start—————————  确实被打脸了，产生这种情况是因为安卓部分webv...">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/14536683">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/14536683">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+
+    <title>淘宝flexible.js漏洞修补 - 简书</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="XnGuX5pDmyuYIgWn00IsS+k9lP4hhKfAclVKAMOTk6T01/RWHQEjRgOT8aN6ImW7V1QWO9/ZlebTQ3Y6UQZ9Hg==">
+
+  <link rel="stylesheet" media="all" href="./淘宝flexible.js漏洞修补 - 简书_files/web-83b2537f95ca4d525d27.css">
+  
+  <link rel="stylesheet" media="all" href="./淘宝flexible.js漏洞修补 - 简书_files/entry-83b2537f95ca4d525d27.css">
+
+  <link href="http://cdn2.jianshu.io/assets/favicons/favicon-783beb88ed621ceab614de960376ac0c.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/57-47624b2e2161e8eb144462c85db0a5ff.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/72-c00cde7cf98fc49e50cbb3ee1dcd5804.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/76-e8af0bdeaf1ba31e303b1fde8b5e66c4.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/114-f4c78569bbf1977e8382a5fd90c9237a.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/120-cf10c3711dba269522743729efe66bbc.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn2.jianshu.io/assets/apple-touch-icons/152-7bd60457b5f3ecbf1343f0e6241be4f8.png" sizes="152x152">
+<link rel="stylesheet" href="blob:http://www.jianshu.com/5bc0b479-a040-4bb0-b272-1ca69a6dbeb2"><link rel="stylesheet" href="blob:http://www.jianshu.com/88cbf713-d1e2-4d74-9308-1becef927cc2"></head>
+
+  <body lang="zh-CN" class="reader-black-font">
+    <!-- 全局顶部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="width-limit">
+    <!-- 左上方 Logo -->
+    <a class="logo" href="http://www.jianshu.com/"><img src="./淘宝flexible.js漏洞修补 - 简书_files/logo-58fd04f6f0de908401aa561cda6a0688.png" alt="Logo"></a>
+
+    <!-- 右上角 -->
+      <!-- 未登录显示登录/注册/写文章 -->
+      <a class="btn write-btn" target="_blank" href="http://www.jianshu.com/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+</a>      <a class="btn sign-up" href="http://www.jianshu.com/sign_up">注册</a>
+      <a class="btn log-in" href="http://www.jianshu.com/sign_in">登录</a>
+
+    <!-- 如果用户登录，显示下拉菜单 -->
+
+    <div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+            <li class="">
+              <a href="http://www.jianshu.com/">
+                <span class="menu-text">首页</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+</a>            </li>
+            <li class="">
+              <a class="app-download-btn" href="http://www.jianshu.com/apps"><span class="menu-text">下载App</span><i class="iconfont ic-navigation-download menu-icon"></i></a>
+            </li>
+          <li class="search">
+            <form target="_blank" action="http://www.jianshu.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+              <input type="text" name="q" id="q" value="" placeholder="搜索" class="search-input">
+              <a class="search-btn" href="javascript:void(null)"><i class="iconfont ic-search"></i></a>
+              <!-- <div id="navbar-trending-search"></div> -->
+</form>          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+<div class="note">
+  <div class="post">
+    <div class="article">
+        <h1 class="title">淘宝flexible.js漏洞修补</h1>
+
+        <!-- 作者区域 -->
+        <div class="author">
+          <a class="avatar" href="http://www.jianshu.com/u/b49c2ef5fb4e">
+            <img src="./淘宝flexible.js漏洞修补 - 简书_files/74df7327-1e12-4ed6-905a-888d89cf766e.jpg" alt="144">
+</a>          <div class="info">
+            <span class="tag">作者</span>
+            <span class="name"><a href="http://www.jianshu.com/u/b49c2ef5fb4e">陈建芳</a></span>
+            <!-- 关注用户按钮 -->
+            <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+            <!-- 文章数据信息 -->
+            <div class="meta">
+              <!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
+                <span class="publish-time" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="最后编辑于 2017.07.14 11:29">2017.07.13 18:12*</span>
+              <span class="wordage">字数 714</span>
+            <span class="views-count">阅读 1023</span><span class="comments-count">评论 18</span><span class="likes-count">喜欢 9</span></div>
+          </div>
+          <!-- 如果是当前作者，加入编辑按钮 -->
+        </div>
+        <!-- -->
+
+        <!-- 文章内容 -->
+        <div data-note-content="" class="show-content">
+          <p>  取这样的标题可能会被打，可是我确实顺带解决了淘宝flexible.js的问题。<br>  ———————7.14更新 start—————————<br>  确实被打脸了，产生这种情况是因为安卓部分webview修改了默认字体，导致1rem和html.fontSize不一致。想当然以为根据屏幕宽度设置html的字体，会和默认字体无关。最后代码贴的代码还是有效的。祝好！<br>  ———————7.14更新 end—————————<br>  先声明两个变量供下文使用：</p>
+<pre class="hljs dart"><code class="dart"><span class="hljs-comment">//html style font-size</span>
+docElementFontSize = <span class="hljs-built_in">document</span>.documentElement.style.fontSize;
+
+<span class="hljs-comment">//html 最终的 font-size</span>
+finalDocElementFontSize = <span class="hljs-built_in">window</span>.getComputedStyle(<span class="hljs-built_in">window</span>.<span class="hljs-built_in">document</span>.documentElement).getPropertyValue(<span class="hljs-string">"font-size"</span>)</code></pre>
+<p>  rem是根据html的最终font-size进行响应： <strong>1rem === finalDocElementFontSize</strong>（重点！） 。对于大部分机型，docElementFontSize和finalDocElementFontSize是相等的，但是有些网页在某些情况下打开的话，会得到docElementFontSize和finalDocElementFontSize不相等的情况，比如我公司的小米Max和荣耀8机型，在市场上算是比较新的机型，测试数据都是在QQ上演示，公司的土豪APP也会有这种情况。如下图：</p>
+<div class="image-package">
+<img src="./淘宝flexible.js漏洞修补 - 简书_files/2711211-b374f34d6214f739.jpg" data-original-src="http://upload-images.jianshu.io/upload_images/2711211-b374f34d6214f739.jpg?imageMogr2/auto-orient/strip%7CimageView2/2" style="cursor: zoom-in;"><br><div class="image-caption">小米Max</div>
+</div><p><br>  这是在小米Max的QQ开的<a href="http://sztinghao.top:8080/ck/player.html" target="_blank">测试页面</a> ，大佬可以扒网页看js，屏幕宽度是393px，html的style.fontSize是39.3px(页面宽度分成10等分)，然而html最终fontSize是45.195px！！！下面设置一个灰色的box，高度是1rem，得到的样式高度是45.1875px！！！看到这很毁三观有木有。我在百度和谷歌没有查到关于这个的任何问题和资料。众所周知淘宝玩rem玩的飞起，用QQ打开m.taobao.com如下图：</p>
+<div class="image-package">
+<img src="./淘宝flexible.js漏洞修补 - 简书_files/2711211-9e85fdb9676d63d8.jpg" data-original-src="http://upload-images.jianshu.io/upload_images/2711211-9e85fdb9676d63d8.jpg?imageMogr2/auto-orient/strip%7CimageView2/2" style="cursor: zoom-in;"><br><div class="image-caption">小米Max 淘宝</div>
+</div>
+<p>  淘宝在body写了overflow:hidden;width:100%;所以页面宽度超出部分隐藏了，再结合我测试的第一张图，页面宽度是393px,1rem=45.1875px，那10rem就超出了页面宽度。事实确实如此，如果设置页面宽度10rem，页面会出现横向滚动条。<br>  解决方法也很简单，因为这类异常手机html的style.fontSize、html最终的fontSize和页面元素1rem的值都不相等，但是1rem和html的最终fontSize很接近。代码如下</p>
+<pre class="hljs javascript"><code class="javascript"><span class="hljs-comment">/*
+* 适用于获取屏幕宽度等分设置html的font-size情况，比如 flexible.js库
+*/</span>
+<span class="hljs-comment">//计算最终html font-size</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">modifileRootRem</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> root = <span class="hljs-built_in">window</span>.document.documentElement;
+    <span class="hljs-keyword">var</span> fontSize = <span class="hljs-built_in">parseFloat</span>(root.style.fontSize);
+    <span class="hljs-keyword">var</span> finalFontSize = <span class="hljs-built_in">parseFloat</span>(<span class="hljs-built_in">window</span>.getComputedStyle(root).getPropertyValue(<span class="hljs-string">"font-size"</span>));
+    <span class="hljs-keyword">if</span>(finalFontSize === fontSize) <span class="hljs-keyword">return</span>;
+    root.style.fontSize = fontSize+(fontSize-finalFontSize) + <span class="hljs-string">"px"</span>;
+}
+<span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">window</span>.onload === <span class="hljs-string">'function'</span>){
+    <span class="hljs-keyword">var</span> oldFun = <span class="hljs-built_in">window</span>.onload;
+    <span class="hljs-built_in">window</span>.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+        oldFun();
+        modifileRootRem();
+    }
+}<span class="hljs-keyword">else</span>{
+    <span class="hljs-built_in">window</span>.onload = modifileRootRem;
+}</code></pre>
+<p>通过docElementFontSize+(docElementFontSize - finalDocElementFontSize) 得到html.fontSize的值。适用这类特异机型的html.fontSize!</p>
+<blockquote><p>这个问题我特意问了下大漠老师，大佬只是说进行“特定”处理，看淘宝首页的情况也没做好很好的兼容，不出意外，我这是针对这类机型rem布局兼容的首创代码！<br>如有疑问欢迎评论讨论</p></blockquote>
+
+        </div>
+        <!--  -->
+
+        <div class="show-foot">
+          <a class="notebook" href="http://www.jianshu.com/nb/8341290">
+            <i class="iconfont ic-search-notebook"></i> <span>学习资源</span>
+</a>          <div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+            © 著作权归作者所有
+          </div>
+          <div class="modal-wrap" data-report-note="">
+            <a id="report-modal">举报文章</a>
+          </div>
+        </div>
+    </div>
+
+    <!-- 文章底部作者信息 -->
+      <div class="follow-detail">
+        <div class="info">
+          <a class="avatar" href="http://www.jianshu.com/u/b49c2ef5fb4e">
+            <img src="./淘宝flexible.js漏洞修补 - 简书_files/74df7327-1e12-4ed6-905a-888d89cf766e.jpg" alt="144">
+</a>          <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+          <a class="title" href="http://www.jianshu.com/u/b49c2ef5fb4e">陈建芳</a>
+            <i class="iconfont ic-man"></i>
+        <p>写了 9486 字，被 20 人关注，获得了 33 个喜欢</p></div>
+      </div>
+
+      <div class="support-author"><p>如果觉得我的文章对您有用，请随意赞赏。您的支持将鼓励我继续创作！</p> <div class="btn btn-pay">赞赏支持</div> <!----> <!----> <!----></div>
+
+    <div class="meta-bottom">
+      <div class="like"><div class="btn like-group"><div class="btn-like"><a href="http://www.jianshu.com/sign_in"><i class="iconfont ic-like"></i>喜欢</a></div> <div class="modal-wrap"><a>9</a></div></div> <!----></div>
+      <div class="share-group">
+        <a class="share-circle" data-action="weixin-share" data-toggle="tooltip" data-original-title="分享到微信">
+          <i class="iconfont ic-wechat"></i>
+        </a>
+        <a class="share-circle" data-toggle="tooltip" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/14536683/weibo/image_7acb3fb91159.jpg&#39;, &#39;推荐 陈建芳 的文章《淘宝flexible.js漏洞修补》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/7064613bf9f8?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-original-title="分享到微博">
+          <i class="iconfont ic-weibo"></i>
+        </a>
+          <a class="share-circle" data-toggle="tooltip" href="http://cwb.assets.jianshu.io/notes/images/14536683/weibo/image_7acb3fb91159.jpg" target="_blank" data-original-title="下载长微博图片">
+            <i class="iconfont ic-picture"></i>
+          </a>
+        <a class="share-circle more-share" tabindex="0" data-toggle="popover" data-placement="top" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="
+          &lt;ul class=&quot;share-list&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/7064613bf9f8?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 陈建芳 的文章《淘宝flexible.js漏洞修补》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-zone&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/7064613bf9f8?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 陈建芳 的文章《淘宝flexible.js漏洞修补》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-twitter&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/7064613bf9f8?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-facebook&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/7064613bf9f8?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-google&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/7064613bf9f8?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;淘宝flexible.js漏洞修补&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-douban&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        " data-original-title="" title="">更多分享</a>
+      </div>
+    </div>
+    <div><div id="comment-list" class="comment-list"><div><form class="new-comment"><a class="avatar"><img src="./淘宝flexible.js漏洞修补 - 简书_files/avatar_default-78d4d1f68984cd6d4379508dd94b4210.png"></a> <div class="sign-container"><a href="http://www.jianshu.com/sign_in" class="btn btn-sign">登录</a> <span>后发表评论</span></div></form></div> <div id="normal-comment-list" class="normal-comment-list"><div><div><div class="top"><span>18条评论</span> <a class="author-only">只看作者</a> <a class="close-btn" style="display: none;">关闭评论</a> <div class="pull-right"><a class="active">按喜欢排序</a><a class="">按时间正序</a><a class="">按时间倒序</a></div></div></div> <!----> <!----> <div class="comments-placeholder" style="display: none;"><div class="author"><div class="avatar"></div> <div class="info"><div class="name"></div> <div class="meta"></div></div></div> <div class="text"></div> <div class="text animation-delay"></div> <div class="tool-group"><i class="iconfont ic-zan-active"></i><div class="zan"></div> <i class="iconfont ic-list-comments"></i><div class="zan"></div></div></div> <div id="comment-12824546" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/f156f13c01da" target="_blank" class="avatar"><img src="./淘宝flexible.js漏洞修补 - 简书_files/3ecd9448a17f"></a> <div class="info"><a href="http://www.jianshu.com/u/f156f13c01da" target="_blank" class="name">1__1__1</a> <!----> <div class="meta"><span>6楼 · 2017.07.14 09:45</span></div></div></div> <div class="comment-wrap"><p><a href="https://github.com/hbxeagle/rem" rel="nofollow" target="_blank">https://github.com/hbxeagle/rem</a> 这篇文章有很好的讲解</p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>1人赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-12827011" class="sub-comment"><p><a href="http://www.jianshu.com/u/b49c2ef5fb4e" target="_blank">陈建芳</a>：
+          <span>你发的文章是讲在html设置百分比字体，由于系统默认字体不一定是16px而出现的问题。我的html的字体是用屏幕宽度除10得到的html字体出现问题，和系统默认字体没有任何关系。</span></p> <div class="sub-tool-group"><span>2017.07.14 10:51</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-12827541" class="sub-comment"><p><a href="http://www.jianshu.com/u/b49c2ef5fb4e" target="_blank">陈建芳</a>：
+          <span>抱歉，试了下，确实和系统默认有关，我在研读下你的文章</span></p> <div class="sub-tool-group"><span>2017.07.14 11:06</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-12838409" class="sub-comment"><p><a href="http://www.jianshu.com/u/f156f13c01da" target="_blank">1__1__1</a>：
+          <span><a href="http://www.jianshu.com/users/b49c2ef5fb4e" class="maleskine-author" target="_blank" data-user-slug="b49c2ef5fb4e">@陈建芳</a> 这个不是我的文章，我只是遇到了这个问题，然后看了这个文章解决了</span></p> <div class="sub-tool-group"><span>2017.07.14 16:51</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <span class="line-warp">
+          还有1条评论，
+          <a>展开查看</a></span> <!----> <!----></div> <!----></div></div><div id="comment-12805981" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/904fcf40160f" target="_blank" class="avatar"><img src="./淘宝flexible.js漏洞修补 - 简书_files/29ce54b99f78"></a> <div class="info"><a href="http://www.jianshu.com/u/904fcf40160f" target="_blank" class="name">zlxbuzz</a> <!----> <div class="meta"><span>2楼 · 2017.07.13 19:05</span></div></div></div> <div class="comment-wrap"><p>huawei机型问题比较多，之前直接按照比例算出来` html.setAttribute('style', 'font-size:'+lastfont+'px!important');`</p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-12806707" class="sub-comment"><p><a href="http://www.jianshu.com/u/b49c2ef5fb4e" target="_blank">陈建芳</a>：
+          <span>你这个比例只要是去取html最终的fontSize就行</span></p> <div class="sub-tool-group"><span>2017.07.13 19:25</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-12828120" class="sub-comment"><p><a href="http://www.jianshu.com/u/b49c2ef5fb4e" target="_blank">陈建芳</a>：
+          <span>推荐看这篇文章，是系统默认字体原因 <a href="https://github.com/hbxeagle/rem" rel="nofollow" target="_blank">https://github.com/hbxeagle/rem</a></span></p> <div class="sub-tool-group"><span>2017.07.14 11:22</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-12819723" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/5cdb6491e4ba" target="_blank" class="avatar"><img src="./淘宝flexible.js漏洞修补 - 简书_files/c2a64fc99517"></a> <div class="info"><a href="http://www.jianshu.com/u/5cdb6491e4ba" target="_blank" class="name">三脚猫切图崽</a> <!----> <div class="meta"><span>3楼 · 2017.07.14 07:19</span></div></div></div> <div class="comment-wrap"><p>老哥,我有点不明白,既然fontSize和finalFontSize与1rem都不一样,但是finalFontSize更接近1rem,那么为什么解决方式变成了fontSize = fontSize + (fontSize-finalFontSize) 岂不是fontSize要比原先的小 与1rem差的更多了</p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-12826115" class="sub-comment"><p><a href="http://www.jianshu.com/u/b49c2ef5fb4e" target="_blank">陈建芳</a>：
+          <span><a href="http://www.jianshu.com/users/5cdb6491e4ba" class="maleskine-author" target="_blank" data-user-slug="5cdb6491e4ba">@三脚猫切图崽</a> 小米max fontSize比fineFontSize小6px，所以把fontSize减少6px，fineFontSize也大约减少6px，最后10rem就很接近屏幕宽度了</span></p> <div class="sub-tool-group"><span>2017.07.14 10:25</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-12828126" class="sub-comment"><p><a href="http://www.jianshu.com/u/b49c2ef5fb4e" target="_blank">陈建芳</a>：
+          <span>推荐看这篇文章，是系统默认字体原因 <a href="https://github.com/hbxeagle/rem" rel="nofollow" target="_blank">https://github.com/hbxeagle/rem</a></span></p> <div class="sub-tool-group"><span>2017.07.14 11:23</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-12849620" class="sub-comment"><p><a href="http://www.jianshu.com/u/5cdb6491e4ba" target="_blank">三脚猫切图崽</a>：
+          <span><a href="http://www.jianshu.com/users/b49c2ef5fb4e" class="maleskine-author" target="_blank" data-user-slug="b49c2ef5fb4e">@陈建芳</a> 谢谢 今天粗略的看了一遍 明天在细读 算是无意中补上了一块漏洞 因为做移动端开发 我从来没碰到过这些怪事(自己水平不专业 公司也没有完备的移动测试机制)<img src="./淘宝flexible.js漏洞修补 - 简书_files/joy.png" alt=":joy:" title=":joy:" class="emoji" width="20" height="20"> </span></p> <div class="sub-tool-group"><span>2017.07.14 22:24</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-12823929" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/25d2e2ffa995" target="_blank" class="avatar"><img src="./淘宝flexible.js漏洞修补 - 简书_files/a7be0573bfba"></a> <div class="info"><a href="http://www.jianshu.com/u/25d2e2ffa995" target="_blank" class="name">fantasy525</a> <!----> <div class="meta"><span>4楼 · 2017.07.14 09:29</span></div></div></div> <div class="comment-wrap"><p>老哥，小白有点不理解那里 fontSize+(fontSize-finalFontSize) 这是干嘛的？为什么 要这么写呢</p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-12826218" class="sub-comment"><p><a href="http://www.jianshu.com/u/b49c2ef5fb4e" target="_blank">陈建芳</a>：
+          <span><a href="http://www.jianshu.com/users/25d2e2ffa995" class="maleskine-author" target="_blank" data-user-slug="25d2e2ffa995">@fantasy525</a> 小米max fontSize比fineFontSize小6px，所以把fontSize减少6px，fineFontSize也大约减少6px，最后10rem就很接近屏幕宽度了</span></p> <div class="sub-tool-group"><span>2017.07.14 10:28</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-12828132" class="sub-comment"><p><a href="http://www.jianshu.com/u/b49c2ef5fb4e" target="_blank">陈建芳</a>：
+          <span>推荐看这篇文章，是系统默认字体原因 <a href="https://github.com/hbxeagle/rem" rel="nofollow" target="_blank">https://github.com/hbxeagle/rem</a></span></p> <div class="sub-tool-group"><span>2017.07.14 11:23</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div><div id="comment-12824250" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/21dddd63c3d9" target="_blank" class="avatar"><img src="./淘宝flexible.js漏洞修补 - 简书_files/ff31a05d58dd.png"></a> <div class="info"><a href="http://www.jianshu.com/u/21dddd63c3d9" target="_blank" class="name">tansj526</a> <!----> <div class="meta"><span>5楼 · 2017.07.14 09:39</span></div></div></div> <div class="comment-wrap"><p>大哥，我觉得出现这种情况，应该是设置font-size的时机问题，一般手机不用在window.onload之后设置有效，像你说的这两种手机要等window.onload之后设置才有效，所以你的代码不应该这么写，应该写成这样：<br>/*<br>* 适用于获取屏幕宽度等分设置html的font-size情况，比如 flexible.js库<br>*/<br>//计算最终html font-size<br>function modifileRootRem () {<br>    var root = window.document.documentElement;<br>    var fontSize = parseFloat(root.style.fontSize);<br>    var finalFontSize = parseFloat(window.getComputedStyle(root).getPropertyValue("font-size"));<br>    if(finalFontSize === fontSize) return;<br>    root.style.fontSize = fontSize + "px";<br>}<br>if(typeof window.onload === 'function'){<br>    var oldFun = window.onload;<br>    window.onload = function(){<br>        oldFun();<br>        modifileRootRem();<br>    }<br>}else{<br>    window.onload = modifileRootRem;<br>}</p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list"><div id="comment-12825663" class="sub-comment"><p><a href="http://www.jianshu.com/u/b49c2ef5fb4e" target="_blank">陈建芳</a>：
+          <span><a href="http://www.jianshu.com/users/21dddd63c3d9" class="maleskine-author" target="_blank" data-user-slug="21dddd63c3d9">@tansj526</a> 是的，这些代码应该放在flexible库里面</span></p> <div class="sub-tool-group"><span>2017.07.14 10:13</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div><div id="comment-12828135" class="sub-comment"><p><a href="http://www.jianshu.com/u/b49c2ef5fb4e" target="_blank">陈建芳</a>：
+          <span>推荐看这篇文章，是系统默认字体原因 <a href="https://github.com/hbxeagle/rem" rel="nofollow" target="_blank">https://github.com/hbxeagle/rem</a></span></p> <div class="sub-tool-group"><span>2017.07.14 11:23</span> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div> <div class="sub-comment more-comment"><a class="add-comment-btn"><i class="iconfont ic-subcomment"></i> <span>添加新评论</span></a> <!----> <!----> <!----></div> <!----></div></div></div></div> <!----> <div><!----></div></div></div>
+  </div>
+
+  <div class="side-tool"><ul><li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部"><a class="function-button"><i class="iconfont ic-backtop"></i></a></li> <!----> <!----> <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="分享文章"><a tabindex="0" role="button" data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="&lt;ul class=&#39;share-list&#39;&gt;
+                &lt;li&gt;&lt;a class=&quot;weixin-share&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-weixin&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到微信&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/14536683/weibo/image_7acb3fb91159.jpg&#39;, &#39;推荐 陈建芳 的文章《淘宝flexible.js漏洞修补》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/7064613bf9f8?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-weibo&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到微博&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;http://cwb.assets.jianshu.io/notes/images/14536683/weibo/image_7acb3fb91159.jpg&quot; target=&quot;_blank&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-picture&quot;&gt;&lt;/i&gt;&lt;span&gt;下载长微博图片&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/7064613bf9f8?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 陈建芳 的文章《淘宝flexible.js漏洞修补》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-zone&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/7064613bf9f8?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 陈建芳 的文章《淘宝flexible.js漏洞修补》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-twitter&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/7064613bf9f8?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-facebook&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/7064613bf9f8?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-google&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/7064613bf9f8?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;淘宝flexible.js漏洞修补&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-douban&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;" data-original-title="" title="" class="function-button"><i class="iconfont ic-share"></i></a> <!----></li></ul></div>
+</div>
+<div class="note-bottom">
+  <div><div class="main"><div class="title">被以下专题收入，发现更多相似内容</div> <!----> <div class="include-collection"><!----> <a href="http://www.jianshu.com/c/f489ec955505?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./淘宝flexible.js漏洞修补 - 简书_files/03bcf61363c33043de4728026e5f5128.jpg"><div class="name">Web前端之路</div></a><a href="http://www.jianshu.com/c/c261fa3879d6?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./淘宝flexible.js漏洞修补 - 简书_files/u_1798560928_4196156950_fm_90_gp_0.jpg"><div class="name">让前端飞</div></a><a href="http://www.jianshu.com/c/38dd7fc9033a?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./淘宝flexible.js漏洞修补 - 简书_files/简化版.jpg"><div class="name">饥人谷技术博客</div></a><a href="http://www.jianshu.com/c/38d96caffb2f?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./淘宝flexible.js漏洞修补 - 简书_files/android.graphics.Bitmap_5be8d38.jpeg"><div class="name">技术干货</div></a> <!----></div></div> <!----> <!----></div>
+  <div class="recommend-note"><div class="meta"><div class="title">更多精彩内容</div> <div class="roll"></div></div> <div class="list"><div class="note"><!----> <a target="_blank" href="http://www.jianshu.com/p/3aaaacd7c5ab?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="title">JavaScript循环中断研究与总结，前端er必背！</a> <p class="description">年前最后一天上班能写博客的都是anglebaby。你可能会看晕，文章最后有总结，拿好不送 一： for   1.break: :)如果不加label标记，break退出当前循环，也就是第二层循环。   2.continue: :)如果不加label标记，continue停止当前循环的执行，继续下一次循环（都是针对第二层）tips:for循环里不能有return！ 二：forEach   1.return false: :)结束本次循环，进入下一次循环  2.return true: :)结束本次循环，进入下一次循环tips:forEach循环里不能有break||continue！ 三：...</p> <a target="_blank" href="http://www.jianshu.com/u/b49c2ef5fb4e?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="author"><div class="avatar" style="background-image: url(&quot;http://upload.jianshu.io/users/upload_avatars/2711211/74df7327-1e12-4ed6-905a-888d89cf766e.jpg&quot;);"></div> <span class="name">陈建芳</span></a></div><div class="note"><a target="_blank" href="http://www.jianshu.com/p/61f75e0f549f?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="cover" style="background-image: url(&quot;//upload-images.jianshu.io/upload_images/2711211-4d898468419bd351.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240&quot;);"></a> <a target="_blank" href="http://www.jianshu.com/p/61f75e0f549f?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="title">JavaScript二叉树深入理解</a> <p class="description">——记录下来以便将来看看现在的自己   看到掘金上@MaevynZhang有篇博文讲关于JS二叉树的，写得有点骨干，处女座表示看不下去了！ 我来自遥远的燕国，为了天下黎民，以正视听。  上面那位作者他直接把一个二叉树的结构数据生成一个二叉树实例 这数据定的太绝了吧+_+这要要前端搬板凳吃瓜的节奏啊。吐槽截止，开始讲二叉树！  二叉树的一个节点Node由data，left，right组成，data保存本节点的值，left指向左节点，right指向右节点。二叉树有一个特殊性:相对本节点较小的值保存在左节点，相对本节点较大的值保存在右节点，该特性能让查值效率提高！ 创建Node实例 看代码应该...</p> <a target="_blank" href="http://www.jianshu.com/u/b49c2ef5fb4e?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="author"><div class="avatar" style="background-image: url(&quot;http://upload.jianshu.io/users/upload_avatars/2711211/74df7327-1e12-4ed6-905a-888d89cf766e.jpg&quot;);"></div> <span class="name">陈建芳</span></a></div><div class="note"><a target="_blank" href="http://www.jianshu.com/p/8ef81a9008a6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="cover" style="background-image: url(&quot;//upload-images.jianshu.io/upload_images/2542851-d52db9d6257eeb7e.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240&quot;);"></a> <a target="_blank" href="http://www.jianshu.com/p/8ef81a9008a6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="title">提前半年，我实现了今年的三个小目标</a> <p class="description">文/怀左同学 01 同学去年借走了我的《偷影子的人》，昨天还我时，她说断断续续，其实一直没看完。 我把书推给她：“送你了，你拿着看吧。”她没接，说现在没有以前读书时的感觉了，心静不下来，读了书，容易忘。 她读的专硕，毕业了，最近收拾东西，马上就要离开学校。她说我这一年过得很精彩，每天做各种事情，非常充实。我笑了：“咱们有很多空闲时间，我只是不太想浪费。” 其实在今年年初时，我给自己定了三个小目标：第一，成为简书签约作者；第二，换一台好用的电脑（自己那台联想用好多年了，打开文档都卡）；第三，去北京看看朋友。 最好实现的就是第三个，貌似分分钟就可以，但人总有惰性，一拖再拖，遥遥无期。 对于前...</p> <a target="_blank" href="http://www.jianshu.com/u/62478ec15b74?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="author"><div class="avatar" style="background-image: url(&quot;http://upload.jianshu.io/users/upload_avatars/2542851/0dca220dd6bb.jpeg&quot;);"></div> <span class="name">怀左同学</span></a></div><div class="note"><a target="_blank" href="http://www.jianshu.com/p/86121a9fa524?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="cover" style="background-image: url(&quot;//upload-images.jianshu.io/upload_images/4968905-ec33c875f263f576.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240&quot;);"></a> <a target="_blank" href="http://www.jianshu.com/p/86121a9fa524?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="title">爱不爱都可以，我怎样都依你</a> <p class="description">﻿01 凡佳打电话给我说要离婚的时候，声音颤抖，像迷失了方向的小鹿。 我知道她的犹豫挣扎多半是因为还不满一岁的糖糖，如若没有女儿，怕是她决定离开任何一个男人，都不会心下迟疑的。 这么多年，兜兜转转，我看着她经历一段又一段感情，以及最后走进的这场婚姻，我清楚知道她会爱一个人的原因和离开一个人的理由。 唯一在她身边没有改变的男人就是我，流水的爱情，铁打的弟弟，我这个身份，真是太好不过的护身符。 凡佳是为爱而生的女子，感性妖娆中却带着直接果敢的帅气，聪明磊落，不善妥协。 像沙漠中带着刺的珍稀玫瑰，这世上百分之九十九的男人，在我眼里都是配不上她的。 我甚至觉得，爱她这件事我做得太久，太习惯，反而...</p> <a target="_blank" href="http://www.jianshu.com/u/6f05d462e90c?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="author"><div class="avatar" style="background-image: url(&quot;http://upload.jianshu.io/users/upload_avatars/4968905/ccf07b27-4d2e-4b5d-840c-4c012555facf.jpg&quot;);"></div> <span class="name">寒烟衰草</span></a></div><div class="note"><a target="_blank" href="http://www.jianshu.com/p/de5bbb49e07b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="cover" style="background-image: url(&quot;//upload-images.jianshu.io/upload_images/6469213-b995b780bf1de45f?imageMogr2/auto-orient/strip|imageView2/1/w/300/h/240&quot;);"></a> <a target="_blank" href="http://www.jianshu.com/p/de5bbb49e07b?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="title">毕业一周年：满地都是六便士，而你只看到了月亮</a> <p class="description">对我们而言，真正的一本好书，是描写出了我们内心深处最想表达和感悟的东西，切实了我们此刻的最真实的心境。它与别人的看法无关，与书的成书时间无关，只与书中的思想内涵有关。 文/余大满 1 毕业一周年了，看到朋友圈发的各种毕业感悟，再加上各种自拍，我觉得在这个时间节点上，不发表点感悟的确对不住刚刚过去的这一年。无奈本人才疏学浅，无法将真挚的感情，凝炼成一百多字的朋友圈；再加上本人惨目忍睹的颜值，实在不想污染朋友圈清新自然的空气，索性就写一篇长文，多说点废话。 这一年多来，我写得最多的就是读后感，恰好在这一周年的日子里，我看到了这样一本书——《月亮和六便士》。可以说，没有这本书的阅读就没有这篇文...</p> <a target="_blank" href="http://www.jianshu.com/u/f59b5844b50b?utm_campaign=maleskine&amp;utm_content=user&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation" class="author"><div class="avatar" style="background-image: url(&quot;http://upload.jianshu.io/users/upload_avatars/6469213/634f2b98-3acf-4504-9ebf-3ddb842b6966&quot;);"></div> <span class="name">大满书坊</span></a></div></div></div>
+</div>
+
+    <script src="./淘宝flexible.js漏洞修补 - 简书_files/push.js.下载"></script><script src="./淘宝flexible.js漏洞修补 - 简书_files/hm.js.下载"></script><script async="" src="./淘宝flexible.js漏洞修补 - 简书_files/analytics.js.下载"></script><script type="application/json" data-name="page-data">{"user_signed_in":false,"locale":"zh-CN","os":"windows","read_mode":"day","read_font":"font2","note_show":{"is_author":false,"is_following_author":false,"is_liked_note":false,"uuid":"9b4fd198-3bc5-487d-bf88-6506be763dde"},"note":{"id":14536683,"slug":"7064613bf9f8","user_id":2711211,"notebook_id":8341290,"commentable":true,"likes_count":9,"views_count":1023,"public_wordage":714,"comments_count":18,"total_rewards_count":0,"is_author":false,"author":{"nickname":"陈建芳","total_wordage":9486,"followers_count":20,"total_likes_count":33}}}</script>
+    
+    <script src="./淘宝flexible.js漏洞修补 - 简书_files/babel-polyfill-5f36c1dccde274f8be40.js.下载"></script>
+    <script src="./淘宝flexible.js漏洞修补 - 简书_files/web-base-83b2537f95ca4d525d27.js.下载"></script>
+<script src="./淘宝flexible.js漏洞修补 - 简书_files/web-06a0fd58afcfc4c62c20.js.下载"></script>
+    
+    <script src="./淘宝flexible.js漏洞修补 - 简书_files/entry-33fcfce1fea7f6878c38.js.下载"></script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-35169517-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+<script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+  
+
+<!----><!----></body></html>

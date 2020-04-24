@@ -1,0 +1,59 @@
+	/*首页样式*/
+	#main-ul {
+		height: auto;
+		background: #fff;
+		overflow: hidden;
+		padding-top: 0.2rem;
+		padding-bottom: 0.2rem;
+	}
+	
+	#main-ul li {
+		float: left;
+		width: 25%;
+		box-sizing: border-box;
+		background-color: #fff;
+		text-align: center;
+		height: 2.3rem;
+		position: relative;
+	}
+	#main-ul li:active {
+		float: left;
+		width: 25%;
+		box-sizing: border-box;
+		background-color: #EEEEEE;
+		text-align: center;
+		height: 2.3rem;
+		position: relative;
+	}
+	
+	#zhuanti-ul li:active{
+		background-color: #EEEEEE;
+	}
+	
+	
+	#main-ul li img {
+		width: 1.2rem;
+		height: 1.2rem;
+	}
+	
+	#main-ul li span {
+		background: url(../img/tip.png) no-repeat;
+		background-size: contain;
+		width: 0.62rem;
+		height: 0.62rem;
+		display: inline-block;
+		border-radius: 50%;
+		color: white;
+		font-size: 0.25rem;
+		top: 0.5rem;
+		left: 1.3rem;
+		position: absolute;
+		text-align: center;
+		line-height: 0.62rem;
+	}
+	
+	#main-ul li div {
+		color: black;
+		font-size: 0.37rem;
+		margin-top: 0.1rem;
+	}

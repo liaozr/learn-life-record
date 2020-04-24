@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+一，$.get(url,[data],[callback])
+
+说明：url为请求地址，data为请求数据的列表，
+
+callback为请求成功后的回调函数，该函数接受两个参数，第一个为服务器返回的数据，
+
+第二个参数为服务器的状态，是可选参数。
+
+而其中，服务器返回数据的格式其实是字符串形势，并不是我们想要的json数据格式，在此引用只是为了对比说明
+复制代码 代码如下:
+
+<script>
+    $.get("data.php", $("#firstName.val()"), function(data) {
+            $("#getResponse").html(data);
+        } //返回的data是字符串类型
+    );
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+更底层的ajax()函数
+
+虽然get()和post()函数非常简洁易用，但是对于更复杂的一些设计需求还是无法实现，
+
+比如在ajax发送的不同时段做出不同的动作等。
+
+jQuery提供一个更为具体的函数：ajax()。
+
+你可以指定xml、script、html、json作为其数据类型
+
+可以为beforeSend、error、sucess、complete等状态设置 处理函数，
+
+众多其它参数也可以订完完全全定义用户的Ajax体验。
+
+下面的例子中，我们用ajax()来调用一个XML文档：
+
+代码如下:
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+<script>
+    $.ajax({
+        url: 'doc.xml',
+        type: 'GET',
+        dataType: 'xml',
+        timeout: 1000,
+        error: function() {
+            alert('Error loading XML document');
+        },
+        success: function(xml) {
+            alert(xml);
+            //此处xml就是XML的jQuery对象了，你可以用find()、next()或XPath等方法在里面寻找节点，
+            // 和用jQuery操作HTML对象没有区别
+        }
+    });
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+<script>
+    $.ajax({
+        type: 'GET',
+        url: './js/more.json',
+        dataType: 'json',
+        success: function(data) {
+            // 为了测试，延迟1秒加载
+            setTimeout(function() {
+                $('.m-news').append(result);
+                // 每次数据加载完，必须重置
+                me.resetload();
+            }, 1000);
+        },
+        error: function(xhr, type) {
+            alert('Ajax error!');
+            // 即使加载出错，也得重置
+            me.resetload();
+        }
+    });
+</script>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

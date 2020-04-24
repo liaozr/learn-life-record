@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- 每一个盒子有四条边界： -->
+
+外边距边界margin, 
+
+边框边界border, 
+
+内边距边界padding
+
+内容边界content。
+ 
+在W3C模型中: 
+总宽度 = margin-left + border-left + padding-left + width + padding-right + border-right + margin-right
+
+内容的宽度width= width
+
+在IE模型中:
+总宽度 = margin-left + width + margin-right
+内容的宽度width= border-left + padding-left + padding-right + border-right + width
+
+
+在CSS3中引入了box-sizing属性, 它可以允许改变默认的CSS盒模型对元素宽高的计算方式.
+
+共包括两个选项：
+content-box：标准盒模型，CSS定义的宽高只包含content的宽高
+border-box：IE盒模型，CSS定义的宽高包括了content，padding和border
+
+<!-- ------------------------------------------------------------------------------- -->
+
+<!-- 定位机制 -->
+
+css有三种基本定位机制: 
+
+标准文档流(Normal flow), 
+浮动(Floats)
+绝对定位(Absolute positioning)。
+
+标准文档流:
+从左到右，从上向下，输出文档内容
+由块级元素(从左到右撑满页面，独占一行，触碰到页面边缘时自动换行的元素, 如div, ul, li, dl, dt, p)和行级元素组成(能在同一行内显示并且不会改变HTML文档结构，如span, input)
+
+浮动:
+设置为浮动的元素将会往左(float:left)或者往右(float:right)漂移, 直到遇到阻挡 - 其他浮动元素或者父元素的边框。浮动元素不在标准文档流中占据空间,但会对其后的浮动元素造成影响。
+
+绝对定位:
+设置为绝对定位的元素(posistion:absolute)将从标准文档流中删除，其所占据的标准流空间也不存在。然后通过top,left,right,bottom属性对其相对父元素进行定位。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+<!-- 网页布局 -->
+
+浮动布局
+当设置float:left或者float:right时, 元素会左移或右移直到触碰到容器位置，仍然处于标准文档流中。当元素没有设置宽度值，而设置了浮动属性，元素的宽度随内容的变化而变化。当元素设置为浮动属性后，会对紧邻之后的元素造成影响，紧邻之后的元素会紧挨着该元素显示。
+
+当父元素包含块缩成一条时，用clear:both方法无效，它一般用于紧邻后面的元素的清除浮动，要用overflow属性。清除浮动的方法有两种:使用clear属性 - clear: both; 同时设置width:100%(或固定宽度) + overflow:hidden。
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+绝对定位布局
+position：static, relative, absolute, fixed
+
+static是默认值
+
+
+相对定位relative
+相对于自身原有位置进行偏移
+仍处于标准文档流中
+随即拥有偏移属性和z-index属性
+
+
+固定定位fixed
+一个固定定位（position属性的值为fixed）元素会相对于视窗来定位,这意味着即便页面滚动，它还是会停留在相同的位置。一个固定定位元素不会保留它原本在页面应有的空隙。
+
+
+绝对定位absolute
+相对于最近的已定位的祖先元素, 有已定位(指position不是static的元素)祖先元素, 以最近的祖先元素为参考标准。如果无已定位祖先元素, 以body元素为偏移参照基准, 并且它会随着页面滚动而移动。
+完全脱离了标准文档流。
+随即拥有偏移属性和z-index属性。
+实现横向两列布局
+常用于一列固定宽度，另一列宽度自适应的情况
+ 
+
+</body>
+</html>

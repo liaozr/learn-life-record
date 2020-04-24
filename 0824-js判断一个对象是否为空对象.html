@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+        var aa = {}
+        var bb = {
+            a: 1,
+            b: 2
+        }
+
+        console.log( JSON.stringify( aa ) == "{}" )
+        console.log( JSON.stringify( bb ) == "{}" )
+
+        // 打印出的数据结果为：
+        // true
+        // false
+
+    </script>
+
+    所以，从而判断  aa 对象 是为空对象
+
+    而 bb对象 则不是空对象
+    
+</body>
+
+</html>

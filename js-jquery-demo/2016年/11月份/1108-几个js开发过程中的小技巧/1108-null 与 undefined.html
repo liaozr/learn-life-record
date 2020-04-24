@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+null == undefined,null == null 返回true,
+
+有时候我们为了排除null 和 undefined可以使用如下的代码
+
+<script>
+    function test(obj) {
+        if (obj != null) {
+           // obj除了undefined 和 null 之外都会走这里
+           ....这里写代码逻辑
+        }
+    }
+</script>
+
+</body>
+</html>

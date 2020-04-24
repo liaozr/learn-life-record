@@ -1,0 +1,72 @@
+//注册表单样式
+.layout-center{
+    margin-top:48px;
+    width: 100%;
+    height: auto;
+    background-color:white;
+    
+    p{
+        padding: 10px;
+        display: flex;
+    }
+    
+    input{
+            height: 32px;
+            min-width: 10px;
+            border: 1px solid #d5d5d5;
+            transition: all 0.3s;
+            padding-left:3px;
+    }
+    input:focus{ 
+        border:1px solid #1ab394;
+        box-shadow: 0 0 3px #1ab394;
+    }
+    
+    
+    //手机号码
+    .phoneNum{
+        input:first-child{
+            flex: 1;
+        }
+        input:last-child{
+            flex: 3;
+            cursor: not-allowed;
+        }
+    }
+    //短信验证码
+    .megInfo{
+        input:first-child{
+            flex: 3;
+        }
+        input:last-child{
+            flex: 2;
+            background: #8e488e;
+            color: white;
+            height: 34px;
+            border: 0;
+        }
+    }
+    //输入密码
+    .inputPsd{
+        input{
+            flex: 1;
+        }
+    }
+    //确认密码
+    .checkPsd{
+        input{
+            flex: 1;
+        }
+    }
+    
+    //提交按钮
+    #sub{
+        flex: 1;
+        background: #8e488e;
+        color: white;
+        border-radius:5px;
+    }
+    #sub:focus{
+        border:none;
+    }
+}

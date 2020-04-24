@@ -1,0 +1,26 @@
+{
+  "html/mediaUtil/demo_mediaUtil.html": {
+    "resources": [
+      "js/mui.min.js",
+      "js/zepto.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "html/mediaUtil/demo_videoPlaySimple.html"
+    ]
+  },
+  "html/mediaUtil/demo_videoPlaySimple.html": {
+    "resources": [
+      "css/demo_videoPlaySimple.css",
+      "img/img_clickToPlay.png",
+      "js/demo_videoPlaySimple.js",
+      "fonts/mui.ttf",
+      "video/Wildlife.mp4",
+      "js/mui.min.js",
+      "js/zepto.min.js",
+      "video/aa.mp4",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  }
+}

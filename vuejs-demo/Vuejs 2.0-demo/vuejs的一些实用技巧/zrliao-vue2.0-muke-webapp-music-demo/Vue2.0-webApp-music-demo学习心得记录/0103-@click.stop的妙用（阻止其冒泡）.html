@@ -1,0 +1,17 @@
+<template>
+
+ <transition name="slide">
+
+   <!-- 阻止其冒泡 -->
+   <div class="add-song" v-show="showFlag" @click.stop>
+     <div class="header">
+         <h1 class="title">添加歌曲到列表</h1>
+         <div class="close" @click='hide'>
+           <i class="icon-close"></i>
+         </div>
+     </div>
+   </div>
+
+ </transition>
+
+</template>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+函数作用域
+
+JavaScript中所有的作用域在创建的时候都只伴随着函数作用域,
+
+循环语句像for或者while,条件语句像if或者switch都不能够产生新的作用域.
+
+新的函数 = 新的作用域这就是规则.
+
+下面一个简单的例子用来解释作用域的创建:
+
+<script>
+    // Scope A
+    var myFunction = function () {
+      // Scope B
+      var myOtherFunction = function () {
+        // Scope C
+      };
+    };
+</script>
+
+所以说很容易创建新的作用域和局部的变量/函数/对象.
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        (function() {
+            var a = b = 5;
+        })();
+
+        console.log(b);
+    </script>
+
+    在立即执行函数表达式（IIFE）中，有两个命名，但是其中变量是通过关键词var来声明的。
+
+    这就意味着a是这个函数的本地变量。
+
+    与此相反，b是属于这个函数的全局变量的。
+
+    这个问题另一个陷阱就是，在函数中他没有使用“严格模式” ('use strict';)。
+
+    如果 严格模式开启，那么代码就会报出未捕获引用错误（Uncaught ReferenceError）：
+
+    b没有定义。记住严格模式要求，如果这个是预期的行为，你需要明确地引用全局变量
+
+<!-- ----------------------------------------------------------------------- -->
+
+    问题3: 提升变量（Hoisting）
+
+   执行以下代码会有什么结果？为什么会这样？
+
+  <script>
+        function test() {
+            console.log(a);
+            console.log(foo());
+
+            var a = 1;
+
+            function foo() {
+                return 2;
+            }
+        }
+
+        test();
+  </script>
+
+答案
+
+这段代码的执行结果是undefined 和 2。
+
+这个结果的原因是，变量和函数都被提升了（hoisted）。因此，那个时候a被打印了，它存在函数之中（也就是声明了），但是依然是 undefined。
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+问题4: this在javascript中是如何工作的
+
+以下代码的结果是什么？请解释你的答案。
+
+<script>
+    var fullname = 'John Doe';
+    var obj = {
+        fullname: 'Colin Ihrig',
+        prop: {
+            fullname: 'Aurelio De Rosa',
+            getFullname: function() {
+                return this.fullname;
+            }
+        }
+    };
+
+    console.log(obj.prop.getFullname());
+
+    var test = obj.prop.getFullname;
+
+    console.log(test());
+</script>
+
+答案
+
+代码打印了Aurelio De Rosa和John Doe。
+
+原因是在javascript中，一个函数的语境，也就是this这个关键词引用的，依赖于函数是如何调用的，不是如何定义的。
+
+在第一个console.log()调用中， getFullname()是作为obj.prop的函数被调用的。
+
+因此，这里的语境指向后者并且函数返回对象的 fullname属性。
+
+相反，当 getFullname() 被指定为test的变量，那个语境指向全局对象(window)。
+
+因为test相当于设置为全局对象的属性。因为这个原因，函数返回window的一个fullname属性，
+
+这在这个案例中是在代码片段中第一行设置的。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+
+</body>
+
+</html>

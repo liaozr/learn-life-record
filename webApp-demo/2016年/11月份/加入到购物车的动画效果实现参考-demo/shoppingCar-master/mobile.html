@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta charset="utf-8">
+	<meta name="Keywords" content="购物车,qq806350554,806350554@qq.com"/>
+	<meta name="description" content="添加购物车页面。"/>
+	<meta name="viewport"  content="width=device-width,user-scalable=no">
+	<title>购物车 </title>
+	<link rel="stylesheet" href="style/base.css" />
+	<link rel="stylesheet" type="text/css" href="style/banner.css"/>
+</head>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="js/TouchSlide.1.1.js"></script>
+<!--添加购物车开始-->
+<script type="text/javascript" src="js/jquery.fly.min.js"></script>
+<script>
+$(function() {
+	var offset = $("#end").offset();
+	$(".add_car").click(function(event){
+		var addcar = $(this);
+		var x=$(this).offset().left;
+		var y=$(this).offset().top-$(window).scrollTop();
+		var randx=Math.floor(Math.random()*70);
+		var randy=40-Math.abs(Math.floor(randx)-40);
+		var randyy=Math.floor((Math.random()*randy));
+		var img = addcar.parent().parent().parent().children("a").find('img').attr('src');
+		var flyer = $('<img class="u-flyer" src="'+img+'">');
+		flyer.fly({
+			start: {
+				left: x,
+				top: y
+			},
+			end: {
+				left: offset.left+randx+10,
+				top: offset.top-(randyy)-10,
+				width: 20,
+				height: 20
+			},
+			onEnd: function(){
+				var money= addcar.parent().children(".list_p").text().split('￥')[2];
+				var old_money=$(".pay_money b").text();
+				$(".pay_money b").text((old_money*1+money*1).toFixed(2));
+//				this.destory();
+			}
+		});
+	});
+});
+</script>
+<!--添加购物车结束-->
+<body>
+	<section class="home">
+	<header></header>
+	<section>
+		<!--轮播图开始-->
+	<div id="content">
+			<div id="banner" class="banner">
+				<div class="bd">
+					<ul>
+							
+							<li>
+								<a class="pic" href="#"><img src="http://static.xiangsong.cn/upload/banner/fr_1609282337419746719.jpg"/></a>
+							</li>
+							<li>
+								<a class="pic" href="#"><img src="http://static.xiangsong.cn/upload/banner/fr_1609241827448366172.jpg"/></a>
+							</li>
+						
+					</ul>
+				</div>
+
+				<div class="hd">
+					<ul></ul>
+				</div>
+			</div>
+			<script type="text/javascript" src="js/banner.js"></script>
+	
+	</div>
+	<!--轮播图结束-->
+	<!--导航栏开始-->
+	<nav>
+		<ul class="box">
+			<li t2="pt0">
+				<i class="iconfont icon icon_on">&#xe60c;</i>
+				<p>面包</p>
+			</li>
+			<li  t2="pt1">
+				<i class="iconfont icon">&#xe60b;</i>
+				<p>西点</p>
+			</li  >
+			<li t2="pt2">
+				<i class="iconfont icon ">&#xe60f;</i>
+				<p>饮食</p>
+			</li>
+			<li  t2="pt5">
+				<i class="iconfont icon">&#xe611;</i>
+				<p>团购</p>
+			</li>
+		</ul>
+	</nav>
+	<script type="text/javascript">
+ addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); 
+      function hideURLbar(){ window.scrollTo(0,1); } 
+	
+	
+		var y=$("nav").offset().top;
+			$(window).scroll(function(){
+			var winScroll=$(this).scrollTop();
+			if(winScroll>=y){
+				$("nav").css("position","fixed");
+				$(".sp_list").css("margin-top",$("nav").height());
+			}else{
+				$("nav").css("position","relative");
+				$(".sp_list").css("margin-top","0rem");
+			}
+			})
+
+//切换导航开始
+function navclick(){
+	var t2=$(this).attr("t2");
+	$(".sp_list li").css("display","none")
+	$('.sp_list li[t2="'+t2+'"]').css("display","block")
+	
+	$("nav li i").removeClass("icon_on");
+	$(this).children("i").addClass("icon_on");
+	
+}
+$("nav li").bind("click",navclick);
+//切换导航结束
+		
+	</script>
+	<!--导航栏结束-->
+	<!--产品开始-->
+<ul id="xs_product" class="sp_list"> 
+	<li t2="pt1" style="display: none;">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/280.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1609241754211979453.jpg" alt="奶妈卡（充值500元送1个月三元低温鲜奶）">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>奶妈卡（充值500元送1个月三元低温鲜奶）</h2>
+<p>充值500元送1个月三元低温鲜奶</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥600.00</span><em>￥</em>500.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt1" style="display: none;">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/233.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1609191043131022422.jpg" alt="百元储值卡(再赠10元)">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>百元储值卡(再赠10元)</h2>
+<p>充100元赠10元</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥110.00</span><em>￥</em>100.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt1" style="display: none;">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/285.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1609281146480899063.jpg" alt="200元储值卡">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>200元储值卡</h2>
+<p>试吃活动专用，现场有惊喜</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥300.00</span><em>￥</em>200.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt1" style="display: none;">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/284.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1609281150003399063.jpg" alt="500元储值卡">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>500元储值卡</h2>
+<p>试吃活动专用 活动现场有惊喜</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥698.00</span><em>￥</em>500.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt1" style="display: none;">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/228.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1607122049547021394.jpg" alt="免邮卡(月)">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>免邮卡(月)</h2>
+<p>超值免邮31天</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥36.00</span><em>￥</em>19.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+
+<li t2="pt2">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/269.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1609071407172830157.jpg" alt="台式奶酥包(2只)">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>台式奶酥包(2只)</h2>
+<p>奶酥比奶黄更好吃</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥14.00</span><em>￥</em>9.90
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+
+</div>
+</div>
+</li>
+<li t2="pt2">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/64.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1608251112077561094.jpg" alt="优格Lady">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>优格Lady</h2>
+<p>酸奶和红豆，少一样我都不买它</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥26.00</span><em>￥</em>13.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+
+<li t2="pt2">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/94.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1608251040043996641.jpg" alt="红茶奶酥">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>红茶奶酥</h2>
+<p>想知道软欧到底是什么，有它一个就够了</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥28.00</span><em>￥</em>13.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt0">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/206.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1608251138200188047.jpg" alt="火腿可颂">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>火腿可颂</h2>
+<p>就着火腿整个可颂都没了</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥22.00</span><em>￥</em>14.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt0">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/270.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1609071419378171954.jpg" alt="台式红豆包(2只)">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>台式红豆包(2只)</h2>
+<p>和铜锣烧一样美味的红豆馅</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥14.00</span><em>￥</em>9.90
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt0">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/163.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1608251036367590391.jpg" alt="起司火腿堡">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>起司火腿堡</h2>
+<p>香送的老朋友们每次都会买它</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥34.00</span><em>￥</em>23.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt0">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/71.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1608251037039777891.jpg" alt="Baby黄">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>Baby黄</h2>
+<p>70%的人表示这是他们吃过的最好吃的吐司</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥20.00</span><em>￥</em>9.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt0">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/256.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1608311122559073672.jpg" alt="牛奶吐司">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>牛奶吐司</h2>
+<p>含48%的纯牛奶，不添加1滴水揉制的牛奶吐司</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥20.00</span><em>￥</em>9.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt0">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/271.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1609121626431222969.jpg" alt="台式香芋包(2只)">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>台式香芋包(2只)</h2>
+<p>一抹甘甜的马卡龙紫</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥14.00</span><em>￥</em>9.90
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt0">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/136.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1608251041513215391.jpg" alt="枫糖大理石">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>枫糖大理石</h2>
+<p>真正懂吃的人偏爱枫糖更胜蜂蜜</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<em>￥</em>8.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt0">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/267.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1609051556524295000.jpg" alt="台式菠萝包(2只)">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>台式菠萝包(2只)</h2>
+<p>刷新菠萝包的美味值</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥12.00</span><em>￥</em>9.90
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt0">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/262.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1608291757227198672.jpg" alt="杂粮奶酥">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>杂粮奶酥</h2>
+<p>杂粮颗粒多得数也数不清</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥22.00</span><em>￥</em>15.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt0">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/263.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1609271512360235000.jpg" alt="全麦薯薯">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>全麦薯薯</h2>
+<p>粗粮摄入不足的最佳解决方案</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥19.00</span><em>￥</em>14.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt0">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/223.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1608251032178059141.jpg" alt="元气早餐(单天)">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>元气早餐(单天)</h2>
+<p>蛋白质+维生素+碳水化合物</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥22.00</span><em>￥</em>13.90
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt5" style="display: none;">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/211.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1608251033112590391.jpg" alt="青柠芝士挞">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>青柠芝士挞</h2>
+<p>冰淇淋，乳酪，饼干——它有三种吃法</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥168.00</span><em>￥</em>98.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt5" style="display: none;">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/177.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1608251033442746641.jpg" alt="轻乳酪蛋糕">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>轻乳酪蛋糕</h2>
+<p>抿到了一朵超好吃的云</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥59.00</span><em>￥</em>39.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt2" style="display: none;">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/221.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1607261035083667031.jpg" alt="三元优选鲜牛乳">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>三元优选鲜牛乳</h2>
+<p>无添加低温鲜奶，请在5日内饮用</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥13.00</span><em>￥</em>9.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt1" style="display: none;">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/243.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1607270014393354531.jpg" alt="二百元储值卡(送轻乳酪)">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>二百元储值卡(送轻乳酪)</h2>
+<p>充值200元，送轻乳酪蛋糕兑换券一张</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥239.00</span><em>￥</em>200.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt5" style="display: none;">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/231.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1607112250568466172.jpg" alt="WOW布丁杯(单只)">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>WOW布丁杯(单只)</h2>
+<p>一口吃到解脱</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥15.00</span><em>￥</em>9.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt0">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/248.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1608311124451886172.jpg" alt="冰淇淋毛毛虫">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>冰淇淋毛毛虫</h2>
+<p>香蕉味，和牛奶更配哦</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥16.00</span><em>￥</em>10.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+<li t2="pt5" style="display: none;">
+<a xs_ga_id="indexgoproduct" class="" href="/mob/247.html">
+<div>
+<img src="http://static.xiangsong.cn/upload/product/show/thumb350_350/ps_1608251045354621641.jpg" alt="白夜冰拿铁布丁">
+</div>
+</a>
+<div class="box list_box">
+<div class="flex list_left">
+<a>
+<h2>白夜冰拿铁布丁</h2>
+<p>可以含着吃的拿铁咖啡</p>
+
+</a>
+</div>
+<div class="flex list_right">
+<p class="list_p">
+<span>￥19.00</span><em>￥</em>14.00
+</p>
+<span class="add_car ">
+	<i class="iconfont  jia">&#xe60e;</i>
+</span>
+</div>
+</div>
+</li>
+</ul>
+	<!--产品结束-->
+</section>
+<div class="footer">
+	<button class='pay'>去结算</button>
+	<span class="pay_money"><em>￥</em><b>0</b></span>
+</div>
+	<div id="end" > 
+		<i class="iconfont  ">&#xe60a;</i>
+	</div>
+</section>
+<footer>
+</footer>
+</body>
+</html>

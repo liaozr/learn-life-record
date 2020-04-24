@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  一、单例模式
+
+  首先看一个问题，我们要在程序中描述两个人，这两个人都有姓名和年龄，可能刚刚开始学习js的时候会写成这样：
+
+  <script>
+      var name1 = 'iceman';
+      var age1 = 25;
+
+      var name2 = 'mengzhe';
+      var age2 = 26;
+  </script>
+
+  以上的写法的确是描述两个人，每个人都有姓名和年龄，但是每个人的姓名和年龄并没有放在一起，也就是说每个人的年龄和姓名并没有对应起来。
+
+  这时候我们就引出对象的概念：把描述同一个事物（同一个对象）的属性和方法放在同一个内存空间下面，起到了分组的作用，这样不同事物之间的属性即使属性名相同相互也不会发生冲突。
+
+  <script>
+      var person1 = {
+          name: 'iceman',
+          age: 25
+      };
+      var person2 = {
+          name: 'mengzhe',
+          age: 26
+      };
+  </script>
+
+  以上这种写法可以认为是一种分组编写代码的模式，通过如此分组之后，每一个人的姓名和年龄都在同一块内存空间下，也就是每个人的姓名和年龄都对应起来了。我们也把这种分组编写代码的模式称之为单例模式（在《JavaScript高级程序设计》中也称之为对象字面量模式），在单例模式中，把person1和person2叫做命名空间。
+
+  <script>
+      var person2 = {
+          name: 'iceman',
+          age: 25,
+          writeJs: function() {
+              console.log(this.name + 'write js');
+          }
+      };
+      person2.writeJs();   // icemanwrite js
+
+  </script>
+
+  <!-- ------------------------------------------------------------------------------ -->
+
+  二、工厂模式
+
+  单例模式解决了分组的问题，让每个对象有了自己独立的命名空间，但是不能批量生产，每一个新的对象都要重新写一份一模一样的代码。
+
+  这时候就有了工厂模式，即：把实现同一事情的相同代码，放到一个函数中，以后如果再想实现这个功能，就不需要重新编写这些代码了，只要执行当前的函数即可，这就是函数的封装，
+
+  体现了高内聚、低耦合的思想：减少页面的中的冗余代码，提高代码的重复利用率：
+
+  <script>
+
+      function createPerson(name, age) {
+          var obj = {};
+          obj.name = name;
+          obj.age = age;
+          obj.writeJs = function() {
+              console.log(this.name + 'write js');
+          }
+          return obj;
+      }
+
+      var p1 = createPerson('mengzhe', 26);
+      p1.writeJs();  // mengzhewrite js
+
+      var p2 = createPerson('iceman', 25);
+      p2.writeJs(); // icemanwrite js
+
+  </script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+三、构造函数模式
+
+<script>
+
+    function CreateJsPerson(name, age) {
+        this.name = name;
+        this.age = age;
+        this.writeJs = function() {
+                console.log(this.name + 'write js');
+        }
+        // 浏览器再把创建的实例默认的进行返回
+    }
+
+    var p1 = new CreateJsPerson('iceman', 25);
+    p1.writeJs();  // icemanwrite js
+
+    var p2 = new CreateJsPerson('mengzhe', 26);
+    p2.writeJs();  //  mengzhewrite js
+
+ </script>
+
+注意：上面是new CreateJsPerson('iceman' , 25)这样，使用了new创建了对象，这和普通调用函数的方式有区别的：
+
+var res = CreateJsPerson('xx' , 7);
+
+这样没有用new而直接调用函数的方式，不是构造函数而是普通函数执行，由于没有写return，所以res=undefined，并且CreateJsPerson这个方法中的this是window。
+
+构造函数模式的目的就是为了创建一个自定义类，并且创建这个类的实例。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+构造函数模式和普通函数的模式的区别：
+
+执行的时候
+
+普通函数执行：CreateJsPerson()
+构造函数执行：new CreateJsPerson()，通过new执行后，CreateJsPerson就是一个类了，而函数的返回值就是CreateJsPerson这个类的一个实例。
+
+在函数代码执行的时候
+
+相同：都是形成一个私有的作用域，然后经历：形参赋值 --> 预解释 --> 代码从上到下执行（类和普通的函数一样执行，它也有普通函数的一面）。
+
+不同：① 在构造函数的代码执行之前，不用自己再手动的创建对象，浏览器会默认的创建一个对象数据类型的值（这个对象类型的值其实就是当前类的一个实例）；② 接下来代码从上到下执行，以当前实例为执行的主体（this代表的就是当前的实例），然后分别的把属性名和属性值赋值给当前的实例；③ 最后，浏览器会默认的把创建的实例返回。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+注意点：
+JavaScript中所有的类都是函数数据类型的，它通过new执行变成了一个类，但是它本身也是一个普通的函数；
+JavaScript中所有的实例都是对象数据类型的；
+
+在构造函数模式中，类中（函数体中）出现的 this.xx = xx中的this是当前类的一个实例；
+
+p1和p2都是CreatePerson这个类的实例，所以都拥有writeJs这个方法，但是不同实例之间的方法是不一样的，在类中给实例增加的属性（this.xxx=xxx)属于当前实例的私有的属性，实例和实例之间是单独的个体，
+
+所以私有的属性之间是不相等的
+
+<script>
+    console.log(p1.writeJs === p2.writeJs); // --> false
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+4.1、类中出现的this
+
+<script>
+    function Fn() {
+        this.x = 100;
+        this.getX = function() {
+            // this-> 需要看getX执行的时候才知道
+            console.log(this.x);
+        };
+    }
+    var f1 = new Fn;
+    f1.getX(); // 100  方法中的this是f1
+
+    var xx = f1.getX;
+    xx(); // undefined  方法中的this是window
+</script>
+
+在构造函数模式中创建对象new Fn()，如果Fn不需要传递参数的话，后面的小括号可以省略，即：new Fn
+
+this的问题：在类中出现的this.xxx=xxx中的this都是当前类的实例，
+
+而类中某一个方法中的this需要看方法执行的时候，前面 是否有“."才能知道this是谁
+
+<!-- ------------------------------------------------------------------------------- -->
+
+4.2、私有变量
+
+<script>
+    function Fn() {
+        var num = 10;
+        this.x = 100; // f1.x = 100
+        this.getX = function() { // f1.getX=function
+            console.log(this.x);
+        };
+    }
+    var f1 = new Fn;
+    console.log(f1.num); // -> undefined
+</script>
+
+类有普通函数的一面，当函数执行的时候，var num其实只是当前形成的私有作用域中的私有变量而已，它和f1这个实例没有任何的关系，只有this.xxx=xxx才相当于给f1这个实例增加私有的属性和方法，才和f1有关系。
+<!-- ---------------------------------------------------------------------------- -->
+
+4.3、类中的return
+
+<script>
+    function Fn2() {
+        this.x = 100;
+        this.getX = function() {
+            console.log(this.x);
+        };
+        // return 100;
+        return {
+            name: 'iceman'
+        };
+    }
+    var f1 = new Fn2;
+    console.log(f1);
+</script>
+
+在构造函数模式中，浏览器会默认的把我们的实例返回（返回的是一个对象数据类型的值），
+
+如果我们自己手动写了return返回：
+
+返回的是一个基本数据类型的值：当前实例的值是不变的，例如：return 100，此时的f1还是当前Fn类的实例；
+返回的是一个引用数据类型的值：当前的实例会被自己返回的实例给替换掉，例如：return {name:'icmean'}，此时的f1就不是Fn的实例，而是返回的这个对象；
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

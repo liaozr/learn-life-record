@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>解构赋值</title>
+	<style>
+		div{
+			width: 200px;
+			height: 200px;
+			padding: 50px;
+			margin:50px;
+			border:1px solid #ccc;
+			background-color: #9da;
+		}
+	</style>
+</head>
+<body>
+	<div></div>
+	<script>
+		//解构赋值  
+		var offSet=(ele)=>{
+			var left  =ele.offsetLeft;
+			var top   =ele.offsetTop;
+			var parent=ele.offsetParent;
+			while (parent) {
+				console.log(parent);
+				if(!window.navigator.userAgent.includes("MSIE 8")){
+					left+=parent.clientLeft;
+					top +=parent.clientTop;
+				}
+				left+=parent.offsetLeft;
+				top +=parent.offsetTop;
+				parent=parent.offsetParent;
+			}
+			return {l:left,t:top}
+		}
+	var eDiv=document.getElementsByTagName('div')[0];
+	 var offSetVal=offSet(eDiv)
+	// console.log(offSetVal);
+	// console.log(offSetVal.top);
+	console.log(offSetVal);
+	var  {l,t} =offSetVal;
+	alert(l);
+	alert(t);
+	</script>
+
+
+
+
+</body>
+</html>

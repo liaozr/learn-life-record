@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+   <!-- ----------------------------------------------------------------------------------- -->
+
+    javascript 自带有个对象(构造函数)， Date()下面是代码：
+
+    <script>
+    
+        var oDate = new Date(); //实例一个时间对象；
+
+        var year=oDate.getFullYear(); //获取系统的年；
+
+        var month=oDate.getMonth() + 1; //获取系统月份，由于月份是从0开始计算，所以要加1
+
+        var date=oDate.getDate(); // 获取系统日，
+
+        var hour=oDate.getHours(); //获取系统时，
+
+        var minutes=oDate.getMinutes(); //分
+
+        var Seconds=oDate.getSeconds(); //秒
+
+        console.log(year+'-'+month+'-'+date+" "+hour+":"+minutes)
+
+        // 打印出的结果是： 2017-5-24 16:43
+
+    </script>
+
+    <!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

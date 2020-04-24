@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+JavaScript的每个对象都继承另一个对象，
+后者称为“原型”（prototype）对象。
+
+只有null除外，它没有自己的原型对象。
+
+原型对象上的所有属性和方法，都能被派生对象共享。这就是JavaScript继承机制的基本设计。
+
+通过构造函数生成实例对象时，会自动为实例对象分配原型对象。
+
+每一个构造函数都有一个prototype属性，这个属性就是实例对象的原型对象。
+
+<script>
+    function Animal(name) {
+        this.name = name;
+    }
+
+    Animal.prototype.color = 'white';
+
+    var cat1 = new Animal('大毛');
+    var cat2 = new Animal('二毛');
+
+    console.log( cat1.color ) // 'white'
+    console.log( cat2.color ) // 'white'
+</script>
+
+上面代码中，构造函数Animal的prototype对象，就是实例对象cat1和cat2的原型对象。
+
+在原型对象上添加一个color属性。结果，实例对象都能读取该属性。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+如果实例对象自身就有某个属性或方法，它就不会再去原型对象寻找这个属性或方法。
+
+<script>
+    cat1.color = 'black';
+
+    cat2.color // 'yellow'
+    Animal.prototype.color // "yellow";
+
+</script>
+
+上面代码中，实例对象cat1的color属性改为black，就使得它不再去原型对象读取color属性，后者的值依然为yellow。
+
+总结一下，原型对象的作用，就是定义所有实例对象共享的属性和方法。
+
+这也是它被称为原型对象的含义，而实例对象可以视作从原型对象衍生出来的子对象。
+
+由于JavaScript的所有对象都有构造函数，
+
+而所有构造函数都有prototype属性（其实是所有函数都有prototype属性），
+
+所以所有对象都有自己的原型对象。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+</body>
+</html>

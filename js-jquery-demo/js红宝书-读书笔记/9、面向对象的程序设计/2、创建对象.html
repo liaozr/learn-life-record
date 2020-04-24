@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+工厂模式
+
+<script>
+
+    function createPerson(name, age, job) {
+        var o = new Object();
+        o.name = name;
+        o.age = age;
+        o.job = job;
+        o.sayName = function() {
+            alert(this.name);
+        };
+        return o;
+    }
+    var person1 = createPerson("Nicholas", 29, "Software Engineer");
+    var person2 = createPerson("Greg", 27, "Doctor");
+
+    alert(person1.job) //  Software Engineer
+    alert(person2.job) //  Doctor
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+构造函数模式
+
+<script>
+    function Person(name, age, job) {
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.sayName = function() {
+            alert(this.name);
+        };
+    }
+    var person1 = new Person("Nicholas", 29, "Software Engineer");
+    var person2 = new Person("Greg", 27, "Doctor");
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+原型模式
+
+<script>
+
+    function Person() {}
+    Person.prototype.name = "Nicholas";
+    Person.prototype.age = 29;
+    Person.prototype.job = "Software Engineer";
+    Person.prototype.sayName = function() {
+        alert(this.name);
+    };
+
+    var person1 = new Person();
+    person1.sayName(); //"Nicholas"
+
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+虽然可以通过对象实例person1访问保存在原型中的值，但却不能重写原型中的值。
+
+<script>
+    function Person() {}
+
+    Person.prototype.name = "Nicholas";
+    Person.prototype.age = 29;
+    Person.prototype.job = "Software Engineer";
+    Person.prototype.sayName = function() {
+        alert(this.name);
+    };
+
+    var person1 = new Person();
+    var person2 = new Person();
+
+    person1.name = "Greg"; //实质是在实例上增加一个name属性
+    alert(person1.name); //"Greg"——来自实例
+    alert(person2.name); //"Nicholas"——来自原型
+
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+可以通过delete删除实例属性，从而继续访问原型中的属性。
+
+<script>
+
+    function Person() {}
+    Person.prototype.name = "Nicholas";
+    Person.prototype.age = 29;
+    Person.prototype.job = "Software Engineer";
+    Person.prototype.sayName = function() {
+        alert(this.name);
+    };
+    var person1 = new Person();
+
+    person1.name = "Greg";
+    alert(person1.name); //"Greg"——来自实例
+
+    delete person1.name;
+    alert(person1.name); //"Nicholas"——来自原型
+
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+
+</body>
+</html>

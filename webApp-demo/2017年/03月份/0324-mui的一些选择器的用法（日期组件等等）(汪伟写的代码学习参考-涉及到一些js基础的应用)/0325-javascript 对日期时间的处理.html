@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- ------------------------------------------------------------------------- -->
+
+getFullYear() 方法可返回一个表示年份的 4 位数字。
+
+该方法总是结合一个 Date 对象来使用。
+
+
+我们将取得当前的年份，并输出它：
+
+
+<script type="text/javascript">
+
+	var date = new Date()
+	document.write( date.getFullYear() )
+
+    // 2017
+</script>
+
+<!-- ------------------------------------------------------------------------- -->
+
+getMonth() 方法可返回表示月份的数字。
+
+该方法总是结合一个 Date 对象来使用。
+
+返回值是 0（一月） 到 11（十二月） 之间的一个整数。
+
+也就是得出来的数据是比 真实的月份时少1的，
+
+因为他的返回值是 0 到 11 的。
+
+所以真正月份得 是得出来的返回值再加上数字 1才对的。
+
+实例
+我们将取得当前的月份，并把它输出：
+
+<script type="text/javascript">
+
+	var d=new Date()
+
+	document.write(d.getMonth()+1)
+    
+    // formatMonth 这个函数的作用是为了当月份数字的长度为1的时候
+    //  也就是 1 2 3  ...9的时候，给月份数字前面加个0
+    //  显示为 01 02 03  这样子的。
+	function formatMonth(month) {
+		if (month.length == 1) {
+			return "0" + month;
+		}
+		return month;
+	}
+
+</script>
+
+
+<!-- ----------------------------------------------------------------------- -->
+
+getDate() 方法可返回月份的某一天。
+
+
+该方法总是结合一个 Date 对象来使用。
+
+在本例中，我们将输出当前月份的日期：
+
+<script type="text/javascript">
+
+	var d = new Date()
+	document.write(d.getDate())
+
+    // 25
+</script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+toString() 方法可把一个逻辑值转换为字符串，并返回结果。
+
+booleanObject.toString()
+
+<script type="text/javascript">
+
+	var dd=new Date()
+    var month=( dd.getMonth() + 1 ).toString()
+    // toString()函数用于将当前对象以字符串的形式返回。    
+    // 便于跟 formatMonth这个函数 与0字符串进行拼接。 
+
+    console.log( formatMonth(month))
+    // formatMonth 这个函数的作用是为了当月份数字的长度为1的时候
+    //  也就是 1 2 3  ...9的时候，给月份数字前面加个0
+    //  显示为 01 02 03  这样子的。
+	function formatMonth(month) {
+		if (month.length == 1) {
+			return "0" + month;
+		}
+		return month;
+	}
+
+</script>
+
+<!-- --------------------------------------------------------------------------- -->
+
+
+<div class="info border-1px">
+	<span>保险生效日期<span>*</span></span>
+	<span class="txt" id="startDate">
+	    <span id="startDateValue" class="selectDiv"></span>
+	    <i class="next right"></i>
+	</span>
+</div>
+
+<div class="info border-1px">
+	<span>保险到期日期<span>*</span></span>
+	<span class="txt" id="endDate"><span id="endDateValue" class="selectDiv"></span><i class="next right"></i></span>
+</div>
+
+<script>
+
+	var now = new Date();
+
+	startDateValue.innerText = now.getFullYear() + "-" + formatMonth((now.getMonth() + 1).toString()) + "-" + formatMonth(now.getDate().toString());
+
+	endDateValue.innerText = now.getFullYear() + "-" + formatMonth((now.getMonth() + 1).toString()) + "-" + formatMonth(now.getDate().toString())
+    
+    function formatMonth(month) {
+		if (month.length == 1) {
+			return "0" + month;
+		}
+		return month;
+	}
+
+</script>
+
+<!-- -------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!--选项切换开始-->
+    <section class="choice_wrap">
+
+        <ul class="bgf choice_item region" data-flag="region">
+            <li class="current"><a href="#" class="current">全部</a></li>
+            <li><a href="#">宝山</a></li>
+            <li><a href="#">长宁</a></li>
+            <li><a href="#">崇明</a></li>
+            <li><a href="#">奉贤</a></li>
+            <li><a href="#">黄埔</a></li>
+            <li><a href="#">宝山</a></li>
+            <li><a href="#">长宁</a></li>
+            <li><a href="#">崇明</a></li>
+            <li><a href="#">奉贤</a></li>
+            <li><a href="#">黄埔</a></li>
+            <li><a href="#">宝山</a></li>
+            <li><a href="#">长宁</a></li>
+            <li><a href="#">崇明</a></li>
+            <li><a href="#">奉贤</a></li>
+            <li><a href="#">黄埔</a></li>
+        </ul>
+
+        <ul class="bgf choice_item price" data-flag="price">
+            <li><a href="#">全部</a></li>
+            <li><a href="#">2万以下</a></li>
+            <li><a href="#">2万-3万</a></li>
+            <li><a href="#">3万-5万</a></li>
+            <li><a href="#">5万以上</a></li>
+            <li><a href="#">待定</a></li>
+        </ul>
+
+        <ul class="bgf choice_item family" data-flag="family">
+            <li><a href="#">全部</a></li>
+            <li><a href="#">一房</a></li>
+            <li><a href="#">两房</a></li>
+            <li><a href="#">三房</a></li>
+            <li><a href="#">四房</a></li>
+            <li><a href="#">五房</a></li>
+        </ul>
+
+    </section>
+    <!--选项切换结束-->
+
+    <div class="g-swiper">
+        <div class="swiper-container" id="newhouseswip">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide current">学区房</div>
+                <div class="swiper-slide">刚需房</div>
+                <div class="swiper-slide">性价比</div>
+                <div class="swiper-slide">最佳户型</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ----------------------------------------------------------------------------------- -->
+
+    <script>
+        $(".choice_wrap").on("click", "ul li", fliterSelect);
+
+        function fliterSelect() {
+            var htname = $(this).children().eq(0).html();
+            console.log(htname)
+            var changeid = $(this).parent().data("flag");
+            $("#" + changeid).children().eq(0).html(htname);
+
+            if ($("#" + changeid).children().eq(1).hasClass("up") && $("#" + changeid).children().eq(0).hasClass("current")) {
+                $("#" + changeid).children().eq(1).addClass("down").removeClass("up");
+                $("#" + changeid).children().eq(0).removeClass("current");
+            }
+
+            $(this).addClass("current").siblings().removeClass("current");
+            $(this).children().eq(0).addClass("current");
+            $(this).siblings().each(function() {
+                $(this).children().eq(0).removeClass("current");
+            })
+            $(this).parent().hide();
+            $('body').css("overflow", "visible");
+            $("#BgDiv").hide();
+
+            $(".swiper-slide").siblings().removeClass("current");
+
+            loadData(); //点击后，跳转后，加载出来的一些数据。
+        }
+
+        function loadData() {
+            // $.trim(str)的作用是去掉字符串首尾空格
+            // 获取要跳转的所有值
+
+            var iRegionID = $.trim($(".choice_wrap .region li.current").attr("regionid")) || 0;
+            var iPriceID = $.trim($(".choice_wrap .price li.current").attr("priceid")) || 0;
+            var iLayoutID = $.trim($(".choice_wrap .family li.current").attr("layoutid")) || 0;
+            var iFeatureID = $.trim($(".swiper-slide.current").attr("featureid")) || "";
+            var sKeyword = $.trim($("#search-input-focus").val()) || "";
+
+            if (iFeatureID) {
+                iRegionID = 0;
+                iPriceID = 0;
+                iLayoutID = 0;
+                sKeyword = '';
+            }
+            //跳转地址
+            // 这个功能需要涉及到后台的数据
+            window.location = "/?iRegionID=" + iRegionID + "&iPriceID=" + iPriceID + "&iLayoutID=" + iLayoutID + "&sKeyword=" + sKeyword + "&iFeatureID=" + iFeatureID;
+        }
+    </script>
+
+    <!-- --------------------------------------------------------------------------------------     -->
+
+    <script>
+        $(".swiper-container .swiper-slide").each(function() {
+            $(this).click(function() {
+                $(this).addClass("current").siblings().removeClass("current");
+                loadData(); //点击后，跳转后，加载出来的一些数据。
+            })
+        })
+    </script>
+
+    <!-- ------------------------------------------------------------------------------------------ -->
+
+    <script>
+        // 点击搜索按钮
+        $("#newsearchBtn").on("click", fliterSelect);
+    </script>
+    
+    <!-- -------------------------------------------------------------------------------------------- -->
+</body>
+
+</html>

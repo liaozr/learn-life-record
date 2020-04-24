@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<!-- ---------------------------------------------------------------------------- -->
+
+router.map 弃用
+
+现在的路由被定义在一个数组之中routes option在这个路由实例中. 这些是路由的示例:
+
+<script>
+	router.map({
+	  '/foo': {
+	    component: Foo
+	  },
+	  '/bar': {
+	    component: Bar
+	  }
+	})
+</script>
+
+会被替代以这样的方式定义:
+
+<script>
+var router = new VueRouter({
+  routes: [
+    { 
+      path: '/foo',
+      component: Foo 
+    },
+    {
+      path: '/bar',
+      component: Bar
+    }
+  ]
+})
+</script>
+
+考虑到不同浏览器中遍历对象不能保证会使用相同的键值，这个数组的语法可以允许更多可预测的路由匹配。.
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+router.on 弃用
+
+如果你需要在启动你的app时从程序上确保生成的路由，你可以通过动态的向路由数组推送定义来完成这个操作。
+
+举例说明:
+
+<script>
+	// 普通基本的路由
+	var routes = [
+	  // ...
+	]
+
+	// 动态生成的路由
+	marketingPages.forEach(function (page) {
+	  routes.push({
+	    path: '/marketing/' + page.slug
+	    component: {
+	      extends: MarketingComponent
+	      data: function () {
+	        return { page: page }
+	      }
+	    }
+	  })
+	})
+
+	var router = new Router({
+	  routes: routes
+	})
+
+</script>
+
+如果你需要在路由被实例化后增加新的路由，你可以用一个你需要新添加的路由去替换路由的匹配者:
+
+<script>
+	router.match = createMatcher(
+	  [
+		{
+		    path: '/my/new/path',
+		    component: MyComponent
+		}
+	  ].concat(router.options.routes)
+	)
+</script>
+
+<!-- ----------------------------------------------------------------------- -->
+
+subroutes 弃用
+
+重命名为children出于与Vue以及其他路由库的一致性考虑.
+
+<!-- -------------------------------------------------------------------- -->
+
+router.redirect 弃用
+
+这现在是一个 路由定义的选项. 所以举例说明一下，你将会更新:
+
+<script>
+router.redirect({
+  '/tos': '/terms-of-service'
+})
+</script>
+
+成像下面你的'routes'配置里定义的样子:
+<script>
+	{
+	  path: '/tos',
+	  redirect: '/terms-of-service'
+	}
+</script>
+
+<!-- ------------------------------------------------------------------------ -->
+
+router.alias 弃用
+
+这现在是一个路由定义的选项 你将要进行alias操作。所以举例说明，你将会更新:
+
+<script>
+	router.alias({
+	  '/manage': '/admin'
+	})
+</script>
+
+成像下面你的'routes'配置里定义的样子:
+<script>
+{
+  path: '/admin',
+  component: AdminPanel,
+  alias: '/manage'
+}
+</script>
+
+如果你需要进行多次alias操作，你也可以使用一个数组语法去实现:
+
+<script>
+ alias: ['/manage', '/administer', '/administrate']
+</script>
+
+
+
+</body>
+</html>

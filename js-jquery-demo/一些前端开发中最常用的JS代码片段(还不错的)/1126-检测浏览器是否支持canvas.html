@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function isSupportCanvas() {
+            if (document.createElement('canvas').getContext) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // 测试，打开谷歌浏览器控制台查看结果
+        console.log(isSupportCanvas());
+    </script>
+</body>
+
+</html>

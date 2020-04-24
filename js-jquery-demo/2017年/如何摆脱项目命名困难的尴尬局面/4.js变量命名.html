@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+4.js变量命名
+
+1.基础类型和引用数据类型
+
+> * 基础类型 
+> * 字符串var s_count="",
+> * 布尔类型var b_status=false,
+> * 数字类型var n_total=12。
+
+> * 引用数据类型 
+> * 数组var ar_bar=[],
+> * 对象var o_bar={},
+> * 函数var f_submit=function(){}）
+
+--------------------------------------------------------------------------
+
+2.不要用关键字命名
+
+default、class、private
+
+--------------------------------------------------------------------------
+
+3.用可读的同义词代替保留词。
+
+<script>
+	// bad
+	var superman = {
+	  class: 'alien'
+	};
+
+	// bad
+	var superman = {
+	  klass: 'alien'
+	};
+
+	// good
+	var superman = {
+	  type: 'alien'
+	};
+</script>
+--------------------------------------------------------------------------
+
+4.函数用驼峰形式（动词+名词）
+
+login(),logout(),expandList(),getTotal(),keySearch(),submitForm(),cancel(),goMore(),searchAll(),searchCurrent().clearContent().uploadImage().searchResult()
+
+这些都是常用事件，可以清晰知道每一项的意义。
+
+--------------------------------------------------------------------------
+
+5.当命名的构造函数和类使用PascalCase。
+
+<script>
+
+	// bad
+	function user(options) {
+	  this.name = options.name;
+	}
+	var bad = new user({
+	  name: 'nope'
+	});
+
+	// good
+	function User(options) {
+	  this.name = options.name;
+	}
+	var good = new User({
+	  name: 'yup'
+	})
+
+</script>
+
+--------------------------------------------------------------------------
+
+6.不要使用尾随或前导下划线。
+
+<script>
+
+	// bad
+	this.__firstName__ = 'Panda';
+	this.firstName_ = 'Panda';
+	this._firstName = 'Panda';
+
+	// good
+	this.firstName = 'Panda';
+
+</script>
+
+--------------------------------------------------------------------------
+
+7.前缀jQuery对象变量与$。
+
+<script>
+
+	// bad
+	var sidebar = $('.sidebar');
+	// good
+	var $sidebar = $('.sidebar');
+// ------------------------------------------------------------------------
+	// bad
+	$('ul', '.sidebar').hide();
+
+	// bad
+	function setSidebar() {
+	  $('.sidebar').hide();
+	  // ...stuff...
+	  $('.sidebar').css({
+	    'background-color': 'pink'
+	  });
+	}
+
+	// good
+	function setSidebar() {
+	  var $sidebar = $('.sidebar');
+	  $sidebar.hide();
+	  // ...stuff...
+	  $sidebar.css({
+	    'background-color': 'pink'
+	  });
+	}
+// ------------------------------------------------------------------------
+
+	// bad
+	$('.sidebar').find('ul').hide();
+
+	// good
+	$('.sidebar ul').hide();
+
+	// good
+	$('.sidebar > ul').hide();
+
+	// good
+	$sidebar.find('ul').hide();
+
+</script>
+
+--------------------------------------------------------------------------
+
+</body>
+</html>

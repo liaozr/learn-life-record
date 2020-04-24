@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+一个DOM事件分为三个阶段：捕获阶段、触发阶段、冒泡阶段。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+DOM2级事件
+
+DOM2级事件现代浏览器都支持，事件流的概念也是支持的。
+
+绑定方式
+addEventListener(eventType, handler, useCapture)
+
+移除方式
+removeEventListener(eventType, handler, useCapture)
+
+最后一个参数是一个boolean类型的参数，表示是否捕获过程，不填为false。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+IE事件
+
+IE事件，取消了事件流中的事件捕获过程。
+
+绑定方式
+attachEvent(eventType, handler)
+
+移除方式
+detachEvent(eventType, handler)
+
+<!-- -------------------------------------------------------------------------------- -->
+
+事件代理
+
+事件在冒泡过程中会上传到父节点，因此可以把子节点的监听函数定义在父节点上，
+
+由父节点的监听函数统一处理多个子元素的事件，这种方式称为事件代理(Event delegation)。
+
+<div id="box">
+
+    <input type="button" value="按钮" id="btn">
+    <input type="button" value="按钮2" id="btn2">
+    <input type="button" value="按钮3" id="btn3">
+
+</div>
+
+直接通过父节点一次性为所有子结点注册监听函数：
+
+<script>
+
+    var box = document.getElementById('box');
+
+    box.addEventListener('click', function(event) {
+        if (event.target.tagName.toLowerCase() === 'input') {
+            // some code
+        }
+    });
+
+</script>
+
+<!---------------------------------------------------------------------------------- -->
+
+在 HTML5 中鼠标有了新的事件，如下表格：
+
+ 属性	                       描述
+
+ondrag	             元素被拖动时运行的脚本。
+ondragend	           在拖动操作末端运行的脚本
+ondragenter	         当元素元素已被拖动到有效拖放区域时运行的脚本。
+ondragleave	         当元素离开有效拖放目标时运行的脚本。
+ondragover	         当元素在有效拖放目标上正在被拖动时运行的脚本
+ondragstart	         在拖动操作开端运行的脚本
+
+ondrop	             当被拖元素正在被拖放时运行的脚本
+
+onmousewheel	       当鼠标滚轮正在被滚动时运行的脚本。
+
+onscroll	           当元素滚动条被滚动时运行的脚本。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+如下为Form事件新增的事件类型：
+
+    属性	                    描述
+
+oncontextmenu	      当上下文菜单被触发时运行的脚本。
+
+onformchange	      在表单改变时运行的脚本。
+
+onforminput	        当表单获得用户输入时运行的脚本。
+
+oninput	            当元素获得用户输入时运行的脚本。
+
+oninvalid	          当元素无效时运行的脚本。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

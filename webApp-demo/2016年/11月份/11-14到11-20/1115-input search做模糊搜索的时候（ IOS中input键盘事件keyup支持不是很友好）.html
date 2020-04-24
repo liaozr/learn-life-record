@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+IOS中input键盘事件keyup、keydown、keypress支持不是很好
+
+问题是这样的，用input search做模糊搜索的时候，在键盘里面输入关键词，会通过ajax后台查询，然后返回数据，然后再对返回的数据进行关键词标红。用input监听键盘keyup事件，在安卓手机浏览器中是可以的，但是在ios手机浏览器中变红很慢，用输入法输入之后，并未立刻相应keyup事件，只有在通过删除之后才能相应！
+
+解决办法：
+
+可以用html5的oninput事件去代替keyup
+
+<input type="text" id="testInput">
+
+<script type="text/javascript">
+    document.getElementById('testInput').addEventListener('input', function(e) {
+        var value = e.target.value;
+        console.log(value);
+    });
+</script>
+
+然后就达到类似keyup的效果！
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

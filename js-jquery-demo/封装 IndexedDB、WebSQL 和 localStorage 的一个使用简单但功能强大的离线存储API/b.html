@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='localforage.min.js'></script>
+</head>
+
+<body>
+
+	<img id='img' src="" alt="">
+
+	<script>
+
+			// Callback version:
+			localforage.getItem('somekey', function(err, value) {
+
+				// Run this code once the value has been
+				// loaded from the offline store.
+				console.log(value);
+
+			});
+
+
+			localforage.getItem('imgsrc', function(err, value) {
+				console.log(value);
+				img.src=value
+			});
+
+			// localforage.getItem('dataArr', function(err, value) {
+			// 	console.log(value);
+			// });
+			
+	</script>
+
+</body>
+
+</html>

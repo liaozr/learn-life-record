@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+    Vue实例将代理data对象的所有属性，也就是说部署在data对象上的所有属性和方法都将直接成为Vue实例的属性和方法
+    <div id="app">
+        {{message}}
+        <button v-on:click="sayHello">click me</button>
+    </div>
+
+    <script>
+        var app = new Vue({
+                el: '#app',
+                data: {
+                    message: 'hello world!',
+                    sayHello: function() {
+                        console.log(1)
+                    }
+                }
+        })
+        // -- -
+        //如果想要获取到app这一实例中选项的对象，Vue提供$进行获取
+        console.log( app.$el === document.getElementById('app') ) //true
+
+        app.$data.message //hello world
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+        console.log('here are go')
+
+        new Promise(resolve => {
+
+            setTimeout(() => {
+                resolve('hello')
+            }, 2000)
+
+        }).then(value => {
+
+            setTimeout ( () =>{
+                console.log(value)
+                console.log('everyone')
+            },2000)
+
+        }).then(value => {
+            console.log(value + ' world ')
+        })
+
+        // then中 不返回 promise时，下一个 then 会立即执行
+        // then中 不返回 promise时，下一个 then 会立即执行
+
+        // 打印出的数据为：
+
+        // here are go
+        // undefined world
+
+        // hello
+        // everyone
+
+    </script>
+</body>
+
+</html>

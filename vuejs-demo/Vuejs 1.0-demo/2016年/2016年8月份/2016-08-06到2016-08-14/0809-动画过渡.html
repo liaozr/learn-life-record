@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+    <script src="jquery-2.2.3.min.js"></script>
+	<style>
+    /* 必需
+    transition="expand"  vue.js 过渡的API
+    CSS 这边，自动对于
+    expand-transition
+    expand-enter
+    expand-leave
+    进行相应的处理。
+     */
+
+    .expand-transition {
+        transition: all 4.3s ease; /* 所有设定，4.3秒*/
+        height: 30px;
+        padding: 10px;
+        background-color: #eee; /* 背景 灰色 */
+        overflow: hidden;
+    }
+
+    /* .expand-enter 定义进入的开始状态 */
+
+    /* .expand-leave 定义离开的结束状态 */
+
+    .expand-enter,
+    .expand-leave {
+        height: 0;
+        padding: 0 10px;
+        opacity: 0; /* 透明度 */
+    }
+
+
+
+     .fade-transition {
+        opacity: 1;
+        height: 30px;
+        padding: 10px;
+        color: #ffffff;
+        background-color: #3636ff;
+        transition: opacity 1.25s ease-in-out;
+        -moz-transition: opacity 1.25s ease-in-out;
+        -webkit-transition: opacity 1.25s ease-in-out;
+    }
+
+    .fade-enter,
+    .fade-leave {
+        opacity: 0.1;
+    }
+
+    #menu ul {
+        float: right;
+        list-style: none;
+    }
+
+    #menu ul li {
+        float: left;
+        margin: 0px 10px 0px 0px;
+    }
+    </style>
+</head>
+<body>
+
+	<div id="example">
+        <div v-if="show" transition="expand">hello</div>
+        <!--按一下，触发 过度效果-->
+        <button @click="show=!show">show:{{show}}</button>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            show:true
+        },
+
+    })
+    </script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+    <div id="example2">
+        <ul>
+            <li>
+            	<!--   动态绑定 transition  v-bind:transition  -->
+                <div v-if="show" :transition="transitionName">hello</div>
+            </li>
+            </li> {{$data|json}}</li>
+        </ul>
+        <ul id="menu">
+            <li>
+                <button @click="show=!show">显示  :{{show}} , 过渡效果 {{transitionName}}</button>
+            </li>
+            <li>
+                <button @click="transitionName_set_to('fade')">过渡效果 fade</button>
+            </li>
+            <li>
+                <button @click="transitionName_set_to('expand')">过渡效果 expand</button>
+        </ul>
+    </div>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example2',
+        data: {
+            show: true,
+            transitionName: 'expand'
+        },
+        methods: {
+            transitionName_set_to: function(to1) {
+                this.transitionName = to1;
+            }
+        }
+
+    })
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+<!--   在 vue  中，钩子 就是回调 的意思   -->
+
+
+    <h3>为了展示，所以动画效果，调比较慢，过渡有回调函数，此例使用 vuejs ，提供的过渡回调。
+    </h3>
+    <div id="example3">
+        <ul>
+            <li>
+                <div v-if="show" :transition="transitionName">hello</div>
+            </li>
+            <li>
+                <button @click="show=!show">show:{{show}} , 过渡效果 : {{transitionName}}</button>
+            </li>
+
+            <li>
+                <button @click="transitionName_set_to('expand')">过渡效果 expand</button>
+            </li> {{$data|json}}</li>
+        </ul>
+    </div>
+    <script>
+
+    // javascript 钩子 ，就是回调的意思
+    Vue.transition('expand', {
+
+        beforeEnter: function(el) {
+            el.textContent = '输入前 beforeEnter'
+        },
+        enter: function(el) {
+            el.textContent = '输入时 enter'
+        },
+        afterEnter: function(el) {
+            el.textContent = '输入后 afterEnter'
+        },
+        enterCancelled: function(el) {
+            // handle cancellation
+        },
+
+        beforeLeave: function(el) {
+            el.textContent = '离开前 beforeLeave'
+        },
+        leave: function(el) {
+            el.textContent = '离开时 leave'
+        },
+        afterLeave: function(el) {
+            el.textContent = '离开后 afterLeave'
+        },
+        leaveCancelled: function(el) {
+            // handle cancellation
+        }
+    })
+    var vm = new Vue({
+        el: '#example3',
+        data: {
+            show: true,
+            transitionName: 'expand'
+        },
+        methods: {
+            transitionName_set_to: function(to1) {
+                this.transitionName = to1;
+            }
+        }
+
+    })
+    </script>
+ <!-- ----------------------------------------------------------------------------------    -->
+
+
+    <!--使用 animate.css -->
+
+    <!--  我们可以在过渡的javascript 定义中声明自定义的css过渡类名。这些自定义类名会覆盖默认的类名。当需要和第三方的css 动画库，比如Animate.css配合时会非常有用 -->
+    <link rel="stylesheet" href="animate.css">
+
+    <h3>使用 animate.css 自订动画 demo</h3>
+    <div id="example4">
+        <div v-show="ok" class="animated" transition="bounce1">Watch me bounce</div>
+        <button @click="ok=!ok">ok:{{ok}}</button>
+    </div>
+    <script>
+    Vue.transition('bounce1', {
+        enterClass: 'rubberBand',
+        leaveClass: 'lightSpeedOut',
+
+    })
+    var vm = new Vue({
+        el: '#example4',
+        data: {
+            ok: true
+        },
+
+    })
+    </script>
+
+<!-- -----------------------------------------------------------------------------------------------------  -->
+
+  <h3>使用 animate.css 自订动画 demo</h3>
+    <div id="example5">
+        <div v-show="ok" class="animated" transition="bounce1">Watch me bounce</div>
+        <div v-show="ok" class="animated" transition="bounce2">Watch me bounce</div>
+        <button @click="ok=!ok">ok:{{ok}}</button>
+    </div>
+
+<!--     Vue.js 需要给过渡元素添加事件侦听器来侦听过渡何时结束。
+    基于所使用的 CSS，该事件要么是 transitionend，要么是 animationend。
+    如果你只使用了两者中的一种，那么 Vue.js 将能够根据生效的 CSS 规则自动推测出对应的事件类型。但是，有些情况下一个元素可能
+    需要同时带有两种类型的动画。比如你可能希望让 Vue 来触发一个 CSS animation，
+    同时该元素在鼠标悬浮时又有 CSS transition 效果。这样的情况下，
+    你需要显式地声明你希望 Vue 处理的动画类型 (animation 或是 transition) -->
+
+    <script>
+    Vue.transition('bounce1', {
+        enterClass: 'rubberBand',
+        leaveClass: 'lightSpeedOut'
+    })
+    Vue.transition('bounce2', {
+        enterClass: 'rubberBand',
+        leaveClass: 'lightSpeedOut',
+        type:'animation'  // 该过渡效果将只侦听 'animationend' 事件
+    })
+
+
+    var vm = new Vue({
+        el: '#example5',
+        data: {
+            ok: true
+        },
+
+    })
+    </script>
+<!-- ------------------------------------------------------------------------------------------ -->
+
+
+    <h3>animation 高级活用，hover，click 绑定，与 vue transition
+    </h3>
+    <div id="example6">
+        <div v-show="ok" class="animated" transition="bounce">
+            <div id="jsanimation1">
+                此元素 hover 事件
+                <a href='https://daneden.github.io/animate.css/' target='_new'>
+                animate.css
+                </a>
+            </div>
+            <div id="jsanimation2">
+                此元素 click
+            </div>
+        </div>
+        <button @click="ok=!ok">ok:{{ok}}</button>
+    </div>
+    <script>
+    Vue.transition('bounce', {
+        type: 'animation',
+        enterClass: 'bounceInLeft',
+        leaveClass: 'bounceOutRight'
+    })
+    var vm = new Vue({
+            el: '#example6',
+            data: {
+                ok: true
+            },
+
+        })
+        // ***************************************
+        // * 将 animation.css , 绑定在 元素的 Hover
+        // *
+
+    function animationHover(element, animation) {
+        element = $(element);
+        element.hover(
+            function() {
+                element.addClass('animated ' + animation);
+            },
+            function() {
+                //wait for animation to finish before removing classes
+                window.setTimeout(function() {
+                    element.removeClass('animated ' + animation);
+                }, 2000);
+            }
+        );
+    };
+
+    animationHover('#jsanimation1', 'hinge');
+    // ***************************************
+    // * 将 animation.css , 绑定在 元素的 click
+    // *
+    function animationClick(element, animation) {
+        element = $(element);
+        element.click(
+            function() {
+                element.addClass('animated ' + animation);
+                //wait for animation to finish before removing classes
+                window.setTimeout(function() {
+                    element.removeClass('animated ' + animation);
+                }, 2000);
+            }
+        );
+    };
+    animationClick('#jsanimation2', 'zoomOutDown');
+    </script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+ <style>
+    .bounced-transition {
+        display: inline-block;
+    }
+
+    .bounced-enter {
+        -webkit-animation: bounce-in 2s;
+        animation: bounce-in 2s;
+    }
+
+    .bounced-leave {
+        -webkit-animation: bounce-out 2s;
+        animation: bounce-out 2s;
+    }
+
+    @keyframes bounce-in {
+        0% {
+            -webkit-transform: scale(0);
+            transform: scale(0);
+        }
+        50% {
+            -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+        }
+        100% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+    }
+
+    @keyframes bounce-out {
+        0% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+        50% {
+            -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+        }
+        100% {
+            -webkit-transform: scale(0);
+            transform: scale(0);
+        }
+    }
+
+    @-webkit-keyframes bounce-in {
+        0% {
+            -webkit-transform: scale(0);
+            transform: scale(0);
+        }
+        50% {
+            -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+        }
+        100% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+    }
+
+    @-webkit-keyframes bounce-out {
+        0% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+        50% {
+            -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+        }
+        100% {
+            -webkit-transform: scale(0);
+            transform: scale(0);
+        }
+    }
+    </style>
+    <div id="anim" class="demo">
+        <span v-show="show" transition="bounced">Look at me!</span>
+        <br>
+        <button @click="show=!show">Toggle</button>
+    </div>
+    <script>
+    new Vue({
+        el: '#anim',
+        data: {
+            show: true
+        }
+    })
+    </script> 
+<!-- --------------------------------------------------------------------- -->
+
+    <div id="anim2" class="demo">
+        <p v-show="show" transition="fade">js 过渡</p>
+        <button @click="show=!show">Toggle</button>
+    </div>
+    <!--  也运用  $('选择器')  的 表明这个demo是有引用jquery库的   -->
+    <!-- 也可以只使用javascript钩子，不用定义任何css规则。当只使用javascript过渡时，enter和 leave钩子 需要使用done回调，否则它们将被同步使用，过渡将立即结束。   -->
+    <script> 
+    Vue.transition('fade', {
+        css: false,//为javascript过渡显示声明，css:false是个好主意，vue.js将跳过检测，这样也会阻止无意间让css规则干扰过渡。
+        enter: function(el, done) {
+            // 元素已被插入 DOM
+            // 在动画结束后调用 done
+            $(el)
+                .css('opacity', 0)
+                .animate({
+                    opacity: 1
+                }, 1000, done)
+        },
+        enterCancelled: function(el) {
+            $(el).stop()
+        },
+        leave: function(el, done) {
+            // 与 enter 相同
+            $(el).animate({
+                opacity: 0
+            }, 1000, done)
+        },
+        leaveCancelled: function(el) {
+            $(el).stop()
+        }
+    })
+
+
+    new Vue({
+        el: '#anim2',
+        data: {
+            show: true
+        }
+    })
+    </script>
+<!-- --------------------------------------------------------------- -->
+
+    <style>
+    ul {
+        padding-left: 0;
+        font-family: Helvetica, Arial, sans-serif;
+    }
+
+    .staggered-transition {
+        transition: all .2s ease;
+        overflow: hidden;
+        margin: 0;
+        height: 20px;
+    }
+
+    .staggered-enter,
+    .staggered-leave {
+        opacity: 0;
+        height: 0;
+    }
+    </style>
+    <div id="demo09">
+        <input v-model="query">
+        <ul>
+            <!--  filterBy 过滤功能  以输入的绑定的 query值进行匹配过滤 -->
+
+            <!-- transition 与 v-for 一起用时，可以创建渐进过渡。给过渡元素添加一个特性  stagger,  enter-stagger 或 leave-stagger   -->
+
+            <li v-for="item in list | filterBy query" transition="staggered" stagger="1000">
+                {{item.msg}}
+            </li>
+        </ul>
+    </div>
+    <script>
+    new Vue({
+        el: '#demo09',
+        data: {
+            query: '',
+            list: [
+            {
+                msg: 'Bruce Lee'
+            }, 
+            {
+                msg: 'Jackie Chan'
+            }, 
+            {
+                msg: 'Chuck Norris'
+            }, 
+            {
+                msg: 'Jet Li'
+            }, 
+            {
+                msg: 'Kung Fury'
+            }
+            ]
+        }
+    })
+    </script>
+<!-- ------------------------------------------------ -->
+
+
+</body>
+</html>

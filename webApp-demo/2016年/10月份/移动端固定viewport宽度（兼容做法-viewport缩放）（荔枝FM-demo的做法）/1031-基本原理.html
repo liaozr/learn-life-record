@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    固定宽度，viewport缩放 设计图、页面宽度、viewport width使用一个宽度，浏览器帮我们完成缩放。单位使用px即可。
+
+    使用兼容代码：
+
+    其中，下面的那个 640的宽度那些是你可以自己设置的，是根据自己的设计稿宽度去设置这个值的，倘若 你的设计稿宽度为750px.则将下面的那些640全部换成750即可。
+
+    <script>
+        if (/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+            var version = parseFloat(RegExp.$1);
+            if (version > 2.3) {
+                var phoneScale = parseInt(window.screen.width) / 640;
+                if (/MZ-M571C/.test(navigator.userAgent)) {
+                    document.write('<meta name="viewport" content="width=640, minimum-scale = 0.5, maximum-scale= 0.5">');
+                } else if (/M571C/.test(navigator.userAgent) && /LizhiFM/.test(navigator.userAgent)) {
+                    document.write('<meta name="viewport" content="width=640, minimum-scale = 0.5, maximum-scale= 0.5">');
+                } else {
+                    document.write('<meta name="viewport" content="width=640, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+                }
+            } else {
+                document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+            }
+        } else {
+            document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+        }
+    </script>
+
+</body>
+
+</html>

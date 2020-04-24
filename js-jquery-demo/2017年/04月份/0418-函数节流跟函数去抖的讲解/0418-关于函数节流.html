@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .p {
+        min-height: 2000px;
+    }
+</style>
+
+<body>
+    <div class="p"></div>
+    <script>
+        // 函数节流例子
+        var can = true;
+        window.onscroll = function() {
+            if (!can) {
+                //判断上次逻辑是否执行完毕，如果在执行中，则直接return
+                return;
+            }
+            can = false;
+            setTimeout(function() {
+                //执行逻辑开始
+                console.log('yes')
+                //执行逻辑结束
+                can = true;
+            }, 100);
+        };
+    </script>
+
+    可以看出上一次的逻辑必须执行完毕之后，才会执行下一次的逻辑，如果我们不做函数节流，
+
+    因为滚动是一个频繁的操作，会被时时刻刻监听到，执行多次逻辑的触发，做了节流会在一定程度上控制逻辑的触发
+
+</body>
+
+</html>

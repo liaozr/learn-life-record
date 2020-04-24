@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+要为input的date类型设置默认值时，目前来说，代码只支持yyyy-MM-ddTHH:mm:ss.SSS(或其部分)这种形式的的字符串：
+
+
+<input type="date" value="2015-12-01" id="mydate"/>
+
+如果你要动态设置值
+
+<script>
+
+    /*js设置*/
+    // document.getElementById("mydate").value = "2015-11-10"
+
+    /*jquery设置*/
+    // $("#mydate").val("2015-11-10");
+
+</script>
+
+但是注意啦，当你要用new Date()设置当天日期时
+
+<script>
+
+    // document.getElementById("mydate").value = new Date();
+    //这是无效的
+// ----------------------------------------------------------------------------------
+    // 那么如何才能设置呢？
+    // 只要使用下面的代码，我们就可以轻松的设置当天日期了
+
+    Date.prototype.toDateInputValue = (function() {
+        var local = new Date(this);
+        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+        return local.toJSON().slice(0, 10);
+    });
+
+    document.getElementById("mydate").value = new Date().toDateInputValue();
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------------- -->
+
+ 2. ajax请求
+
+  采用get请求的方式，根据返回值判断是否能够成功get到数据，从而确定当前的网络状态：
+
+<script>
+
+    $.ajax({
+        url: 'x.html',
+        success: function(result) {
+            ...
+        },
+        error: function(result) {
+            ...
+        }
+    });
+
+</script>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+3. 获取网络资源
+
+原理同2，在页面放一张隐藏图片，设置其onerror函数(获取图片资源失败时会调用该函数)：
+
+<script src="./jquery-3.1.1.min.js"></script>
+
+<script>
+    function getImgError() {
+        alert("Network disconnect!");
+    }
+    $().ready(function() {
+        $("#btn_test").click(function() {
+            var imgPath = "https://www.baidu.com/img/bd_logo1.png";
+            var timeStamp = Date.parse(new Date());
+            $("#img-test").attr("src", imgPath + "?timestamp=" + timeStamp);
+        });
+    });
+</script>
+
+<img id="img-test" style="display:none;" onerror="getImgError()" />
+
+<button id="btn_test">check status</button>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

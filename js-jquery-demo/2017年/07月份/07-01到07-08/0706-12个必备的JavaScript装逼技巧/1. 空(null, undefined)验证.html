@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    当我们创建了一个新的变量，我们通常会去验证该变量的值是否为空(null)或则未定义(undefined)。
+
+    这对于JavaScript编程来说，是一个经常要考虑到的验证。 如果直接写，那么像下面这样：
+
+    <script>
+
+        if (variable1 !== null || variable1 !== undefined || variable1 !== '') {
+            let variable2 = variable1;
+        }
+
+        // 我们可以使用一个更加简洁的版本：
+
+        let variable2 = variable1 || '';
+
+    </script>
+
+</body>
+
+</html>

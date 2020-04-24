@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<script>
+var a = 1,
+b = function a(x) {
+        x && a(--x);
+};
+alert(a); // 结果为1
+</script>
+
+<!-- 
+这段代码看起来比实际上复杂得多。
+结果是alert “1”。 不用太困惑。
+同样的，这段代码需要你知道关于JavaScript的三件事。
+-->
+
+
+<!-- 
+首先， 变量声明提升。上一个例子已经讲过。
+
+
+第二个方面是函数声明提升。所有的函数声明同变量声明一样都会被提升至当前的作用域顶部。
+
+只有变量定义跟函数声明会提升 
+
+只有变量定义跟函数声明会提升 
+-->
+
+<script>
+// 很重要的一点是，一个函数声明如下：
+function functionName(arg1, arg2) {
+    // function body
+}
+</script>
+
+
+<script>
+// 对应是函数表达式， 其实也就是变量初始化赋值。
+var functionName = function(arg1, arg2) {
+    //function body
+};
+</script>
+<!-- 函数表达式并不会被提升。这其实也就是变量初始化。 -->
+
+
+<!-- 第三点就是你必须知道和理解函数声明会覆盖了变量声明但没有覆盖变量初始化。 -->
+
+<!-- 第三点就是你必须知道和理解函数声明会覆盖了变量声明但没有覆盖变量初始化。 -->
+
+<!-- 第三点就是你必须知道和理解函数声明会覆盖了变量声明但没有覆盖变量初始化。 -->
+
+<!-- 为了理解这一点，看看下面的例子 -->
+
+<script>
+function value() {
+    return 1;
+}
+var value;
+alert(typeof value); // "function"
+</script>
+
+<!-- 
+
+确定一个值是哪种基本类型可以使用 typeof 操作符
+
+而确定一个值是哪种引用类型可以使用instanceof 操作符。
+
+ -->
+ 
+
+<!-- 上面的value作为function而结束了，即使变量声明出现在函数声明之后。
+在这种情况下函数声明会获得更高的优先权。
+但是下面的例子会有不同的结果。 
+-->
+
+<script>
+function value() {
+    return 1;
+}
+var value = 1;
+alert(typeof value); // "number"
+</script>
+
+<!-- 现在value的值为1, 变量初始化覆盖了函数声明。 -->
+
+<!-- ------------------------------------------------------------------ -->
+
+<!-- 我们再看一个例子: -->
+<script>
+var a = 1;
+function foo() {
+    a = 10;
+    return;
+    function a() {}
+}
+foo();
+alert(a);
+</script>
+
+<!-- 你必须知道和理解函数声明会覆盖了变量声明但没有覆盖变量初始化 -->
+
+<!-- 上面的例子会alert 1, 上面的这段代码实际执行是这样的， -->
+<script>
+var a;
+function foo() {
+    function a() {}
+    a = 10;
+    return;
+}
+a = 1;
+foo();
+alert(a);
+</script>
+
+<!-- 函数声明提前把a定义为foo内的局部函数变量 -->
+
+<!-- 只有变量定义跟函数声明会提升 -->
+
+<!-- 这样你应该就不难理解为什么会是1了吧。 -->
+
+<!-- 
+回到Code Two, 那个函数实际上是函数表达式即使有函数名a, 有名称的函数表达式并不会被认为是函数声明因此不会被覆盖变量声明。
+不过，你可能会发现包含函数表达式的变量是b, 而函数表达式的名称是a。 
+不同浏览器会做不同的处理，IE会认为function a() {}是函数声明，因此它会被变量初始化覆盖，意味这当调用a(x)是会抛出一个错误。其他浏览器允许在函数里调用a(x)即使函数外部a的类型的number。
+ 同时，在IE中调用b(2)会抛出一个error但是在其他浏览器中抛出undefined。 -->
+
+
+<!-- Code Two 可以简化为更加正确并容易理解的代码，如下： -->
+<script>
+var a = 1,
+    b = function(x) {
+        x && b(--x);
+    }
+alert(a);
+</script>
+<!-- ---------------------------------------------------------------------- -->
+
+<script>
+    var foo = 1;  
+
+    function bar() {  
+        if (!foo) {  
+            var foo = 10;
+        }  
+        console.log(foo);   //为10 的
+    }  
+    bar();
+</script>
+
+
+<!-- 按照这个说法，上面的程序 是等价于下面的写法的，变量提升 -->
+
+<!-- 典型的变量提升 案例 -->
+
+<script>
+    var foo  
+    function bar() {  
+        var foo
+        if (!foo) {  
+            foo = 10;
+        }  
+        console.log(foo);   //结果 为 10 的
+    }  
+    foo = 1;  
+    bar();
+</script>
+
+<!-- ----------------------------------------------------------------------- -->
+
+<script>
+    var foo = 1;  
+
+    function bar() {  
+        if (!foo) {  
+            let foo = 10;
+            console.log("aaaaa");  
+        }  
+        console.log(foo);   //为1的
+    }  
+
+    bar();
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+<!-- 函数声明会覆盖变量声明 -->
+
+<script>
+function a(b){ 
+   alert(b); 
+   function b(){ 
+       alert(b); 
+   } 
+   b(); 
+} 
+a(1); 
+</script>
+
+<!-- 上面的代码等同于下面的代码写法 -->
+
+<script>
+function a(b){ 
+   function b(){ 
+       alert(b); 
+   } 
+   alert(b); 
+   b(); 
+} 
+a(1); 
+</script>
+
+<!-- 执行结果： -->
+<script>
+
+alert(b);//弹出提示‘function b(){ alert(b); }’
+
+b(); // 执行function b(){ alert(b); }，在函数b的作用域内部找不到b,根据作用域链原理往外层寻找，找到b就是函数自己，弹出‘function b(){ alert(b); }’
+</script>
+
+</body>
+</html>
+
+
+
+ 

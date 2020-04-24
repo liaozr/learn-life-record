@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+多行字符串
+
+我们再也不需要添加 + \n 来拼接字符串了：
+
+<script>
+    // ES5
+    var template = '<li *ngFor="let todo of todos" [ngClass]="{completed: todo.isDone}" >\n' +
+        '  <div class="view">\n' +
+        '    <input class="toggle" type="checkbox" [checked]="todo.isDone">\n' +
+        '    <label></label>\n' +
+        '    <button class="destroy"></button>\n' +
+        '  </div>\n' +
+        '  <input class="edit" value="">\n' +
+        '</li>';
+    console.log(template);
+</script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+在 ES6 上， 我们可以同样使用反引号来解决这个问题：
+
+<script>
+      // ES6
+      const template2 = `<li *ngFor="let todo of todos" [ngClass]="{completed: todo.isDone}" >
+        <div class="view">
+          <input class="toggle" type="checkbox" [checked]="todo.isDone">
+          <label></label>
+          <button class="destroy"></button>
+        </div>
+        <input class="edit" value="">
+      </li>`;
+      console.log(template2);
+</script>
+
+两段代码的结果是完全一样的。
+
+</body>
+</html>

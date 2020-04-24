@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<!-- --------------------------------------------------------------------------- -->
+<script>
+if (!("a" in window)) {
+    var a = 1;
+}
+alert(a); //结果为alert的是undefined
+
+// 这个奇怪的代码似乎是这样: “如果window 没有属性a,
+// 定义一个变量a并且赋值1”, 
+// 你可能会认为应该alert 1。 
+// 实际上，alert的是”undefined”。 为了理解发生了什么，你应该知道JavaScript的四件事。
+</script>
+
+<!-- 
+
+首先， 所有的全局变量都是window的属性。
+var a = 1 完全等价于window.a = 1。
+
+-->
+
+<!-- 
+第二， 所有的变量声明都会被提升(hositing)至所在作用域的顶部，
+ 这个是JavaScript一大特性。看看，下面的这个例子
+ -->
+<script>
+alert("a" in window);
+var a;
+</script>
+
+<!-- 
+
+上面的例子会alert出”true”即使变量声明在alert()之后。
+
+这是因为JavaScript引擎会首先扫描所有变量生命并把他们hositing至作用域顶部。上面那段代码相当于这样：
+var a;
+alert("a" in window);
+-->
+
+
+
+<!--
+
+第三件事你应该理解只有变量声明被hositing而变量初始化没有
+
+var a = 1;
+你可以拆分看待上面的代码
+
+var a;
+a = 1;
+实际上JavaScript引擎也是这么做的， 当有变量声明并初始化，JavaScript会自动拆分变量声明和变量初始化。那为什么没有提升(hositing)变量初始化？ 因为这样会影响变量值在代码执行期间，导致不可预料的结果。
+
+-->
+
+<!-- 第四件事：JavaScript是函数级作用域 -->
+<script>
+var x = 1;
+console.log(x); // 1
+if (true) {
+    var x = 2;
+    console.log(x); // 2
+}
+console.log(x); // 2
+</script>
+
+<!-- 上面console出 1 2 2, 
+这是因为JavaScript是函数级作用域(function-level scope), 像if语句是不会创建新的作用域的。
+只有函数才会创建新的作用域。
+ -->
+
+<!-- 如果你理解上面四点，那么上面的例子你肯定可以知道为什么alert的是”undefined”,
+ 上述的代码实际上是这样执行的。 
+ -->
+<script>
+var a;
+if (!("a" in window)) {
+    a = 1;
+}
+alert(a);
+</script>
+
+<!-- 
+不难看出alert的是”undefined”, 
+声明了变量a， 所有!("a" in window)的是结果是false; 
+变量声明了但是没有初始化， 所以alert “undefined”。
+
+ -->
+<!-- ------------------------------------------------------------------------------------------- -->
+
+<script>
+	var foo = 1;  
+
+	function bar() {  
+	    if (!foo) {  
+	        var foo = 10;
+	        console.log("aaaaa");  
+	    }  
+	    console.log(foo);   //为10 的
+	}  
+
+	bar();
+</script>
+<!-- 按照这个说法，上面的程序 是等价于下面的写法的，变量提升 -->
+
+<!-- 典型的变量提升 案例 -->
+<script>
+	var foo  
+	function bar() {  
+		var foo
+	    if (!foo) {  
+	        foo = 10;
+	        console.log("aaaaa");  
+	    }  
+	    console.log(foo);   //结果 为 10 的
+	}  
+    foo = 1;  
+	bar();
+</script>
+<!-- ----------------------------------------------------------------------- -->
+<script>
+	var foo = 1;  
+
+	function bar() {  
+	    if (!foo) {  
+	        let foo = 10;
+	        console.log("aaaaa");  
+	    }  
+	    console.log(foo);   //为1的
+	}  
+
+	bar();
+</script>
+
+</body>
+</html>

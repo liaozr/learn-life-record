@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+
+	 <style>
+    .fade-transition {
+        transition: opacity .3s ease;
+    }
+
+    .fade-enter,
+    .fade-leave {
+        opacity: 0;
+    }
+
+    .box {
+        width: 250px;
+        border: 1px solid #9325BC;
+        padding: 10px;
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .box:hover {
+        -moz-box-shadow: 0 0 10px #ccc;
+        -webkit-box-shadow: 0 0 10px #ccc;
+        box-shadow: 0 0 10px #ccc;
+        border: 10px solid #9325BC;
+    }
+    </style>
+</head>
+<body>
+	
+
+	<!-- 	在大型应用中，我们可能需要将应用拆分为小块，只在需要时才从服务器下载。为了让事情更简单，Vue.js 允许将组件定义为一个工厂函数，动态地解析组件的定义。Vue.js 只在组件需要渲染时触发工厂函数，并且把结果缓存起来，用于后面的再次渲染。例如：
+
+	Vue.component('async-example', function (resolve, reject) {
+	  setTimeout(function () {
+	    resolve({
+	      template: '<div>I am async!</div>'
+	    })
+	  }, 1000)
+	})
+	工厂函数接收一个 resolve 回调，在收到从服务器下载的组件定义时调用。也可以调用 reject(reason) 指示加载失败。这里 setTimeout 只是为了演示。怎么获取组件完全由你决定。推荐配合使用 Webpack 的代码分割功能：
+
+	Vue.component('async-webpack-example', function (resolve) {
+	  // 这个特殊的 require 语法告诉 webpack
+	  // 自动将编译后的代码分割成不同的块，
+	  // 这些块将通过 ajax 请求自动下载。
+	  require(['./my-async-component'], resolve)
+	}) -->
+
+	<h3>正常组件</h3>
+    <div id="app">
+        <my-component :foo="baz" :bar="qux" @click="doThis('click')" @mouseover="onMouseOver('mouseover')">
+            <img slot="icon" src="http://vuejs.org.cn/images/logo.png" width='200'>
+            <p slot="main-text">Hello!</p>
+        </my-component>
+
+        <async-example-3></async-example-3>
+        <async-example-5></async-example-5>
+    </div>
+    <br>
+    <template id='bbbb'>
+    	 <div class='box'>
+            <slot name="icon"></slot>
+
+            <slot name="main-text"></slot>
+
+         </div>
+    </template>
+    <script>
+    Vue.component('my-component', {
+        template: '#bbbb',
+        props: ['foo', 'bar'],
+        data: function() {
+            return {
+                items: {
+                    a: '1', // 子组件的作用域跟父组件的作域是独立不连系
+                    b: '2',
+                    c: '3'
+                }
+            }
+        }
+
+    });
+
+    // 工厂函数接收一个 resolve 回调，在收到从服务器下载的组件定义时调用。也可以调用 reject(reason) 指示加载失败。这里 setTimeout 只是为了演示。怎么获取组件完全由你决定。
+    Vue.component('async-example-3',
+        function(resolve, reject) {
+            setTimeout(function() {
+                // 乱数一下下
+                var r=Math.random() * 10
+
+                if (r<=5) {
+                    resolve({
+                        template: '<h3> 3秒组件完成 </h3> '
+                    })
+                } 
+                else {
+                    reject(
+                        'r:'+ r +',故意搞失败的，不然不会了解  reject , resolove 的功用'
+                    )
+                }
+                console.log('3秒后组件 ok,r:'+r);
+            },3000) // setTimeout
+        } // function(r,r)
+    ); // Vue.component
+
+    Vue.component('async-example-5', function(resolve, reject) {
+        setTimeout(function() {
+            resolve({
+            template: `
+            <h3>5秒后组件</h3>
+            `
+            });
+            console.log('5秒后组件 ok');
+        }, 5000)
+    });
+
+    new Vue({
+        el: '#app',
+        data: {
+            items: {
+                'a': '4',
+                'b': '5',
+                'c': '6'
+            }
+        },
+        methods: {
+            'doThis': function(msg) {
+                console.log(msg);
+            },
+            'onMouseOver': function(msg) {
+                console.log(msg)
+            }
+        }
+    });
+    </script>
+</body>
+</html>

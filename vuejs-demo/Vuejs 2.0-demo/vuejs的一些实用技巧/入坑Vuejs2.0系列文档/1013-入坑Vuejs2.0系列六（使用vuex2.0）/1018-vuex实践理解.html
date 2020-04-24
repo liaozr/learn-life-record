@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+store 存储应用所需的数据。所有组件都从store 中读取数据。
+state（状态），mutations（变更） 和 actions（动作）。
+state（状态），mutations（变更） 和 actions（动作）。
+state（状态），mutations（变更） 和 actions（动作）。
+
+<body>
+    <!-- -----------------------------------------------------------------------------------------------------------   -->
+
+    <script type="text/javascript">
+        Actions
+
+        Action 跟 mutation 类似， 两者的区别是： Mutation 修改状态， action 则提交（ 一个或多个） mutation。
+
+        如何触发 Actions？ actions 通过store.dispatch('actionName') 触发， 其方法体中再触发 mutation， 但是 mutations 是可以直接通过 store.commit 触发的
+
+        在组件中分发 Actions 可以使用 this.$store.dispatch() 或者 mapActions 映射组件方法到 store.dispatch 中调用（ 需要注入 root）。
+    </script>
+
+    <script type="text/javascript">
+        const store = new Vuex.Store({
+            state: {
+                messages: []
+            },
+            actions: {
+                newMessage({
+                    commit
+                }, msg) {
+                    commit('NEW_MESSAGE', msg)
+                }
+            },
+            mutations: {
+                NEW_MESSAGE(state, msg) {
+                    state.messages.push(msg)
+                }
+            }
+        })
+
+        export default store
+    </script>
+
+    <script type="text/javascript">
+        组件里：
+            ...mapActions(['newMessage'])
+
+        在组件中 commit mutation 时
+        可以使用 this.$store.commit() 或者使用 mapMutations 方法， 后者可以将组件中的方法映射到 store.commit 调用（ 需要在根组件注入 store）。
+
+        Mutations 会接收 state 作为第一个参数
+
+        getters 中的方法接受两个参数， 分别为 state 以及 getters（ 其他 getters）
+    </script>
+
+    <!-- ----------------------------------------------------------------------------------- -->
+
+    <script type="text/javascript">
+        getters: {
+            // ...
+            doneTodosCount: (state, getters) => {
+                return getters.doneTodos.length
+            }
+        }
+
+        // 那么我们在其他组件内部使用 getters 也变得十分简单
+        computed: {
+            doneTodosCount() {
+                return this.$store.getters.doneTodosCount
+            }
+        }
+
+        // ---------------------------------------------------------------------------------------------------
+
+        mapGetters
+
+        可以将 store 的 getters 映射到本地的计算属性中来， 除了可以使用数组之外， 还可以使用对象起别名。
+
+            ...mapGetters(['doneTodosCount','anotherGetter',...])
+    </script>
+
+    <!-- ---------------------------------------------------------------------------------------------------- -->
+
+    little tips 建议使用大写命名 Mutation 将所有大写变量存放在一个文件中，需要的时候引入。
+
+    使用 es6 的计算属性名新特性来使用常量作为方法名。
+
+    <script type="text/javascript">
+        // mutation-types.js
+        export const SOME_MUTATION = 'SOME_MUTATION'
+
+        // store.js
+        import Vuex from 'vuex'
+        import { SOME_MUTATION } from './mutation-types'
+
+        const store = new Vuex.Store({
+            state: {...
+            },
+            mutations: {
+                // we can use the ES2015 computed property name feature
+                // to use a constant as the function name
+                [SOME_MUTATION](state) {
+                    // mutate state
+                }
+            }
+        })
+    </script>
+
+    es6 计算属性名
+
+    <script type="text/javascript">
+        mutations 必须都是同步的， 它的改变必须在调用之后立即执行
+        因为它是唯一可以修改 state 的， 如果它使用了异步方法， 将会使我们的 state 变得无法追踪， 定位问题也变得是否困难
+
+        在组件中 commit mutation 时
+        可以使用 this.$store.commit() 或者使用 mapMutations 方法， 后者可以将组件中的方法映射到 store.commit 调用（ 需要在根组件注入 store）。
+
+        import { mapMutations } from 'vuex'
+
+        export default {
+            // ...
+            methods: {
+                // 传入数组
+                ...mapMutations([
+                    'increment' // map this.increment() to this.$store.commit('increment')
+                ]),
+                // 传入对象，可以使用 alias
+                ...mapMutations({
+                    add: 'increment' // map this.add() to this.$store.commit('increment')
+                })
+            }
+        }
+    </script>
+
+<!-- -------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- ---------------------------------------------------------------------------------------------------------------------  -->
+
+    <!-- 简书的简单的vuex 示例 -->
+
+    <!-- 组件 articledetails.vue -->
+    <li v-for='nav in getnavlists' @click="getterlists(nav.type)" :class="{'active': getcurlist[0].type==nav.type}" >
+             <router-link to='/index/article' v-text='nav.title'></router-link>
+    </li>
+    <script>
+        import { mapGetters,mapActions } from 'vuex'
+        export default {
+            data() {
+                return {
+
+                }
+            },
+            computed: {
+                ...mapGetters(['getnavlists', 'getcurlist'])
+            },
+            methods: {
+                ...mapActions(['getterlists', 'getstartlist'])
+            },
+            created() {
+                this.getstartlist() //要先 执行这个this.getstarlist()，要不然上面那个getcurlist[0].type会报错的。
+            }
+        }
+    </script>
+---------------------------------------------------------------------------------------------------------------
+    <!-- mutation-types  -->
+    <script type="text/javascript">
+        export const GETTERSLISTS = 'GETTERSLISTS'
+
+        export const GETSTARTLIST = 'GETSTARTLIST'
+    </script>
+-----------------------------------------------------------------------------------------------------------
+    <!-- store.js -->
+    <script type="text/javascript">
+        import Vue from 'vue'
+        import Vuex from 'vuex'
+
+        import { GETTERSLISTS } from './mutation-types'
+        import { GETSTARTLIST } from './mutation-types'
+
+        // 也可直接写成下面的那种形式
+        // import { GETTERSLISTS,GETSTARTLIST } from './mutation-types'
+
+        // 导入各个模块的初始状态state 和 mutations
+        // 告诉 vue '使用' vuex
+        Vue.use(Vuex)
+
+        const store = new Vuex.Store({
+            state: {
+                curlisttype: []
+            },
+            actions: {
+                getterlists({ commit }, gettercan) {
+                    commit('GETTERSLISTS', gettercan)
+                },
+                getstartlist({ commit }) {
+                    commit('GETSTARTLIST')
+                }
+            },
+            mutations: {
+                [GETTERSLISTS](state, gettercan) {
+                    if (gettercan == 'hot')
+                    {
+                        state.curlisttype = ''
+                        state.curlisttype = state.hot
+                    }
+                    else if (gettercan == 'new')
+                    {
+                        state.curlisttype = ''
+                        state.curlisttype = state.new
+                    }
+                    else if (gettercan == 'day')
+                    {
+                        state.curlisttype = ''
+                        state.curlisttype = state.day
+                    }
+                },
+                [GETSTARTLIST](state) {
+                    state.curlisttype = ''
+                    state.curlisttype = state.hot
+                }
+            },
+            getters: {
+                getlists: (state) => {
+                    return state.curlisttype
+                },
+                getnavlists: (state) => {
+                    return state.navlist
+                },
+                getcurlist: (state) => {
+                    return state.curlisttype
+                }
+            }
+        })
+        export default store
+    </script>
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

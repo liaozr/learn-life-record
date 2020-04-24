@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		    items: [
+		        {
+		          id: 336,
+		          title: '智利三文鱼扒500g酸甜口味爆炒',
+		          img: '../assets/images/test/8-1.jpg',
+		          count: 1,
+		          price1: 106,
+		          price2: 80
+		        },
+		        {
+		          id: 337,
+		          title: '西班牙三文鱼扒500g酸甜口味爆炒',
+		          img: '../assets/images/test/8-1.jpg',
+		          count: 2,
+		          price1: 225,
+		          price2: 152
+		        }
+	        ]
+	</script>
+
+<!-- 如上代码，我要求count的和，当任意count的值产生变化是，
+	就要更新count的和，请问如何监听所有count的值得变化呢？
+ -->
+
+
+<!-- 用计算属性，返回值是这个列表值相加 -->
+<script>
+	computed: {
+	    countTotal: function () {
+	        let total = 0;
+	        this.items.forEach(function (item) {
+	            total += item.count
+	        })
+	        return total
+	    }
+	}
+</script>
+
+</body>
+</html>

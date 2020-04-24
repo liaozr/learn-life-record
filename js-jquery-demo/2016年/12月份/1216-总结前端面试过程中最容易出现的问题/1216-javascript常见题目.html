@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+三、js数组主要有哪些方法？主要参数你了解吗？
+
+具体你可以查一下，常用的一般有如下：
+<script>
+1 、shift():删除数组的第一个元素,返回删除的值。这里是0
+
+2 、unshift(3,4):把参数加载数组的前面，返回数组的长度。现在list:中是3,4,0,1,2
+
+3、pop():删除数组的最后一个元素，返回删除的值。这里是2.
+
+4、push(3):将参数加载到数组的最后，返回数组的长度，现在List中时：0,1,2,3
+
+5、concat(3,4):把两个数组拼接起来。
+
+6、splice(start,deleteCount,val1,val2,...)：
+从start位置开始删除deleteCount项，并从该位置起插入val1,val2,...
+
+7、reverse：将数组反序
+var a = [1,2,3,4,5];
+var b = a.reverse(); //a：[5,4,3,2,1] b：[5,4,3,2,1]
+
+8、sort(orderfunction)：按指定的参数对数组进行排序 var a = [1,2,3,4,5]; var b = a.sort(); //a：[1,2,3,4,5] b：[1,2,3,4,5]
+
+9、slice(start,end)：返回从原数组中指定开始下标到结束下标之间的项组成的新数组
+var a = [1,2,3,4,5];
+var b = a.slice(2,5); //a：[1,2,3,4,5] b：[3,4,5]
+
+</script>
+<!-- ----------------------------------------------------------------------------- -->
+
+四、js迭代的方法
+
+every() 、fliter()、forEach()、map()、some()具体大家可以查一下！
+
+<!-- ----------------------------------------------------------------------------- -->
+
+五、简单正则
+
+<script>
+    function String.prototype.Trim() {
+            return this.replace(/(^/s * ) | (/s*$)/g, "");
+    }
+    // 去掉左右空格
+
+    // -------------------------------------------------------------------
+    function trim2(text){
+        if (typeof(text) == "string")
+        {
+          return text.replace(/^\s*|\s*$/g, "");
+        }
+        else
+        {
+          return text;
+        }
+    }
+    // 第二个trim2函数，判断是否是字符串，假如是的话，去掉字符串左右空格，
+    // 如果不是字符串，原文返回！
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

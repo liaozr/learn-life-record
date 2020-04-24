@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.js"></script>
+	<style>
+	  .big {
+	    font-size: 40px;
+	  }
+
+	  .blue {
+	    color: #0000FF;
+	  }
+	  </style>
+</head>
+<body>
+	<div id="app">
+	    <div class="{{className1}}">台湾小凡 vue.js 官网讲解</div>
+	    <div v-bind:class="className2">台湾小凡 vue.js 官网讲解</div>
+
+	    <!-- 两个是不能混合使用的 -->
+	    <div class="{{className1}}" v-bind:class="className2">台湾小凡, 故意两种的写法，都用上！！！, Vue.js 会报错</div>
+
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      className1: 'big',
+      className2: 'blue'
+    }
+  });
+  </script>
+<!-- *************************************************************	 -->
+
+<!--请见控制台-->
+  <style>
+  .static {
+    font-size: 120px;
+    width: 600px;
+    margin: 0 auto;
+    background-color: yellow;
+    height: 120px;
+    line-height: 120px;
+    text-align: center;
+  }
+
+  .class-a {
+    color: blue;
+  }
+
+  .class-b {
+    text-decoration: underline;
+  }
+  </style>
+  <div id="app2">
+    <div class="static" v-bind:class="{ 'class-a': isA, 'class-b': isB }">台湾小凡 vue.js 官网讲解</div>
+    <div align="center">
+      <!--  isA =!isA  这里的 =号代表着的是赋值的意思 把 !isA赋给 isA 从而改变了 vm里面的data下 的键值isA的值  -->
+
+      <!-- 这里面也有双向数据绑定的概念在的了 -->
+      <button @click="isA =!isA">isA ={{isA}}</button>
+      <button @click="isB =!isB">isB ={{isB}}</button>
+    </div>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app2',
+    data: {
+      isA: true,
+      isB: true
+    }
+  });
+  </script>
+<!-- *********************************************************************** -->
+
+  <div id="app3">
+	<!-- 绑定一个返回对象 的计算属性 -->
+    <div v-bind:class="classObject">台湾小凡 vue.js 官网讲解</div>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app3',
+    data: {
+      classObject: {
+        'class-a':false,
+        'class-b': true  //会把这个类名为class-b传到div块的class去。
+      }
+    }
+  });
+  </script>
+<!-- ************************************************************* -->
+
+  <div id="app4">
+    <div v-bind:class="ccgo">台湾小凡 vue.js 官网讲解</div>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app4',
+    data: {
+      cc: ['A','C'],
+      b:true
+    },
+    computed: {
+      ccgo: function() {
+        return {
+          // 双引号括起来是一个js表达式
+          'classA': this.cc.indexOf('A') > -1,
+          'classB': this.b,
+          'classC': this.cc.indexOf('C') > -1
+        };
+      }
+    }
+  });
+  </script>
+<!-- ******************************************************************* -->
+
+<div id="app5">
+    <div v-bind:class="[classA, classB]">台湾小凡 vue.js 官网讲解</div>
+</div>
+<script>
+  var vm = new Vue({
+    el: '#app5',
+    data: {
+      classA: 'class-a',
+      classB: 'class-b'
+    }
+
+  });
+</script>
+
+<!-- ***************************************************************************** -->
+
+<div id="app6">
+    <div v-bind:class="[classA, isB ? classB : '']">台湾小凡 vue.js 官网讲解</div>
+    <!-- 此例始终添加classA,但是只有在isB是true时添加classB -->
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app6',
+    data: {
+      classA: 'class-a',
+      classB: 'class-b',
+      isB:false
+    }
+
+  });
+  </script>
+<!-- -------------------------------------------------------------------- -->
+
+    <div id="app7">
+      <!-- 但是要记得这个vue的版本是要在1.0.19+版本中，才会有这个功能的 -->
+      <div :class="[classA, { classB: isB, classC: isC }]">1111111111111111</div>
+   </div>
+  <script>
+  var vm = new Vue({
+    el:'#app7',
+    data:{
+      classA: 'class-a',
+      isB: true,
+      isC: true
+    }
+  });
+  </script>
+<!-- --------------------------------------------------------------------------------------- -->
+
+<!-- 绑定内联样式 -->
+ <div id="app8">
+  <!--  v-bind:style  -->
+  <!--    fontSize驼峰写法是不用加引号的，但是如果background-color 要这么写的话，就得加上引号
+           了，跟js的方法写法是一样的。        
+    -->
+    <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' ,'background-color':bgcolor}">
+      台湾小凡 vue.js 官网讲解</div>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app8',
+    data: {
+      activeColor: 'red',
+      fontSize: 30,
+      bgcolor: 'yellow'
+    }
+  });
+  </script>
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+<!-- style 绑定一个物件 styleObject -->
+
+<!-- 这里 styleObject 是一个物件。 -->
+ <div id="app9">
+    <div v-bind:style="styleObject">
+      台湾小凡 vue.js 官网讲解</div>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app9',
+    data: {
+      styleObject: {
+        color: 'red',
+        fontSize: '13px'
+      }
+    }
+
+  });
+  </script>
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+<div id="app10">
+    <div v-bind:style="ccgo">
+      台湾小凡 vue.js 官网讲解</div>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app10',
+    data: {
+      styleObject: {
+        color: 'red',
+        fontSize: '15px'
+      },
+      styleObject1: {
+        color: 'blue',
+        fontSize: '20px'
+      },
+      itemA: 100,
+      itemB: 2000
+    },
+    computed: {
+      ccgo: function() {
+        // 这里this指的就是 vm
+        if (this.itemA < this.itemB) {
+          return this.styleObject
+        } else {
+          return this.styleObject1
+        }
+
+      }
+    }
+
+  });
+  </script>
+<!-- --------------------------------------------------------------------------------------   -->
+
+<!-- 这里要注意的是 v-bind:style 需要使用厂商前缀的css属性时，vuejs 会自动帮css3写法的元素添加其前缀的 -->
+<!-- 用不同浏览器打开查看元素即可  -->
+
+<div id="app11">
+    <div v-bind:style="{'margin':'100px  100px','transform':'rotate(3deg)','box-shadow': '0 20px 30px rgba(0, 0, 0, 1)','background-color':'red'}">
+      台湾小凡 vue.js 官网讲解</div>
+</div>
+<script>
+var vm = new Vue({
+  el: '#app11',
+});
+</script>
+
+
+  
+</body>
+</html>

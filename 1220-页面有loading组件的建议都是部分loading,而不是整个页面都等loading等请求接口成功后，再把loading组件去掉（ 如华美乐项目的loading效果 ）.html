@@ -1,0 +1,37 @@
+<template>
+
+   <div class="music-list">
+
+      <div class="back" @click='back'>
+          <i class="icon-back"></i>
+      </div>
+
+      <h1 class="title" v-text='title'></h1>
+      <div class="bg-image" :style="bgStyle" ref='bgImage'>
+          <div class="play-wrapper">
+             <div class='play' v-if='songs.length >0' ref='playBtn'>
+                <i class="icon-play"></i>
+                <span class='text'>随机播放全部</span>
+             </div>
+          </div>
+          <div class="filter" ref='filter'></div>
+      </div>
+
+      <div class="bg-layer" ref='layer'></div>
+
+      <scroll @scrollpos="scrollpos"  :probe-type='probeType' :listen-scroll="listenScroll" :lists="songs" class='list' ref='scroll'>
+
+         <div class="song-list-wrapper">
+            <songList :songs="songs" ></songList>
+         </div>
+
+         <!--  此时的这个loading 组件 是加到 只是 要获取接口数据的容器里面的，当容器还在获取数据的时候，loading组件在这个容器的正中间部分显示，当数据请求成功渲染到容器上的时候，容器内的loading组件会将消失。-->
+         <div class="loading-container" v-show='!songs.length'>
+              <loading></loading>
+         </div>
+
+      </scroll>
+
+  </div>
+
+</template>

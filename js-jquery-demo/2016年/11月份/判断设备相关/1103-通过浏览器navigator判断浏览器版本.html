@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery.js"></script>
+</head>
+
+<body>
+    <script>
+        $(function() {
+            if (window.ActiveXObject) {
+                var browser = navigator.appName
+                var b_version = navigator.appVersion
+                var version = b_version.split(";");
+                var trim_Version = version[1].replace(/[ ]/g, "");
+                if (browser == "Microsoft Internet Explorer" && trim_Version == "MSIE6.0" || trim_Version == "MSIE7.0" || trim_Version == "MSIE8.0") {
+                    $(".ie7andie6andie8").show();
+                }
+            }
+        })
+    </script>
+
+    <div class="ie7andie6andie8">
+        亲爱的用户你好，经检验你目前使用的浏览器版本过低，请升级ie至ie9+来体验，或者是使用360浏览器、谷歌等高级浏览器进行浏览以保证获得比较好的阅读体验。
+    </div>
+    <style>
+        .ie7andie6andie8 {
+            display: none;
+        }
+    </style>
+</body>
+
+</html>

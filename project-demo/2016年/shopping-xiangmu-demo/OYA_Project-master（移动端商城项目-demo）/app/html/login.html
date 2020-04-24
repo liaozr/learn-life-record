@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<meta charset="UTF-8">
+		<title>登录</title>
+		<!--引入样式-->
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../plugin/font_icon/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/login.css"/>
+		
+		<!--引入插件-->
+		<script src="../plugin/zepto/zepto.js"></script>
+		<script src='../plugin/zepto/touch.js'></script>
+	</head>
+	<body>
+		<!--头部-->
+		<header class="layout-header">
+			<!--回退-->
+			<a href="javascript:history.go(-1)" class="go-back">
+				<span class="iconfont icon-houtui"></span>
+			</a>
+			<!--页面标题-->
+			<div class="header-text">登录</div>
+			<div class="header-nav">
+				<span class="iconfont icon-msnui-list-square"></span>
+				<!--二级菜单-->
+				<ul>
+					<li><a href="../index.html">首页</a></li>
+					<li><a href="goodlist.html">积分区</a></li>
+					<li><a href="goodlist.html">夺宝区</a></li>
+					<li><a href="list.html">分类</a></li>
+					<li><a href="shopCart.html">购物车</a></li>
+					<li><a href="my_center.html">个人中心</a></li>
+				</ul>
+			</div>
+		</header>
+		
+		<!--登录表单-->
+		<section class="layout-center">
+			<form action="my_center.html" method="get">
+				<!--手机账号-->
+				<div class="phoneNum">
+					<p>
+						<input type="text" value="86" placeholder="国家编码" readonly/>
+						<span></span>
+					</p>
+					<p>
+						<input type="text" placeholder="手机号码" value=""/>
+						<span></span>
+					</p>
+				</div>
+				<div class="psd">
+					<p>
+						<input type="password" placeholder="登录密码" />
+						<span></span>
+					</p>
+
+				</div>
+				<div class="submitBtn">
+					<p>
+						<input type="submit" value="登录" />
+					</p>
+
+				</div>
+				<div class="form-foot">
+					<a href="register.html">立即注册!</a>
+					<a href="retrieve_psd.html">忘记密码?</a>
+				</div>
+			</form>
+		</section>
+		
+		
+		
+		<!--引入公共js文件-->
+		<script src="../js/common.js"></script>
+		<!--引入本页js文件-->
+		<script src="../js/login.js"></script>
+	</body>
+</html>

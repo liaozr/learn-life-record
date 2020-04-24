@@ -1,0 +1,59 @@
+{
+    "lists":[
+        {
+            "title":"Apple 苹果 iPhone 6s",
+            "pic":"http://d8.yihaodianimg.com/N05/M03/D4/1E/CgQI0lYEBwWAQIvJAAFyostaOYY12501_80x80.jpg",
+            "address":"上海"
+         },
+        {
+            "title":"Letv 乐视1S",
+            "pic":"http://d9.yihaodianimg.com/N07/M00/6B/E6/CgQIz1ZNQWeALuYuAASH8T5MJzY38001_80x80.jpg",
+            "address":"上海"
+        },
+        {
+            "title":"NOKIA/诺基亚",
+            "pic":"http://d8.yihaodianimg.com/N08/M0A/6B/E1/ChEi1lZhlgSAEES9AAIPUw3996808600_80x80.jpg",
+            "address":"捷兴"
+        },
+        {
+            "title":"华为 Mate8",
+            "pic":"http://d6.yihaodianimg.com/N09/M00/78/AA/ChEi2VZpRZCAeyz-AAP2yE5HMTQ17001_80x80.jpg",
+            "address":"蓝布"
+        },
+        {
+            "title":"锤子 坚果",
+            "pic":"http://d6.yihaodianimg.com/N07/M01/98/48/CgQI0FY3GNuAeKARAARTi1sTc0E99401_80x80.jpg",
+            "address":"新圩"
+        },
+        {
+            "title":"华为荣耀",
+            "pic":"http://d9.yihaodianimg.com/N05/M0A/B6/5A/CgQI0lX45JWANx7NAANWUytnWfY51201_80x80.jpg",
+            "address":"汕头"
+        },
+        {
+            "title":"小米 红米2A",
+            "pic":"http://d6.yihaodianimg.com/N08/M08/94/33/ChEi1FX_oHWAWJYUAAL4rKvikTE54401_80x80.jpg",
+            "address":"梅州"
+        },
+        {
+            "title":"Samsung 三星",
+            "pic":"http://d8.yihaodianimg.com/N06/M06/8A/B9/CgQIzVQj87GAZ2-bAAMyoIZt8v863301_80x80.jpg",
+            "address":"深圳"
+        },
+        {
+            "title":"HTC Desire",
+            "pic":"http://d8.yihaodianimg.com/N06/M04/DC/24/ChEbu1T4HVeASjwEAAGHikpYgyQ10901_80x80.jpg",
+            "address":"广州"
+        },
+        {
+            "title":"华为 荣耀畅玩4X",
+            "pic":"http://d8.yihaodianimg.com/N05/M05/BE/72/ChEbulTYbhyAY_DmAAGmsWjdGgY32601_80x80.jpg",
+            "address":"佛山"
+        },
+        {
+            "title":"vivo X6A",
+            "pic":"http://d7.yihaodianimg.com/N05/M0B/89/7D/CgQI01Zb6yGAL2SWAAWXMCmZ7gk97001_80x80.jpg",
+            "address":"北京"
+        }
+    ]
+}

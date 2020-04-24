@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  动态改变webview的侧滑返回功能：
+
+ <!-- ----------------------------------------------------------------------------------- -->
+
+  <script>
+  
+// -----------------------------------------------------------------------------------
+
+      var wv=plus.webview.currentWebview();
+
+      // 关闭侧滑返回功能
+      wv.setStyle({'popGesture':'none'});
+
+      // 侧滑返回后关闭webview
+      wv.setStyle({'popGesture':'close'});
+
+      // 侧滑返回后隐藏webview
+      wv.setStyle({'popGesture':'hide'});
+
+// -----------------------------------------------------------------------------------
+
+      mui.plusReady(function(){
+
+        mui.init({});
+
+        var ws=plus.webview.currentWebview();
+        //侧滑返回时禁止回弹
+
+        ws.addEventListener("popGesture", function(e){
+
+            ws.setStyle({'popGesture':'close'});
+
+            if(plus.webview.getWebviewById("xiadan-shuidian-list.html")){
+
+                plus.webview.getWebviewById("xiadan-shuidian-list.html").evalJS("init()");
+            }
+            else{
+                plus.webview.getWebviewById("../xiangmu/xiadan-shuidian-list.html").evalJS("init()");
+            }
+        }, false );
+
+      })
+
+// -----------------------------------------------------------------------------------
+
+  </script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

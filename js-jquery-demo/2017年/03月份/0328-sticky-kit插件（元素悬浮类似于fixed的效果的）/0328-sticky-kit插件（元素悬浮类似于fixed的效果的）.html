@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+    <script src='sticky-kit.min.js'></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .window_frame {
+            min-height: 800px;
+            background-color: pink;
+            position: relative;
+        }
+        .window_frame .window_title {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="window_frame pink">
+        <div class="window_title">Demo Browser11111</div>
+        <div class="window_inner">
+            <p>`1`11212121212</p>
+
+            <p>`1`11212121212</p>
+            <p>`1`11212121212</p>
+        </div>
+    </div>
+    <div class="window_frame pink">
+        <div class="window_title">Demo Browser22222</div>
+        <div class="window_inner">
+            <p>`1`11212121212</p>
+
+            <p>`1`11212121212</p>
+            <p>`1`11212121212</p>
+        </div>
+    </div>
+    <div class="window_frame pink">
+        <div class="window_title">Demo Browser333333</div>
+        <div class="window_inner">
+            <p>`1`11212121212</p>
+
+            <p>`1`11212121212</p>
+            <p>`1`11212121212</p>
+        </div>
+    </div>
+    <script>
+        $(".window_title").stick_in_parent();
+    </script>
+</body>
+
+</html>

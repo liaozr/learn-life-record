@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+在指定宽度的div内，如果中文内容过长则会自动换行，但英文不会自动换行。
+
+原因：英文单词之间有空格才会换行，对于一长串字母会被当成是一个单词而显示完
+
+解决1：
+
+css强制英文换行
+
+<style>
+    #wrap {
+        word-break: break-all;
+        width: 200px;
+    }
+</style>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+解决2：
+<style>
+    #wrap2{
+       word-wrap: break-word;
+    }
+</style>
+
+ 会按照单词的分词来换行 而不会破坏语法，但在一种情况下该方法无效，
+
+ 即字符中含有 &nbsp; 空格符，通常使用在线编辑器发布的内容中都会把空格转换成 &nbsp;
+
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+</html>

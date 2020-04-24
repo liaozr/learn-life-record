@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.4/vue.js"></script>
+
+</head>
+
+<body>
+
+<!-- -------------------------------------------------------------------------------------------------------------------- -->
+
+
+   如下面代码所示，想实现的需求 是，监听 v-for 循环里面的 input 输入框的值，一旦 input输入框的值发生改变，则总数 nums 要跟着变化，
+
+   这里的简单做法是监听一整个数组，深度监听的用法就是这样子的，记得要加上  deep: true, 表明是 深度监听。
+
+
+<!-- -------------------------------------------------------------------------------------------------------------------- -->
+
+    <div id='app'>
+        <div class="list" v-for='item in items'>
+            <span>{{item.text}}</span>
+            <input type="text" v-model='item.value'>
+        </div>
+        {{nums}}
+    </div>
+
+    <script>
+
+        new Vue({
+            el: "#app",
+            data: {
+                items: [
+                    {
+                        text: 'aa',
+                        value: 0
+                    },
+                    {
+                        text: 'bb',
+                        value: 0
+                    },
+                    {
+                        text: 'cc',
+                        value: 0
+                    }
+                ],
+                nums:0
+            },
+            watch: {
+                items: {
+                    handler: function(val, oldVal) {
+                        /* ... */
+                        console.log('bbbbbbbbbbbb')
+                        console.log((val))
+                        console.log((oldVal))
+
+                        var numsss = 0;
+
+                        for (var i = 0; i < this.items.length; i++) {
+                            if(isNaN(this.items[i].value) ){
+                              this.items[i].value=0;
+                            }
+                            numsss += Number(this.items[i].value);
+                        }
+
+                        this.nums = numsss;
+                    },
+                    deep: true
+                }
+            },
+        })
+    </script>
+
+<!-- -------------------------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

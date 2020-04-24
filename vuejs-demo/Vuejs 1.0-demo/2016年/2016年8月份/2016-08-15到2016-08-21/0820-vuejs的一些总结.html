@@ -1,0 +1,325 @@
+
+<!-- ---------------------------------------------------------------------- -->
+
+<!-- 
+
+2.指令keep-alive
+在看demo的时候看到在vue-router写着keep-alive，keep-alive的含义：
+如果把切换出去的组件保留在内存中，可以保留它的状态或避免重新渲染。为此可以添加一个keep-alive指令
+
+<component :is='curremtView' keep-alive></component>
+
+ -->
+
+ 
+<!-- ----------------------------------------------------------------- -->
+
+<!--
+ 3.如何让css只在当前组件中起作用
+在每一个vue组件中都可以定义各自的css，js，如果希望组件内写的css只对当前组件起作用，只需要在style中写入scoped，即：
+
+<style scoped></style> 
+
+-->
+
+<!-- ------------------------------------------------------------------------- -->
+
+<!-- 
+
+4.vuejs循环插入图片
+在写循环的时候，写入如下代码：
+
+<div class="bio-slide" v-for="item in items">   
+    <img src="{{item.image}}">
+</div>
+此时在控制台会出现警告
+[Vue Warn]: src="{{item.image}}": interpolation in "src" attribute will cause a 404 request. Use v-bind:src instead.这里意思是在“src”属性插值将导致404请求。使用v-bind：src代替。
+所以替换成如下：
+
+<div class="bio-slide" v-for="item in items">   
+    <img v-bind:src="item.image">
+</div>
+这里需要主要，v-bind在写的时候不能再用{{}}，根据官方的说法：
+
+<a v-bind:href="url"></a>
+这里 href 是参数，它告诉 v-bind 指令将元素的 href 特性跟表达式 url 的值绑定。可能你已注意到可以用特性插值 href="{{url}}" 获得同样的结果：这样没错，并且实际上在内部特性插值会转为 v-bind 绑定。
+
+ -->
+<!-- ------------------------------------------------------------------------------ -->
+
+
+
+<!-- 
+5.绑定value到Vue实例的一个动态属性上
+对于单选按钮，勾选框及选择框选项，v-model绑定的value通常是静态字符串（对于勾选框是逻辑值）：
+
+ 
+<input type="checkbox" v-model="toggle">
+但是有时候想绑定value到vue实例的一个动态属性上，这时可以用v-bind实现，并且这个属性的值可以不是字符串。例如绑定Checkbox的value到vue实例的一个动态属性：
+
+<input 
+    type="checkbox"
+    v-model="toggle"
+    v-bind:true-value="a"
+    v-bind:false-value="b">
+<p>{{toggle}}</p>
+这里绑定后，并不是说就可以点击后由true,false的切换变为a,b的切换，因为这里定义的动态a，b是scope上的a,b，并不能直接显示出来，此时
+
+//当选中时
+vm.toggle === vm.a
+//当没选中时
+vm.toggle === vm.b
+所以此时需要在data中定义a,b，即：
+
+new Vue({
+    el:'...',
+    data:{
+        a:'a',
+        b:'b'    
+    }
+}); -->
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+<!-- 
+
+8.实现多个根据不同条件显示不同文字的方法
+v-if,v-else可以实现条件选择，但是如果是多个连续的条件选择，则需要用到计算属性computed。例如实现当输入框中什么都没写的时候显示字符串‘empty’,否则显示输入框中的内容，代码如下：
+
+<div id="test">
+  <input type="text" v-model="inputValue">
+  <h1>{{changeVaule}}</h1>
+</div>
+new Vue({
+  el:'#test',
+  data:{
+    changeVaule:'123'
+  },
+  computed :{
+    changeVaule:function(){
+      if(this.inputValue!==''){
+        return this.inputValue;
+      }else{
+        return 'empty';
+      }
+    }
+  }
+});
+ -->
+ <!-- --------------------------------------------------------------------------------- -->
+
+<!-- 
+
+9.Vuejs在变化检测问题
+
+1.检测数组
+
+由于javascript的限制，vuejs不能检测到下面数组的变化：
+
+直接索引设置元素，如vm.item[0]={};
+修改数据的长度，如vm.item.length。
+为了解决问题1，Vuejs扩展了观察数组，为它添加一个$set()方法：
+
+// 与 'example1.items[0] = ...' 相同，但是能触发视图更新
+example1.items.$set(0, { childMsg: 'Changed!'})
+
+
+问题2，需要一个空数组替换items。
+
+除了$set()，vuejs也为观察数组添加了$remove()方法，用于从目标数组中查找并删除元素，在内部调用了splice()。因此，不必：
+
+var index = this.items.indexOf(item)
+if (index !== -1) {
+  this.items.splice(index, 1)
+}
+
+只需：
+this.items.$remove(item);
+
+
+
+2.检测对象
+
+受ES5的显示，Vuejs不能检测到对象属性的添加或删除。因为Vuejs在初始化时候将属性转化为getter/setter，所以属性必须在data对象才能让Vuejs转换它，才能让它是响应的，例如：
+
+var data = { a: 1 }
+var vm = new Vue({
+  data: data
+})
+// 'vm.a' 和 'data.a'现在是响应的
+ 
+vm.b = 2
+// 'vm.b' 不是响应的
+ 
+data.b = 2
+// 'data.b' 不是响应的
+不过，有办法在实例创建之后添加属性并且让它是响应的。对于Vue实例，可以使用$set(key,value)实例方法：
+
+vm.$set('b', 2)
+// 'vm.b' 和 'data.b' 现在是响应的
+对于普通数据对象，可以使用全局方法Vue.set(object, key, value):
+
+Vue.set(data, 'c', 3)
+// 'vm.c' 和 'data.c' 现在是响应的
+有时你想向已有对象上添加一些属性，例如使用 Object.assign() 或 _.extend() 添加属性。但是，添加到对象上的新属性不会触发更新。这时可以创建一个新的对象，包含原对象的属性和新的属性：
+
+// 不使用 'Object.assign(this.someObject, { a: 1, b: 2 })'
+this.someObject = Object.assign({}, this.someObject, { a: 1, b: 2 })
+ -->
+
+<!-- ------------------------------------------------------------------------ -->
+
+
+<!-- 
+
+10.关于vuejs页面闪烁{{message}}
+
+在vuejs指令中有v-cloak，这个指令保持在元素上直到关联实例结束编译。和CSS规则如[v-cloak]{display:none}一起用时，这个指令可以隐藏未编译的Mustache标签直到实例准备完毕。用法如下：
+
+[v-cloak]{
+    display:none;
+}
+<div v-cloak>{{message}}</div>
+
+这样<div>不会显示，直到编译结束 
+
+-->
+<!-- -------------------------------------------------------------------------- -->
+
+<!-- 
+
+11.关于在v-for循环时候v-model的使用
+有时候需要循环生成input，用v-model绑定后，利用vuejs操作它，此时我们可以在v-model中写一个数组selected[$index]，这样就可以给不同的input绑定不同的v-model，从而分别操作他们。这个我在demo中的dataBind.vue中用到。
+
+ -->
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+
+<!-- 
+
+12.vuejs中过渡动画
+在vuejs中，css定义动画：
+
+  .zoom-transition{
+        width:60%;
+        height:auto;
+        position: absolute;
+        left:50%;
+        top:50%;
+        transform: translate(-50%,-50%);
+        -webkit-transition: all .3s ease;
+        transition: all .3s ease;
+    }
+    .zoom-enter, .zoom-leave{
+        width:150px;
+        height:auto;
+        position: absolute;
+        left:20px;
+        top:20px;
+        transform: translate(0,0);
+    }
+其中动画在定的时候要注意上下对应，上面有什么，下面有什么，都要变化的，如果有不变化的，应该抽离出去，作为公共css样式，在上面的css中，如果我只写 transform: translate(-50%,-50%);而不写下面的transform: translate(0,0);则会导致上面的transform: translate(-50%,-50%);被添加到下面，认为这个是不变的。
+
+ -->
+<!-- -------------------------------------------------------------------------------------- -->
+
+
+<!-- 
+
+13.指令v-el的使用
+有时候我们想就像使用jquery那样去访问一个元素，此时就可以使用v-el指令，去给这个元素注册一个索引，方便通过所属实例的$el访问这个元素。
+注意
+HTML不区分大小写，所以v-el:someEl将转换为全小写。可以用v-el:some-el然后设置this.$el.someEl。
+示例
+
+<span v-el:msg>hello</span>
+
+<span v-el:other-msg>world</span>
+
+this.$els.msg.textContent // -> "hello"
+
+this.$els.otherMsg.textContent // -> "world"
+
+this.$els.msg //-><span>hello</span> 
+
+-->
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+
+<!-- 
+
+14.关于vuejs中使用事件名
+在vuejs中，我们经常要绑定一些事件，有时候给DOM元素绑定，有时候给组件绑定。绑定事件在HTML中用v-on:click-"event",这时evet的名字不要出现大写，因为在1.x中不区分大小写，所以如果我们在HTML写v-on:click="myEvent"而在js中写myEvent就出错误，所以在vuejs的1.x绑定事件时候，要尽量避免使用大写字母。在2.0中没有该限制！
+
+ -->
+
+ <!-- ------------------------------------------------------------------------------ -->
+
+
+<!--  
+15.v-if与v-show的区别
+v-if直接不渲染这个DOM元素，而v-show是会渲染DOM元素，只是使用display:none隐藏，打开开发者工具可以看到该DOM 
+-->
+
+<!-- ----------------------------------------------------------------------- -->
+
+
+<!-- 
+
+16.关于transition全局钩子如何在组件中使用
+Vue.transition是定义一个全局transition钩子的，如果想针对组件定义，则需要如下写法：
+
+export default{
+    transition:{
+        'fade':{
+            enter() {},
+            leave() {}
+       }
+   }
+}
+这样fade这个过度钩子只会作用于组件内，如果同时有同名的全局钩子，则会优先使用组建定义的 
+
+-->
+<!-- -------------------------------------------------------------------------- -->
+
+<!-- 
+
+17.利用vue-router如何实现组件在渲染出来前执行某个事件
+export default{
+    data(){
+        return{
+            selected:0,
+            currentView:'view_0'
+        }
+    },
+    methods:{
+        choose(index) {
+            this.selected=index;
+            this.currentView='view_'+index;
+        }
+    },
+    route:{
+        data() {
+            /*每次切换路由，在渲染出页面前都会执行*/
+        }
+    }
+} 
+
+-->
+<!-- ------------------------------------------------------------------------------------ -->
+
+<!-- 
+
+就是在使用vue-router的时候，写了router-view意味着包含
+这个标签的父元素就是一个屏幕，组件在这个屏幕切换，
+在写vue的单页面应用的时候，有一个app.vue，里面写了router-view
+，因为这个app.vue就是完全的整个屏幕，所以整个页面切换，
+想象一下，如果在这个大屏幕中有一个小屏幕，那么在这个小
+屏幕也可以实现组件的切换，但是整个大屏幕的组件不会发生切换，就是这样。
+我是这样理解的，不知道说清楚没，你可以做个demo看看
+，在一个组件里面利用router-view做一个tab切换。 
+
+-->

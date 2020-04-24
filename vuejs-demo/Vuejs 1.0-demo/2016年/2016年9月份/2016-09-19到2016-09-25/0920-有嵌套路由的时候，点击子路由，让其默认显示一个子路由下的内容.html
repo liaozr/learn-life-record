@@ -1,0 +1,33 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+      
+    // Tab 切换没问题，可是，初始状态显示是空的，能不能默认显示 Tab1 Content 呢？很简单，调整下路由就可以了：
+
+    '/': {
+    component: require('./components/index'),
+
+    //子路由
+    subRoutes:{
+     //默认显示Tab1
+      "/":{
+          component:require('./components/tab1')
+      },
+      "/tab1":{
+          component:require('./components/tab1')
+      },
+      "/tab2":{
+          component:require('./components/tab2')
+      }
+    }
+  }
+}
+	</script>
+</body>
+</html>

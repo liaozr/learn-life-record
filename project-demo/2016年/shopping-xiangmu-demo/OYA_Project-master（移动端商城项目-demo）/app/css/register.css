@@ -1,0 +1,118 @@
+.layout-center {
+  margin-top: 48px;
+  width: 100%;
+  height: auto;
+}
+
+.layout-center div {
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.layout-center div p {
+  height: 32px;
+  display: flex;
+  position: relative;
+}
+
+.layout-center div input {
+  height: 32px;
+  width: 10px;
+  border: 1px solid #d5d5d5;
+  transition: all 0.3s;
+  padding-left: 5px;
+  flex: 1;
+}
+
+.layout-center div input:focus {
+  border: 1px solid #1ab394;
+  box-shadow: 0 0 3px #1ab394;
+}
+
+.layout-center .phoneNum p:first-child {
+  flex: 1;
+}
+
+.layout-center .phoneNum p:last-child {
+  flex: 3;
+}
+
+.layout-center .PhoneNum p:first-child {
+  flex: 1;
+}
+
+.layout-center .PhoneNum p:last-child {
+  flex: 3;
+}
+
+.layout-center .megInfo p:first-child {
+  flex: 3;
+}
+
+.layout-center .megInfo p:last-child {
+  flex: 2;
+}
+
+.layout-center .megInfo p:last-child input {
+  background: #8E488E;
+  color: white;
+  height: 34px;
+  border: 0;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.layout-center .megInfo p:last-child input:focus {
+  border: none;
+  box-shadow: none;
+}
+
+.layout-center .inputPsd p {
+  flex: 1;
+}
+
+.layout-center .checkPsd p {
+  flex: 1;
+}
+
+.layout-center .submitBtn p {
+  flex: 1;
+}
+
+.layout-center .submitBtn input {
+  background: #8e488e;
+  color: white;
+  border-radius: 5px;
+}
+
+.layout-center .submitBtn input:focus {
+  border: none;
+  box-shadow: none;
+}
+
+.layout-center .form-foot a {
+  flex: 1;
+  color: black;
+  transition: all 0.3s;
+}
+
+.layout-center .form-foot a:hover {
+  color: red;
+}
+
+.layout-center p span {
+  display: block;
+  height: 32px;
+  width: auto;
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  padding: 0 5px;
+  line-height: 32px;
+  background-color: #ffecea;
+  opacity: 0;
+  color: #db7070;
+  font-size: 14px;
+}

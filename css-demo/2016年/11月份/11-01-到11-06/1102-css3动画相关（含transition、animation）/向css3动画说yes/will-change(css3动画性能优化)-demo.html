@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery.js"></script>
+</head>
+
+<body>
+    <div class="ancestor">
+        <div class="element" id="demo">
+
+        </div>
+    </div>
+    <style>
+        .ancestor {
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+            background-color: blue;
+        }
+
+        .element {
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+            margin-top: 100px;
+            margin-left: 100px;
+            background-color: red;
+        }
+    </style>
+    3、正确应用，在进入父元素的时候就告诉浏览器分配资源
+    <style>
+        .element {
+            transition: opacity .3s linear;
+        }
+        /* declare changes on the element when the mouse enters / hovers its ancestor */
+        .ancestor:hover .element {
+            will-change: opacity;
+        }
+        /* apply change when element is hovered */
+        .element:hover {
+            opacity: .5;
+        }
+    </style>
+
+    4、在应用变化之后，取消will-change的资源分配
+    <script>
+        function whichTransitionEvent() {
+            var t,
+                el = document.getElementById("demo")
+
+            var transitions = {
+                "transition": "transitionend",
+                "MozTransition": "transitionend",
+                "WebkitTransition": "webkitTransitionEnd"
+            }
+
+            for (t in transitions) {
+                if (el.style[t] !== undefined) {
+                    return transitions[t];
+                }
+            }
+        }
+
+        var transitionEvent = whichTransitionEvent();
+
+        // jquery 调用
+        // transitionend 等事件要记得用 jquery 的 one 方法
+
+        $("#demo").one(transitionEvent, function(event) {
+            // Do something when the transition ends
+            this.style.willChange = 'auto';
+            console.log("运动已结束");
+        });
+    </script>
+</body>
+
+</html>

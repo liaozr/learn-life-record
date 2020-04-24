@@ -1,0 +1,712 @@
+	/* ----------------------------------------------------------------------------	 */
+	[v-cloak] {
+		display: none;
+	}
+	
+	html,
+	body {
+		min-width: 1230px;
+		min-height: 600px;
+		width: 100%;
+		height: 100%;
+		-moz-user-select: none;
+		overflow: hidden;
+	}
+
+	a{
+		-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+		-webkit-user-select: none;
+		-moz-user-focus: none;
+		-moz-user-select: none;
+	}
+	
+	#app {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		overflow-y: scroll;
+		display: flex;
+		flex-direction: column;
+	}
+	
+	.col {
+		flex-direction: column;
+	}
+	
+	.ab-center {
+		/*绝对居中*/
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
+	
+	.clickble,
+	.clickble2 {
+		cursor: pointer;
+	}
+	
+	.pointer {
+		cursor: pointer;
+	}
+	
+	.clickble:hover {
+		color: white !important;
+		background: rgba(0, 0, 0, .8);
+	}
+	
+	.clickble:active {
+		color: white !important;
+		background: rgba(0, 0, 0, .6);
+	}
+	
+	.clickble2:hover {
+		background: #2F8EAB !important;
+	}
+	
+	.clickble2:focus {
+		background:#2F8EAB !important; 
+	}
+	
+	.right {
+		float: right;
+	}
+	
+	.colortheme {
+		color: #2F8EAB;
+	}
+	
+	.app-body {
+		margin: 0 auto;
+		width: 1170px;
+	}
+	
+	.layout {
+		width: 1170px !important;
+		height: auto;
+		margin: 30px auto;
+	}
+	
+	.red {
+		color: red;
+	}
+	
+	.flex {
+		display: flex;
+	}
+	
+	.flex1 {
+		flex: 1;
+	}
+	
+	input:focus {
+		border-color: #303030 !important;
+	}
+	
+	input {
+		border-width: 1px;
+	}
+	/* 谷歌 */
+	
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		appearance: none;
+		margin: 0;
+	}
+	/* 火狐 */
+	
+	input {
+		-moz-appearance: textfield;
+	}
+	
+	.el-popup-parent--hidden {
+		padding-right: 0px !important;
+	}
+	/*-------------------------------------------------------------	*/
+	/*防止页面抖动*/
+	/*-------------------------------------------------------------	*/
+	
+	::-webkit-scrollbar {
+		/*滚动条整体样式*/
+		width: 6px;
+		/*高宽分别对应横竖滚动条的尺寸*/
+		height: 6px;
+	}
+	::-webkit-scrollbar-thumb {
+		/*滚动条里面小方块*/
+		border-radius: 2px;
+		-webkit-box-shadow:inset 0 0 1px rgba(0, 0, 0, 0.2);
+		background: #2F8EAB;
+	}
+	::-webkit-scrollbar-track {
+		/*滚动条里面轨道*/
+		border-radius: 2px;
+		border: transparent #37B8FE solid;
+		background: transparent;
+	}
+	button[disabled],
+	i[disabled] {
+		cursor: not-allowed;
+	}
+	
+	.home-back-to-top {
+		height: 55px;
+		width: 55px;
+		position: fixed;
+		bottom: 61px;
+		right: 32px;
+		cursor: pointer;
+	}
+	.clickble-text:hover {
+		cursor: pointer;
+	}
+	.clickble-text:hover {
+		color: #000000;
+	}
+	.clickble-text:active {
+		font-weight: bold;
+	}
+	
+	
+/* ----------------------------------------------------------------------------	 */
+/* ----------------------------------------------------------------------------	 */
+
+/* 维修单页面明细单弹出框样式 */
+	.popcenter{
+		width: 100% !important;
+		/* padding-left:5% !important; */
+		height: 530px !important;
+		margin: 20px auto;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+	.addfromlayout{
+		padding-left:4%;
+		padding-right:4%;
+	}
+	.addfrombiaodanlayout{
+		padding-left:4%;
+		padding-right:4%;
+	}
+	.addfromlayout .el-form--inline .el-form-item {
+		margin-right: 4px !important;
+		width: 48%;
+		margin-bottom:10px !important;
+	}
+	.addfromlayout .el-form--inline .el-form-item:nth-child(3n){
+		margin-right: 0% !important;
+	}
+	.addfromlayout  .el-form--inline .el-form-item__content {
+		width: 75%;
+	}
+	.addfromlayout .el-form--label-top .el-form-item__label {
+		float: none;
+		display: inline-block;
+		text-align: left;
+		padding: 0 0 0 0;
+	}
+	.addfromlayout .el-form-item.yihang{
+	width:100% !important;
+	}
+	.addfromlayout .yihang .el-form-item__content {
+		width: 89% !important;
+		vertical-align: middle;
+	}
+	.addfromlayout .el-form-item.sanlie{
+	width:32% !important;
+	}
+	.addfromlayout .sanlie .el-form-item__content {
+		width: 66% !important;
+		vertical-align: middle;
+	}
+	.addfromlayout .sanlie .el-input {
+		width: 92% !important;
+	}
+	.addfromlayout .sanlie .el-input-number {
+		position: relative;
+		display: inline-block;
+		width: 140px;
+		line-height: 38px;
+	}
+	.addfromlayout .sanlie .el-input-number__increase {
+		right: 11px;
+		border-radius: 0 4px 4px 0;
+		border-left: 1px solid #dcdfe6;
+	}
+	.addfromlayout .el-form--inline .el-form-item__label {
+		width:73px !important;
+		vertical-align: middle;
+	}
+	.addfromlayout .sanlie .el-form-item__label {
+		width: 73px !important;
+		vertical-align: top;
+	}
+	.addfromlayout .tanchukuang .sanlie .el-input {
+		width: 93% !important;
+	}
+	.addfromlayout .el-select {
+		display: inline-block;
+		position: relative;
+		width: 140px;
+	}
+	.addfromlayout .el-input__inner{
+		border-radius:0 !important;
+	}
+	.addfromlayout .el-form--inline .el-form-item__content {
+		width: 77%;
+		vertical-align: middle;
+	}
+
+	.popcenter .savesure{
+		border-radius: 0 !important;
+	}
+	.popcenter .search button{
+		border-radius: 0 !important;
+		background-color: #2F8EAB !important;
+	}
+	.popcenter .savebtn{
+		border-radius: 0px !important;
+	}
+
+	.danjudaichu{
+		color:#aaa !important;
+	}
+
+	.layout .sanlielayout .list .danjudaichu input {
+		color:#aaa !important;
+		background-color:#eee !important;
+	}
+	.addfromlayout .addphotolayout{
+		width:100%;
+		overflow:hidden;
+		height:80px;
+		margin-top:10px;
+		margin-bottom:10px;
+	}
+	.addfromlayout .addphotolayout .addphoto{
+		width:100%;
+		height:80px;
+		background-size:80px 80px;
+		cursor: pointer;
+	}
+
+	.v-modal {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0.5;
+		background: #000;
+		z-index:10 !important;
+	}
+
+	/* ----------------------------------------------------------------------------	 */
+
+	.popcenter{
+		width: 100% !important;
+		/* padding-left:5% !important; */
+		height: 530px !important;
+		margin: 20px auto;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+	.shengouhidden{
+		overflow-y:hidden !important;
+	}
+
+	/* 维修单页面明细单弹出框样式 */
+	.addfromlayout{
+		padding-left:4%;
+		padding-right:4%;
+	}
+	.addfrombiaodanlayout{
+		padding-left:4%;
+		padding-right:4%;
+	}
+	.addfromlayout .el-form--inline .el-form-item {
+		margin-right: 4px !important;
+		width: 48%;
+		margin-bottom:10px !important;
+	}
+	.addfromlayout .el-form--inline .el-form-item:nth-child(3n){
+		margin-right: 0% !important;
+	}
+	.addfromlayout  .el-form--inline .el-form-item__content {
+		width: 75%;
+	}
+	.addfromlayout .el-form--label-top .el-form-item__label {
+		float: none;
+		display: inline-block;
+		text-align: left;
+		padding: 0 0 0 0;
+	}
+	.addfromlayout .el-form-item.yihang{
+	width:100% !important;
+	}
+	.addfromlayout .yihang .el-form-item__content {
+		width: 89% !important;
+		vertical-align: middle;
+	}
+	.addfromlayout .el-form-item.sanlie{
+	width:32% !important;
+	}
+	.addfromlayout .sanlie .el-form-item__content {
+		width: 66% !important;
+		vertical-align: middle;
+	}
+	.addfromlayout .sanlie .el-input {
+		width: 92% !important;
+	}
+	.addfromlayout .sanlie .el-input-number {
+		position: relative;
+		display: inline-block;
+		width: 140px;
+		line-height: 38px;
+	}
+	.addfromlayout .sanlie .el-input-number__increase {
+		right: 11px;
+		border-radius: 0 4px 4px 0;
+		border-left: 1px solid #dcdfe6;
+	}
+	.addfromlayout .el-form--inline .el-form-item__label {
+		width:73px !important;
+		vertical-align: middle;
+	}
+	.addfromlayout .sanlie .el-form-item__label {
+		width: 73px !important;
+		vertical-align: top;
+	}
+	.addfromlayout .tanchukuang .sanlie .el-input {
+		width: 93% !important;
+	}
+	.addfromlayout .el-select {
+		display: inline-block;
+		position: relative;
+		width: 140px;
+	}
+	.addfromlayout .el-input__inner{
+		border-radius:0 !important;
+	}
+	.addfromlayout .el-form--inline .el-form-item__content {
+		width: 77%;
+		vertical-align: middle;
+	}
+/* ----------------------------------------------------------------------------	 */
+
+	.popcenter {
+		width: 100% !important;
+		/* padding-left:5% !important; */
+		height: 530px !important;
+		margin: 20px auto;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+	/* 维修单页面明细单弹出框样式 */
+	
+	.addfromlayout {
+		padding-left: 4%;
+		padding-right: 4%;
+	}
+	
+	.addfrombiaodanlayout {
+		padding-left: 4%;
+		padding-right: 4%;
+	}
+	
+	.addfromlayout .el-form--inline .el-form-item {
+		margin-right: 4px !important;
+		width: 48%;
+		margin-bottom: 10px !important;
+	}
+	
+	.addfromlayout .el-form--inline .el-form-item:nth-child(3n) {
+		margin-right: 0% !important;
+	}
+	
+	.addfromlayout .el-form--inline .el-form-item__content {
+		width: 75%;
+	}
+	
+	.addfromlayout .el-form--label-top .el-form-item__label {
+		float: none;
+		display: inline-block;
+		text-align: left;
+		padding: 0 0 0 0;
+	}
+	
+	.addfromlayout .el-form-item.yihang {
+		width: 100% !important;
+	}
+	
+	.addfromlayout .yihang .el-form-item__content {
+		width: 89% !important;
+		vertical-align: middle;
+	}
+	
+	.addfromlayout .el-form-item.sanlie {
+		width: 32% !important;
+	}
+	
+	.addfromlayout .sanlie .el-form-item__content {
+		width: 66% !important;
+		vertical-align: middle;
+	}
+	
+	.addfromlayout .sanlie .el-input {
+		width: 92% !important;
+	}
+	
+	.addfromlayout .sanlie .el-input-number {
+		position: relative;
+		display: inline-block;
+		width: 140px;
+		line-height: 38px;
+	}
+	
+	.addfromlayout .sanlie .el-input-number__increase {
+		right: 11px;
+		border-radius: 0 4px 4px 0;
+		border-left: 1px solid #dcdfe6;
+	}
+	
+	.addfromlayout .el-form--inline .el-form-item__label {
+		width: 80px !important;
+		vertical-align: middle;
+	}
+	
+	.addfromlayout .sanlie .el-form-item__label {
+		width: 73px !important;
+		vertical-align: top;
+	}
+	
+	.addfromlayout .tanchukuang .sanlie .el-input {
+		width: 93% !important;
+	}
+	
+	.addfromlayout .el-select {
+		display: inline-block;
+		position: relative;
+		width: 140px;
+	}
+	
+	.addfromlayout .el-input__inner {
+		border-radius: 0 !important;
+	}
+	
+	.addfromlayout .el-form--inline .el-form-item__content {
+		width: 77%;
+		vertical-align: middle;
+	}
+/* ----------------------------------------------------------------------------	 */
+/* ----------------------------------------------------------------------------	 */
+
+	/* 修改input placeholder 默认的颜色 */
+
+	input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
+		/* WebKit browsers */ 
+	color: #aaa; 
+	} 
+	input:-moz-placeholder, textarea:-moz-placeholder { 
+	/* Mozilla Firefox 4 to 18 */ 
+	color: #aaa; 
+	} 
+	input::-moz-placeholder, textarea::-moz-placeholder { 
+		/* Mozilla Firefox 19+ */ 
+		color: #aaa; 
+	} 
+	input:-ms-input-placeholder, textarea:-ms-input-placeholder { 
+		/* Internet Explorer 10+ */ 
+		color: #aaa; 
+	}   
+
+/* ----------------------------------------------------------------------------	 */
+/* 生成申购单表格样式 */
+.generateOrderTable .table{
+	width:100%;
+}
+.generateOrderTable .table table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.generateOrderTable .table tr {
+	height: auto;
+	border: 1px solid #e6e6e6;
+	font-size: 18px;
+}
+.generateOrderTable .table tr th{
+	background: #F2F2F2;
+	border: 1px solid #CACACA;
+	height:30px;
+	padding-top:15px;
+	font-size:14px;
+	text-align:center;
+	color:#000000;
+}
+.generateOrderTable .table tr td{
+	text-align: center;
+	font-size:14px;
+	height:40px;
+	color: #747474;
+	padding-top:20px;
+}
+.generateOrderTable .table td {
+	border: 1px solid #e6e6e6;
+}
+.generateOrderTable .generateChildth{
+	background: #F2F2F2;
+	border: 1px solid #CACACA;
+	font-size:14px;
+	text-align:center;
+	color:#000000;
+}
+.generateOrderTable .generateChildth td{
+	height:30px !important;
+	padding-top:15px !important;
+	color:#000000 !important;
+}
+
+.addButtion{
+	background-color: #2F8EAB !important;
+}
+.el-radio__input.is-checked .el-radio__inner {
+    border-color: #2F8EAB !important;
+    background: #2F8EAB !important;
+}
+
+.popcenter .savesure {
+    background-color: #2F8EAB !important;
+}
+.savebtn{
+    background-color:#2F8EAB !important;
+}
+.layout .tijiao .zancun {
+    background-color:#2F8EAB !important;
+    border: 1px solid #2F8EAB !important;
+}
+
+.tijiao button{
+	padding: 0 !important;
+}
+.tijiao .shenhe {
+	/* width:200px; */
+}
+.tijiao .shenhe span{
+	color:#444;
+}
+
+.fancy-box-image-wrapper {
+    position: fixed;
+    left: 25% !important;
+    top: 10% !important;
+    width: 100%;
+    height: 100%;
+    z-index: 33;
+}
+
+/* ------------------------------------------------------------------------------------------------------ */
+
+/* 申购单样式 */
+.generateOrderTable .table tr th {
+    background: #E4F5FB;
+	border:1px solid #2F8EAB;
+	border-right:none;
+	border-left:0;
+    height: 30px;
+    padding-top: 15px;
+    font-size: 14px;
+    text-align: center;
+	color: #000;
+}
+.generateOrderTable .table tr th:first-child{
+	border-left:1px solid #2F8EAB;
+}
+.generateOrderTable .table tr th:last-child{
+	border-right:1px solid #2F8EAB;
+}
+
+.generateOrderTable .table .zhudan td {
+	border:none;
+	border-bottom:1px solid #2F8EAB;
+}
+.generateOrderTable .table .zhudan td:first-child{
+	border-left:1px solid #2F8EAB;
+}
+.generateOrderTable .table .zhudan td:last-child{
+	border-right:1px solid #2F8EAB;
+}
+
+.generateOrderTable .table tr.generateChildtr{
+	background: #FAFAFA;
+}
+.generateOrderTable .table tr td {
+     border:none;
+}
+.generateOrderTable .table tr td:first-child{
+	border-left:1px solid #ddd;
+}
+.generateOrderTable .table tr td:last-child{
+	border-right:1px solid #ddd;
+}
+
+.generateOrderTable .table .zhudan td {
+    border: none;
+    border-bottom: 1px solid #2F8EAB;
+    border-top: 1px solid #2f8eab;
+}
+
+.savebtn{
+   opacity:1 !important; 
+}
+.generateOrderTable .table .zhudan{
+	font-size:12px !important;
+}
+.generateOrderTable .table .zhudan td{
+	text-align: center;
+	font-size:12px !important;
+
+}
+.generateOrderTable .table tr.generateChildtr td {
+	font-size:12px !important;
+}
+.generateOrderTable .table .message{
+	display: inline-block;
+    vertical-align: middle;
+	text-align: left;
+	line-height: 16px;
+}
+.generateOrderTable .table .product .message{
+	width:270px;
+}
+.generateOrderTable .table .generateChildtr .message{
+	width:230px;
+}
+.generateOrderTable .table tr.generateChildtr td {
+    vertical-align: middle;
+    padding: 10px;
+}
+.generateOrderTable .table .zhudan td {
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.xiangguanshenpirenbiaodan input {
+    width: 88% !important;
+}
+
+div.searchchazhao{
+	width: 97%;
+	height: 40px !important;
+	background-image: url(../img/header-search.png);
+    background-position: 98% center;
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-color: transparent;
+	cursor: pointer;
+	border:1px solid #ddd;
+	padding-left:10px;
+	line-height: 40px !important;
+}
+/* ----------------------------------------------------------------------------	 */
+

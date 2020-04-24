@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+豆瓣API
+
+该应用使用了下面4个api：
+
+/v2/movie/search?q={text}   电影搜索api；
+/v2/movie/in_theaters       正在上映的电影；
+/v2/movie/coming_soon       即将上映的电影；
+/v2/movie/subject/:id       单个电影条目信息。
+
+更多关于豆瓣的api可以前往豆瓣api官网查看。
+
+<!-- ---------------------------------------------------------------------------- -->
+
+要注意的是，由于豆瓣api的跨域问题，并不能直接通过ajax请求访问。
+
+不过vue-cli提供了代理的配置。
+
+我们需要在/config/index.js中配置代理：
+
+<!-- ----------------------------------------------------------------------------- -->
+
+在proxyTable这个属性中，配置target属性为我们要代理的目标地址。
+
+这里我们写成http://api.douban.com/v2，这样我们就可以在应用中调用/api/movie/in_theaters来访问http://api.douban.com/v2/movie/in_theaters，从而解决跨域的问题。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+但是这里是要注意的是，配置了这个
+proxyTable{
+
+},配置了proxyTable代理后，需要重新npm run dev后才会生效的，不重新启动开发环境的话，是一样
+
+请求不了数据的，所以在配置代理后，需记得重新 npm run dev 启动项目。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+<script>
+    //  index.js
+
+    dev: {
+     env: require('./dev.env'),
+     port: 8080,
+     assetsSubDirectory: 'static',
+     assetsPublicPath: '/',
+     proxyTable: {
+
+      // 豆瓣电影API的代理配置，从而可以跨域请求访问豆瓣电影的API接口
+      '/api': {
+             target: 'http://api.douban.com/v2',
+             changeOrigin: true,
+             pathRewrite: {
+               '^/api': ''
+             }
+       }
+
+     },
+     // CSS Sourcemaps off by default because relative paths are "buggy"
+     // with this option, according to the CSS-Loader README
+     // (https://github.com/webpack/css-loader#sourcemaps)
+     // In our experience, they generally work as expected,
+     // just be aware of this issue when enabling this option.
+     cssSourceMap: false
+    }
+</script>
+
+<!-- -------------------------------------------------------------------------- -->
+
+官网配置案例：
+<script>
+// config/index.js
+module.exports = {
+    // ...
+    dev: {
+      proxyTable: {
+        // proxy all requests starting with /api to jsonplaceholder
+        '/api': {
+          target: 'http://jsonplaceholder.typicode.com',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/api': ''
+          }
+        }
+      }
+    }
+}
+</script>
+
+<!-- --------------------------------------------------------------------------- -->
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  default关键字
+
+  <script>
+
+      // d.js
+      export default function() {}
+
+      // 等效于：
+      function a() {};
+      export {a as default};
+
+  </script>
+
+
+  在import的时候，可以这样用：
+
+  <script>
+
+    import a from './d';
+
+    // 等效于，或者说就是下面这种写法的简写，是同一个意思
+    import {default as a} from './d';
+
+  </script>
+
+  这个语法糖的好处就是import的时候，可以省去花括号{}。
+
+  简单的说，如果import的时候，你发现某个变量没有花括号括起来（没有*号），那么你在脑海中应该把它还原成有花括号的as语法。
+
+  所以，下面这种写法你也应该理解了吧：
+
+  import $,{each,map} from 'jquery';
+
+  import后面第一个$是{defalut as $}的替代写法。
+  
+</body>
+
+</html>

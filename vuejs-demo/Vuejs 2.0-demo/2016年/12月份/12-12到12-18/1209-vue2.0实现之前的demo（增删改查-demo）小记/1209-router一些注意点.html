@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+    <!-- 注意一下  router-link to 的写法 -->
+
+    <!-- 注意一下  to的写法 -->
+    <router-link to="/foo">Go to Foo</router-link>
+
+    <li><router-link to="/home">首页</router-link></li>
+    <li><router-link to="/time-entries">计划列表</router-link></li>
+
+    <!-- 命名的路由 -->
+    <router-link :to="{ name: 'user', params: { userId: 123 }}">User</router-link>
+
+
+
+</body>
+</html>

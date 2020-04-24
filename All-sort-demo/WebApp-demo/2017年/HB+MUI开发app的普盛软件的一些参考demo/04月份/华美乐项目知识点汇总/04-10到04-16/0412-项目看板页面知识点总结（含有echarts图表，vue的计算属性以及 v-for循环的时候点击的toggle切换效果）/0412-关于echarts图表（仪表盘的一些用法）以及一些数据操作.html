@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.staticfile.org/jquery/3.2.1/jquery.js'></script>
+    <script src='https://cdn.staticfile.org/vue/1.0.28/vue.js'></script>
+    <script src='echarts.min.js'></script>
+</head>
+
+<body>
+    <div class="jiesuan-tubiao">
+        <div id="tubiao" class='tubiao' style='width:226px;height:226px' >
+        </div>
+        <div class="tubiao-wen">2017-03结算完成率</div>
+        <div class="yiwancheng">
+            <span class='icon-zheng'></span>
+            <span class='wen' v-cloak>已完成</span> （<span v-cloak>{{yijiesuan}}</span>）
+        </div>
+        <div class="daijiesuan">
+            <span class='icon-zheng'></span>
+            <span class='wen' v-cloak>待结算</span> （<span v-cloak>{{daijiesuan}}</span>）
+        </div>
+    </div>
+
+    <script>
+        var kanbanVM = new Vue({
+            el: 'body',
+            data: {
+                weijiesuan: 100,
+                daijiesuan: 400,
+                yijiesuan: 200
+            },
+            computed:{
+              allcount:function(){
+                var allcount=this.weijiesuan+this.daijiesuan+this.yijiesuan;
+                return allcount
+              }
+            }
+        })
+
+// ----------------------------------------------------------------------------------
+        // echarts 图表
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('tubiao'));
+        var max_num = kanbanVM.allcount;
+        var nzhengchu = max_num % 100;
+        // 判断 总数能不能被100整除 （使 520的总数变为600）
+
+        // 总数不能够被100整除，有余数的情况下
+        if (!nzhengchu == 0) {
+            // 向下取整 ，向下取整数
+            var chushu = Math.floor(max_num / 100) + 1;
+            max_num = chushu * 100;
+        }
+
+        // 得到各自的百分比数
+        var yiwanchengbaifenbi = kanbanVM.yijiesuan / max_num;
+        var weijiesuanbaifenbi = kanbanVM.weijiesuan / max_num;
+        var daijiesuanbaifenbi = kanbanVM.daijiesuan / max_num;
+
+        // 数组从小到大排序
+        // 因为 含有百分比的仪表盘图表 它的百分比数据是得从小到大排序的
+        // 不然的话，会出现有些数据在仪表盘上显示不出来的情况的。
+
+        var arr = [{
+                num: yiwanchengbaifenbi,
+                color: '#3eb565'
+            },
+            {
+                num: weijiesuanbaifenbi,
+                color: '#ff4e4e'
+            },
+            {
+                num: daijiesuanbaifenbi,
+                color: '#eb6d00'
+            }
+        ];
+
+        // 数组复制。
+        var arr2 = arr.slice(0);
+
+        // 数组排序
+        function paixu(arr2) {
+            for (var i = 0; i < arr2.length - 1; i++) {
+                for (var j = i + 1; j < arr2.length; j++) {
+                    var tempi = arr2[i].num; //获取第一个值，并与后一个值比较
+                    var tempj = arr2[j].num;
+                    var zhongjianliang = null;
+                    if (tempi > tempj) {
+                        zhongjianliang = arr2[i];
+                        arr2[i] = arr2[j];
+                        arr2[j] = zhongjianliang;
+                        //如果前一个值比后一个值大，那么相互交换
+                    }
+                }
+            }
+            return arr2;
+        }
+        paixu(arr2);
+
+        // 百分比数字 向上取整，防止 百分比数字出现小数点太多的情况
+        var baifenbishu = Math.ceil(yiwanchengbaifenbi * 100);
+
+        // 仪表盘上出现的 分隔段的 个数（此时max_num 为整百数，所以，除以100后的数字肯定也是个整数）
+        var splitNumber = max_num / 100;
+
+        // 防止数字过大 而引起 分隔段 太多的情况
+        if(splitNumber>=10){
+          splitNumber=10;
+        }
+
+        // echarts图表的配置项
+// -------------------------------------------------------------------------------
+        // 指定图表的配置项和数据
+
+        //  echarts 仪表盘 的一些参数设定
+        //  echarts 仪表盘 的一些参数设定
+
+        var option = {
+            tooltip: {
+                formatter: "{a} <br/>{b} : {c}%"
+            },
+
+            // toolbox以及下面的那个 lenend的 show：false的设定
+            // 只是想将默认的下载图标以及文字展示给去掉。
+            toolbox: {
+                feature: {
+                    saveAsImage: {
+                        show: false
+                    }
+                }
+            },
+            legend: {
+                //看这里
+                show: false,
+            },
+            series: [{
+                name: '业务指标',
+                type: 'gauge',
+
+                // 显示在仪表盘中间的值的设定。
+                detail: {
+                    formatter: '' + baifenbishu + '%'
+                },
+
+                min: 0,
+
+                // 设定仪表盘的显示最大值
+                max: max_num,
+
+                // 设定仪表盘的分隔段
+                splitNumber: splitNumber,
+
+                // 设定仪表盘是否已最大形式展示
+                radius: '100%',
+
+                // axisLine 这个参数设定是 仪表盘的仪表颜色的设定以及
+                // 仪表盘各自块所占比重的设定
+                // 这里要注意的就是，这里 仪表盘所占的比重大小
+                // 要求是从小到大排序的。不然仪表盘 会出现异常的bug的
+
+                // 所以，上面 弄了一个数组来排序 这些比重值的大小。
+                axisLine: { // 坐标轴线
+                    lineStyle: { // 属性lineStyle控制线条样式
+                        color: [
+                            [arr2[0].num, arr2[0].color],
+                            [arr2[1].num+arr2[0].num, arr2[1].color],
+                            [1, arr2[2].color]  // 最后一个必须为1，表示是剩下的全部的意思
+                        ],
+                        width: 10,            // 宽度大小
+                        shadowColor: '#fff', //默认透明
+                        shadowBlur: 10
+                    }
+                },
+                axisTick: { // 坐标轴小标记
+                    length: 0, // 属性length控制线长
+                    lineStyle: { // 属性lineStyle控制线条样式
+                        color: 'auto',
+                        shadowColor: '#fff', //默认透明
+                        shadowBlur: 10
+                    }
+                },
+
+                // 仪表盘的指针  指向值的 设定
+                // 仪表盘的指针  指向值的 设定
+                data: [{
+                    value: kanbanVM.yijiesuan
+                }],
+
+                lineStyle: {
+                    normal: {
+                        color: 'red'
+                    }
+                }
+            }]
+        };
+
+        myChart.setOption(option)
+
+    </script>
+
+    <!-- ------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

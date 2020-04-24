@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<!-- saved from url=(0071)http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>H5基于iScroll实现下拉刷新，上拉加载更多 - garfieldzf - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./H5基于iScroll实现下拉刷新，上拉加载更多 - garfieldzf - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./H5基于iScroll实现下拉刷新，上拉加载更多 - garfieldzf - 博客园_files/bundle-CodingLife.css">
+<link type="text/css" rel="stylesheet" href="./H5基于iScroll实现下拉刷新，上拉加载更多 - garfieldzf - 博客园_files/91798.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/sword-successful/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/sword-successful/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/sword-successful/wlwmanifest.xml">
+<script src="./H5基于iScroll实现下拉刷新，上拉加载更多 - garfieldzf - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'sword-successful', cb_enable_mathjax=false;</script>
+<script src="./H5基于iScroll实现下拉刷新，上拉加载更多 - garfieldzf - 博客园_files/blog-common.js" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/sword-successful/"><img id="blogLogo" src="./H5基于iScroll实现下拉刷新，上拉加载更多 - garfieldzf - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/sword-successful/">Sword.Net</a></h1>
+<h2>少抱怨、多思考。</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/sword-successful/">首页</a></li>
+<li><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="MyLinks1_ContactLink" class="menu" rel="nofollow" href="http://msg.cnblogs.com/send/garfieldzf">联系</a></li>
+<li>
+<!----></li>
+<li><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/sword-successful/p/4609498.html">H5基于iScroll实现下拉刷新，上拉加载更多</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><h3>前言</h3>
+<p>&nbsp; &nbsp; &nbsp; 前一段有个手机端的项目需要用到下拉刷新和上拉加载更多的效果，脑海里第一反映就是微博那种效果，刚开始的理解有些偏差，以为下拉也是追加数据，上拉也是追加数据，后请教同事后发现其实下拉只是刷新最新数据而已，上拉是追加数据。</p>
+<p>&nbsp;</p>
+<h3>使用技巧</h3>
+<p>&nbsp; &nbsp; &nbsp; 1、引用iScroll.js， 在初始化时添加两个事件监听：touchMove、DOMContentLoaded。</p>
+<p>&nbsp; &nbsp; &nbsp; 2、实现iScroll插件的onScrollEnd事件， 也就是在这个事件里调用你自己的ajax方法实现数据的刷新和追加。</p>
+<p>&nbsp; &nbsp; &nbsp; 3、上拉加载更多请求后台时就相当于分页请求数据，这时候需要在ajax请求时发送pageIndex参数，而初始化加载时需要从后台返回一个pageCount以便前台判断。</p>
+<p>&nbsp; &nbsp; &nbsp; 4、最关键的就是实现下拉刷新方法(pullDownAction)和上拉加载更多(pullUpAction)方法。</p>
+<p>&nbsp;</p>
+<h3>效果图</h3>
+<p><img src="./H5基于iScroll实现下拉刷新，上拉加载更多 - garfieldzf - 博客园_files/300936248064109.png" alt=""></p>
+<p>&nbsp;</p>
+<h3>实现方法</h3>
+<div class="cnblogs_Highlighter sh-gutter">
+<div><div id="highlighter_456250" class="syntaxhighlighter  javascript"><div class="toolbar"><span><a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div><div class="line number40 index39 alt1">40</div><div class="line number41 index40 alt2">41</div><div class="line number42 index41 alt1">42</div><div class="line number43 index42 alt2">43</div><div class="line number44 index43 alt1">44</div><div class="line number45 index44 alt2">45</div><div class="line number46 index45 alt1">46</div><div class="line number47 index46 alt2">47</div><div class="line number48 index47 alt1">48</div><div class="line number49 index48 alt2">49</div><div class="line number50 index49 alt1">50</div><div class="line number51 index50 alt2">51</div><div class="line number52 index51 alt1">52</div><div class="line number53 index52 alt2">53</div><div class="line number54 index53 alt1">54</div><div class="line number55 index54 alt2">55</div><div class="line number56 index55 alt1">56</div><div class="line number57 index56 alt2">57</div><div class="line number58 index57 alt1">58</div><div class="line number59 index58 alt2">59</div><div class="line number60 index59 alt1">60</div><div class="line number61 index60 alt2">61</div><div class="line number62 index61 alt1">62</div><div class="line number63 index62 alt2">63</div><div class="line number64 index63 alt1">64</div><div class="line number65 index64 alt2">65</div><div class="line number66 index65 alt1">66</div><div class="line number67 index66 alt2">67</div><div class="line number68 index67 alt1">68</div><div class="line number69 index68 alt2">69</div><div class="line number70 index69 alt1">70</div><div class="line number71 index70 alt2">71</div><div class="line number72 index71 alt1">72</div><div class="line number73 index72 alt2">73</div><div class="line number74 index73 alt1">74</div><div class="line number75 index74 alt2">75</div><div class="line number76 index75 alt1">76</div><div class="line number77 index76 alt2">77</div><div class="line number78 index77 alt1">78</div><div class="line number79 index78 alt2">79</div><div class="line number80 index79 alt1">80</div><div class="line number81 index80 alt2">81</div><div class="line number82 index81 alt1">82</div><div class="line number83 index82 alt2">83</div><div class="line number84 index83 alt1">84</div><div class="line number85 index84 alt2">85</div><div class="line number86 index85 alt1">86</div><div class="line number87 index86 alt2">87</div><div class="line number88 index87 alt1">88</div><div class="line number89 index88 alt2">89</div><div class="line number90 index89 alt1">90</div><div class="line number91 index90 alt2">91</div><div class="line number92 index91 alt1">92</div><div class="line number93 index92 alt2">93</div><div class="line number94 index93 alt1">94</div><div class="line number95 index94 alt2">95</div><div class="line number96 index95 alt1">96</div><div class="line number97 index96 alt2">97</div><div class="line number98 index97 alt1">98</div><div class="line number99 index98 alt2">99</div><div class="line number100 index99 alt1">100</div><div class="line number101 index100 alt2">101</div><div class="line number102 index101 alt1">102</div><div class="line number103 index102 alt2">103</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="javascript keyword">var</code>&nbsp;&nbsp;&nbsp;&nbsp; <code class="javascript plain">myScroll,</code></div><div class="line number2 index1 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullDownEl, pullDownOffset,</code></div><div class="line number3 index2 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullUpEl, pullUpOffset,</code></div><div class="line number4 index3 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">generatedCount = 0;</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="javascript comments">/**</code></div><div class="line number7 index6 alt2"><code class="javascript spaces">&nbsp;</code><code class="javascript comments">* 下拉刷新 （自定义实现此方法）</code></div><div class="line number8 index7 alt1"><code class="javascript spaces">&nbsp;</code><code class="javascript comments">* myScroll.refresh(); 数据加载完成后，调用界面更新方法</code></div><div class="line number9 index8 alt2"><code class="javascript spaces">&nbsp;</code><code class="javascript comments">*/</code></div><div class="line number10 index9 alt1"><code class="javascript keyword">function</code> <code class="javascript plain">pullDownAction () {</code></div><div class="line number11 index10 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">setTimeout(</code><code class="javascript keyword">function</code> <code class="javascript plain">() {&nbsp;&nbsp;&nbsp; </code></div><div class="line number12 index11 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript keyword">var</code> <code class="javascript plain">el, li, i;</code></div><div class="line number13 index12 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">el = document.getElementById(</code><code class="javascript string">'thelist'</code><code class="javascript plain">);</code></div><div class="line number14 index13 alt1">&nbsp;</div><div class="line number15 index14 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript keyword">for</code> <code class="javascript plain">(i=0; i&lt;3; i++) {</code></div><div class="line number16 index15 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">li = document.createElement(</code><code class="javascript string">'li'</code><code class="javascript plain">);</code></div><div class="line number17 index16 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">li.innerText = </code><code class="javascript string">'Generated row '</code> <code class="javascript plain">+ (++generatedCount);</code></div><div class="line number18 index17 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">el.insertBefore(li, el.childNodes[0]);</code></div><div class="line number19 index18 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">}</code></div><div class="line number20 index19 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number21 index20 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">myScroll.refresh();&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="javascript comments">//数据加载完成后，调用界面更新方法&nbsp; </code></div><div class="line number22 index21 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">}, 1000);&nbsp;&nbsp; </code></div><div class="line number23 index22 alt2"><code class="javascript plain">}</code></div><div class="line number24 index23 alt1">&nbsp;</div><div class="line number25 index24 alt2"><code class="javascript comments">/**</code></div><div class="line number26 index25 alt1"><code class="javascript spaces">&nbsp;</code><code class="javascript comments">* 滚动翻页 （自定义实现此方法）</code></div><div class="line number27 index26 alt2"><code class="javascript spaces">&nbsp;</code><code class="javascript comments">* myScroll.refresh();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 数据加载完成后，调用界面更新方法</code></div><div class="line number28 index27 alt1"><code class="javascript spaces">&nbsp;</code><code class="javascript comments">*/</code></div><div class="line number29 index28 alt2"><code class="javascript keyword">function</code> <code class="javascript plain">pullUpAction () {</code></div><div class="line number30 index29 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">setTimeout(</code><code class="javascript keyword">function</code> <code class="javascript plain">() {&nbsp;&nbsp;&nbsp; </code><code class="javascript comments">// &lt;-- Simulate network congestion, remove setTimeout from production!</code></div><div class="line number31 index30 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript keyword">var</code> <code class="javascript plain">el, li, i;</code></div><div class="line number32 index31 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">el = document.getElementById(</code><code class="javascript string">'thelist'</code><code class="javascript plain">);</code></div><div class="line number33 index32 alt2">&nbsp;</div><div class="line number34 index33 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript keyword">for</code> <code class="javascript plain">(i=0; i&lt;3; i++) {</code></div><div class="line number35 index34 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">li = document.createElement(</code><code class="javascript string">'li'</code><code class="javascript plain">);</code></div><div class="line number36 index35 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">li.innerText = </code><code class="javascript string">'Generated row '</code> <code class="javascript plain">+ (++generatedCount);</code></div><div class="line number37 index36 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">el.appendChild(li, el.childNodes[0]);</code></div><div class="line number38 index37 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">}</code></div><div class="line number39 index38 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number40 index39 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">myScroll.refresh();&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="javascript comments">//数据加载完成后，调用界面更新方法 </code></div><div class="line number41 index40 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">}, 1000);&nbsp;&nbsp; </code></div><div class="line number42 index41 alt1"><code class="javascript plain">}</code></div><div class="line number43 index42 alt2">&nbsp;</div><div class="line number44 index43 alt1"><code class="javascript comments">/**</code></div><div class="line number45 index44 alt2"><code class="javascript spaces">&nbsp;</code><code class="javascript comments">* 初始化iScroll控件</code></div><div class="line number46 index45 alt1"><code class="javascript spaces">&nbsp;</code><code class="javascript comments">*/</code></div><div class="line number47 index46 alt2"><code class="javascript keyword">function</code> <code class="javascript plain">loaded() {</code></div><div class="line number48 index47 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullDownEl = document.getElementById(</code><code class="javascript string">'pullDown'</code><code class="javascript plain">);</code></div><div class="line number49 index48 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullDownOffset = pullDownEl.offsetHeight;</code></div><div class="line number50 index49 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullUpEl = document.getElementById(</code><code class="javascript string">'pullUp'</code><code class="javascript plain">);&nbsp;&nbsp; </code></div><div class="line number51 index50 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullUpOffset = pullUpEl.offsetHeight;</code></div><div class="line number52 index51 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number53 index52 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">myScroll = </code><code class="javascript keyword">new</code> <code class="javascript plain">iScroll(</code><code class="javascript string">'wrapper'</code><code class="javascript plain">, {</code></div><div class="line number54 index53 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">scrollbarClass: </code><code class="javascript string">'myScrollbar'</code><code class="javascript plain">, </code></div><div class="line number55 index54 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">useTransition: </code><code class="javascript keyword">false</code><code class="javascript plain">, </code></div><div class="line number56 index55 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">topOffset: pullDownOffset,</code></div><div class="line number57 index56 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">onRefresh: </code><code class="javascript keyword">function</code> <code class="javascript plain">() {</code></div><div class="line number58 index57 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript keyword">if</code> <code class="javascript plain">(pullDownEl.className.match(</code><code class="javascript string">'loading'</code><code class="javascript plain">)) {</code></div><div class="line number59 index58 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullDownEl.className = </code><code class="javascript string">''</code><code class="javascript plain">;</code></div><div class="line number60 index59 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullDownEl.querySelector(</code><code class="javascript string">'.pullDownLabel'</code><code class="javascript plain">).innerHTML = </code><code class="javascript string">'下拉刷新...'</code><code class="javascript plain">;</code></div><div class="line number61 index60 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">} </code><code class="javascript keyword">else</code> <code class="javascript keyword">if</code> <code class="javascript plain">(pullUpEl.className.match(</code><code class="javascript string">'loading'</code><code class="javascript plain">)) {</code></div><div class="line number62 index61 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullUpEl.className = </code><code class="javascript string">''</code><code class="javascript plain">;</code></div><div class="line number63 index62 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullUpEl.querySelector(</code><code class="javascript string">'.pullUpLabel'</code><code class="javascript plain">).innerHTML = </code><code class="javascript string">'上拉加载更多...'</code><code class="javascript plain">;</code></div><div class="line number64 index63 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">}</code></div><div class="line number65 index64 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">},</code></div><div class="line number66 index65 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">onScrollMove: </code><code class="javascript keyword">function</code> <code class="javascript plain">() {</code></div><div class="line number67 index66 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript keyword">if</code> <code class="javascript plain">(</code><code class="javascript keyword">this</code><code class="javascript plain">.y &gt; 5 &amp;&amp; !pullDownEl.className.match(</code><code class="javascript string">'flip'</code><code class="javascript plain">)) {</code></div><div class="line number68 index67 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullDownEl.className = </code><code class="javascript string">'flip'</code><code class="javascript plain">;</code></div><div class="line number69 index68 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullDownEl.querySelector(</code><code class="javascript string">'.pullDownLabel'</code><code class="javascript plain">).innerHTML = </code><code class="javascript string">'松手开始更新...'</code><code class="javascript plain">;</code></div><div class="line number70 index69 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript keyword">this</code><code class="javascript plain">.minScrollY = 0;</code></div><div class="line number71 index70 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">} </code><code class="javascript keyword">else</code> <code class="javascript keyword">if</code> <code class="javascript plain">(</code><code class="javascript keyword">this</code><code class="javascript plain">.y &lt; 5 &amp;&amp; pullDownEl.className.match(</code><code class="javascript string">'flip'</code><code class="javascript plain">)) {</code></div><div class="line number72 index71 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullDownEl.className = </code><code class="javascript string">''</code><code class="javascript plain">;</code></div><div class="line number73 index72 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullDownEl.querySelector(</code><code class="javascript string">'.pullDownLabel'</code><code class="javascript plain">).innerHTML = </code><code class="javascript string">'下拉刷新...'</code><code class="javascript plain">;</code></div><div class="line number74 index73 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript keyword">this</code><code class="javascript plain">.minScrollY = -pullDownOffset;</code></div><div class="line number75 index74 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">} </code><code class="javascript keyword">else</code> <code class="javascript keyword">if</code> <code class="javascript plain">(</code><code class="javascript keyword">this</code><code class="javascript plain">.y &lt; (</code><code class="javascript keyword">this</code><code class="javascript plain">.maxScrollY - 5) &amp;&amp; !pullUpEl.className.match(</code><code class="javascript string">'flip'</code><code class="javascript plain">)) {</code></div><div class="line number76 index75 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullUpEl.className = </code><code class="javascript string">'flip'</code><code class="javascript plain">;</code></div><div class="line number77 index76 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullUpEl.querySelector(</code><code class="javascript string">'.pullUpLabel'</code><code class="javascript plain">).innerHTML = </code><code class="javascript string">'松手开始更新...'</code><code class="javascript plain">;</code></div><div class="line number78 index77 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript keyword">this</code><code class="javascript plain">.maxScrollY = </code><code class="javascript keyword">this</code><code class="javascript plain">.maxScrollY;</code></div><div class="line number79 index78 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">} </code><code class="javascript keyword">else</code> <code class="javascript keyword">if</code> <code class="javascript plain">(</code><code class="javascript keyword">this</code><code class="javascript plain">.y &gt; (</code><code class="javascript keyword">this</code><code class="javascript plain">.maxScrollY + 5) &amp;&amp; pullUpEl.className.match(</code><code class="javascript string">'flip'</code><code class="javascript plain">)) {</code></div><div class="line number80 index79 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullUpEl.className = </code><code class="javascript string">''</code><code class="javascript plain">;</code></div><div class="line number81 index80 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullUpEl.querySelector(</code><code class="javascript string">'.pullUpLabel'</code><code class="javascript plain">).innerHTML = </code><code class="javascript string">'上拉加载更多...'</code><code class="javascript plain">;</code></div><div class="line number82 index81 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript keyword">this</code><code class="javascript plain">.maxScrollY = pullUpOffset;</code></div><div class="line number83 index82 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">}</code></div><div class="line number84 index83 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">},</code></div><div class="line number85 index84 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">onScrollEnd: </code><code class="javascript keyword">function</code> <code class="javascript plain">() {</code></div><div class="line number86 index85 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript keyword">if</code> <code class="javascript plain">(pullDownEl.className.match(</code><code class="javascript string">'flip'</code><code class="javascript plain">)) {</code></div><div class="line number87 index86 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullDownEl.className = </code><code class="javascript string">'loading'</code><code class="javascript plain">;</code></div><div class="line number88 index87 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullDownEl.querySelector(</code><code class="javascript string">'.pullDownLabel'</code><code class="javascript plain">).innerHTML = </code><code class="javascript string">'加载中...'</code><code class="javascript plain">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code></div><div class="line number89 index88 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullDownAction();&nbsp;&nbsp; </code><code class="javascript comments">// ajax call</code></div><div class="line number90 index89 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">} </code><code class="javascript keyword">else</code> <code class="javascript keyword">if</code> <code class="javascript plain">(pullUpEl.className.match(</code><code class="javascript string">'flip'</code><code class="javascript plain">)) {</code></div><div class="line number91 index90 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullUpEl.className = </code><code class="javascript string">'loading'</code><code class="javascript plain">;</code></div><div class="line number92 index91 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullUpEl.querySelector(</code><code class="javascript string">'.pullUpLabel'</code><code class="javascript plain">).innerHTML = </code><code class="javascript string">'加载中...'</code><code class="javascript plain">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code></div><div class="line number93 index92 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">pullUpAction(); </code><code class="javascript comments">// ajax call</code></div><div class="line number94 index93 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">}</code></div><div class="line number95 index94 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">}</code></div><div class="line number96 index95 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">});</code></div><div class="line number97 index96 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number98 index97 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">setTimeout(</code><code class="javascript keyword">function</code> <code class="javascript plain">() { document.getElementById(</code><code class="javascript string">'wrapper'</code><code class="javascript plain">).style.left = </code><code class="javascript string">'0'</code><code class="javascript plain">; }, 800);</code></div><div class="line number99 index98 alt2"><code class="javascript plain">}</code></div><div class="line number100 index99 alt1">&nbsp;</div><div class="line number101 index100 alt2"><code class="javascript comments">//初始化绑定iScroll控件 </code></div><div class="line number102 index101 alt1"><code class="javascript plain">document.addEventListener(</code><code class="javascript string">'touchmove'</code><code class="javascript plain">, </code><code class="javascript keyword">function</code> <code class="javascript plain">(e) { e.preventDefault(); }, </code><code class="javascript keyword">false</code><code class="javascript plain">);</code></div><div class="line number103 index102 alt2"><code class="javascript plain">document.addEventListener(</code><code class="javascript string">'DOMContentLoaded'</code><code class="javascript plain">, loaded, </code><code class="javascript keyword">false</code><code class="javascript plain">);</code></div></div></td></tr></tbody></table></div></div>
+</div></div><div id="MySignature" style="display: block;"><table>
+<tbody><tr>
+   <td id="tdSign">博客地址：</td><td><a href="http://www.cnblogs.com/sword-successful/">http://www.cnblogs.com/sword-successful/</a></td>
+</tr>
+<tr>
+   <td>博客版权：</td><td>本文以学习、研究和分享为主，欢迎转载，但必须在文章页面明显位置给出原文连接。<br>如果文中有不妥或者错误的地方还望高手的你指出，以免误人子弟。如果觉得本文对你有所帮助不如【推荐】一下！如果你有更好的建议，不如留言一起讨论，共同进步！<br>再次感谢您耐心的读完本篇文章。</td>
+</tr>
+</tbody></table></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/sword-successful/category/631436.html">JavaScript/jQuery</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(4609498,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow();" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./H5基于iScroll实现下拉刷新，上拉加载更多 - garfieldzf - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./H5基于iScroll实现下拉刷新，上拉加载更多 - garfieldzf - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/sword-successful/" target="_blank"><img src="./H5基于iScroll实现下拉刷新，上拉加载更多 - garfieldzf - 博客园_files/20140604112233.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/sword-successful/">garfieldzf</a><br>
+            <a href="http://home.cnblogs.com/u/sword-successful/followees">关注 - 47</a><br>
+            <a href="http://home.cnblogs.com/u/sword-successful/followers">粉丝 - 132</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow();return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(4609498,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">7</span>
+    </div>
+    <div class="buryit" onclick="votePost(4609498,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">1</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+            (请您对文章做出评价)
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/sword-successful/p/4605222.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/sword-successful/p/4605222.html" title="发布于2015-06-28 10:55">基于Angularjs实现分页</a><br><a href="http://www.cnblogs.com/sword-successful/p/4626797.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/sword-successful/p/4626797.html" title="发布于2015-07-07 13:57">Angularjs promise对象解析</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2015-06-30 09:42</span> <a href="http://www.cnblogs.com/sword-successful/">garfieldzf</a> 阅读(<span id="post_view_count">46051</span>) 评论(<span id="post_comment_count">14</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=4609498" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#" onclick="AddToWz(4609498);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=91798,cb_entryId=4609498,cb_blogApp=currentBlogApp,cb_blogUserGuid='08bf28c0-be1e-df11-ba8f-001cf0cd104b',cb_entryCreatedDate='2015/6/30 9:42:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3218273" class="layer">#1楼</a><a name="3218273" id="comment_anchor_3218273"></a>  <span class="comment_date">2015-06-30 13:46</span> <a id="a_comment_author_3218273" href="http://www.cnblogs.com/lalala2015/" target="_blank">cnblogs_lalala</a> <a href="http://msg.cnblogs.com/send/cnblogs_lalala" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3218273" class="blog_comment_body">你好，我也用iscroll写过下拉刷新和上拉加载，在安卓手机上是没有问题的，但是在ios上面，就拿微信页面来说吧，如果手指滑倒微信上面的那一条就会卡着，请问你有解决办法么？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3218273,&#39;Digg&#39;,this)">支持(3)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3218273,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3218273_avatar" style="display:none;">http://pic.cnblogs.com/face/742885/20150410141454.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3218418" class="layer">#2楼</a><a name="3218418" id="comment_anchor_3218418"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2015-06-30 16:59</span> <a id="a_comment_author_3218418" href="http://www.cnblogs.com/sword-successful/" target="_blank">garfieldzf</a> <a href="http://msg.cnblogs.com/send/garfieldzf" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3218418" class="blog_comment_body"><a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3218273" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3218273);">@</a>
+cnblogs_lalala<br>我还没测试这么细致， 你指的微信页面是？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3218418,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3218418,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3218418_avatar" style="display:none;">http://pic.cnblogs.com/face/115511/20140604112233.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3219080" class="layer">#3楼</a><a name="3219080" id="comment_anchor_3219080"></a>  <span class="comment_date">2015-07-01 14:33</span> <a id="a_comment_author_3219080" href="http://home.cnblogs.com/u/223854/" target="_blank">dylan2019</a> <a href="http://msg.cnblogs.com/send/dylan2019" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3219080" class="blog_comment_body">之前也用过 当时做新闻列表 一页20条   可能当前屏幕 只能显示12条 那么问题来了 如何辨别是向下加载剩余的8条 还是翻到第二页呢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3219080,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3219080,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3219809" class="layer">#4楼</a><a name="3219809" id="comment_anchor_3219809"></a>  <span class="comment_date">2015-07-02 10:32</span> <a id="a_comment_author_3219809" href="http://www.cnblogs.com/lalala2015/" target="_blank">cnblogs_lalala</a> <a href="http://msg.cnblogs.com/send/cnblogs_lalala" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3219809" class="blog_comment_body"><a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3218418" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3218418);">@</a>
+garfieldzf<br>不单单是微信页面，是只要是放在除了客户端里面的页面，除了iphone自带的safari浏览器都会出现这个问题，比如，你用ios的手机用微信打开这个页面，把页面往上拉，拉动的时候如果碰到了微信上面的那黑色的条条就会卡住，同理其余的客户端里面都会出现这个问题。而且由于iphone的尺寸问题，很容易就会碰到上面。<br>因为我做的是把wap页嵌到客户端里面，所以就会出现问题。以前还出现过的问题是如果用两指手同事上拉也会卡住，但是把iscroll的版本换到最新版本就行了。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3219809,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3219809,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3219809_avatar" style="display:none;">http://pic.cnblogs.com/face/742885/20150410141454.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3313683" class="layer">#5楼</a><a name="3313683" id="comment_anchor_3313683"></a>  <span class="comment_date">2015-11-25 13:58</span> <a id="a_comment_author_3313683" href="http://home.cnblogs.com/u/844617/" target="_blank">龙卷风-</a> <a href="http://msg.cnblogs.com/send/%E9%BE%99%E5%8D%B7%E9%A3%8E-" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3313683" class="blog_comment_body"><a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3218273" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3218273);">@</a>
+cnblogs_lalala<br>你好，我也用iscroll写过下拉刷新和上拉加载，在安卓手机上是没有问题的，但是在ios上面，就拿微信页面来说吧，如果手指滑倒微信上面的那一条就会卡着，请问你有解决办法么？<br><br>你好，我也遇到这个问题了，请教下你是怎么解决的？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3313683,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3313683,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3320462" class="layer">#6楼</a><a name="3320462" id="comment_anchor_3320462"></a>  <span class="comment_date">2015-12-04 10:05</span> <a id="a_comment_author_3320462" href="http://home.cnblogs.com/u/850915/" target="_blank">taoqian2015</a> <a href="http://msg.cnblogs.com/send/taoqian2015" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3320462" class="blog_comment_body">html 页面结构是什么样的</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3320462,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3320462,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3326741" class="layer">#7楼</a><a name="3326741" id="comment_anchor_3326741"></a>  <span class="comment_date">2015-12-14 14:53</span> <a id="a_comment_author_3326741" href="http://home.cnblogs.com/u/856797/" target="_blank">ccMelissa</a> <a href="http://msg.cnblogs.com/send/ccMelissa" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3326741" class="blog_comment_body">这个页面有个bug，在数据比较少的时候，我下拉刷新，这时候，上拉加载更多也会一起执行!求解</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3326741,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3326741,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3338213" class="layer">#8楼</a><a name="3338213" id="comment_anchor_3338213"></a>  <span class="comment_date">2015-12-30 17:48</span> <a id="a_comment_author_3338213" href="http://home.cnblogs.com/u/870267/" target="_blank">java|</a> <a href="http://msg.cnblogs.com/send/java%7C" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3338213" class="blog_comment_body"><a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3320462" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3320462);">@</a>
+taoqian2015<br>你是怎么解决的啊</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3338213,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3338213,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3356951" class="layer">#9楼</a><a name="3356951" id="comment_anchor_3356951"></a>  <span class="comment_date">2016-01-30 17:44</span> <a id="a_comment_author_3356951" href="http://home.cnblogs.com/u/886216/" target="_blank">joney3154</a> <a href="http://msg.cnblogs.com/send/joney3154" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3356951" class="blog_comment_body">pullDownEl = document.getElementById('pullDown');<br><br>    pullUpEl = document.getElementById('pullUp');  <br>这两个标签是在什么位置啊，求解啊！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3356951,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3356951,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3356953" class="layer">#10楼</a><a name="3356953" id="comment_anchor_3356953"></a>  <span class="comment_date">2016-01-30 17:47</span> <a id="a_comment_author_3356953" href="http://home.cnblogs.com/u/886216/" target="_blank">joney3154</a> <a href="http://msg.cnblogs.com/send/joney3154" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3356953" class="blog_comment_body">能提供一下html和css吗，非常感谢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3356953,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3356953,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3368751" class="layer">#11楼</a><a name="3368751" id="comment_anchor_3368751"></a>  <span class="comment_date">2016-02-29 15:56</span> <a id="a_comment_author_3368751" href="http://www.cnblogs.com/skydhx/" target="_blank">dhx</a> <a href="http://msg.cnblogs.com/send/dhx" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3368751" class="blog_comment_body">请问 有demo 吗</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3368751,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3368751,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3368751_avatar" style="display:none;">http://pic.cnblogs.com/face/133080/20140421234237.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3400365" class="layer">#12楼</a><a name="3400365" id="comment_anchor_3400365"></a>  <span class="comment_date">2016-04-05 15:49</span> <a id="a_comment_author_3400365" href="http://home.cnblogs.com/u/562041/" target="_blank">meahu</a> <a href="http://msg.cnblogs.com/send/meahu" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3400365" class="blog_comment_body">myScroll = new iScroll('wrapper', {<br><br>写错了，是IScroll</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3400365,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3400365,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3417063" class="layer">#13楼</a><a name="3417063" id="comment_anchor_3417063"></a>  <span class="comment_date">2016-04-25 16:54</span> <a id="a_comment_author_3417063" href="http://www.cnblogs.com/hinong/" target="_blank">hasbug</a> <a href="http://msg.cnblogs.com/send/hasbug" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3417063" class="blog_comment_body"><a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3400365" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3400365);">@</a>
+meahu<br><fieldset class="comment_quote"><legend><a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3400365" title="查看引用原文">引用</a></legend>myScroll = new iScroll('wrapper', {<br><br>写错了，是IScroll</fieldset><br>其实没错，大写的是5.0+，博主的demo是4.2.5的吧</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3417063,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3417063,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3417063_avatar" style="display:none;">http://pic.cnblogs.com/face/430127/20160115102640.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3418765" class="layer">#14楼</a><a name="3418765" id="comment_anchor_3418765"></a>[<span class="louzhu">楼主</span>]<span id="comment-maxId" style="display:none;">3418765</span><span id="comment-maxDate" style="display:none;">2016/4/27 16:31:31</span>  <span class="comment_date">2016-04-27 16:31</span> <a id="a_comment_author_3418765" href="http://www.cnblogs.com/sword-successful/" target="_blank">garfieldzf</a> <a href="http://msg.cnblogs.com/send/garfieldzf" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3418765" class="blog_comment_body"><a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3417063" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3417063);">@</a>
+hasbug<br><fieldset class="comment_quote"><legend><a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#3417063" title="查看引用原文">引用</a></legend>@<br>meahu<br><fieldset class="comment_quote"><legend>引用</legend>引用myScroll = new iScroll('wrapper', {<br><br>写错了，是IScroll</fieldset><br>其实没错，大写的是5.0+，博主的demo是4.2.5的吧</fieldset><br><br>好像是的，当时用的是4.</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3418765,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3418765,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3418765_avatar" style="display:none;">http://pic.cnblogs.com/face/115511/20140604112233.png</span>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/sword-successful/archive/2015/06/30/4609498.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://www.rongcloud.cn/" target="_blank">【推荐】融云即时通讯云－豆果美食、Faceu等亿级APP都在用</a><br><a href="http://www.gcpowertools.com.cn/products/activereports_overview.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank">【推荐】报表开发有捷径：快速设计轻松集成，数据可视化和交互</a><br><a href="http://cn.iforex.com/landing_pages/br1/zhns/Testimonials8/?content=Testimonials8&amp;SID=445058" target="_blank">【推荐】一个月仅用630元赚取15000元，学会投资</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://www.rongcloud.cn/" target="_blank"><img width="300" height="250" src="./H5基于iScroll实现下拉刷新，上拉加载更多 - garfieldzf - 博客园_files/24442-20151020212817208-240968553.png" alt=""></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/550670/" target="_blank">《魔兽世界》国服升级：无限次免费角色转移</a><br> ·  <a href="http://news.cnblogs.com/n/550669/" target="_blank">大变样！新Nexus安卓7.0桌面曝光：取消程序抽屉、搜索框</a><br> ·  <a href="http://news.cnblogs.com/n/550668/" target="_blank">如果员工从公司离职，TA手中的期权应怎么处理？</a><br> ·  <a href="http://news.cnblogs.com/n/550667/" target="_blank">中信资本创投董事李仁健：云计算、企业服务创业的坑有哪些</a><br> ·  <a href="http://news.cnblogs.com/n/550666/" target="_blank">深陷丑闻的验血公司Theranos CEO：我们正在解决所有问题</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="https://www.jiguang.cn/?from=cnblogs01" target="_blank"><img width="468" height="60" src="./H5基于iScroll实现下拉刷新，上拉加载更多 - garfieldzf - 博客园_files/24442-20160613130538213-1713265809.jpg" alt=""></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/540529/" target="_blank">可是姑娘，你为什么要编程呢？</a><br> ·  <a href="http://kb.cnblogs.com/page/549631/" target="_blank">知其所以然（以算法学习为例）</a><br> ·  <a href="http://kb.cnblogs.com/page/548394/" target="_blank">如何给变量取个简短且无歧义的名字</a><br> ·  <a href="http://kb.cnblogs.com/page/549080/" target="_blank">编程的智慧</a><br> ·  <a href="http://kb.cnblogs.com/page/549049/" target="_blank">写给初学前端工程师的一封信</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);    
+});
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><img src="./H5基于iScroll实现下拉刷新，上拉加载更多 - garfieldzf - 博客园_files/o_IMG_1563.JPG" alt="嘻哈烧饼的头像" class="img_avatar" width="250px" style="border-radius:50%"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/sword-successful/">garfieldzf</a><br>园龄：<a href="http://home.cnblogs.com/u/sword-successful/" title="入园时间：2010-02-21">6年5个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/sword-successful/followers/">132</a><br>关注：<a href="http://home.cnblogs.com/u/sword-successful/followees/">47</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;08bf28c0-be1e-df11-ba8f-001cf0cd104b&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/07/01&#39;);return false;">&lt;</a></td><td align="center">2016年8月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/09/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">31</td><td align="center"><a href="http://www.cnblogs.com/sword-successful/archive/2016/08/01.html"><u>1</u></a></td><td class="CalTodayDay" align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td class="CalWeekendDay" align="center">6</td></tr><tr><td class="CalWeekendDay" align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td class="CalWeekendDay" align="center">13</td></tr><tr><td class="CalWeekendDay" align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td class="CalWeekendDay" align="center">20</td></tr><tr><td class="CalWeekendDay" align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td class="CalWeekendDay" align="center">27</td></tr><tr><td class="CalWeekendDay" align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td></tr><tr><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block"></div><div id="sidebar_recentposts" class="sidebar-block">
+<div class="catListEssay">
+<h3 class="catListTitle">最新随笔</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/sword-successful/p/5726269.html">1. js实现StringBuffer</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/5701610.html">2. 使用OAuth、Identity创建WebApi认证接口供客户端调用</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/5692784.html">3. Solr Facet 默认值</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/5664146.html">4. SolrNet高级用法（分页、Facet查询、任意分组）</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/5611833.html">5. 通过Http接口及SolrNet 两种方法基于Solr5.5.1 实现CURD</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/5604541.html">6. Solr5.5.1 IK中文分词配置与使用</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/5594918.html">7. windows环境tomcat8配置Solr5.5.1</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/5543626.html">8. 初谈SQL Server逻辑读、物理读、预读</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/5532964.html">9. C#6新特性，让你的代码更干净</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/5471601.html">10. PJAX初体验（主要是利用HTML5 新增API pushState和replaceState+AJAX）</a></li>
+</ul>
+</div>
+</div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/sword-successful/tag/Solr/">Solr</a>(5)</li><li><a href="http://www.cnblogs.com/sword-successful/tag/Node.js/">Node.js</a>(4)</li><li><a href="http://www.cnblogs.com/sword-successful/tag/javascript/">javascript</a>(3)</li><li><a href="http://www.cnblogs.com/sword-successful/tag/T-SQL/">T-SQL</a>(2)</li><li><a href="http://www.cnblogs.com/sword-successful/tag/Node.js%20express/">Node.js express</a>(2)</li><li><a href="http://www.cnblogs.com/sword-successful/tag/Node.js%20express%20mongodb/">Node.js express mongodb</a>(2)</li><li><a href="http://www.cnblogs.com/sword-successful/tag/Node.js%20Express%20Socket.io/">Node.js Express Socket.io</a>(1)</li><li><a href="http://www.cnblogs.com/sword-successful/tag/Owin/">Owin</a>(1)</li><li><a href="http://www.cnblogs.com/sword-successful/tag/SQL%20Server/">SQL Server</a>(1)</li><li><a href="http://www.cnblogs.com/sword-successful/tag/Asp.Net%20Identity/">Asp.Net Identity</a>(1)</li><li><a href="http://www.cnblogs.com/sword-successful/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/sword-successful/category/704907.html">Angularjs(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/sword-successful/category/590493.html">C#本质论(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/sword-successful/category/631437.html">Html/CSS(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/sword-successful/category/631436.html">JavaScript/jQuery(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/sword-successful/category/590490.html">MVC(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/sword-successful/category/739960.html">Node.js(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/sword-successful/category/857546.html">OAuth/Identity(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/sword-successful/category/651227.html">PHP那些事儿</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/sword-successful/category/842548.html">Solr(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/sword-successful/category/621037.html">SQLServer(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/sword-successful/category/728068.html">WCF(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/sword-successful/category/753061.html">WebApi(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/sword-successful/category/590492.html">杂七杂八(3)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	119152
+	</li>
+	<li class="liRank">
+		排名 -	1699
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/sword-successful/p/4605222.html#3481130">1. Re:基于Angularjs实现分页</a></li>
+        <li class="recent_comment_body">@菜鸟也是bird引用一个页面 如果有多个需要分页的表格 怎么办这个我很久没搞了。...</li>
+        <li class="recent_comment_author">--garfieldzf</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/sword-successful/p/4605222.html#3480531">2. Re:基于Angularjs实现分页</a></li>
+        <li class="recent_comment_body">一个页面 如果有多个需要分页的表格 怎么办</li>
+        <li class="recent_comment_author">--菜鸟也是bird</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/sword-successful/p/5701610.html#3476459">3. Re:使用OAuth、Identity创建WebApi认证接口供客户端调用</a></li>
+        <li class="recent_comment_body">@Banianer引用楼主文章写的详细 格式严谨，不错！ 建议同时底部提供DEMO下载。Demo已提供下载地址了。...</li>
+        <li class="recent_comment_author">--garfieldzf</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/sword-successful/p/5701610.html#3476264">4. Re:使用OAuth、Identity创建WebApi认证接口供客户端调用</a></li>
+        <li class="recent_comment_body">楼主文章写的详细 格式严谨，不错！ 建议同时底部提供DEMO下载。</li>
+        <li class="recent_comment_author">--Banianer</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/sword-successful/p/5701610.html#3475833">5. Re:使用OAuth、Identity创建WebApi认证接口供客户端调用</a></li>
+        <li class="recent_comment_body">谢谢！！</li>
+        <li class="recent_comment_author">--画方软件</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/sword-successful/p/4609498.html">1. H5基于iScroll实现下拉刷新，上拉加载更多(46045)</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/3386861.html">2. Easyui datagrid行内【添加】、【编辑】、【上移】、【下移】(42548)</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/3395559.html">3. Easyui datagrid editor为combobox时指定数据源(28826)</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/4605222.html">4. 基于Angularjs实现分页(14573)</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/wolfy.html">5. 百度eCharts体验(7072)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/sword-successful/p/5532964.html">1. C#6新特性，让你的代码更干净(21)</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/4605222.html">2. 基于Angularjs实现分页(20)</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/4609498.html">3. H5基于iScroll实现下拉刷新，上拉加载更多(14)</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/4760376.html">4. C#动态调用WCF接口，两种方式任你选。(13)</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/4759027.html">5. 有了jsRender，妈妈再也不用担心我用jq拼接DOM拼接的一团糟了、页面整齐了、其他伙伴读代码也不那么费劲了(10)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/sword-successful/p/5532964.html">1. C#6新特性，让你的代码更干净(12)</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/4605222.html">2. 基于Angularjs实现分页(11)</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/4936577.html">3. Node.js、express、mongodb 入门(基于easyui datagrid增删改查)(10)</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/4120946.html">4. 【JavaScript】又一神器框架：linq.js(8)</a></li><li><a href="http://www.cnblogs.com/sword-successful/p/4609498.html">5. H5基于iScroll实现下拉刷新，上拉加载更多(7)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2016 garfieldzf
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

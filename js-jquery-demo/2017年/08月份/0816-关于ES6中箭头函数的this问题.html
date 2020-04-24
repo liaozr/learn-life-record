@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+  用法
+
+  ES6 允许使用“箭头”（=>）定义函数
+
+  <p id="test1">测试</p>
+
+  <script>
+
+      var p1 = document.getElementById('test1');
+      p1.addEventListener('click', () => {
+          p1.style.color = "red";
+      }, false);
+
+      // 在es5中相当于
+      var p1 = document.getElementById('test1');
+      p1.addEventListener('click', function() {
+          //直接通过dom的方法改变颜色
+          this.style.color = "red";
+      }, false);
+
+  </script>
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+  但是我们思考一个问题——当我们把第一段代码中的p1换成this时
+
+  this会指向哪里
+
+  <script>
+      p1.addEventListener('click', () => {
+          this.style.color = "red"; //   'color' is not undefined
+      }, false);
+  </script>
+
+  这时我们就会想this为什么没有作用，而在es5中this是指向了p1
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  箭头函数有个使用注意点。
+
+  函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+
+  this对象的指向是可变的，但是在箭头函数中，它是固定的。
+
+  <script>
+
+      function foo() {
+          setTimeout(() => {
+              console.log('id:', this.id);
+          }, 100);
+      }
+
+      var id = 21;
+
+      foo.call( { id: 42 } );
+      // id: 42
+  </script>
+
+  上面代码中，setTimeout的参数是一个箭头函数，这个箭头函数的定义生效是在foo函数生成时，而它的真正执行要等到100毫秒后。
+
+  如果是普通函数，执行时this应该指向全局对象window，这时应该输出21。但是，箭头函数导致this总是指向函数定义生效时所在的对象（本例是{id: 42}），所以输出的是42
+
+  <!-- ---------------------------------------------------------------------------------------------- -->
+
+  箭头函数的this
+
+  this指向的固定化，并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this，导致内部的this就是外层代码块的this
+
+  。正是因为它没有this，所以也就不能用作构造函数。
+
+<script>
+
+    // ES6
+    function foo() {
+        setTimeout(() => {
+            console.log('id:', this.id);
+        }, 100);
+    }
+
+    // ES5
+    function foo() {
+        var _this = this;
+
+        setTimeout(function() {
+            console.log('id:', _this.id);
+        }, 100);
+    }
+
+    上面代码中， 转换后的es5清楚地说明了， 箭头函数里面根本没有自己的this， 而是引用外层的this。
+
+    由于箭头函数没有自己的this， 所以当然也就不能用call()、 apply()、 bind() 这些方法去改变this的指向。
+
+    (function() {
+        return [
+            (() => this.x).bind({
+                x: 'inner'
+            })()
+        ];
+    }).call({
+        x: 'outer'
+    });
+    // ['outer']
+
+</script>
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+  同样的由于箭头函数没有自己的this 所以bind传统的显性绑定无效 内部的this指向外部this
+
+  在javascript的学习中， this的指向问题一直是个难点，特别是在对象方法中使用this时，必须更加小心。由此箭头函数在很大程度上减少了我们的困扰。
+
+  箭头函数this词法
+
+  话又说回来，当我们使用箭头函数时不使用常规的四种this绑定，又该怎么决定this的指向问题呢？
+
+  箭头函数是根据外层（函数或者全局）作用域来决定this
+
+  让我们看看箭头函数的此法作用域：
+
+  <script>
+
+      function foo() {
+          //返回箭头函数
+          return (a) => {
+              //this 继承自foo()
+              console.log(this.a);
+          };
+      }
+
+      var obj1 = {
+          a: 2
+      };
+      var obj2 = {
+          a: 3
+      };
+
+      var bar = foo.call(obj1);
+
+      bar.call(obj2); //是2， 不是3！！！
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  foo()内部创建的箭头函数会捕获调用时foo()的this。由于foo()的this绑定到了obj1，
+
+  所以bar(引用箭头函数)的this也会绑定到obj1，上文说过箭头函数this对象的指向是固定的所以后面的call修改不了绑定，即使是new也不行。
+
+  箭头函数可以像bind()一样确保函数的this被绑定到指定对象上，此外， 其重要性还体现在它更常见的词法作用域取代了传统的this的机制。实际上， 在ES6之前我们就已经在使用一种集合和箭头函数完全一样的模式了。
+
+  <script>
+
+      function foo() {
+          var self = this;
+          setTimeout(function() {
+              console.log(self.a)
+          }, 100)
+      }
+
+      var obj = {
+          a: 2
+      };
+
+      foo.call(obj);
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  和箭头函数一样self = this 看起来都可以取代bind()， 但是从本质上来看，它们是想代替this这个机制。
+
+  注意
+
+  如果经常编写this风格的代码，又喜欢用箭头函数或者self= this的方法来否定this机制。
+  那么或许你应当：
+
+  只使用词法作用域并完全摒弃错误的this风格
+
+  完全采用this风格，在必要时仍使用bind(), 避免使用箭头函数或者self = this。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

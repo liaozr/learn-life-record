@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<style>
+    span {
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+    }
+</style>
+
+<body>
+    <div id="app">
+
+        <div class="header">
+            {{ title }}
+        </div>
+
+        <div>
+            <input type="text" id="itemform" v-on:keypress.enter="addItem">
+            <span @click="addItem">add dinosours</span>
+        </div>
+
+        <ul>
+            <li v-for="(item,index) in items">
+                <span @click="deleteItem(index)">X</span> {{ item.test }}
+            </li>
+        </ul>
+
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                title: 'dinosours',
+                items: [
+                  {
+                    test: 'velocity'
+                  },
+                  {
+                    test: 'melocity'
+                  },
+                  {
+                    test: 'yel'
+                  }
+                ]
+            },
+            methods: {
+                addItem: function() {
+                    var input = document.getElementById("itemform");
+                    if (input.value !== '') {
+                        this.items.push({
+                            test: input.value
+                        })
+                        input.value = ''
+                    }
+                },
+                deleteItem: function(index) {
+                    this.items.splice(index, 1);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

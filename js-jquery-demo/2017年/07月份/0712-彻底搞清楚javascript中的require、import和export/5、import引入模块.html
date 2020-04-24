@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  import引入模块
+
+  import语法声明用于从已导出的模块、脚本中导入函数、对象、指定文件（或模块）的原始值。
+
+  import模块导入与export模块导出功能相对应，也存在两种模块导入方式：命名式导入（名称导入）和默认导入（定义式导入）。
+
+  import的语法跟require不同，而且import必须放在文件的最开始，且前面不允许有其他逻辑代码，这和其他所有编程语言风格一致。
+
+ <script>
+
+      import defaultMember from "module-name";
+      import * as name from "module-name";
+      import { member } from "module-name";
+      import { member as alias } from "module-name";
+      import { member1 , member2 } from "module-name";
+      import { member1 , member2 as alias2 , [...] } from "module-name";
+      import defaultMember, { member [ , [...] ] } from "module-name";
+      import defaultMember, * as name from "module-name";
+      import "module-name";
+
+  </script>
+
+  name－从将要导入模块中收到的导出值的名称
+  member, memberN－从导出模块，导入指定名称的多个成员
+  defaultMember－从导出模块，导入默认导出成员
+  alias, aliasN－别名，对指定导入成员进行的重命名
+  module-name－要导入的模块。是一个文件名
+  as－重命名导入成员名称（“标识符”）
+
+  from－从已经存在的模块、脚本文件等导入
+
+  命名式导入
+
+  我们可以通过指定名称，就是将这些成员插入到当作用域中。导出时，可以导入单个成员或多个成员：
+
+  注意，花括号里面的变量与export后面的变量一一对应
+
+  import {myMember} from "my-module";
+  import {foo, bar} from "my-module";
+
+  通过*符号，我们可以导入模块中的全部属性和方法。当导入模块全部导出内容时，就是将导出模块（’my-module.js’）所有的导出绑定内容，插入到当前模块（’myModule’）的作用域中：
+
+  import * as myModule from "my-module";
+
+  导入模块对象时，也可以使用as对导入成员重命名，以方便在当前模块内使用：
+
+  import {reallyReallyLongModuleMemberName as shortName} from "my-module";
+
+  导入多个成员时，同样可以使用别名：
+
+  import {reallyReallyLongModuleMemberName as shortName, anotherLongModuleName as short} from "my-module";
+
+  导入一个模块，但不进行任何绑定：
+
+  import "my-module";
+
+  默认导入
+
+  在模块导出时，可能会存在默认导出。同样的，在导入时可以使用import指令导出这些默认值。
+
+  直接导入默认值：
+
+  import myDefault from "my-module";
+
+  也可以在命名空间导入和名称导入中，同时使用默认导入：
+
+  import myDefault, * as myModule from "my-module"; // myModule 做为命名空间使用
+  或
+  import myDefault, {foo, bar} from "my-module"; // 指定成员导入
+  import使用示例
+
+  <script>
+
+      // --file.js--
+      function getJSON(url, callback) {
+          let xhr = new XMLHttpRequest();
+          xhr.onload = function() {
+              callback(this.responseText)
+          };
+          xhr.open("GET", url, true);
+          xhr.send();
+      }
+
+      export function getUsefulContents(url, callback) {
+          getJSON(url, data => callback(JSON.parse(data)));
+      }
+
+      // --main.js--
+      import { getUsefulContents } from "file";
+
+      getUsefulContents("http://itbilu.com", data => {
+          doSomethingUseful(data);
+      });
+
+  </script>
+
+</body>
+
+</html>

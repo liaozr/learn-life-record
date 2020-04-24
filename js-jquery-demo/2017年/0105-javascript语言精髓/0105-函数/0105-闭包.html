@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+闭包
+
+一个内部函数除了可以访问自己的参数和变量，同时它也能自由访问把它嵌套在其中的父函数的参数和变量。
+通过函数字面量创建的函数对象包含一个连到外部上下文的连接, 可以访问它被创建时所处的上下文环境，这被称为闭包closure
+
+内部函数拥有比它的外部函数更长的生命周期。
+
+<!-- ------------------------------------------------------------------------- -->
+
+内部函数能访问外部函数的实际变量而无须复制!
+
+<script>
+    // 事件处理器绑定的是变量 i 本身而不是函数在创建时变量 i 的值, 每次点击 alert 的是 变量 i 最后的值
+    // 糟糕的例子
+    var add_the_handlers = function(nodes) {
+            var i;
+            for (i = 0; i < nodes.length; i += 1) {
+                nodes[i].onclick = function(e) {
+                    alert(i);
+                }
+            }
+    }
+
+    // 改进, 事件处理器绑定的是一个匿名函数返回的闭包，闭包绑定了一个seq参数
+    var add_the_handlers2 = function(nodes) {
+        var i;
+        for (i = 0; i < nodes.length; i += 1) {
+            nodes[i].onclick = (function(seq) {
+                return function(e) {
+                    alert(seq);
+                }
+            }(i));
+        }
+    }
+
+</script>
+
+</body>
+</html>

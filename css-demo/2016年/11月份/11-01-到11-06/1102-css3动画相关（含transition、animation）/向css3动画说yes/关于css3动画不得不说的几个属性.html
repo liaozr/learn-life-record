@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    2、transform属性值覆盖问题 我们知道transform可以有四个不同的变换，分别为scale、translate、skew、rotate。 现在的问题是当有两个transform设置不同变换时，权重大的覆盖权重小的。
+    <style>
+        .demo {
+            transform: scale(2);
+        }
+
+        .demo {
+            /*第一条scale将会被覆盖，失效*/
+            transform: translateX(50px);
+        }
+        /*如果要包含第一条scale*/
+
+        .demo {
+            transform: scale(2) translateX(50px);
+        }
+    </style>
+
+    <!-- --------------------------------------------------------------------------------- -->
+
+    3、transform几个值的先后问题 对不起，那四个值的真的不是随便写的，它是有先后的。第一会改变中心点，第二会改变坐标系，所以请遵循先后顺序。以立方体为例： cube demo
+    
+    <section class="container">
+        <div id="cube">
+            <figure class="front">1</figure>
+            <figure class="back">2</figure>
+            <figure class="right">3</figure>
+            <figure class="left">4</figure>
+            <figure class="top">5</figure>
+            <figure class="bottom">6</figure>
+        </div>
+    </section>
+    <style>
+        .front {
+            transform: rotateY( 0deg) translateZ( 100px);
+        }
+
+        .back {
+            transform: rotateX( 180deg) translateZ( 100px);
+        }
+
+        .right {
+            transform: rotateY( 90deg) translateZ( 100px);
+        }
+
+        .left {
+            transform: rotateY( -90deg) translateZ( 100px);
+        }
+
+        .top {
+            transform: rotateX( 90deg) translateZ( 100px);
+        }
+
+        .bottom {
+            transform: rotateX( -90deg) translateZ( 100px);
+        }
+    </style>
+
+    <!-- ---------------------------------------------------------------------------------   -->
+
+    perspective perspective属性指定了观察者与z=0平面的距离，使具有三维位置变换的元素产生透视效果。z大于0的时候三维元素比正常大，而z小于0时则比正常小，大小程度由该属性的值决定。 该属性不可继承。由于不可继承，所以只对一级子元素管用。 原理如下图（d表示perspective的值，Z表示translateZ的值）：
+
+    <!-- ------------------------------------------------------------------------------------- -->
+
+transform-style
+transform-style属性指定了，该元素的子元素是（看起来）位于三维空间内，还是在该元素所在的平面内被扁平化。
+
+如值为preserve-3d则创建一个3D渲染上下文，其直接子元素有一个共同的三维坐标系。
+同样该属性不可继承，只应用于直接子元素。
+
+perspective 与 preserve-3d 差别
+前面的概念性解释太过笼统，好像都跟3d有关， 但是区别呢？区别呢？
+简单来说，perspective为其直接的具有三维变换的子元素产生一个透视效果；而preserve-3d则为其直接的子元素提供一个3d渲染空间。
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

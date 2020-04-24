@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ----------------------------------------------------------------------------------------------------- -->
+
+  Q:我用了 axios , 为什么 IE 浏览器不识别(IE9+)那是因为 IE 整个家族都不支持 promise, 解决方案:
+
+  npm install es6-promise --save
+
+  npm install es6-promise --save-dev
+
+  <script>
+
+      // 在 main.js 引入即可
+      // ES6的polyfill
+
+      require("es6-promise").polyfill();
+
+  </script>
+
+ <!-- ----------------------------------------------------------------------------------------------------- -->
+
+  Q:路由模式改为history后,除了首次启动首页没报错,刷新访问路由都报错!
+
+  必须给对应的服务端配置查询的主页面..也可以认为是主路由入口的引导
+
+  官方文档也有,为毛总有人不喜欢去看文档,总喜欢做伸手党....FUCK
+
+  <!-- ----------------------------------------------------------------------------------------------------- -->
+
+  Q:Unknown custom element: <xxx> - did you register the component correctly?组件没有正确引入或者正确使用,依次确认
+
+  导入对应的组件
+  在 components 内声明
+  在 dom 区域声明标签
+
+  <!-- ----------------------------------------------------------------------------------------------------- -->
+
+  Q: axios的 post 请求后台接受不到!
+
+  axios 默认是 json 格式提交, 确认 后台 是否做了对应的支持
+
+  若是只能接受传统的表单序列化,就需要自己写一个转义的方法...
+
+  当然还有一个更加省事的方案,装一个小模块qs
+
+  npm install qs --save
+
+  <script>
+
+      // 然后在对应的地方转就行了..单一请求也行,拦截器也行...我是写在拦截器的.
+      // 具体可以看看我 axios 封装那篇文章
+
+      // post 传参序列化 ( 添加请求拦截器 )
+
+      Axios.interceptors.request.use(
+          config => {
+              // 在发送请求之前做某件事
+              if ( config.method === "post" ){
+                  // 序列化
+                  config.data = qs.stringify(config.data); // ***** 这里转义
+              }
+
+              // 若是有做鉴权token , 就给头部带上token
+              if (localStorage.token) {
+                  config.headers.Authorization = localStorage.token;
+              }
+
+              return config;
+
+          },
+          error => {
+              Message({
+                  //  饿了么的消息弹窗组件,类似toast
+                  showClose: true,
+                  message: error,
+                  type: "error.data.error.message"
+              });
+              return Promise.reject(error.data.error.message);
+          }
+      );
+
+  </script>
+
+<!-- ----------------------------------------------------------------------------------------------------- -->
+
+    Q:vuex的用户信息为什么还要存一遍在浏览器里(sessionStorage or localStorage)
+
+    因为 vuex的 store 干不过刷新啊.
+    保存在浏览器的缓存内,若用户刷新的话,值再取一遍呗;
+
+<!-- ----------------------------------------------------------------------------------------------------- -->
+
+
+
+
+</body>
+
+</html>

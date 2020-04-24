@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+
+babel-polyfill
+
+同样需要说明的是，Babel默认只转换新的JavaScript语法（syntax），而不转换新的API。
+
+比如：Babel可以编译let, const等特性，但是诸如Iterator、Generator、Reflect、Promise等全局对象，
+
+或者数组实例的find这些新的方法并不会得到编译。如果想让这个方法运行，必须使用babel-polyfill，
+
+同时要保证这个polyfill在你的所有其他脚本之前就要加载执行。
+
+同时，因为编译产出为ES5代码，所以又要处在ES5垫片ES5-shim,ES5-sham之后。
+
+
+</body>
+</html>

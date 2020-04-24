@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+</head>
+<body>
+	<div id="app">
+		<button id='aa' @click='aaa'></button>
+		<button id='bb' @click='bbb'></button>	
+		<button id='cc' @click='ccc'></button>
+	</div>
+	<script>
+       new Vue({
+       	 el:'#app',
+       	 methods:{
+             aaa:()=>{
+             	console.log("aaaa")
+             },
+             bbb(){
+             	console.log("bbbbb")
+             },
+             ccc:function(){
+             	console.log("cccc")
+             }
+       	 }
+       })
+
+	</script>
+</body>
+</html>

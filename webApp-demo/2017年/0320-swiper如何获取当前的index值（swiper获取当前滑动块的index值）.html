@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    onSlideChangeEnd(swiper) 回调函数，
+
+    swiper从一个slide过渡到另一个slide结束时执行。
+
+    可接受swiper实例作为参数。
+
+    <!-- ----------------------------------------------------------------------------- -->
+
+    <script language="javascript">
+
+        var mySwiper = new Swiper('.swiper-container', {
+            onSlideChangeEnd: function(swiper) {
+                alert(swiper.activeIndex) //切换结束时，告诉我现在是第几个slide
+            }
+        })
+        
+    </script>
+
+    <!-- ----------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+在层级关系上你可以认为webview是后来居上原则，
+
+我们可以通过控制webview创建销毁、显示隐藏实现页面切换。
+
+我们创建的多个webview其实是在原生android中的一个activity上，
+
+webview之间的页面切换有别于原生android中的activity间的跳转。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+plus.webview.create("ws1.html")
+
+ws1.html  里面 写这段代码的意义是：
+
+plus.webview.create("ws2.html")
+
+预加载 ws2.html 这个页面
+
+我们创建的这几个对象（ ws1.html 与 ws2.html ）是平行关系，不存在父子关系，
+
+<!-- ------------------------------------------------------------------------------- -->
+
+文档中提到：
+
+Webview窗口作为子窗口添加（Webview.append）到其它Webview窗口中时有效，这时其它Webview窗口为父窗口。
+
+<!-- 那我们将第三个webview填充到第二个webview中试试，我们将ws1.html修改如下： -->
+
+<!-- ws1.html -->
+<script>
+    function plusReady() {
+        var ws = plus.webview.create("ws2.html", "", {
+            top: "46px",
+            bottom: "0px"
+        });
+        plus.webview.currentWebview().append(ws);
+    }
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+ws2.html修改如下：
+
+<script>
+    function plusReady() {
+        // 获取所有Webview窗口
+        var wvs = plus.webview.all();
+        for (var i = 0; i < wvs.length; i++) {
+            console.log("webview" + i + ": " + wvs[i].parent());
+        }
+    }
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+这里也说明了父子对象的应用场景，
+
+将另一个Webview窗口作为子窗口添加到当前Webview窗口中，
+
+添加后其所有权归父Webview窗口，父窗口显示时子窗口会自动显示，
+
+父窗口隐藏时子窗口自动隐藏，当父窗口关闭时子窗口也自动关闭。
+
+我们不妨在子webview关闭父webview试试，结果发现子webview也被关闭了，如果不对子webview进行close()方法操作，
+
+可知子webview的生命周期是由父webview决定的。
+
+我们可以通过对子webview进行show()、hide()操作，
+
+甚至可以使用remove移除子Webview窗口，
+
+从而实现动态子webview。这种场景最常用的是webview选项卡。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

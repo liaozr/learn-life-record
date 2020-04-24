@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+		<script src="authNeed/aes.js"></script>
+		<script src="authNeed/Base64.js"></script>
+		<script src="authNeed/mode-ecb.js"></script>
+
+    <script>
+
+        seajs.config({
+            base: "./js/", //与当前目录平级的js目录
+            alias: {
+                //"$": "http://apps.bdimg.com/libs/jquery/1.8.3/jquery.js"
+            }
+        });
+
+        //加载多个模块，在加载完成时，执行回调
+        var sqlObj = null;
+        seajs.use("db", function(sql) {
+            sqlObj = sql;
+            //创建数据库
+            seajs.use("$");
+            sqlObj.createDataBase($.locStorage.dbName, "", "数据库", 2 * 1024 * 1024);
+        });
+
+        if (localStorage.ipstr == "" || localStorage.ipstr == undefined || localStorage.ipstr == null) {
+            localStorage.ipstr = "103.236.252.138:900"
+        } else {
+            $("#ip").val(localStorage.ipstr);
+        }
+
+        if (localStorage.loginuname !== "" && localStorage.loginuname !== undefined && localStorage.loginuname !== null) {
+            $("#account").val(localStorage.loginuname);
+            $("#password").val((localStorage.loginunamepwd));
+        } else {
+            localStorage.loginuname = "";
+            localStorage.loginunamepwd = "";
+        }
+
+        $("#login").on('tap', function() {
+            if (vm.userName == '' || vm.password == "") {
+                plus.nativeUI.alert('请输入用户名或者密码');
+            } else if (vm.gengxinFlag) {
+                plus.nativeUI.toast('应用更新中，待资源更新完成后再登录！');
+            } else {
+                localStorage.ipstr = $("#ip").val();
+                localStorage.loginuname = $("#account").val();
+                localStorage.loginunamepwd = $("#password").val();
+                init();
+            }
+        });
+
+        var AppCid = "";
+        var imsi; //设备的国际移动用户识别码
+        var imei; //设备的国际移动设备身份码
+        var osVersion; //系统版本
+        var osName; //系统名称
+        var productModel; //手机型号
+        var appKey = "21ED4675EA45609932AF0D229322D905";
+        var loginAuth = null;
+
+        var vm = new Vue({
+            el: "body",
+            data: {
+                userName: localStorage.loginuname,
+                password: localStorage.loginunamepwd,
+                gengxinFlag: false,
+                clickflag: false,
+                gengxinFlag2: true
+            },
+            ready: function() {}
+        });
+
+        var wt = null;
+
+        function init() {
+            if (vm.clickflag) {
+                return;
+            }
+            vm.clickflag = true;
+            makeAuth();
+            console.log(getBaseServerUrl() + '/system/user/login');
+            console.log(getBaseServerUrl() + '/system/user/login');
+            console.log("loginAuth:" + loginAuth);
+            wt = plus.nativeUI.showWaiting();
+
+            console.log(loginAuth)
+            mui.ajax(getBaseServerUrl() + '/system/user/login', {
+                type: 'get', //HTTP请求类型
+                //登录前鉴权 localStorage.auth
+                headers: {
+                    "auth": loginAuth
+                },
+                cookie: null,
+                timeout: 30000, //超时时间设置为30秒；
+                data: {
+                    tenantId: 'homello',
+                    userName: vm.userName,
+                    password: vm.password,
+                    userType: 10,
+                    esn: '',
+                    clientId: AppCid
+                },
+                success: function(jsonData) {
+                    console.log(AppCid)
+
+                    console.log("======" + JSON.stringify(jsonData))
+                    localStorage.tenantId = "homello";
+                    localStorage.loginuname = $("#account").val();
+                    localStorage.loginunamepwd = $("#password").val();
+                    localStorage.empId = jsonData.id;
+                    localStorage.empName = jsonData.empName;
+                    localStorage.orgName = jsonData.empOrgName;
+                    localStorage.orgId = jsonData.empOrg;
+                    localStorage.email = jsonData.email;
+                    localStorage.sex = jsonData.sex;
+                    localStorage.workPhone = jsonData.workPhone;
+                    localStorage.mobilePhone = jsonData.mobilePhone;
+                    localStorage.headPortrait = jsonData.headPortrait;
+                    localStorage.lzrempId = jsonData.id;
+
+                    localStorage.postNo = jsonData.postList[0].postNo;
+
+
+                    var postName = '';
+                    if (isDefine(jsonData.postList) && jsonData.postList.length > 0) {
+                        postName = jsonData.postList[0].postName;
+                    }
+                    localStorage.postName = postName;
+
+                    plus.navigator.setFullscreen(false);
+                    // plus.navigator.setStatusBarBackground("#eb6d00");
+
+
+                    if (mui.os.ios) {
+                        plus.navigator.setStatusBarStyle('dark');
+                    }
+                    //登录后储存鉴权  localStorage.headParam,再打开index.html
+                    makeAuthAfterLogin(jsonData, function() {
+                        bindCidAndAlias(AppCid);
+                        processMenu(jsonData.id);
+                    });
+
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { //type：错误描述，可取值："timeout", "error", "abort", "parsererror"、"null"
+                    wt.close();
+                    wt = null;
+                    if (textStatus == 'timeout') {
+                        alert('请求超时，请重试！');
+                        vm.clickflag = false;
+                        return;
+                    }
+                    console.log(JSON.stringify(XMLHttpRequest));
+                    if (isDefine(XMLHttpRequest.response)) {
+                        alert(JSON.parse(XMLHttpRequest.response).errorMsg);
+                        vm.clickflag = false;
+                    } else {
+                        alert('网络异常');
+                        vm.clickflag = false;
+                    }
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+            });
+        }
+
+        /*
+         * 获取菜单存储到本地数据库
+         */
+        function processMenu(empId) {
+            console.log(getBaseServerUrl() + '/system/auth/findAuthResource');
+            mui.ajax({
+                type: "GET",
+                url: getBaseServerUrl() + '/system/auth/findAuthResource',
+                headers: {
+                    "auth": localStorage.headParam
+                },
+                data: {
+                    "empId": empId
+                },
+                success: function(menus) {
+                    console.log("菜单：" + JSON.stringify(menus));
+                    var menuInfos = menus.menuInfos;
+                    if (menuInfos.length > 0) {
+                        sqlObj.insertMenus(menuInfos, insertMenusResult);
+                        vm.clickflag = false;
+                    } else {
+                        wt.close();
+                        wt = null;
+                        alert("没有菜单配置，请联系系统管理员");
+                        vm.clickflag = false;
+                    }
+
+                    /*
+                     var firstMenu = [];
+                     for (var i = 0; i < menuInfos.length; i++) {//menuName
+                         if (Number(menuInfos[i].menuLevel) == 1) {
+                             firstMenu.push(menuInfos[i]);
+                         }
+                     };
+                     setMenu(firstMenu);*/
+                },
+                error: function(xhr, errorType, error, msg) {
+                    wt.close();
+                    wt = null;
+                    console.log("获取菜单失败：" + JSON.stringify(xhr));
+                    console.log(xhr.response);
+                    alert('网络异常');
+                    vm.clickflag = false;
+                }
+
+            });
+        }
+
+        function insertMenusResult() {
+            var array = plus.webview.all();
+            if (array) {
+                for (var i = 0, len = array.length; i < len; i++) {
+                    console.log(array[i].getURL());
+                }
+            }
+            //读取本地存储，检查是否为首次启动
+            var showGuide = plus.storage.getItem("lauchFlag");
+            //仅支持竖屏显示
+            plus.screen.lockOrientation("portrait-primary");
+            if (showGuide) {
+                console.log("当前webview：" + plus.webview.currentWebview().getURL());
+                plus.webview.create("index.html", "index.html", {
+                    'popGesture': 'hide'
+                });
+                plus.webview.getWebviewById("index.html").show("pop-in", 200, function() {
+                    mui.currentWebview.hide();
+                    wt.close();
+                    wt = null;
+                    vm.clickflag = false;
+                });
+
+            } else {
+                //显示启动导航
+                mui.openWindow({
+                    id: 'guide.html',
+                    url: 'guide.html',
+                    styles: {
+                        popGesture: "none"
+                    },
+                    show: {
+                        aniShow: 'none'
+                    },
+                    waiting: {
+                        autoShow: false
+                    }
+                });
+                //延迟的原因：优先打开启动导航页面，避免资源争夺
+                setTimeout(function() {
+                    wt.close();
+                    wt = null;
+                    vm.clickflag = false;
+                    mui.currentWebview.close('pop-out');
+                }, 1000);
+            }
+
+        }
+
+        if (window.plus) {
+            plusReady()
+        } else {
+            document.addEventListener('plusready', plusReady, false);
+        }
+
+        function plusReady() {
+            //plus.navigator.setStatusBarBackground("#EB6D00");
+            // plus.navigator.setStatusBarStyle('UIStatusBarStyleBlackOpaque');
+            getCid();
+
+            //getMsg();
+
+            getwgtVer();
+            imsi = plus.device.imsi;
+            imei = plus.device.imei;
+            osVersion = plus.os.version;
+            osName = plus.os.name;
+            productModel = plus.device.model;
+            makeAuth();
+        }
+
+        function getCid() {
+            var info = plus.push.getClientInfo();
+            cid = info.clientid;
+            localStorage.cid = cid;
+            console.log(cid);
+            AppCid = cid;
+
+        }
+
+        /*
+         * /eidpws/system/user/bindCidAndAlias
+         */
+        function bindCidAndAlias(cid) {
+            console.log("cid==========================================" + cid);
+            console.log(getBaseServerUrl() + '/system/user/bindCidAndAlias');
+            mui.ajax({
+                url: getBaseServerUrl() + '/system/user/bindCidAndAlias',
+                dataType: 'application/json', //服务器返回json格式数据
+                type: 'get',
+                data: {
+                    userName: vm.userName,
+                    userType: 10,
+                    clientId: cid
+                },
+                headers: {
+                    "auth": localStorage.headParam
+                },
+                timeout: 20000, //超时时间设置为8秒；
+                success: function(data) {
+                    console.log("bindCidAndAlias====================" + JSON.stringify(data));
+
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(JSON.stringify(XMLHttpRequest));
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+            });
+        }
+
+        //更新功能
+        var wgtVer = null; //当前版本号
+        var wgtVerNew = null; //最新版本号
+        var wgtUrl = null;
+        //更新包URL
+        //var wgtUrl = getBaseImgUrl1() + "/appVersion/Homello.wgt";
+        console.log(wgtUrl);
+
+        //获取最新版本号
+        /*function getwgtVerNew(callback) {
+        	//if(!mui.os.plus){return}
+        	mui.ajax(getBaseServerUrl1() + '/app/appVersionNo/findAppVersion', {
+        		type: 'get', //HTTP请求类型
+        		success: function(jsonData) {
+        			if(jsonData.status.toString() == "true") {
+        				wgtVerNew = jsonData.data.versionNo;
+        				console.log("最新版本：" + wgtVerNew);
+        			}
+        			callback();
+
+        		},
+        		error: function(type) {
+
+        			console.log(JSON.stringify(type));
+        		}
+        	});
+
+        }*/
+
+        function getwgtVerNew(callback) {
+
+            //if(!mui.os.plus){return}
+            mui.ajax({
+                url: getBaseServerUrl() + '/core/common/upgrade/homello/homello.wgt/WGT',
+                dataType: 'application/json', //服务器返回json格式数据
+                type: 'get',
+                timeout: 20000, //超时时间设置为8秒；
+                success: function(data) {
+                    console.log(JSON.stringify(data));
+                    var jsonData = JSON.parse(data);
+                    if (jsonData.status.toString() == "Y") {
+                        wgtVerNew = jsonData.versionCode;
+                        wgtUrl = getBaseImgUrl() + jsonData.url;
+                        console.log("最新版本：" + wgtVerNew);
+                    }
+                    callback();
+
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+            });
+
+        }
+
+        //获取当前版本号
+        function getwgtVer() {
+            if (!mui.os.plus) {
+                return
+            }
+            plus.runtime.getProperty(plus.runtime.appid, function(inf) {
+                wgtVer = inf.version;
+                console.log("当前应用版本：" + wgtVer);
+                getwgtVerNew(checkwgtVer);
+            });
+        }
+        //检查对比 新旧版本号
+        function checkwgtVer() {
+            if (!mui.os.plus) {
+                return
+            }
+            if (wgtVer != wgtVerNew) {
+
+                plus.nativeUI.confirm('确认更新？', function(e) {
+
+                    var i = e.index;
+                    //console.log(i);
+                    if (i == 0) {
+                        downWgt();
+                    } else {}
+
+                }, '华美乐');
+
+                // downWgt()
+            }
+        }
+
+        //下载更新包
+        function downWgt() {
+            plus.nativeUI.showWaiting("下载更新文件...");
+            vm.gengxinFlag = true;
+            plus.downloader.createDownload(wgtUrl, {
+                filename: "_doc/update/"
+            }, function(d, status) {
+                if (status == 200) {
+                    console.log("下载成功：" + d.filename);
+                    plus.nativeUI.closeWaiting();
+                    installWgt(d.filename); // 安装wgt包
+                } else {
+                    console.log("下载失败！");
+                    plus.nativeUI.alert("下载wgt失败！");
+                    vm.gengxinFlag = false;
+                }
+            }).start();
+        }
+
+        // 更新应用资源
+        function installWgt(path) {
+            plus.nativeUI.showWaiting("正在更新,请勿关闭应用！");
+            plus.runtime.install(path, {}, function() {
+                plus.nativeUI.closeWaiting();
+                //console.log("安装wgt文件成功！");
+
+                plus.nativeUI.alert("应用资源已更新完成！", function() {
+                    plus.runtime.restart();
+                    vm.gengxinFlag = false;
+                });
+
+
+
+            }, function(e) {
+                plus.nativeUI.closeWaiting();
+                console.log("安装wgt文件失败[" + e.code + "]：" + e.message);
+                plus.nativeUI.alert("安装wgt文件失败[" + e.code + "]：" + e.message);
+                vm.gengxinFlag = false;
+            });
+        }
+
+        //  makeAuth 这个方法感觉 并没有起作用效果
+        function makeAuth() {
+            var tenant = "homello";
+            var headParam = "";
+            var wgtVer = wgtVer ? wgtVer : "1.0.0";
+            var imsi = "123";
+            var imei = "567";
+            headParam += osName;
+            headParam += ";";
+            headParam += tenant;
+            headParam += ";";
+            headParam += $("#account").val();
+            headParam += ";;";
+            headParam += $("#password").val();
+            headParam += ";;;";
+            headParam += imsi;
+            headParam += ";";
+            headParam += imei;
+            headParam += ";;;";
+            headParam += wgtVer;
+            headParam += ";";
+            headParam += osVersion;
+            headParam += ";";
+            headParam += productModel;
+            headParam += ";";
+            headParam += appKey;
+            headParam += ";";
+            headParam += "zh-CN";
+            console.log("headParam:" + headParam);
+            var base64 = new Base64();
+            var base64Auth = base64.encode(headParam);
+            var aesAuth = Encrypt(base64Auth);
+            loginAuth = "AES_" + aesAuth;
+            console.log(loginAuth);
+
+            localStorage.headParam = loginAuth;
+        }
+
+        // 起作用效果的是这个 方法 makeAuthAfterLogin.存储鉴权字符串
+        function makeAuthAfterLogin(sdata, callback) {
+            var headParam = "";
+            headParam += osName;
+            headParam += ";";
+            headParam += 'homello';
+            headParam += ";";
+            headParam += $("#account").val();
+            headParam += ";";
+            headParam += sdata.empName;
+            headParam += ";";
+            headParam += sdata.password;
+            headParam += ";";
+            headParam += sdata.empOrg;
+            headParam += ";";
+            headParam += sdata.empOrgName;
+            headParam += ";";
+            headParam += imsi;
+            headParam += ";";
+            headParam += imei;
+            headParam += ";;;";
+            headParam += wgtVer;
+            headParam += ";";
+            headParam += osVersion;
+            headParam += ";";
+            headParam += productModel;
+            headParam += ";";
+            headParam += appKey;
+            headParam += ";";
+            headParam += "zh-CN";
+            console.log("login 之后:" + headParam);
+            var base64 = new Base64();
+            var base64Auth = base64.encode(headParam);
+            //	Android;posun;10001;;123456;;;;990004690785427,352209063302435;;;1.0;5.0;SM-G9009W;21ED4675EA45609932AF0D229322D905;zh-CN
+            var aesAuth = Encrypt(base64Auth);
+            localStorage.headParam = "AES_" + aesAuth;
+            console.log("登录后鉴权:" + localStorage.headParam);
+            callback();
+        }
+        
+        function Encrypt(word) {
+
+           	var key = CryptoJS.enc.Utf8.parse("cn.posun.www.aes");
+           	var srcs = CryptoJS.enc.Utf8.parse(word);
+           	var encrypted = CryptoJS.AES.encrypt(srcs,key,{
+           		mode: CryptoJS.mode.ECB,
+           		padding: CryptoJS.pad.Pkcs7
+           	});
+
+           	return encrypted.toString();
+        }
+
+        function Decrypt(word) {
+
+           	var key = CryptoJS.enc.Utf8.parse("cn.posun.www.aes"); //abcdefgabcdefg12
+
+           	var decrypt = CryptoJS.AES.decrypt(word,key,{
+           		mode: CryptoJS.mode.ECB,
+           		padding: CryptoJS.pad.Pkcs7
+           	});
+
+           	return CryptoJS.enc.Utf8.stringify(decrypt).toString();
+        }
+
+    </script>
+</body>
+
+</html>

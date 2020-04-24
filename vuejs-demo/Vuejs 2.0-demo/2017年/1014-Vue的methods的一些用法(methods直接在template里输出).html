@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.1/vue.min.js"></script>
+
+</head>
+
+<body>
+
+     Vue 的 methods  是可以下面 这样子用的
+
+    <div id='app'>
+
+      <!-- 输出的是 1 -->
+       {{ bb() }}
+
+       <!-- 输出的是 1 -->
+       <span v-text="bb()"></span>
+
+    </div>
+
+    <script>
+
+        new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+                bb: function() {
+                    return 1
+                }
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,314 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="知了云课堂" />
+		<meta name="Description" content="知了云课堂" />
+		<title>知了云课堂</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/home.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+	</head>
+	<style>
+		html,
+		body {
+			min-height: 100%;
+			background-color: #efeff4;
+		}
+		
+		h5 {
+			padding-top: 8px;
+			padding-bottom: 8px;
+			text-indent: 12px;
+		}
+		
+		.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body {
+			font-size: 15px;
+			margin-top: 8px;
+			color: #333;
+		}
+		
+		.mui-table-view-cell>a {
+			width: 100%;
+			text-align: left;
+			padding: 0;
+			margin: 0;
+		}
+		
+		.time {
+			font-size: 14px;
+			position: relative;
+			margin: 8px 0 0 0;
+			color: lightgray;
+			font-weight: 600;
+		}
+		
+		.title {
+			margin: 10px 15px 10px;
+			color: #6d6d72;
+			font-size: 15px;
+		}
+		
+		a,
+		a:hover {
+			text-decoration: none;
+		}
+		
+		.mui-table-view .mui-media-object {
+			line-height: 63px;
+			max-width: 80px;
+			height: 63px;
+		}
+	</style>
+
+	<body>
+		<div class="mui-content">
+			<!--图片轮播-->
+			<div id="slider" class="mui-slider">
+				<!--mui-slider-loop 支持循环 -->
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="img/banner3.png">
+						</a>
+					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="img/banner.png">
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="img/banner1.png">
+						</a>
+					</div>
+					<!-- 第三张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="img/banner2.png">
+						</a>
+					</div>
+					<!-- 第四张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="img/banner3.png">
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="img/banner.png">
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+			<!--首页二级菜单-->
+			<ul id="main-ul" class="mui-table-view">
+				<li v-for="item in vueDataArr" v-on:tap="goToDetail(item)">
+					<template v-if="item.menuIcon == 'ICON_QD'">
+						<img src="img/second_icon_qd.png" />
+						<span>12</span>
+					</template>
+					<template v-if="item.menuIcon == 'ICON_WZ'">
+						<img src="img/second_icon_wz.png" />
+					</template>
+					<template v-if="item.menuIcon == 'ICON_KC'">
+						<img src="img/second_icon_kc.png" />
+					</template>
+					<template v-if="item.menuIcon == 'ICON_ZLQ'">
+						<img src="img/second_icon_pyq.png" />
+					</template>
+					<template v-if="item.menuIcon == 'ICON_ZLWD'">
+						<img src="img/second_icon_zlwd.png" />
+					</template>
+					<template v-if="item.menuIcon == 'ICON_KS'">
+						<img src="img/second_icon_ks.png" />
+					</template>
+					<template v-if="item.menuIcon == 'ICON_ZSK'">
+						<img src="img/second_icon_zsk.png" />
+					</template>
+					<!--处理数字角标 <span v-if='1>0'>12</span>-->
+					<div>{{item.menuName}}</div>
+				</li>
+			</ul>
+
+			<!--首页推荐专题-->
+			<div class="title">两学一做/入职培训</div>
+			<ul class="mui-table-view mui-grid-view" id="zhuanti-ul">
+				<li class="mui-table-view-cell mui-media mui-col-xs-6">
+					<a href="#">
+						<img class="mui-media-object" src="img/shuijiao.jpg">
+						<div class="mui-media-body">幸福就是可以一起睡觉</div>
+						<div class="time">2017-03-03</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-6">
+					<a href="#">
+						<img class="mui-media-object" src="img/muwu.jpg">
+						<div class="mui-media-body">想要一间这样的木屋，静静的喝咖啡</div>
+						<div class="time">2017-03-03</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-6">
+					<a href="#">
+						<img class="mui-media-object" src="img/cbd.jpg">
+						<div class="mui-media-body">Color of SIP CBD</div>
+						<div class="time">2017-03-03</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-6">
+					<a href="#">
+						<img class="mui-media-object" src="img/yuantiao.jpg">
+						<div class="mui-media-body">静静看这世界</div>
+						<div class="time">2017-03-03</div>
+					</a>
+				</li>
+			</ul>
+
+			<!--首页推荐文章/课程/…-->
+			<div class="title">推荐文章/课程</div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="img/shuijiao.jpg">
+						<div class="mui-media-body">
+							幸福
+							<p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="img/muwu.jpg">
+						<div class="mui-media-body">
+							木屋
+							<p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="img/cbd.jpg">
+						<div class="mui-media-body">
+							CBD
+							<p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
+						</div>
+					</a>
+				</li>
+
+			</ul>
+
+		</div>
+		<script src="js/zepto1.1.6.min.js"></script>
+		<script src="js/vue.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/locStorage.js"></script>
+		<!--Sea.js 前端模块化开发框架-->
+		<script type="text/javascript" src="js/sea.js"></script>
+		<script src="js/sub.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			var menus = [];
+			var VM = new Vue({
+				el: '#main-ul',
+				data: {
+					vueDataArr: menus,
+				},
+				methods: {
+					goToDetail: function(menu) {
+						console.log(JSON.stringify(menu));
+						var menuIcon = menu.menuIcon;
+						var url;
+						var id;
+						if(menuIcon == 'ICON_QD') { //签到
+							url = 'qiandao.html';
+							id = 'qiandao.html';
+						} else if(menuIcon == 'ICON_WZ') { //文章
+							url = 'wenzhang.html';
+							id = 'wenzhang.html';
+						} else if(menuIcon == 'ICON_KC') { //课程
+							url = 'kecheng.html';
+							id = 'kecheng.html';
+						} else if(menuIcon == 'ICON_ZLQ') { //知了圈
+							url = 'zlq.html';
+							id = 'zlq.html';
+						} else if(menuIcon == 'ICON_ZLWD') { //知了问答
+							url = 'zlwd.html';
+							id = 'zlwd.html';
+						} else if(menuIcon == 'ICON_KS') { //考试
+							url = 'kaoshi.html';
+							id = 'kaoshi.html';
+						} else if(menuIcon == 'ICON_ZSK') { //知识库
+							url = 'zsk.html';
+							id = 'zsk.html';
+						}
+						mui.openWindow({
+							url: url,
+							id: id,
+							extras: {
+								//扩展参数
+							},
+							show: {
+								autoShow: true,
+								aniShow: 'pop-in',
+								duration: 300
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+
+					}
+				}
+			});
+			seajs.config({});
+			//加载多个模块，在加载完成时，执行回调
+			var sqlObj = null;
+			seajs.use("db", function(sql) {
+				sqlObj = sql;
+				//创建数据库
+				seajs.use("$");
+				sqlObj.createDataBase($.locStorage.dbName, "1.0", "数据库", 2 * 1024 * 1024);
+				sqlObj.findMenuByParentName(localStorage.getItem($.locStorage.homeId), findMenuByParentNameResult);
+
+			});
+
+			function findMenuByParentNameResult(data) {
+				menus = data;
+				VM.vueDataArr = menus;
+
+			}
+
+			//			document.getElementById('qiandao').addEventListener("tap", function(e) {
+			//				e.stopPropagation();
+			//				mui.openWindow({
+			//					url: './scan/barcode_scan.html',
+			//					id: 'barcode_scan',
+			//					show: {
+			//						autoShow: true,
+			//						aniShow: 'pop-in',
+			//						duration: 300
+			//					},
+			//					waiting: {
+			//						autoShow: false
+			//					}
+			//				});
+			//			});
+		</script>
+	</body>
+
+</html>

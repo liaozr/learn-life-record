@@ -1,0 +1,6 @@
+node_modules/
+.DS_Store
+test
+*.log
+.circle.yml
+.travis.yml

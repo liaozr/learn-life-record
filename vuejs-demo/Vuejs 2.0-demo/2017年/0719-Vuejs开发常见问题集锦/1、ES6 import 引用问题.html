@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+ES6 import 引用问题
+
+在 ES6 中，模块系统的导入与导出采用的是引用导出与导入（非简单数据类型），也就是说，如果在一个模块中定义了一个对象并导出，在其他模块中导入使用时，导入的其实是一个变量引用（指针），如果修改了对象中的属性，会影响到其他模块的使用。
+
+ 通常情况下，系统体量不大时，我们可以使用 JSON.parse(JSON.stringify(str)) 简单粗暴地来生成一个全新的深度拷贝的 数据对象。不过当组件较多、数据对象复用程度较高时，很明显会产生性能问题，这时我们可以考虑使用 Immutable.js。
+
+鉴于这个原因，进行复杂数据类型的导出时，需要注意多个组件导入同一个数据对象时修改数据后可能产生的问题。
+
+此外，模块定义变量或函数时即便使用 let 而不是 const，在导入使用时都会变成只读，不能重新赋值，效果等同于用 const 声明。
+
+
+</body>
+</html>

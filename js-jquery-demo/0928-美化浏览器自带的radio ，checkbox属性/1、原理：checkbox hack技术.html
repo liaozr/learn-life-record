@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  先讲一下原理：
+
+  两个关键东东，一是伪类选择器 :checked，表示对应控件元素（单选框或是复选框）选中时的样式；
+
+  二就是加号 + 相邻兄弟选择器，这个符号表示选择后面的兄弟节点。于是，两者配合，就可以轻松自如控制后面元素的显示或者隐藏，或是其他样式了。
+
+  而如何让单复选框选中和不选中了，那就是 label 标签了哈，for 属性锚定对应的单选框或是复选框，然后点击这里的 label 标签元素的时候，对应的单复选框就会选中或是取消选中。然后，就有上面的效果啦！
+  
+</body>
+
+</html>

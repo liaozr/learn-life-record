@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  在web设计中，我们通常使用：last-child nth-child 选择器来覆盖原先声明应在父选择器上的样式。
+
+  比如说一个导航菜单，通过使用borders 来给每个链接Link创建分割符，然后再在加上一条规则 解除最后一个link的border
+
+  .nav li {
+      border-right: 1px solid #666;
+  }
+  .nav li:last-child {
+      border-right: none;
+  }
+
+  这是一种很混乱的方式，它不仅强制浏览器以一种方式渲染，然后又通过特定的选择器来撤销它。这样覆盖样式是不可避免的。
+
+  然而，最重要的是，我们可以通过使用：not伪类(pseudo-class) 在你想声明的元素上仅仅只使用一种样式：
+
+  <style>
+
+      .nav li:not(:last-child) {
+          border-right: 1px solid #666;
+      }
+      
+  </style>
+
+  上面就是，除了最后一个li以外，所有的 .nav li 都加上了border样式，是不是很简单！
+
+  当然，你也可以使用 .nav li+li或者 .nav li:first-child ~li ,但是 ：not是更有语义化（semantic）和容易理解的。
+
+
+</body>
+
+</html>

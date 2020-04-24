@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    <li>
+        <a @click='qiehuan' href="javascript:void(0)">
+            <i class="fa fa-sign-in"></i>
+            <span>&nbsp;&nbsp;登录</span>
+        </a>
+    </li>
+    <script>
+        export default {
+            data() {
+                return {
+                    aaaa: 'zrliao'
+                }
+            },
+            components: {
+
+            },
+            methods: {
+                qiehuan() {
+                    this.$router.push('/login')
+                }
+            }
+            // methods: {
+            //     qiehuan:function(){
+            //         this.$router.push('/login')
+            //     }
+            // }
+        }
+    </script>
+
+<!-- ---------------------------------------------------------------------------------------------------     -->
+
+<script>
+    import {
+        mapGetters,
+        mapActions
+    } from 'vuex'
+    export default {
+        data() {
+            return {
+
+            }
+        },
+        computed: {
+            ...mapGetters(['getnavlists', 'getcurlist'])
+        },
+        methods: {
+            ...mapActions(['getterlists', 'getstartlist']),
+            aaa() {
+                console.log("message come from aaa")
+            }
+        },
+        created() {
+            this.getstartlist(), //要先 执行这个this.getstarlist()，要不然上面那个getcurlist[0].type会报错的。
+            this.aaa()
+        },
+        watch: {
+            // 如果路由有变化，会再次执行该方法
+            '$route': 'aaa'
+        }
+    }
+</script>
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+<script type="text/javascript">
+
+    export default {
+        data() {
+            return {
+                loading: false,
+                post: null,
+                error: null
+            }
+        },
+        created() {
+            // 组件创建完后获取数据，
+            // 此时 data 已经被 observed 了
+            this.fetchData()
+        },
+        watch: {
+            // 如果路由有变化，会再次执行该方法
+            '$route': 'fetchData' //经实践后，是这样子的，vue内部会自动调用这个方法的。
+        },
+        methods: {
+            fetchData() {
+                this.error = this.post = null
+                this.loading = true
+                    // replace getPost with your data fetching util / API wrapper
+                getPost(this.$route.params.id, (err, post) => {
+                    this.loading = false
+                    if (err) {
+                        this.error = err.toString()
+                    } else {
+                        this.post = post
+                    }
+                })
+            }
+        }
+    }
+</script>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

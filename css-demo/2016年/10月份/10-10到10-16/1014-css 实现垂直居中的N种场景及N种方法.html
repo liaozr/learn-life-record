@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------------------   -->
+
+    1. 单行竖直居中，如单行文本或者链接 这种情况，通过给元素上下添加相同大小的 padding 值即可实现竖直居中。 如果老娘就不想使用 padding 不方便使用 padding 时，可以通过给元素设置 line-height，使其等于父容器的高度，从而实现竖直居中。注意，此时记得要考虑父容器的 padding 和 border 带来的高度变化。
+
+    <div class="container">
+        <p>单行文本竖直居中，添加相同的 padding-top & padding-bottom 值</p>
+    </div>
+    <style media="screen">
+        body {
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fe435e;
+            padding: 10px;
+        }
+
+        p {
+            margin: 0;
+            color: #fff;
+            /*  相同的上下 padding 值使单行文字居中 */
+            padding-top: 100px;
+            padding-bottom: 100px;
+        }
+    </style>
+
+    <!-- -------------------------------------------------------------------------------------- -->
+
+    2. 多行竖直居中，如多行文本 和单行文本一样，给元素上下添加相同大小的 padding 值，还是好用滴~
+
+    <div class="container-two">
+        <p>
+            多行文本竖直居中，给元素上下添加相同的 padding 值。<br /> 这只是另外一段无关紧要的，用来测试的废话。
+        </p>
+    </div>
+
+    <style media="screen">
+        .container-two {
+            background-color: #fe435e;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .container-two p {
+            width: 160px;
+            margin: 0 auto;
+            color: #fff;
+            line-height: 1.5;
+            /*  给元素上下添加相同大小的padding值 */
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+    </style>
+    ---------------------------------------------------------------------------------------------
+
+    另外一种方法，是借助 table 的属性：将父容器设置成 table，需要竖直居中的元素设置为 table-cell，然后就可以使用 vertical-align 属性来居中了。
+
+    <div class="container_two_two">
+        <p>
+            多行文本竖直居中，将父容器设置为 table，需要竖直居中的元素设置为 table-cell， 然后使用 vertical-align 属性。
+        </p>
+    </div>
+
+    <style media="screen">
+        .container_two_two {
+            background-color: #fe435e;
+            padding-left: 20px;
+            padding-right: 20px;
+            height: 400px;
+            /* 父容器设置成 table*/
+            display: table;
+        }
+
+        .container_two_two p {
+            width: 160px;
+            margin: 0 auto;
+            color: #fff;
+            line-height: 1.5;
+            /* 需要竖直居中的元素设置为 table-cell*/
+            display: table-cell;
+            vertical-align: middle;
+        }
+    </style>
+
+<!-- ------------------------------------------------------------------------------------------ -->
+
+    块级元素竖直居中
+
+    通常借助 绝对定位 和 translate 等手段，在已知或者未知块级元素高度时，分别使用不同的方法。
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+    1. 块级元素高度已知
+
+    此时可以使用绝对定位的方法，并借助 margin 可以为负值的特性，实现绝对定位居中：
+
+    /* 已知元素高度为 100px (也可以是百分比，如 80%)*/
+    height:100px;
+
+    /* 先使用绝对定位，将元素的上边界置于竖直的中间*/
+    position: absolute;
+    top: 50%;
+
+    /* 再使用margin-top，将元素向上移动自身高度的一半*/
+    margin-top: -50px;
+
+-----------------------------------------------------------------------------------
+
+<div class="container_cc">
+    <div class="v-c">
+        <p>使用绝对定位使元素竖直居中。</p>
+    </div>
+    </p>
+</div>
+
+<style media="screen">
+    .container_cc {
+        background-color: #fe435e;
+        padding: 0px 20px;
+        ;
+        height: 300px;
+        /* 父容器需要设置position, 使需要竖直居中的元素相对父容器进行绝对定位*/
+        position: relative;
+    }
+
+    .v-c {
+        width: 400px;
+        padding: 0 20px;
+        padding-right: 20px;
+        background-color: #ade4eb;
+        height: 200px;
+        /* 使用绝对定位使元素竖直居中*/
+        position: absolute;
+        top: 50%;
+        margin-top: -100px;
+        /* 需要考虑 padding 和 border, 如果没有设置 box-sizing: border-box; 的话*/
+    }
+
+    .v-c p {
+        margin: 0 auto;
+        color: #fff;
+        line-height: 200px;
+    }
+</style>
+----------------------------------------------------------------------------------
+
+笔者表示类似这段代码的使用频率简直不要太高~ 于是在使用 scss 的前提下，自己封装了一个 mixin，专门用来实现这种定位方式。
+
+<style media="screen">
+    /*定义绝对定位实现水平、垂直居中*/
+    @mixin abs_h_center($width) {
+        position: absolute;
+        width: $width;
+        left: 50%;
+        margin-left: -($width/2);
+    }
+
+    @mixin abs_v_center($height) {
+        position: absolute;
+        height: $height;
+        top: 50%;
+        margin-top: -($height/2);
+    }
+    /*然后使用的时候直接引用就可以了，这样可以避免在改动元素宽或高时，还需要同时去改 margin-left 或者 margin-top 的值*/
+
+    .content {
+        @include abs_v_center(200px);
+    }
+</style>
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+2. 块级元素高度不固定
+
+与上面提到的使用绝对定位居中的方法原理类似，只不过在元素高度不确定的情况下，借助 translateY 使元素向上移动自身高度的一半，进而实现竖直居中。
+
+/* 先将元素的上边界置于竖直的中间*/
+position: relative;
+top: 50%;
+
+/* 再使用 translateY，将元素向上移动自身高度的一半*/
+transform: translateY(-50%);
+
+<div class="container_dd">
+    <div class="v-cd">
+        <p>使用 translateY 使元素竖直居中。</p>
+    </div>
+    </p>
+</div>
+
+<style media="screen">
+    .container_dd {
+        background-color: #fe435e;
+        padding: 0px 20px;
+        ;
+        height: 400px;
+    }
+    .container_dd .v-cd {
+        width: 400px;
+        padding: 0 20px;
+        padding-right: 20px;
+        background-color: #ade4eb;
+        /* 使用 translateY，使元素竖直居中*/
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .container_dd .v-cd p {
+        margin: 0 auto;
+        color: #fff;
+        line-height: 20px;
+    }
+</style>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+flex的  align-items 和  justify-content  对于这种垂直布局和水平布局很好用
+
+<style media="screen">
+  .main{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

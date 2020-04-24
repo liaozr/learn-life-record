@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <style>
+        .g-content-project-list .serach-lay input.search {
+            height: 0.853rem;
+            line-height: 0.853rem;
+            width: 76%;
+            position: absolute;
+            top: 50%;
+            margin-top: -0.427rem;
+            right: 12%;
+            border: 1px solid #dddddd;
+            border-radius: 0.133rem;
+            font-size: 0.347rem;
+            background: url(../images/icon-search.png) no-repeat;
+            background-size: 0.36rem 0.373rem;
+            background-position: 24% center;
+            background-color: #ffffff;
+
+            /* transition过渡效果 */
+            transition: width 0.5s;
+            -moz-transition: width 0.5s;
+            /* Firefox 4 */
+            -webkit-transition: width 0.5s;
+            /* Safari 和 Chrome */
+            -o-transition: width上 0.5s;
+            /* Opera */
+        }
+
+        .g-content-project-list .serach-lay input.onfocus {
+            height: 0.853rem;
+            line-height: 0.853rem;
+            width: 85%;
+            position: absolute;
+            top: 50%;
+            margin-top: -0.427rem;
+            right: 12%;
+            border: 1px solid #dddddd;
+            border-radius: 0.133rem;
+            font-size: 0.347rem;
+            background: url(../images/icon-search.png) no-repeat;
+            background-size: 0.36rem 0.373rem;
+            background-position: 1% center;
+            text-indent: 0.5em;
+            background-color: #ffffff;
+
+            /* transition过渡效果 */
+            transition: width 0.6s;
+            -moz-transition: width 0.6s;
+            /* Firefox 4 */
+            -webkit-transition: width 0.6s;
+            /* Safari 和 Chrome */
+            -o-transition: width 0.6s;
+            /* Opera */
+        }
+    </style>
+
+    <script>
+        var vm = new Vue({
+            el: "body",
+            data: {
+                focusy: false,
+                search_cont: false,
+                his_length: 0
+            },
+            methods: {
+                onfocus(e) {
+                    this.$els.search.className = 'onfocus'
+                    this.focusy = true;
+                    this.search_cont = true;
+                    this.$nextTick(function() {
+                        showSearchHis();
+                    })
+                },
+                blur(e) {
+                    // this.$els.search.className='left'
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

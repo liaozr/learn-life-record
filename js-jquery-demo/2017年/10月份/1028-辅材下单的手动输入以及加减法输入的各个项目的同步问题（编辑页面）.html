@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+
+    解决办法是  数组合并，将选择到的 数据都 push到一个 数组里面，然后再在这个数组里面 去重即可。
+
+    这样，得到的这个数组来代替接口初始返回回来的总数据。因为 ，最后提交的时候，是要从这些总数据里面
+
+    判断 值 不为 0  的时候，才最后 提交到后台 接口去的。
+
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+
+    编辑页面 跟 初始页面的保存 页面 基本上 一样，不同点 在于 编辑页面的  alldata 这个数组 不应该 为空，应该是 编辑页面的
+
+    初始数据一样，因为编辑页面本来就是有值存在的了。然后再监听那里，改动的在合并即可。
+
+    vm.alldata=vm.postData.detail.slice(0);
+
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+
+    <script>
+        var vm = new Vue({
+            el: "body",
+            data: {
+                dataArr: [],
+                arr1: [],
+                arr2: [],
+                nums: 0,
+                postData: {},
+                signData: {},
+                cont: content,
+                xiangmuData: {
+
+                },
+                showloading: true,
+                chufaflag: false,
+                itemIndex: 0,
+                numsall: [],
+                alldata: []
+            },
+            watch: {
+                arr2: {
+                    handler: function(val, oldVal) {
+                        /* ... */
+                        console.log('bbbbbbbbbbbb')
+                        console.log(logJson(val))
+                        console.log(logJson(oldVal))
+
+                        var length = this.arr2.length;
+
+                        var numsss = 0;
+
+                        for (var i = 0; i < length; i++) {
+                            numsss += Number(this.arr2[i].qty);
+                        }
+                        console.log('wwwwwwwwwww')
+                        console.log(this.nums)
+                        // this.nums=numsss;
+                        this.numsall[this.itemIndex] = numsss
+                        console.log(this.numsall)
+                        console.log(logJson(this.arr2))
+
+                        var numsalls = 0;
+
+                        for (var i = 0; i < this.numsall.length; i++) {
+
+                            if (isNaN(this.numsall[i])) {
+
+                            } else {
+                                numsalls += Number(this.numsall[i]);
+                            }
+                        }
+
+                        function concatArray(arr1, arr2) {
+                            Array.prototype.push.apply(arr1, arr2);
+                            arr = unique1(arr1);
+                            return arr;
+                        }
+
+                        function unique1(arr) {
+                            for (var i = 0, len = arr.length; i < len; i++) {
+                                for (var j = i + 1; j < len; j++) {
+                                    if (arr[i] === arr[j]) { //获取没重复的最右一值放入新数组
+                                        arr.splice(j, 1);
+                                    }
+                                }
+                            }
+                            console.log(arr)
+                            return arr;
+                        }
+
+                        this.alldata = concatArray(this.alldata, val)
+
+                        console.log('bbbbbbbbbbbbbbbb')
+                        console.log(logJson(this.alldata))
+
+                        this.nums = numsalls;
+
+                    },
+                    deep: true
+                },
+            },
+            methods: {
+                onfocus: function(e) {
+                    this.$els.search.className = 'onfocus'
+                    this.focusy = true;
+                    this.search_cont = true;
+                    this.$nextTick(function() {
+                        //showSearchHis();
+                    })
+                },
+                changeSonData: function(index, arr) {
+                    this.itemIndex = index;
+                    this.arr2 = arr;
+
+                    console.log('qqqqqqqqqbbbbbbbbb')
+                    console.log(logJson(this.arr2))
+
+                    console.log('ccccccccc')
+                    console.log($(".y-sd-box-r").scrollTop())
+
+                    $(".y-sd-box-r").scrollTo({
+                        toT: 0
+                    });
+                },
+                addToshop: function(index, key, e) {
+                    var ele = e.target;
+                    var num = parseInt(key.qty) + 1;
+                    key.qty = num;
+
+                    this.arr2[index] = key;
+
+                    shoppingCartAnimate(ele);
+
+                    var obj = {
+                        id: key.id,
+                        materialName: key.materialName,
+                        materialType: key.materialType,
+                        materialTypeName: key.materialTypeName,
+                        qty: key.qty,
+                        pnModel: key.pnModel,
+                        productClass: key.productClass,
+                        productClassName: key.productClassName,
+                        band: key.band,
+                        isColor: key.isColor,
+                        isCustomized: key.isCustomized,
+                        tempLateType: key.tempLateType,
+                        unitName: key.unitName
+
+                    };
+
+                    for (var i = 0; i < vm.postData.detail.length; i++) {
+                        if (vm.postData.detail[i].id == key.id) {
+                            vm.postData.detail[i] = obj;
+                        }
+                    }
+
+                },
+                subToshop: function(index, key, e) {
+                    var ele = e.target;
+
+                    key.qty > 0 ? key.qty-- : key.qty = 0;
+
+                    console.log(key.qty);
+
+                    var obj = {
+                        id: key.id,
+                        materialName: key.materialName,
+                        materialType: key.materialType,
+                        materialTypeName: key.materialTypeName,
+                        qty: key.qty,
+                        pnModel: key.pnModel,
+                        productClass: key.productClass,
+                        productClassName: key.productClassName,
+                        band: key.band,
+                        isColor: key.isColor,
+                        isCustomized: key.isCustomized,
+                        tempLateType: key.tempLateType,
+                        unitName: key.unitName
+
+                    };
+                    for (var i = 0; i < vm.postData.detail.length; i++) {
+                        if (vm.postData.detail[i].id == key.id) {
+                            vm.postData.detail[i] = obj;
+                        }
+                    }
+
+                    console.log(vm.postData.detail);
+
+                }
+            },
+            computed: {
+
+            },
+            ready: function() {
+
+                this.alldata=this.postData.detail.slice(0);
+
+                this.$nextTick(function() {
+                    init();
+                })
+
+                if (localStorage.fromdaichuliflag == undefined || localStorage.fromdaichuliflag == '' || localStorage.fromdaichuliflag == null) {
+
+                    this.xiangmuData = JSON.parse(localStorage.xiangmuData)
+                    console.log("come from gongdi")
+                } else {
+                    this.xiangmuData = JSON.parse(localStorage.gongdimsgFromDaichuli)
+                    console.log("come from daichuli")
+                }
+
+                console.log('cccccccccccc')
+                console.log(localStorage.siteId)
+            }
+        });
+
+// ------------------------------------------------------------------------------------------------
+
+        function deal() {
+
+            if (vm.nums == 0) {
+                plus.nativeUI.alert('订单产品数不能为0！');
+                return;
+            }
+
+            console.log('wwwwwwwwweeeeeeeeeee')
+            console.log(logJson(vm.alldata))
+
+            console.log(logJson(vm.postData.detail))
+
+            if (vm.postData.detail.length !== 0 && !vm.chufaflag) {
+
+                vm.chufaflag = true;
+                var postData = vm.postData;
+                postData.qty = vm.nums.toString();
+
+                // 新增的
+                postData.detail = vm.alldata;
+
+                var postData_details = postData.detail;
+                var postData_details2 = [];
+                for (var i = 0; i < postData_details.length; i++) {
+                    if (postData_details[i].qty > 0) {
+                        postData_details2.push(postData_details[i])
+                    }
+                }
+                postData.detail = postData_details2;
+            }
+
+        }
+
+// ------------------------------------------------------------------------------------------------
+
+    </script>
+
+</body>
+
+</html>

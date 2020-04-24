@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+1、全局增加进度条提示
+
+nprogress地址
+
+<script>
+    // main.js 入口js文件
+    import VueRouter from 'vue-router'
+    import NProgress from 'nprogress'
+
+    Vue.use(VueRouter); //注册路由插件
+    NProgress.configure({
+      showSpinner: false
+    }); //进度条配置
+
+    router.beforeEach((to, from, next) => {
+      NProgress.start();
+    })
+    router.afterEach(transition => {
+      NProgress.done();
+    });
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+2、路由拦截
+
+<script>
+
+  router.beforeEach((to, from, next) => {
+
+    //假设登陆成功后，user信息保存在sessionStorage中。
+    if (to.path == '/login') {
+      sessionStorage.removeItem('user');
+      //如果访问登录页，清空之前sessionStorage中的user信息
+    }
+    let user = JSON.parse(sessionStorage.getItem('user'));
+    if (!user && to.path != '/login') {
+      next({
+        path: '/login'
+      })
+    } else {
+      next()
+    }
+    //如果访问非登陆页，判断是否有保存的user信息，如果没有，则判断为非法访问，重定向到登录页面
+
+  })
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+3、路由切换动效
+
+<!--app.vue 根组件-->
+<template>
+  <div id="app">
+        <transition name="fade" mode="out-in">
+        <router-view></router-view>
+        </transition>
+    </div>
+</template>
+<script>
+  export default {
+    name: 'app',
+    components: {}
+  }
+</script>
+<style>
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity .2s ease;
+  }
+
+  .fade-enter,
+  .fade-leave-active {
+    opacity: 0;
+  }
+</style>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+6、http拦截器
+拦截器是全局的，拦截器可以在请求发送前和发送请求后做一些处理。
+拦截器在一些场景下会非常有用，比如请求发送前在headers中设置access_token，或者在请求失败时，提供通用的处理方式。
+
+axios实现-axios全攻略
+
+<script>
+
+  // http request 拦截器
+  axios.interceptors.request.use(
+    config => {
+      if (store.state.token) { // 判断是否存在token，如果存在的话，则每个http header都加上token
+        config.headers.Authorization = `token ${store.state.token}`;
+      }
+      return config;
+    },
+    err => {
+      return Promise.reject(err);
+    });
+
+  // http response 拦截器
+  axios.interceptors.response.use(
+    response => {
+      return response;
+    },
+    error => {
+      if (error.response) {
+        switch (error.response.status) {
+          case 401:
+            // 返回 401 清除token信息并跳转到登录页面
+            store.commit(types.LOGOUT);
+            router.replace({
+              path: 'login',
+              query: {
+                redirect: router.currentRoute.fullPath
+              }
+            })
+        }
+      }
+      return Promise.reject(error.response.data) // 返回接口返回的错误信息
+    });
+
+</script>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

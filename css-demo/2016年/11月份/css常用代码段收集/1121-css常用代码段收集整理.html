@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+min-height: 最小高度兼容代码
+.minheight500{min-height:500px;height:auto !important;height:500px;overflow:visible;}
+
+鼠标不允许点击
+cursor:not-allowed;
+
+input:focus时input不随软键盘升起而抬高的情况
+
+:focus{-webkit-tap-highlight-color:rgba(255, 255, 255, 0);
+-webkit-user-modify:read-write-plaintext-only;}
+
+手机版本网页a标记虚线框问题
+a:focus {outline:none;-moz-outline:none;}
+
+焦点去除背景
+-webkit-tap-highlight-color:rgba(255, 255, 255, 0);
+-webkit-tap-highlight-color:transparent;  // i.e. Nexus5/Chrome and Kindle Fire HD 7''
+
+placeholder占位符颜色自定义
+input:-moz-placeholder {color: #369;}
+::-webkit-input-placeholder {color:#369;}
+
+
+</body>
+</html>

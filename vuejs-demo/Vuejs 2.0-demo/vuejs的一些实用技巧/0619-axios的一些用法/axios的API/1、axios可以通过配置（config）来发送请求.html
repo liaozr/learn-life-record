@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+    1、 axios(config)
+
+    <script>
+    
+        //发送一个`POST`请求
+        axios({
+            method: "post",
+            url: '/user/12345',
+            data: {
+                firstName: "Fred",
+                lastName: "Flintstone"
+            }
+        });
+        
+    </script>
+    
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+    2、 axios(url[,config])
+
+    <script>
+    
+        //发送一个`GET`请求（默认的请求方式）
+        axios('/user/12345');
+        
+    </script>
+    
+<!-- ------------------------------------------------------------------------------------------------- -->
+    
+</body>
+
+</html>

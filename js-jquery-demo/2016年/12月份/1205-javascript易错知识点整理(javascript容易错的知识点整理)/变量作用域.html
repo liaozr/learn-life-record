@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var a = 1;
+
+        function test3() {
+            console.log(a); // 1
+
+            a = 2;  //这个不会提升的。
+        }
+
+        test3();
+        // 上方的函数作用域中a被重新赋值， 未被重新声明， 且位于console之下， 所以输出全局作用域中的a。
+    </script>
+
+    <!-- ----------------------------------------------------------------------------- -->
+
+    <script>
+        let b = 1;
+
+        function test4() {
+            console.log(b); // b is not defined
+
+            let b = 2;
+        }
+
+        test4();
+    </script>
+
+    上方函数作用域中使用了ES6的let重新声明了变量b，
+
+    而let不同于var其不存在变量提升的功能，所以输出报错“b is not defined”。
+
+    <!-- -------------------------------------------------------------------------------- -->
+
+    <script>
+        function test5() {
+            let a = 1;
+
+            {
+                let a = 2;
+            }
+
+            console.log(a); // 1
+        }
+
+        test5();
+    </script>
+
+    上方的函数作用域中用let声明了a为1，并在块级作用域中声明了a为2，
+
+    因为console并不在函数内的块级作用域中，所以输出1。
+
+    
+
+
+</body>
+
+</html>

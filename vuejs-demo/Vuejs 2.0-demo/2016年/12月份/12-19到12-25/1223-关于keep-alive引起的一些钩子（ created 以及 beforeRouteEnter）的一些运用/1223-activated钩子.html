@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+activated
+
+类型： Function
+
+详细：
+keep-alive 组件激活时调用。
+该钩子在服务器端渲染期间不被调用。
+
+<!-- ---------------------------------------------------------------------------- -->
+
+一般来说，我们想让 keep-alive 的组件重新渲染，基本上都只是想更新它的数据而已，而VUE本来也是以数据驱动视图，所以能更新数据就已经足够了。
+
+具体做法是在 activated 钩子里做数据更新就可以了
+
+因为keep-alive每次都会调用这个钩子的。
+
+<script>
+    activated() {
+        console.log('缓存的组件又出现了，我是不是要重新拉取数据呢？')
+    }
+</script>
+
+如果有像我目前的需求的：组件不是每次都要更新数据的，比如点击同一个订单的详情，
+
+那我就不需要更新详情页面的数据，只有在点击不同订单时，才更新详情。
+
+可以在上面做法的基础上再加一个 watch，如下：
+
+<script>
+    watch: {
+        order_id(val) {
+            console.log('订单改变了，我要重新拉取订单详情了');
+            //如果订单ID相同，是不会触发这个watcher的，所以就不拉取新详情
+        }
+    },
+    activated() {
+        this.order_id = this.$route.params.order_id;
+    }
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+<script>
+    export default {
+        data() {
+            return {
+                uid: 123
+            }
+        },
+        activated() {
+            //head的修改
+            this.$store.dispatch('comm_conf', {
+                isFooter: true,
+                isSearch: false,
+                loading: false,
+                isBack: false,
+                isShare: false,
+                title: '个人首页'
+            });
+            if (!this.info.name) {
+                this.$store.dispatch('getHomeIndex', this.uid);
+            }
+        },
+        created: function() {
+            console.log("当设置了keep-alive后，created钩子只会在第一次进入该组件的时候才会执行的")
+        },
+        computed: {
+            ...mapGetters(['info'])
+        }
+    }
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+</body>
+</html>

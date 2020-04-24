@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <!-- Mobile Devices Support @begin -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <script src="js/flexible.js" type="text/javascript"></script>
+    <script src="js/flexible_css.js" type="text/javascript"></script>
+    <!-- Mobile Devices Support @end -->
+    <link rel="stylesheet" href="css/base-reset.css">
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/lzr.css">
+
+    <style>
+        .zhezhao {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            top: 0;
+            right: 0;
+            height: 100%;
+            background-color: #191919;
+            z-index: 9999999999;
+            opacity: 0.9;
+        }
+
+        #search {
+            height: 0.853rem;
+            line-height: 0.853rem;
+            width: 50%;
+            position: absolute;
+            top: 50%;
+            margin-top: -0.327rem;
+            left: 20%;
+            border: 1px solid #dddddd;
+            border-radius: 0.133rem;
+            font-size: 0.347rem;
+            background: url(./images/icon-search.png) no-repeat;
+            background-size: 0.36rem 0.373rem;
+            background-position: 4% center;
+            background-color: #ffffff;
+            transition: width 0.5s;
+            -moz-transition: width 0.5s;
+            -webkit-transition: width 0.5s;
+            -o-transition: width 0.5s;
+            color: #555555;
+            padding: 0 !important;
+            display: inline-block;
+            line-height: normal;
+            /*text-indent: 3em;*/
+            padding-left: 0.8rem !important;
+        }
+
+        #search:focus {
+            background-position: 2% center;
+            /*text-indent: 2em;*/
+        }
+
+        .saomiao {
+            background: url(./images/icon-saomiao-baidi.png) no-repeat;
+            background-size: 0.533rem 0.533rem;
+            width: 0.533rem;
+            height: 0.533rem;
+            display: inline-block;
+            position: absolute;
+            left: 78%;
+            top: 0.433rem;
+        }
+
+        .saomiao.shuaixuannot {
+            left: 88%;
+        }
+
+        .shuaixuan {
+            background: url(./images/icon-shuaixuan-bai.png) no-repeat;
+            background-size: 0.467rem 0.533rem;
+            width: 0.467rem;
+            height: 0.533rem;
+            display: inline-block;
+            position: absolute;
+            left: 91%;
+            top: 0.453rem;
+        }
+
+        .xiangmuduyou {
+            display: inline-block;
+        }
+
+        .xiangmuduyou .list {
+            width: 100%;
+            height: 1.173rem;
+            line-height: 1.173rem;
+            position: absolute;
+            background-color: #ffffff;
+            top: 1.2rem;
+            left: 0;
+            z-index: 99;
+        }
+
+        .xiangmuduyou .list .lists {
+            width: 20%;
+            display: inline-block;
+            float: left;
+            text-align: center;
+            font-size: 0.42rem;
+            border-bottom: 1px solid #f6f6f6;
+            color: #565656;
+        }
+
+        .xiangmuduyou .list .lists.active {
+            border-bottom: 2px solid #eb6d00;
+            height: 1.147rem;
+            color: #eb6d00;
+        }
+
+        .xiangmuheader {
+            height: 1.27rem;
+            /*min-height: 2.373rem;*/
+            line-height: 1.5rem;
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            background-color: #eb6d00;
+            text-align: center;
+            font-size: 0.48rem;
+            color: #fff;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            z-index: 99;
+        }
+        /*.mui-bar-nav .mui-icon.mui-icon-xiangmu{
+			    font-size: 0.667rem;
+			    position: relative;
+			    z-index: 20;
+			    padding-top: 0.298rem;
+			    padding-bottom: 0.278rem;
+			    color: #eb6d00;
+			}*/
+
+        .tanchuceng {
+            width: 8.4rem;
+            height: 4.533rem;
+            display: inline-block;
+            background-color: #ffffff;
+            opacity: 1;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            border-radius: 0.267rem;
+        }
+
+        .tanchuceng .content {
+            /*width:5.427rem;*/
+            height: auto;
+            margin: 0 auto;
+            margin-top: 0.467rem;
+            padding-left: 0.267rem;
+        }
+
+        .tanchuceng .content .lists {
+            line-height: 1.067rem;
+            background: url(./images/icon-jiantou.png) no-repeat;
+            background-size: 0.253rem 0.453rem;
+            background-position: 95% center;
+            /*border-bottom: 1px solid #dddddd;*/
+        }
+
+        .tanchuceng .content .lists .chose-value {
+            position: absolute;
+            right: 14;
+        }
+
+        .tanchuceng .content .user {
+            text-align: center;
+        }
+
+        .tanchuceng .content .user .name {
+            font-size: 0.5rem;
+            color: #252525;
+        }
+
+        .tanchuceng .content .user .sub-name {
+            font-size: 0.38rem;
+            color: #aaaaaa;
+            margin-top: 0.333rem;
+        }
+
+        .tanchuceng .btn {
+            bottom: 0;
+            height: 1.2rem;
+            border-top: 1px solid #dddddd;
+            width: 100%;
+            position: absolute;
+        }
+
+        .tanchuceng .btn .list {
+            width: 50%;
+            height: 1.2rem;
+            line-height: 1.2rem;
+            text-align: center;
+            font-size: 0.45rem;
+            display: inline-block;
+            float: left;
+        }
+
+        .tanchuceng .btn .list.cancel {
+            background-color: #f6f6f6;
+            color: #252525;
+            border-bottom-left-radius: 0.267rem;
+        }
+
+        .tanchuceng .btn .list.queding {
+            background-color: #ea6e00;
+            color: white;
+            border-bottom-right-radius: 0.267rem;
+        }
+
+        .user span {
+            font-size: 0.38rem;
+            vertical-align: middle;
+        }
+
+        .user select {
+            width: 4rem;
+            height: 1.067rem;
+            line-height: 1.067rem;
+            border: 1px solid #ccc;
+            display: inline-block;
+            background-color: #ccc;
+            margin-bottom: 0;
+            padding: 0;
+            padding-left: 0.133rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--<div  v-show='zhezhaoflag' class="zhezhao">
+ 		</div>-->
+
+    <div class="mui-bar mui-bar-nav header" :class="{'xiangmuheader':xiangmuflag}">
+        <a class="mui-icon mui-icon-bars mui-pull-left mui-plus-visible" :class="{'mui-icon-xiangmu' :xiangmuflag}"></a>
+        <span v-show='!xiangmuflag' id="topContent">消息</span>
+
+        <span class='xiangmuduyou' v-show='xiangmuflag' style="display:none;">
+				<!-- <form id="form"> -->
+			        <input v-el:search debounce="500" class='search' type="text" name="search" id="search" placeholder="电话/地址/业主名称" v-model='search_value' @input='searchsousuo($event)'>
+	            <!-- </form> -->
+	            <span id='scan' class="saomiao" :class="{'shuaixuannot':headrightflag}"></span>
+        <span v-show='!headrightflag' @click='shuaixuan' class="shuaixuan" style="display:none;"></span>
+
+        <!-- <div class="list">
+	                <div class="lists active">
+	                    全部
+	                </div>
+	                <div class="lists">
+	                    未开工
+	                </div>
+	                <div class="lists">
+	                    已开工
+	                </div>
+	                <div class="lists">
+	                    待结算
+	                </div>
+	                <div class="lists">
+	                    已结算
+	                </div>
+	            </div>  -->
+        </span>
+
+
+        <!-- <span style="float: right;position: absolute;right: .1rem;font-size: .37rem;color: #FFE2D2;font-weight: bolder" id="currentEmp">
+			</span> -->
+    </div>
+    <!--<div class="footer">
+			<div class="item-foot new cur " data-id="news.html">
+				<a>消息</a>
+			</div>
+			<div class="item-foot project" data-id="xiangmu.html">
+				<a>项目</a>
+			</div>
+			<div class="item-foot project" data-id="xiangmu-kanban.html">
+				<a>项目看板</a>
+			</div>
+			<div class="item-foot sale " data-id="sale.html">
+				<a>销售</a>
+			</div>
+			<div class="item-foot oa " data-id="oa_index.html">
+				<a>OA</a>
+			</div>
+		</div>-->
+    <nav class="bottom-bar bottom-bar-tab">
+        <div class="bottom-tab-item bottom-active mui-hidden" data-index="0" data-id="news.html">
+            <span class="bottom-icon icon-xiaoxi"></span>
+            <span class="bottom-tab-label">消息</span>
+        </div>
+        <div data-mulu='xiangmu' class="bottom-tab-item  mui-hidden" data-index="1" data-id="xiangmu.html">
+            <span class="bottom-icon icon-xiangmu"></span>
+            <span class="bottom-tab-label">工地</span>
+        </div>
+        <div data-mulu='kanbu' class="bottom-tab-item  mui-hidden" data-index="2" data-id="xiangmu-kanban.html">
+            <span class="bottom-icon icon-xiangmukanban"></span>
+            <span class="bottom-tab-label">工地看板</span>
+        </div>
+        <div class="bottom-tab-item  mui-hidden" data-index="3" data-id="sale.html">
+            <span class="bottom-icon icon-xiaoshou"></span>
+            <span class="bottom-tab-label">销售</span>
+        </div>
+        <div class="bottom-tab-item  mui-hidden" data-index="4" data-id="oa_index.html">
+            <span class="bottom-icon icon-oa"></span>
+            <span class="bottom-tab-label">OA</span>
+        </div>
+    </nav>
+
+    <script src="js/zepto1.1.6.min.js" type="text/javascript"></script>
+    <script src='js/mui.min.js'></script>
+    <script type="text/javascript" src="js/public.js"></script>
+    <script type="text/javascript" src="js/global.js"></script>
+    <script type="text/javascript" src="js/vue.min.js"></script>
+    <script src="js/locStorage.js"></script>
+    <!--Sea.js 前端模块化开发框架-->
+    <script src="js/sea.js"></script>
+    <script>
+        // mui.init();
+        // mui.plusReady(function () {
+        //   plus.navigator.setFullscreen(true);
+        // });
+
+        var vm = new Vue({
+            el: 'body',
+            data: {
+                zhezhaoflag: false,
+                xiangmuflag: false,
+                search_value: '',
+                headrightflag: true
+            },
+            ready: function() {
+                localStorage.xmsearch_value = ''
+            },
+            methods: {
+                searchsousuo: function(e) {
+
+                    var skeyword = e.target.value;
+
+                    var skeyword = trim(skeyword);
+                    if ($.trim(skeyword) != "") {
+
+                        localStorage.xmsearch_value = skeyword;
+                        localStorage.removeItem('search_shuzhi');
+                        plus.webview.getWebviewById("xiangmu.html").evalJS("shuaixuanjiekou()");
+                    } else {
+                        this.search_value = '';
+                        localStorage.xmsearch_value = '';
+
+                        localStorage.search_shuzhi = 1;
+                        // localStorage.removeItem("xmsearch_value");
+                        // plus.webview.getWebviewById("xiangmu.html").evalJS("shuaixuanjiekou()");
+                        plus.webview.getWebviewById("xiangmu.html").evalJS("mcounter()");
+
+                    }
+
+                },
+                shuaixuan: function() {
+                    // init()
+                    // plus.webview.getWebviewById("xiangmu.html").evalJS("shuaixuanjiekou()");
+                    openNew("./xiangmu/xm-jigou-shuaixuan.html");
+                }
+
+            }
+        })
+
+        //扫描二维码
+        var scanType;
+        //二维码扫描结果传参
+        function scaned(t, str, r) {
+            //alert(str);
+            vm.search_value = str;
+            localStorage.xmsearch_value = str;
+
+            plus.webview.getWebviewById("xiangmu.html").evalJS("init()");
+        }
+
+        scan.addEventListener("tap", function(e) {
+            e.stopPropagation();
+            mui.openWindow({
+                url: 'scan/barcode_scan.html',
+                id: 'barcode_scan',
+                show: {
+                    autoShow: true,
+                    aniShow: 'pop-in',
+                    duration: 300
+                },
+                waiting: {
+                    autoShow: false
+                }
+            });
+        });
+
+
+        function init() {
+            vm.zhezhaoflag = true;
+            // plus.webview.getWebviewById("xiangmu.html").evalJS("xmzhezhao()");
+
+        }
+
+
+        function init2() {
+            vm.zhezhaoflag = false;
+        }
+
+        var sqlObj = null;
+        var menu = null,
+            main = null;
+        var showMenu = false;
+
+        mui.init({
+            swipeBack: false,
+            //statusBarBackground: '#f7f7f7',
+            gestureConfig: {
+                doubletap: true
+            }
+        });
+
+        mui.plusReady(function() {
+
+            // plus.navigator.setStatusBarStyle('dark');
+
+            seajs.config({});
+            //加载多个模块，在加载完成时，执行回调
+            seajs.use("db", function(sql) {
+                sqlObj = sql;
+                //创建数据库
+                seajs.use("$");
+                sqlObj.createDataBase($.locStorage.dbName, "", "数据库", 2 * 1024 * 1024);
+                sqlObj.findMenuByLevel(1, findMenuByLevelResult);
+
+            });
+
+            getMsg();
+            main = plus.webview.currentWebview();
+            main.addEventListener('maskClick', closeMenu);
+            //处理侧滑导航，为了避免和子页面初始化等竞争资源，延迟加载侧滑页面；
+
+            // setTimeout(function() {
+            // 	menu = mui.preload({
+            // 		id: 'index-menu.html',
+            // 		url: 'index-menu.html',
+            // 		styles: {
+            // 			left: 0,
+            // 			width: '70%',
+            // 			zindex: -9999
+            // 		},
+            // 		show: {
+            // 			aniShow: 'none'
+            // 		}
+            // 	});
+            // }, 200);
+
+            menu = mui.preload({
+                id: 'index-menu.html',
+                url: 'index-menu.html',
+                styles: {
+                    left: 0,
+                    // width:70%,
+                    zindex: -9999
+                },
+                show: {
+                    aniShow: 'none'
+                }
+            });
+
+        });
+
+        var subpages = [];
+        //查询1级别菜单
+        function findMenuByLevelResult(data) {
+            console.log(data.length + "一级菜单")
+            var tabs = document.querySelectorAll(".bottom-tab-item");
+            var MENU_ICON, MENU_ID;
+            for (var i = 0; i < data.length; i++) {
+                MENU_ICON = data[i].menuIcon;
+                MENU_ID = data[i].id;
+                if (MENU_ICON == 'ICON_NEWS') {
+                    localStorage.setItem($.locStorage.newsId, MENU_ID);
+                    subpages.push("news.html");
+                    tabs[0].classList.remove("mui-hidden");
+                } else if (MENU_ICON == 'ICON_XM') {
+                    localStorage.setItem($.locStorage.xiangmuId, MENU_ID);
+                    subpages.push("xiangmu.html");
+                    tabs[1].classList.remove("mui-hidden");
+                } else if (MENU_ICON == 'ICON_XMKB') {
+                    localStorage.setItem($.locStorage.xiangmukanbanId, MENU_ID);
+                    subpages.push("xiangmu-kanban.html");
+                    tabs[2].classList.remove("mui-hidden");
+                } else if (MENU_ICON == 'ICON_SALES') {
+                    localStorage.setItem($.locStorage.xiaoshouId, MENU_ID);
+                    subpages.push("sale.html");
+                    tabs[3].classList.remove("mui-hidden");
+                } else if (MENU_ICON == 'ICON_OA') {
+                    localStorage.setItem($.locStorage.oaId, MENU_ID);
+                    subpages.push("oa_index.html");
+                    tabs[4].classList.remove("mui-hidden");
+                }
+            }
+            console.log(subpages);
+            ready(mui);
+        }
+
+        var doc = window.document;
+        var docEl = doc.documentElement;
+        var width = docEl.getBoundingClientRect().width;
+        var dpr = 1;
+        if (width > 540) {
+            width = 540 * dpr;
+        }
+        var rem = width / 10;
+        var fontSize = rem;
+        var bottomheight = parseInt(fontSize) * 1.507 + 'px';
+        var topheight = parseInt(fontSize) * 1.27 + 'px';
+
+        var subStyles = {
+            top: topheight,
+            bottom: bottomheight
+        };
+
+        function ready($) {
+            // currentEmp.innerHTML = localStorage.lzrempId + '/' + localStorage.postName;
+            var self = plus.webview.currentWebview();
+            var subWvs = []; //子窗口对象数组
+            for (var i = 0; i < subpages.length; i++) {
+                var subWv = plus.webview.create(subpages[i], subpages[i], subStyles, {
+                    index: i
+                });
+                subWvs.push(subWv);
+                if (i > 0) {
+                    subWv.hide("none");
+                }
+                self.append(subWv);
+            }
+        }
+
+
+        var isInTransition = false;
+        /**
+         * 显示侧滑菜单
+         */
+        function openMenu() {
+            if (isInTransition) {
+                return;
+            }
+            if (!showMenu) {
+                //侧滑菜单处于隐藏状态，则立即显示出来；
+                isInTransition = true;
+                menu.setStyle({
+                    mask: 'rgba(0,0,0,0)'
+                }); //menu设置透明遮罩防止点击
+                menu.show('none', 0, function() {
+                    //主窗体开始侧滑并显示遮罩
+                    main.setStyle({
+                        mask: 'rgba(0,0,0,0.4)',
+                        left: '70%',
+                        transition: {
+                            duration: 150
+                        }
+                    });
+                    mui.later(function() {
+                        isInTransition = false;
+                        menu.setStyle({
+                            mask: "none"
+                        }); //移除menu的mask
+                    }, 160);
+                    showMenu = true;
+                });
+            }
+        };
+
+
+
+        /**
+         * 关闭菜单
+         */
+        function closeMenu() {
+            if (isInTransition) {
+                return;
+            }
+            if (showMenu) {
+                //关闭遮罩；
+                //主窗体开始侧滑；
+                isInTransition = true;
+                main.setStyle({
+                    mask: 'none',
+                    left: '0',
+                    transition: {
+                        duration: 200
+                    }
+                });
+                showMenu = false;
+                //等动画结束后，隐藏菜单webview，节省资源；
+                mui.later(function() {
+                    isInTransition = false;
+                    menu.hide();
+                }, 300);
+            }
+        };
+
+        function zhuxiao() {
+            plus.webview.getWebviewById("index-menu.html").close();
+
+            plus.webview.create("login.html", "login.html", {
+                'popGesture': 'close'
+            });
+
+            plus.webview.getWebviewById("login.html").show("pop-in", 200, function() {
+
+                localStorage.removeItem("tenantId")
+                localStorage.removeItem("orgId")
+                localStorage.removeItem("email")
+                localStorage.removeItem("sex")
+                localStorage.removeItem("workPhone")
+                localStorage.removeItem("mobilePhone")
+                localStorage.removeItem("headPortrait")
+                localStorage.removeItem("lzrempId")
+                localStorage.removeItem("postNo")
+                localStorage.removeItem("headParam")
+
+                console.log('yyyyyyyyyyy')
+                console.log(localStorage.loginuname)
+
+                plus.webview.currentWebview().close();
+
+            });
+
+        }
+
+        //点击左上角侧滑图标，打开侧滑菜单；
+
+        function cehua() {
+            document.querySelector('.mui-icon-bars').addEventListener('tap', function(e) {
+                if (showMenu) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            });
+        }
+
+
+        //主界面向右滑动，若菜单未显示，则显示菜单；否则不做任何操作
+        window.addEventListener("swiperight", openMenu);
+        //主界面向左滑动，若菜单已显示，则关闭菜单；否则，不做任何操作；
+        window.addEventListener("swipeleft", closeMenu);
+        //侧滑菜单触发关闭菜单命令
+        window.addEventListener("menu:close", closeMenu);
+        window.addEventListener("menu:open", openMenu);
+
+        window.addEventListener("zhuxiao", zhuxiao);
+
+        //重写mui.menu方法，Android版本menu按键按下可自动打开、关闭侧滑菜单；
+        mui.menu = function() {
+            if (showMenu) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        }
+        mui.back = function() {};
+
+        // var currentEmp = document.getElementById("currentEmp");
+
+        function buttomtab() {
+            $(".bottom-tab-item").on("tap", function() {
+                $(".bottom-tab-item").removeClass("bottom-active");
+                $(this).addClass("bottom-active");
+
+                var id = $(this).data("id");
+                var content = $(this).find("span").text();
+                topContent.innerHTML = content;
+
+                // currentEmp.innerHTML = localStorage.lzrempId + '/' + localStorage.postName;
+
+                plus.webview.getWebviewById(id).show("fade-in", 200);
+
+
+
+                if ($(this).data('mulu') == 'xiangmu') {
+                    vm.xiangmuflag = true;
+
+                    // shuaixuanjiekou();
+
+
+                    // plus.webview.getWebviewById("xiangmu.html").evalJS("shuaixuanjiekou()");
+                    plus.webview.getWebviewById("xiangmu.html").evalJS("clearlocal()");
+                    vm.search_value = '';
+                    localStorage.xmsearch_value = '';
+
+
+                    // plus.webview.getWebviewById("xiangmu.html").evalJS("init()");
+                    // plus.navigator.setFullscreen(false);
+                    // plus.navigator.setStatusBarBackground("#ffffff");
+
+                } else {
+                    vm.xiangmuflag = false;
+
+                    plus.webview.getWebviewById(id).evalJS("init()");
+
+                    // plus.webview.getWebviewById("xiangmu.html").evalJS("clearlocal()");
+
+
+                    // plus.navigator.setStatusBarBackground("#eb6d00");
+                }
+
+            });
+        }
+
+        function getMsg() {
+            /*
+             * 透传消息
+             */
+            // 监听点击消息事件
+            plus.push.addEventListener("click", function(msg) {
+                if (isDefine(msg.payload)) {
+                    var payload = JSON.parse(msg.payload);
+                    var url;
+                    var state;
+                    var fromActivity;
+                    if (isDefine(payload.type)) {
+                        switch (payload.type) {
+                            case "10": //知会通知推送->消息里面的通知
+                                // 设置APP图标的角标
+                                var BadgeNumber = parseInt(localStorage.BadgeNumber);
+                                plus.runtime.setBadgeNumber(BadgeNumber + 1);
+                                url = "./xiaoxi/news-list.html";
+                                if (plus.webview.getWebviewById(url)) {
+                                    plus.webview.getWebviewById(url).evalJS("refresh()");
+                                } else {
+                                    var webview = plus.webview.create(url, url);
+                                    webview.addEventListener("titleUpdate", function() {
+                                        setTimeout(function() {
+                                            webview.show("pop-in", 200);
+                                        }, 10);
+                                    });
+                                }
+                                break;
+                            case "20": //执行通知推送->消息里面的待处理任务
+                                var BadgeNumber = parseInt(localStorage.BadgeNumber);
+                                plus.runtime.setBadgeNumber(BadgeNumber + 1);
+
+                                url = "./xiaoxi/daichuli.html";
+                                if (plus.webview.getWebviewById(url)) {
+                                    plus.webview.getWebviewById(url).evalJS("refresh()");
+                                } else {
+                                    state = 20;
+                                    fromActivity = "DCL";
+                                    localStorage.setItem('state', state);
+                                    localStorage.setItem('fromActivity', fromActivity);
+                                    mui.openWindow({
+                                        url: url,
+                                        id: url,
+                                        extras: {
+                                            state: state, //扩展参数
+                                            fromActivity: fromActivity,
+                                        },
+                                        show: {
+                                            autoShow: true,
+                                            aniShow: 'pop-in',
+                                            duration: 300
+                                        },
+                                        waiting: {
+                                            autoShow: false
+                                        }
+                                    });
+                                }
+                                break;
+                            case "30": //聊天通知推送
+                                var BadgeNumber = parseInt(localStorage.BadgeNumber);
+                                plus.runtime.setBadgeNumber(BadgeNumber + 1);
+
+                                if (plus.webview.getWebviewById("./xiaoxi/im-chat.html")) {
+                                    plus.webview.getWebviewById("./xiaoxi/im-chat.html").evalJS("updateMsg()");
+                                } else {
+                                    var webview = plus.webview.create("./xiaoxi/im-chat.html", "./xiaoxi/im-chat.html");
+                                    webview.addEventListener("titleUpdate", function() {
+                                        setTimeout(function() {
+                                            webview.show("pop-in", 200);
+                                        }, 10);
+                                    });
+                                }
+                                break;
+                            case "40": //通知公告推送->OA里面的通知公告
+                                url = "./oa/tongzhi-gonggao.html";
+                                if (plus.webview.getWebviewById(url)) {
+                                    plus.webview.getWebviewById(url).evalJS("init()");
+                                } else {
+                                    var webview = plus.webview.create(url, url);
+                                    webview.addEventListener("titleUpdate", function() {
+                                        setTimeout(function() {
+                                            webview.show("pop-in", 200);
+                                        }, 10);
+                                    });
+                                }
+                                break;
+                        }
+                    }
+                }
+            }, false);
+
+            // 监听在线消息事件
+            plus.push.addEventListener("receive", function(msg) {
+                //接收到在线透传消息
+                if (typeof(msg.payload) == "string") {
+
+                    createLocalPushMsg(msg);
+                } else {
+                    plus.nativeUI.confirm(msg.payload.content, function(e) {
+                        var i = e.index;
+                        if (i == 0) {
+                            //do something
+                            processPayload(msg.payload);
+
+                        } else {}
+
+                    }, "收到一条新消息");
+                }
+            }, false);
+
+
+            function processPayload(payload) {
+                var url;
+                var state;
+                var fromActivity;
+                if (isDefine(payload.type)) {
+                    switch (payload.type) {
+                        case "10": //知会通知推送->消息里面的通知
+                            // 设置APP图标的角标
+                            var BadgeNumber = parseInt(localStorage.BadgeNumber);
+                            plus.runtime.setBadgeNumber(BadgeNumber + 1);
+                            url = "./xiaoxi/news-list.html";
+                            if (plus.webview.getWebviewById(url)) {
+                                plus.webview.getWebviewById(url).evalJS("refresh()");
+                            } else {
+                                var webview = plus.webview.create(url, url);
+                                webview.addEventListener("titleUpdate", function() {
+                                    setTimeout(function() {
+                                        webview.show("pop-in", 200);
+                                    }, 10);
+                                });
+                            }
+                            break;
+                        case "20": //执行通知推送->消息里面的待处理任务
+                            var BadgeNumber = parseInt(localStorage.BadgeNumber);
+                            plus.runtime.setBadgeNumber(BadgeNumber + 1);
+
+                            url = "./xiaoxi/daichuli.html";
+                            if (plus.webview.getWebviewById(url)) {
+                                plus.webview.getWebviewById(url).evalJS("refresh()");
+                            } else {
+                                state = 20;
+                                fromActivity = "DCL";
+                                localStorage.setItem('state', state);
+                                localStorage.setItem('fromActivity', fromActivity);
+                                mui.openWindow({
+                                    url: url,
+                                    id: url,
+                                    extras: {
+                                        state: state, //扩展参数
+                                        fromActivity: fromActivity,
+                                    },
+                                    show: {
+                                        autoShow: true,
+                                        aniShow: 'pop-in',
+                                        duration: 300
+                                    },
+                                    waiting: {
+                                        autoShow: false
+                                    }
+                                });
+                            }
+                            break;
+                        case "30": //聊天通知推送
+                            var BadgeNumber = parseInt(localStorage.BadgeNumber);
+                            plus.runtime.setBadgeNumber(BadgeNumber + 1);
+
+                            if (plus.webview.getWebviewById("./xiaoxi/im-chat.html")) {
+                                plus.webview.getWebviewById("./xiaoxi/im-chat.html").evalJS("updateMsg()");
+                            } else {
+                                var webview = plus.webview.create("./xiaoxi/im-chat.html", "./xiaoxi/im-chat.html");
+                                webview.addEventListener("titleUpdate", function() {
+                                    setTimeout(function() {
+                                        webview.show("pop-in", 200);
+                                    }, 10);
+                                });
+                            }
+                            break;
+                        case "40": //通知公告推送->OA里面的通知公告
+                            url = "./oa/tongzhi-gonggao.html";
+                            if (plus.webview.getWebviewById(url)) {
+                                plus.webview.getWebviewById(url).evalJS("init()");
+                            } else {
+                                var webview = plus.webview.create(url, url);
+                                webview.addEventListener("titleUpdate", function() {
+                                    setTimeout(function() {
+                                        webview.show("pop-in", 200);
+                                    }, 10);
+                                });
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+
+
+        //非标准格式的透传消息 receive
+        function createLocalPushMsg(msg) {
+            var titleStr = msg.title;
+            var options = {
+                cover: false,
+                title: titleStr
+            };
+            //msg.payload.msgType = "LocalMSG";
+            var payloadStr = msg.payload;
+            plus.push.createMessage(msg.content, payloadStr, options);
+            if (plus.os.name == "iOS") {
+                alert('*如果无法创建消息，请到"设置"->"通知"中配置应用在通知中心显示!');
+            }
+        }
+
+        $(".list .lists").on('tap', function() {
+            $(".list .lists").removeClass('active')
+            $(this).addClass("active")
+        })
+
+        function trim(text) {
+            if (typeof(text) == "string") {
+                return text.replace(/^\s*|\s*$/g, "");
+            } else {
+                return text;
+            }
+        }
+
+        function headright() {
+            vm.headrightflag = false;
+        }
+    </script>
+</body>
+
+</html>

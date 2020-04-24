@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <!-- --------------------------------------------------------------------------------------- -->
+
+  <script>
+
+    watch: {
+
+      //showLoading变化时说明组件已经获取初始化数据，在下一帧nextTick进行后续操作
+      showloading(value) {
+
+        if (!value) {
+          this.$nextTick(() => {
+            // do something
+            this.movieQingqiu()
+          })
+        }
+
+      }
+    }
+    
+// -------------------------------------------------------------------------------------------
+
+    在华美乐的项目看板中，如果是 等全部  图表 加载完成后，再把loading效果 去掉，
+
+    不止等待的时间长，不止等待的时间长，而且还出现了，有些图表加载不出来的情况
+
+    所以，等这个页面上最先要获取到的接口 请求成功后，就把loading效果去掉
+
+    然后在 watch 里面监听 这个 showloading 发现 这个  showloading 的值发生变化后，
+
+    也就是 loading效果去掉后，再继续执行这个页面上的其他 数据接口
+
+    发现这种做法 不止 loading效果 好了很多，而且 图表 加载那些 也都一一  正常了。
+
+    所以，以后，有数据请求的页面 都这样搞就ok的了。
+
+// -------------------------------------------------------------------------------------------
+
+    watch: {
+        showloading: function(value) {
+            if (!value) {
+
+              this.$nextTick(function() {
+
+                  date = $(".time-chose .time").html();
+                  dateNum = date.split('-');
+                  year = dateNum[0];
+                  month = dateNum[1];
+
+                  jiesuanlv(year, month)
+                  gongdi_fenxi_yichang();
+                  gongdi_shigong_zhuangtai();
+                  gongdi_fenxi_zhuangtai();
+
+              })
+            }
+        }
+    }
+
+  </script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+   npm install vue-wechat-title --save
+
+<!-- ----------------------------------------------------------------------------- -->
+
+   main.js
+   Vue.use(require('vue-wechat-title'))
+
+<!-- ----------------------------------------------------------------------------- -->
+
+路由定义(只截取一部分)
+
+const routes = [
+  {
+    name: 'Home',
+    path: '/home',
+    meta: {
+      title: '首页'
+    },
+    component: require('../views/Home.vue')
+  },
+  {
+    name: 'Order',
+    path: '/order',
+    meta: {
+      title: '订单'
+    },
+    component: require('../views/Order.vue')
+  },
+  {
+    name: 'UCenter',
+    path: '/ucenter',
+    meta: {
+      title: '用户中心'
+    },
+    component: require('../views/UCenter.vue')
+  }
+]
+
+<!-- ----------------------------------------------------------------------------- -->
+
+在组件中顶部添加一段
+
+在 header 组件 里  标题处
+
+标题 处的写法
+
+<span class="header-title" v-wechat-title="$route.meta.title" v-text='$route.meta.title'></span>
+
+即可实现改变title效果。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

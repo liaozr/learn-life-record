@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="vue.js" charset="utf-8"></script>
+  </head>
+  <body>
+<!-- ------------------------------------------------------------------------------- -->
+
+    本来 子组件child-com 标签之间是不应该写内容的，因为内容是内部模板渲染出来的。
+
+    但是如果你写了，这些html内容将会当做参数传入 子组件child-com 内部定义有slot的地方。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+组件标签之间可以写点啥？组件编译的作用域
+
+<parent-component>
+    <child-component>
+      {{ message }}
+    </child-component>
+</parent-component>
+
+写在child-component中间的这个{{message}},到底算是绑定child-component的还是parent-component的？
+
+答案是：parent-component的。
+
+规则就是：
+
+所有在父组件模板里的东西都将视为父组件的作用域，所有在子组件的东西都将视为子组件的作用域；
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+最常见的一个错误就是：
+
+<child-component v-show="someChildProperty"></child-component>
+你以为someChildProperty是子组件的数据属性，其实它绑定了父组件的数据属性；所以你只能这样写：
+
+<script type="text/javascript">
+
+    Vue.component('child-component', {
+        // this does work, because we are in the right scope
+        template: '<div v-show="someChildProperty">Child</div>',
+        data: function() {
+            return {
+                someChildProperty: true
+            }
+        }
+    })
+
+</script>
+写在子组件的模板里，someChildProperty就可以和子组件里的数据绑定了。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+单插槽(Single-Slot)
+
+slot这个单词，我们以前玩过红白机或者街机的同学都会知道（不好意思，暴露年龄了），卡带的插槽，还有投币孔，都叫做slot；
+大概意思就是把一个东西通过slot丢到另一个东西里面去；
+
+我们来看这个例子：
+
+<div id="exampledd">
+    <parent-com>
+    </parent-com>
+</div>
+
+<template id='parent-com'>
+  <div>
+  <h1>I'm the parent title</h1>
+  <child-com>
+       <p>
+        我是在父组件的内容，写在子组件的标签内，将会自动传入子组件模板中的slot
+        </p>
+  </child-com>
+</div>
+</template>
+
+<template id='child-com'>
+  <div>
+  <h2>I'm the child title</h2>
+
+  <slot>
+    没有slot注入时，这段文字才会被显示。
+  </slot>
+
+</div>
+</template>
+
+<script type="text/javascript">
+    Vue.component('parent-com', {
+        template: '#parent-com'
+    });
+    Vue.component('child-com', {
+        template: '#child-com'
+    });
+    new Vue({
+        el: '#exampledd'
+    });
+</script>
+
+本来child-com标签之间是不应该写内容的，因为内容是内部模板渲染出来的。
+但是如果你写了，这些html内容将会当做参数传入child-com内部定义有slot的地方。
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+命名插槽（Named-Slots）
+
+<div id="example22">
+    <parent-comm>
+    </parent-comm>
+</div>
+
+<template id='parent-comm'>
+
+  <div>
+      <h1>I'm the parent title</h1>
+      <child-comm>
+            <h1 slot="header">Here might be a page title</h1>
+            <p slot="footer">Here's some contact info</p>
+            <p>A paragraph for the main content.</p>
+            <p>And another one.</p>
+      </child-comm>
+ </div>
+
+</template>
+
+<template id='child-comm'>
+   <div class="container">
+
+      <header>
+        <slot name="header"></slot>
+      </header>
+
+      <main>
+        <slot></slot>
+      </main>
+
+      <footer>
+        <slot name="footer"></slot>
+      </footer>
+  </div>
+</template>
+
+<script type="text/javascript">
+
+    Vue.component('parent-comm', {
+        template: '#parent-comm'
+    });
+
+    Vue.component('child-comm', {
+        template: '#child-comm'
+    });
+
+    new Vue({
+        el: '#example22'
+    });
+</script>
+
+  </body>
+</html>

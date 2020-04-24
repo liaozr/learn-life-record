@@ -1,0 +1,259 @@
+<script>
+
+    // 先对body标签绑定了一个touchstart事件。
+    // document.body.addEventListener('touchstart', function () { });
+
+    // 然后在要实现hover效果的标签比如<a>标签加一个:active伪类。
+    // a:active {
+    //     background-color: #ff6d23;
+    // }
+    // 如果不绑定事件，在pc和安卓上可以实现
+    // 绑定事件为了在ios中生效
+
+    //  移动端元素 触摸 高亮交互 用
+    document.body.addEventListener('touchstart', function() {});
+
+
+    function isEmpty(str) {
+        if (str == "" || str == null || str == undefined || str == "undefined") {
+            return true;
+        }
+        return false;
+    }
+
+
+    // 比较两个日期大小。列：2014-10-24
+    //比较两个日期大小
+    function dateCompare(startDate,endDate){
+        if( isDefine(startDate) && isDefine(endDate) ){
+            var aStart=startDate.split('-'); //转成成数组，分别为年，月，日，下同
+            var aEnd=endDate.split('-');
+            var startDateTemp = aStart[0]+"/" + aStart[1]+ "/" + aStart[2];
+            var endDateTemp = aEnd[0] + "/" + aEnd[1] + "/" + aEnd[2];
+            if (startDateTemp < endDateTemp){
+               return true;
+            }else{
+               return false;
+            }
+        }else{
+           return false;
+        }
+    }
+
+    //  计算两个日期之间的天数
+    //计算天数差的函数，通用
+    function DateDiff(sDate1, sDate2) { //sDate1和sDate2是2006-12-18格式
+        // var aDate, oDate1, oDate2, iDays
+        var aDate = '';
+        var oDate1 = '';
+        var oDate2 = '';
+        var iDays = '';
+        if (isDefine(sDate1) && isDefine(sDate2)) {
+            var aDate = sDate1.split("-");
+            oDate1 = new Date(aDate[0] + '-' + aDate[1] + '-' + aDate[2]); //转换为12-18-2006格式
+            aDate = sDate2.split("-");
+            oDate2 = new Date(aDate[0] + '-' + aDate[1] + '-' + aDate[2]);
+            iDays = parseInt((oDate1 - oDate2) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数
+            iDays=Math.abs(iDays) // 取天数的绝对值，可以视情况而定
+            return iDays;
+        } else {
+            return 0;
+        }
+
+    }
+
+    // 获取当前的日期 如：2017-08-01
+    function getCurentDate() {
+        var now = new Date();
+        var year = now.getFullYear();
+        //年
+        var month = now.getMonth() + 1;
+        //月
+        var day = now.getDate();
+        //日
+        var clock = year + "-";
+        if (month < 10)
+            clock += "0";
+        clock += month + "-";
+        if (day < 10)
+            clock += "0";
+        clock += day;
+        return (clock);
+    }
+
+    // 获取当前的时间，如 ：2017-08-01 17:32
+    function getCurentTime() {
+        var now = new Date();
+        var year = now.getFullYear();
+        //年
+        var month = now.getMonth() + 1;
+        //月
+        var day = now.getDate();
+        //日
+        var hh = now.getHours();
+        //时
+        var mm = now.getMinutes();
+        //分
+        var clock = year + "-";
+        if (month < 10)
+            clock += "0";
+        clock += month + "-";
+        if (day < 10)
+            clock += "0";
+        clock += day + " ";
+        if (hh < 10)
+            clock += "0";
+        clock += hh + ":";
+        if (mm < 10)
+            clock += '0';
+        clock += mm;
+        return (clock);
+    }
+
+    // 数字千位的格式展现 如 1,230
+    function toThousandslsFilter(num) {
+        return (+num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+    }
+
+    //价格保留小数点后两位  如 ￥12.34
+    function formatMoney(money) {
+       return  Number(money).toFixed(2);
+    }
+
+    // 判断有没定义字符串
+    function isDefine(para) {
+       	if(typeof para == 'undefined' || para == "" || para == null || para == undefined )
+       		return false;
+       	else{
+          return true;
+        }
+    }
+
+    function formatStr(str) {
+        if (str.length == 1) {
+            return "0" + str;
+        }
+        return str;
+    }
+
+
+    function openNew(url) {
+        if (!mui.os.plus) {
+            location.href = url;
+            return;
+        }
+        if (plus.webview.getWebviewById(url)) {
+            return;
+        } else {
+            var webview = plus.webview.create(url, url);
+            webview.addEventListener("titleUpdate", function() {
+                setTimeout(function() {
+                    webview.show("pop-in", 200);
+                }, 10);
+            });
+        }
+    }
+
+    function alertMsg(msg, callback) {
+        if (!mui.os.plus) {
+            alert(msg);
+            return;
+        } else {
+            plus.nativeUI.alert(msg, callback, "华美乐");
+        }
+    }
+
+    function toast(msg) {
+        if (!mui.os.plus) {
+            alert("" + msg);
+            return;
+        } else {
+            //plus.nativeUI.toast(msg);
+            if (plus.os.name == "iOS") {
+                // 弹出消息框
+                plus.nativeUI.toast(msg, {
+                    style: "inline",
+                    icon: "/images/kehu/head_small.png", // eg. "/img/add.png"
+                    duration: "short", // 持续3.5s，short---2s
+                    align: "center", // 水平居中
+                    verticalAlign: "center" // 垂直底部
+                });
+            } else {
+                // 弹出消息框
+                plus.nativeUI.toast(msg, {
+                    style: "inline",
+                    icon: "/images/kehu/head.png", // eg. "/img/add.png"
+                    duration: "short", // 持续3.5s，short---2s
+                    align: "center", // 水平居中
+                    verticalAlign: "center" // 垂直底部
+                });
+            }
+
+        }
+    }
+
+    function logJson(obj) {
+        console.log(JSON.stringify(obj))
+    }
+
+    function showloading(msg) {
+        if (!mui.os.plus) {
+            console.log("loading!!!!" + msg);
+            return;
+        } else {
+            plus.nativeUI.showWaiting(msg);
+        }
+    }
+
+    function closeloading() {
+        if (!mui.os.plus) {
+            console.log("closeloading!!!!");
+            return;
+        } else {
+            plus.nativeUI.closeWaiting();
+        }
+    }
+
+    function onError(xhr, textStatus, errorThrown) {
+        closeProgress();
+        log(textStatus + " " + logJson(errorThrown));
+        alertMsg('网络请求错误！', null);
+    }
+
+    function doget(url, data, successcallback, errcallback) {
+        ajax(url, 'get', data, '', successcallback, errcallback);
+    }
+
+    function dopost(url, data, successcallback, errcallback) {
+        ajax(url, 'post', data, "application/json", successcallback, errcallback);
+    }
+
+    function ajax(url, mothd, data, contentType, successcallback, errcallback) {
+        url = getBaseServerUrl() + url;
+        log('request:' + url + " " + JSON.stringify(data));
+        mui.ajax(url, {
+            data: data,
+            dataType: 'json', //服务器返回json格式数据
+            type: mothd, //HTTP请求类型
+            timeout: 20000, //超时时间设置为8秒；
+            contentType: contentType,
+            success: function(data, textStatus, xhr) {
+                //服务器返回响应，根据响应结果，分析是否登录成功；
+                log('success:' + url + " " + JSON.stringify(data));
+                successcallback(data, url);
+            },
+            error: function(xhr, type, errorThrown) {
+                console.log(type + ':' + url + ' ' + xhr.status)
+                //异常处理；
+                errcallback(xhr, url);
+            }
+        });
+    }
+
+    function getAuth() {
+        var headParam = localStorage.headParam;
+        console.log("鉴权信息：" + headParam);
+        return headParam;
+    }
+
+</script>

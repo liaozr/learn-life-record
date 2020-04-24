@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+mui双webview模式
+
+首先我们要了解mui为了解决窗体切换白屏和区域滚动提出的双webview模式。
+
+<!-- -------------------------------------------------------------------- -->
+
+页面初始化
+
+mui框架将很多功能配置都集中在mui.init方法中，要使用某项功能，只需要在mui.init方法中完成对应参数配置即可，目前支持在mui.init方法中配置的功能包括：
+
+创建子页面、关闭页面、手势事件配置、预加载、下拉刷新、上拉加载、设置系统状态栏背景颜色。
+
+mui需要在页面加载时初始化很多基础控件,如监听返回键,因此务必在每个页面中调用.
+
+<!-- -------------------------------------------------------------------- -->
+
+以下是可以配置的参数：
+
+<script>
+	mui.init({
+	    //子页面
+	    subpages: [{
+	        //...
+	    }],
+	    //预加载
+	    preloadPages:[
+	        //...
+	    ],
+	    //下拉刷新、上拉加载
+	    pullRefresh : {
+	       //...
+	    },
+	    //手势配置
+	    gestureConfig:{
+	      //...
+	    },
+	    //侧滑关闭
+	    swipeBack:true, //Boolean(默认false)启用右滑关闭功能
+
+	    //监听Android手机的back、menu按键
+	    keyEventBind: {
+	        backbutton: false,  //Boolean(默认truee)关闭back按键监听
+	        menubutton: false   //Boolean(默认true)关闭menu按键监听
+	    },
+	    //处理窗口关闭前的业务
+	    beforeback: function() {
+	        //... //窗口关闭前处理其他业务详情点击 ↑ "关闭页面"链接查看
+	    },
+	    //设置状态栏颜色
+	    statusBarBackground: '#9defbcg', //设置状态栏颜色,仅iOS可用
+	    preloadLimit:5//预加载窗口数量限制(一旦超出,先进先出)默认不限制
+	})
+</script>
+
+在app开发中，若要使用HTML5+扩展api，必须等plusready事件发生后才能正常使用，
+
+mui将该事件封装成了mui.plusReady()方法，涉及到HTML5+的api，建
+
+议都写在mui.plusReady方法中。
+
+如下为打印当前页面URL的示例：
+
+<script>
+
+	mui.plusReady(function(){
+	     console.log("当前页面URL："+plus.webview.currentWebview().getURL());
+	});
+
+</script>
+
+<!-- ---------------------------------------------------------------------- -->
+
+
+</body>
+</html>

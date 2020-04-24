@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+由于一个重大的局限，使得CommonJS规范不适用于浏览器环境。还是上一节的代码，如果在浏览器中运行，会有一个很大的问题
+
+var math = require('math');
+math.add(2, 3);
+
+第二行math.add(2, 3)，在第一行require(‘math’)之后运行，因此必须等math.js加载完成。
+也就是说，如果加载时间很长，整个应用就会停在那里等。
+
+这对服务器端不是一个问题，因为所有的模块都存放在本地硬盘，可以同步加载完成，等待时间就是硬盘的读取时间。但是，对于浏览器，这却是一个大问题，因为模块都放在服务器端，等待时间取决于网速的快慢，可能要等很长时间，浏览器处于”假死”状态。
+
+因此，浏览器端的模块，不能采用”同步加载”（synchronous），只能采用”异步加载”（asynchronous）。这就是AMD规范诞生的背景。
+
+AMD是”Asynchronous Module Definition”的缩写，意思就是”异步模块定义”。它采用异步方式加载模块，
+
+模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。
+
+模块必须采用特定的define()函数来定义。
+
+define(id?, dependencies?, factory)
+
+id:字符串，模块名称(可选)
+
+dependencies: 是我们要载入的依赖模块(可选)，使用相对路径。,注意是数组格式
+factory: 工厂方法，返回一个模块函数
+
+如果一个模块不依赖其他模块，那么可以直接定义在define()函数之中。
+
+<script>
+// math.js
+　　define(function (){
+　　　　var add = function (x,y){
+　　　　　　return x+y;
+　　　　};
+　　　　return {
+　　　　　　add: add
+　　　　};
+　　});
+
+</script>
+
+如果这个模块还依赖其他模块，那么define()函数的第一个参数，必须是一个数组，指明该模块的依赖性。
+
+<script>
+
+    define(['Lib'], function(Lib) {　　　　
+        function foo() {　　　　　　
+            Lib.doSomething();　　　　
+        }　　　　
+        return {　　　　　　
+            foo: foo　　　　
+        };　　
+    });
+
+</script>
+
+当require()函数加载上面这个模块的时候，就会先加载Lib.js文件。
+
+AMD也采用require()语句加载模块，但是不同于CommonJS，它要求两个参数：
+
+require([module], callback);
+
+第一个参数[module]，是一个数组，里面的成员就是要加载的模块；第二个参数callback，则是加载成功之后的回调函数。如果将前面的代码改写成AMD形式，就是下面这样：
+
+<script>
+
+    require(['math'], function(math) {　
+        math.add(2, 3);
+    });
+
+</script>
+
+math.add()与math模块加载不是同步的，浏览器不会发生假死。所以很显然，AMD比较适合浏览器环境。
+
+目前，主要有两个Javascript库实现了AMD规范：require.js和curl.js。
+
+
+
+</body>
+</html>

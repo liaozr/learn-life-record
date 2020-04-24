@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+</head>
+
+<body>
+    <a href="http://www.baidu.com" class="no-link">点这个链接不会下载的</a>
+
+
+    有时你不希望链接到某个页面或者重新加载它，你可能希望它来做一些其他事情或者触发一些其他脚本，你可以这么做：
+
+    <script>
+        $('a.no-link').click(function(e) {
+            e.preventDefault();
+        });
+    </script>
+
+</body>
+
+</html>

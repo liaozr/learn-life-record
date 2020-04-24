@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    promise.all里的所有promise执行成功，就返回执行结果的数组。有一个执行失败就失败，返回第一个失败的promise结果
+
+    promise.all里的所有promise执行成功，就返回执行结果的数组。有一个执行失败就失败，返回第一个失败的promise结果
+
+
+    <script>
+
+      console.log('here we go');
+
+
+      Promise.all([1, 2, 3])
+
+        .then( all => {
+            console.log('1：', all);
+            return Promise.all([ function () {
+                console.log('ooxx');
+            }, 'xxoo', false]);
+        })
+
+        .then( all => {
+            console.log('2：', all);
+            let p1 = new Promise( resolve => {
+                setTimeout(() => {
+                    resolve('I\'m P1');
+                }, 1500);
+            });
+            let p2 = new Promise( (resolve, reject) => {
+                setTimeout(() => {
+                    resolve('I\'m P2');
+                }, 1000);
+            });
+            let p3 = new Promise( (resolve, reject) => {
+                setTimeout(() => {
+                    resolve('I\'m P3');
+                }, 3000);
+            });
+            return Promise.all([p1, p2, p3]);
+        })
+
+        .then( all => {
+            console.log('all', all);
+        })
+        
+        .catch( err => {
+            console.log('Catch：', err);
+        });
+
+    </script>
+
+</body>
+
+</html>

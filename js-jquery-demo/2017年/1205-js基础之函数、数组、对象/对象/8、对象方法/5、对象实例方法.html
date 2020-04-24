@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  判断属性是否存在 in,
+
+  hasOwnProperty
+
+  in 操作符
+
+  in操作符会检查属性是否在对象及其 [[Prototype]] 原型链中。
+
+<script>
+
+    "PI" in Math // 返回true
+
+    var msg={
+      text:'11111'
+    }
+
+
+    if (msg['text']) {
+      console.log(111111)
+    }
+
+    console.log( 'text' in msg) // true
+
+</script>
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+obj.hasOwnProperty(prop)
+
+该方法检查属性是否在 obj 中存在，不会检查 [[Prototype]] 原型链。
+
+需要注意的是有的对象可能没有连接到 Object.prototype，也就没有hasOwnProperty方法，例如通过Object.create(null)创建的空对象，在这种情况下，形如obj.hasOwnProperty(prop)就会失败。
+
+这时可以使用一种更加强硬的方法来进行判断：Object.prototype.hasOwnProperty.call(obj, "prop")，它借助基础的hasOwnProperty(..)方法并把它显示绑定到 obj 上。
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+
+判断原型
+
+instanceof
+
+instanceof运算符用来测试一个对象在其原型链中是否存在一个构造函数的 prototype 属性。
+
+例如：
+
+<script>
+
+    function Foo() {}
+
+    var a = new Foo()
+
+    a instanceof Foo // true
+
+</script>
+
+intanceof运算符的左操作数是一个普通的对象，右操作数是一个函数。instanceof回答的问题是：
+
+在 a 的整条 [[Prototype]] 链中是否有指向 Foo.prototype 的对象。
+
+可惜这个方法只能处理对象和函数之间的关系
+
+。如果你想判断两个对象之间是否通过 [[Prototype]] 链关联，只用instanceof无法实现。更好的办法是使用下面的 prototypeObj.isPrototypeOf(obj) 方法。
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+prototypeObj.isPrototypeOf(obj)
+
+该方法用于测试一个对象（prototypeObj）的是否存在于另外一个对象（obj）的原型（[[Prototype]]）链上
+
+例如：
+
+<script>
+
+    var a = {}
+    var b = {}
+
+    Object.setPrototypeOf(a, b)
+
+    b.isPrototypeOf(a)  //true
+
+</script>
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

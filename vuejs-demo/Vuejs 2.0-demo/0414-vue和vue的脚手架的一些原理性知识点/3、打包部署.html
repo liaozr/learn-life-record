@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- --------------------------------------------------------------------------------------------------------------------------- -->
+
+  脚手架生成的项目，一般运行npm run build之后，会在项目根目录生成一个dist目录，这就是我们打包好后的静态资源文件。
+
+  注意的是：
+
+  我们线上运行的单页应用，就是打包好后的dist文件，并不是src目录下的源文件
+
+  线上部署更不是运行npm run dev启动项目。npm run dev启动的服务器只是为了开发而使用的，真正线上的服务器，是由后台提供的（比如PHP，Java, python, Node...）
+
+  部署的方式有很多，比如可以把dist文件和后台代码放在一起，后台把dist文件当做静态资源读取即可。
+
+  不过因为采用了前端路由的方案，后台还需要配置一下，以Express举例：
+
+  <!-- --------------------------------------------------------------------------------------------------------------------------- -->
+
+  <script>
+
+      // 访问静态资源文件 这里是访问所有dist目录下的静态资源文件
+      app.use(express.static(path.resolve(__dirname, '../dist')))
+      // 因为是单页应用 所有请求都走/dist/index.html
+      // 这一句要放在所有其他路由的后面
+
+      app.get('*', function(req, res) {
+          const html = fs.readFileSync(path.resolve(__dirname, '../dist/index.html'), 'utf-8')
+          res.send(html)
+      })
+
+  </script>
+
+  <!-- --------------------------------------------------------------------------------------------------------------------------- -->
+
+   也可以把dist静态文件和后台代码分开，通过Nginx部署
+
+   server {
+        listen 80;
+        server_name 127.0.0.1;
+        location / {
+            root   /data/deered/dist; #前端打包后的dist文件位置
+            try_files $uri $uri/ /index.html; #防止页面刷新404
+            index  index.html;
+        }
+    }
+    
+<!-- --------------------------------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

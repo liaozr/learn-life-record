@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象的扩张</title>
+	<style>
+	ul,li{
+		list-style: none;
+	}
+		.tab{
+
+		}
+		.tab .tab-head{
+			height: 40px;
+		}
+		.tab .tab-head li{
+			float:left;
+			width: 100px;
+			height: 40px;
+			line-height: 40px;
+			text-align: center;
+			background-color: green;
+			color:#fff;
+		}
+		.tab .tab-head li.change{
+			background-color: #9da;
+		}
+		.tab .tab-head li.choose{
+			background-color: red;
+		}
+		.tab .tab-head li.blueColor{
+			background-color: blue;
+		}
+	</style>
+</head>
+<body>
+	<div id="tab" class="tab">
+		
+	</div>
+	<script>
+	var ele=document.getElementById('tab');
+	//Object.assign();用来合并对象 $.extend();
+	//Object.keys({});
+	//对象的扩张写法
+	// var name="hwb";
+	// var obj={
+	// 	name:name,
+	// 	go:function(){},
+
+	// }
+	// var obj={
+	// 	name,
+	// 	go(){}
+	// }
+	function Person(name,age){
+		//发生了四件事情
+		//创建一个空对象 var obj={};
+		//this指向这个空对象
+		//执行代码
+		//隐式返回这个对象
+		this.name=name;//{name:name}
+
+		this.age=age;//{name:name,age:age}
+	}
+	var per=new Person('hwb',18);
+	console.log(per);
+
+	function Tab(opts){
+		var options={
+			cName:'change',
+			index:0
+		};
+		//合并参数
+		options=Object.assign({},options,opts);
+		this.initVal=options;
+		//构造三部曲
+		//初始化数据
+		this.init();
+		//动态生成DOM
+		this.render();
+		//绑定事件 this的指向我们只要在这个方法里面关心就好了
+		this.bindHandler();
+	}
+	Tab.prototype={
+		constructor:Tab,
+		init(){
+			this.len=this.initVal['data'].length;
+			this.dataObj=this.initVal['data'];
+		},
+		render(){
+			var tab=this.initVal['ele'];
+			var ul=document.createElement('ul');
+			ul.className="tab-head";
+			for(var i=0;i<this.len;i++){
+				var li=document.createElement('li');
+				if(i==this.initVal['index']){
+					li.className=this.initVal['cName'];
+				}
+				li.innerHTML=this.dataObj[i]['title'];
+				ul.appendChild(li);
+			}
+			tab.appendChild(ul);
+		},
+		bindHandler(){
+			console.log(this);
+			var _tab=this.initVal['ele'];
+			var _oLis=_tab.getElementsByTagName('li');
+			for(let i=0;i<this.len;i++){
+				_oLis[i].onclick=()=>{
+					console.log(this);
+					for(let j=0;j<this.len;j++){
+						_oLis[j].className='';
+					}
+					_oLis[i].className=this.initVal['cName'];
+				}
+			}
+		},
+	}
+	var index=1;
+	var dataObj={
+		ele,
+		data:[
+			{title:'腾讯新闻'},
+			{title:'腾讯体育'},
+			{title:'腾讯视频'},
+			{title:'QQ音乐'}
+		],
+		index,
+		cName:'blueColor'
+	};
+	var Table=new Tab(dataObj);
+	console.log(Table);
+
+	</script>
+</body>
+</html>

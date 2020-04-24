@@ -1,0 +1,2 @@
+APPID  com.posun.kuaiyixiaooksales
+УмТы  123456

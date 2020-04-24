@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+在有表单输入的页面，尽量用absolute 或者 flex 替换 fixed。
+
+在有表单输入的页面，尽量用absolute 或者 flex 替换 fixed。
+
+在有表单输入的页面，尽量用absolute 或者 flex 替换 fixed。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+input 的 compositionstart 和 compositionend 事件
+
+我们希望在直接输入之后才触发 input 事件，这就需要引出我要说的两个事件—— compositionstart 和 compositionend。
+
+compositionstart 事件在用户开始进行非直接输入的时候触发，而在非直接输入结束，也即用户点选候选词或者点击「选定」按钮之后，
+
+会触发 compositionend 事件。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+<input type="text" name="" id="inputElement">
+
+<script>
+    var inputLock = false;
+
+    inputElement.addEventListener('compositionstart', function() {
+        inputLock = true;
+        console.log("非直接输入的时候触发")
+    });
+
+    inputElement.addEventListener('compositionend', function(event) {
+        inputLock = false;
+        console.log("非直接输入结束")
+        console.log("input事件")
+
+    })
+
+    inputElement.addEventListener('input', function(event) {
+        if (!inputLock) {
+            console.log("input事件")
+            event.returnValue = false;
+        }
+    });
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+添加一个 inputLock 变量，当用户未完成直接输入前，inputLock 为 true，不触发 input 事件中的逻辑，
+
+当用户完成有效输入之后，inputLock 设置为 false，触发 input 事件的逻辑。
+
+这里需要注意的一点是，compositionend 事件是在 input 事件后触发的，
+
+所以在 compositionend事件触发时，也要调用 input 事件处理逻辑。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  有时候在组件中，我们会有输入，比如 input，其实 input 中的 v-model 就是:
+
+  <input v-bind:value="something" v-on:input="something = $event.target.value">
+
+  <!-- ----------------------------------------------------------------------- -->
+
+  <div class="col-sm-6">
+           <label>时间</label>
+           <input
+             type="number"
+             class="form-control"
+             :value='totaltime'
+             @input='totaltimechange($event.target.value)'
+             placeholder="Hours"
+           />
+  </div>
+
+  <script>
+    import { mapActions } from 'vuex'
+    export default{
+      data() {
+        return{
+            totaltime:''
+        }
+      },
+      methods:{
+        ...mapActions(['save','datechange','totaltimechange','commitchange'])
+      }
+    }
+
+    // ------------------------------------------------
+
+    // actions.js
+    export const totaltimechange = ({ commit },totaltime) => {
+	      commit(types.TOTALTIMECHANGE, totaltime)
+    }
+    // ----------------------------------------------------
+
+    // 相关的 mutations
+    const mutations = {
+        [types.TOTALTIMECHANGE](state,totaltime)
+        {
+             console.log(totaltime);
+        }
+    }
+</script>
+
+<!-- --------------------------------------------------------------------------- -->
+
+</body>
+</html>

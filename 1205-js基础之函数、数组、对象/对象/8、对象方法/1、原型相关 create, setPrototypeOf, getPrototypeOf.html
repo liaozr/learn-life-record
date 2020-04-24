@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  Object.create(proto, [ propertiesObject ])
+
+  该方法使用指定的原型对象和其属性创建了一个新的对象。可理解为该方法会创建一个对象并把这个对象的 [[Prototype]]关联到指定对象。
+
+  需要注意的是， Object.create(null)会创建一个拥有空（或者 null）[[Prototype]] 链的对象，这个对象无法进行委托。
+
+  由于这个对象没有原型链，所以instanceof操作符无法进行判断，因此总是返回 false
+
+  。这些特殊的空 [[Prototype]] 对象通常被称作“字典”，他们完全不会受到原型链的干扰，因此非常适合用来储存数据。
+
+  委托行为
+
+  委托行为意味着某些对象在找不到属性或方法引用时会把这个请求委托给另一个对象。
+
+
+  Object.create(obj) 方法可以指定原型来创建对象：
+
+  <script>
+
+      var dog = {
+          legs: 4
+      };
+
+      var myDog = Object.create(dog);
+
+      console.log(myDog.hasOwnProperty('legs')) // false
+
+      console.log(myDog.legs) // 4
+      
+      console.log(myDog.__proto__ === dog) // true
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  Object.setPrototypeOf(obj, prototype)
+
+  该方法是 ES6 的新方法，用于设置一个指定的对象的原型 ( 例如,内置的 [[Prototype]] 属性）到另一个对象或 null。可以代替 ES5 的Object.create。
+
+  例如有两个对象 a 和 b，我们需要把 b 设为 a 的原型，以便 a 可以继承 b 的属性：
+
+  <script>
+
+      var a = {
+          x: 1
+      }
+
+      var b = {
+          y: 2
+      }
+
+      Object.setPrototypeOf(a, b)
+
+      a.x // 1
+      a.y // 2
+
+      Object.getOwnPropertyNames(a) // ["x"]
+
+  </script>
+
+  上例中把 b 设为 a 的原型，因此当向 a 查询 y 时，由于 a 本身没有 y 属性，所以会循着原型链查询到 b 的 y。
+
+  再例如有两个函数（函数也是对象哦！） Bar 和 Foo，我们需要把 Bar.prototype 关联到 Foo.prototype:
+
+  <script>
+
+      // 创建 Foo
+      function Foo(name) {
+          this.name = name
+      }
+
+      Foo.prototype.sayName = function() {
+          return this.name
+      }
+
+      // 创建 Bar
+      function Bar(name) {
+          Foo.call(this, name)
+      }
+
+      //关联 prototype
+      // ES6 之前需要抛弃默认的 Bar.prototype
+
+      Bar.prototype = Object.create(Foo.prototype)
+
+      // ES6 开始可以直接修改现有的 Bar.prototype
+      Object.setPrototypeOf(Bar.prototype, Foo.prototype)
+
+      var a = new Bar('a')
+      a.sayName()
+
+  </script>
+
+
+  如果不考虑
+  Object.create(..)方法带来的轻微性能损失（抛弃的对象需要进行垃圾回收），它其实比 ES6 及其之后的方法更短切可读性更高。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  Object.getPrototypeOf(obj)
+
+  该方法返回指定对象的原型（即内部 [[Prototype]] 属性的值）。如果没有继承属性，则返回 null 。
+
+
+  <script>
+
+      var a = {}
+
+      var b = Object.create(a)
+
+      Object.getPrototypeOf(b) === a // true
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

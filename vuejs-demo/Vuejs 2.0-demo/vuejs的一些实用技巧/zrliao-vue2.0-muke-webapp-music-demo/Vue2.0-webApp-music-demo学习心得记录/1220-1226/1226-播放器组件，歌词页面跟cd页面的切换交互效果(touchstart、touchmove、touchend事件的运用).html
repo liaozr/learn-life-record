@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="middle"
+        @touchstart.prevent="middleTouchStart"
+        @touchmove.prevent='middleTouchMove'
+        @touchend="middleTouchEnd">
+
+        <div class="middle-l" ref='middleL'>
+            <div class="cd-wrapper" ref='cdWrapper'>
+                <div class="cd" :class="cdCls">
+                    <img class="image" :src="currentSong.image" alt="">
+                </div>
+            </div>
+        </div>
+
+        <scroll :lists="currentLyric && currentLyric.lines" class="middle-r" ref='lyricList'>
+            <div class="lyric-wrapper">
+                <div v-if='currentLyric'>
+                    <p ref='lyricLine' class='text' :class="{'current':currentLineNum == index }" v-for='(line,index) in currentLyric.lines' :key='line.id'>
+                        {{line.txt}}
+                    </p>
+                </div>
+            </div>
+        </scroll>
+
+    </div>
+
+    <script>
+
+            middleTouchStart(e) {
+
+                this.touch.initiated = true
+                const touch = e.touches[0]
+
+                this.touch.startX = touch.pageX // 记录 touchstart事件的 pageX值
+                this.touch.startY = touch.pageY // 记录 touchstart事件的 pageY值
+            },
+
+            middleTouchMove(e) {
+
+                if (!this.touch.initiated) {
+                    return
+                }
+
+                const touch = e.touches[0]
+                const deltaX = touch.pageX - this.touch.startX
+                const deltaY = touch.pageY - this.touch.startY
+
+                // 这种情况下 意味着  是纵向滚动，纵向滚动的话就什么都不做，直接return 回去
+                if (Math.abs(deltaY) > Math.abs(deltaX)) {
+                    return
+                }
+
+                const left = this.currentShow == 'cd' ? 0 : -window.innerWidth
+                const offsetWidth = Math.min(0, Math.max(-window.innerWidth, left + deltaX))
+
+                this.touch.percent = Math.abs(offsetWidth / window.innerWidth)
+                this.$refs.lyricList.$el.style[transform] = `translate3d(${offsetWidth}px,0,0)`
+
+                // transitionDuration 设置的 transition 的时间过渡效果
+                // transition 的过渡效果
+                this.$refs.lyricList.$el.style[transitionDuration] = 0
+
+                this.$refs.middleL.style.opacity = 1 - this.touch.percent
+                this.$refs.middleL.style[transitionDuration] = 0
+
+            },
+
+            // touchend 事件
+            middleTouchEnd() {
+                let offsetWidth
+
+                let opacity
+
+                // 当前的currentShow 为 cd 的时候
+
+                if (this.currentShow == 'cd') {
+                    // 滑动的比例值 超过 10%的话，就直接让他滑动过来，
+                    // 并把当前的currentShow 设置 为lyric
+                    if (this.touch.percent > 0.1) {
+                        offsetWidth = -window.innerWidth
+
+                        opacity = 0
+                        this.currentShow = 'lyric'
+                    } else {
+                        offsetWidth = 0
+
+                        opacity = 1
+                    }
+                } else {
+                    if (this.touch.percent < 0.9) {
+                        offsetWidth = 0
+                        this.currentShow = 'cd'
+
+                        opacity = 1
+                    } else {
+                        offsetWidth = -window.innerWidth
+
+                        opacity = 0
+                    }
+                }
+
+                const time = 300
+                this.$refs.lyricList.$el.style[transform] = `translate3d(${offsetWidth}px,0,0)`
+
+                // transitionDuration 设置的 transition 的时间过渡效果
+                // transition 的过渡效果
+                this.$refs.lyricList.$el.style[transitionDuration] = `${time}ms`
+
+                this.$refs.middleL.style.opacity = opacity
+                
+                this.$refs.middleL.style[transitionDuration] = `${time}ms`
+            }
+
+    </script>
+
+
+</body>
+
+</html>

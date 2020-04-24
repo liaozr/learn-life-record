@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+<!-- ------------------------------------------------------------------------------------ -->
+
+    文件的命名，变量的命名 要养成习惯，就是驼峰写法，
+    例如playList  等等 这样子的命名，要养成习惯的
+    
+    文件的命名，变量的命名 要养成习惯，就是驼峰写法，
+    例如playList  等等 这样子的命名，要养成习惯的
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+    从PSD文件思考怎么写代码接到效果图，先不用着急切图，先看下psd文件。
+
+    思考下怎么排版，那些模块可以做成公用的模块，模块应该怎么命名，写样式等！
+
+    当我们拿到设计师给的PSD时，首先不要急于写CSS代码，首先对整个页面进行分析，先思考下面几点：　
+
+    (1)分析页面有哪些模块是公用的，常见公用模块有头部，底部，菜单栏，悬浮按钮等等　　
+
+    (2)分析模块有什么样式，把公用的样式提取出来，
+
+    公用样式包括公用的状态样式，比如按钮，输入框，下拉框等公用的选中状态，禁用状态的样式等等。
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+    以后做项目一定要记得留一套静态页面好方便以后修改样式 ( 防止后期接口加上去后，在电脑端调试不了 )
+
+    以后做项目一定要记得留一套静态页面好方便以后修改样式 ( 防止后期接口加上去后，在电脑端调试不了 )
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+    有点击请求的，都得加上 防止 多次点击，导致 重复触发请求 的需求。
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+    做一个项目之前，先 提前先定义好  这个项目的 一些公共样式 （ 含项目的主题样式 ）
+
+    以及  一些公共组件那些
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+    项目要有公共错误处理页面 （ 接口报错的情况下，设置 请求时间。）
+
+    项目要有公共没数据页面（项目接口没报错的情况下）
+
+    没数据页面 也要有好么
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+    每个接口 都要设置 请求时间
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+    移动端上的元素 记得 加 触摸效果
+
+    <script>
+
+        先对body标签绑定了一个touchstart事件。
+
+        document.body.addEventListener('touchstart', function () { });
+
+        然后在要实现hover效果的标签比如<a>标签加一个:active伪类。
+
+        a:active {
+            background-color: #ff6d23;
+        }
+
+        如果不绑定事件，在pc和安卓上可以实现
+
+        绑定事件为了在ios中生效
+
+        document.body.addEventListener('touchstart', function() {});
+
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------------------------------------- -->
+
+    在华美乐项目中，有用到一个 选中小图标的功能，
+
+    最初，小图标的背景大小 用的 是background-size: 0.48rem 0.48rem;在华为手机上表现良好，但是在小米手机上会发现
+
+    图标会缺 小边角的情况，猜测是因为 rem 大小原因导致的。
+
+    所以，改成 background-size:contain; 即完美的实现了  小图标的 需求，所以
+
+    以后的背景图片 有用到 background-size属性的，都推荐 使用  background-size: contain;这个值、
+
+    <style>
+
+        .shifou-hege .list span.icon {
+
+            /*background-size: 0.48rem 0.48rem;*/
+            /*  这种情况下，手机上表现会有些小边角的 情况发生 */
+
+            background-size: contain !important;
+
+        }
+
+    </style>
+
+<!-- ----------------------------------------------------------------------------------------------------------- -->
+
+
+ 一些情况下对非可点击元素如(label,span)监听click事件，ios下不会触发，css增加 cursor:pointer 就搞定了
+
+
+ 一些情况下对非可点击元素如(label,span)监听click事件，ios下不会触发，css增加 cursor:pointer 就搞定了
+
+
+ 一些情况下对非可点击元素如(label,span)监听click事件，ios下不会触发，css增加 cursor:pointer 就搞定了
+
+<!-- ----------------------------------------------------------------------------------------------------------- -->
+
+  移动端提高可点区域范围
+
+  移动端的的一些图标如X，可能会设计得比较小，所以点起来会不太好点，因此要提高可点区域范围，可通过增加padding，如下代码：
+
+  <div id="app">
+
+      <div id='close' class="icon-close" @click='close'>111</div>
+
+  </div>
+
+  <style>
+      .icon-close {
+          position: abosulte;
+          right: 0;
+          top: 0;
+          padding: 20px;
+          width: 30px;
+          height: 30px;
+          z-index: 999
+      }
+  </style>
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+
+移动端提高可点区域范围  方法二:
+
+<div id="app">
+    <div @click='dianji' class="aa">点击</div>
+</div>
+
+<script>
+
+    new Vue({
+        el: '#app',
+        data: {
+
+        },
+        methods:{
+          dianji:function(){
+            console.log('cccccccccccc')
+          }
+        }
+    })
+
+</script>
+
+<style>
+    .aa {
+        position: relative;
+        width: 50px;
+        height: 30px;
+        line-height: 30px;
+        background-color: green;
+        text-align: center;
+    }
+    .aa:before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+    }
+</style>
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+
+31. 不要设置input的line-height
+
+如果设置input的line-height，如下代码，你可能要做垂直居中：
+
+<div class="text">
+    <input type="text">
+</div>
+
+<style>
+
+    .text input {
+        height: 20px;
+        line-height:normal;
+        width:200px;
+        background-color: #ccc;
+        border:1px solid red;
+        padding:10px;
+    }
+
+</style>
+
+设置了line-height为一个很高的值，这样会导致Safari浏览器的输入光标|变得巨大，所以如果你要居中的话，使用padding吧。
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+在ios端发现input标签无法输入，Android端正常。 原因是mui框架的有个css样式
+
+<style>
+    * {
+        -webkit-user-select: none;
+    }
+</style>
+
+其作用是禁掉用户可以选中页面中的内容。 添加以下style样式即可
+
+经测试，在其他app上，input框  textarea 框 也都是 可以 长按 粘贴的，说明，app上，在input框
+
+不要求 长按可不可以粘贴 ，不长按粘贴的话，ios上会出现 一些小问题。
+
+<input type="text">
+<style>
+    input,textarea{
+        -webkit-user-select: auto !important;
+    }
+
+</style>
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+  移动端项目中，click,tap,的选择中，还是用fastclick好点
+  移动端项目中，click,tap,的选择中，还是用fastclick好点
+
+  <script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.js"></script>
+
+  <script>
+
+     //fastclick用于消除在移动浏览器上触发click事件与一个物理Tap(敲击)之间的300s延迟
+
+     window.addEventListener("load", function() {
+
+        FastClick.attach( document.body );
+
+     }, false );
+
+  </script>
+
+  脚本必须加载到实例化fastclick在页面的任何元素之前。 实例化 fastclick 最好在body元素的前面
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+有搜索功能的时候，涉及到分页的，如果先是 往下翻分页的时候，page代表页数已经不是为 1了，所以，现在请求的后台返回值data
+
+已经为空了，然后现在再去搜索请求的时候，会发现 搜索功能会没有效果的。
+
+所以， 点击搜索的时候，应该把 page请求的 页数 设置成 1，这样就是铁定有数据的，从而 这样搜索
+
+就是肯定有数据的。
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+<script>
+
+    var vm = new Vue({
+        el: "body",
+        data: {
+            searchvalue: '',
+            chaxunflag: false
+        },
+        methods: {
+            // 搜索功能
+            search: function(e) {
+
+                 // 01119502
+                if (this.searchvalue !== '') {
+                    this.chaxunflag = true;
+                    page = 1;              // 点击搜索的时候，将 page 分页的页数 设置为 1，这样 点击搜索 的时候，就会一定有数据的了。
+                    // 所以 page = 1
+                    init(this.searchvalue);
+                }
+
+            },
+            sousuo: function() {}
+        },
+        watch: {
+            searchvalue: function() {
+                if (this.searchvalue == '') {
+                    page = 1;
+                    this.showloading = false;
+                    this.dataflag = false;
+                    init(this.searchvalue)
+                }
+            }
+        }
+    });
+
+</script>
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+ios 上设置 overflow-x hidden 的话，页面会出现空白？？
+
+经测试发现，在有用到 mui.css 的框架中，项目如果设置了，
+
+body 的样式有 overflow-x hidden的话，ios上表现是会空白的。
+
+原因是mui.css里面的 body样式 里 有 这么一段代码
+
+-webkit-overflow-scrolling: touch 导致的
+
+所以，在用mui的项目中，如果 body要设置 overflow，记得要把
+
+mui中的body样式 的   -webkit-overflow-scrolling: touch 去掉。
+
+<style>
+
+    html,
+    body {
+        overflow-x: hidden !important;
+    }
+
+/*------------------------------------------------------------------------------------------------------*/
+
+    /* mui.css 里面的 body样式 */
+    body {
+        font-family: 'Helvetica Neue', Helvetica, sans-serif;
+        font-size: 17px;
+        color: #000;
+        background-color: #efeff4;
+
+
+        /* 下面的这段代码得要去掉*/
+        -webkit-overflow-scrolling: touch
+
+    }
+
+</style>
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

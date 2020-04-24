@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{title}}
+        <!-- 输出的值是 zrliao  -->
+    </div>
+    <script src='vue.js'></script>
+
+    <script>
+        var vm=new Vue({
+            el: "#app",
+            data: {
+                title: 123
+            },
+            // mounted() {
+            //     //  Cannot set property 'title' of undefined
+            //     vm.title = 'zrliao'
+            // }
+            mounted() {
+                // 在mounted 钩子函数 直接使用vm会报错，需要使用this.$nextTick包裹 这样 this === vm
+               // 所以 这里 要加上  this.$nextTick钩子才行的。
+               this.$nextTick(function(){
+                   vm.title = 'zrliao'
+               })
+            }
+        })
+    </script>
+</body>
+
+</html>

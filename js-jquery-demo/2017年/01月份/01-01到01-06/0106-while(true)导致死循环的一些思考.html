@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+本例中的循环将继续运行，只要变量 i 小于 5：
+
+<script>
+    var i=0;
+    var x='';
+    while (i<5)
+    {
+       x="The number is " + i ;
+       console.log(x);
+       i++;
+    }
+ </script>
+
+提示：如果您忘记增加条件中所用变量的值，该循环永远不会结束。该可能导致浏览器崩溃。
+
+<!-- ---------------------------------------------------------------------------- -->
+
+提示：如果您忘记增加条件中所用变量的值，该循环永远不会结束。该可能导致浏览器崩溃。
+
+所以像 下面这种  while(0)  while(1) 没有增加或者减少所用变量的值，
+该循环是不会结束的，导致浏览器崩溃
+
+<script>
+    // var i = 0;
+    // while (0) {
+    //     i++
+    //     console.log(i);
+    // }
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

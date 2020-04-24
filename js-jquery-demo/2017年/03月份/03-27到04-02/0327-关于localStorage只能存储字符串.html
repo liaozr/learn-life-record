@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+<!-- --------------------------------------------------------------------------------- -->
+
+localStorage只能存储字符串，如果需要存储对象，
+localStorage只能存储字符串，如果需要存储对象，
+
+localStorage只能存储字符串，如果需要存储对象，
+
+首先要转化为字符串。利用JSON.stringify()；
+
+<script>
+    var person = {
+        name: "vanida",
+        "sex": "girl",
+        "age": 25
+    };
+    localStorage.setItem( "person", JSON.stringify( person ) );
+    // localStorage.person="{"name":"vanida","sex":"girl","age":25}"
+
+</script>
+
+注意：JSON.stringify()中不要忘了“i”,stringify而不是stringfy！
+
+<!-- --------------------------------------------------------------------------------- -->
+
+然后取出person的对象你可以用JSON.parse();
+
+<script>
+
+    person = JSON.parse(localStorage.getItem("person"));
+    console.log(person)
+
+    // {name: "vanida", sex: "girl", age: 25}
+    // Object {name: "vanida", sex: "girl", age: 25}
+
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+   <div v-for='item in items'>
+         <div @click='dianji(item)'></div>
+   </div>
+
+   <script>
+       new Vue({
+         el:"#app",
+         data:{
+
+         },
+         methods:{
+           dianji:function(item){
+            var s_item=JSON.stringify(item);
+            localStorage.setItem("item",s_item);
+           }
+         }
+       })
+   </script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+</html>

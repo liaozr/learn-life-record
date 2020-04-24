@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+</head>
+
+<body>
+
+
+    <img id="myDIV" class="setImg animated zoomIn2 " src="1-2.png">
+
+    <style>
+        .animated {
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+        /*缩小进入*/
+
+        .zoomIn2 {
+            -webkit-animation-duration: 2s;
+            animation-duration: 2s;
+            -webkit-animation-name: zoomIn2;
+            animation-name: zoomIn2;
+        }
+
+        @keyframes zoomIn2 {
+            0% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes zoomIn2 {
+            0% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+
+    <script>
+        var x = document.getElementById("myDIV")
+            //  Chrome, Safari 和 Opera
+            //  addEventListener  代表着监听事件的意思。
+        x.addEventListener("webkitAnimationStart", myStartFunction);
+        x.addEventListener("webkitAnimationIteration", myIterationFunction);
+        x.addEventListener("webkitAnimationEnd", myEndFunction);
+
+        x.addEventListener("animationstart", myStartFunction);
+        x.addEventListener("animationiteration", myIterationFunction);
+        x.addEventListener("animationend", myEndFunction);
+
+        function myStartFunction() {
+            console.log("事件触发 - 动画已经开始")
+        }
+
+        function myIterationFunction() {
+            console.log("事件触发 - 动画重新播放")
+        }
+
+        function myEndFunction() {
+            console.log("animationend 事件触发 - 动画已经完成")
+            $("#myDIV").css({
+              'margin-left':'100px'
+            })
+        }
+    </script>
+
+</body>
+
+</html>

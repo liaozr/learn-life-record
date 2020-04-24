@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  
+<!-- ------------------------------------------------------------------------------------- -->
+
+  activated
+
+  类型： Function
+
+  详细：
+
+  keep-alive 组件激活时调用。
+
+  该钩子在服务器端渲染期间不被调用。
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+  <script>
+
+    import '../assets/css/home.scss'
+
+    export default {
+
+      data() {
+        return {
+          msg: 'this msg come from Home component be came sass'
+        }
+      },
+
+      mounted() {
+        console.log("this message come from mounted钩子，在keep-alive缓存的组件下，只会执行一次的")
+      },
+
+      activated() {
+        console.log('this message come from activated钩子，在keep-alive缓存的组件下，依然每次进入到这个组件时还是会执行的')
+      }
+    }
+
+  </script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

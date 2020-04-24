@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        $("#search-input").on("click", showSearchHis);
+
+        function showSearchHis() {
+            $("#search_content").hide();
+            $(".Gsearch").show();
+            $("#his_content").show();
+            $("#search-input-focus").focus();
+            $("html,body").css({
+                'overflow': 'hidden'
+            })
+
+            // 判断是否有 localStorage 是否有 搜索历史记录
+            if (localStorage.getItem("historyString")) {
+                var historyArray = localStorage.getItem("historyString").split(";");
+                historyArray.reverse(); //反转
+                if (historyArray.length > 10) {
+                    var listnum = 10
+                } else {
+                    var listnum = historyArray.length;
+                }
+                var listhistory = [];
+                for (var i = 0; i < listnum; i++) {
+                    listhistory[i] = '<li><a href="?iRegionID=0&iPriceID=0&iLayoutID=0&sKeyword=' + historyArray[i] + '&iFeatureID=">' + historyArray[i] + '</a></li>';
+                }
+                $("#his_content").html(listhistory.join(""));
+            }
+        };
+
+// ---------------------------------------------------------------------------------
+        // 返回按钮
+        $(".search-return").on("click", '#closeGsearch', function() {
+            $(".Gsearch").hide();
+            $('.confirm').hide();
+            $('.search-icon').show();
+            $("html,body").css({
+                'overflow': 'visible'
+            })
+        });
+    </script>
+    <!-- ---------------------------------------------------------------------------- -->
+</body>
+
+</html>

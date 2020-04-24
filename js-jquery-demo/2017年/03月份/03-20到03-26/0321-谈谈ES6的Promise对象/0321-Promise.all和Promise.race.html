@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+Promise.all 可以接收一个元素为 Promise 对象的数组作为参数，
+
+当这个数组里面所有的 Promise对象都变为 resolve 时，该方法才会返回。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+<script>
+    var p1 = new Promise(function(resolve) {
+        setTimeout(function() {
+            resolve("Hello zrliao");
+        }, 3000);
+    });
+
+    var p2 = new Promise(function(resolve) {
+        setTimeout(function() {
+            resolve("World");
+        }, 1000);
+    });
+
+    Promise.all([p1, p2]).then(function(result) {
+        console.log(result); // ["Hello zrliao", "World"]
+    });
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+上面的例子模拟了传输两个数据需要不同的时长，虽然 p2 的速度比 p1 要快，
+
+但是 Promise.all 方法会按照数组里面的顺序将结果返回。
+
+日常开发中经常会遇到这样的需求，在不同的接口请求数据然后拼合成自己所需的数据，通常这些接口之间没有关联（例如不需要前一个接口的数据作为后一个接口的参数），这个时候 Promise.all 方法就可以派上用场了。
+
+还有一个和 Promise.all 相类似的方法 Promise.race，它同样接收一个数组，不同的是只要该数组中的 Promise 对象的状态发生变化（无论是 resolve 还是 reject）该方法都会返回。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+</html>

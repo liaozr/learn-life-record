@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------------------------------- -->
+
+    cnpm install better-scroll --save
+    cnpm install better-scroll --save
+
+<!-- ----------------------------------------------------------------------------------------------------------- -->
+
+    我们先来看一下 better-scroll 常见的 html 结构：
+
+    <div class="wrapper">
+
+        <ul class="content">
+            <li>...</li>
+            <li>...</li>
+            ...
+        </ul>
+
+    </div>
+
+    wrapper，也就是父容器，它会有固定的高度。
+
+    黄色部分为 content，它是父容器的第一个子元素，它的高度会随着内容的大小而撑高。
+
+    那么，当 content 的高度不超过父容器的高度，是不能滚动的，而它一旦超过了父容器的高度，
+
+    我们就可以滚动内容区了，这就是 better-scroll 的滚动原理。
+
+<!-- ----------------------------------------------------------------------------------------------------------- -->
+
+   通常是有 一个固定高度 的父元素 包裹着 scroll组件的
+
+   通常是有 一个固定高度 的父元素 包裹着 scroll组件的
+
+   <!-- ----------------------------------------------------------------------------------------------------------- -->
+
+   scroll组件通常也会有个 height:100%; overflow:hidden 的样式的
+
+   scroll组件通常也会有个 height:100%; overflow:hidden 的样式的
+
+   <!-- ----------------------------------------------------------------------------------------------------------- -->
+
+   scroll组件里面 要求只能有一个 最外层 元素 包裹着的，不然的话，是不会出现滚动的
+
+   scroll组件里面 要求只能有一个 最外层 元素 包裹着的，不然的话，是不会出现滚动的
+
+   scroll组件里面 要求只能有一个 最外层 元素 包裹着的，不然的话，是不会出现滚动的
+
+<!-- ----------------------------------------------------------------------------------------------------------- -->
+
+   scroll 组件，要给他 传一个 名为 lists 的props值，不然scroll 组件 是不会正常滚动，是会报错的。
+
+   scroll 组件，要给他 传一个 名为 lists 的props值，不然scroll 组件 是不会正常滚动，是会报错的。
+
+   lists接收的值，就是可以让 scroll组件 滚动的 一个 值。
+
+<!-- ----------------------------------------------------------------------------------------------------------- -->
+
+
+   <div class="recommend" ref="recommend">
+
+       <scroll ref='scroll' class="recommend-content" :lists="discList">
+           <div>
+
+           </div>
+       </scroll>
+
+   </div>
+
+   <style>
+
+       .recommend{
+           position: fixed;
+           width: 100%;
+           top: 88px;
+           bottom:0;
+       }
+
+       /*或者是*/
+       /*.recommend {
+            overflow-y: auto;
+            top: 1.27rem;
+            bottom: 0;
+            position: absolute;
+            left: 0;
+            right: 0;
+            -webkit-overflow-scrolling: touch;
+            z-index: 1;
+            width: 100%;
+       }*/
+
+       .recommend .recommend-content{
+            height: 100%;
+            overflow: hidden;
+        }
+
+   </style>
+
+<!-- ----------------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

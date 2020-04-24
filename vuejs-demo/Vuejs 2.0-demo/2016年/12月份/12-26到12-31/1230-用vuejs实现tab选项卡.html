@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<script src="vue.js"></script>
+<head>
+    <style type="text/css">
+        ul {
+            list-style: none;
+        }
+
+        .ventor {
+            display: inline-block;
+            margin-right: 10px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .ventor img {
+            width: 16px;
+            height: 16px;
+        }
+
+        .active,
+        .ventor:hover {
+            color: #fff;
+            background: #9b7c5e;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li class='ventor' v-for="(vendor,key) in vendors" @click="changeIndex(key)" v-bind:class="{active: activeIndex == key}">
+                <span>{{vendor.name}}</span>
+            </li>
+        </ul>
+        <ul v-for="(items, index) in books" v-show="index==activeIndex" class="list-ranking">
+            <li v-for="(item, index) in items">
+                <span class="index">{{index}}. {{item}}</span>
+            </li>
+        </ul>
+    </div>
+</body>
+
+<script type="text/javascript">
+     new Vue({
+        el: '#app',
+        data: {
+            activeIndex: 0,
+            vendors: [
+              {
+                name: '京东'
+              },
+              {
+                name: '亚马逊'
+              },
+              {
+                name: '当当'
+              }
+            ],
+            books: [
+                ['京东岛上书店1', '京东孤独深处1', '京东好吗好的1', '京东从你的全世界路过1'],
+                ['亚马逊岛上书店2', '亚马逊孤独深处2', '亚马逊好吗好的2', '亚马逊从你的全世界路过2'],
+                ['当当岛上书店3', '当当孤独深处3', '当当好吗好的3', '当当从你的全世界路过3'],
+            ]
+        },
+        methods: {
+            changeIndex: function(key) {
+                this.activeIndex = key
+            }
+        }
+    });
+</script>
+
+</html>

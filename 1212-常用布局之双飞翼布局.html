@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    淘宝 布局 之 双飞翼 布局 ( 左右两边固定布局，中间自适应的布局方式 )
+
+    <div class="centerItem">
+        <div class="mians"></div>
+    </div>
+
+    <div class="leftItem"></div>
+
+    <div class="rightItem"></div>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .centerItem {
+            float: left;
+            width: 100%;
+        }
+
+        .mians {
+            height: 80px;
+            margin-left: 200px;
+            margin-right: 100px;
+            background-color: green
+        }
+
+        .leftItem {
+            float: left;
+            width: 200px;
+            margin-left: -100%;
+            height: 80px;
+            background-color: pink
+        }
+
+        .rightItem {
+            float: left;
+            width: 100px;
+            margin-left: -100px;
+            height: 80px;
+            background-color: red
+        }
+        
+    </style>
+
+
+
+</body>
+
+</html>

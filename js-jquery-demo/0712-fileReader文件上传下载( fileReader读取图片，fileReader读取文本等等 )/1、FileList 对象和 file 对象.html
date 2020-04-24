@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  HTML 中的 input[type="file"] 标签有个 multiple 属性，允许用户选择多个文件，
+
+  FileList对象则就是表示用户选择的文件列表。这个列表中的每一个文件，就是一个 file 对象。
+
+  file 对象的属性：
+
+  name : 文件名，不包含路径。
+  
+  type : 文件类型。图片类型的文件都会以 image/ 开头，可以由此来限制只允许上传图片。
+
+  size : 文件大小。可以根据文件大小来进行其他操作。
+
+  lastModified : 文件最后修改的时间。
+
+  <input type="file" id="files" multiple>
+
+  <script>
+      var elem = document.getElementById('files');
+      elem.onchange = function (event) {
+          var files = event.target.files;
+          for (var i = 0; i < files.length; i++) {
+              // 文件类型为 image 并且文件大小小于 200kb
+              if(files[i].type.indexOf('image/') !== -1 && files[i].size < 204800){
+                  console.log(files[i].name);
+              }
+          }
+      }
+  </script>
+
+  input 中有个 accept 属性，可以用来规定能够通过文件上传进行提交的文件类型。
+
+  accept="image/*" 可以用来限制只允许上传图像格式。
+
+  但是在 Webkit 浏览器下却出现了响应滞慢的问题，要等上好几秒才弹出文件选择框。
+
+  解决方法就是将 * 通配符改为指定的 MIME 类型。
+
+  <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png">
+
+
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  
+<!-- --------------------------------------------------------------------------- -->
+
+  什么是DOM？
+
+  DOM是Document Object Model（文档对象模型）的缩写
+
+  用人话描述DOM
+
+  简单的讲，当你使用一个类似Chrome开发者工具的东东时，你可以看到一个可视化的DOM。
+
+  你的HTML并不是DOM，但Chrome开发者工具为你展现了一个经过HTML或JavaScript加工之后的DOM。
+
+  所以你可以把DOM理解成解析后的HTML。
+
+<!-- --------------------------------------------------------------------------- -->
+
+什么在阻塞DOM？
+
+当我们分析页面速度时，我们总要考虑什么阻塞了DOM导致我们的页面加载出现延迟。这些阻塞因素我们可以叫做 阻塞渲染的资源 ，例如 HTML、CSS（也包括web font）和 JavaScript。
+
+要查看什么阻塞了DOM的最简单的方法之一就是使用 Chrome开发者工具 (Chrome DevTools) 和Google的 PageSpeed Insight。在下面的例子中，我们使用了最新的Chrome开发者工具 （可以通过 Chrome Canary 获得）。
+
+在Chrome中启动开发者工具
+
+切换到 Network (网络)面板，刷新页面（ Win: Ctrl + R, Mac: Cmd + R）
+
+现在你会看到一个加载时间瀑布图。这里有两个值得我们关注的东东：第一个是 DOMContentLoaded 是384ms（译者注：原文如此，看图的话应该是281ms），第二个就是瀑布图中的在蓝线之前的绿色部分（译者注：原图有点问题，蓝线看起来是紫色的）
+
+我们知道CSS和JavaScript都是阻塞渲染的资源，它们都会在蓝色的DOMContent之前加载。请注意，图像是不会阻塞渲染的 ，所以如果有图像落在蓝线之前或之上你可以放心的忽略掉，当然优化图像也是很重要的一项工作。在这个例子里面，我们可以看到 style.css 和 jquery.min.js 都是阻塞渲染的资源。
+
+<!-- ---------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

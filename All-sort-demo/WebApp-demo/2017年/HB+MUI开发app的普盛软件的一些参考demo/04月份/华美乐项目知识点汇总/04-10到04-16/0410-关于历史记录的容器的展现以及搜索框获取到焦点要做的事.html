@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- input搜索框  -->
+    <div class="serach-lay">
+        <form method="post" id="form" action="##">
+            <input v-el:search v-on:focus="onfocus($event)" v-on:blur="blur($event)" debounce="500" class='search' type="search" name="search" id="search" placeholder="电话/地址/业主名称">
+            <div v-show='focusy' id='cancel' class="botton cancel-bottom">取消</div>
+        </form>
+    </div>
+
+    <!-- 搜索框获取焦点后历史搜索记录的容器展示框 -->
+    <div v-if='search_cont' class="Gsearch_content">
+        <div id="his_content_lay">
+            <div v-show='his_length' class="title">历史搜索</div>
+            <ul id="his_content">
+
+            </ul>
+            <div v-show='his_length' class="title clear-his">清空搜索记录</div>
+        </div>
+        <ul id="search_content" style="display:none;"></ul>
+    </div>
+
+    <!-- 正常页面内容显示的容器 -->
+    <div v-else class="item-project" id='item-project'>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "body",
+            data: {
+                focusy: false,
+                search_cont: false,
+                his_length: 0
+            },
+            methods: {
+                onfocus(e) {
+                    this.$els.search.className = 'onfocus'
+                    this.focusy = true;
+                    this.search_cont = true;
+
+                    // this.$nextTick 这个钩子的作用是为了等dom更新了后才能做的事情
+                    // 常用于异步 或对动态生成的数据做处理。
+                    this.$nextTick(function() {
+                        showSearchHis();
+                    })
+                },
+                blur(e) {
+                    // this.$els.search.className='left'
+                }
+            }
+        });
+
+        // input搜索框获取到焦点出现的搜索历史记录
+        function showSearchHis() {
+            if ($('.g-content .serach-lay').hasClass("inputremovehis")) {
+                $("#his_content").hide();
+                $(".g-content-project-list .Gsearch_content").hide();
+            } else {
+                $("#his_content").show();
+                $(".g-content-project-list .Gsearch_content").show();
+            }
+
+            $("html,body").css({
+                'overflow': 'hidden'
+            })
+
+            if (localStorage.getItem("historyString")) {
+                //  获取localStorage历史记录并赋值给数组historyArray
+                var historyArray = localStorage.getItem("historyString").split(";");
+                historyArray.reverse(); //数组反转
+
+                if (historyArray.length > 10) {
+                    var listnum = 10
+                } else {
+                    var listnum = historyArray.length;
+                }
+                var listhistory = [];
+                for (var i = 0; i < listnum; i++) {
+                    listhistory[i] = '<li><a href="?iRegionID=0&iPriceID=0&iLayoutID=0&sKeyword=' + historyArray[i] + '&iFeatureID=">' + historyArray[i] + '</a></li>';
+                }
+                vm.his_length = listhistory.length;
+
+                // 下面的这一句就是会引起页面结构的dom更新的。
+                // 所以才在methods的方法里面 加上 this.$nextTick这个钩子函数
+                // 来执行 showSearchHis 这个函数，表明等dom更新了再执行 这个方法
+                // 从而在把数据渲染到页面上。
+
+                // this.$nextTick(function() {
+                //     showSearchHis();
+                // })
+
+                $("#his_content").html(listhistory.join(""));
+            }
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{padding:0; margin:0; font-family: "Microsoft YaHei";}
+        html,body{width: 100%; height: 100%; overflow: hidden; background: url(images/max/bg.jpg) no-repeat; background-size: 100%; }
+        .content{position: relative; width: 1920px; height: 1080px;margin: auto; }
+        .screen{position: absolute; top: 0; left: 0; width: 1920px; height: 1080px; }
+        .screen1{z-index: 999; }
+        .screen1 .wrapper{width: 807px; height: 1080px; margin: auto;}
+        .screen1 .wrapper>div{position: relative; width: 807px; height: 696px; margin-top: 50px; background: url(images/max/phone.png) no-repeat; }
+        .screen1 .wrapper>div a.start{display: block;; position: absolute; top: 108px; left: 320px; width: 144px; height: 281px; background: url(images/max/start-btn.png) no-repeat; }
+        .screen1 .wrapper>div .time{display: none; position: absolute; top: 191px; left: 330px; width: 140px; text-align: center; font-size: 110px; color: #fff;}
+
+        .screen2{z-index: 998; display: none; background: url(images/max/lodding.png) no-repeat; background-size: 100%;}
+
+        .screen3{z-index: 997; display: none;}
+        .screen3 .wrapper{width: 1642px; margin: auto; overflow: hidden;}
+        .screen3 .wrapper .title{position: relative; width: 1268px; height: 254px; margin: 50px auto 0 auto;  background: url(images/max/title2.png) no-repeat;}
+        .screen3 .wrapper .title i{position: absolute; top:102px; left: 710px;}
+        .screen3 .wrapper .title i.one{width:80px; height: 83px;  background: url(images/max/one.png) no-repeat;}
+        .screen3 .wrapper .title i.two{width:80px; height: 83px; left: 706px; background: url(images/max/two.png) no-repeat;}
+        .screen3 .wrapper table{width: 1636px; height: 628px; margin-top: 65px; }
+        .screen3 .wrapper table tr td{width: 322px; height: 310px; text-align: center;  }
+        .screen3 .wrapper table tr td span{display: block; font-size: 90px; color: #fed041;}
+        .screen3 .wrapper table tr td i{display: block; font-style: normal; color: #fff; font-size: 60px;}
+
+
+
+    </style>
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="js/cookie.js"></script>
+    <script type="text/javascript">
+    $(function(){
+        if(getCookie('cnum')==1){
+            $('.screen3 .title i').removeClass('one').addClass('two');
+        }else{
+            $('.screen3 .title i').addClass('one');
+        }
+        var i=30;
+        $('.screen1').click(function(){
+            $('.start').fadeOut();
+            $('.time').fadeIn();
+            function countDown() {
+                clearTimeout(sto);
+                if (i > 0) {
+                    i--;
+                    $('.screen1 .time').html(i);
+                    var sto=setTimeout(countDown, 1000);
+                }else{
+                    $('.screen1').fadeOut();
+                    $('.screen2').fadeIn();
+                    getData();
+                }
+            }
+            setTimeout(countDown, 1000);
+        });
+
+        function getData(){
+            //等待数据请求时间
+            var k=15;
+            function countDown() {
+                clearTimeout(sto);
+                if (k > 0) {
+                    k--;
+                    var sto=setTimeout(countDown, 1000);
+                }else{
+                    //等待时间完成后处理数据
+                    $('.screen2').fadeOut();
+                    $('.screen3').fadeIn();
+
+                    //模拟数据
+                    //var arr=[{"u_id":"007","score":"7889"},{"u_id":"009","score":"7251"},{"u_id":"004","score":"4545"},{"u_id":"006","score":"4532"},{"u_id":"013","score":"865"},{"u_id":"014","score":"758"},{"u_id":"002","score":"758"},{"u_id":"011","score":"568"},{"u_id":"001","score":"563"},{"u_id":"008","score":"475"}];
+
+                    $.get('./php/get_award.php',{},function(res){
+
+                        var arr = eval('('+res+')');
+                        var str='';
+                        var str2='';
+
+                        for(var i=0; i<arr.length; i++){
+                            if(i<5){
+                                str+='<td><span>'+arr[i]["score"]+'</span><i>No:'+arr[i]["u_id"]+'</i></td>';
+                            }else{
+                                str2+='<td><span>'+arr[i]["score"]+'</span><i>No:'+arr[i]["u_id"]+'</i></td>';
+                            }
+                        }
+
+                        $('table').html('<tr>'+str+'</tr></tr>'+str2+'</tr>');
+                        setCookie('cnum',1);
+
+                    });
+                }
+            }
+            setTimeout(countDown, 1000);
+        }
+    });
+    </script>
+</head>
+<body>
+    <div class="content">
+        <div class="screen screen1">
+            <div class="wrapper">
+                <img src="images/max/title.png" />
+                <div>
+                    <a class="start"></a>
+                    <div class="time">30</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="screen screen2"></div>
+
+        <div class="screen screen3">
+            <div class="wrapper">
+                <div class="title">
+                    <i class="one"></i>
+                </div>
+                <table border="1" bordercolor="#fed041" style="border-collapse:collapse;">
+                	<!--
+                    <tr>
+                        <td><span>888</span><i>ID:8888</i></td>
+                        <td><span>888</span><i>ID:8888</i></td>
+                        <td><span>888</span><i>ID:8888</i></td>
+                        <td><span>888</span><i>ID:8888</i></td>
+                        <td><span>888</span><i>ID:8888</i></td>
+                    </tr>
+                    <tr>
+                        <td><span>888</span><i>ID:8888</i></td>
+                        <td><span>888</span><i>ID:8888</i></td>
+                        <td><span>888</span><i>ID:8888</i></td>
+                        <td><span>888</span><i>ID:8888</i></td>
+                        <td><span>888</span><i>ID:8888</i></td>
+                    </tr>
+                    -->
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

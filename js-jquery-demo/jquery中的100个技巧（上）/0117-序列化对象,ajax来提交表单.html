@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    jQuery提供了一个方法序列化表单值和一般的对象成为URL编码文本字符串。 这样，我们就可以把序列化的值传给ajax()作为url的参数，轻松使用ajax()提交表单了。
+
+    <form action="">
+        First name: <input type="text" name="FirstName" value="Bill" /><br /> Last name: <input type="text" name="LastName" value="Gates" /><br />
+    </form>
+
+    <script>
+        // Turn all form fields into a URL friendly key/value string.
+        // This can be passed as argument of AJAX requests, or URLs.
+
+        $(document).ready(function() {
+            console.log($("form").serialize()); // FirstName=Bill&LastName=Gates
+        });
+
+        // You can also encode your own objects with the $.param method:
+        log($.param({
+            'pet': 'cat',
+            'name': 'snowbell'
+        }));
+    </script>
+
+</body>
+
+</html>

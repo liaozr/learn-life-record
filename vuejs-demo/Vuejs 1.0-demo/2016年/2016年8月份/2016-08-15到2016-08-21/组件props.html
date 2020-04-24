@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="vue.js"></script>
+</head>
+<style>
+    .error{
+        color:red;
+    }
+</style>
+<body>
+ <div id="app">
+      <input v-model='nsg' type="text">
+      <counter heading='like'></counter>
+      <counter :nnsg='nsg'></counter>
+</div>
+ <template id='aaa'>
+       <h1>{{heading}}</h1>
+       <h1>{{nnsg}}</h1>
+ </template>
+ <script>
+     Vue.component('counter',{
+       template :'#aaa',
+       props: ['heading','nnsg']
+
+     })
+     var vm=new Vue({
+         el:'#app',
+         data:{
+               message: '',
+               nsg:'zrliao'
+         },
+         methods: {
+             
+         }
+     })
+ </script>
+</body>
+</html>

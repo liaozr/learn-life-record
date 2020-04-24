@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+  
+ 1、
+
+<script type="text/javascript">
+
+	alert(typeof(null)); // object
+
+	alert(typeof(undefined)); // undefined
+
+	alert(typeof(NaN)); // number
+
+	alert(NaN==undefined); // false
+
+	alert(NaN==NaN); // false
+
+	var str="123abc";
+
+	alert(typeof(str++)); // number
+		
+	alert(str);// NaN
+
+</script>
+
+
+2、不同类型的存储方式：
+
+基本类型：基本类型值在内存中占据固定大小，保存在栈内存中
+
+引用类型：引用类型的值是对象，保存在堆内存中，而栈内存存储的是对象的变量标识符
+
+以及对象在堆内存中的存储地址
+
+
+基本类型：从一个变量向另外一个新变量复制基本类型的值，会创建这个值的一个副本，并将该副本复制给新变量
+
+引用类型：从一个变量向另一个新变量复制引用类型的值，其实复制的是指针，最终两个变量最终都指向同一个对象
+
+深拷贝 & 浅拷贝
+
+浅拷贝：仅仅是复制了引用，彼此之间的操作会互相影响
+
+深拷贝：在堆中重新分配内存，不同的地址，相同的值，互不影响
+
+深浅拷贝的主要区别就是：复制的是引用还是复制的是实例
+
+
+Array的slice和concat方法都是浅拷贝。
+
+深拷贝
+JSON.parse()和JSON.stringify()
+
+JSON.stringify()：把一个js对象序列化为一个JSON字符串
+JSON.parse()：把JSON字符串反序列化为一个js对象
+
+动手实现深拷贝 利用递归来实现对对象或数组的深拷贝。递归思路：对属性中所有引用类型的值进行遍历，直到是基本类型值为止。
+
+3、
+ cookie 和session 的区别：
+
+ 1、cookie数据存放在客户的浏览器上，session数据放在服务器上。
+
+ 2、cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗
+
+    考虑到安全应当使用session。
+
+ 3、session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能
+
+     考虑到减轻服务器性能方面，应当使用COOKIE。
+
+ 4、单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。
+
+ 5、所以个人建议：
+
+    将登陆信息等重要信息存放为SESSION
+
+    其他信息如果需要保留，可以放在COOKIE中
+
+ 
+ Cookie的最大的作用就是存储sessionId用来唯一标识用户
+
+ Cookie的最大的作用就是存储sessionId用来唯一标识用户
+
+ Cookie的最大的作用就是存储sessionId用来唯一标识用户
+
+   
+
+</body>
+</html>

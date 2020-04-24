@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    柯里化函数
+
+    所谓的柯里化函数简单的说就是将本来接受多个参数的函数变为只接受一个参数的函数。
+
+    柯里化函数的模板和实例如下：
+
+    <script>
+
+        var currying = function(fun) {
+            //格式化arguments
+            var args = Array.prototype.slice.call(arguments, 1);
+            return function() {
+                //收集所有的参数在同一个数组中，进行计算
+                var _args = args.concat(Array.prototype.slice.call(arguments));
+                return fun.apply(null, _args);
+            };
+        }
+        
+        var add = currying(function() {
+            var args = Array.prototype.slice.call(arguments);
+            return args.reduce(function(a, b) {
+                return a + b;
+            });
+        })
+
+        add(1, 2, 4)
+
+    </script>
+</body>
+
+</html>

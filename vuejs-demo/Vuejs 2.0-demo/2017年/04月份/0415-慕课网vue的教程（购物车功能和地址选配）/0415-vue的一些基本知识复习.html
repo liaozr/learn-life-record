@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+v-show:显示隐藏,display,none,dom元素存在
+
+v-if:显示隐藏,dom不存在
+
+v-bind:绑定属性
+图片渲染用v-bind:src=""
+
+v-for:循环遍历表格,li标签
+
+v-on:事件绑定
+
+过滤器filter：对接口返回的字段进行业务转换（例如金额的转换等待）。
+过滤器filter：对接口返回的字段进行业务转换（例如金额的转换等待）。
+
+4.组件:Component:页面的复用,
+
+vue 2.0 引进了虚拟dom 的概念，操作十次dom ，
+
+都只是在最后一次操作真实的dom，之前操作的都是虚拟的dom
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+npm install xxx --save 是将相应模块安装到项目默认的依赖下，
+
+npm install xxx --save -dev 是安装到开发依赖中
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+图片渲染用v-bind:src=""
+<img :src="item.productImage" alt="">
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+关于vue的mounted钩子函数：使用mounted并不能保证vue实例已经插入文档，
+
+所以还应该在钩子函数中包含
+
+Vue.nextTick / vm.$nextTick
+<script>
+    mounted: function() {
+        this.$nextTick(function() {
+            // 保证this.$el已经插入文档
+        })
+    }
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+<script>
+
+    // 全局的过滤器
+    Vue.filter();
+
+    new Vue({
+        el: "#app",
+        data: {
+
+        },
+        mounted: {
+
+        },
+        // 局部的过滤器
+        filters: {
+
+        }
+    })
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+</html>

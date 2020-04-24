@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<title>Document</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
+    <link rel="stylesheet" href="css/dropload.css">
+    <link rel="stylesheet" href="css/index.css">
+  
+</head>
+<body>
+	 <!--新房列表开始-->
+            <div class="g-pages">
+
+                <!--头部开始-->
+                <header class="g-header">
+                    <div class="header">
+
+                        <div class="return">
+                            <a href="javascript:void(0)"></a>
+                        </div>
+
+                        <div class="search">
+                             <span class="s-icon"></span>
+                       		 <input type="search" name="" id="search-input" placeholder="请输入楼盘名或地址">
+                        </div>
+                        <a href="#" class="search-icon"></a>
+                        <a href="javascript:void(0)" class="confirm" id="searchBtn">确认</a>
+                    </div>
+                </header>
+                <div class="g-chose">
+                    <ul>
+                        <li data-classes="region" id="region"><span class='name'>区域</span><span class='down-icon down'></span></li>
+                        <li data-classes="price" id="price"><span class='name'>价格</span><span class='down-icon down'></span></li>
+                        <li data-classes="family" id="family"><span class='name'>户型</span><span class='down-icon down'></span></li>
+                    </ul>
+                </div>
+
+                 <!--选项切换开始-->
+                <section class="choice_wrap">
+
+                    <ul class="bgf choice_item region" data-flag="region">
+                        <li class="current"><a href="#" class="current">全部</a></li>
+                        <li><a href="#">宝山</a></li>
+                        <li><a href="#">长宁</a></li>
+                        <li><a href="#">崇明</a></li>
+                        <li><a href="#">奉贤</a></li>
+                        <li><a href="#">黄埔</a></li>
+                        <li><a href="#">宝山</a></li>
+                        <li><a href="#">长宁</a></li>
+                        <li><a href="#">崇明</a></li>
+                        <li><a href="#">奉贤</a></li>
+                        <li><a href="#">黄埔</a></li>
+                        <li><a href="#">宝山</a></li>
+                        <li><a href="#">长宁</a></li>
+                        <li><a href="#">崇明</a></li>
+                        <li><a href="#">奉贤</a></li>
+                        <li><a href="#">黄埔</a></li>
+                    </ul>
+
+                    <ul class="bgf choice_item price" data-flag="price">
+                        <li><a href="#">全部</a></li>
+                        <li><a href="#">2万以下</a></li>
+                        <li><a href="#">2万-3万</a></li>
+                        <li><a href="#">3万-5万</a></li>
+                        <li><a href="#">5万以上</a></li>
+                        <li><a href="#">待定</a></li>
+                    </ul>
+
+                    <ul class="bgf choice_item family" data-flag="family">
+                        <li><a href="#">全部</a></li>
+                        <li><a href="#">一房</a></li>
+                        <li><a href="#">两房</a></li>
+                        <li><a href="#">三房</a></li>
+                        <li><a href="#">四房</a></li>
+                        <li><a href="#">五房</a></li>
+                    </ul>
+
+                </section>
+                <!--选项切换结束-->
+
+                <div class="g-swiper">
+                    <div class="swiper-container"  id="newhouseswip">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide current">学区房</div>
+                            <div class="swiper-slide">刚需房</div>
+                            <div class="swiper-slide">性价比</div>
+                            <div class="swiper-slide">最佳户型</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="g-news">
+                        <div class="m-news" id='mainsection'>
+                            <div class="flag flag-middle">
+                                <div class="triangle-topleft"></div>
+                                <span class='triangle-wen'>金属</span>
+                                <div class="flag__item flag_img">
+                                    <div class="img-center">
+                                        <canvas data-src="images/fang.jpg"></canvas>
+                                    </div>
+                                </div>
+                                <div class="flag__item flag__item_body">
+                                    <div class="heading">
+                                        买砖宝终端订单王亮剑，陶瓷行业磐涅重生速度 速度
+                                    </div>
+                                    <div class="p">
+                                        2016-05-24
+                                    </div>
+                                     <div class="p">
+                                        <span class="key_txt">12,000</span>/元一平
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flag flag-middle">
+                                <div class="triangle-topleft"></div>
+                                <span class='triangle-wen'>金属</span>
+                                <div class="flag__item flag_img">
+                                    <div class="img-center">
+                                        <canvas data-src="images/fang.jpg"></canvas>
+                                    </div>
+                                </div>
+                                <div class="flag__item flag__item_body">
+                                    <div class="heading">
+                                        买砖宝终端订单王亮剑，陶瓷行业磐涅重生速度 速度
+                                    </div>
+                                    <div class="p">
+                                        2016-05-24
+                                    </div>
+                                     <div class="p">
+                                        12000元/一平
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+            <!--返回顶部开始-->
+            <div class="return_top fadeInUp" id="backtop">
+                    <div class="return_top_bg"></div>
+            </div>
+            <!--返回顶部结束-->
+
+            <div id="BgDiv" class="black_bg" style="display:none;"></div> 
+           
+            <!--首页结束 用于点击搜索时出现的页面-->
+            <div class="Gsearch"  style="display:none;">
+                <!--头部开始-->
+                <header class="g-header">
+                    <div class="header">
+
+                        <div class="return search-return">
+                            <a href="javascript:void(0)" id="closeGsearch"></a>
+                        </div>
+
+                        <div class="search">
+                             <span class="s-icon"></span>
+                             <input type="search" name="" id="search-input-focus" value="" autocomplete="off" placeholder="请输入楼盘名或地址">
+                        </div>
+                        <a href="javascript:void(0)" data-content="confirmbtn" class="confirm" id="newsearchBtn">确认</a>
+                    </div>
+                </header>
+                <div class="Gsearch_content">
+                    <ul id="his_content"></ul>
+                    <ul id="search_content" style="display:none;"></ul>
+                </div>
+            </div>
+            
+<script src='js/jquery.min.js'></script>
+<script src='js/flexible_css.js'></script>
+<script src="js/flexible.js"></script> 
+<script src='js/swiper.min.js'></script>
+<script src="js/dropload.min.js"></script>        
+<script src='js/index.js'></script>
+<script src='js/landscape.js'></script>  
+<script>
+   var landscape = new landscape({
+            mode: 'portrait', //portrait,landscape
+            prefix: 'Shine'
+   });
+</script>         
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+模板字符串
+
+这个也是 ES6 才引入进来的新语法，来解决传统输出String模板的蹩脚问题；其功能之强大，设计之贴心，着实令人得到极大满足感，好如久旱逢甘霖一般的舒畅。
+
+更何况，在当今 MVVM 前端框架大行其道的时代，使用 ES6 语法也是不用自己个儿去操心兼容性问题，对于塑造 Dom Template 更是如虎添翼，令人爱不释手。
+
+对于她的使用，阮一峰在ECMAScript 6 入门有过详细的描述以及示例，在此就不赘述。只需要明白我们可以像这样去操作了，试问爽否？
+<script>
+    function ncieFunc() {
+      return "四海无人对夕阳";
+    }
+    var niceMan = "陈寅恪";
+    var jadeTalk = `一生负气成今日 \n ${ncieFunc()} ,
+    语出 ${niceMan} 的《忆故居》。
+    `
+    console.log(jadeTalk)
+</script>
+
+<!-- --------------------------------------------------------------------------- -->
+
+<!-- 运行之，Chrome Console 输出结果如下： -->
+
+<!-- 打印结果： -->
+一生负气成今日
+四海无人对夕阳 ,
+语出 陈寅恪 的《忆故居》。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+</body>
+</html>

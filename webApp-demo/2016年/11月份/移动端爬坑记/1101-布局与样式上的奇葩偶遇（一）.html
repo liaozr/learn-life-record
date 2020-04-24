@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    IOS的H5页面scroll不流畅解决方案 在滚动包裹层添加这么一条私有前缀样式即可享受类似APP的滑动效果，不仅丝滑，还带弹性！
+
+    <style>
+        .contain {
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+
+    <!-- ---------------------------------------------------------------------------- -->
+
+    IOS 遮罩层较好方案 拒绝采用fixed！！！！！ 遮罩层采用position:absolute来置顶，内部元素采用flex来布局； 这种写法可以避免一大堆天坑！！！ 若是实在不信邪，滚动的时候，微信端这些你就会感受到花儿为什么这样红了。。。
+
+    <!-- ----------------------------------------------------------------------------- -->
+
+    IOS滚动窗滑动到底部还能弹窗拖拉的奇葩修复 这个方案是通过计算离底部多远加状态来阻止touch事件
+
+    <script>
+        // 防止内容区域滚到底后引起页面整体的滚动
+        var content = document.querySelector('main');
+        var startY;
+
+        content.addEventListener('touchstart', function(e) {
+            startY = e.touches[0].clientY;
+        });
+
+        content.addEventListener('touchmove', function(e) {
+            // 高位表示向上滚动
+            // 底位表示向下滚动
+            // 1容许 0禁止
+            var status = '11';
+            var ele = this;
+
+            var currentY = e.touches[0].clientY;
+
+            if (ele.scrollTop === 0) {
+                // 如果内容小于容器则同时禁止上下滚动
+                status = ele.offsetHeight >= ele.scrollHeight ? '00' : '01';
+            } else if (ele.scrollTop + ele.offsetHeight >= ele.scrollHeight) {
+                // 已经滚到底部了只能向上滚动
+                status = '10';
+            }
+
+            if (status != '11') {
+                // 判断当前的滚动方向
+                var direction = currentY - startY > 0 ? '10' : '01';
+                // 操作方向和当前允许状态求与运算，运算结果为0，就说明不允许该方向滚动，则禁止默认事件，阻止滚动
+                if (!(parseInt(status, 2) & parseInt(direction, 2))) {
+                    e.preventDefault();
+                    stopEvent(e);
+                }
+            }
+        });
+    </script>
+
+    <!-- ----------------------------------------------------------------- -->
+
+    ios和android下触摸元素时出现半透明灰色遮罩
+
+    <style>
+        /*E:这个是代指字符，实际自己替换，ID,CLASS,TAG*/
+
+        -webkit-tap-highlight-color:rgba(255, 255, 255, 0)
+    </style>
+    
+    <!-- ----------------------------------------------------------------- -->
+
+    IOS 默认输入框内阴影重置
+
+    <style>
+        /*E:这个是代指字符，实际自己替换，ID,CLASS,TAG*/
+
+        E {
+            border: 0;
+            -webkit-appearance: none;
+        }
+    </style>
+    <!-- ---------------------------------------------------------------- -->
+
+    旋转屏幕时，字体大小调整的问题
+    <style>
+        html,
+        body,
+        form,
+        fieldset,
+        p,
+        div,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            -webkit-text-size-adjust: 100%;
+        }
+    </style>
+  <!-- ------------------------------------------------------------------------   -->
+
+placeholder的颜色值改变
+
+<style>
+    input::-webkit-input-placeholder {
+        color: #F40;
+    }
+
+    input:focus::-webkit-input-placeholder {
+        color: #F40;
+    }
+</style>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+移动端禁止选中内容
+<style>
+    E {
+        -webkit-user-select: none;
+        /* Chrome all / Safari all */
+        -moz-user-select: none;
+        /* Firefox all （移动端不需要） */
+        -ms-user-select: none;
+        /* IE 10+ */
+    }
+</style>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+IOS禁止保存或拷贝图像
+
+<style>
+    img {
+        -webkit-touch-callout: none;
+    }
+</style>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

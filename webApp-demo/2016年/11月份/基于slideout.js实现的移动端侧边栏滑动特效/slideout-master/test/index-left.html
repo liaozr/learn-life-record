@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>适合移动手机的侧边栏滑动代码 - 站长素材</title>
+    <link rel="stylesheet" href="index-left.css">
+</head>
+
+<body>
+    <nav id="menu" class="menu">
+        <a href="#" target="_blank">
+            <header class="menu-header">
+                <span class="menu-header-title">主题</span>
+            </header>
+        </a>
+
+        <section class="menu-section">
+            <h3 class="menu-section-title">脚本代码</h3>
+            <ul class="menu-section-list">
+                <li><a href="#" target="_blank">jQuery</a></li>
+                <li><a href="#" target="_blank">CSS3</a></li>
+                <li><a href="#" target="_blank">HTML5</a></li>
+                <li><a href="#" target="_blank">动画效果</a></li>
+            </ul>
+        </section>
+
+        <section class="menu-section">
+            <h3 class="menu-section-title">flash动画</h3>
+            <ul class="menu-section-list">
+                <li><a href="#" target="_blank">节日动画</a></li>
+                <li><a href="#" target="_blank">flash植物</a></li>
+                <li><a href="#">flash动物</a></li>
+            </ul>
+        </section>
+
+        <section class="menu-section">
+            <h3 class="menu-section-title">音效下载</h3>
+            <ul class="menu-section-list">
+                <li><a href="#" target="_blank">鸟叫声</a></li>
+                <li><a href="#" target="_blank">狗叫声</a></li>
+            </ul>
+        </section>
+    </nav>
+    <main id="main" class="panel">
+        <button class="btn-hamburger js-slideout-toggle">
+     <span class="tooltip">点击打开</span>
+   </button>
+    </main>
+
+    <script type="text/javascript" src="../dist/slideout.min.js"></script>
+    <script type="text/javascript">
+        var slideout = new Slideout({
+            'panel': document.getElementById('main'),
+            'menu': document.getElementById('menu'),
+            'padding': 256,
+            'tolerance': 70
+        });
+
+        document.querySelector('.js-slideout-toggle').addEventListener('click', function() {
+            slideout.toggle();
+        });
+
+        document.querySelector('.menu').addEventListener('click', function(eve) {
+            if (eve.target.nodeName === 'A') {
+                slideout.close();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

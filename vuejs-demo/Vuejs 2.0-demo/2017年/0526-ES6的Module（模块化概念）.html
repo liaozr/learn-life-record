@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+  Module 是 ES6 的新特性，是语言层面对模块化的支持。
+
+  与之前模块加载机制不同，Module 是动态的加载，导入的是变量的 只读引用 ，而不是拷贝
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+  <script>
+
+        // 1. export default 可以做默认导出
+
+        // a.js
+        export default 5;      // 默认导出
+
+        // b.js
+        import b, {a} from './a.js';    // 默认导入，不需要加花括号
+
+        // 2. 动态的加载机制
+
+        // a.js
+        export let a = 10;
+        export let b = 10;
+
+        export function add() {
+          a = 15;
+          b = 20;
+          return a+b;
+        };
+
+        // b.js
+        import {a, b, add} from './a.js';
+
+        a+b;    // 20
+        add();  // 35
+        a+b;    // 35
+
+        // import 是可以导出  用 export 导入的变量 以及 函数的
+        // import 是可以导出  用 export 导入的变量 以及 函数的
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

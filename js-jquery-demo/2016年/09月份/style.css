@@ -1,0 +1,136 @@
+.verson-all{
+	width:100%;
+	height:100%;
+	margin:40px auto;
+	display: block;
+	min-height: 200px;
+}
+.verson-layout{
+	width:908px;
+	height:100%;
+ 	display: block;
+	min-height: 200px;
+}
+.verson-mzb{
+	width:908px;
+	height:auto;
+ 	display: block;
+	min-height: 200px;
+}
+.verson-mzb .left{
+	width:454px;display: inline-block;
+	float:left;height:auto;min-height: 200px;
+}
+.verson-mzb .right{
+	width:454px;display: inline-block;
+	float:left;height:auto;
+	min-height: 200px;
+}
+
+
+ 
+.verson-mzb .right .list{
+	padding-left: 40px;
+	height:auto;position: relative;
+	background: url(time-hui.png) no-repeat;
+}
+ 
+
+.verson-mzb .v-list span{
+	display: block;font-size: 24px;
+	line-height: 36px;color:#000000;
+}
+.verson-mzb .v-list .nrong{
+	line-height: 24px;margin-top: 5px;
+}
+ 
+.verson-mzb .right .list .line {
+    position: absolute;
+    left: 13px;
+    top: 26px;
+    width: 1px;
+    height: 100%;
+    background-color: #dee6e9;
+}
+.verson-mzb .left .list{
+ 	height:auto;position: relative;
+	float:right;clear:both;
+ }
+ .verson-mzb .left .list {
+    height: auto;
+    position: relative;
+    float: right;
+    clear: both;
+    padding-right: 30px;
+    width: 220px;
+}
+.verson-mzb .right .new span{
+	color:#f6ad4f;
+}
+.verson-mzb .right .new{
+	padding-left: 40px;
+	height:auto;position: relative;
+	background: url(time-liang.png) no-repeat;
+	background-position: 0px 2px;
+    background-size: 30px 30px;
+}
+.verson-layout {
+    width: 100%; 
+    margin: 40px auto;
+    display: block;
+    min-height: 200px;
+}
+.verson-mzb {
+    width: 100%;
+    height: auto;
+    display: block;
+    min-height: 200px;
+    margin: auto;
+}
+.verson-mzb .left {
+    display: inline-block;
+    float: left;
+    height: auto;
+    min-height: 200px;
+    margin: auto;
+    width: 50%;
+}
+.verson-mzb .right {
+    display: inline-block;
+    float: left;
+    height: auto;
+    min-height: 200px;
+    margin: auto;
+    width: 50%;
+}
+.swiper-slide {
+    overflow: auto;
+}
+ .swiper-slide {
+ }
+
+.verson-mzb .list-last{
+	height:130px;
+}
+.verson-mzb  .list .list-end{
+	position: absolute;
+	background: url(time-hui.png) no-repeat;
+	width:28px;height:28px; right:-28px;bottom:0px;
+}
+.dl-con .rela {
+    position: relative;
+    width: 1200px;
+    height: auto;
+    margin: auto;
+}
+.dl-con .rela img {
+    position: absolute;
+    top: 70px;
+    left: 773px;
+}
+.dl-con .rela a {
+    position: absolute;
+    top: 325px;
+    left: 773px;
+    width: 240px;
+}

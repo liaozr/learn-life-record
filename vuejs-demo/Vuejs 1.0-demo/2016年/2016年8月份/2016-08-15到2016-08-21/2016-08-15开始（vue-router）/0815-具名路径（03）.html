@@ -1,0 +1,162 @@
+<!-- 
+vue-router
+http://router.vuejs.org/zh-cn/index.html 
+-->
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+	<script type="text/javascript" src='vue-router.js'></script>
+</head>
+<body>
+        <!-- 
+        在有些情况下，给一条路径加上一个名字能够让我们更方便地进行路径的跳转，尤其是在路径较长的时候。
+
+        我们再追加一个组件NewsDetail，该组件在访问/home/news/detail路径时被渲染 -->
+        <div id="app">
+             <div class="col-xs-2 col-xs-offset-2">
+                <div class="list-group">
+                    <a class="list-group-item" v-link="{ path: '/home'}">Home</a>
+                    <a class="list-group-item" v-link="{ path: '/about'}">About</a>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="panel">
+                    <div class="panel-body">
+                        <router-view></router-view>
+                    </div>
+                </div>
+            </div>
+         </div>
+
+        <template id="home">
+            <div>
+                <h1>Home</h1>
+                <p>{{msg}}</p>
+            </div>
+            <div>
+
+       <!--      <a v-link="{ name: 'news'}">News</a>和<a v-link="{ name: 'detail', params: {id: '01'} }">News 01</a>这两行HTML代码，使用了用了具名路径。 -->
+                <ul class="nav nav-tabs">
+                    <li>
+                        <a v-link="{ name: 'news'}">News</a>
+                    </li>
+                    <li>
+                        <a v-link="{ path: '/home/message'}">Messages</a>
+                    </li>
+                </ul>
+                <router-view></router-view>
+            </div>
+        </template>
+
+        <template id="news">
+            <div>
+                <ul>
+                    <li>
+                        <!-- 使用了具名路由    -->
+                        <a v-link="{ name: 'detail', params: {id: '01'} }">News 01</a>
+                    </li>
+                    <li>
+                        <a v-link="{ path: '/home/news/detail/02'}">News 02</a>
+                    </li>
+                    <li>
+                        <a v-link="{ path: '/home/news/detail/03'}">News 03</a>
+                    </li>
+                </ul>
+                <div>
+                    <router-view></router-view>
+                </div>
+            </div>
+        </template>
+
+
+        <template id="newsDetail">
+            <div>
+                News Detail - {{$route.params.id}} ......
+            </div>
+        </template>
+
+        <template id="message">
+            <ul>
+                <li>Message 01</li>
+                <li>Message 02</li>
+                <li>Message 03</li>
+            </ul>
+        </template>
+
+        <template id="about">
+            <div>
+                <h1>About</h1>
+                <p>This is the tutorial about vue-router.</p>
+            </div>
+        </template>
+
+    <script>
+        var Home = Vue.extend({
+            template: '#home',
+            data: function() {
+                return {
+                    msg: 'Hello, vue router!'
+                }
+            }
+        })
+
+        var News = Vue.extend({
+            template: '#news'
+        })
+
+        var NewsDetail = Vue.extend({
+            template: '#newsDetail'
+        })
+
+        var Message = Vue.extend({
+            template: '#message'
+        })
+
+        var About = Vue.extend({
+            template: '#about'
+        })
+
+        var router = new VueRouter()
+        router.redirect({
+            '/': '/home'
+        })
+
+        // 调用router的map方法映射路由，每条路由以key-value的形式存在，key是路径，value是组件。
+        // 例如：'/home'是一条路由的key，它表示路径；{component: Home}则表示该条路由映射的组件。
+
+        router.map({
+            '/home': {
+                component: Home,
+                subRoutes: {
+                    '/news': {
+                        name: 'news',
+                        component: News,
+                        subRoutes: {
+                            'detail/:id': {
+                                name: 'detail',
+                                component: NewsDetail
+                            }
+                        }
+                    },
+                    '/message': {
+                        component: Message
+                    }
+                }
+            },
+            '/about': {
+                component: About
+            }
+        })
+
+        //  我们在定义/homes/news/和home/news/detail/:id路由时，给该路由指定了name属性。
+        // /:id是路由参数，例如：如果要查看id = '01'的News详情，那么访问路径是/home/news/detail/01
+
+        var App = Vue.extend({})
+        router.start(App, '#app')
+    </script>
+
+</body>
+</html>

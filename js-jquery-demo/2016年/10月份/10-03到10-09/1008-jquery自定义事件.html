@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<body>
+
+先来看看jquery是怎么实现自定义事件的
+
+jquery中用on或bind绑定自定义事件，用trigger来触发
+
+<button></button>
+<script>
+$(function(){
+	$('button').on('mycustomEvent',function(){
+		alert("trigger customEvent");
+	});
+	$('button').trigger('mycustomEvent');
+});
+</script>
+
+<!-- trigger 是会自动触发这个自定义事件的。 -->
+
+</body>
+</html>

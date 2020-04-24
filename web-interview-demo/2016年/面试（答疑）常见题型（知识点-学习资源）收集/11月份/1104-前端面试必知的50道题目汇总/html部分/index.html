@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+3.常见的浏览器内核有哪些？
+
+Trident内核：IE,MaxThon,TT,The World,360,搜狗浏览器等。[又称MSHTML]
+
+Gecko内核：Netscape6及以上版本，FF,MozillaSuite/SeaMonkey等
+
+Presto内核：Opera7及以上。
+
+[Opera内核原为：Presto，现为：Blink;]
+
+Webkit内核：Safari,Chrome等。   [ Chrome的：Blink（WebKit的分支）]
+
+<!-- ------------------------------------------------------------------------------- -->
+
+5.请描述一下 cookies，sessionStorage 和 localStorage 的区别？
+
+cookie在浏览器和服务器间来回传递。
+
+sessionStorage和localStorage不会
+
+sessionStorage和localStorage的存储空间更大；
+
+sessionStorage和localStorage有更多丰富易用的接口；
+
+sessionStorage和localStorage各自独立的存储空间；
+
+<!-- ------------------------------------------------------------------------------- -->
+
+6.如何实现浏览器内多个标签页之间的通信?
+
+调用localstorge、cookies等本地存储方式   （不跨域）
+
+<!-- ----------------------------------------------------------------------------- -->
+
+7.HTML5 为什么只需要写 !DOCTYPE HTML？
+
+HTML5 不基于 SGML，因此不需要对DTD进行引用，但是需要doctype来规范浏览器的行为（让浏览器按照它们应该的方式来运行）；而HTML4.01基于SGML,所以需要对DTD进行引用，才能告知浏览器文档所使用的文档类型。
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+8.Doctype作用？标准模式与兼容模式各有什么区别?
+
+!DOCTYPE声明位于位于HTML文档中的第一行，处于html 标签之前。
+
+告知浏览器的解析器用什么文档标准解析这个文档。DOCTYPE不存在或格式不正确会导致文档以兼容模式呈现。
+
+标准模式的排版 和JS运作模式都是以该浏览器支持的最高标准运行。在兼容模式中，页面以宽松的向后兼容的方式显示,模拟老式浏览器的行为以防止站点无法工作。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+9.Doctype? 严格模式与混杂模式-如何触发这两种模式，区分它们有何意义?
+
+用于声明文档使用那种规范（html/Xhtml）一般为 严格 过度 基于框架的html文档。
+加入XMl声明可触发，解析方式更改为IE5.5 拥有IE5.5的Bug。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+10.请描述一下 cookies，sessionStorage 和 localStorage 的区别？
+
+cookie在浏览器和服务器间来回传递。 sessionStorage和localStorage不会
+sessionStorage和localStorage的存储空间更大；
+sessionStorage和localStorage有更多丰富易用的接口；
+sessionStorage和localStorage各自独立的存储空间；
+
+<!-- --------------------------------------------------------------------------------- -->
+
+11.如何实现浏览器内多个标签页之间的通信?
+
+调用localstorge、cookies等本地存储方式
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+</html>

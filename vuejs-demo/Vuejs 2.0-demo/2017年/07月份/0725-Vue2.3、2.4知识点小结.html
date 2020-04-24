@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+新增.passive 修饰符 (demo1) ； .passive 修饰符表示事件永远不会调用
+
+preventDefault()
+主要为解决滚动和触摸事件的卡顿而出现，关于 passive 更多信息请移步 MDN 。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+Async Component Improvements (demo3);
+
+在 2.3 之前，可以使用异步组件：
+
+// some.vue
+
+export default {
+  // ...
+  components: {
+    'asyncCom': () => import('./asyncCøm')
+  }
+}
+
+<!-- ----------------------------------------------------------------------------- -->
+
+2.3 新增高级异步组件
+
+为了便于演示，使用延迟加载异步组件：
+
+import loadingCom from '../components/loadingCom.vue'
+import errCom from '../components/errCom.vue'
+
+const asyncCom = () => ({
+
+  component: new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(import('../components/asyncCom.vue'))
+    }, 2000)
+  }),
+  loading: loadingCom,
+  error: errCom,
+  delay: 200,
+  timeout: 3000
+
+})
+
+export default {
+  // ...
+  components: { asyncCom }
+}
+
+<!-- ----------------------------------------------------------------------------- -->
+
+
+  </body>
+</html>

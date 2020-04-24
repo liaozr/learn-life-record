@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<script>
+  router.map({
+	  '/': {
+	    component: Index,
+	    name: 'index'  //这个name值还是建议写上的。 这个name值还是建议写上的。
+	    // name值写上的好处，可以在v-link的时候 方便写路由路径
+	    // 以及 this.$route.router.go()做跳转路径的时候，也可以很方便的用这个name值的。
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="易送气" />
+		<meta name="Description" content="易送气" />
+		<title>易送气商城</title>
+		<link rel="stylesheet" href="css/base.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+		<link rel="stylesheet" href="css/swiper.min.css" />
+		<link rel="stylesheet" href="css/public.css" />
+		<link rel="stylesheet" href="css/ww.css" />
+	</head>
+
+	<body class="index">
+		<div id="loadpage">
+			<img src="img/loading2.gif" alt="" />
+		</div>
+		<header class="y-mytop">
+			<h1>易送气商城</h1>
+			<div class="return-box">
+				<img src="img/icon-return.png" alt="" />
+				<span>返回</span>
+			</div>
+		</header>
+		<div id="pullrefresh" style="top:1.25rem;padding-bottom:1.5rem;">
+				<!--数据列表-->
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<a href="#"><img src="img/index-AD.png" alt="" /></a>
+						</div>
+						<div class="swiper-slide">
+							<a href="#"><img src="img/index-AD.png" alt="" /></a>
+						</div>
+						<div class="swiper-slide">
+							<a href="#"><img src="img/index-AD.png" alt="" /></a>
+						</div>
+						<div class="swiper-slide">
+							<a href="#"><img src="img/index-AD.png" alt="" /></a>
+						</div>
+					</div>
+					<div class="swiper-pagination"></div>
+				</div>
+
+				<div class="swiper-container2" style="padding-left:.1rem;">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide slide-pp">
+							<a href=""><img src="img/index-AD-icon1.png" alt="xxx" /></a>
+						</div>
+						<div class="swiper-slide slide-pp">
+							<a href=""><img src="img/index-AD-icon2.png" alt="xxx" /></a>
+						</div>
+						<div class="swiper-slide slide-pp">
+							<a href=""><img src="img/index-AD-icon1.png" alt="xx" /></a>
+						</div>
+						<div class="swiper-slide slide-pp">
+							<a href=""><img src="img/index-AD-icon2.png" alt="xx" /></a>
+						</div>
+						<div class="swiper-slide slide-pp">
+							<a href=""><img src="img/index-AD-icon1.png" alt="xx" /></a>
+						</div>
+					</div>
+					</ul>
+				</div>
+
+				<section class="productList">
+					<section id="productList">
+						<div class="tab1">
+							<div class="line"></div><i></i>气瓶区
+							<div class="line2"></div>
+						</div>
+						<div class="hot">
+						</div>
+						<ul class="h-ul-productList">
+							<li v-for="item in vueDataArr.gasBottles" name="{{item.id}}" v-on:tap1="toDetail($event)">
+								<div class="h-proImg" >
+									<img src="img/index-product1.png" alt="" />
+									<div class="name">{{item.partName}}</div>
+									<div class="price">￥{{item.price}}</div>
+								</div>
+							</li>
+							<div class="clear"></div>
+						</ul>
+						<div class="tab2">
+							<div class="line"></div><i></i>配件区
+							<div class="line2"></div>
+						</div>
+						<ul class="h-ul-productList">
+							<li v-for="item in vueDataArr.mountings" name="{{item.id}}" v-on:tap1="toDetail($event)">
+								<div class="h-proImg" >
+									<img src="img/index-product3.png" alt="" />
+									<div class="name">{{item.partName}}</div>
+									<div class="price">￥{{item.price}}</div>
+								</div>
+							</li>
+							<div class="clear"></div>
+						</ul>
+					</section>
+					<section id="hotList">
+						<div v-if="vueDataArr | isNull" class="tab2">
+							<div class="line"></div><i></i>热卖区
+							<div class="line2"></div>
+						</div>
+						<ul class="h-ul-productList">
+							<li v-for="item in vueDataArr" name="{{item.id}}" v-on:tap1="toDetail($event)">
+								<div class="h-proImg"  >
+									<img src="img/index-product3.png" alt="" />
+									<div class="name">{{item.partName}}</div>
+									<div class="price">￥{{item.price}}</div>
+								</div>
+							</li>
+							<div class="clear"></div>
+						</ul>
+					</section>
+				</section>
+		</div>
+		<!--底部导航-->
+		<footer class="h-footerMenu">
+			<ul>
+				<li class="col1 active">
+					<a href="index.html"><i></i>首页</a>
+					<div id="d1"></div>
+					<div id="d2"></div>
+				</li>
+				<li class="col2">
+					<a href="index.html"><i></i>会员专享</a>
+				</li>
+				<li class="col3">
+					<a href="buy-car.html"><i></i>购物车</a>
+				</li>
+				<li class="col4">
+					<a href="myCenter.html"><i></i>我的</a>
+				</li>
+			</ul>
+		</footer>
+	</body>
+	<script src="js/zepto1.1.6.min.js"></script>
+	<script type="text/javascript" src="js/swiper.min.js"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script type="text/javascript" src="js/global.js"></script>
+	<script>
+		Vue.filter('isNull', function(value) {
+			return value.length > 0;
+		})
+		
+//		$(".h-ul-productList").on('tap','li',function(){
+//			alert($(this).attr('name'));
+//		});
+
+		var hotPageIndex = 1;
+		var productVM = new Vue({
+			el: '#productList',
+			data: {
+				vueDataArr: {}
+			},
+			
+			ready: function() {
+				$.ajax({
+					type: "get",
+					url: getBaseServerUrl() + "/client/customer/gasBottles",
+					data: {
+						pageIndex: "first",
+						franchiseId: "FRCH1608030007"
+					},
+					success: function(jsonData) {
+						productVM.vueDataArr = jsonData;
+					},
+				});
+			}
+		});
+		var hotDataArr = new Array();
+		var hotProductVM = new Vue({
+			el: '#hotList',
+			data: {
+				vueDataArr: hotDataArr
+			},
+			
+		});
+
+		function getHotList(page, rows, franchiseId) {
+			$.ajax({
+				type: "get",
+				url: getBaseServerUrl() + "/client/customer/moreGasBottles",
+				data: {
+					page: page,
+					franchiseId: franchiseId,
+					rows: rows
+				},
+				success: function(jsonData) {
+					hotDataArr = hotDataArr.concat(jsonData);
+						hotProductVM.vueDataArr = hotDataArr;
+						hotPageIndex++;
+				},
+			});
+		}
+
+		$(function() {
+			var swiper1 = new Swiper('.swiper-container', {
+				pagination: '.swiper-pagination',
+				paginationClickable: true,
+				autoplay: 5000,
+				loop: true
+			});
+			var swiper2 = new Swiper('.swiper-container2', {
+				slidesPerView: 2,
+				paginationClickable: true,
+				spaceBetween: -10,
+				freeMode: true,
+				autoplay: 5000,
+				loop: true
+			});
+		})
+		var ua = navigator.userAgent.toLowerCase();
+		if (ua.match(/MicroMessenger/i) == "micromessenger") {
+			$(".y-mytop").css("display", "none");
+			$(".under-top").css("top", 0);
+		}
+
+		//页面加载完毕删除遮罩层
+		window.onload = function() {
+			$("html").css("overflow", "auto");
+			$("#loadpage").css("display", "none");
+		}
+		
+		getHotList(hotPageIndex, 4, 'FRCH1608030007');
+	</script>
+
+</html>

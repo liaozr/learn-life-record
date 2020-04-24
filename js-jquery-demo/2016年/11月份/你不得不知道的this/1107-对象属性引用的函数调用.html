@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+对象属性引用的函数调用（隐式绑定）
+
+什么叫对象属性引用的函数调用呢，简单来说，就是下面这种:
+
+<script>
+    function apple() {
+        // 调用的时候会发生下面的事
+        // var this = o
+        console.log(this.name)
+    }
+    var name = 'apple'
+    var o = {
+        name: 'odename',
+        apple: apple
+    }
+    o.apple()
+</script>
+
+显然，o.apple 是对象 o 的属性，o.apple() 就是对象属性引用的函数的调用了（o.apple 引用了函数 apple 并调用了它）！这时候，this 会绑定到该属性所归属的对象上，也就是 o！
+
+这类也很容易理解，简单来说，就是对象属性直接调用函数，当然是想要把这个对象传给 this 了！
+
+<!-- --------------------------------------------------------------------------------- -->
+
+显式绑定
+
+没啥好说的，硬性规定将哪个对象传给 this，有两种方法：
+<script>
+    apple.call(obj, arg1, arg2)
+    apple.apply(obj, [arg1, arg2])
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+new 绑定
+
+new 运算符会做四件事：
+
+创建一个空对象
+
+将上面创建的空对象赋值给函数调用时内部作用域的 this
+将空对象的原型设置为调用的函数内部的 prototype 属性
+如果函数返回对象，那么就是 new 运算符返回的结果，如果函数不返回对象，那么上面创建的对象作为 new 运算符的结果
+下面举个例子：
+
+<script>
+    function apple() {
+        this.name = 'apple'
+        console.log(this);
+    }
+    var o = new apple()
+</script>
+
+上面代码在执行 new apple() 的时候，会创建一个空对象，暂且叫做 obj，apple 作用域内部的 this 引用的就是 obj，然后会在 obj 里面设置一个属性 name，由于 apple() 不返回任何东西，所以 new 运算符的结果就是 obj，然后通过赋值语句将 obj 传引用给 o，实际上，obj 并没有名字。
+
+这就是 new 运算符中的 this 绑定！
+
+<!-- --------------------------------------------------------------------------------- -->
+
+优先级
+
+如果同时使用多种绑定规则，谁更优先呢，试试就知道：
+<script>
+    obj.apple.call(o) // 绑定到了 o
+    new apple.call(o) // apple.call is not a constructor，报错
+</script>
+
+不用说，new > 显示绑定 > 隐式绑定 > 默认绑定
+
+new 和 显示绑定 的优先级可以研究研究 new 和 硬绑定，这里不多说
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+</html>

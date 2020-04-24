@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+定义容器的display属性
+
+<style type="text/css">
+.box{
+    display: -moz-box; /*Firefox*/
+    display: -webkit-box; /*Safari,Opera,Chrome*/
+    display: box;
+}
+</style>
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+容器属性
+
+1.box-pack 属性
+
+box-pack定义子元素主轴对齐方式。
+
+<style type="text/css">
+
+.box{
+    -moz-box-pack: center; /*Firefox*/
+    -webkit-box-pack: center; /*Safari,Opera,Chrome*/
+    box-pack: center;
+}
+
+/*box-pack属性总共有4个值：*/
+.box{
+    box-pack: start | end | center | justify;
+    /*主轴对齐：左对齐（默认） | 右对齐 | 居中对齐 | 左右对齐*/
+}
+</style>
+
+------------------------------------------------------------------------------------------
+
+2.box-align 属性
+
+box-align定义子元素交叉轴对齐方式。
+
+<style type="text/css">
+
+.box{
+    -moz-box-align: center; /*Firefox*/
+    -webkit-box-align: center; /*Safari,Opera,Chrome*/
+    box-align: center;
+}
+
+/*box-align属性总共有5个值：*/
+
+.box{
+    box-align: start | end | center | baseline | stretch;
+    /*交叉轴对齐：顶部对齐（默认） | 底部对齐 | 居中对齐 | 文本基线对齐 | 上下对齐并铺满*/
+}
+</style>
+-----------------------------------------------------------------------------------------------
+
+3.box-direction 属性
+
+box-direction定义子元素的显示方向。
+
+<style media="screen">
+.box{
+		-moz-box-direction: reverse; /*Firefox*/
+		-webkit-box-direction: reverse; /*Safari,Opera,Chrome*/
+		box-direction: reverse;
+}
+
+/*box-direction属性总共有3个值：*/
+
+.box{
+		box-direction: normal | reverse | inherit;
+		/*显示方向：默认方向 | 反方向 | 继承子元素的 box-direction*/
+}
+</style>
+----------------------------------------------------------------------------------------------
+
+4.box-orient 属性
+
+box-orient定义子元素是否应水平或垂直排列。
+
+<style media="screen">
+.box{
+		-moz-box-orient: horizontal; /*Firefox*/
+		-webkit-box-orient: horizontal; /*Safari,Opera,Chrome*/
+		box-orient: horizontal;
+}
+
+/*box-orient属性总共有5个值：*/
+
+.box{
+		box-orient: horizontal | vertical | inline-axis | block-axis | inherit;
+		/*排列方向：水平 | 垂直 | 行内方式排列（默认） | 块方式排列 | 继承父级的box-orient*/
+}
+</style>
+--------------------------------------------------------------------------------------------------
+
+5.box-lines 属性
+
+box-lines定义当子元素超出了容器是否允许子元素换行。
+
+<style media="screen">
+.box{
+		-moz-box-lines: multiple; /*Firefox*/
+		-webkit-box-lines: multiple; /*Safari,Opera,Chrome*/
+		box-lines: multiple;
+}
+
+/*box-lines属性总共有2个值：*/
+
+.box{
+		box-lines: single | multiple;
+		/*允许换行：不允许（默认） | 允许*/
+}
+</style>
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+子元素属性
+
+1.box-flex 属性
+
+box-flex定义是否允许当前子元素伸缩。
+
+<style media="screen">
+
+.item{
+		-moz-box-flex: 1.0; /*Firefox*/
+		-webkit-box-flex: 1.0; /*Safari,Opera,Chrome*/
+		box-flex: 1.0;
+}
+
+/*box-flex属性使用一个浮点值：*/
+
+.item{
+		box-flex: <value>;
+		/*伸缩：<一个浮点数，默认为0.0，即表示不可伸缩，大于0的值可伸缩，柔性相对>*/
+}
+</style>
+
+----------------------------------------------------------------------------------------------------
+
+2.box-ordinal-group 属性
+
+box-ordinal-group定义子元素的显示次序，数值越小越排前。
+
+<style media="screen">
+.item{
+		-moz-box-ordinal-group: 1; /*Firefox*/
+		-webkit-box-ordinal-group: 1; /*Safari,Opera,Chrome*/
+		box-ordinal-group: 1;
+}
+
+/*box-direction属性使用一个整数值：*/
+
+.item{
+		box-ordinal-group: <integer>;
+		/*显示次序：<一个整数，默认为1，数值越小越排前>*/
+}
+</style>
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

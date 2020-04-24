@@ -1,0 +1,144 @@
+.w-content {
+	top: 1.375rem;
+	padding-bottom: 1.37rem;
+	position: absolute;
+	left: 0;
+	right: 0;
+	/* 增加该属性，可以增加弹性*/
+	-webkit-overflow-scrolling: touch;
+	z-index:1; 
+}
+.right{float: right;}
+.left{float: left;}
+.chatList li{border-bottom: 1px solid #eee;}
+	.chatList .head{width: 2rem;height: 1.866rem;float: left;text-align: center;position: relative;}
+	.chatList .head img{margin-top: 0.25rem;width: 1.333rem;height: 1.333rem;}
+	.chatList .head .num{color:white;position: absolute;right: 0.06rem;top: 0.05rem;background-color: #EB4D4B;padding: 0.02rem 0.2rem;border-radius: 0.3rem;}
+	.chatList .content{margin-left: 2rem;height: 1.866rem;padding: 0.3rem 0.3rem;}
+	.chatList .content .title{white-space: nowrap;float: left;width: 5.2rem;text-overflow: ellipsis;overflow: hidden;font-size: 0.42rem;color: black;font-weight: bold;}
+	.chatList .content .time{white-space: nowrap;color: #AAAAAA;}
+	.chatList .content .msg{white-space: nowrap;float: left;color: #7A7A7A;margin-top: 0.12rem;font-size: 0.38rem;}
+.checkSelect{background-color: white;}
+	.checkSelect .main{}
+	.checkSelect .main>li{position: relative;background-color: white;height: 1.37rem;border-top: 1px solid #eee;line-height: 1.37rem;font-size: 0.45rem;color: black;padding: 0 1.2rem;}
+	.checkSelect .main>li>.arrow{background: url(../images/icon-jiantou.png) no-repeat;width: 0.5rem;height: 0.6rem;display: block;background-size: contain;-webkit-transform: rotate(90deg);position: absolute;right: 0.4rem;top: 0.45rem;}
+	.checkSelect .main>li>.arrow.active{-webkit-transform: rotate(-90deg);position: absolute;right: 0.4rem;top: 0.3rem;}
+	
+	.checkSelect .main>li>.selectBtn{background: url(../images/icon-select.png) no-repeat;width: 0.5rem;height: 0.5rem;display: block;background-size: contain;position: absolute;left: 0.4rem;top: 0.42rem;}
+	.checkSelect .main>li>.selectBtn.active{background: url(../images/icon-select1.png) no-repeat;width: 0.5rem;height: 0.5rem;background-size: contain;}
+	
+	.checkSelect .branch{background-color: #F9F9F9;}
+	.checkSelect .branch>li{line-height: 0.5rem;font-size: 0.45rem;color: #7A7A7A;position: relative;}
+	.checkSelect .branch>li>.item>.txt{margin-left: 1.3rem;line-height: 0.7rem;border-bottom: 1px solid #ddd;padding: 0.4rem;}
+	.checkSelect .branch>li:last-child>.item>.txt{border-bottom: none;}
+	.checkSelect .branch>li .selectBtn{background: url(../images/icon-select.png) no-repeat;width: 0.5rem;height: 0.5rem;display: block;background-size: contain;position: absolute;left: 0.42rem;top: 50%;margin-top: -0.3rem;}
+	.checkSelect .branch>li .selectBtn.active{background: url(../images/icon-select1.png) no-repeat;width: 0.5rem;height: 0.5rem;background-size: contain;}
+	.checkSelect .branch>li .verifyed{position: absolute;left: 0.2rem;top: 50%;margin-top: -0.3rem;font-size: 0.4rem;color: #aaa;}
+	.checkSelect footer{background-color:white;width: 100%;height: 1.37rem;position: fixed;bottom: 0;left: 0;border-top: 1px solid #ddd;color: #4F5A7D;z-index: 999;}
+	.checkSelect footer .slideDown{background: url(../images/slideDown.png) no-repeat;width: 0.5rem;height: 0.5rem;display: block;background-size: contain;position: absolute;left: 0.75rem;top: 0.42rem;}
+	.checkSelect footer .slideUp{background: url(../images/slideUp.png) no-repeat;width: 0.5rem;height: 0.5rem;display: block;background-size: contain;position: absolute;left: 0.75rem;top: 0.42rem;}
+	.checkSelect footer div{width: 50%;box-sizing: border-box;height: 1.37rem;text-align: center;line-height: 1.37rem;font-size: 0.45rem;cursor: pointer;position: relative;}
+	.checkSelect footer .line{width: 1px;background-color: #ddd;height: 0.7rem;position: absolute;left: 50%;bottom: 0.3rem;}
+    .checkSelect footer div:active{background-color: #ccc;}
+
+.check .errorItem{
+	height:1.373rem;margin-top: 0.4rem; line-height: 1.373rem;font-size: 0.4rem;color:#eb6d00;position: relative;background-color: #fff;
+}
+.check .errorItem i{background: url(../images/icon-jiantou.png) no-repeat;position: absolute;right: 0.15rem;top: 0.42rem;display: block;width: 0.5rem;height: 0.5rem;background-size: contain;}
+.check .errorItem .line{width: 0.1rem;height: 0.6rem;position: absolute;left: 0;top: 0.37rem;background-color: #eb6d00;}
+.check .errorItem .title{color: black;width: 3rem;margin-left: 0.5rem;}
+.check .errorItem .selectItem{width: 3rem;text-align: right;margin-right: 1rem;}
+.check .errorItem .itemStatus{color: #0B984D;}
+
+
+.check .errorList{margin-top: 0.05rem;}
+.check .errorList li{padding: 0.35rem;background-color: #fff;font-size: 0.4rem;color: #999;border-top: 1px solid #eee;line-height: 0.58rem;}
+
+.check .photoList{background-color: white;margin-top: 0.05rem;}
+.check .photoList li{border-bottom: 1px solid #fff;}
+.check .photoList .head{width: 2.666rem;height: 2.666rem;float: left;text-align: center;position: relative;}
+.check .photoList .head img{margin-top: 0.4rem;width: 1.866rem;height: 1.866rem;}
+.check .photoList .content{margin-left: 2.666rem;height: 2.666rem;padding: 0.3rem 0.3rem;border-bottom: 1px solid #ddd;}
+.check .photoList .content:last-child{border-bottom: none;}
+.check .photoList .content .title{white-space: nowrap;float: left;width: 6.5rem;text-overflow: ellipsis;overflow: hidden;font-size: 0.42rem;color: black;font-weight: bold;margin-top: 0.1rem;border: none;}
+.check .photoList .content .msg{border: none;width:6.5rem;float: left;color: #7A7A7A;margin-top: 0.18rem;font-size: 0.38rem;height: 1.1rem;overflow: hidden;text-overflow: ellipsis;display:-webkit-box; -webkit-box-orient:vertical;-webkit-line-clamp:2; }
+
+
+.check .remark{margin-top: 0.4rem;text-align: center;background-color: white;padding-bottom: 0.5rem;}
+.check .remark .txt{font-size: 0.45rem;text-align: left;line-height: 1.4rem;color: #666;margin-left: 0.4rem;}
+.check .remark textarea{width: 8.8rem;border: 1px solid #ddd;padding: 0.3rem 0.2rem;font-size: 0.4rem;}
+.check .btn-div{margin-top: 0.5rem;background-color: white;text-align: center;height: 1.6rem;border-top: 1px solid #eee;}
+.check .btn-div span{background-color:#EB6D00;color: white;padding: 0.3rem 3.3rem;line-height: 1.6rem;font-size: 0.45rem;border-radius: 0.15rem;}
+.check .btn-div span:active{background-color:#c96d00;}
+
+.check footer{margin-top: 0.4rem;background-color:white;width: 100%;height: 1.37rem;border-top: 1px solid #ddd;color: #4F5A7D;z-index: 999;}
+.check footer div{width: 50%;box-sizing: border-box;height: 1.37rem;text-align: center;line-height: 1.37rem;font-size: 0.45rem;cursor: pointer;position: relative;}
+.check footer #preSave{background-color: white;color: #EB6D00;}
+.check footer #sure{background-color: #EB6D00;color: white;}
+.check footer #preSave:active{background-color:#eee;}
+.check footer #sure:active{background-color: #c96d00;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

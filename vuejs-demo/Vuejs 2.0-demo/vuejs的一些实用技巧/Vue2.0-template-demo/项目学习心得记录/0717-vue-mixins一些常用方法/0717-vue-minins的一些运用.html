@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.1/vue.min.js"></script>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+    <script>
+
+        // 定义一个混合对象
+        var myMixin = {
+            created: function() {
+                this.hello()
+            },
+            methods: {
+                hello: function() {
+                    console.log('hello from mixin!')
+                }
+            }
+        }
+
+        // 定义一个使用混合对象的组件
+        var Component = Vue.extend({
+            mixins: [myMixin]
+        })
+
+        var component = new Component() // -> "hello from mixin!"
+
+    </script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+    2.选项合并
+
+    <script>
+
+        var mixin = {
+            created: function() {
+                console.log('混合对象的钩子被调用')
+            },
+            methods:{
+               gotoDetails:function(){
+                 console.log("go to the details")
+               }
+            }
+        }
+
+        new Vue({
+            mixins: [mixin],
+            created: function() {
+                console.log('组件钩子被调用')
+                this.gotoDetails()
+            },
+            methods:{
+              // gotoDetails:function(){
+              //   console.log("组件里面的 go to the details")
+              // }
+            }
+        })
+
+        // -> "混合对象的钩子被调用"
+        // -> "组件钩子被调用"
+
+    </script>
+
+    对于有冲突的代码，这里可以分为两个情况，如果是vue生命周期里的钩子函数，那将会进行合并，
+
+    以此执行mixins以及组件的函数；如果是methods等方法，（不是钩子函数）那组件中的方法将会覆盖mixins中的方法。
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+3.合并策略中的问题
+
+<script>
+
+    var mixin = {
+        created: function() {
+            let option = this.$options.doNotInit
+            if (!option) {
+                this.init();
+            }
+        },
+        methods: {
+            init() {
+                // 一些初始化操作
+            }
+        }
+    }
+    
+    new Vue({
+        mixins: [mixin],
+        doNotInit: true,
+        created: function() {
+            console.log('组件钩子被调用')
+        },
+        beforeRouteEnter(to, from, next) {
+            next(vm => {
+                vm.init();
+            })
+        }
+    })
+
+</script>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

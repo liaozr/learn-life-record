@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        // 通过这个这个属性（是个函数），可以让应用像浏览器的原生表现那样，
+        // 在按下 后退/前进 按钮时，简单地让页面滚动到顶部或原来的位置。
+
+        const scrollBehavior = (to, from, savedPosition) => {
+            if (savedPosition) {
+                return savedPosition
+            } else {
+                return {
+                    x: 0,
+                    y: 0
+                }
+            }
+        }
+
+    </script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+滚动行为
+
+注意: 这个功能只在 HTML5 history 模式下可用。
+
+使用前端路由，当切换到新路由时，想要页面滚到顶部，或者是保持原先的滚动位置，就像重新加载页面那样。
+
+vue-router 能做到，而且更好，它让你可以自定义路由切换时页面如何滚动。
+
+<script>
+
+    const router = new VueRouter({
+
+        routes: [...],
+
+        scrollBehavior(to, from, savedPosition) {
+            // return 期望滚动到哪个的位置
+        }
+
+    })
+    
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+<script>
+
+    const scrollBehavior = (to, from, savedPosition) => {
+
+        if (savedPosition) {
+
+            // savedPosition is only available for popstate navigations.
+            return savedPosition
+        }      
+        else {
+
+            const position = {}
+            // new navigation.
+            // scroll to anchor by returning the selector
+            if (to.hash) {
+               position.selector = to.hash
+            }
+
+            // check if any matched route config has meta that requires scrolling to top
+            if (to.matched.some(m => m.meta.scrollToTop)) {
+                // cords will be used if no selector is provided,
+                // or if the selector didn't match any element.
+                position.x = 0
+                position.y = 0
+            }
+
+            // if the returned position is falsy or an empty object,
+            // will retain current scroll position.
+            return position
+
+        }
+     }
+
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

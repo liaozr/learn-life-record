@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        // 获取min 到 max 中间 的随机整数
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min)
+        }
+
+        function shuffle(arr) {
+
+            let _arr = arr.slice(0)
+
+            for (let i = 0; i < _arr.length; i++) {
+                let j = getRandomInt(0, i)
+                let t = _arr[i]
+                _arr[i] = _arr[j]
+                _arr[j] = t
+            }
+            return _arr
+        }
+
+        var arr=[1,2,3,4,5]
+
+        console.log( shuffle(arr) ) // 打印出的值是: [3, 1, 2, 4, 5]
+
+    </script>
+
+</body>
+
+</html>

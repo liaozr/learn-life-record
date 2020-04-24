@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  参考之前的pet-demo这个项目就行了
+
+  根组件，路由组件都属于容器组件
+
+  根组件，路由组件都属于容器组件
+
+  简单来说，容器组件就是用于包裹展示组件的组件
+
+  vuejs中，根组件，路由组件都属于容器组件,容器组件里包含着各个展示组件
+
+  容器组件（除开App.vue这个根目录组件外）是建议放在src目录下的page目录下的
+  展示组件是建议放在src目录下的components目录下的。
+
+  <!-- ---------------------------------------------------------------------------- -->
+
+  <script>
+        // main.js文件里面
+        import Index from './page/index'
+        import Page1 from './page/page1'
+        import Home from './page/home'
+        import HomeUserInfo from './page/homeUserInfo'
+        import MyPet from './page/myPet'
+        import AddPet from './page/addPet'
+
+        // import Article from './page/article'
+
+        const routes = [
+            {
+            	 path: '/',
+            	 component: Index,
+            	 name:'all',
+            },
+            {
+          		 path: '/index',
+          		 name:'index',
+          		 component: Index
+            },
+            // ......
+            {
+               path:'/home/mypet/addpet',
+               name:'addPet',
+               component: AddPet
+            }
+        ]
+
+        const router = new VueRouter({
+        	  mode: 'history',
+            linkActiveClass: 'active',
+            //router-link的选中状态的class，也有一个默认的值
+            routes
+        })
+
+        /* eslint-disable no-new */
+        new Vue({
+          store,
+          router,
+          render: h => h(App)
+        }).$mount("#app")
+
+  </script>
+  <!-- --------------------------------------------------------------------------- -->
+
+  App.vue是容器组件，
+
+  App.vue里的 cheader组件 com-footer组件  com-loading组件等都是
+  展示组件来的
+
+  结合上面跟下面可以看出：
+  容器组件（除开App.vue这个根目录组件外）是建议放在src目录下的page目录下的
+  展示组件是建议放在src目录下的components目录下的。
+
+  <!-- App.vue文件 -->
+  <template>
+      <div id="app">
+        <div class="com-app-box">
+            <cheader :commData="commConf"></cheader>
+            <div class="com-app">
+                 <transition :name="transitionName" >
+                     <keep-alive>
+                          <router-view class="child-view"></router-view>
+                     </keep-alive>
+                 </transition>
+            </div>
+            <com-footer v-show="$route.name !== 'homeUserInfo' && $route.name !== 'myPet' && $route.name !== 'addPet'"></com-footer>
+
+            <!-- 这个日历组件功能未涉及到，所以暂时先隐藏 -->
+            <!--  <com-calendar :style = "calendar"></com-calendar> -->
+
+            <com-loading v-if="loading"></com-loading>
+
+        </div>
+      </div>
+</template>
+<script>
+    import cheader from './components/cheader'
+    import comFooter from './components/footer'
+    import comLoading from './components/loading'
+
+    import './css/icon/iconfont.css'
+    import './css/app.scss'
+    import './css/style.scss'
+
+    export default {
+      data() {
+        return{
+            transitionName: 'slide-left'
+        }
+      },
+      created(){
+          if(this.$route.name==undefined){
+              this.$router.push({name:'index'});
+          }
+      },
+      watch: {
+           //  这个监听路由功能暂时未知，有待进一步的开发学习
+          '$route' (to, from) {
+              const toDepth = to.path.split('/').length;
+              const fromDepth = from.path.split('/').length;
+              this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left';
+          }
+      },
+      components:{
+          cheader,
+          comFooter,
+          comLoading
+      }
+    }
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+
+
+</body>
+</html>

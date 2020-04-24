@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>字符串的扩张和数值的扩张</title>
+</head>
+<body>
+	<script>
+		//includes();//返回的是true或者false
+		var str='window.navigator.userAgent.MSIE8';
+		console.log(str.includes('MSIE8'));
+		//模板字符串 ${变量名}
+		var strHtml=`是否符合IE浏览器${str}`;
+	 	var ul=document.createElement('ul');
+	// 	var strDom=`<div class="tab">
+	// 	<ul class="tab-head">
+	// 		<li class="change">腾讯视频</li>
+	// 		<li>腾讯新闻</li>
+	// 		<li>腾讯体育</li>
+	// 	</ul>
+	// 	<div class="tab-con">
+	// 		<div class="show">大作战</div>
+	// 		<div>开会</div>
+	// 		<div>NBA</div>
+	// 	</div>
+	// </div>`;
+		var str="";
+		var username="hwb";
+		var age=18;
+		for(var i=0;i<20;i++){
+			str+=`<li class="change" data-id="${username}"> 
+        <span>${age}</span>
+        <a href="">dianji</a>
+	</li>`;
+		}
+		ul.innerHTML=str;
+		document.body.appendChild(ul);
+	//数值的扩张 
+	//Math.trunc();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</script>
+</body>
+</html>

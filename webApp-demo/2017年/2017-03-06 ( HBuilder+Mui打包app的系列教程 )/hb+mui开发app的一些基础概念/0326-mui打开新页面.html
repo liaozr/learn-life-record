@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+打开新页面
+
+<script>
+
+	mui.openWindow({
+	    url:new-page-url,
+	    id:new-page-id,
+	    styles:{
+	      top:newpage-top-position,//新页面顶部位置
+	      bottom:newage-bottom-position,//新页面底部位置
+	      width:newpage-width,//新页面宽度，默认为100%
+	      height:newpage-height,//新页面高度，默认为100%
+	      ......
+	    },
+	    extras:{
+	      .....//自定义扩展参数，可以用来处理页面间传值
+	    },
+	    createNew:false,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+	    show:{
+	      autoShow:true,//页面loaded事件发生后自动显示，默认为true
+	      aniShow:animationType,//页面显示动画，默认为”slide-in-right“；
+	      duration:animationTime//页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+	    },
+	    waiting:{
+	      autoShow:true,//自动显示等待框，默认为true
+	      title:'正在加载...',//等待对话框上显示的提示内容
+	      options:{
+	        width:waiting-dialog-widht,//等待框背景区域宽度，默认根据内容自动计算合适宽度
+	        height:waiting-dialog-height,//等待框背景区域高度，默认根据内容自动计算合适高度
+	        ......
+	      }
+	    }
+	})
+
+</script>
+
+参数说明：
+
+styles:表示窗口参数，参考5+规范中的WebviewStyle；特别注意，height和width两个属性,即使不设置，也默认按100%计算；因此若设置了top值为非"0px"的情况，建议同时设置bottom值，否则5+ runtime根据高度100%计算，可能会造成页面真实底部位置超出屏幕范围的情况,left、right同理。
+extras:新窗口的额外扩展参数，可用来处理页面间传值；例如：
+
+var webview = mui.openWindow({
+    url:'info.html',
+    extras:{
+        name:'mui'
+    }
+});
+console.log(webview.name);
+
+
+控制台会输出"mui"字符串；注意：扩展参数仅在打开新窗口时有效，若目标窗口为预加载页面，则通过mui.openWindow方法打开时传递的extras参数无效。
+
+createNew:是否重复创建相同id的webview；为优化性能、避免app中重复创建webview，mui v1.7.0开始增加createNew参数，默认为false；判断逻辑如下：若createNew为true，则不判断重复，每次都新建webview；若为fasle，则先计算当前App中是否已存在同样id的webview，若存在则直接显示；否则新创建并根据show参数执行显示逻辑；该参数可能导致的影响：若业务写在plusReady事件中，而plusReady事件仅首次创建时会触发，则下次再次通过mui.openWindow方法打开同样webview时，是不会再次触发plusReady事件的，此时可通过自定义事件触发；案例参考：http://ask.dcloud.net.cn/question/6514;
+
+show:表示窗口显示控制。autoShow：目标窗口loaded事件发生后，是否自动显示；若目标页面为预加载页面，则该参数无效；aniShow表示页面显示动画，比如从右侧划入、从下侧划入等，具体可参考5+规范中的AnimationTypeShow。
+
+
+waiting:表示系统等待框；mui框架在打开新页面时等待框的处理逻辑为：显示等待框-->创建目标页面webview-->目标页面loaded事件发生-->关闭等待框；因此，只有当新页面为新创建页面（webview）时，会显示等待框，否则若为预加载好的页面，则直接显示目标页面，不会显示等待框。waiting中的参数：autoShow表示自动显示等待框，默认为true，若为false，则不显示等待框；注意：若显示了等待框，但目标页面不自动显示，则需在目标页面中通过如下代码关闭等待框plus.nativeUI.closeWaiting();。title表示等待框上的提示文字，options表示等待框显示参数，比如宽高、背景色、提示文字颜色等，具体可参考5+规范中的WaitingOption。
+示例1：Hello mui中，点击首页右上角的图标，会打开关于页面，实现代码如下：
+
+
+<script>
+	//tap为mui封装的单击事件，可参考手势事件章节
+	document.getElementById('info').addEventListener('tap', function() {
+	  //打开关于页面
+	  mui.openWindow({
+	    url: 'examples/info.html',
+	    id:'info'
+	  });
+	});
+</script>
+
+因没有传入styles参数，故默认全屏显示；也没有传入show参数，故使用slide-in-right动画，新页面从右侧滑入。
+
+示例2：从A页面打开B页面，B页面为一个需要从服务端加载的列表页面，若在B页面loaded事件发生时就将其显示出来，因服务器数据尚未加载完毕，列表页面为空，用户体验不好；可通过如下方式改善用户体验（最好的用户体验应该是通过预加载的方式）
+
+<!-- -------------------------------------------------------------------------- -->
+
+第一步，B页面loaded事件发生后，不自动显示
+
+<script>
+
+	//A页面中打开B页面，设置show的autoShow为false，则B页面在其loaded事件发生后，不会自动显示；
+	mui.openWindow({
+	    url: 'B.html',
+	    show:{
+	      autoShow:false
+	    }
+	});
+
+</script>
+
+第二步，在B页面获取列表数据后，再关闭等待框、显示B页面
+
+<script>
+	//B页面onload从服务器获取列表数据；
+	window.onload = function(){
+	  //从服务器获取数据
+	  // ....
+	  //业务数据获取完毕，并已插入当前页面DOM；
+	  //注意：若为ajax请求，则需将如下代码放在处理完ajax响应数据之后；
+	  mui.plusReady(function(){
+	    //关闭等待框
+	    plus.nativeUI.closeWaiting();
+	    //显示当前页面
+	    mui.currentWebview.show();
+	  });
+	}
+</script>
+
+<!-- -------------------------------------------------------------------------- -->
+
+</body>
+</html>

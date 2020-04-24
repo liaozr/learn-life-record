@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<!-- <script src="https://cdn.bootcss.com/vue/2.2.6/vue.min.js"></script> -->
+	<script src='vue1.js'></script>
+
+</head>
+
+<body>
+	<style>
+		input {
+			width: 30px;
+			height: 30px;
+			border: 1px solid #dddddd;
+			text-align: center;
+			background-color: #ffffff;
+			color: #252525;
+		}
+	</style>
+
+	<div id="app">
+		<span>系统售价：{{mprice}}</span><br>
+		<label for="">折后价：</label>
+		<input type="text" :value='msg.price' v-model='salePrice' v-el:price><br>
+
+		<label for="">折扣率：</label><input type="text" :value='msg.lvshu' v-model='zhekoulv'>
+	</div>
+	<script>
+		new Vue({
+			el: "#app",
+			data: {
+				mprice: 20,
+				msg: {
+					price: 20,
+					lvshu: 1
+				},
+				salePrice: '',
+				zhekoulv: ''
+			},
+			watch: {
+				salePrice: function() {
+					if (this.salePrice <= this.mprice) {
+						var zhekoulv = this.salePrice / this.mprice;
+						this.zhekoulv = zhekoulv.toFixed(2);
+					} else {
+						this.salePrice = this.mprice
+					}
+				},
+				zhekoulv: function() {
+					if (this.zhekoulv > 1 || this.zhekoulv <= 0) {
+						this.zhekoulv = 1;
+					} else {
+						var salePrice = this.zhekoulv * this.mprice;
+						this.salePrice = salePrice
+					}
+
+				}
+			}
+
+		})
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.staticfile.org/vue/2.2.6/vue.js'></script>
+
+</head>
+<style>
+    .aa.active {
+        color: red;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <div class="aa" @click='dianji($event)'>
+            点击这里切换颜色
+        </div>
+        <div v-show='b'>被点击后展开的</div>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                b: false
+            },
+            methods: {
+                dianji(e) {
+                    if (e.currentTarget.className.indexOf('active') > -1) {
+                        this.b = false;
+                        e.currentTarget.classList.remove("active");
+                    } else {
+                        this.b = true;
+                        e.currentTarget.classList.add("active");
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

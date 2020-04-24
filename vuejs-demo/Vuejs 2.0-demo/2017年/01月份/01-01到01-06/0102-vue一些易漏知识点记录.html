@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        export default {
+            data() {
+                return {
+
+                }
+            },
+            watch: {
+                '$route' (to, from) {
+                    //打印出的会是当前路由的路径
+                    console.log(to.path)
+                    //打印出的会是上一个路由的路径（ 会打印出跳转到当前路由的前一路由路径 ）
+                    console.log(from.path)
+                }
+            }
+        }
+    </script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+根元素：在2.0中template下需要有一个根元素（clock_wrap），否则会报错；
+
+路由导航：在1.0中我们通过v-link来指定导航链接，
+在2.0中可以直接使用router-link组件来导航，在浏览器中渲染后是一个a标签,并且会自动设置选中的class属性值.router-link-active， 然后通过to 属性指定链接；
+
+过渡：在1.0中通过在目标元素（router-view）使用transition与transition-mode添加过渡，
+在2.0中，则改成了使用transition标签包裹目标元素，可以自定义name过渡，也可以使用自带的mode添加过渡动效(如mode=”out-in”)，2.0中也支持通过$route设置基于路由的动态过渡；
+
+钩子：在1.0中的ready已经被mounted取代，此外2.0还新增了beforeMount、beforeUpdate、update等
+
+<!-- ----------------------------------------------------------------------------- -->
+
+ v-else-if：在2.1中新增了v-else-if，类似于js中的else if，不能单独使用，需跟在v-if之后；
+
+<!-- ----------------------------------------------------------------------------- -->
+
+watch 倘若监听不到内部数据的变化的时候，
+
+层级深的时候
+
+请记得加上 deep:true 这个属性值
+
+
+watch 倘若监听不到内部数据的变化的时候，
+
+层级深的时候
+
+请记得加上 deep:true 这个属性值
+
+<!-- ----------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

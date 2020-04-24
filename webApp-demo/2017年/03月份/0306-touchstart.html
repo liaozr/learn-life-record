@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	touchstart  touchend 是原生事件来的
+
+	jquery也有的，不是写在框架里面
+
+	是浏览器的默认事件来的。
+
+  这段代码的作用是  移动端开发中，有个触摸的一些提示键来的，
+
+  就是触摸上去，元素背景变色之类的，然后触摸结束就变回之前的样子，有个交互的效果。
+
+  移动端开发中就用  touchstart touchend 表示的。
+
+	<script>
+       $(".box-list .list a").on("touchstart",function(){
+       	 var _this=$(this);
+         _this.addClass("cur")
+       })
+       $(".banshi-dating .sort-list .box-list .list a").on("touchend",function(){
+       	  var _this=$(this);
+         _this.removeClass("cur")
+       })
+	</script>
+
+
+</body>
+</html>

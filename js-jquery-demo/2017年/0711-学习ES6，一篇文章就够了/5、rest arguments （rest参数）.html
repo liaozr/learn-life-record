@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    rest arguments（ rest参数）
+
+    解决了 es5 复杂的 arguments 问题
+
+    <script>
+
+        function foo(x, y, ...rest) {
+            return ((x + y) * rest.length);
+        }
+
+        foo(1, 2, 'hello', true, 7);  // 9
+
+    </script>
+
+</body>
+
+</html>

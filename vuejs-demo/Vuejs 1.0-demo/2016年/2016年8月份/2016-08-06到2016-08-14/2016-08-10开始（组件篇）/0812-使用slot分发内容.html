@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+</head>
+<body>
+	<!--  为了让组件 可以组合，我们需要一种方式来混合父组件的内容与子组件自己的模版，这个处理成为内容分发，使用热数的 <slot>作为原始内容的插槽  -->
+
+    <!-- 如果不理解这段话，可以先跳过，你只要知道<slot>元素是一个内容插槽。 -->
+    
+
+    <!-- 取决于 template 里的数据 -->
+
+
+	<!--小凡：特意加上编号，以便了解 slot 渲染的顺序-->
+    <!--职位：规划主管-->
+    <div id="vm">
+        <my-component>
+            <p>4.~view 层~</p>
+            <p>5.This is some original content</p>
+            <p>6.This is some more original content</p>
+        </my-component>
+    </div>
+    <!--职位：工程师 a君-->
+    <template id="my-component">
+        <div>
+            <h1>1.~template 层~</h1>
+            <h1>2.This is my component!</h1>
+            <slot>
+                3.view 层中的 内容，会显示在这里！
+            </slot>
+
+            <!-- 在这里的功能就是 -->
+
+            <!--
+            <p>4.~view 层~</p>
+            <p>5.This is some original content</p>
+            <p>6.This is some more original content</p>
+
+            这三句p标签 替换了slot这个标签
+
+            <slot>元素是一个内容插槽
+           -->
+        </div>
+    </template>
+    <script>
+    Vue.component('my-component', {
+        template: '#my-component',
+
+    });
+    var vm = new Vue({
+        el: '#vm',
+        data: {
+            msg: []
+        },
+    });
+    </script>
+
+
+ <!-- --------------------------------------------------------------------------------------    -->
+
+     <!-- 指定名称的slot -->
+
+
+<!--      上面这个示例是一个匿名slot，它只能表示一个插槽。如果需要多个内容插槽，则可以为slot元素指定name属性。
+
+多个slot一起使用时，会非常有用。例如，对话框是HTML常用的一种交互方式。
+在不同的运用场景下，对话框的头部、主体内容、底部可能是不一样的。 -->
+
+
+
+     <!-- <slot>元素可以用一个特殊属性 name配置如何分发内容。多个slot可以有不同的名字，具名slot将匹配内容片段中有对应'slot'特性的元素。   --> 
+
+     <!-- 仍然可以有一个匿名slot,它是默认slot.作为找不到匹配的内容片段的回退插槽。如果没有默认的slot，这些找不到匹配的内容片段将被抛弃。
+
+     这里要注意的是匿名slot是将template中所有找不到匹配的内容片段 回退到插槽（  <slot></slot> ）里的。
+
+      -->
+  
+
+    <!--小凡：特意加上编号，以便了解 slot 渲染的顺序-->
+    <div id="vm1">
+        <parent></parent>
+    </div>
+
+    <!--职位：规划主管-->
+    <template id="parent1">
+
+        <h3>A君</h3>
+
+        <multi-insertion>
+            <p slot="one">1.One</p>
+            <p slot="two">2.Two</p>
+            <p>3.Default A</p>
+            <h4 slot="four">4.Four</h4>
+            <p slot="five">5.Five</p>
+            <h5>3.Default A</h5>
+        </multi-insertion>
+
+        <hr>
+        <h3>B君</h3>
+        <multi-insertion1>
+            <p slot="one">1.One</p>
+            <p slot="two">2.Two</p>
+            <p>3.Default A</p>
+            <h4 slot="four">4.Four</h4>
+            <p slot="five">5.Five</p>
+            <h5>3.Default A</h5>
+        </multi-insertion1>
+
+    </template>
+
+
+    <!--职位：工程师 a 君-->
+    <template id="multi-insertion">
+        <div>
+            <slot></slot>
+            <slot name="five"></slot>
+            <slot name="four"></slot>
+            <slot name="one"></slot>
+            <slot></slot>
+            <slot name="two"></slot>
+        </div>
+    </template>
+
+    <!--职位：工程师 b 君-->
+    <template id="multi-insertion1">
+        <div>
+            <slot></slot>
+            <slot name="five"></slot>
+            <slot name="five"></slot>
+            <slot name="five"></slot>
+            <slot name="five"></slot>
+            <slot name="five"></slot>
+            <slot name="five"></slot>
+            <slot name="five"></slot>
+            <slot name="four"></slot>
+            <slot name="one"></slot>
+            <slot name="two"></slot>
+        </div>
+    </template>
+
+
+    <script>
+    Vue.component('parent', {
+        template: '#parent1',
+
+    });
+    Vue.component('multi-insertion', {
+        template: '#multi-insertion',
+
+    });
+    Vue.component('multi-insertion1', {
+        template: '#multi-insertion1',
+
+    });
+    var vm = new Vue({
+        el: '#vm1',
+    });
+    </script>
+
+
+<!-- --------------------------------------------------------------------------- -->
+
+<div id="app9">
+    <modal-dialog v-bind:show.sync="show" v-bind:class="dialogClass">
+
+        <header class="dialog-header" slot="header">
+            <h1 class="dialog-title">提示信息</h1>
+        </header>
+
+        <div class="dialog-body" slot="body">
+            <p>你想在对话框中放什么内容都可以！</p>
+            <p>你可以放一段文字，也可以放一些表单，或者是一些图片。</p>
+        </div>
+
+        <footer class="dialog-footer" slot="footer">
+            <button class="btn" @click="closeDialog">关闭</button>
+        </footer>
+    </modal-dialog>
+
+    <button class="btn btn-open" @click="openDialog">打开对话框</button>
+</div>
+
+
+<template id="dialog-template">
+    <div class="dialogs">
+        <div class="dialog" v-bind:class="{ 'dialog-active': show }">
+            <div class="dialog-content">
+                <div class="close rotate">
+                    <span class="iconfont icon-close" @click="close"></span>
+                </div>
+                <slot name="header"></slot>
+                <slot name="body"></slot>
+                <slot name="footer"></slot>
+            </div>
+        </div>
+        <div class="dialog-overlay"></div>
+    </div>
+</template>
+
+ <script>
+    Vue.component('modal-dialog', {
+        template: '#dialog-template',
+        props: ['show'],
+        methods: {
+            close: function() {
+                this.show = false
+            }
+        }
+    })
+
+    new Vue({
+	    el: '#app9',
+	    data: {
+	        show: false,
+	        dialogClass: 'dialog-info'
+	    },
+	    methods: {
+	        openDialog: function(dialogClass) {
+	            this.show = true
+	            this.dialogClass = dialogClass
+	        },
+	        closeDialog: function() {
+	            this.show = false
+	        }
+	    }
+   })
+
+</script>
+<!-- ------------------------------------------------------------------------- -->
+
+
+
+</body>
+</html>

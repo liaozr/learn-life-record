@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // var a = 0;
+        var _this=window;
+
+        var rotateloop=function() {
+            a++;       
+            if(a == 5){
+
+                 clearInterval(time)
+                 
+                 //time is not defined                
+                //  这里要注意的是,如果下面的那个 beginrotate
+                // 这个函数里面的 time 变量如果是用 var形式的话，
+                // 表明这个time 的作用yu是在 beginrotate这个函数里面的
+                // 并不是全局作用yu，而rotateloop 这个函数是在setInterval
+                // 里面的，里面的变量的作用yu 是指向window的，而time  并没有在 
+                // 全局作用yu下定义，所以 执行 clearInterval(time)的时候，会报
+                // time is not defined的 ，因为 time变量是在 函数 beginrotate里面 
+                // 定义的，属于 局部变量。
+
+
+                 console.log(a) // 5
+                 console.log(this)
+                 // Window     
+
+            }
+        }
+        
+
+        function beginrotate() {
+            _this.a=1;
+            
+            _this.time=setInterval(rotateloop, 1000);
+            // var time=setInterval(rotateloop, 1000);
+
+        }
+        beginrotate()
+
+    </script>
+</body>
+
+</html>

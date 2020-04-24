@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+拦截ajax请求
+
+mock.js默认是支持拦截页面ajax请求的，直接按照官方文档说的来就可以了：
+
+Mock.mock( rurl, template )
+
+记录数据模板。当拦截到匹配 rurl 的 Ajax 请求时，将根据数据模板 template 生成模拟数据，并作为响应数据返回。
+
+<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="http://mockjs.com/dist/mock.js"></script>
+
+ajax出来的name值：
+<div class="ajax">
+</div>
+<script>
+
+    Mock.mock('/api/getName', {
+        name: 'Jack',
+        'age|10-20': 10
+    });
+
+    function makeRequest() {
+        $.ajax({
+            type: 'GET',
+            url: '/api/getName',
+            dataType: 'json',
+            success: function(data) {
+                var name=data.name
+                $('.ajax').html(name);
+                console.log(data)
+            }
+        });
+    }
+
+    makeRequest()
+
+</script>
+
+</body>
+</html>

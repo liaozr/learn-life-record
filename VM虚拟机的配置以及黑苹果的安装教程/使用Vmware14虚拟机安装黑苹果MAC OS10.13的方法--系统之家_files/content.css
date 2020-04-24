@@ -1,0 +1,241 @@
+@charset "utf-8";
+/* CSS Document */
+.c_content{
+	width:980px;
+	margin:0 auto;
+	}
+.c_content_left{
+	width:700px;
+	float:left;
+	}
+	
+.con_title{
+	padding: 5px 0px;
+	text-align: center;
+	border-bottom: 1px dashed #999;
+	
+	}
+.con_title h1{
+	font-size:20px;
+	font-family:Microsoft Yahei;
+	font-weight:700;
+	margin-bottom:20px;
+	}
+.con_title span{
+	font-size: 12px;
+	color: #888;
+	overflow: hidden;
+	font-family:Microsoft Yahei;
+	}
+.con_con{
+	margin-bottom:10px;
+	overflow:hidden;
+	line-height: 35px;
+	word-break: break-all;
+	}
+.con_con *{
+        font-size:15px;
+	line-height: 28px;
+	}
+.con_about:after {content: "."; display: block; height:0; clear:both; visibility: hidden;}
+.con_about_title{
+	font-size:16px;
+	border-bottom:2px solid #0C760A;
+	padding-bottom:5px;
+	color:#0C760A;
+	}
+.con_about ul li{
+	float:left;
+	margin-right:10px;
+	margin-bottom:10px;
+	}
+.con_about ul li a:hover{
+	color:#f60;
+	}
+.con_about ul {
+	padding:10px 20px;
+	}
+.con_about_listimg img{
+	width:120px;
+	height:100px;
+	border-radius: 5px;
+	box-shadow: 3px 3px 3px #CCC;
+	}
+.con_about_listtitle{
+	padding-top:5px;
+	font-size:12px;
+	display:block;
+	width:120px;
+	word-break:break-all;
+	overflow:hidden;
+	height: 32px;
+	}
+	
+
+	
+.con_download{
+	margin-bottom:20px;
+	}
+.con_download_title{
+	color:#0C760A;
+	border-bottom:2px solid #0C760A;
+	padding-bottom:5px;
+	margin-bottom:20px;
+	font-size: 16px;
+	}
+.gaosu{
+	float: left;
+	width: 670px;
+	margin-left:15px;
+	}
+.gaosu div{
+	float: left;
+	font-size: 15px;
+	color: #F00;
+	line-height: 26px;
+	height: 70px;
+	}
+.gaosu li{
+	width: 150px;
+	display: block;
+	height: 33px;
+	float: left;
+	}
+.gaosu li a{
+	background: url('../images/downloadbq.png') no-repeat scroll 0px 0px transparent;
+	width: 75px;
+	display: block;
+	height: 27px;
+	line-height: 27px;
+	padding-left: 42px;
+	color: #FFF;
+	font-size: 14px;
+	float: left;
+	margin-bottom: 5px;
+	}
+.baidu{
+	float: left;
+	width: 670px;
+	margin-left:15px;
+	}
+.baidu div{
+	float: left;
+	font-size: 15px;
+	color: #F00;
+	line-height: 26px;
+	height: 40px;
+	}
+.baidu li{
+	width: 150px;
+	display: block;
+	height: 33px;
+	float: left;
+	}
+.baidu li a{
+	background: url('../images/downloadbq.png') no-repeat scroll 0px 0px transparent;
+	width: 75px;
+	display: block;
+	height: 27px;
+	line-height: 27px;
+	padding-left: 42px;
+	color: #FFF;
+	font-size: 14px;
+	float: left;
+	margin-bottom: 5px;
+	}
+.xunlei{
+	float: left;
+	width: 670px;
+	margin-left:15px;
+	}
+.xunlei div{
+	float: left;
+	font-size: 15px;
+	color: #F00;
+	line-height: 26px;
+	height: 80px;
+	}
+.xunlei li{
+	width: 150px;
+	display: block;
+	height: 33px;
+	float: left;
+	}
+.xunlei li a{
+	background: url('../images/downloadbq.png') no-repeat scroll 0px 0px transparent;
+	width: 75px;
+	display: block;
+	height: 27px;
+	line-height: 27px;
+	padding-left: 42px;
+	color: #FFF;
+	font-size: 14px;
+	float: left;
+	margin-bottom: 5px;
+	}
+.con_title_img{
+	float:left;
+	}
+.con_title_img img{
+	width: 200px;
+	height: 180px;
+	border-radius: 5px;
+	box-shadow: 3px 3px 3px #CCC;
+	}
+
+.con_info ul li{
+	float: left;
+	width: 220px;
+	text-align: left;
+	padding-left: 20px;
+	font-size: 12px;
+	margin-bottom: 10px;
+	}
+	
+.con_info ul li.longs{width:480px}	
+.soft_info_h{
+	height:210px;
+	}
+#soft_h1{
+	font-size: 18px;
+	text-align: left;
+	margin-left: 20px;
+	float: left;
+	width: 480px;
+	}
+ .xxdj5{width:68px;  background:url('../images/xxs.png') no-repeat; height:15px; background-position:0 4px;display: inline-block;}
+ .xxdj4{width:68px;  background:url('../images/xxs.png') no-repeat; height:15px; background-position:-14px 4px;display: inline-block;}
+ .xxdj3{width:68px;  background:url('../images/xxs.png') no-repeat; height:15px; background-position:-28px 4px;display: inline-block;}
+ .xxdj2{width:68px;  background:url('../images/xxs.png') no-repeat; height:15px; background-position:-41px 4px;display: inline-block;}
+ .xxdj1{ width:68px;  background:url('../images/xxs.png') no-repeat; height:15px;background-position:-55px 4px;display: inline-block;}
+ .ds-powered-by{display:none;}
+ 
+ 
+ .con_info .agrdwm a{display:block;height:42px;width:133px;text-indent:-5555px;background:url(../images/domic.png) no-repeat 0 -98px;float:right;margin-left:13px}
+ .con_info .agrdwm a:hover{background-position:0 -140px}
+ .con_info .agrdwm a.dwm_address{background-position:-133px -98px}
+ .con_info .agrdwm a.dwm_address:hover{background-position:-133px -140px}
+
+
+.c_content_left .info_tit,.con_download .info_tit{padding-left:18px;height:34px;line-height:34px;background-color:#f0f7ff;border-top:1px dashed #dedede;width:auto;font-weight:700}
+.con_download .dwmfs span img{vertical-align:middle; margin-top:6px;}
+
+
+.con_download .dfscnt{padding:21px 18px 3px;*zoom:1;*padding-bottom:21px}
+/*.con_download .dfscnt li{height:25px;margin-bottom:18px;float:left}
+.con_download .dfscnt li a{display:block;width:231px;color:#000;font-weight:700;height:25px;line-height:25px;background:url(../images/listics.png) no-repeat 0 -80px;padding-left:34px}
+.con_download .dfscnt li a:hover{ text-decoration:underline;}
+.con_download .dfscnt li a.bendi{background-position:0 -105px}*/
+
+.dlLinks {margin: 0 0 20px;}
+.dlLinks li {line-height: 50px;overflow: hidden;width:100%; height:100%;}
+.dlLinks strong {color: #666666;overflow: hidden;white-space: nowrap;width: 80px;float: left;height: 34px;line-height: 43px;overflow: hidden;}
+.dlLinks li .aLink {float: left;width: 546px;}
+.dlLinks li .aLink a {font-size:14px;background: url("../images/xdlexp.png.pagespeed.ic.h0DdZO2BGl.png") no-repeat scroll 0 0 transparent;color: #FFFFFF;display: inline;float: left;font-weight: bold;height: 26px;line-height: 26px;margin: 9px 10px 0 0;overflow: hidden;padding: 0 0 0 25px;text-align: center;text-decoration: none;width: 92px;float:left;}
+.dlLinks li .aLink a.load_qk{background: url("../images/xlkc.gif.pagespeed.ce.tLzx8ghl0b.gif") no-repeat;}
+.dlLinks li .aLink .aFlashget {background-position: -240px 0;width: 92px;}
+.dlLinks li .aLink .aThunder {background-position: -120px 0;}
+
+
+.fye { padding-top:8px;margin-left:20px;width:640px; clear:both; padding-left:0px;border-top-color: #D2D2D2; border-width:1px; border-top-style:solid;}
+.fye div { padding-bottom:10px;}

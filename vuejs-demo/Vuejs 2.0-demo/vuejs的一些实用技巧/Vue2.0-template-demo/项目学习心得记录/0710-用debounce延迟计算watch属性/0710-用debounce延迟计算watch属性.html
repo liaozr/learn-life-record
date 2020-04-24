@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  debounce 去抖 尤其适合在输入这种高频的操作中实时计算属性值
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+  <script>
+    data: {
+        text: '',
+        inputing: false
+      },
+      watch: {
+        text: _.debounce(function() {
+          this.inputing = false
+        }, 1000)
+      }
+  </script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+  顺手写个简单的 v-debounce 指令, 如下：
+
+  <script>
+      const debounce = (fn, delay) {
+        let timer = null
+        return function() {
+          clearTimeout(timer)
+          timer = setTimeout(_ => {
+            fn.apply(this, arguments)
+          }, delay)
+        }
+      }
+
+      directive.debounce = debounce
+
+      function directive(el, binding) {
+        if (binding.value !== binding.oldValue) { // change debounce only if interval has changed
+          el.oninput = directive.debounce(_ => {
+            el.dispatchEvent(new Event('change'))
+          }, parseInt(binding.value) || 500)
+        }
+      }
+      module.exports = directive
+  </script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+  Vue.js 中使用 v-debounce:
+
+  <input v-debounce="delay" v-model="text" />
+  <p> {{text}} </p>
+  <script>
+    import debounce from './debounce.js'
+    export default {
+      data() {
+        return {
+          text: 'some words',
+          delay: 500
+        }
+      },
+      directives: {
+        debounce
+      }
+    }
+  </script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

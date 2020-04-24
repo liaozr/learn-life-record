@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			.mui-popover{
+				display: none;
+				position: fixed;
+				width: 80%;
+				height: auto;
+				border-radius: 0;
+	    		left: 50%;
+	    		top: 50%;
+	    		margin: 0 auto;
+	    		z-index: 9999;
+	    		background-color: #fff;
+			    -webkit-transform: translateX(-50%) translateY(-50%);
+			    -moz-transform: translateX(-50%) translateY(-50%);
+			    -ms-transform: translateX(-50%) translateY(-50%);
+			    transform: translateX(-50%) translateY(-50%);
+			}
+			.mui-popover-arrow{
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="pop" class="mui-popover">
+			<ul class="mui-table-view">
+		    	<li class="mui-table-view-cell"><a href="#">Item1</a></li>
+		    	<li class="mui-table-view-cell"><a href="#">Item2</a></li>
+		    	<li class="mui-table-view-cell"><a href="#">Item3</a></li>
+		    	<li class="mui-table-view-cell"><a href="#">Item4</a></li>
+		    	<li class="mui-table-view-cell"><a href="#">Item5</a></li>
+		    </ul>
+		</div>
+		
+		<div class="mui-content mui-content-padded">
+		    <button id="openPopover" type="button" class="mui-btn mui-btn-blue mui-btn-block">打开弹出菜单</button>
+		</div>
+		
+		<script src="./js/mui.js"></script>
+		<script src="./js/popover.js"></script>
+		<script type="text/javascript">		
+			var pop = new popover('#pop');
+			document.querySelector('#openPopover').addEventListener('tap',function () {
+			    pop.open();
+			})
+			
+			mui('.mui-table-view').on('tap','li a',function(){
+			  	mui.toast(this.innerHTML);
+			  	pop.close();
+			}) 
+		</script>
+	</body>
+
+</html>

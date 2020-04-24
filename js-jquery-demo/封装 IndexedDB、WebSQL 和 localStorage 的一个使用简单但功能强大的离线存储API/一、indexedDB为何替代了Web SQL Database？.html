@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ------------------------------------------------------------------------------------- -->
+
+  HTML5 indexedDB和Web SQL Database都是本地数据库数据存储，
+
+  Web SQL Database数据库要出来的更早，然并卵。
+
+  从2010年11月18日W3C宣布舍弃Web SQL database草案开始，就已经注定Web SQL Database数据库是明日黄花。
+
+  未来一定是indexedDB的，从目前浏览器的兼容性来看，也表明了这种结果：
+
+  indexedDB兼容性表
+
+  web sql数据库兼容性
+
+  可以看到IE和Firefox并不支持Web SQL Database，基本上可以断定永远也不会支持，规范都不认可，实在没有浪费精力去支持的理由。
+
+  好，现在我们知道了indexedDB取代Web SQL Database大局已定，那大家知道为何Web SQL Database会被舍弃吗？
+
+  <!-- ------------------------------------------------------------------------------------- -->
+
+  下面是一段Web SQL Database代码：
+
+  database.transaction(function(tx) {
+      tx.executeSql("CREATE TABLE IF NOT EXISTS tasks (id REAL UNIQUE, text TEXT)", []);
+  }
+  
+  可以看到直接把SQL语句弄到JS中了，主流的关系型数据库即视感，这么设计看上去似乎无可厚非，
+
+  但恰恰这个设计成为了Web SQL Database被舍弃的重要原因之一：
+
+  一是学习成本高了很多，SQL虽然本身并不复杂，但跨度较大，
+
+  例如我司玩JS的工程师和玩SQL的工程师中间还隔了个玩php的工程师；二是本身使用很不方便，需要把JS对象转换成关系型的字符串语句，很啰嗦的。
+
+  而indexedDB直接JS对象入库，无缝对接。
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+  下表为更详细的indexedDB和Web SQL Database对比内容：
+
+  WebSQL	IndexedDB
+  优点	真正意义上的关系型数据库，类似SQLite（SQLite是遵守ACID的轻型的关系型数据库管理系统）
+  允许对象的快速索引和搜索，因此在Web应用程序场景中，您可以非常快速地管理数据以及读取/写入数据。
+  由于是NoSQL数据库，因此我们可以根据实际需求设定我们的JavaScript对象和索引。
+  在异步模式下工作，每个事务具有适度的粒状锁。这允许您在JavaScript的事件驱动模块内工作。
+
+  不足
+  规范不支持啦
+  由于使用SQL语言，因此我们需要掌握和转换我们的JavaScript对象为对应的查询语句。
+  非对象驱动。
+  如果你的世界观里面只有关系型数据库，恐怕不太容易理解。
+  位置	包含行和列的表。	包含JavaScript对象和键的存储对象。
+  查询机制	SQL	Cursor APIs，Key Range APIs，应用程序代码
+  事务	锁可以发生在数据库，表，行的“读写”时候。	锁可以发生在数据库版本变更事务，或是存储对象“只读”和“读写”事务时候。
+  事务提交	事务创建是显式的。默认是回滚，除非我们调用提交。	事务创建是显式的。默认是提交，除非我们调用中止或有一个错误没有被捕获。
+  STOP!
+
+  不能再继续说下去了，估计看完上面对比表中的内容，已经有很多同学已经有些不知所以然了，因为其中涉及到了很多数据库相关的概念，要想轻松理解上面内容以及更轻松掌握indexedDB的相关知识，这些概念还是需要掌握的。
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

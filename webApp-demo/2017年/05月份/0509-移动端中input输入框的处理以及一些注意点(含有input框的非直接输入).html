@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+  <!-- ------------------------------------------------------------------------------ -->
+
+    监听compositionend（当直接的文字输入时触发）这时，当没选中中文的时候不会进行字数判断。
+
+    <input type="text" id='input'>
+
+    <script type="text/javascript">
+
+        $('#input').on('compositionend', function(e) {
+
+            var len = $(this).val().length;
+            if (len > 16) {
+
+              console.log("已输入16个中文了")
+                // 提示超过16字
+            }
+            
+        });
+
+    </script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+
+
+
+
+</body>
+
+</html>

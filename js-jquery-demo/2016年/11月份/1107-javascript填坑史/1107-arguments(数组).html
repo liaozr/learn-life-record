@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+    function sidEffecting(ary) {
+        ary[0] = ary[2];
+    }
+
+    function bar(a, b, c) {
+        c = 10
+        sidEffecting(arguments);
+        return a + b + c;
+    }
+    alert( bar(1, 1, 1) ) //弹出的值为21
+</script>
+
+此题涉及ES6语法，实在坑的不行…arguments
+
+首先 The arguments object is an Array-like object corresponding to the arguments passed to a function.也就是说 arguments 是一个 object, c 就是 arguments2, 所以对于 c 的修改就是对 arguments2 的修改.
+
+所以答案是 21.
+
+然而!!!!!!
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+当函数参数涉及到 any rest parameters, any default parameters or any destructured parameters 的时候,
+
+这个 arguments 就不在是一个 mapped arguments object 了…..请看:
+
+<script>
+    function sidEffecting(ary) {
+        ary[0] = ary[2];
+    }
+
+    function bar(a, b, c = 3) {
+        c = 10
+        sidEffecting(arguments);
+        return a + b + c;
+    }
+  alert( bar(1, 1, 1) ) //弹出的值为12
+</script>
+
+答案是12…
+请读者细细体会!!
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+</html>

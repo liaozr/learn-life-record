@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+router-link 不能绑事件  不能跟@click一起用
+
+
+<router-link to="/useradd" tag='button' @click='addUser'>添加</router-link>
+
+router-link 不能绑事件  不能跟@click一起用
+
+<router-link to="/useradd" tag='button' @click='addUser'>添加</router-link>
+
+
+这样是错误的，是会出现异常的，数据出不来。
+
+
+</body>
+</html>

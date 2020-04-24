@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+1、computed计算属性函数中不能使用vm变量
+
+在计算属性的函数中，不能使用Vue构造函数返回的vm变量，
+
+因为此时vm还未返回，依然处于Vue内部构造函数过程中，遂只能使用this来代替vm。
+
+如下面：
+<script>
+    computed: {
+        computedList: function() {
+            var vm = this
+            return this.list.filter(function(item) {
+                return item.msg.toLowerCase().indexOf(vm.query.toLowerCase()) !== -1
+            })
+        }
+    }
+</script>
+
+若要使用typescript，可使用以下方法来实现代码智能感知
+
+vm = vm || this;
+
+另：其他不能用vm变量，只能使用this变量的地方，都可以通过此方法来获得Typescript的智能感知和代码语法检查，比如mounted生命周期系列函数等。
+
+不过模板里的vm引用Typescript无能为力，只能等待ts支持vue的jsx语法了╮(╯_╰)╭
+
+<!-- -------------------------------------------------------------------------------- -->
+
+2、计算属性中不能引用其他计算属性？
+
+官方教程中没有找到相关说明(应该是我没找到)，从使用角度而言大致可以总结出以下结论：
+
+计算属性必须引用（依赖）非计算属性或固定值。（见demo1）
+
+计算属性若引用（依赖）其他计算属性，则被引用的计算属性必须引用非计算属性或固定值（见demo2）
+
+计算属性可循环依赖，但最终依赖链上的最上游的计算属性，必须引用非计算属性或固定值
+。
+DEMO1：官方标准用法，计算属性引用非计算属性：
+
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            dataVal: "xxcanghai"
+        },
+        computed: {
+            computedVal1: function() {
+                //标准用法，计算属性引用非计算属性
+                return this.dataVal + "_1"; //输出 xxcanghai_1
+            }
+        }
+    });
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+DEMO2：计算属性链式依赖其他计算属性，则依赖链头必须引用非计算属性或固定值
+
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            dataVal: "xxcanghai"
+        },
+        computed: {
+            computedVal1: function() {
+                return this.dataVal + "_1";
+            },
+            computedVal2: function() {
+                //合法，计算属性computedVal2引用computedVal1，computedVal1再引用dataVal
+                return this.computedVal1 + "_2"; //输出 xxcanghai_1_2
+            }
+        }
+    });
+</script>
+
+原因很容易理解，如果最终没有引用或依赖任何非计算属性，那么计算属性在计算时会陷入死循环。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+</body>
+</html>

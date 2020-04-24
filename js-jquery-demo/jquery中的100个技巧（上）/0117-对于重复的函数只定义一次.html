@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    如果你追求代码的更高性能，那么当你设置事件监听程序时必须小心，只定义一次函数然后把它的名字作为事件处理程序传递是不错的方法。
+
+    <script>
+        $(document).ready(function() {
+            function showMenu() {
+                alert('Showing menu!');
+                // Doing something complex here
+            }
+
+            $('#menuButton').click(showMenu);
+            $('#menuLink').click(showMenu);
+
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+ <!-- ---------------------------------------------------------------------------------------------------- -->
+
+    search.vue组件里面
+
+    <div class="search-box-wrapper">
+        <searchBox ref="searchBox" @search='search'></searchBox>
+    </div>
+
+    <div class="shortcut-wrapper">
+        <div class="shortcut">
+            <div class="hot-key">
+                <h1 class="title">热门搜索</h1>
+                <ul>
+                    <li @click='addQuery(item.k)' class='item' v-for="item in hotkey" :key='item.id'>
+                        <span>{{item.k}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/ecmascript-6">
+        import searchBox from '@c/searchBox/searchBox'
+
+        export default{
+            components:{
+               searchBox
+            },
+            methods:{
+                search(){
+
+                },
+                // 点击这个事件要把值传给 子组件 searchBox.vue里面的input输入框的话
+                // 解决办法就是可以用ref来解决，拿到他的ref，然后直接执行这个组件下的 方法即可。
+                addQuery(query){
+                  this.$refs.searchBox.setQuery(query)
+                }
+            }
+        }
+
+    </script>
+
+    <!-- ---------------------------------------------------------------------------------------------------- -->
+
+    searchBox组件里面
+
+    <input ref='searchInput' v-model='query' :placeholder="placeholader" class="box"/>
+
+    <script>
+
+          export default{
+               data(){
+                   return{
+                       query:""
+                   }
+               },
+               props:{
+                  placeholader:{
+                      type:String,
+                      default:"搜索歌曲、歌手"
+                  }
+               },
+               methods:{
+                   setQuery(query){
+                     this.query = query
+                   }
+               }
+          }
+
+    </script>
+
+    <!-- ---------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

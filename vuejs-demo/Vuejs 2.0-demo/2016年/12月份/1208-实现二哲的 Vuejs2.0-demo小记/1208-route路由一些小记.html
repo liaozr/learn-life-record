@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+   $route.path 是当前路由对象的路径，会被解析为绝对路径当
+
+   $route.path !== '/time-entries/log-time' 为 true 时显示，false，为不显示。
+
+   to 路由跳转地址
+
+   <router-link
+    v-if="$route.path !== '/time-entries/log-time'"
+    to="/time-entries/log-time"
+    class="btn btn-primary">
+    创建
+  </router-link>
+
+<!-- --------------------------------------------------------------------------- -->
+
+  <div v-if="$route.path === '/time-entries/log-time'">
+     <h3>创建</h3>
+  </div>
+
+
+   <h2>User {{ $route.params.id }}</h2>
+
+   <!--
+     plans 是vuex里面的数据来的 ，plans一个数组，
+     判断plans的数组长度。没有数据的话再把这句话给显示出来。
+   -->
+  <p v-if="!plans.length"><strong>还没有任何计划</strong></p>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+路由配置中，子路由children 下的path 路径 是不用再写 / 的，记得
+
+<script>
+    const routes = [
+        {
+          path: '/',
+          component: Home
+        },
+        {
+          path: '/home',
+          component: Home
+        },
+        {
+          path: '/time-entries',
+          component: TimeEntries,
+          children: [
+              {
+                path:'log-time',
+                // 这里不用再写 / 如：
+                // path:'/log-time' 这样子写是不会有数据出来的。
+                component: LogTime
+              }
+          ]
+        }
+     ]
+</script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+<!-- 编程式导航 -->
+<script>
+    save() {
+        this.$router.push({
+            path: '/time-entries'
+        })
+    }
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+</body>
+</html>

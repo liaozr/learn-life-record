@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="知了云课堂" />
+		<meta name="Description" content="知了云课堂" />
+		<title>知了云课堂</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+	</head>
+	<style>
+		html,body {
+				min-height: 100%;
+				background: #efeff4;
+				background-color: #efeff4;
+			}
+		.cc-loading {
+				color: gray;
+				text-align: center;
+				font-size: 16px;
+				padding: 15px;
+				background: #efeff4;
+				background-color: #efeff4;
+				border: none;
+		}
+		.main {
+			width: 100%;
+			overflow: hidden;
+		}
+		.main>ul {
+			//margin-top: .3rem;
+		}
+		
+		.title-box {
+			width: 100%;
+			float: left;
+			padding:.05rem .2rem ;
+			border:none;
+			z-index: 1;
+			position: relative;
+		}
+		
+		
+		.title1 {
+			display: inline-block;
+			float: left;
+			font-size: .4rem;
+			color: #333;
+		}
+		
+		.title2 {
+			display: inline-block;
+			float: left;
+			font-size: .4rem;
+		}
+		
+		
+	</style>
+	<body>
+		<div id="pullrefresh" class=" mui-content mui-scroll-wrapper">
+				<div class="mui-scroll main">
+					<ul class="mui-table-view mui-table-view-chevron" v-for="key in vueDataArr" @click="goToDetail(key)">
+						<li class="mui-table-view-cell" style="padding:.2rem 0;">
+							<p  class="title-box" >
+								<span class="title1">{{key.title}}</span>
+							</p>
+							<p  class="title-box">
+								<span class="title2">{{key.remark}}</span>
+							</p>
+						</li>
+					</ul>
+				</div>
+		</div>
+
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/zepto1.1.6.min.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script src="js/locStorage.js"></script>
+	<script src="js/url.js"></script>
+	<script>
+		   var dataArr = [];
+		   var page =1;
+		   var empId = localStorage.getItem($.locStorage.emp.empId);
+		   
+		   //初始化下拉刷新模块  
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						callback: pulldownRefresh
+					},
+//					up: {
+//						contentrefresh: '正在加载...',
+//						callback: pullupRefresh
+//					}
+				}
+			});
+			
+			if (mui.os.plus) {
+				mui.plusReady(function() {
+					setTimeout(function() {
+						mui('#pullrefresh').pullRefresh().pulldownLoading();
+					}, 1000);
+
+				});
+			} else {
+				mui.ready(function() {
+					mui('#pullrefresh').pullRefresh().pulldownLoading();
+				});
+			}
+			
+			
+			
+			function pulldownRefresh() {
+				page = 1;
+				console.log('pulldown 刷新');
+				getData();
+			};
+			
+			function pullupRefresh(){
+				page++;
+				console.log('pullup 加载更多');
+				getData();
+			}
+			
+			var vm = new Vue({
+				el: '#pullrefresh',
+				data: {
+					vueDataArr: dataArr
+				},
+				methods:{
+						goToDetail:function(key){
+							console.log(JSON.stringify(key));
+							mui.openWindow({
+								url: 'help_detail.html',
+								id: 'help_detail.html',
+								extras:{
+									help :  key //扩展参数
+								},
+								show: {
+									autoShow: true,
+									aniShow: 'pop-in',
+									duration: 300
+								},
+								waiting: {
+									autoShow: false
+								}
+							});
+							
+					 }
+				}
+			});
+			
+			function getData(){
+				var url = $.url.findHelp;
+				console.log("帮助手册" + url);
+				$.marketApi.ajaxRequest({
+					type: "GET",
+					url: url,
+					data: {
+						"empId": empId,
+						"page": page,
+						"rows": $.locStorage.rows
+						
+					},
+					callback: function(data) {
+						console.log(JSON.stringify(data));
+						if(page==1){
+							dataArr=[];
+							mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+						}else{
+							mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+						}
+						if(data.length==0){
+							if(page==1){
+								//$("#pullrefresh").html('<div style=" text-align:center;vertical-align: middle;" ><img style=" position: relative;top:6em;height:14em;" src="../images/nodata.png"></img></div>');
+								console.log('没有数据~');
+							}else{
+								console.log('没有更多数据~');
+								mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+							}
+						}else{
+							for(var i=0,count=data.length;i<count;i++){
+								dataArr.push(data[i]);
+							}
+						}
+						
+						vm.vueDataArr = dataArr;
+						console.log(vm.vueDataArr.length)
+					},
+					errorCallback: function(xhr, errorType, error, msg) {
+						alert(msg);
+					}
+	
+				});
+			}
+			
+			
+			
+			
+	</script>
+</html>

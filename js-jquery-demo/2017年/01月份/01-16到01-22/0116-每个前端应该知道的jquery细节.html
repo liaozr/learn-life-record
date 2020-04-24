@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+1.回到顶部
+
+不需要其他插件,简单通过使用jquery 中的 animate and scrollTop 方法,就能实现
+
+<script>
+    // 回到顶部
+    $('a.top').click(function(e) {
+        e.preventDefault();
+        $(document.body).animate({
+            scrollTop: 0
+        }, 800);
+    });
+</script>
+
+<!--创建一个回到顶部的按钮 -->
+
+<a class="top" href="#">Back to top</a>
+
+通过 改变scrollTop的值控制滚动条到达哪个位置
+
+<!-- ------------------------------------------------------------------------------- -->
+
+  2.预加载图片
+
+  如果你的页面有很多图片,并且默认情况下是看不到的,当你鼠标移动过的时候才出现,这时候就需要 预加载功能
+
+<script>
+    $.preloadImages = function() {
+        for (var i = 0; i < arguments.length; i++) {
+            $('img').attr('src', arguments[i]);
+        }
+    };
+
+    $.preloadImages('img/hover-on.png', 'img/hover-off.png');
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+  3.检测图片是否加载完成
+
+  有时候你需要去知道图片是否真正加载完成.
+
+  <script>
+
+      $('img').load(function() {
+          console.log('image load successful');
+      });
+
+  </script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+  4.优雅处理加载不成功的图片
+
+  使用一张默认的图片来代替加载不成功的 图片
+
+  <script>
+      $('img').on('error', function() {
+          $(this).prop('src', 'img/broken.png');
+      });
+  </script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+  5.Hover事件切换类
+  <script>
+      $('.btn').hover(function() {
+          $(this).addClass('hover');
+      }, function() {
+          $(this).removeClass('hover');
+      });
+
+      // 混合写法
+      $('.btn').hover(function() {
+          $(this).toggleClass('hover');
+      });
+  </script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+  6.禁用一个表单元素
+
+  比如有时候 ,只想提交一次表单,就可以设置禁用
+
+  <script>
+      $('input[type="submit"]').prop('disabled', true);
+
+      // 如果想解禁
+      $('input[type="submit"]').prop('disabled', false);
+  </script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+  7.阻止超链接的默认行为
+
+  有时候我们常常用超链接作为按钮,但是超链接本身是有链接 会跳转的,假如我们不想要跳转的时候 就需要阻止默认行为
+
+  <script>
+      $('a.no-link').click(function (e) {
+        e.preventDefault();
+      });
+  </script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+  8.fade(渐入渐出)效果和slide(下拉收起)效果的切换
+
+  <script>
+
+      // 渐入渐出
+      $('.btn').click(function() {
+          $('.element').fadeToggle('slow');
+      });
+
+      // 下拉收起
+      $('.btn').click(function() {
+          $('.element').slideToggle('slow');
+      });
+  </script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+  9.动态设置两个div的高度一样
+
+  不管他们的内容怎样 他们的高度都会保持一致
+
+  通过css设置 最低高度值,
+
+  <script>
+      $('div').css('min-height', $('.main div').height());
+      // 无论内容是什么 都保持高度一致
+
+      var $columns = $('.column');
+      var height = 0;
+      $columns.each(function() {
+          if ($(this).height() > height) {
+              height = $(this).height();
+          }
+      });
+      $columns.height(height);
+      // 遍历设置一序列的元素的高度统一
+
+      var $rows = $('.same-height-columns');
+      $rows.each(function() {
+          $(this).find('.column').height($(this).height());
+      });
+  </script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+  10.新的标签或者窗口打开外部链接
+
+  <script>
+      $('a[href^="http"]').attr('target', '_blank');
+      $('a[href^="//"]').attr('target', '_blank');
+      $('a[href^="' + window.location.origin + '"]').attr('target', '_self');
+  </script>
+
+  注意: window.location.origin 不兼容IE10 解决方案
+
+  <!-- ------------------------------------------------------------------------------- -->
+
+  11.根据内容来寻找元素
+
+  通过 jquery的contains()方法
+
+  <script>
+
+      var search = $('#search').val();
+      $('div:not(:contains("' + search + '"))').hide(); //表示如果没有包含search内容的都隐藏
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

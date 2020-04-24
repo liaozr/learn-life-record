@@ -1,0 +1,281 @@
+/*全文字体样式*/
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif !important;
+}
+
+
+/*头部样式*/
+
+.g-header {
+    height: 1.5rem;
+    line-height: 1.5rem;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    background-color: #eb6d00;
+    text-align: center;
+    font-size: 0.48rem;
+    color: #fff;
+    -webkit-box-shadow: 0 1px 6px #ccc;
+    box-shadow: 0 1px 6px #ccc;
+    z-index: 99;
+}
+
+/*中间部分样式*/
+
+.g-content {
+    overflow-y: auto;
+    top: 1.5rem;
+    bottom: 1.307rem;
+    position: absolute;
+    left: 0;
+    right: 0;
+    /* 增加该属性，可以增加弹性*/
+    -webkit-overflow-scrolling: touch;
+    z-index: 99;
+}
+
+/*底部样式*/
+
+.g-footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    height: 1.307rem;
+    line-height: 1.307rem;
+    overflow: hidden;
+    background-color: #ffffff;
+    border-top: 1px solid #ccc;
+    z-index: 99;
+}
+
+/*
+
+布局（grid）（.g-）：将页面分割为几个大块，通常有头部、主体、主栏、侧栏、尾部等！
+
+头部	.g-header
+中间  .g-content
+尾部	.g-footer
+侧栏	.g-sider
+
+模块（module）（.m-）：通常是一个语义化的可以重复使用的较大的整体！比如导航、登录、注册、各种列表、评论、搜索等！
+
+导航	  .m-nav
+子导航	 .m-sub-nav
+菜单	  .m-menu
+选项卡	 .m-tab
+列表	  .m-list
+表格	  .m-table
+表单	  .m-form
+
+元件（unit）（.u-）：通常是一个不可再分的较为小巧的个体，通常被重复用于各种模块中！比如按钮、输入框、loading、图标等！
+
+功能（function）（.f-）：为方便一些常用样式的使用，我们将这些使用率较高的样式剥离出来，
+按需使用，通常这些选择器具有固定样式表现，比如清除浮动等！不可滥用！
+
+皮肤（skin）（.s-）：如果你需要把皮肤型的样式抽离出来，通常为文字色、背景色（图）、边框色等，
+非换肤型网站通常只提取文字色！非换肤型网站不可滥用此类！
+
+状态（.z-）：为状态类样式加入前缀，统一标识，方便识别，
+她只能组合使用或作为后代出现（.u-ipt.z-dis{}，.m-list li.z-sel{}），具体详见命名规则的扩展相关项。
+
+*/
+
+
+/*-----------------------------一些功能----------------------------------------------------*/
+
+/*浮动清除*/
+/*用法很简单，在浮动元素的父云素上添加  f-clearfix这个类 */
+
+.f-clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden
+}
+.f-clearfix{
+    *+height: 1%;
+}
+/*向左浮动*/
+.f-left{
+  float:left;
+  margin-left:0.267rem;
+}
+/*向右浮动*/
+.f-right{
+  float:right;
+  margin-right:0.267rem;
+}
+/*溢出隐藏*/
+.f-overflow{
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/*字体大小*/
+.f-fs12{
+  font-size: 0.32rem;
+}
+.f-fs13{
+  font-size: 0.35rem;
+}
+.f-fs14{
+  font-size: 0.38rem;
+}
+.f-fs15{
+  font-size: 0.4rem;
+}
+.f-fs16{
+  font-size: 0.45rem;
+}
+.f-fs18{
+  font-size: 0.48rem;
+}
+.f-fs20{
+  font-size: 0.55rem;
+}
+/*字体粗细*/
+.f-fw{
+  font-weight: bold;
+}
+/*文本缩进*/
+.f-indent1{
+  text-indent: 1em;
+}
+.f-indent2{
+  text-indent: 2em;
+}
+.f-indent3{
+  text-indent: 3em;
+}
+/*border-radius*/
+.f-radius{
+  border-radius: 0.133rem;
+}
+/*水平垂直居中(不确定宽高)*/
+.f-center-middle{
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50% ,-50%);
+  -webkit-transform:translate(-50% ,-50%);
+  -moz-transform:translate(-50% ,-50%);
+  -ms-transform:translate(-50% ,-50%);
+  -o-transform:translate(-50%, -50%);
+}
+/*垂直居中(不确定高)*/
+.f-middle-y{
+  position: absolute;
+  top:50%;
+  transform: translateY(-50%);
+  -webkit-transform:translateY(-50%);
+  -moz-transform:translateY(-50%);
+  -ms-transform:translateY(-50%);
+  -o-transform:translateY(-50%);
+}
+/*垂直居中*/
+.f-middle{
+  vertical-align: middle;
+}
+/*文本居中*/
+.f-center{
+   text-align: center;
+}
+/*margin-top 上边距*/
+.f-margintop{
+  margin-top: 0.4rem;
+}
+/*margin-bottom 下边距*/
+.f-marginbottom{
+  margin-bottom: 0.4rem;
+}
+/*内边距 paddding*/
+.f-padding{
+  padding: 0.4rem;
+  margin:0 auto;
+  display: block;
+}
+/*relative相对定位*/
+.f-relative{
+  position: relative;
+}
+/*  display:inline-block;*/
+.f-inline-block{
+  display: inline-block;
+}
+
+/*-----------------------------一些皮肤----------------------------------------------------*/
+
+/*字体颜色*/
+.s-fc-hei{
+   color:#242424;
+}
+.s-fc-hui{
+   color:#aaaaaa;
+}
+.s-fc-bai{
+   color:white;
+}
+.s-fc-theme{
+   color:#eb6d00;
+}
+/*背景颜色*/
+.s-bgc{
+  background-color: #ccc;
+}
+.s-bgc-theme{
+  background-color: #eb6d00;
+}
+/*背景*/
+.s-bg{
+  background-color: ;
+  background:url() ;
+  background-size: ;
+  background-position: ;
+}
+/*边框颜色*/
+.s-bdc{
+  border:1px solid #dddddd;
+}
+/*虚线边框*/
+.s-dashed{
+  border:1px dashed #dddddd;
+}
+
+/*-----------------------------一些状态----------------------------------------------------*/
+/*选中状态*/
+.z-selectd{
+
+}
+/*当前状态	*/
+.z-current{
+
+}
+/*显示状态	*/
+.z-show{
+
+}
+/*隐藏状态	*/
+.z-hide{
+ display: none;
+ opacity: 0;
+}
+/*error状态	*/
+.z-error{
+  color:red;
+}
+/*不可用状态	*/
+.z-disabled{
+}
+
+a{
+  text-decoration: none;
+}
+a:hover{
+  text-decoration: none;
+}

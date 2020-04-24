@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  如果你要判断的是基本数据类型或 JavaScript 内置对象，使用toString；
+
+  如果要判断的是自定义类型，请使用instanceof。
+
+  为什么不用 typeof
+
+  我们知道检测基本数据类型可以用 typeof：
+
+
+  var a = 123
+  typeof a // "number"
+
+  var a = 123
+  typeof a // "number"
+
+
+  但是typeof只能用于基本数据类型检测，对于 null 还有 Bug。
+
+  Bug：使用typeof检查 null 时会返回 “object”，这是由于不同的对象在底层都表示为二进制，在 JavaScript 中二进制前三位都为 0 的话会被判断为 object 类型，null 的二进制表示全是 0，自然前三位也是 0，所以执行typeof时会返回 “object”。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  使用 toString 方法检测
+
+  toString方法是 Object 的实例方法，因为所有对象都是 Object 的实例，所以所有对象都有该方法。如果此方法在自定义对象中未被覆盖，
+
+  toString()会返回 “[object type]”，其中 type 是对象类型。
+
+  不过 Array、Data 会重写从 Object.prototype 继承来的toString方法，所以检测时应当直接调用Object.prototype.toString来检测。
+
+  从 javascript 1.8.5 开始可以检测 undefined 与 null。
+
+  <script>
+
+      var a = []
+      Object.prototype.toString.call(a) // "[object Array]"
+      Object.prototype.toString.call(undefined) // "[object Undefined]"
+      Object.prototype.toString.call(null) // "[object Null]"
+
+
+
+      var a = []
+
+      Object.prototype.toString.call(a) // "[object Array]"
+      Object.prototype.toString.call(undefined) // "[object Undefined]"
+      Object.prototype.toString.call(null) // "[object Null]"
+
+  </script>
+
+  关于toString方法的更多内容请查阅本文【对象实例方法】章节。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  用 instanceof 判断对象的类型
+
+  instanceof运算符用来测试一个对象在其原型链中是否存在一个构造函数的 prototype 属性。我们使用的所有对象都是对象子类型，
+
+  它们要么是内置构造函数的实例，要么是我们自定义构造函数的实例。因此可以使用instanceof来判断这些对象的类型。
+
+  <script>
+
+      var a = []
+      a instanceof Array // true
+
+      var a = []
+      a instanceof Array // true
+
+
+      function Mytype() {}
+      var a = new Mytype()
+      a instanceof Mytype // true
+
+      function Mytype() {}
+      var a = new Mytype()
+
+      a instanceof Mytype // true
+
+  </script>
+
+  同时也可以使用对象的实例方法isPrototypeOf(..)来判断，效果与instanceof相同。本文【对象实例方法】章节有详细说明。
+
+  要注意的是一些内置对象本就有检测是否是本类型的方法，如Array.isArray(arr)可以判断 arr 是否是 Array 类型。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

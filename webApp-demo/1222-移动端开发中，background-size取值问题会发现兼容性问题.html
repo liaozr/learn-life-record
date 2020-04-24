@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------------------------------------------- -->
+
+    在华美乐项目中，有用到一个 选中小图标的功能，
+
+    最初，小图标的背景大小 用的 是background-size: 0.48rem 0.48rem;在华为手机上表现良好，但是在小米手机上会发现
+
+    图标会缺 小边角的情况，猜测是因为 rem 大小原因导致的。
+
+    所以，改成 background-size:contain; 即完美的实现了  小图标的 需求，所以
+
+    以后的背景图片 有用到 background-size属性的，都推荐 使用  background-size: contain;这个值、
+
+    <style>
+
+        .shifou-hege .list span.icon {
+
+            /*background-size: 0.48rem 0.48rem;*/
+            /*  这种情况下，手机上表现会有些小边角的 情况发生 */
+
+            background-size: contain !important;
+            
+        }
+
+    </style>
+
+<!-- ------------------------------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

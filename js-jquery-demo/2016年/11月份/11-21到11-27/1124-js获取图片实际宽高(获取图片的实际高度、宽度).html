@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    js获取图片实际宽高 JS获取图片实际宽高
+
+    <script>
+        function adapt() {
+            var tableWidth = $("#imgTable").width(); //表格宽度
+            var img = new Image();
+            img.src = $('#imgs').attr("src");
+            var imgWidth = img.width; //图片实际宽度
+            if (imgWidth < tableWidth) {
+                $('#imgs').attr("style", "width: auto");
+            } else {
+                $('#imgs').attr("style", "width: 100%");
+            }
+        }
+    </script>
+
+    <!-- ----------------------------------------------------------------------------- -->
+    <script>
+
+     $(function(){
+        adapt();
+     })
+
+    </script>
+
+    <!-- ----------------------------------------------------------------------------- -->
+    <script>
+        var width2 = $(window).width();
+        var height2 = $(window).height();
+
+        var img_width = $("#allery img").width();
+        var img_height = $("#allery img").height();
+
+
+        function adapt() {
+
+            var img = new Image();
+
+            img.src = $("#allery img").attr("src");
+            var imgWidth;
+            var imgHeight;
+            img.onload = function() {
+
+                imgWidth = img.width; //图片实际宽度
+                imgHeight = img.height; //图片实际高度
+
+
+                console.log(imgWidth);
+
+                if (imgWidth >= width2 && imgHeight >= imgWidth) {
+                    var imgshowheight = (imgHeight / imgWidth) * width2;
+
+                    $("#allery img").css({
+                        width: width2,
+                        height: imgshowheight
+                    })
+                }
+                if (imgWidth >= width2 && imgHeight <= imgWidth) {
+                    var imgshowheight2 = (imgHeight / imgWidth) * width2;
+                    $("#allery img").css({
+                        width: width2,
+                        height: imgshowheight2
+                    })
+
+                }
+                if (imgWidth <= width2 && imgHeight >= imgWidth) {
+                    var imgshowheight3 = (imgHeight / imgWidth) * imgWidth;
+
+                    $("#allery img").css({
+                        width: imgWidth,
+                        height: imgshowheight3
+                    })
+                }
+                if (imgWidth <= width2 && imgHeight <= imgWidth) {
+                    var imgshowheight4 = (imgHeight / imgWidth) * imgWidth;
+
+                    $("#allery img").css({
+                        width: imgWidth,
+                        height: imgshowheight4
+                    })
+                }
+            };
+        }
+    </script>
+</body>
+
+</html>

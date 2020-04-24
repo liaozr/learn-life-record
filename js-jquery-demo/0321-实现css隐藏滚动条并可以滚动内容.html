@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+    这个方法不兼容IE，做移动端的可以使用。
+
+    那就是自定义滚动条的伪对象选择器::-webkit-scrollbar
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #lists {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            background-color: #ddd;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .element::-webkit-scrollbar {
+            width: 0 !important
+        }
+
+        .element {
+            -ms-overflow-style: none;
+        }
+
+        .element {
+            overflow: -moz-scrollbars-none;
+        }
+
+        p {
+            min-height: 500px;
+        }
+    </style>
+
+    <div id="lists" class="element">
+        <p>1111</p>
+
+
+        <p>22222</p>
+
+        <p>3333</p>
+    </div>
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+  <div class="outer-container">
+
+      <div class="inner-container">
+          ......
+      </div>
+
+  </div>
+
+  <style>
+  
+      .outer-container {
+          width: 360px;
+          height: 200px;
+          position: relative;
+          overflow: hidden;
+      }
+
+      .inner-container {
+          position: absolute;
+          left: 0;
+          top: 0;
+          right: -17px;
+          bottom: 0;
+          overflow-x: hidden;
+          overflow-y: scroll;
+      }
+
+  </style>
+
+  这个代码巧妙的向右移动了17个像素，刚好等于滚动条的宽度。这个值是我手动调试得来的。在chrome和IE没发现问题。
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

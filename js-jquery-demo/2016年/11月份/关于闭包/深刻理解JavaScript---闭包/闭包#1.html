@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+先来看一个函数:
+
+<script>
+    function f() {
+        var b = "b";
+        return function() {
+            return b;
+        }
+    }
+    var n = f();
+    n(); //此时控制台输出"b"
+</script>
+
+这个函数含有一个局部变量b，它在全局空间里面是不可见的。
+
+而f()的返回值是另一个匿名函数，该函数有自己的私有的空间，可以访问f()的空间和全局空间，所以b对它来说是可见的。
+
+
+因为f()是一个全局函数，它可以在全局空间被调用，当然也可以将其返回值赋值给另一个全局变量n，
+
+从而生成一个可以访问f()私有空间的新的全局函数。
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        async function getZhihuColumn(id) {
+            const url = `https://zhuanlan.zhihu.com/api/columns/${id}`;
+            const response = await fetch(url);
+            if (response.status !== 200) {
+                throw new Error(response.statusText);
+            }
+            return await response.json();
+        }
+
+        const showColumnInfo = async(id) => {
+            try {
+                const column = await getZhihuColumn(id);
+                console.log(`NAME: ${column.name}`);
+                console.log(`INTRO: ${column.intro}`);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        showColumnInfo('feweekly123');
+
+    </script>
+
+
+</body>
+
+</html>

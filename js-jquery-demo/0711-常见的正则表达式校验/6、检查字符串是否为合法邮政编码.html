@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // 检查字符串是否为合法邮政编码
+        function isPostcode(str) {
+            // 起始数字不能为0，然后是5个数字  [1-9]\d{5}
+            var reg = /^[1-9]\d{5}$/g;
+            // var reg = /^[1-9]\d{5}(?!\d)$/;
+            if (reg.test(str)) {
+                console.log(str + ' 是合法的邮编格式');
+                return true;
+            } else {
+                console.log(str + ' 是不合法的邮编格式');
+                return false;
+            }
+        }
+        
+    </script>
+</body>
+
+</html>

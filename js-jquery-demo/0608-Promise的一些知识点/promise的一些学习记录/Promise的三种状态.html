@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  Promise 有三种状态: 未决议(pending)、已决议(resolved)、已拒绝(rejected)
+
+  生成Promise的方式有 new Promise() 、 Promise.resolve() 、Promise.reject()
+
+  在promise实例上调用then或catch方法也会生成promise对象，故可进行promise链，在下一节会有所介绍。
+
+  首先我们在chrome控制台中，实践下生成三种不同状态的promise的方法：
+
+<!-- ------------------------------------------------------------------------------------------------------- -->
+
+  <script>
+
+      //生成pedding状态的promise,在控制台输入:
+      new Promise ((resolve, reject) => {
+          // do nothing
+      })
+
+      //控制台输出
+      //Promise {[[PromiseStatus]]: "pending", [[PromiseValue]]: undefined}
+
+      //生成已决议状态的promise:
+      new Promise ((resolve, reject) => {
+          resolve(123)
+      })
+
+      //Promise {[[PromiseStatus]]: "resolved", [[PromiseValue]]: 123}
+      //或是
+      Promise.resolve(123)
+      //Promise {[[PromiseStatus]]: "resolved", [[PromiseValue]]: 123}
+
+      //生成拒绝状态的promise
+      new Promise ((resolve, reject) => {
+          reject(456)
+      })
+      //Promise {[[PromiseStatus]]: "rejected", [[PromiseValue]]: 456}
+
+      //或是
+      Promise.reject(456)
+      //Promise {[[PromiseStatus]]: "rejected", [[PromiseValue]]: 456}以上创建的都是立即决议的promise，在我们实际的场景中，Promise往往需要一段时间来处理任务，再完成决议。我们来模拟下这个过程:
+
+      var p = new Promise((resolve, reject) => {
+          setTimeout(()=>{
+              resolve(123)
+          }, 5000)
+      })
+
+      输入完以上代码后，我们立即在控制台输入p,查看p对象
+      p
+      // Promise {[[PromiseStatus]]: "pending", [[PromiseValue]]: undefined}5秒后，我们再次输入p，
+      p
+      //Promise {[[PromiseStatus]]: "resolved", [[PromiseValue]]: 123}以上，我们创建了一个Promise对象，该对象创建时，处于pending状态，我们模拟了一段耗时操作，在5秒后，对该promise进行决议 resolve(123).我们再次查看p时，发现状态已经变为resolved。
+
+ </script>
+
+ 
+<!-- ------------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

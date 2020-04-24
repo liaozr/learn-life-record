@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    任何涉及NAN的操作都会返回NAN
+
+    NAN与任何数都不相等,包括本身
+
+    <script>
+        console.log(NaN == NaN) //false
+
+        var a = NaN;
+        var b = NaN;
+        var c=1;
+        alert(a == b) // false
+        alert(isNaN(b));  // true
+        alert(isNaN(c));  // false
+        
+       //利用isNaN()函数,来判断是不是一个数
+      //  不是一个数字，isNaN就返回true
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- -->
+
+<!-- 生命周期 -->
+
+取消了 ready
+
+这个是 Vue2 相对于 Vue1.x 一个很大的变化，取消了 ready 钩子，取而代之的是 mounted 钩子。
+
+由于 Vue2 是通过虚拟 DOM （Virtual DOM）来监听数据变化同时更新 DOM 树的，生命周期也就没有 ready 这个时候。所以使用了 mounted ，当组件被挂载（mount）到虚拟 DOM 树上的时候，触发该函数。通过官方的 Lifecycle Diagram 可以很清晰的了解这个过程。
+当你想要直接操作 DOM 的时候，Vue2也提供了一个 nextTick 的钩子来实现：
+
+<script>
+mounted: function () {
+  this.$nextTick(function () {
+    console.log(this.$el)
+  })
+}
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+<!-- v-for -->
+
+v-for 有关的一共有四点变化：
+
+第一个变化是当有 index 的时候，语法上顺序变成了 (value, index)：
+
+<ul>
+  <li v-for="(value, index) in list">{{index}}：{{value}}</li>
+</ul>
+
+同样，如果是 Object，变成了 (value, key)：
+
+<ul>
+  <li v-for="(value, key) in objects">{{key}}：{{value}}</li>
+</ul>
+
+官方也提到了，这么做是为了兼容原生 JavaScript 的 map 和 forEach 语法。
+
+第二个变化是取消了隐式的 $index 和 $key 变量，这样为了能让我们写出更加简单的代码。
+
+第三个变化是 track-by 改成了 key：
+
+<ul>
+  <li v-for="(value, index) in list" :key="index">{{key}}：{{value}}</li>
+</ul>
+
+第四点是一个比较小众的变化，v-for="number in 10"  变成了从 1 到 10，反正我是没用过 
+
+<!-- -------------------------------------------------------------------------------------------------------- -->
+
+<!-- 组件 -->
+
+对于组件最重要的变化是 props 
+
+强制变成了单向的，保证了子组件的弱耦合，那么子组件和父组件怎么交换数据呢？答案当然是用 Vuex 啦！
+
+<!-- deprecated!! -->
+<components prop.sync="myProp"></components>
+
+当然，twoWay 的配置项也没了。
+debounce 取消啦，大家请用 lodash 的 debounce 来代替。
+
+<!-- ------------------------------------------------------------------- -->
+
+<!-- 事件 -->
+取消了 $dispatch 和 $broadcast ，和组件的参数同理，状态都用 Vuex 管理。
+
+</body>
+</html>

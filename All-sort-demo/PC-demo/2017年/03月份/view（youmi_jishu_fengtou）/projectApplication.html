@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Pragma" content="no-cache">
+		<title>项目申请</title>
+		<link rel="stylesheet" href="cropbox.js/css/app.min.css" />
+		<link rel="stylesheet" href="cropbox.js/css/style2.css" />
+		<link rel="stylesheet" href="js/easyform/easyform.css" />
+		<link rel="stylesheet" href="css/base-reset.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="datepicker/datepicker.css" />
+		<link rel="stylesheet" href="css/public.css" />
+		<link rel="stylesheet" href="css/yhn.css" />
+		<script src="js/jquery-1.11.3.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/domain.js"></script>
+		<script src="js/vue.min.js"></script>
+		<script src="js/easyform/easyform.js"></script>
+		<script src="cropbox.js/cropbox.js"></script>
+		<script src="js/Validform_v5.3.2.js"></script>
+		<script src="datepicker/bootstrap-datepicker.js"></script>
+	</head>
+	<style>
+		.Validform_checktip {
+			margin-left: 8px;
+			line-height: 20px;
+			height: 20px;
+			overflow: hidden;
+			color: #999;
+			font-size: 12px;
+		}
+		
+		.Validform_right {
+			color: #71b83d;
+			padding-left: 20px;
+			background: url(img/right.png) no-repeat 10px center;
+		}
+		
+		.Validform_wrong {
+			color: #e4393c;
+			padding-left: 20px;
+			white-space: nowrap;
+			background: url(img/wrong.png) no-repeat 10px center;
+		}
+		
+		.Validform_loading {
+			padding-left: 20px;
+			background: url(images/onLoad.gif) no-repeat left center;
+		}
+		
+		.Validform_error {
+			background-color: #ffe7e7;
+		}
+		.Validform_msg{display:none;}
+		
+		#showImg>img{height:100px;margin-left:10px;}
+		#Validform_msg{position:absolute;top:0;left:0;z-index: -999;}
+	</style>
+
+	<body id="scope">
+		<header class="navbar navbar-default" id="top" role="banner" style="margin-top:20px">
+			<div class="container">
+				<img class="logo left" src="img/logo.png" />
+				<div id="navbar" class="navbar-collapse collapse" style='padding-right:0'>
+					<ul class="nav navbar-nav">
+						<li class="">
+							<a href="index.html">主页</a>
+						</li>
+						<li class="">
+							<a href="selectFun.html">自助评估</a>
+						</li>
+						<li class="active">
+							<a href="projectApplication.html">项目申请</a>
+						</li>
+						<li class="">
+							<a href="together.html">合作条款</a>
+						</li>
+						<li class="">
+							<a href="aboutUs.html">关于我们</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" v-if="haslogin">
+						<li id="goCenter" class="headBox">
+							<img id="head" style="cursor: pointer;" src="img/cgx.jpg" alt="" />
+							<span id="userTips"></span>
+							<div class="downList" style="display:none;">
+								<strong></strong>
+								<div>
+									<ul>
+										<li>
+											<p id="unameTitle"></p>
+										</li>
+										<li id="makeCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-zoom-in"></span></span><strong class="down-title">创建公司</strong></li>
+										<li id="gomyCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-briefcase"></span></span><strong class="down-title">我管理的公司</strong></li>
+										<li id="assess" class="hov"><span class="dot2"><span class="glyphicon glyphicon-usd"></span></span><strong class="down-title">估价</strong></li>
+										<li id="mypaper" class="hov"><span class="dot2"><span class="glyphicon glyphicon-list-alt"></span></span><strong class="down-title">我的报价单</strong></li>
+										<li id="exit" class="hov"><span class="dot2"><span class="glyphicon glyphicon-off"></span></span><strong class="down-title">退出登录</strong></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" v-else>
+						<li>
+							<a href="login.html">登录</a>
+						</li>
+						<li>
+							<a href="register.html">注册</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+
+		<section id="page1" style="">
+			<div class="project-top w1170">
+				<h1>创建公司</h1>
+				<h2>为了避免重复创建公司，请先查询该公司是否已被收录。</h2>
+			</div>
+			<div class="form-box w1170">
+				<form id="form1" action="">
+					<div class="input-group mt20">
+						<span class="input-group-addon"><span>&nbsp;&nbsp;</span>公司类别</span>
+						<select id="comType" class="form-control" style="float:left;width:200px;">
+							<option value="false">请选择</option>
+							<option value="web产品">web产品</option>
+							<option value="app应用">app应用</option>
+							<option value="web及app均有">web及app均有</option>
+							<option value="微信公众号">微信公众号</option>
+							<option value="idea阶段">idea阶段</option>
+						</select>
+					</div>
+					<div class="input-group mt20">
+						<span class="input-group-addon"><span style="color:red">*&nbsp;</span>公司简称</span>
+						<input v-model="companyData.companyRename" id="in1" type="text" class="form-control kup" placeholder="请填写公司核心产品名称或项目名称" data-easytip="position:bottom" datatype="*1-30">
+						<span class="Validform_checktip input-group-addon" style="padding-left:30px;"></span>
+						<!--<span style="top:0px;" class="input-group-addon glyphicon glyphicon-ok-sign"></span>-->
+					</div>
+					<div class="input-group mt20">
+						<span class="input-group-addon"><span>&nbsp;&nbsp;</span>公司全称</span>
+						<input v-model="companyData.companyName" id="in2" type="text" class="form-control kup" placeholder="请填写公司的完整名称" data-easytip="position:bottom" datatype="*1-40">
+						<span class="Validform_checktip input-group-addon" style="padding-left:30px;"></span>
+					</div>
+					<div class="input-group mt20">
+						<span class="input-group-addon"><span style="color:red">*&nbsp;</span>公司网址</span>
+						<input v-model="companyData.companyUrl" id="in3" type="text" class="form-control kup" datatype="url" data-easytip="position:bottom" placeholder="如：http://www.qq.com">
+						<span class="Validform_checktip input-group-addon" style="padding-left:30px;"></span>
+					</div>
+					<button id="next" type="button" class="btn btn-primary" style="display:block;margin:0 auto;margin-top:40px;width:100px;">下一步</button>
+				</form>
+			</div>
+		</section>
+
+		<section id="page2" style="display:none">
+			<div class="project-top w1170">
+				<h1>创建"<span id="coptitle"></span>"</h1>
+				<h2>请认真填写公司信息，尽可能填写的完善。投资人只有充分了解公司信息后，才会决定是否投资。</h2>
+			</div>
+			<div class="form-box w1170">
+				<h3>基本信息</h3>
+				<table class="table1">
+					<tr>
+						<td>公司Logo</td>
+						<td>
+							<a href="javascript:void(0)" class="">
+								<label for="upload-file"></label><button id="upload-btn">上传Logo</button>
+							</a>
+							<div class="imageBox4" style="display: inline-block;margin-left:15px;"><img src="img/timg.jpg" /></div>
+						</td>
+					</tr>
+					<tr id="ssq">
+						<td>所在地</td>
+						<td>
+							<select id="sheng" class="prov form-control" style="width:150px;float:left;">
+								<option v-for="key in city.citylist" value="{{key.p}}">{{key.p}}</option>
+							</select>
+							<select  id="shi" class="city form-control" style="width:150px;float:left;margin-left:10px" v-show="page2Data.shengInd!=0" }>
+								<option v-for="key in city.citylist[page2Data.shengInd].c" value="{{key.n}}">{{key.n}}</option>
+							</select>
+							<select  id="qu" class="dist form-control" style="width:150px;float:left;margin-left:10px" v-show="city.citylist[page2Data.shengInd].c[page2Data.shiInd].a">
+								<option v-for="key in city.citylist[page2Data.shengInd].c[page2Data.shiInd].a" value="{{key.s}}">{{key.s}}</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="doma">
+						<td>所属领域</td>
+						<td>
+							<select id="doma-fa" class="form-control" style="width:150px;float:left;">
+								<option v-for="key in domaArr" value="{{key.f}}">{{key.f}}</option>
+							</select>
+							<select id="doma-son" class="form-control" style="width:150px;float:left;margin-left:10px" v-show="Ind!=0">
+								<option v-for="item in domaArr[Ind].s" value="{{item}}">{{item}}</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+				<h3>公司介绍</h3>
+				<table id="gsjs" class="table1">
+					<tr>
+						<td style="height:120px;">一句话介绍</td>
+						<td><textarea id="t1" maxlength="60" v-model="page3Data.introduce" class="form-control" style="height:100px;padding:10px;" placeholder="如：悠米科技是关注互联网创业的科技媒体及投融资平台" name="" rows="" cols=""></textarea></td>
+					</tr>
+					<tr>
+						<td style="height:270px;">产品与优势</td>
+						<td><textarea id="t2" maxlength="400" v-model="page3Data.products" class="form-control" style="height:250px;padding:10px;" placeholder="介绍一下公司的主营业务和产品模式，写明产品优势，突显亮点，获得可投资人第一眼关注" name="" rows="" cols=""></textarea></td>
+					</tr>
+					<tr>
+						<td style="height:270px;">目标用户</td>
+						<td><textarea id="t3" maxlength="400" v-model="page3Data.targetUsers" class="form-control" style="height:250px;padding:10px;" placeholder="说说市场规模及目标用户，服务的人群，典型的用户是什么样的" name="" rows="" cols=""></textarea></td>
+					</tr>
+					<tr>
+						<td style="height:270px;">团队优势</td>
+						<td><textarea id="t4" maxlength="400" v-model="page3Data.team" class="form-control" style="height:250px;padding:10px;" placeholder="首先简要概括团队做这个项目的核心优势，然后分别介绍创世团队成员的背景和工作分工" name="" rows="" cols=""></textarea></td>
+					</tr>
+				</table>
+				<h3>认证信息</h3>
+				<table id="part3" class="table1">
+					<tr>
+						<td>职位</td>
+						<td>
+							<select id="job" class="form-control" style="width:150px;float:left;">
+								<option value="">请选择</option>
+								<option value="创始人">创始人</option>
+								<option value="联合创始人">联合创始人</option>
+							</select>
+							<input v-model="page4Data.jobInfo" type="text" class="form-control" style="width:200px;float:left;margin-left:10px;"  placeholder="如：CEO/市场/产品/技术" />
+						</td>
+					</tr>
+					<tr>
+						<td>任职时间段</td>
+						<td>
+							<input v-model="page4Data.dateTime" placeholder="请输入日期" class="form-control datepicker" style="width:150px;float:left;padding-left:10px;">
+							<span style="float:left;margin-top:6px;margin-left:10px;">至今</span>
+						</td>
+					</tr>
+					<tr>
+						<td>审核认证信息</td>
+						<td>
+							<input style="display:none;" id="file_input"  type="file" accept="image/jpeg">
+							<button class="btn btn-default" id="confirm">本地上传</button>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td id="showImg">
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							名片、营业执照、网站域名或微信公众号后台相关证明图片、仅提供认证使用、平台不会暴露您的个人信息。
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td style="color:#999">
+							格式为JPG、JPEG、PNG，小于5MB
+						</td>
+					</tr>
+				</table>
+				<button id="finish" type="button" class="btn btn-primary" style="display:block;margin:40px auto;width:200px;">完成</button>
+			</div>
+
+			<div class="cropBox" style="display:none;">
+				<div class="opa"></div>
+				<div class="imageBox">
+					<div class="close-dot"></div>
+					<div class="thumbBox"></div>
+				</div>
+				<input type="file" id="upload-file" style="display: none;" />
+
+				<div class="action">
+					<div class="new-contentarea tc">
+						<a href="javascript:void(0)" class="upload-img">
+							<label for="upload-file">上传图像</label>
+						</a>
+					</div>
+					<input type="button" id="btnCrop" class="Btnsty_peyton" value="裁切">
+					<input type="button" id="btnZoomIn" class="Btnsty_peyton" value="+">
+					<input type="button" id="btnZoomOut" class="Btnsty_peyton" value="-">
+				</div>
+			</div>
+
+		</section>
+	</body>
+	<script src="js/city.min.js"></script>
+	<script src="js/login.js"></script>
+	<script type="text/javascript" src="layer/layer.js" ></script>
+	<script>
+	$("#footer").load("footer.html");
+		//数据绑定
+		var vmgetID=new Vue({
+			el: '#form1',
+			data:{ 
+				companyData:{
+					companyType:'',
+					companyRename:'',
+					companyName:'',
+					companyUrl:'',
+					mobile:sessionStorage.mobile,
+				}
+			},
+			ready: function() {
+			}
+		});
+		
+		//公司类别
+		$("#comType").bind("change", function() {
+			vmgetID.companyData.companyType = $(this).val();
+		});
+		
+		//表单提示
+		$('#in1').focusin(function() {
+			$(this).easytip().show("公司简称<br>此处请填写产品名称或项目名称。如：腾讯<br>1-30个字");
+		});
+		$('#in1').focusout(function() {
+			$(this).easytip().close();
+		});
+		
+		$('#in2').focusin(function() {
+			$(this).easytip().show("公司全称<br>此处请填写公司的工商登记名称。<br>不超过40个字");
+		});
+		$('#in2').focusout(function() {
+			$(this).easytip().close();
+		});
+
+		$('#in3').focusin(function() {
+			$(this).easytip().show("公司网址<br>此处请填写公司的网址或APP下载地址。<br>网址的合法性");
+		});
+		$('#in3').focusout(function() {
+			$(this).easytip().close();
+		});
+
+		$('#t1').focusin(function() {
+			$(this).easytip().show("一句话介绍公司<br>如：悠米科技是关注互联网创业的科技媒体及投融资平台<br>1-30个字");
+		});
+
+		$('#t2').focusin(function() {
+			$(this).easytip().show("产品与优势<br>介绍一下公司的主营业务和产品模式，写明产品优势，突显亮点，获得可投资人第一眼关注<br>不超过200个字");
+		});
+
+		$('#t3').focusin(function() {
+			$(this).easytip().show("目标用户<br>说说市场规模及目标用户，服务的人群，典型的用户是什么样的<br>不超过200个字");
+		});
+
+		$('#t4').focusin(function() {
+			$(this).easytip().show("团队优势<br>首先简要概括团队做这个项目的核心优势，然后分别介绍创世团队成员的背景和工作分工<br>不超过200个字");
+		});
+		//跳转
+		$("#next").click(function() {
+			if(sessionStorage.userInfo == undefined || sessionStorage.userInfo == ""){layer.msg("请先登录");return};
+			$("#coptitle").text(vmgetID.companyData.companyRename);
+			if($("#form1").Validform().check()){
+				$("#page1").fadeOut(300, function() {
+					$("#page2").fadeIn(300,function(){
+						page=2;
+					});
+				});
+			}
+			
+			/*$("#page1").fadeOut(300, function() {
+					$("#page2").fadeIn(300);
+				});*/
+		});
+		//按键弹起 检查
+		$(".kup").on("keyup",function(){
+			var me=this.id;
+			console.log(me);
+			$("#form1").Validform().check(false,"#"+me);
+		});
+		//回车跳转或者提交
+		var page=1;
+		document.onkeydown=function(event){
+              var e = event || window.event || arguments.callee.caller.arguments[0];
+              if(e && e.keyCode==13){ 
+ 					if(page==1){
+ 						$("#next").click();
+ 					};
+ 					if(page==2){
+ 						layer.msg("");
+ 					};
+                }
+         }; 
+		
+		//vue初始化
+		var vm= new Vue({
+			el: '#ssq',
+			data: {
+				city: {},
+				page2Data:{
+					shengInd: '0',
+					shiInd: 'no',
+					quInd: '',
+					province: '',
+					city:'',
+					region: '',
+				}
+			},
+			ready: function() {
+				this.city = cityPrj;
+			}
+		});
+		//省市区三联动	
+		$("#sheng").bind("change", function() {
+			var index = $(this).find("option:selected").index();
+			vm.page2Data.shengInd = index;
+			vm.page2Data.province = $(this).val();
+
+		});
+
+		$("#shi").bind("change", function() {
+			var index = $(this).find("option:selected").index();
+			vm.page2Data.shiInd = index;
+			vm.page2Data.city = $(this).val();
+
+		});
+
+		$("#qu").bind("change", function() {
+			vm.page2Data.region = $(this).val();
+		});
+	</script>
+	<script>
+		//crop
+		$("#upload-btn").on("click", function() {
+			$(".cropBox").show();
+			$("body").scrollTop("0");
+			document.documentElement.scrollTop = 0;
+			$("body").css("overflow-y", "hidden");
+		});
+
+		$(".close-dot").on("click", function() {
+			$(".cropBox").hide();
+			$("body").css("overflow-y", "auto");
+		});
+
+		var options = {
+			thumbBox: '.thumbBox',
+			spinner: '.spinner',
+			imgSrc: 'images/avatar.jpg'
+		};
+
+		var cropper;
+		
+		$('#upload-file').on('change', function() {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				options.imgSrc = e.target.result;
+				cropper = $('.imageBox').cropbox(options);
+			}
+			reader.readAsDataURL(this.files[0]);
+			this.files = [];
+		});
+		var  imgLogo="";
+		$('#btnCrop').on('click', function() {
+			var img = cropper.getDataURL();
+			$(".cropBox").hide();
+			$("body").css("overflow-y", "auto");
+			$('.imageBox4').html('<img src="' + img + '" align="absmiddle" style="width:120px;margin-top:4px;border-radius:4px;box-shadow:0px 0px 12px #7E7E7E;">');
+			var img1=img;
+			imgLogo=img1.substr(img1.indexOf(',') + 1);
+			//console.log(imgLogo);
+		});
+
+		$('#btnZoomIn').on('click', function() {
+			cropper.zoomIn();
+		});
+
+		$('#btnZoomOut').on('click', function() {
+			cropper.zoomOut();
+		});
+		
+		//表单验证
+		
+		
+		$("#form1").Validform({
+			tiptype:function(msg,o,cssctl){
+				if(!o.obj.is("form")){
+					var objtip=o.obj.siblings(".Validform_checktip");
+					cssctl(objtip,o.type);
+					objtip.text(msg);
+				}
+			},
+	
+		});
+		//所属领域 二级联动
+		var vm2 = new Vue({
+				el: '#doma',
+				data: {
+					domaArr:'',
+					Ind:'0',
+					sslyData:{
+						fieldType:'',
+						fieldInfo:''
+					}
+				},
+				ready: function() {
+					this.domaArr= domain;
+				}
+			});
+		
+		$("#doma-fa").bind("change", function() {
+			var index = $(this).find("option:selected").index();
+			vm2.Ind = index;
+			console.log(index);
+			vm2.sslyData.fieldType = $(this).val();
+
+		});
+		
+		$("#doma-son").bind("change", function() {
+			vm2.sslyData.fieldInfo =$(this).val();
+
+		});
+		//公司介绍
+		var vm3 = new Vue({
+				el: '#gsjs',
+				data: {
+					page3Data:{
+						introduce:'',
+						products:'',
+						targetUsers:'',
+						team:''
+					}
+				},
+				ready: function() {
+				}
+			});
+		//创始人 任职时间
+		var vm4 = new Vue({
+				el: '#part3',
+				data: {
+					page4Data:{
+						job:'',
+						jobInfo:'',
+						dateTime:'',
+					}
+				},
+				ready: function() {
+				}
+			});
+		$("#job").bind("change", function() {
+			vm4.page4Data.job =$(this).val();
+
+		});
+		//datapicker
+		$('.datepicker').datepicker();
+		
+		
+		
+		//上传资料
+		$("#confirm").click(function(){
+			$("#file_input").click();
+		});
+		var ImgArr=[];
+		var max=5;
+		var SIMG = document.getElementById("showImg"); //获取显示图片的div元素
+		var input = document.getElementById("file_input"); //获取选择图片的input元素
+
+		//这边是判断本浏览器是否支持这个API。
+		if(typeof FileReader === 'undefined') {
+			aaa.innerHTML = "抱歉，你的浏览器不支持 FileReader";
+			input.setAttribute('disabled', 'disabled');
+		} else {
+			input.addEventListener('change', readFile, false); //如果支持就监听改变事件，一旦改变了就运行readFile函数。
+		}
+		var ramNum=0.5;
+		function readFile() {
+			var file = this.files[0]; //获取file对象
+			//判断file的类型是不是图片类型。
+
+			var reader = new FileReader(); //声明一个FileReader实例
+			reader.readAsDataURL(file); //调用readAsDataURL方法来读取选中的图像文件
+			//最后在onload事件中，获取到成功读取的文件内容，并以插入一个img节点的方式显示选中的图片
+			reader.onload = function(e) {
+				if(ImgArr.length>=max){layer.msg("最多上传"+max+"张图片！");return;};
+				SIMG.innerHTML = SIMG.innerHTML +'<img src="' + this.result + '" alt=""/>';
+				//console.log(this.result);
+				var base64=this.result.substr(this.result.indexOf(',') + 1);
+				/*var ram=Math.floor(Math.random()*100+1);
+				if(ram!=ramNum){
+					ramNum=ram;
+					var id="Img"+ram;
+					ImgArr.push({id:base64});
+				}*/
+				ImgArr.push(base64);
+				
+			}
+		}
+		var companyID="";
+		$("#finish").click(function(){
+			//alert(JSON.stringify(vmgetID.companyData));
+			var allData=$.extend({}, vm.page2Data,vm2.sslyData,vm3.page3Data,vm4.page4Data);
+			$.ajax({
+					type: "post",
+					url:"/services/ws/res/resCompany",
+					contentType: "application/json",
+					data: JSON.stringify(vmgetID.companyData),
+					success: function(jsonData) {
+						var data=$.parseJSON(jsonData);
+						companyID=data.id;
+						postComInfo(companyID,allData);
+						postLogo(companyID);
+						postAudit(companyID);
+						sessionStorage.selectTab = ".companyBox";
+						layer.msg("提交中,请稍后");
+						setTimeout(function(){
+							window.location.href="personal.html";
+						},2000);
+					}
+				});
+			
+		});
+		//传第二页所有文本信息
+		function postComInfo (id,allData){
+			var data={id:id};
+			var postData=$.extend({}, data,allData);
+			console.log(postData);
+			$.ajax({
+					type: "post",
+					url:"/services/ws/res/companyInfo",
+					contentType: "application/json",
+					data: JSON.stringify(postData),
+					success: function(jsonData) {
+						console.log(jsonData);
+					}
+				});
+		}
+		//上传LOGO
+		function postLogo(id){
+			$.ajax({
+				type: "post",
+				url:"/services/ws/res/logo",
+				contentType: "application/json",
+				data: JSON.stringify({id:id,str:imgLogo}),
+				success: function(jsonData) {
+					console.log(jsonData);
+				}
+			});
+		}
+		
+		//上传审核认证信息
+		function postAudit(id){
+			var postData={id:id,str:ImgArr};
+			console.log(postData);
+			$.ajax({
+					type: "post",
+					url:"/services/ws/res/audit",
+					contentType: "application/json",
+					data: JSON.stringify(postData),
+					success: function(jsonData) {
+					 	console.log(jsonData);
+					}
+				});
+		}
+		
+			/*$.ajax({
+					type: "post",
+					url:"/services/ws/login/userLogin",
+					contentType: "application/json",
+					data:JSON.stringify({username:"123",str:["1","2","3"]}) ,
+					success: function(jsonData) {
+					
+					}
+				});*/
+	</script>
+
+</html>

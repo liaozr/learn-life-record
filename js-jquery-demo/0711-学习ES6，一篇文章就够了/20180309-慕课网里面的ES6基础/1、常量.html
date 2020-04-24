@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ---------------------------------------------------------------------------------------- -->
+
+    js原生基础 定义一个常量
+
+    <script>
+       var obj={}
+
+        Object.defineProperty(obj,'p12', {
+            value: 3.14,
+            writable: false
+        })
+
+        obj.p12 = 555
+
+        console.log(obj.p12) // 3.14
+
+    </script>
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+    ES6 定义一个常量
+
+    <script>
+
+        const bb = 'zrliao'
+
+        // bb=111111
+
+        console.log(bb)  // zrliao
+
+    </script>
+
+</body>
+
+</html>

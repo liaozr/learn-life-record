@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+在单页跳转内，下一个view需要API请求获取数据，然后才能渲染，
+
+这时候需要加载个loading显示（或者做个切换动效）。
+
+原理是：利用eventBus，在router中添加两个事件 closeLoading和 vue.action.error
+分别用于「关闭loading」和「展现页面数据错误的错误页」
+
+<!-- --------------------------------------------------------------------------------- -->
+
+loading展现在router的 beforeEach的钩子内实现，loading的事件在vuex的action获取数据成功之后发送
+
+错误的触发有vuex 的 action / mutation 来发送事件￼
+
+eventBus也不用自己写，可以直接用Vue实例的 $on、 $emit、 $once等就够了
+
+<!-- --------------------------------------------------------------------------------- -->
+
+<script>
+
+    import Vue from 'vue'
+    export default new Vue()
+    
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+</html>

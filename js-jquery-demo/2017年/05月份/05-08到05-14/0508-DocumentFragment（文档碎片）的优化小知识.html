@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+DocumentFragment接口表示没有父级的最小文档对象。
+
+它被用作轻量级版本，Document以像标准文档一样存储由节点组成的文档结构的片段。关键区别在于，由于文档片段不是实际DOM结构的一部分，
+
+它是一个虚拟的dom节点，存在于内存中，所以对片段所做的更改不会影响文档，导致回流，或者在进行更改时可能会发生任何性能影响。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+一个常见的用途DocumentFragment是创建一个，在其中组装一个DOM子树，
+
+然后使用Node诸如appendChild()或（或insertBefore()）之类的接口方法将该片段附加或插入到DOM中。
+
+这样做会将片段的节点移动到DOM中，留下空白DocumentFragment。
+
+因为所有的节点都被一次性插入到文档中，所以如果单独插入，则每个节点只会触发一个回流和渲染，而不是每个节点的潜在一个
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+创建DocumentFragment ->document.createDocumentFragment()
+
+<script>
+
+    var oFrag = document.createDocumentFragment();
+    for (var i = 0; i < 100; i++) {
+        var op = document.createElement("P");
+        var oText = document.createTextNode(i);
+        op.appendChild(oText);
+        oFrag.appendChild(op);
+    }
+    document.body.appendChild(oFrag);
+
+</script>
+
+很明显，它有一种特殊的行为，该行为使得它非常有用，即当请求把一个DocumentFragment 节点插入文档树时，插入的不是 DocumentFragment 自身，
+
+而是它的所有子孙节点。
+
+这使得DocumentFragment 成了有用的占位符，暂时存放那些一次插入文档的节点。它还有利于实现文档的剪切、复制和粘贴操作。
+
+此时我们操作了两次dom，和一次重绘，为了创建文档碎片我们多操作了一次dom换来了100次dom创建的优化，
+
+并没有什么问题，也不用纠结这个问题。
+
+此时只是把documentFragment的子节点添加到了body节点里，并没有把整个文档碎片加入进去。
+
+当文档碎片插入完自动会被销毁碎片内容
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+只要文档碎片一但被插入后，会进行一个碎片回收，清除，但是文档碎片容器还是存在的，
+
+我们不用再次重新再进行一次dom操作来进行创建文档碎片
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+文档碎片不存在于dom树中。所以上所有的操作不会重绘整个页面
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

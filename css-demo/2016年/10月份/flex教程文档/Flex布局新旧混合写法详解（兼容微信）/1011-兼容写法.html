@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- ------------------------------------------------------------ -->
+
+首先是定义容器的 display 属性：
+
+<style>
+
+.box{
+    display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+    display: -moz-box; /* 老版本语法: Firefox (buggy) */
+    display: -ms-flexbox; /* 混合版本语法: IE 10 */
+    display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+    display: flex; /* 新版本语法: Opera 12.1, Firefox 22+ */
+}
+
+</style>
+
+
+由于旧版语法并没有列入W3C标准，所以这里不用写 display:box ，下面的语法也是一样的。
+
+这里还要注意的是，如果子元素是行内元素，在很多情况下都要使用 display:block 或 display:inline-block 把行内子元素变成块元素（例如使用 box-flex 属性），这也是旧版语法和新版语法的区别之一。
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+子元素主轴对齐方式
+
+<style>
+.box{
+    -webkit-box-pack: center;
+    -moz-justify-content: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+</style>
+
+这里旧版语法有4个参数，而新版语法有5个参数，兼容写法新版语法的 space-around 是不可用的：
+
+<style>
+	.box{
+	    box-pack: start | end | center | justify;
+	    /*主轴对齐：左对齐（默认） | 右对齐 | 居中对齐 | 左右对齐*/
+
+	    justify-content: flex-start | flex-end | center | space-between | space-around;
+	    /*主轴对齐方式：左对齐（默认） | 右对齐 | 居中对齐 | 两端对齐 | 平均分布*/
+	}
+</style>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+子元素交叉轴对齐方式
+
+<style>
+
+.box{
+    -webkit-box-align: center;
+    -moz-align-items: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+</style>
+
+
+这里的参数除了写法不同，其实是功能是一样的：
+
+<style>
+.box{
+    box-align: start | end | center | baseline | stretch;
+    /*交叉轴对齐：顶部对齐（默认） | 底部对齐 | 居中对齐 | 文本基线对齐 | 上下对齐并铺满*/
+
+    align-items: flex-start | flex-end | center | baseline | stretch;
+    /*交叉轴对齐方式：顶部对齐（默认） | 底部对齐 | 居中对齐 | 上下对齐并铺满 | 文本基线对齐*/
+}
+</style>
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+子元素的显示方向
+
+子元素的显示方向可通过 box-direction + box-orient + flex-direction 实现，下面请看实例：
+
+左到右
+
+<style>
+.box{
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+    -moz-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+</style>
+
+-------------------------------------------------------------------------------------
+右到左
+
+<style>
+.box{
+    -webkit-box-pack: end;
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: horizontal;
+    -moz-flex-direction: row-reverse;
+    -webkit-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+}
+</style>
+
+这里补充说明一点： box 写法的 box-direction 只是改变了子元素的排序，并没有改变对齐方式，需要新增一个 box-pack 来改变对齐方式。
+
+-----------------------------------------------------------------------------------------
+
+上到下
+<style>
+.box{
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -moz-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+</style>
+
+--------------------------------------------------------------------------------------
+
+下到上
+
+<style>
+.box{
+    -webkit-box-pack: end;
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: vertical;
+    -moz-flex-direction: column-reverse;
+    -webkit-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+}
+</style>
+
+
+<!-- -------------------------------------------------------------------------------- -->
+
+
+是否允许子元素伸缩
+
+<style>
+
+.item{
+    -webkit-box-flex: 1.0;
+    -moz-flex-grow: 1;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+
+.item{
+    -webkit-box-flex: 1.0;
+    -moz-flex-shrink: 1;
+    -webkit-flex-shrink: 1;
+    flex-shrink: 1;
+}
+
+</style>
+
+上面是允许放大，box语法中 box-flex 如果不是0就表示该子元素允许伸缩，而flex是分开的，上面 flex-grow 是允许放大（默认不允许），
+
+下面的 flex-shrink 是允许缩小（默认允许）。box-flex 默认值为0，也就是说，在默认的情况下，在两个浏览器中的表现是不一样的：
+
+
+这里还有一点，就是新旧语法的算法是不一样的，假设 box-flex 的值不等于0，旧语法中，如果有多余的空间，box-flex 的值越大，说明空白部分的占比越多，反之亦然：
+
+而新版的语法中，放大的比例是直接按 flex-grow 的值来分配的，flex-grow 的缩放会覆盖 flex-shrink:0，看例子：
+
+参数：
+
+<style>
+.item{
+    box-flex: <value>;
+    /*伸缩：<一个浮点数，默认为0.0，即表示不可伸缩，大于0的值可伸缩，柔性相对>*/
+
+    flex-grow: <number>; /* default 0 */
+    /*放大：默认0（即如果有剩余空间也不放大，值为1则放大，2是1的双倍大小，以此类推）*/
+
+    flex-shrink: <number>; /* default 1 */
+    /*缩小：默认1（如果空间不足则会缩小，值为0不缩小）*/
+}
+</style>
+
+<!-- ------------------------------------------------------------------------------------------ -->
+
+子元素的显示次序
+
+<style>
+.item{
+    -webkit-box-ordinal-group: 1;
+    -moz-order: 1;
+    -webkit-order: 1;
+    order: 1;
+}
+</style>
+</body>
+</html>

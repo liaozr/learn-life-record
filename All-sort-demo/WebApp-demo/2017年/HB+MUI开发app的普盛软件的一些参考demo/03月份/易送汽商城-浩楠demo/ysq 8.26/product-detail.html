@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,minimal-ui" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="易送气" />
+		<meta name="Description" content="易送气" />
+		<title>易送气</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/base.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+		<link rel="stylesheet" href="css/swiper.min.css" />
+		<link rel="stylesheet" href="css/public.css" />
+		<link rel="stylesheet" href="css/ww.css" />
+		<!--手机适配-->
+		<!--<script src="js/setFont.js"></script>-->
+	</head>
+
+	<body class="product-detail">
+		<div id="loadpage">
+			<img src="img/loading2.gif" alt="" />
+		</div>
+		<header class="y-mytop">
+			<h1>易送气</h1>
+			<div class="return-box">
+				<img src="img/icon-return.png" alt="" />
+				<span>返回</span>
+			</div>
+		</header>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper under-top" style="top:1.25rem;padding-bottom:1.5rem;">
+			<div class="mui-scroll">
+				<!--banner-->
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<a href="#"><img src="img/product-detail-pic.png" alt="" /></a>
+				</div>
+				<div class="swiper-slide">
+					<a href="#"><img src="img/product-detail-pic.png" alt="" /></a>
+				</div>
+				<div class="swiper-slide">
+					<a href="#"><img src="img/product-detail-pic.png" alt="" /></a>
+				</div>
+				<div class="swiper-slide">
+					<a href="#"><img src="img/product-detail-pic.png" alt="" /></a>
+				</div>
+			</div>
+			<!-- Add Pagination -->
+			<div class="swiper-pagination"></div>
+		</div>
+
+		<section class="content">
+			<div class="price-num pdl-30">
+				<div class="title">12kg直阀瓶<span>赠送12kg罗达</span></div>
+				<div class="price color-dd010f">￥<span>87.00</span>
+					<span class="numRange right"><span></span><span>1</span><span></span></span>
+				</div>
+				<div>$87</div>
+			</div>
+			<div class="discount">
+				<div class="discount-title"></div>
+				<div class="discount-content">
+					<div><i class="icon"></i>首单优惠5元<i class="more right"></i></div>
+					<div><i class="icon-discount"></i>微信支付减2元<i class="more right"></i></div>
+				</div>
+			</div>
+			<div class="btn-tab">
+				<div id="#detail-info" class="active">商品详情</div>
+				<div id="#message">查看评价</div>
+			</div>
+			<section id="message" class="message" style="display: none;">
+				<div class="tab">
+					<ul>
+						<li><span>全部(2000)</span></li>
+						<li><span>气足(2000)</span></li>
+						<li><span>送气快(2000)</span></li>
+						<li><span>态度好(2000)</span></li>
+						<li><span class="active">差评(2000)</span></li>
+					</ul>
+				</div>
+				<div class="info">
+					<div class="title">商品评价<span>(12000)</span></samp>
+					</div>
+					<ul>
+						<li>
+							<div><i></i><span class="mgl-15">夏蕾蕾</span></div>
+							<div class="mgt-20">这个煤气罐不错，我打85分！</div>
+						</li>
+						<li>
+							<div><i></i><span class="mgl-15">夏蕾蕾</span></div>
+							<div class="mgt-20">这个煤气罐不错，我打85分！</div>
+						</li>
+						<li>
+							<div><i></i><span class="mgl-15">夏蕾蕾</span></div>
+							<div class="mgt-20">这个煤气罐不错，我打85分！</div>
+						</li>
+						<li>
+							<div><i></i><span class="mgl-15">夏蕾蕾</span></div>
+							<div class="mgt-20">这个煤气罐不错，我打85分！</div>
+						</li>
+						<li>
+							<div><i></i><span class="mgl-15">夏蕾蕾</span></div>
+							<div class="mgt-20">这个煤气罐不错，我打85分！</div>
+						</li>
+					</ul>
+				</div>
+				<div class="btn-div"><span>查看全部评价</span></div>
+			</section>
+			<section id="detail-info" class="detail-info">
+				<img src="img/product-detail-pic.png" style="width: 100%;height: 100%;" />
+			</section>
+		</section>
+			</div>
+		</div>
+		<div class="pay">
+			<div>合计:<span class="color-dd010f">￥</span><span class="color-dd010f">87.00</span></div>
+			<div id="add-to-buycar" class="btn">加入购物车</div>
+			<div class="btn">立即购买</div>
+		</div>
+	</body>
+	<script src="js/zepto1.1.6.min.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/swiper.min.js"></script>
+	<script>
+	    //alert(sessionStorage.product_detail_id);
+	    // 返回上一页
+		$(".return-box").on('tap1',function(){
+			window.history.go(-1);
+		});
+		
+		var ua = navigator.userAgent.toLowerCase();
+		if(ua.match(/MicroMessenger/i) == "micromessenger") {
+			$(".y-mytop").css("display", "none");
+			$(".under-top").css("top", 0);
+		}
+
+		var swiper = new Swiper('.swiper-container', {
+			pagination: '.swiper-pagination',
+			paginationType: 'fraction'
+			
+		});
+
+		$(".numRange span").eq(0).on("tap1",function() {
+			var num = parseInt($(this).next().text());
+			if(num > 0) {
+				num--;
+			}
+			$(this).next().text(num);
+		});
+		$(".numRange span").eq(2).on("tap1",function() {
+			var num = parseInt($(this).prev().text());
+			if(num < 99) {
+				num++;
+			}
+			$(this).prev().text(num);
+		});
+		$(".btn-div span").on('tap1', function(e) {
+			if($(this).text() == "查看全部评价") {
+				$(".content .message .info").css('height', 'auto');
+				$(this).text("收起全部评价");
+			} else {
+				$(".content .message .info").css('height', '2rem');
+				$(this).text("查看全部评价");
+			}
+		});
+
+		$(".btn-tab div").on('tap1', function(e) {
+			var btnId = $(this).attr("id");
+			$("#detail-info").css('display', 'none');
+			$("#message").css('display', 'none');
+			$(btnId).css('display', 'block');
+			$(this).siblings().removeClass("active");
+			$(this).addClass("active");
+		});
+
+		//页面加载完毕删除遮罩层
+		window.onload = function() {
+			$("html").css("overflow", "auto");
+			$("#loadpage").css("display", "none");
+		}
+
+		//按钮点击变色
+		$(".btn").on('touchstart', function() {
+			$(this).addClass('active');
+		});
+		$(".btn").on('touchend', function() {
+			$(this).removeClass('active');
+		});
+		//////////////////下拉刷新//////////////////////////////
+		mui.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: {
+					callback: pulldownRefresh
+				},
+			}
+		});
+		/**
+		 * 下拉刷新具体业务实现
+		 */
+		function pulldownRefresh() {
+			setTimeout(function() {
+				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+				//do something
+			}, 1500);
+		}
+		
+		//产品详情跳转
+		$("#add-to-buycar").on('tap1',function(){
+			window.location.href = "buy-car.html";
+		});
+		
+		
+		
+	</script>
+
+</html>

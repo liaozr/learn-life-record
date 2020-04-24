@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    纯css制作精美鼠标移上去显示tips效果 看如下案例： html代码如下：
+
+<!-- --------------------------------------------------------------------------------- -->
+
+    <div class="haorooms">
+        <span data-haorooms="haorooms鼠标效果tips-纯css">haorooms测试</span>
+    </div>
+
+    <!-- css代码如下： -->
+    <style>
+        .haorooms {
+            margin-top: 30px
+        }
+
+        span {
+            position: relative;
+            display: inline-block;
+        }
+
+        span:hover {
+            cursor: pointer;
+        }
+
+        span:hover:before {
+            content: attr(data-haorooms);
+            background-color: #2085c5;
+            border-radius: 3px;
+            color: #fff;
+            padding: 10px;
+            position: absolute;
+            left: 100%;
+            top: -70%;
+            margin-left: 8px;
+            white-space: pre;
+        }
+
+        span:hover:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-right: 8px solid #2085c5;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+        }
+    </style>
+    
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

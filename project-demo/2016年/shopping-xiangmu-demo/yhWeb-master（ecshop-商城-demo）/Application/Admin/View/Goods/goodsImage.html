@@ -1,0 +1,83 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>商品图片</title>
+    <link href="__PUBLIC__/Admin/Css/css.css" type="text/css" rel="stylesheet"/>
+    <link href="__PUBLIC__/Admin/Css/main.css" type="text/css" rel="stylesheet"/>
+    <include file="list"/>
+</head>
+<body>
+<!--main_top-->
+<table width="99%" border="0" cellspacing="0" cellpadding="0" id="searchmain">
+    <tr>
+        <td width="99%" align="left" valign="top">您的位置：商品图片管理</td>
+    </tr>
+    <tr>
+        <td align="left" valign="top">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" id="search">
+                <tr>
+                    <td width="90%" align="left" valign="middle">
+                        <form method="post" action="">
+                            <span>管理员：</span>
+                            <input type="text" name="" value="" class="text-word">
+                            <input name="" type="button" value="查询" class="text-but">
+                        </form>
+                    </td>
+                    <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="addGoodsImage" target="mainFrame" onFocus="this.blur()" class="add">新增图片</a></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" valign="top">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" id="main-tab">
+                <tr>
+                    <th class="borderright">编号</th>
+                    <th class="borderright">商品ID</th>
+                    <th class="borderright">类别ID</th>
+                    <th class="borderright">主图片</th>
+                    <th class="borderright">详情图片</th>
+                    <th class="borderright">海报式图片</th>
+                    <th class="borderright">轮播图</th>
+                    <th>操作</th>
+                </tr>
+                <volist name="goodsimage" id="images">
+                    <tr onMouseOut="this.style.backgroundColor='#ffffff'" onMouseOver="this.style.backgroundColor='#edf5ff'">
+                        <td align='center' valign='middle' class='borderright borderbottom'>{$images['id']}</td>
+                        <td align='center' valign='middle' class='borderright borderbottom'>{$images['goodsId']}</td>
+                        <td align='center' valign='middle' class='borderright borderbottom'>{$images['typeId']}</td>
+                        <td align='center' valign='middle' class='borderright borderbottom'>
+                            <notempty name="images.picName">
+                                <volist name="images.picName" id="picName">
+                            <img src="__PUBLIC__/Uploads/{$picName}" alt="" width="100" height="100">
+                                </volist>
+                            </notempty>
+                        </td>
+                        <td align='center' valign='middle' class='borderright borderbottom'>
+                            <notempty name="images.picDetail">
+                                <volist name="images.picDetail" id="detail">
+                                    <img src="__PUBLIC__/Uploads/{$detail}" alt="" width="100" height="100">
+                                </volist>
+                            </notempty>
+                        </td>
+                        <td align='center' valign='middle' class='borderright borderbottom'>
+                                <volist name="images.picPure" id="picPure"><img src="__PUBLIC__/Uploads/{$picPure}" alt="" width="100" height="100">
+                                </volist>
+                        </td>
+                        <td align='center' valign='middle' class='borderright borderbottom'>
+                            <empty name="images.picTurn"><else/><img src="__PUBLIC__/Uploads/{$images['picTurn']}" alt="" width="100" height="100"></empty></td>
+                        <td align='center' valign='middle'>
+                            <a href='#' target='mainFrame' onFocus='this.blur()' class='add'>编辑</a>
+                            <span class='gray'>&nbsp;|&nbsp;</span><a href='#' target='mainFrame' onFocus='this.blur()' class='add'>删除</a>
+                        </td>
+                    </tr>
+                </volist>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" valign="top" class="fenye">11条数据1页&nbsp;&nbsp;<a href="#" target="mainFrame" onFocus="this.blur()">首页</a>&nbsp;&nbsp;<a href="" target="mainFrame" onFocus="this.blur()">上一页</a>&nbsp;&nbsp;<a href="" target="mainFrame" onFocus="this.blur()">下一页</a>&nbsp;&nbsp;<a href="#" target="mainFrame" onFocus="this.blur()">尾页</a></td>
+    </tr>
+</table>
+</body>
+</html>

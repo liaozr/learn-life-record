@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  在路由跳转的过程中会传递一个object，我们可以通过watch方法查看路由信息对象。
+
+  watch: {
+    '$route' (to, from) {
+        console.log(to);
+        console.log(from);
+    },
+  },
+
+  console中看到的路由信息对象
+
+  {
+      ...
+      params: { id: '123' },
+      query: { name: 'jack' },
+      ...
+  }
+
+  这两个参数会在页面跳转后写在路径中，路径相当于/page/123?name=jack
+
+
+</body>
+
+</html>

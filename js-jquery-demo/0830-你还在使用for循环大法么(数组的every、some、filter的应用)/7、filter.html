@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    7、 filter
+
+    该filter()方法创建一个新的匹配过滤条件的数组。
+
+    使用for：
+
+    <script type="text/javascript">
+
+        var arr = [
+          {"name":"apple", "count": 2},
+          {"name":"orange", "count": 5},
+          {"name":"pear", "count": 3},
+          {"name":"orange", "count": 16},
+        ];
+        var newArr = [];
+        for(var i= 0, l = arr.length; i< l; i++){
+          if(arr[i].name === "orange" ){
+            newArr.push(arr[i]);
+          }
+        }
+        console.log("Filter results:",newArr);
+
+// ------------------------------------------------------------------------------------------
+
+        // 使用 filter()：
+
+        var arr = [
+          {"name":"apple", "count": 2},
+          {"name":"orange", "count": 5},
+          {"name":"pear", "count": 3},
+          {"name":"orange", "count": 16},
+        ];
+
+        var newArr = arr.filter(function(item){
+          return item.name === "orange";
+        });
+
+        console.log("Filter results:",newArr);
+
+        // {name: "orange", count: 5} 
+        // {name: "orange", count: 16}
+
+    </script>
+
+  </body>
+</html>

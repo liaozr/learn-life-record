@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+（注明：所有示例里ajax和setTimeout都是为了模拟加载效果而写的，与本插件无直接关系。
+
+ajax建议自己写，无特殊情况不必copy我的ajax写法，因为写得太烂。
+
+
+如需下载本地运行，请在本机装服务器环境，如php，并在php环境里运行打开，否则ajax会报错。）
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+已知问题
+
+由于部分Android中UC和QQ浏览器头部有地址栏，并且一开始滑动页面隐藏地址栏时，无法触发scroll和resize，
+
+所以会导致部分情况无法使用。
+
+解决方案1：增加distance距离，例如DEMO2中distance:50；
+
+threshold : 50
+
+(建议用这一种模式，增加distance距离，亲测过不加这个distance距离，)
+在某些机型上是不会加载数据出来的。如 Nexus 5X这个机型就是了。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+解决方案2：加meta使之全屏显示
+
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+实践案例：
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+用于 dropload的dom结点跟用于加载下拉刷新后数据append进去的dom结点，
+是不能选用同一个dom结点的，测试过，会有bug的，所以，就按照这种布局就好。
+
+<!-- m-content 用于 dropload的一个dom结点 -->
+<div class="m-content">
+    <!-- m-news 用于加载下拉刷新后数据append进去的一个dom结点位置 -->
+    <div class="m-news">
+
+        <div class="flag flag-middle">
+            <div class="flag__item flag_img">
+                <div class="img-center">
+                    <a href="##">
+		              <img src="<?=PUBLIC_SITE_URL.'/home/mobile/images/5.png'?>" alt="" >
+		           </a>
+                </div>
+            </div>
+            <div class="flag__item flag__item_body">
+                <div class="heading">
+                    <a href="##">
+			                买砖宝终端订单王亮剑
+			           </a>
+                </div>
+                <div class="p">
+                    2016-05-24
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 其中呢，m-content是不建议加上任何样式的，padding等样式建议加在m-news上 -->
+<style>
+    .m-content {}
+
+    .m-news {
+        padding: 20px;
+    }
+</style>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+<script>
+    // 下拉刷新
+    var counter = 0;
+    // 每页展示4个
+    var num = 4;
+    var pageStart = 0,
+        pageEnd = 0;
+
+    // dropload
+    $('.m-content').dropload({
+        scrollArea: window,
+        loadDownFn: function(me) {
+            $.ajax({
+                type: 'GET',
+                url: '__PUBLIC__/home/mobile/js/more.json',
+                dataType: 'json',
+                success: function(data) {
+                    var result = '';
+                    counter++;
+                    pageEnd = num * counter;
+                    pageStart = pageEnd - num;
+                    for (var i = pageStart; i < pageEnd; i++) {
+                        result += "<div class=\"flag flag-middle\"><div class=\"flag__item flag_img\"><div class=\"img-center\"><a href=" + data.lists[i].link + "><img src=" + data.lists[i].pic +"></a></div></div><div class=\"flag__item flag__item_body\"><div class=\"heading\"><a href=" + data.lists[i].link + ">" + data.lists[i].title + "</a></div><div class=\"p\">" + data.lists[i].date +
+                            "</div></div></div>";
+                        if ((i + 1) >= data.lists.length) {
+                            // 锁定
+                            me.lock();
+                            // 无数据
+                            me.noData();
+                            break;
+                        }
+                    }
+                    // 为了测试，延迟1秒加载
+                    setTimeout(function() {
+                        $('.m-news').append(result);
+                        // 每次数据加载完，必须重置
+                        me.resetload();
+                    }, 1000);
+                },
+                error: function(xhr, type) {
+                    alert('Ajax error!');
+                    // 即使加载出错，也得重置
+                    me.resetload();
+                }
+            });
+        },
+        threshold : 50
+    });
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+用于 dropload的dom结点跟用于加载下拉刷新后数据append进去的dom结点，
+是不能选用同一个dom结点的，测试过，会有bug的，所以，就按照这种布局就好。
+
+<div class="content">
+    <div class="lists"></div>
+</div>
+<script>
+    $('.content').dropload({
+        scrollArea: window,
+        loadDownFn: function(me) {
+
+        },
+        success: function(data) {
+
+            setTimeout(function() {
+                $('.lists').append(result);
+                // 每次数据加载完，必须重置
+                me.resetload();
+            }, 1000);
+        },
+        error: function(xhr, type) {
+            alert('Ajax error!');
+            // 即使加载出错，也得重置
+            me.resetload();
+        }
+    })
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+<script>
+    // ------------------------------------------------------------------------
+
+    // overflow的属性重要性 为visible才是
+    // 这里overflow 用除了visible的其他值后，dropload是会出现问题的，不会下拉刷新出数据的
+
+    // visible 默认值。内容不会被修剪，会呈现在元素框之外。
+
+    // hidden  内容会被修剪，并且其余内容是不可见的。
+    // scroll  内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。
+    // auto    如果内容被修剪，则浏览器会显示滚动条以便查看其余的内容。
+</script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+<!-- ----------------------------------------------------------------------------------- -->
+
+三、bind
+bind是在EcmaScript5中扩展的方法（IE6,7,8不支持）
+
+bind() 方法与 apply 和 call 很相似，也是可以改变函数体内 this 的指向。
+
+MDN的解释是：bind()方法会创建一个新函数，称为绑定函数，当调用这个绑定函数时，绑定函数会以创建它时传入
+
+bind()方法的第一个参数作为 this，
+
+传入 bind() 方法的第二个以及以后的参数加上绑定函数运行时本身的参数按照顺序作为原函数的参数来调用原函数。
+
+注意：bind方法的返回值是函数
+
+<script>
+    var bar = function() {
+        console.log(this.x);
+    }
+    var foo = {
+        x: 3
+    }
+    bar();
+    bar.bind(foo)();
+    /*或*/
+    // var func = bar.bind(foo);
+    // func();
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+<!--
+输出：
+undefined
+3
+ -->
+</body>
+</html>

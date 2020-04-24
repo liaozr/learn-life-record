@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src='vue.js'></script>
+</head>
+<body>
+
+列表渲染
+
+v-for
+
+其实就是个循环标签啦:
+
+<ul id="example-2">
+    <li v-for="(item, index) in items">
+        {{ parentMessage }} - {{ index }} - {{ item.message }}
+    </li>
+</ul>
+
+对应的 vm 实例:
+
+<script>
+    var example2 = new Vue({
+        el: '#example-2',
+        data: {
+            parentMessage: 'Parent',
+            items: [
+              {
+                message: 'Foo'
+              },
+              {
+                message: 'Bar'
+              }
+            ]
+        }
+    })
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+模板 v-for
+
+跟 v-if 类似，我们也能在 template 上使用 v-for:
+
+<ul>
+    <template v-for="item in items">
+        <li>{{ item.msg }}</li>
+        <li class="divider"></li>
+    </template>
+</ul>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+对象 v-for
+
+也能使用 v-for 遍历对象的属性：
+
+<ul id="repeat-object" class="demo">
+    <li v-for="value in object">
+        {{ value }}
+    </li>
+</ul>
+<script>
+    new Vue({
+        el: '#repeat-object',
+        data: {
+            object: {
+                FirstName: 'John',
+                LastName: 'Doe',
+                Age: 30
+            }
+        }
+    })
+</script>
+
+看到 value，那肯定还有 key 了：
+
+<div v-for="(value, key) in object">
+  {{ key }} : {{ value }}
+</div>
+
+如果再加上 index:
+
+<div v-for="(value, key, index) in object">
+  {{ index }}. {{ key }} : {{ value }}
+</div>
+
+其他还有像是 v-for="n in 10" 这种用法，就不加上例子了。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+组件 v-for
+
+input 输出内容到 newTodoText，每次点击 enter 都会触发 addNewTodo，
+
+然后添加 item 到 todos，触发新的 li 添加进去:
+
+<div id="todo-list-example">
+    <input v-model="newTodoText" v-on:keyup.enter="addNewTodo" placeholder="Add a todo">
+    <ul>
+        <li is="todo-item" v-for="(todo, index) in todos" v-bind:title="todo" v-on:remove="todos.splice(index, 1)"></li>
+    </ul>
+</div>
+
+<script>
+    Vue.component('todo-item', {
+        template: '\
+    <li>\
+      {{ title }}\
+      <button v-on:click="$emit(\'remove\')">X</button>\
+    </li>\
+  ',
+        props: ['title']
+    })
+    new Vue({
+        el: '#todo-list-example',
+        data: {
+            newTodoText: '',
+            todos: [
+                'Do the dishes',
+                'Take out the trash',
+                'Mow the lawn'
+            ]
+        },
+        methods: {
+            addNewTodo: function() {
+                this.todos.push(this.newTodoText)
+                this.newTodoText = ''
+            }
+        }
+    })
+</script>
+
+key
+
+当 vue 在更新被 v-for 渲染的列表时候，会使用就地 patch 的策略，而不是根据元素改变的顺序。我们可以提供 key 来做这个排序：
+
+<div v-for="item in items" :key="item.id">
+  <!-- content -->
+</div>
+
+如此，item 会根据 id 来做排序。
+
+数组 index 当 key
+
+<ul>
+    <li v-for="(item, index) in arr">
+        <h1 :class="classArr[index]">{{ item }}</h1>
+    </li>
+</ul>
+
+<!-- -------------------------------------------------------------------------------- -->
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+</html>

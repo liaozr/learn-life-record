@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+可以参考荔枝FM-demo
+
+<body>
+
+    <!-- -------------------------------------------------------------------------------------- -->
+
+    在固定viewport宽度的移动端写法中
+    <style>
+        /*移动端header 外层wrapper 常见样式代码*/
+
+        .wrapper {
+            overflow: hidden;
+            /* 这个padding值这种写法是很常见的。 */
+            padding: 0px 30px 0px 30px;
+            width: 580px;
+            margin: 0 auto;
+        }
+        /*-------------------------------------------------------------*/
+        /*移动端header 外层wrapper 常见样式代码*/
+
+        header .wrapper {
+            position: relative;
+            /* 这个padding值这种写法是很常见的。 */
+            padding: 0 82px 0 130px;
+            width: 508px;
+            height: 94px;
+        }
+        /*--------------------------------------------------------------*/
+        /*然后wrapper里面的布局写法就用绝对定位即可*/
+
+        header .wrapper .img-box {
+            position: absolute;
+            left: 27px;
+            top: 8px;
+            width: 72px;
+            height: 72px;
+        }
+
+        header .wrapper .login-btn {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+        }
+    </style>
+
+    <!-- --------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

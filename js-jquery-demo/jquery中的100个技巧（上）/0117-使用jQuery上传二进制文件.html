@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    现在的浏览器都支持FormData API，这可以是我们很轻松的通过ajax来发送数据。 并将之结合HTML5中的File API，我们就可以上传二进制文件了。
+
+    <script>
+        // The file input field
+
+        var fileInput = $('input[type=file]'),
+            button = $('#upload');
+
+        button.on('click', function() {
+
+            // Access the files property, which holds
+            // an array with the selected files
+
+            var files = fileInput.prop('files');
+
+            // No file was chosen!
+            if (files.length == 0) {
+                alert('Please choose a file to upload!');
+                return false;
+            }
+
+            // Create a new FormData object
+
+            var fd = new FormData();
+
+            fd.append('file', files[0]);
+
+            // Upload the file to assets/php/upload.php. Open that file in a text
+            // editor to get a better idea of how it works.
+
+            $.ajax({
+                url: './assets/php/upload.php',
+                data: fd,
+                contentType: false, // This will make the browser use the multipart/formdata encoding, which is required for transferring binary data.
+                processData: false, // jQuery shouldn't do any processsing on the data - the browser will handle this when it sees we are passing a formdata object.
+                type: 'POST',
+                success: function(m) {
+                    log(m);
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

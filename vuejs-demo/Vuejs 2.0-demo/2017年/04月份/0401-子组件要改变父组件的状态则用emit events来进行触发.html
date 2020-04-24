@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+  
+<!-- ---------------------------------------------------------------------------------- -->
+
+  父组件传递数据给子组件用的是props，
+
+  那子组件要改变父组件的状态则用emit events来进行触发
+
+  那如果是组件形式的我们就不能用$on了，只能在组件上使用v-on:'监听的事件'='监听到事件后做的事件函数'
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+<template id='mydemo'>
+    <div>
+        <button @click='a'>按钮</button>
+        子组件的time:{{ time }}
+    </div>
+</template>
+
+<div id='app'>
+    <mydemo :time='time' @bb='bbevent'></mydemo>
+    <p>父组件的time：{{time}}</p>
+</div>
+
+<script>
+    Vue.component("mydemo", {
+        template: '#mydemo',
+        data() {
+            return {
+                time2: ''
+            }
+        },
+        props: ['time'],
+        watch: {
+            time(value) {
+                this.time2 = value
+            }
+        },
+        methods: {
+            a() {
+                this.time2++
+                this.$emit('bb', this.time2)
+            }
+        }
+
+    })
+
+    new Vue({
+        el: "#app",
+        data: {
+            time: 0
+        },
+        methods: {
+            bbevent(value) {
+                this.time = value
+            }
+        }
+    })
+
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

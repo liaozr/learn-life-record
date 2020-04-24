@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+  这个是父组件 里面
+
+  <list tipsText="自定义文案,默认右边是按钮" msg="弹层"></list>
+  <list @btnClickEvent="test"></list>
+  <list ref="child1" tipsText="最右边是箭头" currentView="arw"></list>
+
+
+  <!--
+               Props向下传递，事件向上传递！。以此为目标升级你的组件，提供良好的 API 和 独立性。
+              当遇到 props 和 events 难以实现的功能时，通过 this.$refs来实现。
+              -->
+
+  <!--
+
+              注意最后一个list 组件上有一个ref的属性，这个属性代表组件集合，
+              当页面中有很多组件的时候，可以通过几种方法来获取对应的某个组件的信息：
+
+              console.log(this.$children[0].msg);//通过数组获取
+              console.log(this.$refs.child1.msg);//通过对象集合获取
+
+              要想使用refs的内容，就需要在组件写入dom之后才能开始调用哦！
+
+           -->
+
+  <script>
+    import list from '@c/lists/list'
+    export default {
+      data() {
+        return {
+          timeNum: ''
+        }
+      },
+      components: {
+        list
+      },
+      methods: {
+        test: function(value) {
+          alert(value + "我是自定义的方法,来自于子组件list触发的一个方法");
+        },
+        ceshi() {
+          console.log('这个方法主要是用来测试 this.$parent的用法的')
+        }
+      },
+      created() {
+      },
+      mounted() {
+        console.log(this.$children[0].msg); //通过数组获取
+        console.log(this.$refs.child1.tipsText); //通过对象集合获取
+      }
+    }
+  </script>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+ list.vue 子组件里面
+
+  <template>
+  <div class="qui-list">
+    <span class="list-tips">{{tipsText}}</span>
+    <component :is="currentView" @btnClickEvent="clickEvent" :msg=msg  class="small" keep-alive ></component>
+
+    <!--
+        其实关于动态组件，不一定要用：is+component来实现，
+
+        在Vue中有一个指令叫做v-if / v-else / v-else-if，统称判断指令，配合展示指令v-show，
+
+        可以根据指定的值来决定对应的组件是否应该展示，另外这种做法我不展示了，
+      -->
+
+    <!--
+    keep-alive关键字保持这个组件在内存中是常驻的，由于动态组件可能需要动态切换，
+    这样保持组件活跃可以减少组件变化时候的内存消耗。
+     -->
+
+  </div>
+</template>
+
+  <script>
+    import button from './button.vue'
+    import arrow from './arrow.vue'
+    export default {
+      // props: ['message'],
+      props: {
+        msg: {
+          default: '下载'
+        },
+        tipsText: {
+          default: '默认的文案'
+        },
+        currentView: {
+          default: 'btn'
+        }
+      },
+      components: {
+        'btn': button,
+        'arw': arrow
+      },
+      methods: {
+        clickEvent: function() {
+          this.btnClickEvent();
+          this.$emit('btnClickEvent', this.msg);
+          // this.$emit('bb', this.time2)
+        },
+        btnClickEvent: function() {
+          alert(this.msg + '我是默认事件');
+        }
+      },
+      mounted() {
+        this.$parent.ceshi()
+        // 这个是执行父组件里面的一个 ceshi 方法
+      }
+    }
+  </script>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+  rops向下传递，事件向上传递！
+
+  当遇到 props 和 events 难以实现的功能时，通过 this.$refs来实现。
+
+  当需要操作 dom 无法通过指令来做的时候可使用 this.$ref
+
+  而不是 JQuery、document.getElement*、document.queryElement。
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+<!-- 使用 this.$refs 的适用情况-->
+
+<modal ref="basicModal">
+    <h4>Basic Modal</h4>
+    <button class="primary" @click="$refs.basicModal.close()">Close</button>
+</modal>
+
+<button @click="$refs.basicModal.open()">Open modal</button>
+
+<!-- Modal component -->
+<template>
+  <div v-show="active">
+    <!-- ... -->
+  </div>
+</template>
+
+<script>
+  export default {
+    // ...
+    data() {
+      return {
+        active: false,
+      };
+    },
+    methods: {
+      open() {
+        this.active = true;
+      },
+      hide() {
+        this.active = false;
+      },
+    },
+    // ...
+  };
+</script>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

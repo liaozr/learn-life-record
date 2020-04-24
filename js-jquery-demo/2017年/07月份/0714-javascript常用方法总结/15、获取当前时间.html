@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+    
+        function GetCurrentDate() {
+            var d = new Date();
+            var y = d.getYear() + 1900;
+            month = add_zero(d.getMonth() + 1),
+                days = add_zero(d.getDate()),
+                hours = add_zero(d.getHours());
+            minutes = add_zero(d.getMinutes()),
+                seconds = add_zero(d.getSeconds());
+            var str = y + '-' + month + '-' + days + ' ' + hours + ':' + minutes + ':' + seconds;
+            return str;
+        };
+
+        function add_zero(temp) {
+            if (temp < 10) return "0" + temp;
+            else return temp;
+        }
+
+    </script>
+
+</body>
+
+</html>

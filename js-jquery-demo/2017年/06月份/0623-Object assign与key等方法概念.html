@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+  Object.assign()
+
+  Object.assign(target,source) 中将sources对象中所有可枚举的属性的值复制到目标的对象中，
+  其会返回目标对象。
+
+  该方法的兼容性不是很好，IE全面沦陷，在移动端方面，
+
+  仅有少数的浏览器才兼容该方法。幸好的是在MDN上提供了兼容的方法。
+
+  <script>
+
+      if (typeof Object.assign != 'function') {
+          Object.assign = function(target) {
+              'use strict';
+              if (target = null) {
+                  throw new TypeError('Cannot convert undefined or null to object');
+              }
+              target = Object(target);
+          }
+      }
+
+  </script>
+
+其实如果我们仔细观看源码的时候就会发现一个事实，那就是Object.assign()只是对一级属性进行复制，
+
+而不会对对象里面的对象进行深度拷贝，如果出现同名属性的key值，那么后者会覆盖前者，并不能做到完整的融合
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+Object.keys(obj)
+
+该方法会返回obj上所有可以进行枚举的属性的字符串数组，如下所示：
+
+<script>
+
+    //数组对象
+    var arr = [3, 4, 5];
+    console.log(Object.keys(arr))
+    //[0,1,2]
+
+    var obj = {}
+    console.log(Object.keys(obj))
+    //[],其不会遍历原型链上的属性。
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+ 使用Object.is( {},{} )判断两个对象是否完全相对，类似于===;
+
+ Object.assign(target, source1, source2)合并对象；（浅拷贝）
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

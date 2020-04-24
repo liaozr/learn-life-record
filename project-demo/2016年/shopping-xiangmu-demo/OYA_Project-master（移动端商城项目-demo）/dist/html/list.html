@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<title>商品详情页</title>
+	<link rel="stylesheet" href="../plugin/bootstrap/bootstrap-3.3.5/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../plugin/swiper/Swiper-3.3.1/dist/css/swiper.min.css">
+	<link rel="stylesheet" href="../css/reset.css">
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/list.css">
+	<script src="../plugin/swiper/Swiper-3.3.1/dist/js/swiper.min.js"></script>
+	<script src="../plugin/jquery/jquery-2.1.1.min.js"></script>
+	<script src="../plugin/jquery_lazyload/jquery.lazyload.js"></script>
+	<script src="../plugin/zepto/zepto.min.js"></script>
+	<script src="../plugin/zepto/touch.js"></script>
+	<script src="../js/list.js"></script>
+</head>
+<body>
+	<header>
+		<div class="row">
+			<div class="col-xs-2">
+				<a href="javascript:window.history.go(-1)">
+					<p class="glyphicon glyphicon-chevron-left"></p>
+				</a>
+			</div>
+			<div class="col-xs-8">
+				<div class="list-top">
+					<i class="btn1 active">详情</i>
+					<i class="btn1">评论</i>
+				</div>
+			</div>
+			<div class="col-xs-2 header-nav">
+				<p class="glyphicon glyphicon-list list-icon"></p>
+				<ul>
+					<li><a href="../index.html">首页</a></li>
+					<li><a href="goodlist.html">积分区</a></li>
+					<li><a href="goodlist.html">夺宝区</a></li>
+					<li><a href="list.html">分类</a></li>
+					<li><a href="shopCart.html">购物车</a></li>
+					<li><a href="my_center.html">个人中心</a></li>
+				</ul>
+			</div>
+
+		</div>
+	</header>
+	<section class="container">
+		<div class="swiper-container list-main">
+			 <div class="swiper-wrapper">
+			 	<div class="swiper-slide stop-swiping">
+
+			 		<div class="main-top">
+			 			<div class="swiper-container list-pic list-show">
+			 				<div class="swiper-wrapper">
+			 					<div class="swiper-slide"><img src="" alt=""></div>
+			 					<div class="swiper-slide"><img src="" alt=""></div>
+			 					<div class="swiper-slide"><img src="" alt=""></div>
+			 				</div>
+			 				 <div class="swiper-pagination"></div>
+			 			</div>
+			 			<div class="row col-xs-12">
+							<p id="list-name"></p>
+							<p><span id="list-price"></span></p>
+						</div>
+						<div class="col-xs-12 list-banner"></div>
+						<div class="col-xs-12 list-jx">
+							<p><span>品牌名称:</span><i id="list-brandname"></i></p>
+							<p><span>商品名称:</span><i id="list-productname"></i></p>
+							<p><span>产地:</span><i id="list-born"></i></p>
+							<p><span>材质:</span><i id="list-texture"></i></p>
+							<p><span>洗涤说明:</span><i id="list-wash"></i></p>
+							
+						</div>
+			 		</div>
+					<div class="main-footer">
+						<div class="col-xs-12"><img src="../img/60.jpg" alt=""></div>
+					</div>
+			 	</div>
+			 	<div class="swiper-slide stop-swiping list-slide2 list-url">
+			 		<dl class="col-xs-12">
+			 			<dt>
+			 				<p><i></i>匿名</p>
+			 				<p class="date">2016-05 14:00</p>
+			 			</dt>
+			 			<dd>☆☆☆☆☆</dd>
+			 			<dd>真心好，下次还会再来买</dd>
+			 			<dd>购买日期：2016-05 14:00</dd>
+			 		</dl>
+			 		<dl class="col-xs-12">
+			 			<dt>
+			 				<p><i></i>匿名</p>
+			 				<p class="date">2016-05 14:00</p>
+			 			</dt>
+			 			<dd>☆☆☆☆☆</dd>
+			 			<dd>真心好，下次还会再来买</dd>
+			 			<dd>购买日期：2016-05 14:00</dd>
+			 		</dl>
+			 		<dl class="col-xs-12">
+			 			<dt>
+			 				<p><i></i>匿名</p>
+			 				<p class="date">2016-05 14:00</p>
+			 			</dt>
+			 			<dd>☆☆☆☆☆</dd>
+			 			<dd>真心好，下次还会再来买</dd>
+			 			<dd>购买日期：2016-05 14:00</dd>
+			 		</dl>
+			 		<dl class="col-xs-12">
+			 			<dt>
+			 				<p><i></i>匿名</p>
+			 				<p class="date">2016-05 14:00</p>
+			 			</dt>
+			 			<dd>☆☆☆☆☆</dd>
+			 			<dd>真心好，下次还会再来买</dd>
+			 			<dd>购买日期：2016-05 14:00</dd>
+			 		</dl>
+			 		<dl class="col-xs-12">
+			 			<dt>
+			 				<p><i></i>匿名</p>
+			 				<p class="date">2016-05 14:00</p>
+			 			</dt>
+			 			<dd>☆☆☆☆☆</dd>
+			 			<dd>真心好，下次还会再来买</dd>
+			 			<dd>购买日期：2016-05 14:00</dd>
+			 		</dl>
+			 	</div>
+			 </div>
+		</div>
+	</section>
+	<footer>
+		<div class="row">
+			<div class="col-xs-3">
+				<a href="###">
+					<p class="glyphicon glyphicon-shopping-cart">
+						<span id="list-count"></span>
+					</p>
+				</a>
+			</div>
+			<div class="col-xs-4" id="list-addCart">
+				<a href="###">加入购物车</a>
+			</div>
+			<div class="col-xs-5">
+				<a href="###">立即购买</a>
+			</div>
+		</div>
+	</footer>
+	<div class="scrollTop" style="display:none">
+		<p class="glyphicon glyphicon-arrow-up" style="font-size:20px;color:#fff"></p>
+	</div>
+</body>
+</html>

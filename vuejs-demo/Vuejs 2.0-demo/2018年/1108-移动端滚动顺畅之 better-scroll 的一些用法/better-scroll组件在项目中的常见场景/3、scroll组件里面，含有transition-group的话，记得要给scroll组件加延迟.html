@@ -1,0 +1,60 @@
+<div class="playlist" v-show='showFlag' @click='hide'>
+
+    <scroll :refreshDelay="refreshDelay" ref='scroll' class="list-content" :lists='sequencelist'>
+        <transition-group name='list' tag='ul'>
+            <li ref='listItem' class="item" @click='selectItem(item,index)' v-for="(item,index) in sequencelist" :key='item.id'>
+                <i class="current" :class='getCurrentIcon(item)'></i>
+                <span class="text">{{item.name}}</span>
+                <span @click.stop="toggleFavorite(item)" class="like">
+                        <i :class="getFavoriteIcon(item)"></i>
+                    </span>
+                <span class="delete" @click.stop='deleteOne(item)'>
+                        <i class="icon-delete"></i>
+                    </span>
+            </li>
+        </transition-group>
+
+    </scroll>
+
+</div>
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+
+
+refreshDelay 就是 scroll 组件 延迟刷新的 时间
+refreshDelay 就是 scroll 组件 延迟刷新的 时间
+
+<script>
+
+    export default {
+        data() {
+            return {
+                showFlag: false,
+                refreshDelay: 100
+            }
+        },
+        components: {
+            scroll,
+            confirm,
+            addSong
+        },
+        methods: {
+            show() {
+
+                this.showFlag = true
+
+                // 显示隐藏的 也要调用 scroll组件的 refresh 方法
+                setTimeout(() => {
+
+                    this.$refs.scroll.refresh()
+                    this.scrollToCurrent(this.currentSong)
+
+                }, 20)
+
+            },
+        }
+    }
+
+</script>
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->

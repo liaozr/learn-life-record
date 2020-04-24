@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+<script>
+    ["1", "2", "3"].map(parseInt) //求输出结果
+</script>
+
+首先, map接受两个参数, 一个回调函数 callback, 一个回调函数的this值
+
+其中回调函数接受三个参数 currentValue, index, arrary;
+
+而题目中, map只传入了回调函数– parseInt.其次, parseInt 只接受两个两个参数 string, radix(基数).radix的合法区
+
+间是2 - 36. 0 或是默认是10.所以本题即问
+
+<script>
+    parseInt('1', 0);
+    parseInt('2', 1);
+    parseInt('3', 2);
+
+    // 后两者参数不合法.所以答案是：[1, NaN, NaN]；
+</script>
+
+
+</body>
+
+</html>

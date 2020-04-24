@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+其实路由钩子函数在项目开发中用的并不是非常多，一般用于登录态的校验，没有登录跳转到登录页；权限的校验等等。
+
+当然随着项目的开发进展，也会有更多的功能可能用钩子函数实现会更好，我们知道有钩子函数这个好东西就行了，
+
+下次遇到问题脑海就能浮现，噢，这个功能用钩子实现会比较棒。我们的目的就达到了。
+
+当然，有兴趣的可以再去研究下源码的实现。开启下脑洞。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+  router.beforeEach
+
+  to: Route,
+  from: Route,
+  next: Function
+
+  <script>
+
+      router.beforeEach((to, from, next) => {
+          // to 和 from 都是 路由信息对象
+      })
+
+  </script>
+
+  to: Route:
+  即将要进入的目标 路由对象
+
+  from: Route:
+  当前导航正要离开的路由
+
+  next: Function:
+  一定要调用该方法来 resolve 这个钩子。执行效果依赖 next 方法的调用参数。
+  next(): 进行管道中的下一个钩子。如果全部钩子执行完了，则导航的状态就是 confirmed （确认的）。
+  next(false): 中断当前的导航。如果浏览器的 URL 改变了（可能是用户手动或者浏览器后退按钮），那么 URL 地址会重置到 from 路由对应的地址。
+  next(‘/‘) 或者 next({ path: ‘/‘ }): 跳转到一个不同的地址。当前的导航被中断，然后进行一个新的导航。
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+  router.afterEach
+
+  after 钩子没有 next 方法，不能改变导航：
+
+  <script>
+
+      router.afterEach(route => {
+          // ...
+      })
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+  某个路由独享的钩子
+
+  这些钩子与全局 before 钩子的方法参数是一样的。
+
+  <script>
+      const router = new VueRouter({
+
+          routes: [
+             {
+                path: '/foo',
+                component: Foo,
+                beforeEnter: (to, from, next) => {
+                    // ...
+                }
+             }
+          ]
+
+      })
+  </script>
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+  组件内的钩子
+
+  <script>
+
+      const Foo = {
+          template: `...`,
+          beforeRouteEnter(to, from, next) {
+              // 在渲染该组件的对应路由被 confirm 前调用
+              // 不！能！获取组件实例 `this`
+              // 因为当钩子执行前，组件实例还没被创建
+          },
+          beforeRouteUpdate(to, from, next) {
+              // 在当前路由改变，但是该组件被复用时调用
+              // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+              // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+              // 可以访问组件实例 `this`
+          },
+          beforeRouteLeave(to, from, next) {
+              // 导航离开该组件的对应路由时调用
+              // 可以访问组件实例 `this`
+          }
+      }
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

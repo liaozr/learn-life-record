@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    比如要绑定一个 touchmove 的事件，正常的情况下类似这样(来自呼吸二氧化碳)
+
+    <script>
+        $('div').on('touchmove', function() {
+            //.….code
+        });
+    </script>
+
+    <!-- --------------------------------------------------------------------------------- -->
+
+    而如果中间的 code 需要处理的东西多的话，FPS 就会下降影响程序顺滑度，而如果改成这样
+
+    <script>
+        $('div').on('touchmove', function() {
+            setTimeout(function() {
+                //.….code
+            }, 0);
+        });
+    </script>
+
+    把代码放在 setTimeout 中，会发现程序变快.
+
+    <!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

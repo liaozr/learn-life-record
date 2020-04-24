@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,minimal-ui" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="商品选择" />
+		<meta name="Description" content="商品选择" />
+		<title>商品选择</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/base.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+		<link rel="stylesheet" href="css/public.css" />
+		<link rel="stylesheet" href="css/ww.css" />
+	</head>
+	<style>
+		.layermbtn span {
+			height: 39px;
+			background-color: #fff;
+			border-radius: 0 0 0 3px;
+		}
+	</style>
+
+	<body class="buy-car goods-select" style="padding-bottom: 3.5rem;min-height: 18rem;">
+		<div id="loadpage">
+			<img src="img/loading2.gif" alt="" />
+		</div>
+		<header class="y-mytop header">
+			<h1>商品选择</h1>
+			<div class="return-box">
+				<img src="img/icon-return.png" alt="" />
+				<span>返回</span>
+			</div>
+		</header>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper under-top" style="top:1.25rem;padding-bottom:1.5rem;">
+			<div class="mui-scroll">
+				<!--产品列表-->
+				<section class="productList">
+					<ul class="h-ul-productList">
+						<li>
+							<div class="left select-btn"><i class="btn" id="1"></i></div>
+							<div class="left h-proImg">
+								<a><img src="" alt="" /></a>
+							</div>
+							<div class="delete-div">
+								删除
+							</div>
+							<div class="h-proinfo">
+								<h4 class="mgt-10">12kg气瓶<span class="right eidt-btn">编辑</span></h4>
+								<div class="mgt-10">适合1-2人家庭使用</div>
+								<div class="new-price mgt-10">
+									<span class="color-dd010f"><span>押金</span>￥84</span>
+									<span class="numRange right">
+								<span class="sub" style="display: none;"></span>
+									<span class="num">
+									<span class="num-string">x</span>
+									<span class="num-value">1</span>
+									</span>
+									<span class="add" style="display: none;"></span>
+									</span>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</section>
+			</div>
+		</div>
+	</body>
+	<script src="js/zepto1.1.6.min.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script src="layer-m/layer.js"></script>
+	<script>
+	
+	// 返回上一页
+		$(".return-box").on('tap1',function(){
+			window.history.go(-1);
+		});
+		
+		$('.h-ul-productList').on('tap1', '.delete-div', function(event) {
+			tanchu(this);
+		});
+
+		function tanchu(e) {
+			var li = e.parentNode;
+			layer.open({
+				content: '您确认删除此商品吗',
+				btn: ['确认', '取消'],
+				shade: [0.5, '#000'], //遮罩层  透明度，颜色
+				shadeClose: true, //点击遮罩层 关闭弹出层
+				time: 0,
+				yes: function(index) {
+					li.parentNode.removeChild(li);
+					layer.close(index);
+				},
+				no: function() {
+					$(li).find(".eidt-btn").text("编辑");
+					$(li).find(".delete-div").css('display', 'none');
+					$(li).find(".sub").css('display', 'none');
+					$(li).find(".add").css('display', 'none');
+					$(li).find(".num-string").css('display', 'inline-block');
+				}
+			});
+		}
+
+		$(".eidt-btn").on('tap1', function(e) {
+			if($(this).text() == "编辑") {
+				$(this).text("取消");
+				$(this).parent().parent().parent().find(".delete-div").css('display', 'block');
+				$(this).parent().parent().find(".sub").css('display', 'block');
+				$(this).parent().parent().find(".add").css('display', 'block');
+				$(this).parent().parent().find(".num-string").css('display', 'none');
+			} else {
+				$(this).text("编辑");
+				$(this).parent().parent().parent().find(".delete-div").css('display', 'none');
+				$(this).parent().parent().find(".sub").css('display', 'none');
+				$(this).parent().parent().find(".add").css('display', 'none');
+				$(this).parent().parent().find(".num-string").css('display', 'inline-block');
+			}
+		});
+
+		$(".select-btn .btn").on('tap1', function() {
+			if($(this).hasClass('active')) {
+				$(this).removeClass("active");
+			} else {
+				$(this).addClass("active");
+			}
+		});
+
+		$(".sub").on("tap1",function() {
+			var num = parseInt($(this).parent().find('.num-value').text());
+			if(num > 0) {
+				num--;
+			}
+			$(this).parent().find('.num-value').text(num);
+		});
+		$(".add").on("tap1",function() {
+			var num = parseInt($(this).parent().find('.num-value').text());
+			if(num < 99) {
+				num++;
+			}
+			$(this).parent().find('.num-value').text(num);
+		});
+
+		var ua = navigator.userAgent.toLowerCase();
+		if(ua.match(/MicroMessenger/i) == "micromessenger") {
+			$(".h-nav-top").css("display", "none");
+			$(".y-mytop").css("margin-top", 0);
+		}
+		//页面加载完毕删除遮罩层
+		window.onload = function() {
+			$("html").css("overflow", "auto");
+			$("#loadpage").css("display", "none");
+		}
+		//////////////////下拉刷新//////////////////////////////
+		mui.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: {
+					callback: pulldownRefresh
+				},
+			}
+		});
+		/**
+		 * 下拉刷新具体业务实现
+		 */
+		function pulldownRefresh() {
+			setTimeout(function() {
+				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+				//do something
+			}, 1500);
+		}
+		var count = 0;
+		/**
+		 * 上拉加载具体业务实现
+		 */
+		 //按钮点击变色
+		$("#to-pay").on('touchstart',function(){
+			$(this).addClass('active');
+		});
+		$("#to-pay").on('touchend',function(){
+			$(this).removeClass('active');
+		});
+	</script>
+
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src='vue.js'>
+    </script>
+</head>
+
+<body>
+    需要重用组件的考虑 如果一个组件需要重复使用多次，那么请一开始就充分考虑接口，不要已经使用了很多组件了，然后才想起扩充接口。
+
+    总的来说，Vue组件的接口包括3个方面：
+
+    Props（数据）允许外部将数据传入组件内；
+    Events（事件） 允许将组件内的事件向外传播；
+    Slots（插槽）允许在外部编辑组件内的html内容；
+
+    <my-component :foo="baz" :bar="qux" @event-a="doThis" @event-b="doThat">
+        <img slot="icon" src="...">
+        <p slot="main-text">Hello!</p>
+    </my-component>
+
+    以上就是这三种接口在组件调用时的运用； 注意v-bind 和 v-on的简写形式，这样写有助于让你的代码看起来更清晰；
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+取得某一个组件的实例
+
+我们很容易取得Vue的实例，比如vm；
+
+但是要取得一个组件的实例却并不容易，因为组件是一个模板，多次使用；每次使用都是一个实例；
+
+大多数时候我们通过传递参数来改变组件内部数据，但有时候我们需要直接获得这个实例，并改变这个实例的数据；
+
+可以这样：
+
+<div id="parent">
+    <user-profile ref="profile"></user-profile>
+</div>
+
+ref="profile"相当于给了一个组件一个id，于是我们可以这样来取得这个组件的实例：
+
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#parent',
+    })
+    // access child component instance
+    var child = vm.$refs.profile
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+<div id="parentt">
+    <user-profilee ref="profile"></user-profilee>
+</div>
+
+<script type="text/javascript">
+
+    Vue.component('user-profilee', {
+        template: '<p>{{name}}</p>',
+        data: function() {
+            return {
+                name: 'Woody',
+                age: 24
+            }
+        }
+    });
+
+    var vm = new Vue({
+        el: '#parentt'
+    })
+    // access child component instance
+    var child = vm.$refs.profile
+    console.log(child.name)  // 打印出来的值为 Woody
+    console.log(child.age)  // 打印出来的值为 24
+
+</script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+异步组件
+
+一个组件在dom里面，要么有，要么没有，对于某些大型app，会同时有很多组件，可能你需要根据某些条件来决定如何加载这些组件，而不是一次性全部加载；
+
+我们在定义组件的时候，可以有两个回调函数作为参数：
+
+<script type="text/javascript">
+
+    Vue.component('async-example', function(resolve, reject) {
+        setTimeout(function() {
+            resolve({
+                template: '<div>I am async!</div>'
+            })
+        }, 1000)
+    })
+
+</script>
+
+一个是resolve,一个是reject,它们的意思是，当满足某个条件时，我可以选择渲染这个组件，也可以选择拒绝渲染；
+
+上例中的setTimeout仅仅作为演示，你可以定义自己的条件。
+
+<!-- -------------------------------------------------------------------------- -->
+
+组件的命名约定
+
+定义的时候
+
+<script type="text/javascript">
+
+// in a component definition
+components: {
+  // register using camelCase
+  'kebab-cased-component': { /* ... */ },
+  'camelCasedComponent': { /* ... */ },
+  'TitleCasedComponent': { /* ... */ }
+}
+</script>
+
+在Html里，由于html区分大小写，所以：
+
+<!-- alway use kebab-case in HTML templates -->
+<kebab-cased-component></kebab-cased-component>
+<camel-cased-component></camel-cased-component>
+<title-cased-component></title-cased-component>
+
+全都得长一样；
+
+在String模板里：
+<!-- use whatever you want in string templates! -->
+<my-component></my-component>
+<myComponent></myComponent>
+<MyComponent></MyComponent>
+随意；
+
+<!-- ------------------------------------------------------------------------------ -->
+
+递归组件
+
+有时候，你需要一个递归调用的嵌套视图；
+
+name: 'stack-overflow',
+
+template: '<div><stack-overflow></stack-overflow></div>'
+
+首先必须要有一个name属性；其次上面的代码会报无限死循环的错误，因为在嵌套自己的时候没有加入条件；
+比如v-if之类的，在必要的时候能够停止循环调用。
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+x-template
+
+对于html内容比较多的模板，你可以把模板定义在外面：
+
+<script type="text/x-template" id="hello-world-template">
+    <p>Hello hello hello</p>
+</script>
+
+<script type="text/javascript">
+    Vue.component('hello-world', {
+        template: '#hello-world-template'
+    })
+</script>
+<!-- ------------------------------------------------------------------------------ -->
+
+静态组件
+
+对于完全不需要数据绑定的组件，你可以在模板内部使用v-once，这样可以生成缓存，节约不少性能；
+
+<script type="text/javascript">
+
+
+Vue.component('terms-of-service', {
+  template: '\
+    <div v-once>\
+      <h1>Terms of Service</h1>\
+      ... a lot of static content ...\
+    </div>\
+  '
+})
+</script>
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

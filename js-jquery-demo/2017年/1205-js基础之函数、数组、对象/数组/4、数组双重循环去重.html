@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    构建一个空数组来存放去重后的数组
+
+    对原数组做循环遍历， 每次从数组中取出一个元素与结果数组做对比
+
+    如果原数组取出的元素与结果数组元素相同， 则跳出循环； 反之则将其存放到结果数组
+
+    <script>
+
+        function unique(arr) {
+            var result = [arr[0]]
+
+            for (var i = 1; i < arr.length; i++) {
+                var repeat = false
+                for (var j = 0; j < result.length; j++) {
+                    if (arr[i] == result[j]) {
+                        repeat = true
+                        break;
+                    }
+                }
+                if (!repeat) {
+                    result.push(arr[i])
+                }
+            }
+            return result
+        }
+
+        console.log( unique([1, 2, 3, 4, 3, 2, 'a', 'b', 'a']) ) ;
+
+        //[1, 2, 3, 4, "a", "b"]
+
+    </script>
+
+</body>
+
+</html>

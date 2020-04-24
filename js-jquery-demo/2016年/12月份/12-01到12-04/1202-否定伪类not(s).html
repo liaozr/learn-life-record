@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    :not(X)是CSS中的一个否定伪类（选择器），并且接受一个简单的选择器作为参数。 本质上，可以使任一其他选择器（作为参数）。 :not（选择器）匹配传递参数选择器未选择的元素。传递参数或许不包括增加的选择器或者伪元素选择器。 在这个例子中，有一个class为“different”的li元素：
+
+    <ul>
+        <li></li>
+        <li class="different"></li>
+        <li></li>
+    </ul>
+
+    <!-- -------------------------------------------------------------------------------- -->
+
+    css将会选择除了class为“different”外的所有li元素。
+
+    <style>
+        li {
+            color: blue;
+        }
+        /* Style everything but the .different class */
+
+        li:not(.different) {
+            font-size: 3em;
+            color: red;
+        }
+    </style>
+
+    <!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

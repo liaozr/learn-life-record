@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<script>
+    var arr = [],
+        arr2 = [1];
+
+    console.log(arr === arr2); // false
+</script>
+
+上方两个不同的数组比较，console为false。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+<script>
+    var arr = [],
+        arr2 = [];
+        
+    var arr3=[];
+    arr2=arr3;
+
+    console.log(arr === arr2); // false
+
+    console.log(arr2 === arr3) //true.
+</script>
+
+数组和数组比为 false 是因为数组是引用类型，比较的是内存地址。
+
+当分别声明 2 个数组时它们的内存地址不同所以不相等
+
+如果是赋值，那么 2 个数组的 === 就是 true。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+<script>
+    var arr = [],
+        arr2 = {};
+
+    console.log(typeof(arr) === typeof(arr2)); // true
+</script>
+
+上方利用typeof比较数组和对象，因为typeof获取NULL、数组、对象的类型都为object，所以console为true。
+
+<!-- -------------------------------------------------------------------------------- -->
+<script>
+    var arr = [];
+
+    console.log(arr instanceof Object); // true
+    console.log(arr instanceof Array); // true
+</script>
+
+上方利用instanceof判断一个变量是否属于某个对象的实例，因为在JavaScript中数组也是对象的一种，所以两个console都为true。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+</html>

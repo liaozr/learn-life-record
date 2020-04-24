@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+Computed
+
+计算属性在vue中也是一个非常常用的功能，而且好多同学搞不清楚它跟watch有什么区别，这里就详细说说计算属性到底是什么，以及它是如何工作的
+
+简单点说，Computed 其实就是一个 getter 和 setter，
+
+经常使用 Computed 的同学可能知道，Computed 有几种用法
+
+<script>
+    var vm = new Vue({
+        data: {
+            a: 1
+        },
+        computed: {
+            // 用法一： 仅读取，值只须为函数
+            aDouble: function() {
+                return this.a * 2
+            },
+            // 用法二：读取和设置
+            aPlus: {
+                get: function() {
+                    return this.a + 1
+                },
+                set: function(v) {
+                    this.a = v - 1
+                }
+            }
+        }
+    })
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+如果不希望Computed有缓存还可以去掉缓存
+
+<script>
+    computed: {
+        example: {
+            // 关闭缓存
+            cache: false,
+            get: function() {
+                return Date.now() + this.msg
+            }
+        }
+    }
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+</body>
+</html>

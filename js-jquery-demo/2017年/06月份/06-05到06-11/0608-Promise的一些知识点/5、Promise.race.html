@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+<script>
+
+    var p1 = Promise.resolve(1),
+        p2 = Promise.resolve(2),
+        p3 = Promise.resolve(3);
+
+    Promise.race([p1, p2, p3]).then(function(value) {
+
+        console.log(value);
+        // 打印出的结果是： 1
+
+    });
+
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  跟all用法类似，都是传多个promise对象。根据race 的意思，我们大概知道是干嘛的了。哪个先完成，就返回哪个的数据。
+  应用场景大概是两个服务器，比较哪个快。但是现在服务器 都会通过nginx 做负载均衡，也不需要前端去关注这些东西。
+
+  Promise.race([getExams(examId), getQuestion(questionId)]).then((data)=>{
+      console.log(data)
+  })
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  运行生成并返回一个新的promise对象。
+
+  参数 promise 数组中的任何一个promise对象如果变为resolve或者reject的话， 该函数就会返回，
+
+  并使用这个promise对象的值进行resolve或者reject。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

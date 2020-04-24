@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Document</title>
+      <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+  </head>
+
+  <body>
+
+<!-- -------------------------------------------------------------------------------------------------- -->
+
+  30. 移动端提高可点区域范围
+
+  移动端的的一些图标如X，可能会设计得比较小，所以点起来会不太好点，因此要提高可点区域范围，可通过增加padding，如下代码：
+
+  <div id="app">
+
+      <div id='close' class="icon-close" @click='close'>111</div>
+
+  </div>
+
+  <style>
+      .icon-close {
+          position: abosulte;
+          right: 0;
+          top: 0;
+          padding: 20px;
+          /*background-color: red;*/
+          width: 30px;
+          height: 30px;
+          z-index: 999
+      }
+  </style>
+
+  <script>
+      new Vue({
+          el: '#app',
+          data: {
+
+          },
+          methods: {
+              close() {
+                  alert(111)
+              }
+          }
+      })
+  </script>
+
+  这样区域就增加了一圈，点起来就容易多了。
+
+  <!-- -------------------------------------------------------------------------------------------------- -->
+
+  31. 不要设置input的line-height
+
+  如果设置input的line-height，如下代码，你可能要做垂直居中：
+
+  <div class="text">
+
+      <input type="text">
+
+  </div>
+
+  <style>
+
+      .text input {
+          height: 20px;
+          line-height:normal;
+          width:200px;
+          background-color: #ccc;
+          border:1px solid red;
+          padding:10px;
+      }
+
+  </style>
+
+  设置了line-height为一个很高的值，这样会导致Safari浏览器的输入光标|变得巨大，所以如果你要居中的话，使用padding吧。
+  
+<!-- -------------------------------------------------------------------------------------------------- -->
+
+
+
+  </body>
+
+  </html>
+
+</body>
+</html>

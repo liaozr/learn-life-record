@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ------------------------------------------------------------------------------------------------------------ -->
+
+    <script>
+
+        // 项目的入口脚本文件 main.js
+
+
+        // 导入vue的延迟加载组件
+        import VueLazyLoad from 'vue-lazyload'
+
+        // 告诉vue使用这个插件，并配置一些参数信息
+
+        // 懒加载的默认图片的导入
+        import defaultphoto from 'assets/images/default.png'
+
+        Vue.use(VueLazyLoad, {
+            loading: defaultphoto  //  延迟加载 懒加载 时候, 加载真实图片时候的 默认 loading 图片
+        })
+
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------------------------ -->
+
+    在组件中使用
+    <img width='60' height='60' v-lazy="item.imgurl" alt=""> 直接 使用 v-lazy指令 后面接 图片地址即可。
+
+    <li v-for='item in discList' class='item' :key='item.id' >
+
+         <div class="icon">
+
+           <!-- <img width='60' height='60' :src="item.imgurl" alt=""> -->
+
+           <img width='60' height='60' v-lazy="item.imgurl" alt="">
+
+         </div>
+
+         <div class="text">
+             <h2 class="name">{{item.creator.name}}</h2>
+             <p class='desc'>{{item.dissname}}</p>
+         </div>
+         
+    </li>
+
+<!-- ------------------------------------------------------------------------------------------------------------ -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script type="text/javascript">
+
+
+    	  plus.webview.currentWebview().opener().evalJS("checklist('" + JSON.stringify(checkArr) + "')");
+
+
+       	plus.webview.currentWebview().opener().evalJS("checklist('" + JSON.stringify(checkArr) + "')");
+
+
+        mui.back=function(){
+      			if(plus.webview.getWebviewById("xiadan-shuidian-list.html")){
+      				plus.webview.getWebviewById("xiadan-shuidian-list.html").evalJS("init()");
+      			}else{
+      				plus.webview.getWebviewById("../xiangmu/xiadan-shuidian-list.html").evalJS("init()");
+      			}
+      			plus.webview.currentWebview().close();
+    		}
+
+
+        //  把当前的 webview  关掉
+        plus.webview.currentWebview().close();
+
+// -----------------------------------------------------------------------------------
+
+        // webview 后退 时 ，一些接口得刷新 获得最新数据
+        var oldBack= mui.back;
+		    mui.back = function() {
+
+              // xiangmu/project-details.html 这个ID 值来自于 一开始 怎么打开进入到这个页面的，
+              // 在这里，openNew里面的即为 它的 ID 值
+
+              // openNew("xiangmu/project-details.html");
+
+              plus.webview.getWebviewById("xiangmu/project-details.html").evalJS("init()");
+
+
+              这里想要 某个webview 执行init() 方法的话，用
+
+              // <div class="list tongzhi" data-page='./oa/tongzhi-gonggao.html'>
+              //     <a>
+              //       通知公告
+              //     </a>
+              // </div>
+              // plus.webview.getWebviewById("./oa/tongzhi-gonggao.html").evalJS("init()");
+
+
+              plus.webview.currentWebview().close();
+		    }
+
+// -----------------------------------------------------------------------------------
+
+        //  callback 是 弹出框 点击 确定 后的一个 回调 函数
+        plus.nativeUI.alert(jsonData.msg,callback);
+
+        function callback(){
+           plus.webview.currentWebview().close();
+
+           mui.currentWebview.close('pop-out');
+
+        }
+
+        // 自动关闭的对话框
+        plus.nativeUI.toast(msg);
+
+// -----------------------------------------------------------------------------------
+
+        // 这个是  plus的  原生 确认弹出框 ，有一个 取消 按钮 以及  一个 确认 按钮的
+
+        plus.nativeUI.confirm( "确定要安全退出登录？", function(e){
+
+            //  e.index == 0 表示的是  点击 的 是 确定按钮
+            //  要 执行  登录退出 操作
+
+            if( e.index == 0){
+
+                tuichudenglu()
+            }
+            else{
+
+            // else 这里 执行的  是 取消  按钮 操作 ，不退出登录 并把
+            // 点击 出来的  设置 弹出框 给 隐藏 掉
+
+               that.shezhi_flag=false;
+            }
+        } );
+
+// -----------------------------------------------------------------------------------
+
+        //  这个是   让 项目  的入口 页面 （最开始的那个页面 ） 执行 init()  这个方法
+        //   因为  是 一个 webview 想做那种 遮罩弹出层
+
+        // 而一般一个 页面的 webview 至少  是由 两个 webview 组成的，一个是 入口文件的webview
+        // 一般包含着 项目的头部跟尾部 ，这是入口 ，中间部分的内容通常是另外一个  webview
+
+        // 所以 ，要想实现 整个页面 都有 遮罩层的办法 是 让这两个webview 都有遮罩即可
+
+
+        plus.webview.getWebviewById( plus.runtime.appid ).evalJS("init()");
+
+        //   evalJS 执行 的方法 带参数的做法
+  			wvA.evalJS("showAG('"+document.getElementById("pb").innerHTML+"')");
+  			plus.webview.currentWebview().opener().evalJS("getData('"+task+"')");
+
+// -----------------------------------------------------------------------------------
+
+        //  整一个 弹出框的代码 小记
+        tanchukuang:function(){
+
+             //  这是让当前 webview 的遮罩层显示出来
+             this.zhezhaoflag=true;
+
+             var windowHeight = document.documentElement.clientHeight + $(window).scrollTop();
+             setTimeout(function(){
+               $(".zhezhao").css({
+                  height:windowHeight+50+'px'
+               })
+             },0)
+
+             // 让  入口文件 的webview 执行 init() 方法 来显示 遮罩
+             plus.webview.getWebviewById( plus.runtime.appid ).evalJS("init()");
+             // console.log(  JSON.stringify( plus.webview.getTopWebview()) )
+            // plus.webview.getWebviewById("xiangmu/project-details.html").evalJS("init()");
+         },
+
+    </script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

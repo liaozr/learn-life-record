@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+4. 构建
+
+npm run dev
+
+运行结束后，在当前目录下会在生成 dist 目录，
+
+将dist目录放在服务器上，使用服务器上访问index.html的url即可
+
+若打包之后，项目的静态文件出现引用路径问题，可于项目目录 config/index.js 修改以下数据
+
+ module.exports = {
+    build:{
+       assetsSubDirectory: 'static',  //修改这里成你项目放置静态文件的目录
+       assetsPublicPath: './',     //修改这里成你项目放置静态文件的目录
+    }
+ }
+
+在静态文件 index.html 文件下， 引用静态文件
+
+<link rel="stylesheet" href="static/css/icon/iconfont.css"/>

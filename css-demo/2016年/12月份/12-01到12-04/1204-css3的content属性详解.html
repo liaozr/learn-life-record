@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+插入纯文字
+
+content:"插入的文章"，或者content:none不插入内容 html:
+
+<h1>这是h1</h1>
+<h2>这是h2</h2>
+
+css
+
+<style>
+    h1::after {
+        content: "h1后插入内容"
+    }
+    h2::after {
+        content: none
+    }
+</style>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+插入图片
+content属性也可以直接在元素前/后插入图片 html:
+
+<h3>这是h3</h3>
+
+css:
+<style media="screen">
+    h3::after {
+        content: url(http://ido321.qiniudn.com/wp-content/themes/yusi1.0/img/new.gif)
+    }
+</style>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+插入元素的属性值
+
+content属性可以直接利用attr获取元素的属性，将其插入到对应位置。
+
+ html:
+
+<a href="http:///www.ido321.com">这是链接&nbsp;&nbsp;</a>
+
+css:
+<style>
+    a:after {
+        content: attr(href);
+    }
+</style>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+插入项目编号
+
+利用content的counter属性针对多个项目追加连续编号.
+
+html:
+
+<h1>大标题</h1>
+<p>文字</p>
+<h1>大标题</h1>
+<p>文字</p>
+<h1>大标题</h1>
+<p>文字</p>
+<h1>大标题</h1>
+<p>文字</p>
+
+css:
+
+<style>
+    h1:before {
+        content: counter(my)'.';
+    }
+
+    h1 {
+        counter-increment: my;
+    }
+</style>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+</html>

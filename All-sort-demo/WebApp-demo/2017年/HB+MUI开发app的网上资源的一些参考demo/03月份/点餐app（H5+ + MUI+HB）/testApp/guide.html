@@ -1,0 +1,95 @@
+<!--
+	作者：Trust
+	时间：2016-01-10
+	描述：引导页
+	知识点：1、mui轮播组件
+		  2、获取窗口高度，来设置图片的高度
+		  3、获取当前窗口对象以及上一级窗口
+		  4、隐藏窗口
+-->
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>引导页</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			#enter {
+				position: absolute;
+				right: 10px;
+				bottom: 40px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="mui-slider">
+				<div class="mui-slider-group">
+					<div class="mui-slider-item">
+						<a href="javascript:;">
+							<img src="image/shop01.jpg" id="_d1">
+							<p class="mui-slider-title">这是第一张图</p>
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="javascript:;">
+							<img src="image/shop02.jpg" id="_d2">
+							<p class="mui-slider-title">这是第二张图</p>
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="javascript:;">
+							<img src="image/shop03.jpg" id="_d3">
+							<button class="mui-btn mui-btn-blue" id="enter" type="button">进入</button>
+							<p class="mui-slider-title">这是第三张图</p>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				/*
+				 * 其实，引导页这个东西，我个人理解是这样的：
+				 * 广告轮播大家都做过吧，无非就是把轮播那个组件，做成一个全屏的了；
+				 * mui提供的示例，他们用的是css3的动画，并不是图片；
+				 * 实际项目中，图片/动画都是可以的，但是都是通过轮播那个组件来实现的；
+				 */
+				/*
+				 * 获取文档高度，设置图片高度；
+				 * 不过我一般都是让美工做成iphone6的启动图那个尺寸，效果其实一般；
+				 * 具体项目中，大家如果有大屏手机，可以多调试下，选择合适的尺寸；
+				 * http://www.runoob.com/jsref/prop-win-innerheight-innerwidth.html
+				 */
+				var h = window.innerHeight;
+				document.getElementById("_d1").style.height = h + "px";
+				document.getElementById("_d2").style.height = h + "px";
+				document.getElementById("_d3").style.height = h + "px";
+				// 我们隐藏下入口页面
+				var self = plus.webview.currentWebview();
+				self.opener().hide("none");
+				// 点击按钮进入主界面，并且设置内存中的字段为true
+				document.getElementById("enter").addEventListener("tap", function() {
+					/*
+					 * 这里要注意，我们存储的是string类型的true，因为这个只能存字符串；
+					 * http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.setItem
+					 */
+					plus.storage.setItem("IsFrist", "true");
+					mui.openWindow({
+						url: "html/main/home.html",
+						id: "home",
+						waiting: {
+							autoShow: false
+						}
+					});
+				});
+			});
+		</script>
+	</body>
+
+</html>

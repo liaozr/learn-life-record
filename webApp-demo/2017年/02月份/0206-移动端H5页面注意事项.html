@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  3. 二维码图片使用 img 标签引入
+
+  二维码图片不要写为元素背景，不然长按没有办法触发扫描功能。应使用 img 标签引入，如下：
+
+  ![](images/qrcode.png)
+
+  <!-- --------------------------------------------------------------------------- -->
+
+  5. 使用 Gulp 拼合图片
+
+  如果打算先布局，后使用自动化工具将图片拼起来，减少请求数，需要注意：在编写 CSS 的时候，图片宽高应固定，图片拼合后才能通过定位和显示区域的宽高来展示图片。
+
+  举个例子，如果布局时 width: 100%; background-position: center;，使用工具拼合图片后，该元素区域（100% 的宽度）内会将其他图片显示出来，这不是我们想要看到的。
+
+<!-- --------------------------------------------------------------------------- -->
+
+  7. 图片压缩
+
+使用自动化工具 gulp-imagemin（教程） 来压缩图片，效果举例：101 KB => 80.7 KB。后来我使用了在线工具 Tinypng 又进行了一次压缩，效果举例：（上面使用 gulp-imagemin 压缩过的图片）80.7 KB => 38.1 KB，可见光使用自动化工具来压缩是不够的，大部分图片仍存在较大的压缩空间，可以再扔到 Tinypng 里压缩一下看看。
+
+<!-- --------------------------------------------------------------------------- -->
+
+9. CSS 动画属性前缀 webkit
+
+使用 CSS3 来制作动画效果的话，webkit 前缀一定记得加，要不然在某些手机下动画效果是没有的。
+如下：
+<style>
+
+    .aa {
+        -webkit-animation: f .8s 2s forwards ease-in-out;
+        animation: f .8s 2s forwards ease-in-out;
+    }
+
+    @-webkit-keyframes f {
+        0% {
+            opacity: 0;
+            -webkit-transform: translate3d(750px, 0, 0);
+            transform: translate3d(750px, 0, 0)
+        }
+        to {
+            opacity: 1;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0)
+        }
+    }
+
+    @keyframes f {
+        0% {
+            opacity: 0;
+            -webkit-transform: translate3d(750px, 0, 0);
+            transform: translate3d(750px, 0, 0)
+        }
+        to {
+            opacity: 1;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0)
+        }
+    }
+
+</style>
+
+<!-- --------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

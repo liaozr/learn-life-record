@@ -1,0 +1,72 @@
+.spec-box{
+        padding-right: 10px;
+        flex: 1;
+    }
+    
+    .spec-item {
+        display: flex;
+        padding: 16px 0 6px 0;
+        border-top: 1px solid #EEEEEE;
+    }
+    
+    .spec-text-hint {
+        line-height: 40px;
+        display: inline-block;
+        font-size: 14px;
+        width: 78px;
+        margin-right: 26px;
+        font-weight: bold;
+        text-align: right;
+        color: rgba(0, 0, 0, 0.87);
+    }
+    
+    .spec-button-box {
+        flex: 1;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .spec-button {
+        padding: 0 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #23272B;
+        min-height: 40px;
+        width: 100px;
+        overflow: hidden;
+        white-space: normal;
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.87);
+    }
+    
+    .spec-button-active {
+        background: #23272B;
+        color: #FFFFFF;
+    }
+    
+    .spec-custom-button {
+        box-sizing: border-box;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #000000;
+        line-height: 40px;
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.87);
+        align-self: flex-end;
+        font-weight: bold;
+    }
+    
+    .spec-size-input {
+        text-align: center;
+        box-sizing: border-box;
+        width: 60px;
+        height: 40px;
+        font-size: 14px;
+        padding: 3px;
+        color: rgba(0, 0, 0, 0.87);
+        border: 1px solid #23272B;
+    }
+    
+    .spec-size-text {
+        line-height: 40PX;
+        padding: 0 12PX;
+    }

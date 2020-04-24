@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+    <script type="text/javascript">
+        var doc = window.document;
+        var docEl = doc.documentElement;
+        var width = docEl.getBoundingClientRect().width;
+        var dpr = 1;
+        if (width > 540) {
+            width = 540 * dpr;
+        }
+        var rem = width / 10;
+        var fontSize = rem;
+        var topheight = parseInt(fontSize) * 1.375 + 'px';
+        var bottomheight = parseInt(fontSize) * 1.562 + 'px';
+
+        //启用双击监听
+        mui.init({
+            gestureConfig: {
+                doubletap: true
+            },
+            subpages: [{
+                url: 'pullrefresh_sub1.html',
+                id: 'pullrefresh_sub1.html',
+                styles: {
+                    top: topheight,
+                    bottom: bottomheight
+                }
+            }]
+        });
+
+        var contentWebview = null;
+        var header = document.querySelector(".header");
+        header.addEventListener('doubletap', function() {
+            if (contentWebview == null) {
+                contentWebview = plus.webview.currentWebview().children()[0];
+            }
+            contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+        });
+    </script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+    mui里面一个下拉刷新出来的容器    pullrefresh_sub1.html
+
+    存放的主要是数据那些。
+
+    <script>
+
+        var subStyles = {
+            top: "0px",
+            bottom: "0px"
+        };
+
+        function webviewchange(_this) {
+            var url = _this.data("url");
+            var str = _this.html();
+            // plus.webview.currentWebview().opener().evalJS("changeTit('" + str + "')");
+            mui.openWindow({
+                url: url,
+                id: url,
+                styles: subStyles,
+                createNew: false,
+                show: {
+                    autoShow: true,
+                    aniShow: 'slide-in-right',
+                    duration: 200
+                },
+                waiting: {
+                    autoShow: true,
+                    title: "正在加载..."
+                }
+            })
+        }
+        $(".guangchang-list a").on("tap", function() {
+            var _self = $(this);
+            webviewchange(_self);
+        })
+    </script>
+
+    <!--  下拉刷新 上拉加载的 业务实现 -->
+
+    <!--  下拉刷新 上拉加载的 业务实现 -->
+
+    <script>
+         mui.init({
+            pullRefresh: {
+                container: '#pullrefresh',
+                down: {
+                    callback: pulldownRefresh
+                },
+                up: {
+                    contentrefresh: '正在加载...',
+                    callback: pullupRefresh
+                }
+            }
+        });
+
+        // 模拟数据
+        var data =
+            `<a class='list' href="##">
+				       	        <div class="list">
+				       	             <div class="img">
+				       	             	<div class="img-center">
+				       	             		<img src="images/bb.jpg" alt="">
+				       	             	</div>
+				       	             	<span class="sanjiao"><div id="triangle-topright"></div></span>
+				       	             	<span class='sanjiao-wen'>已办结</span>
+				       	             </div>
+				       	            <span class='wen'>刷新加载出来的数据</span>
+				       	            <div class="des">
+				       	            	<span class='wen'>水务</span><span class='wen address'>西乡</span>
+				       	            	<span class="time">2017-03-09</span>
+				       	            </div>
+				       	        </div>
+				 </a>`;
+
+
+        /**
+         * 下拉刷新具体业务实现
+         */
+        function pulldownRefresh() {
+            setTimeout(function() {
+                // var table = document.body.querySelector('.guangchang-list');
+                // var cells = document.body.querySelectorAll('.guangchang-list .list-layout');
+                var table = $(".guangchang-list");
+                var cells = $('.guangchang-list .list-layout');
+
+                for (var i = cells.length, len = i + 4; i < len; i++) {
+
+                    //下拉刷新，新纪录插到最前面；
+                    table.prepend(data);
+                }
+                mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+            }, 1500);
+        }
+
+        var count = 0;
+        /**
+         * 上拉加载具体业务实现
+         */
+        function pullupRefresh() {
+            setTimeout(function() {
+                mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+
+                var table = $(".guangchang-list");
+                var cells = $('.guangchang-list .list-layout');
+
+                for (var i = cells.length, len = i + 4; i < len; i++) {
+                    var li = document.createElement('li');
+                    table.append(data);
+                }
+            }, 1500);
+        }
+
+        //			if (mui.os.plus) {
+        //				mui.plusReady(function() {
+        //					setTimeout(function() {
+        //						mui('#pullrefresh').pullRefresh().pullupLoading();
+        //					}, 10);
+        //
+        //				});
+        //			} else {
+        //				mui.ready(function() {
+        //					mui('#pullrefresh').pullRefresh().pullupLoading();
+        //				});
+        //			}
+    </script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

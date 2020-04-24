@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!--首页结束 用于点击搜索时出现的页面-->
+
+    <div class="Gsearch" style="display:none;">
+        <!--头部开始-->
+        <header class="g-header">
+            <div class="header">
+
+                <div class="return search-return">
+                    <a href="javascript:void(0)" id="closeGsearch"></a>
+                </div>
+
+                <div class="search">
+                    <span class="s-icon"></span>
+                    <input type="search" name="" id="search-input-focus" value="" autocomplete="off" placeholder="请输入楼盘名或地址">
+                </div>
+                <a href="javascript:void(0)" data-content="confirmbtn" class="confirm" id="newsearchBtn">确认</a>
+            </div>
+        </header>
+
+        <div class="Gsearch_content">
+            <ul id="his_content"></ul>
+            <ul id="search_content" style="display:none;"></ul>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------------------------------- -->
+
+    <script>
+        $(".header").on("click", "#newsearchBtn", setHistoryData);
+
+        function setHistoryData() {
+            $("html,body").css({
+                'overflow': 'visible'
+            })
+            if (localStorage.getItem("historyString")) {
+                var historyArray = localStorage.getItem("historyString").split(";");
+            } else {
+                var historyArray = []
+            }
+            if ($(this).data("content") == "confirmbtn") {
+                var searchcontent = $("#search-input-focus").val();
+            } else {
+                var searchcontent = $(this).data("name"); //这个作用于模糊搜索。
+            }
+            if ($.trim(searchcontent) != "") {
+                searchcontent = jsXss(searchcontent);
+                if (historyArray.indexOf(searchcontent) != -1) {
+                    historyArray.splice(historyArray.indexOf(searchcontent), 1)
+                }
+                historyArray.push(searchcontent);
+                localStorage.setItem("historyString", historyArray.join(";"))
+            }
+            window.location.href = '?iRegionID=0&iPriceID=0&iLayoutID=0&sKeyword=' + searchcontent + '&iFeatureID=';
+        };
+
+        function jsXss(s) {
+            {
+                var pattern = new RegExp("[%--`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+                var rs = "";
+                for (var i = 0; i < s.length; i++) {
+                    rs = rs + s.substr(i, 1).replace(pattern, '');
+                }
+                return rs;
+            }
+        }
+
+// ------------------------------------------------------------------------------------
+
+        // 点击 模糊搜索出来的数据,也是执行 setHistoryData 这个方法
+        $("#search_content").on("click","li",setHistoryData);
+    </script>
+
+
+
+
+    <!-- ----------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

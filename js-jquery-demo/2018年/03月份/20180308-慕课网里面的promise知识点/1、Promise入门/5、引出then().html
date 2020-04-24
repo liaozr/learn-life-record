@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+      状态响应函数可以返回新的Promise 或者 其他值
+
+      如果返回新的 Promise 那么下一级.then() 会在新的 Promise 状态改变之后执行
+
+      如果返回其他任何值不是Promise的话，则会立刻执行下一级的 .then()
+
+</body>
+
+</html>

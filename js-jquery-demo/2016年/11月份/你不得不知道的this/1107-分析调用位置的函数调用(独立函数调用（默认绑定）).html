@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+我们通常理解一段话的时候，会看它的意思与上文或者下文有没有关系，如果有关系，我们就称这段话“有上下文”，如果没有关系，我们就说这段话是“独立”的，同理，在 JavaScript 中，一个函数的调用也有“上下文”，也就是说与对象有没有关系，如果是由对象属性引用的函数调用的，我们就说这个函数的调用有“上下文”，否则称它为独立的函数。
+
+这怎么理解呢，举两个例子就明白了：
+
+<script>
+    function apple() {
+        // 调用的时候会发生下面的事
+        // var this = window
+        var name = 'apple'
+        console.log(this.name)
+        orange()
+    }
+
+    function orange() {
+
+        // 调用的时候会发生下面的事
+        // var this = window
+        console.log(this.name)
+    }
+    var name = 'orange'
+    apple() // 两个 orange
+</script>
+
+
+上面的代码中，apple() 中的 apple 不属于对象的属性，orange() 中的 orange 也不属于对象的属性，它们都属于独立函数调用，这时候，调用期间，会将 apple 和 orange 作用域里面的 this 赋值（传引用）为 window，严格模式下为 undefined。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+<script>
+
+    var name = 'orange'
+
+    function apple() {
+        // 调用的时候会发生下面的事
+        // var this = window
+        var name = 'apple'
+        console.log(this.name)
+    }
+    var o = {
+        name: 'apple',
+        apple: function foo() {
+            // 调用的时候会发生下面的事
+            // var this = o
+            return apple
+        }
+    }
+    o.apple()() // orange
+
+</script>
+
+
+上面代码中，o.apple() 调用的时候，o.apple 引用的是函数 foo，由于 apple 是对象 o 的属性，所以函数 foo 的调用属于对象属性引用的函数调用，foo 内部的 this 会被赋值为对象 o，接下来，函数 foo 返回的是 apple 函数，它不属于对象的属性，也就是说 o.apple() 不是对象 o 的属性，这时候，o.apple()() 就又属于独立函数调用了，也就是 apple 内部作用域的 this 被赋值为 window 或 undefined！
+
+这类很容易理解，就一个光秃秃的函数调用，谁知道你要将 this 绑定到哪里，干脆让你绑定到 window，严格点让你绑定到 undefined，啥都做不了！
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

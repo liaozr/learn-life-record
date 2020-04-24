@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    简单来说，容器组件就是用于包裹展示组件的组件，它和界面展示无关，它负责数据的获取和传递，再来看看它的 template，你会发现它除了根元素以外，不包含其他任何的 html 标签。
+
+    <section>
+        <!-- Content Header -->
+        <content-header :board-img="header.image" :title="header.title" :subtitle="header.subtitle"></content-header>
+
+        <!-- Main Content -->
+        <main-content>
+            <post-list :post-list="postsList"></post-list>
+        </main-content>
+    </section>
+
+    与此相反的是，展示组件单单用于展示，自己不获取任何数据，数据都通过 props 传递，比如 content-header。
+    <template id="header">
+        <header class="intro-header" :style="{ backgroundImage: 'url(' + boardImg + ')' }">
+              <div class="container">
+                  <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <div class="site-heading">
+                            <h1>{{ title }}</h1>
+                            <hr class="small">
+                            <span class="subheading">{{ subtitle }}</span>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+       </header>
+    </template>
+   <script type="text/javascript">
+        export default Vue.component('contentHeader', {
+            template,
+            props: {
+                boardImg: {
+                    type: String,
+                    default: _defaultImg
+                },
+                title: {
+                    type: String,
+                    required: true
+                },
+                subtitle: {
+                    type: String
+                }
+            }
+        });
+    </script>
+    这样明确地区分容器组件和展示组件会使得项目结构变得更清晰，追踪 bug ，以及维护也变得轻而易举。
+    
+<!-- -------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

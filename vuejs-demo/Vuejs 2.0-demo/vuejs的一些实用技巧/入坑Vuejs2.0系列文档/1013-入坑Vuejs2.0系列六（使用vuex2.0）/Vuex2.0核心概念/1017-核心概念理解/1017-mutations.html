@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    MUTATIONS 能改变 Vuex store 中的 state 状态的唯一方法是提交 mutation 变更。
+    mutation 和事件很像：都有字符串类型的 type 以及 handler 句柄。我们在 handler 中实际修改 state，state 为每个 mutation 的第一个参数。
+
+    <script type="text/javascript">
+        const store = new Vuex.Store({
+            state: {
+                count: 1
+            },
+            mutations: {
+                increment(state) {
+                    // mutate state
+                    state.count++
+                }
+            }
+        })
+
+        // call， 只有在使用 type increment 调用 mutation 时才能称为 handler
+        store.commit('increment')
+    </script>
+
+    commit 的第二个可选参数为 payload 有效载荷，可以为普通类型或对象类型等等。
+    commit 方法还可以通过对象形式调用，这种情况下，这个对象都会被当成 payload 。
+
+    <script type="text/javascript">
+        store.commit({
+            type: 'increment',
+            amount: 10
+        })
+    </script>
+
+    little tips
+    建议使用大写命名 Mutation 将所有大写变量存放在一个文件中，需要的时候引入。
+    使用 es6 的计算属性名新特性来使用常量作为方法名。
+
+    <script type="text/javascript">
+        // mutation-types.js
+        export const SOME_MUTATION = 'SOME_MUTATION'
+
+        // store.js
+        import Vuex from 'vuex'
+        import { SOME_MUTATION } from './mutation-types'
+
+        const store = new Vuex.Store({
+            state: {...
+            },
+            mutations: {
+                // we can use the ES2015 computed property name feature
+                // to use a constant as the function name
+                [SOME_MUTATION](state) {
+                    // mutate state
+                }
+            }
+        })
+    </script>
+
+    es6 计算属性名
+
+    <script type="text/javascript">
+
+        mutations 必须都是同步的， 它的改变必须在调用之后立即执行
+        因为它是唯一可以修改 state 的， 如果它使用了异步方法， 将会使我们的 state 变得无法追踪， 定位问题也变得是否困难
+
+        在组件中 commit mutation 时
+        可以使用 this.$store.commit() 或者使用 mapMutations 方法， 后者可以将组件中的方法映射到 store.commit 调用（ 需要在根组件注入 store）。
+
+        import { mapMutations } from 'vuex'
+
+        export default {
+            // ...
+            methods: {
+                // 传入数组
+                ...mapMutations([
+                    'increment' // map this.increment() to this.$store.commit('increment')
+                ]),
+                // 传入对象，可以使用 alias
+                ...mapMutations({
+                    add: 'increment' // map this.add() to this.$store.commit('increment')
+                })
+            }
+        }
+    </script>
+</body>
+
+</html>

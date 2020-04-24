@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+代码
+<script>
+
+    //获取访问的user-agent
+    var ua = navigator.userAgent.toLowerCase() || window.navigator.userAgent.toLowerCase();
+
+    //判断user-agent
+    var isWX = /MicroMessenger/i.test(ua), //微信端
+        isIOS = /(iPhone|iPad|iPod|iOS)/i.test(ua), //苹果家族
+        isAndroid = /(android|nexus)/i.test(ua), //安卓家族
+        isWindows = /(Windows Phone|windows[\s+]phone)/i.test(ua), //微软家族
+        isBlackBerry = /BlackBerry/i.test(ua); //黑莓家族
+
+
+    /**
+     * 得到结果都是一个true或者false , i 是忽略大小写...挺简单的一个小玩意..当做一个备忘录吧
+     * user-agent不是万能的,有些访问设备或者浏览器可以强制改变,客户端校验只是多一重标准
+     * 至于服务器端的判断还有IP判断,看需求了
+     */
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+结语
+
+引导页的实现大同小异,我这边的实现是:
+
+链接进去 => 微信 ? 遮罩层(不可以点击,提醒右上角从外部打开) : [判断设备];
+
+设备 => iphone ? 显示引导页(非APP store下载,描述文件信任) : 自动弹出cdn的apk链接(然后页面显示公司或者应用的一些介绍,介绍页也有下载区域)
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

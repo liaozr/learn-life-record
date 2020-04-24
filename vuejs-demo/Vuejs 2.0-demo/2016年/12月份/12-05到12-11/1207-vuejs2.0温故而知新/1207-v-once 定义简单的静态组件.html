@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+v-once 定义简单的静态组件
+
+在 Vue 里面渲染纯净的 HTML 元素是很快的，但有时候你可能需要一个包含了很多静态内容的组件。
+
+这种情况下，你可以通过在根元素加上 v-once 指令确保它只被评估了一次然后就被缓存下来了，像是这样：
+
+<script>
+    Vue.component('terms-of-service', {
+        template: '\
+          <div v-once>\
+            <h1>Terms of Service</h1>\
+            ... 很多静态内容 ...\
+          </div>\
+        '
+    })
+</script>
+
+
+</body>
+</html>

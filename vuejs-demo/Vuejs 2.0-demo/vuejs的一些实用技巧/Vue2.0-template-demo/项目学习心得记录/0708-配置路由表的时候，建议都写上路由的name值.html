@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  像下面 那一个，没有 定义的话，则 $route.name  匹配到 的值 是 undefined
+
+  {
+ 	   path:'/',
+ 	   component:Home,
+ 	   meta: {
+ 	      keepAlive: true // 需要被缓存
+ 	   }
+ 	},
+ 	{
+ 	   path:'/home',
+ 	   component:Home,
+ 	   name:'home',
+ 	   meta: {
+ 	      keepAlive: true // 需要被缓存
+ 	   }
+ 	}
+
+
+</body>
+
+</html>

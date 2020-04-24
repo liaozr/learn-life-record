@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+keep-alive
+
+如果把切换出去的组件保留在内存中，可以保留它的状态或避免重新渲染。
+
+为此可以添加一个 keep-alive 指令参数:
+
+<keep-alive>
+    <component :is="currentView">
+        <!-- 非活动组件将被缓存 -->
+    </component>
+</keep-alive>
+
+</body>
+</html>

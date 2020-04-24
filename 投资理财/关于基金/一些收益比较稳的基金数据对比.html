@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    table {
+        width: 1000px;
+        margin: 20px auto;
+    }
+
+    table th,
+    table tr td {
+        min-width: 140px;
+        text-align: center;
+    }
+
+    table,
+    table tr th,
+    table tr td {
+        border: 1px solid green;
+    }
+
+    table {
+        width: 1000px;
+        min-height: 25px;
+        line-height: 25px;
+        text-align: center;
+        border-collapse: collapse;
+    }
+
+    .lists {
+        width: 1200px;
+        /*margin:20px auto;*/
+        margin-left: 48px;
+        text-align: left
+    }
+
+    button {
+        display: inline-block;
+        line-height: 30px;
+        margin-top: 10px;
+        min-width: 200px;
+        margin-right: 20px;
+    }
+
+    .active {
+        background-color: red;
+        color: white;
+    }
+
+    .tip {
+        color: green;
+        margin-top: 15px;
+        display: inline-block;
+    }
+</style>
+
+<body>
+    <div id="app">
+
+        <div class="lists">
+            <span class="tip">排序都是从大到小排序的</span><br>
+            <span class="tip">综合排名需其他5个选择项都点击过了，点击综合排名才有效果(意思就是最后点)</span><br>
+
+
+            <button @click="select(0)">按3年内日平均增长率排序</button>
+            <button @click="select(1)">按2年内日平均增长率排序</button>
+            <button @click="select(2)">按1年内日平均增长率排序</button>
+            <button @click="select(3)">按2年内日最小增长率排序</button>
+            <button @click="select(4)">按1年内日最小增长率排序</button>
+            <button @click="select(5)">综合排名</button>
+
+        </div>
+
+        <table>
+            <thead>
+                <th>序号</th>
+                <th>基金代号</th>
+                <th>基金名称</th>
+                <th>3年内日最大增长率</th>
+                <th>3年内日最小增长率</th>
+                <th :class="{'active':pingjunzengzhang3}">3年内日平均增长率</th>
+                <th>2年内日最大增长率</th>
+                <th :class="{'active':minzengzhang2}">2年内日最小增长率</th>
+                <th :class="{'active':pingjunzengzhang2}">2年内日平均增长率</th>
+                <th>1年内日最大增长率</th>
+                <th :class="{'active':minzengzhang1}">1年内日最小增长率</th>
+                <th :class="{'active':pingjunzengzhang1}">1年内日平均增长率</th>
+
+                <th v-if="paiming" :class="{'active':paiming}">综合排名</th>
+
+            </thead>
+            <tbody>
+                <tr v-for="(item,index) in jijindata">
+                    <td>{{index+1}}</td>
+                    <td>{{item.code}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.maxzengzhang3}}</td>
+                    <td>{{item.minzengzhang3}}</td>
+                    <td :class="{'active':pingjunzengzhang3}">{{item.pingjunzengzhang3}}</td>
+                    <td>{{item.maxzengzhang2}}</td>
+                    <td :class="{'active':minzengzhang2}">{{item.minzengzhang2}}</td>
+                    <td :class="{'active':pingjunzengzhang2}">{{item.pingjunzengzhang2}}</td>
+                    <td>{{item.maxzengzhang1}}</td>
+                    <td :class="{'active':minzengzhang1}">{{item.minzengzhang1}}</td>
+                    <td :class="{'active':pingjunzengzhang1}">{{item.pingjunzengzhang1}}</td>
+
+                    <td v-if="paiming" :class="{'active':paiming}">{{item.paiming}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<!-- <button @clcik="select(0)">按3年内日平均增长率排序</button>
+<button @clcik="select(1)">按2年内日平均增长率排序</button>
+<button @clcik="select(2)">按1年内日平均增长率排序</button>
+<button @clcik="select(3)">按2年内日最小增长率排序</button>
+<button @clcik="select(4)">按1年内日最小增长率排序</button> -->
+
+<script>
+    new Vue({
+        el: '#app',
+        methods: {
+            select: function(index) {
+
+                this.pingjunzengzhang3 = false
+                this.pingjunzengzhang2 = false
+                this.pingjunzengzhang1 = false
+                this.minzengzhang2 = false
+                this.minzengzhang1 = false
+
+                var arr = JSON.parse(JSON.stringify(this.jijindata))
+
+                if (index == 0) {
+                    for (var i = 0; i < arr.length - 1; i++) {
+                        for (var j = i + 1; j < arr.length; j++) {
+                            var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                            var tempj = arr[j];
+                            if (Number(tempi.pingjunzengzhang3) < Number(tempj.pingjunzengzhang3)) {
+                                arr[i] = tempj;
+                                arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                            }
+                        }
+                    }
+                    console.log(arr)
+                    this.jijindata = arr
+
+                    this.pingjunzengzhang3 = true
+
+                    for (var i = 0; i < this.jijindata.length; i++) {
+                        this.jijindata[i].paiming += i + 1
+                    }
+                    console.log(this.jijindata)
+
+                } else if (index == 1) {
+
+                    for (var i = 0; i < arr.length - 1; i++) {
+                        for (var j = i + 1; j < arr.length; j++) {
+                            var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                            var tempj = arr[j];
+                            if (Number(tempi.pingjunzengzhang2) < Number(tempj.pingjunzengzhang2)) {
+                                arr[i] = tempj;
+                                arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                            }
+                        }
+                    }
+                    console.log(arr)
+                    this.jijindata = arr
+                    this.pingjunzengzhang2 = true
+
+                    for (var i = 0; i < this.jijindata.length; i++) {
+                        this.jijindata[i].paiming += i + 1
+                    }
+                    console.log(this.jijindata)
+
+                } else if (index == 2) {
+
+                    for (var i = 0; i < arr.length - 1; i++) {
+                        for (var j = i + 1; j < arr.length; j++) {
+                            var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                            var tempj = arr[j];
+                            if (Number(tempi.pingjunzengzhang1) < Number(tempj.pingjunzengzhang1)) {
+                                arr[i] = tempj;
+                                arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                            }
+                        }
+                    }
+                    console.log(arr)
+                    this.jijindata = arr
+                    this.pingjunzengzhang1 = true
+
+                    for (var i = 0; i < this.jijindata.length; i++) {
+                        this.jijindata[i].paiming += i + 1
+                    }
+                    console.log(this.jijindata)
+
+                } else if (index == 3) {
+
+                    for (var i = 0; i < arr.length - 1; i++) {
+                        for (var j = i + 1; j < arr.length; j++) {
+                            var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                            var tempj = arr[j];
+                            if (Number(tempi.minzengzhang2) < Number(tempj.minzengzhang2)) {
+                                arr[i] = tempj;
+                                arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                            }
+                        }
+                    }
+                    console.log(arr)
+                    this.jijindata = arr
+                    this.minzengzhang2 = true
+
+                    for (var i = 0; i < this.jijindata.length; i++) {
+                        this.jijindata[i].paiming += i + 1
+                    }
+                    console.log(this.jijindata)
+
+                } else if (index == 4) {
+
+                    for (var i = 0; i < arr.length - 1; i++) {
+                        for (var j = i + 1; j < arr.length; j++) {
+                            var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                            var tempj = arr[j];
+                            if (Number(tempi.minzengzhang1) < Number(tempj.minzengzhang1)) {
+                                arr[i] = tempj;
+                                arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                            }
+                        }
+                    }
+                    console.log(arr)
+                    this.jijindata = arr
+                    this.minzengzhang1 = true
+
+                    for (var i = 0; i < this.jijindata.length; i++) {
+                        this.jijindata[i].paiming += i + 1
+                    }
+                    console.log(this.jijindata)
+
+                } else {
+
+                    this.paiming = true
+
+                     for (var i = 0; i < arr.length - 1; i++) {
+                         for (var j = i + 1; j < arr.length; j++) {
+                             var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                             var tempj = arr[j];
+                             if ( Number(tempi.paiming) > Number( tempj.paiming ) ) {
+                                 arr[i] = tempj;
+                                 arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                             }
+                         }
+                     }
+                     this.jijindata = arr
+
+                }
+            }
+        },
+        data: {
+            pingjunzengzhang3: false,
+            pingjunzengzhang2: false,
+            pingjunzengzhang1: false,
+            minzengzhang2: false,
+            minzengzhang1: false,
+            paiming: false,
+            jijindata: [{
+                    code: '160505',
+                    name: '博时主题行业混合',
+                    maxzengzhang3: '5.53',
+                    minzengzhang3: '-8.23',
+                    pingjunzengzhang3: '0.1109680365296804',
+                    maxzengzhang2: '5.53',
+                    minzengzhang2: '-8.23',
+                    pingjunzengzhang2: '0.08578082191780831',
+                    maxzengzhang1: '2.43',
+                    minzengzhang1: '-3.04',
+                    pingjunzengzhang1: '0.10128767123287669',
+                    paiming: 0
+                },
+                {
+                    code: '001878',
+                    name: '嘉实沪港深',
+                    maxzengzhang3: '3.27',
+                    minzengzhang3: '-3.39',
+                    pingjunzengzhang3: '0.1618925831202047',
+                    maxzengzhang2: '3.27',
+                    minzengzhang2: '-3.39',
+                    pingjunzengzhang2: '0.1618925831202047',
+                    maxzengzhang1: '3.27',
+                    minzengzhang1: '-3.39',
+                    pingjunzengzhang1: '0.15715068493150697',
+                    paiming: 0
+                },
+                {
+                    code: '110003',
+                    name: '易方达50指数',
+                    maxzengzhang3: '6.77',
+                    minzengzhang3: '-8.55',
+                    pingjunzengzhang3: '0.09799999999999996',
+                    maxzengzhang2: '6.77',
+                    minzengzhang2: '-8.49',
+                    pingjunzengzhang2: '0.08838356164383566',
+                    maxzengzhang1: '2.55',
+                    minzengzhang1: '-2.98',
+                    pingjunzengzhang1: '0.13915068493150698',
+                    paiming: 0
+                },
+                {
+                    code: '001511',
+                    name: '兴全新视野',
+                    maxzengzhang3: '1.89',
+                    minzengzhang3: '-2.94',
+                    pingjunzengzhang3: '0.054206896551724115',
+                    maxzengzhang2: '1.89',
+                    minzengzhang2: '-2.94',
+                    pingjunzengzhang2: '0.054206896551724115',
+                    maxzengzhang1: '1.59',
+                    minzengzhang1: '-2.7',
+                    pingjunzengzhang1: '0.07268493150684933',
+                    paiming: 0
+                },
+                {
+                    code: '040008',
+                    name: '华安策略优选',
+                    maxzengzhang3: '7.85',
+                    minzengzhang3: '-8.22',
+                    pingjunzengzhang3: '0.10945205479452051',
+                    maxzengzhang2: '7.85',
+                    minzengzhang2: '-8.22',
+                    pingjunzengzhang2: '0.1132739726027397',
+                    maxzengzhang1: '2.52',
+                    minzengzhang1: '-3.21',
+                    pingjunzengzhang1: '0.12767123287671228',
+                    paiming: 0
+                },
+                {
+                    code: '001542',
+                    name: '国泰互联网+',
+                    maxzengzhang3: '4.87',
+                    minzengzhang3: '-8.3',
+                    pingjunzengzhang3: '0.1591126279863481',
+                    maxzengzhang2: '4.87',
+                    minzengzhang2: '-8.3',
+                    pingjunzengzhang2: '0.1591126279863481',
+                    maxzengzhang1: '3.63',
+                    minzengzhang1: '-3.53',
+                    pingjunzengzhang1: '0.1597808219178083',
+                    paiming: 0
+                },
+                {
+                    code: '110022',
+                    name: '易方达消费',
+                    maxzengzhang3: '8.14',
+                    minzengzhang3: '-7.84',
+                    pingjunzengzhang3: '0.1067671232876713',
+                    maxzengzhang2: '8.14',
+                    minzengzhang2: '-7.84',
+                    pingjunzengzhang2: '0.1300684931506849',
+                    maxzengzhang1: '3.95',
+                    minzengzhang1: '-3.98',
+                    pingjunzengzhang1: '0.1714520547945205',
+                    paiming: 0
+                },
+                {
+                    code: '020026',
+                    name: '国泰成长',
+                    maxzengzhang3: '7.05',
+                    minzengzhang3: '-8.88',
+                    pingjunzengzhang3: '0.12288584474885846',
+                    maxzengzhang2: '7.05',
+                    minzengzhang2: '-8.88',
+                    pingjunzengzhang2: '0.12836986301369865',
+                    maxzengzhang1: '3.32',
+                    minzengzhang1: '-4.67',
+                    pingjunzengzhang1: '0.1323835616438357',
+                    paiming: 0
+                },
+                {
+                    code: '163402',
+                    name: '兴全趋势',
+                    maxzengzhang3: '4.37',
+                    minzengzhang3: '-5.01',
+                    pingjunzengzhang3: '0.09589954337899556',
+                    maxzengzhang2: '4.37',
+                    minzengzhang2: '-5.01',
+                    pingjunzengzhang2: '0.08734246575342472',
+                    maxzengzhang1: '2.05',
+                    minzengzhang1: '-2.91',
+                    pingjunzengzhang1: '0.0903287671232877',
+                    paiming: 0
+                },
+                {
+                    code: '165312',
+                    name: '建信央视50',
+                    maxzengzhang3: '7.15',
+                    minzengzhang3: '-8.86',
+                    pingjunzengzhang3: '0.08851919561243152',
+                    maxzengzhang2: '7.15',
+                    minzengzhang2: '-8.86',
+                    pingjunzengzhang2: '0.09895890410958899',
+                    maxzengzhang1: '2.26',
+                    minzengzhang1: '-3.8',
+                    pingjunzengzhang1: '0.13731506849315067',
+                    paiming: 0
+                },
+                {
+                    code: '002001',
+                    name: '华夏回报',
+                    maxzengzhang3: '3.05',
+                    minzengzhang3: '-4.36',
+                    pingjunzengzhang3: '0.0594429223744293',
+                    maxzengzhang2: '3.05',
+                    minzengzhang2: '-4.36',
+                    pingjunzengzhang2: '0.06897260273972615',
+                    maxzengzhang1: '1.96',
+                    minzengzhang1: '-3.04',
+                    pingjunzengzhang1: '0.09799999999999995',
+                    paiming: 0
+                },
+                {
+                    code: '163406',
+                    name: '兴全合润',
+                    maxzengzhang3: '6.39',
+                    minzengzhang3: '-7.91',
+                    pingjunzengzhang3: '0.1264109589041097',
+                    maxzengzhang2: '6.39',
+                    minzengzhang2: '-7.91',
+                    pingjunzengzhang2: '0.1284520547945206',
+                    maxzengzhang1: '2.88',
+                    minzengzhang1: '-3.97',
+                    pingjunzengzhang1: '0.08616438356164387',
+                    paiming: 0
+                },
+                {
+                    code: '000619',
+                    name: '东方红产业',
+                    maxzengzhang3: '6.29',
+                    minzengzhang3: '-7.49',
+                    pingjunzengzhang3: '0.15548054919908483',
+                    maxzengzhang2: '6.29',
+                    minzengzhang2: '-7.49',
+                    pingjunzengzhang2: '0.13458904109589054',
+                    maxzengzhang1: '2.59',
+                    minzengzhang1: '-3.73',
+                    pingjunzengzhang1: '0.14079452054794528',
+                    paiming: 0
+                },
+                {
+                    code: '090007',
+                    name: '大成策略回报',
+                    maxzengzhang3: '7.65',
+                    minzengzhang3: '-8.66',
+                    pingjunzengzhang3: '0.10763470319634703',
+                    maxzengzhang2: '7.65',
+                    minzengzhang2: '-8.66',
+                    pingjunzengzhang2: '0.10005479452054791',
+                    maxzengzhang1: '1.77',
+                    minzengzhang1: '-2.44',
+                    pingjunzengzhang1: '0.08978082191780822',
+                    paiming: 0
+                },
+                {
+                    code: '530018',
+                    name: '建信深证100',
+                    maxzengzhang3: '7.14',
+                    minzengzhang3: '-8.89',
+                    pingjunzengzhang3: '0.08687671232876723',
+                    maxzengzhang2: '7.14',
+                    minzengzhang2: '-8.89',
+                    pingjunzengzhang2: '0.08069863013698633',
+                    maxzengzhang1: '2.68',
+                    minzengzhang1: '-4.23',
+                    pingjunzengzhang1: '0.09684931506849313',
+                    paiming: 0
+                },
+                {
+                    code: '163407',
+                    name: '兴全沪深300',
+                    maxzengzhang3: '7.14',
+                    minzengzhang3: '-8.89',
+                    pingjunzengzhang3: '0.08687671232876723',
+                    maxzengzhang2: '7.14',
+                    minzengzhang2: '-8.89',
+                    pingjunzengzhang2: '0.08069863013698633',
+                    maxzengzhang1: '2.68',
+                    minzengzhang1: '-4.23',
+                    pingjunzengzhang1: '0.09684931506849313',
+                    paiming: 0
+                },
+                {
+                    code: '519671',
+                    name: '银河沪深300',
+                    maxzengzhang3: '5.97',
+                    minzengzhang3: '-8.38',
+                    pingjunzengzhang3: '0.09717808219178073',
+                    maxzengzhang2: '5.97',
+                    minzengzhang2: '-8.38',
+                    pingjunzengzhang2: '0.07767123287671228',
+                    maxzengzhang1: '2.93',
+                    minzengzhang1: '-2.52',
+                    pingjunzengzhang1: '0.129013698630137',
+                    paiming: 0
+                },
+                {
+                    code: '310398',
+                    name: '申万菱信沪深300',
+                    maxzengzhang3: '6.65',
+                    minzengzhang3: '-8.63',
+                    pingjunzengzhang3: '0.09784474885844752',
+                    maxzengzhang2: '6.65',
+                    minzengzhang2: '-8.51',
+                    pingjunzengzhang2: '0.08328767123287659',
+                    maxzengzhang1: '2.85',
+                    minzengzhang1: '-2.54',
+                    pingjunzengzhang1: '0.13210958904109577',
+                    paiming: 0
+                },
+                {
+                    code: '160716',
+                    name: '嘉实基本面',
+                    maxzengzhang3: '6.31',
+                    minzengzhang3: '-8.97',
+                    pingjunzengzhang3: '0.1069132420091325',
+                    maxzengzhang2: '6.31',
+                    minzengzhang2: '-8.6',
+                    pingjunzengzhang2: '0.08897260273972603',
+                    maxzengzhang1: '2.58',
+                    minzengzhang1: '-2.13',
+                    pingjunzengzhang1: '0.1299726027397259',
+                    paiming: 0
+                },
+                {
+                    code: '481012',
+                    name: '工银深证红利联接',
+                    maxzengzhang3: '7.8',
+                    minzengzhang3: '-8.47',
+                    pingjunzengzhang3: '0.10691324200913245',
+                    maxzengzhang2: '7.8',
+                    minzengzhang2: '-8.47',
+                    pingjunzengzhang2: '0.09867123287671246',
+                    maxzengzhang1: '3.28',
+                    minzengzhang1: '-3.72',
+                    pingjunzengzhang1: '0.15495890410958904',
+                    paiming: 0
+                },
+                {
+                    code: '002803',
+                    name: '东方红沪港深',
+                    maxzengzhang3: '2.6',
+                    minzengzhang3: '-3.86',
+                    pingjunzengzhang3: '0.17814814814814822',
+                    maxzengzhang2: '2.6',
+                    minzengzhang2: '-3.86',
+                    pingjunzengzhang2: '0.17814814814814822',
+                    maxzengzhang1: '2.6',
+                    minzengzhang1: '-3.86',
+                    pingjunzengzhang1: '0.17814814814814822',
+                    paiming: 0
+                },
+                {
+                    code: '340007',
+                    name: '兴全社会责任',
+                    maxzengzhang3: '6.8',
+                    minzengzhang3: '-8.87',
+                    pingjunzengzhang3: '0.09753424657534258',
+                    maxzengzhang2: '6.8',
+                    minzengzhang2: '-8.87',
+                    pingjunzengzhang2: '0.10765753424657537',
+                    maxzengzhang1: '3.42',
+                    minzengzhang1: '-5.01',
+                    pingjunzengzhang1: '0.09734246575342459',
+                    paiming: 0
+                },
+                {
+                    code: '000742',
+                    name: '国泰新经济',
+                    maxzengzhang3: '6.92',
+                    minzengzhang3: '-8.29',
+                    pingjunzengzhang3: '0.15809641532756488',
+                    maxzengzhang2: '6.92',
+                    minzengzhang2: '-8.29',
+                    pingjunzengzhang2: '0.1455616438356164',
+                    maxzengzhang1: '3.83',
+                    minzengzhang1: '-3.55',
+                    pingjunzengzhang1: '0.14808219178082202',
+                    paiming: 0
+                },
+                {
+                    code: '163412',
+                    name: '兴全轻资产',
+                    maxzengzhang3: '6.43',
+                    minzengzhang3: '-7.77',
+                    pingjunzengzhang3: '0.1353789954337901',
+                    maxzengzhang2: '6.43',
+                    minzengzhang2: '-7.77',
+                    pingjunzengzhang2: '0.13569863013698638',
+                    maxzengzhang1: '2.84',
+                    minzengzhang1: '-3.95',
+                    pingjunzengzhang1: '0.09057534246575345',
+                    paiming: 0
+                },
+                {
+                    code: '519690',
+                    name: '交银施罗德稳健配置',
+                    maxzengzhang3: '6.01',
+                    minzengzhang3: '-8.47',
+                    pingjunzengzhang3: '0.08819178082191781',
+                    maxzengzhang2: '6.01',
+                    minzengzhang2: '-8.47',
+                    pingjunzengzhang2: '0.09919178082191786',
+                    maxzengzhang1: '3.48',
+                    minzengzhang1: '-4.18',
+                    pingjunzengzhang1: '0.13378082191780827',
+                    paiming: 0
+                },
+                {
+                    code: '530015',
+                    name: '建信深证',
+                    maxzengzhang3: '6.65',
+                    minzengzhang3: '-7.67',
+                    pingjunzengzhang3: '0.10679452054794526',
+                    maxzengzhang2: '6.65',
+                    minzengzhang2: '-7.67',
+                    pingjunzengzhang2: '0.09927397260273978',
+                    maxzengzhang1: '3.29',
+                    minzengzhang1: '-3.64',
+                    pingjunzengzhang1: '0.15178082191780842',
+                    paiming: 0
+                },
+                {
+                    code: '000577',
+                    name: '安信价值精选',
+                    maxzengzhang3: '5.83',
+                    minzengzhang3: '-8.53',
+                    pingjunzengzhang3: '0.13650881057268727',
+                    maxzengzhang2: '5.83',
+                    minzengzhang2: '-8.53',
+                    pingjunzengzhang2: '0.12560273972602742',
+                    maxzengzhang1: '2.37',
+                    minzengzhang1: '-3.52',
+                    pingjunzengzhang1: '0.12287671232876715',
+                    paiming: 0
+                },
+                {
+                    code: '000251',
+                    name: '工银瑞信金融地产混合',
+                    maxzengzhang3: '6.05',
+                    minzengzhang3: '-8.28',
+                    pingjunzengzhang3: '0.12773953488372097',
+                    maxzengzhang2: '6.05',
+                    minzengzhang2: '-8.28',
+                    pingjunzengzhang2: '0.07198630136986303',
+                    maxzengzhang1: '3.29',
+                    minzengzhang1: '-2.78',
+                    pingjunzengzhang1: '0.10323287671232878',
+                    paiming: 0
+                },
+                {
+                    code: '002624',
+                    name: '广发优企',
+                    maxzengzhang3: '2.53',
+                    minzengzhang3: '-4.03',
+                    pingjunzengzhang3: '0.07948148148148153',
+                    maxzengzhang2: '2.53',
+                    minzengzhang2: '-4.03',
+                    pingjunzengzhang2: '0.07948148148148153',
+                    maxzengzhang1: '2.53',
+                    minzengzhang1: '-4.03',
+                    pingjunzengzhang1: '0.08600000000000003',
+                    paiming: 0
+                }
+            ]
+        }
+    })
+</script>
+
+</html>

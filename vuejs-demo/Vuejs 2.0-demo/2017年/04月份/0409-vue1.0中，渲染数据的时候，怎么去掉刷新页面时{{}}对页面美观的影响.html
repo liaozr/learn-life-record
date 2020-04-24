@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue1.js'></script>
+</head>
+<body>
+
+在vuejs指令中有v-cloak，这个指令保持在元素上直到关联实例结束编译。
+
+和CSS规则如[v-cloak]{display:none}一起用时，这个指令可以隐藏未编译的Mustache标签直到实例准备完毕。用法如下：
+
+<style>
+	[v-cloak]{
+	   display:none;
+	}
+</style>
+
+<div v-cloak>{{message}}</div>
+
+这样<div>不会显示，直到编译结束 
+
+	<div class="aa">
+		{{aa}}
+	</div>
+
+	<script>
+		new Vue({
+			el:'body',
+			data:{
+				aa:"this is msg aa",
+				message:'this is message'
+			}
+		})
+	</script>
+	
+</body>
+</html>

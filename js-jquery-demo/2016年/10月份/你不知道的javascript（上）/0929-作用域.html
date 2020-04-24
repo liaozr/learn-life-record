@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<script>
+function foo(a) {
+    console.log( a + b );
+}
+var b = 2;
+foo( 2 ); // 4
+// ---------------------------------------------------------
+
+// 在当前作用域中无法找到某个变量时，引擎就会在外层嵌套的作用域中继续查找，
+// 直到找到该变量，或抵达最外层的作用域（也就是全局作用域）为止。
+
+</script>
+</body>
+</html>

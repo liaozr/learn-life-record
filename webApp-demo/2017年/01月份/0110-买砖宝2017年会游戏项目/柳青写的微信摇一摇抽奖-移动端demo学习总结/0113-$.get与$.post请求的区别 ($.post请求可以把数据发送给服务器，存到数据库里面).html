@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+ post请求则是作为http消息的实体内容发送给web服务器
+
+<script>
+
+    // 这是提交表单数据到后台 ，还有成功提交后的回调。
+    $.post('./php/user.php', $("#form").serialize(), function(res) {
+        var msg = eval('(' + res + ')');
+        if (msg.errcode == 0) {
+            //提交成功储存cookie
+            setCookie('cid', id);
+            $('.screen2').addClass('animated bounceOutLeft');
+            $('.screen3').addClass('animated bounceInRight');
+        } else {
+            alert(msg.errmsg);
+        }
+    });
+
+    // -------------------------------------------------------------------------
+
+    //  这个是 post 摇一摇的数据到后台数据库的，传的参数有三个
+
+    //  第一个参数是 u_id，代表着的是每个人的编号（每个人的编号是不相同的）
+    //  第二个参数是 waggle，代表着的是摇一摇，最后摇动的次数、
+    //  第三个参数是score，代表着的是摇一摇最后的总得分。
+
+    $.post('./php/pos_award.php',{'u_id':getCookie('cid'),'waggle':count,'score':count2});
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+$.post()方法
+
+它与$.get()方法的结构和使用方式相同，有如下区别
+
+GET请求会将参数跟张乃URL后进行传递，而POST请求则是作为Http消息的实体内容发送给web服务器，
+
+在ajax请求中，这种区别对用户不可见
+
+GET方式对传输数据有大小限制（通常不能大于2KB），
+
+而使用POST方式传递的数据量要比GET方式大得多（理论不受限制）
+
+GET方式请求的数据会被浏览器缓存起来，因此其他人可以从浏览器的历史纪录中读取这些数据，如：账号、密码。
+
+在某种情况下，GET方式会带来严重的安全问题，而POST相对来说可以避免这些问题
+
+GET和POST方式传递的数据在服务端的获取也不相同。
+
+在PHP中，GET方式用$_GET[]获取；POST方式用$_POST[]获取;
+
+两种方式都可用$_REQUEST[]来获取
+
+<!-- --------------------------------------------------------------------------------- -->
+
+如果还需要复杂的Ajax程序，就需要用到$.ajax()方式
+
+$.ajax()方法
+
+$.ajax()方法是jquery最底层的Ajax实现，它的结构为$.ajax(options)
+
+该方法只有一个参数，但在这个对象里包含了$.ajax()方式所需要的请求设置以及回调函等信息，
+
+参数以key / value存在，所有参数都是可选的
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

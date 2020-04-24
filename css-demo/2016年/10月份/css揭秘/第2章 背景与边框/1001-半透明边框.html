@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+从背景与边框（第三版） （http://w3.org/TR/css3-background）开
+始，我们可以通过 background-clip 属性来调整上述默认行为所带来的不
+便。这个属性的初始值是 border-box，意味着背景会被元素的 border  box
+（边框的外沿框）裁切掉。如果不希望背景侵入边框所在的范围，我们要做
+的就是把它的值设为padding-box，这样浏览器就会用内边距的外沿来把背
+景裁切掉。
+
+<div class="aa"></div>
+<!-- 
+假设我们想给一个容器设置一层白色背景和一道半透明白色边框，body
+背景会从它的半透明边框透上来。
+  -->
+<style>
+body{
+	background-color:#ccc;
+}
+
+/* 
+
+background-clip 属性规定背景的绘制区域。
+
+background-clip: border-box|padding-box|content-box;
+
+border-box：从border区域向外裁剪背景。
+
+padding-box：从padding区域向外裁剪背景。
+
+content-box：从content区域向外裁剪背景。
+
+no-clip：从border区域向外裁剪背景。
+
+*/
+.aa{
+	width:150px;height:150px;display:block;margin:20px auto;
+	/*-----------------------------------------------------*/
+	/*关键代码：*/
+	/*hsla是颜色值 ，颜色选择器*/
+	border:10px solid hsla(0,0%,100%,.5); 
+	background: white; 
+	background-clip: padding-box;
+}
+</style>
+</body>
+</html>

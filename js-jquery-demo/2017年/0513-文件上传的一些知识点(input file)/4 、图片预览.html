@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------------- -->
+
+图片预览
+
+普通青年的图片预览方式是待文件上传成功后，后台返回上传文件的url，然后把预览图片的img元素的src指向该url。这其实达不到预览的效果和目的。
+
+属于文艺青年的现代浏览器又登场了：“使用HTML5的FileReader API吧！” 让我们直接上代码，直奔主题：
+
+<script>
+
+	function handleImageFile(file) {
+       var previewArea = document.getElementById('previewArea');
+       var img = document.createElement('img');
+       var fileInput = document.getElementById("myFile");
+       var file = fileInput.files[0];
+       img.file = file;
+       previewArea.appendChild(img);
+
+       var reader = new FileReader();
+       reader.onload = (function(aImg) {
+            return function(e) {
+                 aImg.src = e.target.result;
+            }
+       })(img);
+       reader.readAsDataURL(file);
+    }
+</script>
+
+<!-- ----------------------------------------------------------------------- -->
+
+
+这里我们使用FileReader来处理图片的异步加载。
+
+在创建新的FileReader对象之后，我们建立了onload函数，
+
+然后调用readAsDataURL()开始在后台进行读取操作。
+
+当图像文件加载后，转换成一个 data: URL，并传递到onload回调函数中设置给img的src。
+
+另外我们还可以通过使用对象URL来实现预览
+
+<script>
+
+	var img = document.createElement("img");
+	img.src = window.URL.createObjectURL(file);;
+	img.onload = function() {
+	    // 明确地通过调用释放
+	    window.URL.revokeObjectURL(this.src);
+	}
+	previewArea.appendChild(img);
+
+</script>
+
+<!-- ----------------------------------------------------------------------- -->
+
+</body>
+</html>

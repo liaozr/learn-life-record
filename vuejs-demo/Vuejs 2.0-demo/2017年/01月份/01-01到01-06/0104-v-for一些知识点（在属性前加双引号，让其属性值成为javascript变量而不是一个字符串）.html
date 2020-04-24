@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for='(item,index) in items'>
+                <!--想要把index下标值赋给一个标签元素的自定义变量的时候，下面这样子写是错误的  -->
+                <!-- <label for="{{index}}"></label> -->
+                <!-- 这样子写是错误的 -->
+                <!-- <label for="{{index}}"></label> -->
+
+                <!-- 正确写法应该是这样子的 -->
+
+                <!-- 在for属性前加双引号:  在vuejs里面一个属性前加了双引号的话，表示
+                这个属性的值是一个javascript变量，而不是一个字符串来的了 -->
+
+                <label :for="index"></label>
+                <span>{{index}} {{item.title}}</span>
+            </li>
+        </ul>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                items: [
+                  {
+                    title: "zzz000"
+                  },
+                  {
+                    title: "zzz1111"
+                  },
+                  {
+                    title: "zzz222"
+                  }
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+       <!-- 先在页面上 把 style.css 引入到页面 上 ，style.scss 会自动编译成  style.css的 -->
+       <link rel="stylesheet" href="../assets/css/style.css" />
+
+       然后可以在  assets 文件夹 里面的  css 文件夹 里面  建一个 style.scss文件即可
+
+      <!-- style.scss 里面的代码  -->
+
+      <style>
+
+          /*重置样式*/
+          @import "style/normalize.scss";
+
+          $bg:green;
+          body {
+              background-color: $bg;
+          }
+          .sass{
+              font: {
+                  size: 48px;
+                  weight: bold;
+              }
+          }
+
+      </style>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

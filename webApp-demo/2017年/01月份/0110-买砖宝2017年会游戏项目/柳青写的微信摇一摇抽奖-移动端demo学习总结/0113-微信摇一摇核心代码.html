@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        var i = 30;
+        //设置摇晃临界值
+        var shakeThreshold = 1000;
+        //设置最后更新时间，用于对比
+        var lastUpdate = 0;
+        //设置位置速率
+        var curShakeX=curShakeY=curShakeZ=lastShakeX=lastShakeY=lastShakeZ=0;
+        var count=0;
+        var count2=0;
+        var num=0;
+
+        // 摇一摇核心代码
+        function shake() {
+            if (window.DeviceMotionEvent) {
+                //获取移动速度，得到device移动时相对之前某个时间的差值比
+                window.addEventListener('devicemotion', deviceMotionHandler, false);
+            } else {
+                alert('不支持摇一摇，该换手机了！');
+            }
+
+            function deviceMotionHandler(event) {
+                num++;
+                //获得重力加速
+                var acceleration = event.accelerationIncludingGravity;
+                //获得当前时间戳
+                var curTime = new Date().getTime();
+                if ((curTime - lastUpdate) > 100) {
+                    //时间差
+                    var diffTime = curTime - lastUpdate;
+                    lastUpdate = curTime;
+
+                    //xyz轴加速度
+                    curShakeX = acceleration.x;
+                    curShakeY = acceleration.y;
+                    curShakeZ = acceleration.z;
+
+                    var speed = Math.abs(curShakeX + curShakeY + curShakeZ - lastShakeX - lastShakeY - lastShakeZ) / diffTime * 10000;
+
+                    if (speed > shakeThreshold) {
+                        if (i > 0) {
+                            count++;
+                            count2 += Math.floor(speed / 1000);]
+
+                            // 播放音频
+                            shakeAudio.play();
+
+                            //播放动画
+                            $('.phone').addClass('shake-hard');
+                            clearTimeout(shakeTimeout);
+                            var shakeTimeout = setTimeout(function() {
+                                $('.phone').removeClass('shake-hard');
+                            }, 1000)
+
+                            $('.screen4 .count2').html(count2);
+
+                            //$('#logs .message').html('<p>运动事件执行次数：' + num + '</p>' + '<p>有效摇晃次数：' + count + '</p>'+'<p>按照幅度统计出的次数：' + count2 + '</p>');
+                            //$('#logs .speed').html($('#logs .speed').html()+'<p>(当前摇晃幅度：'+speed+')</p>');
+                            
+                        } else {
+
+                            // 当倒计时结束，再继续摇动手机的提示语
+                            $('.tips2').fadeIn();
+                        }
+                    }
+                    lastShakeX = curShakeX;
+                    lastShakeY = curShakeY;
+                    lastShakeZ = curShakeZ;
+                }
+            }
+
+            //预加摇一摇声音
+            var shakeAudio = new Audio();
+            shakeAudio.src = 'sound/shake_sound.mp3';
+            shakeAudio.preload = 'auto';
+        }
+
+    </script>
+</body>
+
+</html>

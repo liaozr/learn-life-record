@@ -1,0 +1,176 @@
+@charset "UTF-8";
+/*购物车商品列表样式*/
+.cartList {
+  margin-top: 48px;
+  width: 100%;
+  height: 86vh;
+}
+
+.cartList ul {
+  width: 100%;
+  height: 86vh;
+  overflow-y: auto;
+  /*图片*/
+}
+
+.cartList ul li {
+  width: 100%;
+  height: 20vmax;
+  border-top: 1px solid #CCCCCC;
+  display: flex;
+}
+
+.cartList ul div {
+  flex: 4;
+}
+
+.cartList ul .goodsImg {
+  display: flex;
+  align-items: center;
+}
+
+.cartList ul .goodsImg span {
+  display: inline-block;
+  margin: 0 5px 0 20px;
+  color: #8E488E;
+  font-size: 17px;
+}
+
+.cartList ul .goodsImg .yuanquan {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
+.cartList ul .goodsImg img {
+  height: 14vmax;
+  width: 11vmax;
+}
+
+.cartList ul .goodsText {
+  position: relative;
+}
+
+.cartList ul .goodsText h3 {
+  position: absolute;
+  left: 0;
+  top: 15px;
+  width: 150%;
+}
+
+.cartList ul .goodsText p {
+  color: red;
+  position: absolute;
+  left: 0;
+  bottom: 15px;
+  font-size: 6vw;
+}
+
+.cartList ul .goodsNum {
+  position: relative;
+}
+
+.cartList ul .goodsNum span {
+  position: absolute;
+  bottom: 15px;
+  display: block;
+  width: 5vmax;
+  height: 4vmax;
+  border: 1px solid #CCCCCC;
+  text-align: center;
+  font-weight: bold;
+  line-height: 4vmax;
+}
+
+.cartList ul .goodsNum span:first-child {
+  right: 17vmax;
+  font-size: 40px;
+  border-bottom-left-radius: 6px;
+  border-top-left-radius: 6px;
+}
+
+.cartList ul .goodsNum span:nth-child(2) {
+  right: 12vmax;
+}
+
+.cartList ul .goodsNum span:nth-child(3) {
+  right: 7vmax;
+  font-size: 30px;
+  border-bottom-right-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.cartList ul .goodsNum span:last-child {
+  right: 1vmax;
+  border: none;
+  font-size: 3vmax;
+  font-weight: normal;
+}
+
+/*提交信息提示框样式*/
+.commitInfo {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin: -15vw 0 0 0;
+  width: 0vw;
+  height: 30vw;
+  overflow: hidden;
+  background: lightgray;
+  border-radius: 3vw;
+  line-height: 20vw;
+  text-align: center;
+  font-size: 5vw;
+  transition: all 0.3s;
+}
+
+.commitInfo span {
+  position: absolute;
+  display: block;
+  right: 10px;
+  bottom: 10px;
+  width: 17vw;
+  height: 10vw;
+  background: darkgray;
+  border-radius: 3vw;
+  line-height: 10vw;
+  color: white;
+}
+
+/*脚部样式*/
+.layout-foot {
+  padding: 0;
+  height: 54px;
+  border-top-color: #8E488E;
+}
+
+.layout-foot .chooseAll {
+  flex: 1;
+  line-height: 54px;
+  display: flex;
+  align-items: center;
+}
+
+.layout-foot .chooseAll span {
+  margin: 0 5px 0 20px;
+  color: #8E488E;
+  font-size: 17px;
+}
+
+.layout-foot .chooseAll .yuanquan {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
+.layout-foot .submitBtn {
+  flex: 2;
+  background-color: #8E488E;
+  color: white;
+  text-align: center;
+  line-height: 54px;
+}

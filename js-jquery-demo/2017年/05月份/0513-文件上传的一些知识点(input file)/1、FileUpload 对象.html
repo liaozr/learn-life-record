@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+在网页上传文件，最核心元素就是这个HTML 
+
+DOM的FileUpload对象了。什么鬼？好像不太熟啊~别急，看到真人就熟了：
+
+<input type="file">
+
+就是他啊！其实在 HTML 文档中该标签每出现一次，一个 FileUpload 对象就会被创建。该标签包含一个按钮，用来打开文件选择对话框，以及一段文字显示选中的文件名或提示没有文件被选中。
+
+把这个标签放在<form>标签内，设置form的action为服务器目标上传地址，并点击submit按钮或通过JS调用form的submit()方法就可以实现最简单的文件上传了。
+
+<form id="uploadForm" method="POST" action="upload" enctype="multipart/form-data">
+      <input type="file" id="myFile" name="file"></input>
+      <input type="submit" value="提交"></input>
+ </form>
+
+这样就完成功能啦？没错。但是你要是敢提交这样的代码，估计脸要被打肿
+
+都什么年代了，我们要的是页面无刷新上传！
+
+
+
+</body>
+</html>

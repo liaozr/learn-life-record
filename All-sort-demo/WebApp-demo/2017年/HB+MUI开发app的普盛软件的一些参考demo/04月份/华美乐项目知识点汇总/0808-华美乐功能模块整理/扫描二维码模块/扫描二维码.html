@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  
+    <span id='scan' class="saomiao" ></span>
+
+    <script>
+
+        //扫描二维码
+        var scanType;
+        //二维码扫描结果传参
+        function scaned(t, str, r) {
+            //alert(str);
+            vm.searchvalue = str;
+            init(vm.searchvalue);
+        }
+
+        scan.addEventListener("tap", function(e) {
+            e.stopPropagation();
+            mui.openWindow({
+                url: 'scan/barcode_scan.html',
+                id: 'barcode_scan',
+                show: {
+                    autoShow: true,
+                    aniShow: 'pop-in',
+                    duration: 300
+                },
+                waiting: {
+                    autoShow: false
+                }
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>

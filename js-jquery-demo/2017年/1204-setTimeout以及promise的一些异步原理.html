@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+  setTimeout(…) 是如何工作的
+
+  需要重点注意的是 setTimeout(…) 不会自动的把你的回调放到事件循环队列中。
+
+  它设置了一个定时器。当定时器过期了，宿主环境会将你的回调放到事件循环队列中，以便在以后的循环中取走执行它。
+
+  看看下面的代码：
+
+  setTimeout(myCallback, 1000);
+
+  这并不意味着 myCallback 将会在 1,000ms 之后执行，而是，在 1,000ms 之后将被添加到事件队列。
+
+  然而，这个队列中可能会拥有一些早一点添加进来的事件 —— 你的回调将会等待被执行。
+
+  有很多文章或教程在介绍异步代码的时候都会从 setTimeout(callback, 0) 开始。好了，现在你知道了事件循环做了什么以及 setTimeout 是怎么运行的：以第二
+
+  个参数是 0 的方式调用 setTimeout 就是推迟到调用栈为空才执行回调。
+
+  来看看下面的代码：
+  <script>
+
+      // console.log('Hi');
+      // setTimeout(function() {
+      //     console.log('callback');
+      // }, 0);
+      // console.log('Bye');
+
+  </script>
+
+  尽管等待的事件设置成 0 了，但是浏览器 console 的结果将会是下面这样：
+
+  Hi
+  Bye
+  callback
+
+  <!-- --------------------------------------------------------------------------------------------------------------- -->
+
+  ES6 中的作业(Jobs)是什么？
+
+  ES6 中介绍了一种叫 “作业队列（Job Queue）” 的新概念。它是事件循环队列之上的一层。你很有可能会在处理 Promises 的异步的时候遇到它(我们后面也会讨论到它们)。
+
+  我们现在只简单介绍一下这个概念，以便当我们讨论 Promises 的异步行为的时候，你能理解这些行为是如何被调度和处理的。
+
+  想象一下：作业队列是一个跟在事件队列的每个 tick 的末尾的一个队列。在事件循环队列的一个 tick 期间可能会发生某些异步操作，这不会导致把一整个新事件添加到事件循环队列中，而是会在当前 tick 的作业队列的末尾添加一项(也就是作业)。
+
+  这意味着你可以添加一个稍后执行的功能，并且你可以放心，它会在执行任何其他操作之前执行。
+
+  作业还能够使更多的作业被添加到同一个队列的末尾。从理论上说，一个作业的“循环”（一个不停的添加其他作业的作业，等等）可能会无限循环，从而使进入下一个事件循环 tick 的程序的必要资源被消耗殆尽。
+
+  从概念上讲，这就和你写了一个长时间运行的代码或是死循环(就像是 while (true))一样。
+
+  作业有点像 setTimeout(callback, 0) 的“hack”，但是它们引入了一个更加明确、更有保证的执行顺序：稍后执行，但是会尽快执行。
+
+  <!-- --------------------------------------------------------------------------------------------------------------- -->
+
+
+  为什么Promise的代码（microtask）会比settimeout的代码（macrotask）更优先执行，因为它太机智了，竟然会插队！
+
+  例子：
+
+  <script>
+
+      var aa = '123'
+      console.log(aa)
+
+      setTimeout(function() {
+          console.log('yyyyyy')
+      }, 20)
+
+
+      function delay(time) {
+          return new Promise(function(resolve, reject) {
+              console.log('hhhhhhhh')
+              resolve(time)
+          });
+      }
+
+      delay(1000)
+        .then(function(time) {
+              console.log(time);
+        })
+
+      // 打印出来的值的顺序是： 123  hhhhhhhh 1000  yyyyyy
+
+  </script>
+
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+ Promise 值
+
+ <script>
+
+    function sum(xPromise, yPromise) {
+        // `Promise.all([ .. ])` 接受一个 promises 的数组，
+        // 并且返回一个新的 promise 对象去等待它们
+        // 全部完成
+        return Promise.all([xPromise, yPromise])
+
+            // 当 promise 完成的时候，我们就能获取
+            // `X` and `Y` 的值，并且计算他们
+            .then(function(values) {
+                // `values` 是一个来自前面完成的 promise
+                // 的消息数组
+                return values[0] + values[1];
+            });
+    }
+
+    // `fetchX()` and `fetchY()` 返回 promises 的值，有他们各自的
+    // 值，或许*现在* 已经准备好了
+    // 也可能要 *等一会儿*。
+
+    sum(fetchX(), fetchY())
+
+        // 我们从返回的 promise 得到了这
+        // 两个数字的和。
+        // 现在我们连续的调用了 `then(...)` 去等待已经完成的
+        // promise。
+        .then(function(sum) {
+            console.log(sum);
+        });
+
+ </script>
+
+ <!-- --------------------------------------------------------------------------------------------------------------- -->
+
+  吞噬异常
+
+  如果在任何一个创建 Promise 或是对其结果观察的过程中，抛出了一个javascript异常错误，
+
+  比如说 TypeError 或是 ReferenceError，那么这个异常会被捕获，然后它就会把 Promise 的状态变成已失败。
+
+  <script>
+
+      var p = new Promise(function(resolve, reject) {
+          foo.bar(); // 对不起，`foo` 没有定义
+          resolve(374); // 不会执行 :(
+      });
+
+      p.then(
+          function fulfilled() {
+              // 不会执行 :(
+          },
+          function rejected(err) {
+              // `err` 是 `foo.bar()` 那一行
+              // 抛出的 `TypeError` 异常对象。
+          }
+      );
+
+  </script>
+
+  如果一个 Promise 已经结束了，但是在监听结果(在 then(…) 里的回调函数)的时候发生了 JS 异常会怎么样呢？即使这个错误没有丢失，你可能也会对它的处理方式有点惊讶。除非你深入的挖掘一下：
+
+  <script>
+
+      var p = new Promise(function(resolve, reject) {
+          resolve(374);
+      });
+
+      p.then(function fulfilled(message) {
+              foo.bar();
+              console.log(message); // 不会执行
+          },
+          function rejected(err) {
+              // 不会执行
+          }
+      );
+
+  </script>
+
+  这看起来就像 foo.bar() 的异常真的被吞了。当然了，异常并不是被吞了。这是更深层次的问题出现了，我们没有监听到异常。p.then(…) 调用它自己会返回另一个 promise，而这个 promise 会因为 TypeError 的异常变为已失败状态。
+
+  处理未捕获的异常
+
+  还有一些 更好的 办法解决这个问题。
+
+  最常见的就是给 Promise 加一个 done(…)，用来标志 Promise 链的结束。
+
+  done(…) 不会创建或返回一个 Promise，所以传给 done(..) 的回调显然不会将问题报告给一个不存在的 Promise。
+
+  在未捕获异常的情况下，这可能才是你期望的：在 done(..) 已失败的处理函数里的任何异常都会抛出一个全局的未捕获异常（通常是在开发者的控制台）。
+
+  <script>
+
+      var p = Promise.resolve(374);
+
+      p.then(function fulfilled(msg){
+          // 数字不会拥有字符串的方法，
+          // 所以会抛出一个错误
+          console.log(msg.toLowerCase());
+      })
+      .done(null, function() {
+
+          console.log('xxxx')
+          // 如果有异常发生，它就会被全局抛出
+      });
+
+ </script>
+
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+关键字 await 只能使用在 async 的函数中，并允许你同步等待一个 Promise。
+
+如果我们在 async 函数之外使用 promise，我们仍然要用 then 回调函数：
+
+<script>
+
+    async function loadData() {
+
+        // `rp` 是一个请求异步函数
+        var promise1 = rp('https://api.example.com/endpoint1');
+        var promise2 = rp('https://api.example.com/endpoint2');
+
+        // 现在，两个请求都被触发,
+        // 我们就等待它们完成。
+        var response1 = await promise1;
+        var response2 = await promise2;
+        return response1 + ' ' + response2;
+    }
+
+    // 但，如果我们没有在 `async function` 里
+    // 我们就必须使用 `then`。
+
+    loadData().then(() => console.log('Done'));
+
+</script>
+
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+<script>
+
+    async function loadData() {
+
+        var response = await getJSON();
+
+        if (response.needsAnotherRequest) {
+            var anotherResponse = await makeAnotherRequest(response);
+            console.log(anotherResponse)
+            return anotherResponse
+
+        } else {
+            console.log(response);
+            return response;
+
+        }
+
+    }
+
+</script>
+
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

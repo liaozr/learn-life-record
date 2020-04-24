@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+    <!-- section.html 页面 -->
+    <script>
+        $(".zhengwu-guanli").on('tap', function() {
+            mui.openWindow({
+                url: "webview_embed.html",
+                id: "webview_embed.html",
+                createNew: false,
+                show: {
+                    autoShow: true, //页面loaded事件发生后自动显示，默认为true
+                    aniShow: "pop-in", //页面显示动画，默认为”slide-in-right“；
+                    duration: 200 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+                },
+                waiting: {
+                    autoShow: true,
+                    title: '正在加载...',
+                }
+            });
+        })
+    </script>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+     <!-- webview_embed.html ( 要嵌套的网址写在这个页面里面 ) -->
+    <script type="text/javascript" charset="utf-8">
+        var ws = null,
+            embed = null;
+        // 扩展API加载完毕，现在可以正常调用扩展API
+        function plusReady() {
+            ws = plus.webview.currentWebview();
+            ws.addEventListener('show', createEmbed, false);
+        }
+        // 判断扩展API是否准备，否则监听"plusready"事件
+        if (window.plus) {
+            plusReady();
+        } else {
+            document.addEventListener("plusready", plusReady, false);
+        }
+        // 创建子Webview
+
+        var doc = window.document;
+        var docEl = doc.documentElement;
+        var width = docEl.getBoundingClientRect().width;
+        var dpr = 1;
+        if (width > 540) {
+            width = 540 * dpr;
+        }
+        var rem = width / 10;
+        var fontSize = rem;
+        var _botommheight = parseInt(fontSize) * 1.375;
+        var bottomheight = parseInt(fontSize) * 1.375 + 'px';
+
+        function createEmbed() {
+            var topoffset = bottomheight;
+            if (plus.navigator.isImmersedStatusbar()) { // 兼容immersed状态栏模式
+                topoffset = (Math.round(plus.navigator.getStatusbarHeight()) + _botommheight) + 'px';
+            }
+            plus.nativeUI.showWaiting('', {
+                style: 'black',
+                modal: false,
+                background: 'rgba(0,0,0,0)'
+            });
+
+            // 要嵌套打开的网址地址
+            embed = plus.webview.create('https://www.baidu.com/?tn=62095104_oem_dg', 'embed', {
+                top: topoffset,
+                bottom: '0px',
+                position: 'dock',
+                dock: 'bottom',
+                bounce: 'vertical'
+            });
+            ws.append(embed);
+            embed.addEventListener('loaded', function() {
+                plus.nativeUI.closeWaiting();
+            }, false);
+            embed.addEventListener('loading', function() {
+                plus.nativeUI.showWaiting('', {
+                    style: 'black',
+                    modal: false,
+                    background: 'rgba(0,0,0,0)'
+                });
+            }, false);
+        }
+        // 打开网址
+        function openUrl() {
+            var url = document.getElementById("url");
+            console.log(url);
+            console.log(embed);
+            embed.loadURL(url.value);
+            url.blur();
+        }
+        // 页面加载后自动打开
+        document.addEventListener("DOMContentLoaded", function() {
+            if (embed) {
+                console.log(embed);
+                // 要嵌套打开的网址地址
+                embed.loadURL('https://www.baidu.com/?tn=62095104_oem_dg');
+                //openUrl();
+            } else {
+                auto = true;
+            }
+        }, false);
+
+        // 页面跳转完成事件
+        function onBrowserLoading() {
+            //document.getElementById("url").value = embed.getURL();
+        }
+    </script>
+    </head>
+
+    <body>
+
+        <!--<header id="header">
+      			<div class="nvbt iback" onclick="back(),plus.nativeUI.closeWaiting();"></div>
+      			<div class="nvtt">
+      				<form action="?" method="get" onsubmit="openUrl();return false;">
+      				<input id="url" type="url" value="http://m.weibo.cn/u/3196963860"/>
+      				</form>
+      			</div>
+      			<div class="nvbt" onclick="openUrl();">Go</div>
+		    </header>-->
+
+        <!--  这个嵌套网址的头部 结构以及代码  -->
+        <div class="mui-bar mui-bar-nav header">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+            <h1 class="mui-title">政务管理</h1>
+        </div>
+
+    </body>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

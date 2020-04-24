@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+v-if和v-show的区别
+
+v-if是真实的条件渲染，当进行条件切换时，它会销毁和重建条件块的内容，并且它支持<template>语法；
+
+v-show的条件切换时基于css的display属性，所以不会销毁和重建条件块的内容；
+
+当你频繁需要切换条件时，推荐使用v-show；否则使用v-if；
+
+</body>
+</html>

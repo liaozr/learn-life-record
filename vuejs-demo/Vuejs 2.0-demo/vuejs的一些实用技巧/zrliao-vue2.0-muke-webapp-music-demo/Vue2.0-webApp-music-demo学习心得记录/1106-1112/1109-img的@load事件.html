@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    @load 是表明 等 img 图片 加载 好后 要执行的事件
+    @load 是表明 等 img 图片 加载 好后 要执行的事件
+
+    <img @load='loadImage' :src="item.picUrl" alt="">
+
+    <script>
+
+        loadImage() {
+
+            // checkLoaded 为 标志位，让 loadImage 里面的代码只执行一次，只执行一次 better-scroll组件的refresh()方法即可。
+
+            if (!this.checkLoaded) {
+
+                console.log('loadImage')
+                this.checkLoaded = true;
+
+            }
+
+        }
+
+    </script>
+    
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<title>完善信息</title>
+		<link rel="stylesheet" href="../css/reset.css" />
+		<link rel="stylesheet" href="../plugin/bootstrap/bootstrap-3.3.5/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="../plugin/font_icon/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/perfectInformation.css" />
+		<script src="../plugin/zepto/zepto.js"></script>
+		<script src="../plugin/zepto/touch.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="../js/perfectInformation.js"></script>
+	</head>
+	<body>
+		<!--头部-->
+		<header class="layout-header">
+			<!--回退-->
+			<a href="javascript:history.go(-1)" class="go-back">
+				<span class="iconfont icon-houtui"></span>
+			</a>
+			<!--页面标题-->
+			<div class="header-text">完善资料</div>
+			<div class="header-nav">
+				<span class="iconfont icon-msnui-list-square"></span>
+				<!--二级菜单-->
+				<ul>
+					<li><a href="../index.html">首页</a></li>
+					<li><a href="goodlist.html">积分区</a></li>
+					<li><a href="goodlist.html">夺宝区</a></li>
+					<li><a href="list.html">分类</a></li>
+					<li><a href="shopCart.html">购物车</a></li>
+					<li><a href="my_center.html">个人中心</a></li>
+				</ul>
+			</div>
+		</header>
+		<section class="container">
+			<p><span>昵称</span><input type="text" id="nickname"/></p>
+			<p><span>手机号码</span><input type="tel" id="phone"/></p>
+			<div class="addressMessage">
+			<div class="address">收货地址</div>
+			<ul class="choseAddres">
+				<li>
+					<input type="text" list="sheng" class="sheng" placeholder="请选择" value=""/>
+					<datalist id="sheng">
+					</datalist>
+				</li>
+				<li>
+					<input type="text" list="shi" class="shi" placeholder="请选择"/>
+					<datalist id="shi">
+					</datalist>
+				</li>
+				<li>
+					<input type="text" list="qu" class="qu" placeholder="请选择"/>
+					<datalist id="qu">
+					</datalist>
+				</li>
+				<li>
+					<textarea class="fullAddres" placeholder="详细地址"></textarea>
+				</li>
+			</ul>
+			</div>
+			<input class="tijiao" type="submit" value="提交"/>
+		</section>
+		<footer class="layout-foot">
+			<a href="../index.html">
+				<span class="iconfont icon-shouye"></span>
+				<span>首页</span>
+			</a>
+			<a href="goodlist.html">
+				<span class="iconfont icon-jifen"></span>
+				<span>积分区</span>
+			</a>
+			<a href="goodlist.html">
+				<span class="iconfont icon-mofang"></span>
+				<span>分类</span>
+			</a>
+			<a href="shopCart.html">
+				<span class="iconfont icon-iconfont08"></span>
+				<span>购物车</span>
+			</a>
+			<a href="my_center.html">
+				<span class="iconfont icon-geren"></span>
+				<span>个人中心</span>
+			</a>
+		</footer>
+	</body>
+</html>

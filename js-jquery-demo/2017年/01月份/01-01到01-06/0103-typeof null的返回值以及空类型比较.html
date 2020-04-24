@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        console.log(typeof null) //object
+            // 最后一个原始类型null，通过typeof将返回"object"，这看上去很怪异，被认为是标准规范的严重 bug，因此在编程时要 杜绝使用typeof来检测null的类型。
+
+        console.log(typeof null === "object") //true
+
+        console.log(typeof undefined === 'undefined') //true
+
+        console.log(typeof NaN === 'NaN') //false
+    </script>
+
+    <!-- ---------------------------------------------------------------------------- -->
+
+    <script>
+
+        // 使用typeof来检测这4种原始类型是非常安全的做法。 来看下面这些例子。
+
+        // 检测"String"
+        if (typeof name === "string") {
+            anotherName = name.substring(3);
+        }
+
+        // 检测"Number"
+        if (typeof count === "number") {
+            updateCount(count);
+        }
+
+        // 检测"Boolean"
+        if (typeof found === "boolean" && found) {
+            message("Found!");
+        }
+
+        // 检测"Undefined"
+        if (typeof MyApp === "undefined") {
+            MyApp = {
+                // 其他代码
+            };
+        }
+    </script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+简单地和null进行比较通常不会包含足够的信息以判断值的类型是否合法，所以null一般不应用于检测语句。
+
+但有一个例外，如果所期望的值真的是null，则可以直接和null进行比较。例如：
+
+<script>
+    // 如果你需要检测 null，则使用这种方法
+    var element = document.getElementById("my-div");
+    if (element !== null) {
+        element.className = "found";
+    }
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

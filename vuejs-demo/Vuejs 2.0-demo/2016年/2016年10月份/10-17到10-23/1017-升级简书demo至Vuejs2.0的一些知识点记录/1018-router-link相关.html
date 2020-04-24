@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        router - link 里面一般是不用加a标签的了， 除非router - link 有tag
+
+        来看看 < router - link > < /router-link> 的写法
+
+        倘若有加上 tag = 'li'
+
+        等标记的， 那么router - link里面就记得要加上a标签了（ 推荐）
+    </script>
+
+    <router-link tag='li' to="/details">
+        <a>go to the details</a>
+    </router-link>
+
+    没有tag标记的，可以在router-link 里面直接写链接跳转的文字相关。
+    <router-link to="/">
+        come from home
+    </router-link>
+
+
+    <router-link tag='li' to='/index/article'>
+        <a>
+            <i class="fa fa-home"></i>
+            <span>&nbsp;&nbsp;首页</span>
+        </a>
+    </router-link>
+
+    <router-link tag='li' to='/topic/articleTopic'>
+        <a>
+            <i class="fa fa-th"></i>
+            <span>&nbsp;&nbsp;专题</span>
+        </a>
+    </router-link>
+    <!-- ----------------------------------------------------------------------------------------------- -->
+
+    <router-link to='/index/article' tag='li' v-for='nav in getnavlists'>
+        <a v-text='nav.title'></a>
+    </router-link>
+
+    <li v-for='nav in getnavlists' @click="getterlists(nav.type)" :class="{'active': getcurlist[0].type==nav.type}">
+        <router-link to='/index/article' v-text='nav.title'></router-link>
+    </li>
+    
+----------------------------------------------------------------------------------------------------
+
+    夜聆风大大的参考设置:
+    <router-link activeClass="active" v-for='(nav,index) in getnavlists' :to="'/' + nav.link " tag='li' @click="selected(index)">
+        <a v-text='nav.title'></a>
+    </router-link>
+
+<!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

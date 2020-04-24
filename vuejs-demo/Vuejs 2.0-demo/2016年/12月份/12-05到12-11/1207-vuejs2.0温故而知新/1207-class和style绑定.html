@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+对象语法
+
+我们可以传递一个对象给 v-bind:class 来动态切换 classes：
+
+<div class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }">
+</div>
+
+对应的 active 和 text-danger 则通过 data 传递过来。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+我们也可直接通过 data 把 class 传递过来
+
+<div v-bind:class="classObject"></div>
+<script>
+    data: {
+        classObject: {
+            active: true,
+            'text-danger': false
+        }
+    }
+</script>
+
+当然我们也能使用上面提到的 computed 来进行对应属性，如 active 的计算。
+
+<!-- ---------------------------------------------------------------------------- -->
+
+数组语法
+
+可以直接传递一个数组给 v-bind:class
+
+<div v-bind:class="[activeClass, errorClass]">
+
+<script>
+    data: {
+        activeClass: 'active',
+        errorClass: 'text-danger'
+    }
+</script>
+
+渲染成：
+<div class='active text-danger'></div>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+也可以写成
+
+<div v-bind:class="[isActive ? activeClass : '', errorClass]">
+
+<div v-bind:class="[{ active: isActive }, errorClass]">
+
+<!-- -------------------------------------------------------------------------------- -->
+
+绑定内联样式
+
+跟 class 差不多：
+
+<div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+
+或者直接绑定到 style：
+
+<div v-bind:style="styleObject"></div>
+
+<script>
+    data: {
+        styleObject: {
+            color: 'red',
+            fontSize: '13px'
+        }
+    }
+</script>
+
+类似的，也有数组绑定。
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+</html>

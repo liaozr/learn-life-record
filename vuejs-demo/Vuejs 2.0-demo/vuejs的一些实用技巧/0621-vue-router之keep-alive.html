@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+keep-alive 简介
+
+keep-alive 是 Vue 内置的一个组件，可以使被包含的组件保留状态，或避免重新渲染。
+
+用法也很简单：
+
+<keep-alive>
+    <component>
+    <!-- 该组件将被缓存！ -->
+    </component>
+</keep-alive>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+props
+
+include - 字符串或正则表达，只有匹配的组件会被缓存
+
+exclude - 字符串或正则表达式，任何匹配的组件都不会被缓存
+
+<script>
+
+  // 组件 a
+  export default {
+    name: 'a',
+    data() {
+      return {}
+    }
+  }
+
+</script>
+
+<keep-alive include="a">
+
+  <component>
+    <!-- name 为 a 的组件将被缓存！ -->
+  </component>
+  
+</keep-alive>
+
+可以保留它的状态或避免重新渲染
+
+<keep-alive exclude="a">
+
+  <component>
+    <!-- 除了 name 为 a 的组件都将被缓存！ -->
+  </component>
+
+</keep-alive>
+
+可以保留它的状态或避免重新渲染
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+遇见 vue-router
+
+router-view 也是一个组件，如果直接被包在 keep-alive 里面，所有路径匹配到的视图组件都会被缓存：
+
+<keep-alive>
+
+  <router-view>
+    <!-- 所有路径匹配到的视图组件都会被缓存！ -->
+  </router-view>
+
+</keep-alive>
+
+然而产品汪总是要改需求，拦都拦不住...
+
+如果只想 router-view 里面某个组件被缓存，怎么办？
+
+使用 include/exclude
+增加 router.meta 属性
+使用 include/exclude
+
+<script>
+
+  // 组件 a
+  export default {
+    name: 'a',
+    data() {
+      return {}
+    }
+  }
+
+</script>
+
+<keep-alive include="a">
+
+  <router-view>
+    <!-- 只有路径匹配到的视图 a 组件会被缓存！ -->
+  </router-view>
+
+</keep-alive>
+
+exclude 例子类似。
+
+缺点：需要知道组件的 name，项目复杂的时候不是很好的选择
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+增加 router.meta 属性
+
+<script>
+
+  // routes 配置
+  export default [
+    {
+        path: '/',
+        name: 'home',
+        component: Home,
+        meta: {
+          keepAlive: true // 需要被缓存
+        }
+    },
+    {
+        path: '/:id',
+        name: 'edit',
+        component: Edit,
+        meta: {
+          keepAlive: false // 不需要被缓存
+        }
+    }
+ ]
+
+</script>
+
+<keep-alive>
+    <router-view v-if="$route.meta.keepAlive">
+      <!-- 这里是会被缓存的视图组件，比如 Home！ -->
+    </router-view>
+</keep-alive>
+
+<router-view v-if="!$route.meta.keepAlive">
+<!-- 这里是不被缓存的视图组件，比如 Edit！ -->
+</router-view>
+
+优点：不需要例举出需要被缓存组件名称
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+
+【加盐】使用 router.meta 拓展
+
+假设这里有 3 个路由： A、B、C。
+
+需求：
+
+默认显示 A
+B 跳到 A，A 不刷新
+C 跳到 A，A 刷新
+
+实现方式
+
+在 A 路由里面设置 meta 属性：
+
+<script>
+
+  {
+    path: '/',
+    name: 'A',
+    component: A,
+    meta: {
+      keepAlive: true // 需要被缓存
+    }
+  }
+
+</script>
+
+在 B 组件里面设置 beforeRouteLeave：
+
+<script>
+
+  export default {
+    data() {
+      return {};
+    },
+    methods: {},
+    beforeRouteLeave(to, from, next) {
+      // 设置下一个路由的 meta
+      to.meta.keepAlive = true; // 让 A 缓存，即不刷新
+      next();
+    }
+  };
+
+  // 在 C 组件里面设置 beforeRouteLeave：
+
+  export default {
+    data() {
+      return {};
+    },
+    methods: {},
+    beforeRouteLeave(to, from, next) {
+      // 设置下一个路由的 meta
+      to.meta.keepAlive = false; // 让 A 不缓存，即刷新
+      next();
+    }
+  };
+
+</script>
+
+这样便能实现 B 回到 A，A 不刷新；而 C 回到 A 则刷新。
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+
+
+</html>

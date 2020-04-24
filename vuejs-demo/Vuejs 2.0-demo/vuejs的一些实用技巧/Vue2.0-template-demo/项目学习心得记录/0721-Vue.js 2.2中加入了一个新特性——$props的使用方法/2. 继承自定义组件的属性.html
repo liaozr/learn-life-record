@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  例如封装一个带校验功能的 input 组件，代码可能是这样：
+
+  <template>
+    <div>
+      <XInput></XInput>
+      <div v-show="message && show-hit" class="hit">{{ message }}</div>
+    </div>
+  </template>
+
+  <script>
+
+    import XInput from './input.vue'
+
+    export default {
+      data () {
+        return {
+          message: '错误提示'
+        }
+      },
+      components: {
+        XInput
+      },
+      props: {
+        showHit: Boolean
+      }
+    }
+  </script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+
+  关键就是如何传 XInput 的 props。其实只需要在当前组件的 props 中把 Xinput 的 props 复制一遍后，用 v-bind 就完成了。
+
+  <template>
+    <div>
+      <XInput v-bind="$props"></XInput>
+      <div v-show="message && show-hit" class="hit">{{ message }}</div>
+    </div>
+  </template>
+
+  <script>
+    import XInput from './input.vue'
+
+    export default {
+      components: { XInput },
+
+      props: {
+        showHit: Boolean,
+        ...XInput.props
+      },
+
+      data () {
+        return {
+          message: '错误提示'
+        }
+      }
+    }
+  </script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+或者用 Object.assign 也可以实现：
+
+props: Object.assign({ showHit: Boolean }, XInput.props)
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

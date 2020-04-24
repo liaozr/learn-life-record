@@ -1,0 +1,132 @@
+.layout-center{
+    margin-top:48px;
+    width: 100%;
+    height: auto;
+    
+    div{
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+       
+        p{
+            height:32px;
+            display: flex;
+            position: relative;
+        }
+        input{
+            height: 32px;
+            width: 10px;
+            border: 1px solid #d5d5d5;
+            transition: all 0.3s;
+            padding-left:5px;
+            flex: 1;
+        }
+        
+        input:focus{
+            border:1px solid #1ab394;
+            box-shadow: 0 0 3px #1ab394;
+        }
+    }
+   
+    //手机号码
+    .phoneNum{
+        
+        p:first-child{
+            flex: 1;
+        }
+        p:last-child{
+            flex: 3;
+        }
+    }
+    //推荐人号码
+    .PhoneNum{
+        
+        p:first-child{
+            flex: 1;
+        }
+        p:last-child{
+            flex: 3;
+        }
+    }
+    //短信验证码样式
+    .megInfo{
+        p:first-child{
+            flex:3;
+        }
+        p:last-child{
+            flex:2;
+            input{
+                background: #8E488E;
+                color: white;
+                height: 34px;
+                border: 0;
+                border-bottom-right-radius: 5px;
+                border-top-right-radius: 5px;
+            }
+            input:focus{
+                border: none;
+                box-shadow: none;
+            }
+        }
+    }
+    
+    //密码
+    .inputPsd{
+        p{
+            flex: 1;
+        }
+    }
+    //确认密码
+    .checkPsd{
+        p{
+            flex: 1;
+        }
+    }
+    //提交按钮
+    .submitBtn{
+        p{
+            flex: 1;
+        }
+        input{
+            background: #8e488e;
+            color: white;
+            border-radius:5px;
+        }
+        input:focus{
+            border:none;
+            box-shadow: none;
+        }
+    }
+  
+    //表单脚注
+    .form-foot{
+        a{
+            flex: 1;
+            color: black;
+            transition: all 0.3s;
+        }
+        a:hover{
+            color:red;
+        }
+    }
+    
+    //错误信息提示框样式
+    p{
+        span{
+            display: block;
+            height: 32px;
+            width: auto;
+            position: absolute;
+            right:1px;
+            top: 1px;
+            padding: 0 5px;
+            line-height: 32px;
+            background-color:#ffecea;
+            opacity: 0;
+            color: #db7070;
+            font-size: 14px;
+        }
+    }
+    
+}

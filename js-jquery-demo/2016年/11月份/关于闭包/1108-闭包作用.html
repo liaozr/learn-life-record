@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+<!-- ------------------------------------------------------------------------------------ -->
+
+闭包的作用
+
+在上述例子中，B定义在A中，因此B依赖于A,而外部变量 c 又引用了B, 所以A间接的被 c 引用，
+
+也就是说，A不会被回收，会一直保存在内存中。
+
+<script>
+    function A() {
+        var count = 0;
+
+        function B() {
+            count++;
+            console.log(count);
+        }
+        return B;
+    }
+    var c = A();
+    c(); // 1
+    c(); // 2
+    c(); // 3
+</script>
+
+count是A中的一个变量，它的值在B中被改变，函数B每执行一次，count的值就在原来的基础上累加1。
+
+因此，A中的count一直保存在内存中。
+
+这就是闭包的作用，有时候我们需要一个模块中定义这样一个变量：
+
+希望这个变量一直保存在内存中但又不会“污染”全局的变量，这个时候，我们就可以用闭包来定义这个模块。
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

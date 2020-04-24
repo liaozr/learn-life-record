@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    3.获取url中的参数
+
+    <script>
+
+        function GetQueryStringRegExp(name, url) {
+            var reg = new RegExp("(^|\?|&)" + name + "=([^&]*)(\s|&|$)", "i");
+            if (reg.test(url)) return decodeURIComponent(RegExp.$2.replace(/+/g, " "));
+            return "";
+        }
+        
+    </script>
+
+</body>
+
+</html>

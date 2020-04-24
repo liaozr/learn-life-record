@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+词法作用域
+
+每当你看到一个函数里面存在着另一个函数,那么内部的函数能够访问外部函数的作用域,
+
+这就叫做词法作用域或者闭包;
+
+也被认为是静态作用域,下面的代码是最简单的方法再一次去解释我们所说的内容:
+
+<script>
+    // Scope A
+    var myFunction = function() {
+        // Scope B
+        var name = 'Todd'; // defined in Scope B
+        var myOtherFunction = function() {
+            // Scope C: `name` is accessible here!
+        };
+    };
+</script>
+
+你也许注意到myOtherFunction没有在这里被调用,它只是简单地被定义.
+
+当然它的调用顺序也会影响到作用域里面变量的表现, 在这里我定义了myOtherFunction
+
+并且在console语句之后调用了它:
+
+<script>
+    var myFunction = function() {
+        var name = 'Todd';
+        var myOtherFunction = function() {
+            console.log('My name is ' + name);
+        };
+        console.log(name);
+        myOtherFunction(); // call function
+    };
+    myFunction();
+    // Will then log out:
+    // `Todd`
+    // `My name is Todd`
+</script>
+
+很容易理解和使用词法作用域,任何被定义在它的父作用域上的变量/对象/函数,在作用域链上都是可以访问到的.例如:
+
+<script>
+    var name = 'Todd';
+    var scope1 = function() {
+        // name is available here
+        var scope2 = function() {
+            // name is available here too
+            var scope3 = function() {
+                // name is also available here!
+            };
+        };
+    };
+</script>
+
+需要记住的一个重要地方是,词法作用域是不可逆的,我们可以从下面的例子中看到结果:
+
+<script>
+    // name = undefined
+    var scope1 = function() {
+        // name = undefined
+        var scope2 = function() {
+            // name = undefined
+            var scope3 = function() {
+                var name = 'Todd'; // locally scoped
+            };
+        };
+    };
+</script>
+
+当然我们可以返回一个指向name的引用,但是永远不会是name变量本身.
+
+</body>
+</html>

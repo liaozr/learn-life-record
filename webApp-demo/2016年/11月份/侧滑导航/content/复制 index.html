@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="keywords" content="" />
+		<!--网页关键词-->
+		<meta name="description" content="" />
+		<!--网页描述-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<!--适配当前屏幕-->
+		<meta name="format-detection" content="telephone=no" />
+		<!--禁止自动识别电话号码-->
+		<meta content="email=no" name="format-detection" />
+		<!--禁止自动识别邮箱-->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<!--iphone中safari私有meta标签,允许全屏模式浏览,隐藏浏览器导航栏-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="../js/sjw_pub_js.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="../css/复制 mycss.css"/>
+		<title>中医院</title>
+	</head>
+	<body>
+		<div class="boxOut">
+			<div class="navBox">
+				<ul>
+					<li>1</li>
+					<li>2</li>
+					<li>3</li>
+					<li>4</li>
+					<li>5</li>
+				</ul>
+			</div>
+			
+			<div class="boxRight">
+				主页面
+			</div>
+		</div>
+		
+	</body>
+</html>
+<script type="text/javascript">
+	
+	var winHeight=window.screen.availHeight+"px";
+	$(".boxRight").css("height",winHeight);
+	$(".boxOut").css("height",winHeight);
+	$(".boxRight").click(function(){
+		$(this).toggleClass("boxRight1");
+	})
+</script>
+

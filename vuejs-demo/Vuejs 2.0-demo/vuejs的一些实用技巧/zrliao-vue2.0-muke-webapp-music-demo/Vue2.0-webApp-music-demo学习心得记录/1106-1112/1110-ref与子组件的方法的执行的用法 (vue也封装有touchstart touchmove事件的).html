@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    这段代码的意义 是 父组件 中 直接 执行 子组件 scroll.vue 里面的  scrollToElement 这个方法的。
+
+    this.$refs.scroll.scrollToElement(this.$refs.listgroup[anchorIndex], 0)
+
+    这段代码的意义 是 父组件 中 直接 执行 子组件 scroll.vue 里面的  scrollToElement 这个方法的。
+
+    this.$refs.scroll.scrollToElement(this.$refs.listgroup[anchorIndex], 0)
+
+<!-- ----------------------------------------------------------------------------------------------------- -->
+
+    <scroll ref='scroll' class='listview' :lists='lists'>
+
+        <ul>
+            <li ref='listgroup' class='list-group' v-for='group in lists' :key='group.id'>
+                <h2 class='list-group-title'>{{group.title}}</h2>
+                <ul>
+                    <li v-for='item in group.items' :key='item.id' class='list-group-item'>
+                        <img class='avatar' v-lazy="item.avatar" alt="">
+                        <span class='name'>{{item.name}}</span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        vue 也有 封装 有 touchstart 事件 以及 touchmove 事件的
+        vue 也有 封装 有 touchstart 事件 以及 touchmove 事件的
+
+        <div class="list-shortcut" @touchstart.stop.prevent='onShortcutTouchStart($event)' @touchmove.stop.prevent='onShortcutTouchMove($event)'>
+            <ul>
+                <li v-for='(item,index) in shortcutList' :data-index='index' :key='item.id' class='item'>
+                    {{item}}
+                </li>
+            </ul>
+        </div>
+
+    </scroll>
+
+<!-- ----------------------------------------------------------------------------------------------------- -->
+
+    <script>
+
+        export default {
+            props: {
+                lists: {
+                    type: Array,
+                    default: []
+                }
+            },
+            components: {
+                scroll
+            },
+            methods: {
+                onShortcutTouchStart(e) {
+                    let anchorIndex = getData(e.target, 'index')
+
+                    this.$refs.scroll.scrollToElement(this.$refs.listgroup[anchorIndex], 0)
+
+                },
+                onShortcutTouchMove(e) {
+
+                }
+            },
+            computed: {
+                shortcutList() {
+                    return this.lists.map((group) => {
+                        return group.title.substr(0, 1)
+                    })
+                }
+            }
+        }
+
+    </script>
+
+  <!-- ----------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

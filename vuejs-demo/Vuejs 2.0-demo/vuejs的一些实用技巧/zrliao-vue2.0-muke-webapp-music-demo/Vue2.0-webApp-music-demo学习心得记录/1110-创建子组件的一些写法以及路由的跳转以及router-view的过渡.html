@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+
+     <!-- router 路由 文件夹 下的 singer.js 路由 -->
+
+    <script>
+
+        const singer = resolve => require(['@v/singer/singer'], resolve)
+
+        const singerDetail = resolve => require(['@v/singer/singerDetail'], resolve)
+
+        // 构建路由表信息
+        const routes = [
+              {
+                  path: '/singer',
+                  component: singer,
+                  name: 'singer',
+                  children: [
+                    {
+                      path: 'singerDetail/:id',  //子组件 的 path 是不用  写 斜杠的 '/'开头的。，而且要注意的是带有参数的用法 /:id
+                      component: singerDetail,
+                      name:'singerDetail'       //  这个 组件的 name 值 建议 必须 带上去
+                    }
+                  ]
+              }
+        ]
+
+        export default routes
+
+    </script>
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+
+    singer.vue组件里
+
+    <template>
+
+        <div class="singer">
+
+          <indexList @select='selectSinger' :lists='singers'></indexList>
+
+          <router-view></router-view>
+
+        </div>
+
+    </template>
+
+    <script>
+
+        export default {
+
+            methods: {
+
+                selectSinger(singer) {
+
+                  this.$router.push({
+
+                      // path:`/singer/singerDetail/${singer.id}`,
+
+                      // 不建议 用 path 写，建议 直接  写 name 值 ，也是会匹配过去的，而且 写法上更简单了
+                      // 最重要的是 还能用  params 传参，能把参数传递过去的。
+
+                      name:'singerDetail',
+                      params:singer
+                  })
+
+                }
+
+            }
+        }
+
+    </script>
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+
+     singerDetail.vue 组件里面 （基础代码）
+
+    <template>
+
+          <transition name='slide'>
+
+               <div class='singer-detail'>
+
+                  1111111
+
+               </div>
+
+          </transition>
+
+    </template>
+
+    <script>
+
+         export default{
+              data(){
+                  return{
+
+                  }
+              },
+              created(){
+
+                console.log("wwww")
+
+                // 可以 通过 这样 来 接收  参数
+
+                // this.$route.params
+                // this.$route.params
+                console.log(this.$route.params)
+
+              }
+          }
+
+    </script>
+
+    <style lang='scss' scoped>
+         .singer-detail{
+             position: fixed;
+             z-index:100;
+             top:0;
+             left:0;
+             right:0;
+             bottom:0;
+             background:$color-background;
+         }
+         .slide-enter-active,.slide-leave-active{
+             transition:all 0.3s;
+         }
+         .slide-enter,.slide-leave-to{
+            transform:translate3d(100%,0,0)
+         }
+    </style>
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+  操作DOM是不可避免的，常规的操作也不会有任何问题，但是经验不足的开发者往往很容易写出大量的多余或重复的DOM操作，成为前端性能优化中重要的问题。
+
+  想提升效率，我们就要尽可能减少DOM操作，只修改需要修改的地方。
+
+  要知道js本身运行速度是很快的，而js对象又可以很准确地描述出类似DOM的树形结构，
+
+  基于这一前提，人们研究出一种方式，通过使用js描述出一个假的DOM结构，每次数据变化时候，
+
+  在假的DOM上分析数据变化前后结构差别，找出这个最小差别并且在真实DOM上只更新这个最小的变化内容，
+
+  这样就极大程度上降低了对DOM的操作带来的性能开销。
+
+  上面的假的DOM结构就是虚拟DOM，比对的算法成为diff算法，这是实现虚拟DOM技术的关键，在vue初始化时，首先用JS对象描述出DOM树的结构，
+
+  用这个描述树去构建真实DOM，并实际展现到页面中，一旦有数据状态变更，需要重新构建一个新的JS的DOM树，对比两棵树差别，
+
+  找出最小更新内容，并将最小差异内容更新到真实DOM上。
+
+
+  有了虚拟DOM，下面一个问题就是，什么时候会触发更新，
+
+  接下来要介绍的，就是vue中最具特色的功能–数据响应系统及实现。
+
+
+</body>
+
+</html>

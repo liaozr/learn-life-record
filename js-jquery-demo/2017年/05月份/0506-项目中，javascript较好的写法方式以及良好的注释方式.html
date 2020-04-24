@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+     所以我对于js采用类似如下的注释结构， 可以借鉴一下：
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+    <script>
+
+        var globals='zrliao';
+
+        /**
+          ** 这部分脚本用于实现向服务器拉取banner图数据
+        **/
+        (function getBannerData() {
+            //代码逻辑省略
+            var aa=12;             // 局部变量
+            console.log(globals)  // zrliao  因为这个globals是全局变量来的
+
+        })();
+        // 这种写法的 结尾 是要加上 分号结尾的，不然是会报错的。
+
+
+         /**
+         ** 这部分代码用于实现用户登陆逻辑
+         **/
+        (function userLogin() {
+
+            //代码逻辑省略
+
+        })();
+        // 这种写法的 结尾 是要加上 分号结尾的，不然是会报错的。
+
+
+        //等等都这样注释下去
+
+    </script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

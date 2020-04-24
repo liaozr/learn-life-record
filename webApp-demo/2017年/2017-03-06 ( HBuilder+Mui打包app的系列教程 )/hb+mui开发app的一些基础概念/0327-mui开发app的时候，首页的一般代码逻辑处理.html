@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        var subpages = ['html/home.html', 'html/message.html', 'html/person.html'];
+        var subpage_style = {
+            top: '0px',
+            bottom: '51px'
+        };
+        // 当前激活选项
+        var activeTab = subpages[0];
+
+        // 创建子页面，首个选项卡页面显示，其它均隐藏；
+        var currentWebview;
+        mui.plusReady(function() {
+            currentWebview = plus.webview.currentWebview();
+            var secondWebview = plus.webview.getSecondWebview();
+            currentWebview.append(secondWebview);
+        });
+
+        // 选项卡点击事件
+        mui('.mui-bar-tab').on('tap', 'a', function(e) {
+            var targetTab = this.getAttribute('href');
+            if (targetTab == activeTab) {
+                return;
+            }
+
+            var targetWebview = plus.webview.getWebviewById(targetTab);
+            if (!targetWebview) {
+                targetWebview = plus.webview.create(targetTab, targetTab, subpage_style);
+                currentWebview.append(targetWebview);
+            }
+            targetWebview.show("fade-in", 300);
+            // 隐藏当前;
+            plus.webview.hide(activeTab);
+            // 更改当前活跃的选项卡
+            activeTab = targetTab;
+        });
+    </script>
+    
+</body>
+
+</html>

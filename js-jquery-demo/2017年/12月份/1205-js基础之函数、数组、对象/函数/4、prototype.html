@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+    prototype
+
+    Function.prototype 属性存储了 Function 的原型对象。
+    
+    一般用来给 Function 实例添加公共方法和属性。
+
+    <script>
+
+        // 构造函数的方式
+
+        function Person(name) {
+            this.name = name
+        }
+
+        Person.prototype.sayName = function() {
+            console.log(this.name)
+        }
+
+        Person.prototype.bb='zrliao'
+
+        const person = new Person('Tumars')
+        person.sayName() // "Tumars"
+
+        console.log( person.bb ) // zrliao
+
+        // console.log(person instance Person) // true
+        // console.log(person instance Object) // true
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  promise 采用正常与错误结果分流回调的处理设计
+
+  <script>
+
+      var p = new Promise((resolve, reject) => {
+          resolve(123)
+      })
+
+      p.then(fullfilled => {
+          console.log(fullfilled) //123
+      }, error => {
+          console.log(error) //不会调用到这里
+      })
+
+  </script>
+
+  细心的读者会看到在控制台除了打印了 123外，还打印了 Promise {[[PromiseStatus]]: "resolved", [[PromiseValue]]: undefined}。还记得我们前面提到then方法也会生成promise吗，这里打印的就是调用then方法生成的promise，我们可以先跳过，后面详细介绍。
+
+  以上我们创建了一个promise，并且通过调用then方法，在该promise注册了两个回调函数用于监听正确与失败的处理结果。由于该promise 通过resolve(123)进行了决议，所以我们在then上注册的第一个函数，会收到结果，打印123。
+
+  不难想象如果promise做出了拒绝的处理，或者内部有错误，我们在then上注册的错误处理函数将被调用。来看下例子
+
+<script>
+
+// ------------------------------------------------------------------------------------------------
+
+    var p = new Promise((resolve, reject) => {
+        reject(456)
+    })
+
+    p.then(fullfilled => {
+        console.log(fullfilled) //不会调用到这里
+    }, error => {
+        console.log(error) //456
+    })
+
+// ------------------------------------------------------------------------------------------------
+    //或者
+    var p = new Promise((resolve, reject) => {
+        foo() //由于未定义foo, 会抛出错误
+        resolve(123) // 无法执行到
+    })
+
+    p.then(fullfilled => {
+        console.log(fullfilled) //不会调用这里
+    }, error => {
+        console.log(error) //ReferenceError: foo is not defined
+    })
+
+// ------------------------------------------------------------------------------------------------
+
+</script>
+
+  我们看到在传递给promise的匿名函数中，我们调用了foo，由于未定义该方法，所以抛出了错误。
+
+  我们可以把抛出错误也理解为promise做出了reject决议，并且拒绝的理由是抛出的错误信息。
+
+  我们看到foo()后面一句，调用了resolve，由于错误的抛出，这行实际没有被执行到。
+
+  我们来猜测下，如果不是抛出错误，而是调用了reject(456),再调用resolve(123)，resolve会生效吗？我们注册的2个回调都会被执行吗？
+
+  <script>
+
+      var p = new Promise((resolve, reject) => {
+          reject(456)
+          resolve(123)
+      })
+
+      p.then(fullfilled => {
+          console.log(fullfilled) //不会调用这里
+      }, error => {
+          console.log(error) //456
+      })
+
+  </script>
+
+  看来是不行，如果是多次调用resolve呢？
+
+  <script>
+
+      var p = new Promise((resolve, reject) => {
+          resolve(123)
+          resolve(456)
+      })
+      
+      p.then(fullfilled => {
+          console.log(fullfilled) //123
+      }, error => {
+          console.log(error) //不会调用这里
+      })
+
+  </script>
+
+  看来resolve的结果并没有被覆写。看了上面的例子，引述下书上的结论吧：promise一旦决议，即由peding状态变为 resolve或reject状态，
+
+  其状态及值就不会再次改变。这点保证了，后续在同一个promise上调用then方法注册的回调函数都将收到相同的结果。
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

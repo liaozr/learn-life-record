@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+localStorage && sessionStorage
+
+过期时间：localStorage 永久存储，永不失效除非手动删除
+
+sessionStorage 浏览器重新打开后就消失了
+
+大小：每个域名是5M
+
+<!-- --------------------------------------------------------------------- -->
+
+Localstorage本地存储基本用法
+
+如何创建和访问 localStorage
+
+<script type="text/javascript">
+	localStorage.lastname="Smith";
+	document.write(localStorage.lastname);
+</script>
+
+上面就创建了一个localStorage。
+
+<!-- ------------------------------------------------------------ -->
+
+<br><br><br><br><br>
+我们再来做一个刷新页面，增加访问次数的功能！很简单，代码如下：
+
+<script type="text/javascript">
+
+	if (localStorage.pagecount)
+	{
+	  localStorage.pagecount=Number(localStorage.pagecount) +1;
+	}
+	else
+	{
+	  localStorage.pagecount=1;
+	}
+	document.write("Visits "+ localStorage.pagecount + " time(s).");
+
+</script>
+
+<!-- ----------------------------------------------------------------- -->
+
+上面是用点的方式进行操作，localStorage还有存储API,具体如下：
+
+调用setItem()方法，将对应的名字和值传递出去，可以实现数据存储
+
+调用getItem()方法，将名字传递出去，可以获取对应的值
+
+调用removeItem()方法，名称作为参数，可以删除对应的数据
+
+调用clear()方法，可以删除所有存储的数据
+
+使用length属性以及key()方法，传入0~length-1的数字，可以枚举所有存储数据的名字
+
+<!-- ----------------------------------------------------------------- -->
+<script>
+// 用法如下：
+
+
+localStorage.setItem("name", "haorooms");    // 以"name"为名字存储一个字符串
+localStorage.getItem("name");            // 获取"name"的值
+
+// 枚举所有存储的名字/值对
+for(var i=0; i<localStorage.length; i++){        // length表示所有的名值对总数
+    var name = localStorage.key(i);            // 获取第i对的名字
+    var value = localStorage.getItem(name);        // 获取该对的值
+}
+
+localStorage.removeItem("name");        // 删除"name"项
+
+localAStorage.clear();                // 全部删除
+
+</script>
+
+<!-- --------------------------------------------------------------- -->
+
+sessionStorage和Localstorage区别
+
+sessionStorage用法和Localstorage用法一样，区别就是，
+
+sessionStorage是会话存储，关闭浏览器，存储内容就会被清除。
+
+<!-- ----------------------------------------------------------------------- -->
+
+低版本浏览器存储兼容方案
+
+IE User Data
+
+微软在IE5及之后的IE浏览器中实现了它专属的客户端存储机制——“userData”。
+
+userData可以实现一定量的字符串数据存储，对于IE8以前的IE浏览器中，可以将其用作是Web存储的替代方案。
+
+<!-- ---------------------------------------------------------------------- -->
+
+iLocalStorage插件
+
+由于IE8以下浏览器的本地存储API不一样，所以就写了个插件兼容各大浏览器存储。提供的方法及用法如下：
+<script>
+
+	getItem: 获取属性
+	setItem: 设置属性
+	removeItem: 删除属性
+
+	iLocalStorage.setItem('key', 'value');
+	console.log(iLocalStorage.getItem('key'));
+	iLocalStorage.removeItem('key');
+
+</script>
+
+<!-- ------------------------------------------------------------------------ -->
+
+插件代码
+<script>
+
+	/**
+	 * LocalStorage 本地存储兼容函数
+	 * getItem: 获取属性
+	 * setItem: 设置属性
+	 * removeItem: 删除属性
+	 *
+	 *
+	 * @example
+	 *
+	    iLocalStorage.setItem('key', 'value');
+	    console.log(iLocalStorage.getItem('key'));
+	    iLocalStorage.removeItem('key');
+	 *
+	 */
+
+
+	(function(window, document){
+
+	    // 1. IE7下的UserData对象
+	    var UserData = {
+	        userData: null,
+	        name: location.href,
+	        init: function(){
+	            // IE7下的初始化
+	            if(!UserData.userData){
+	                try{
+	                    UserData.userData = document.createElement("INPUT");
+	                    UserData.userData.type = "hidden";
+	                    UserData.userData.style.display = "none";
+	                    UserData.userData.addBehavior("#default#userData");
+	                    document.body.appendChild(UserData.userData);
+	                    var expires = new Date();
+	                    expires.setDate(expires.getDate() + 365);
+	                    UserData.userData.expires = expires.toUTCString();
+	                } catch(e){
+	                    return false;
+	                }
+	            }
+	            return true;
+	        },
+
+	        setItem: function(key, value){
+	            if(UserData.init()){
+	                UserData.userData.load(UserData.name);
+	                UserData.userData.setAttribute(key, value);
+	                UserData.userData.save(UserData.name);
+	            }
+	        },
+
+	        getItem: function(key){
+	            if(UserData.init()){
+	                UserData.userData.load(UserData.name);
+	                return UserData.userData.getAttribute(key);
+	            }
+	        },
+
+	        removeItem: function(key){
+	            if(UserData.init()){
+	                UserData.userData.load(UserData.name);
+	                UserData.userData.removeAttribute(key);
+	                UserData.userData.save(UserData.name);
+	            }
+	        }
+
+	    };
+
+	    // 2. 兼容只支持globalStorage的浏览器
+	    // 使用： var storage = getLocalStorage();
+	    function getLocalStorage(){
+	        if(typeof localStorage == "object"){
+	            return localStorage;
+	        } else if(typeof globalStorage == "object"){
+	            return globalStorage[location.href];
+	        } else if(typeof userData == "object"){
+	            return globalStorage[location.href];
+	        } else{
+	            throw new Error("不支持本地存储");
+	        }
+	    }
+	    var storage = getLocalStorage();
+
+	    function iLocalStorage(){
+
+	    }
+
+	    // 高级浏览器的LocalStorage对象
+	    iLocalStorage.prototype = {
+	        setItem: function(key, value){
+	            if(!window.localStorage){
+	                UserData.setItem(key, value);
+	            }else{
+	                storage.setItem(key, value);
+	            }
+	        },
+
+	        getItem: function(key){
+	            if(!window.localStorage){
+	                return UserData.getItem(key);
+	            }else{
+	                return storage.getItem(key);
+	            }
+	        },
+
+	        removeItem: function(key){
+	            if(!window.localStorage){
+	                UserData.removeItem(key);
+	            }else{
+	                storage.removeItem(key);
+	            }
+	        }
+	    }
+
+
+	    if (typeof module == 'object') {
+	        module.exports = new iLocalStorage();
+	    }else {
+	        window.iLocalStorage = new iLocalStorage();
+	    }
+
+	})(window, document);
+
+</script>
+<!-- ------------------------------------------------------------ -->
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  过期时间
+
+  如果我们想长时间存放一个cookie。需要在设置这个cookie的时候同时给他设置一个过期的时间。
+
+  如果不设置，cookie默认是临时存储的，当浏览器关闭进程的时候自动销毁
+
+  注意：document.cookie = '名称=值;expires=' + GMT(格林威治时间)格式的日期型字符串;
+
+  一般设置天数：new Date().setDate( oDate.getDate() + 5 ); 比当前时间多5天
+
+  一个设置cookie时效性的例子
+
+  <script>
+
+      function setCookie(c_name, value, expiredays) {
+
+          var exdate = new Date();
+
+          exdate.setDate(exdate.getDate() + expiredays);
+
+          document.cookie = c_name + "=" + escape(value) + ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString())
+      }
+
+  </script>
+
+  使用方法：setCookie('username','cfangxu',30)
+
+  expires 是 http/1.0协议中的选项，在新的http/1.1协议中expires已经由 max-age 选项代替，两者的作用都是限制cookie 的有效时间。
+
+  expires的值是一个时间点（cookie失效时刻= expires），
+  而max-age 的值是一个以秒为单位时间段（cookie失效时刻= 创建时刻+ max-age）。
+
+  另外，max-age 的默认值是 -1(即有效期为 session )；
+
+  max-age有三种可能值：负数、0、正数。
+
+  负数：有效期session；
+
+  0：删除cookie；
+
+  正数：有效期为创建时刻+ max-age
+
+</body>
+
+</html>

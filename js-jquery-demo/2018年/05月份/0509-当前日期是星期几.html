@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+        var calculateDate = function() {
+
+            var date = new Date('2018-5-8');
+
+            var weeks = ["日", "一", "二", "三", "四", "五", "六"];
+
+            return date.getFullYear() + "年" + (date.getMonth() + 1) + "月" +
+
+                date.getDate() + "日 星期" + weeks[date.getDay()];
+        }
+
+        console.log( calculateDate() )  //  2018年5月9日 星期三
+
+    </script>
+</body>
+
+</html>

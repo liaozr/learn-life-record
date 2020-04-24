@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ----------------------------------------------------------------------------------------- -->
+
+  vue中给实例提供了三个我们可用的API$children和$refs以及$parent。
+
+  $children：当前实例的直接子组件。需要注意 $children 并不保证顺序，也不是响应式的。
+
+  $refs：包含了当前实例所有拥有 ref 注册的子组件的对象.
+
+  $parent: 当前实例的父实例。
+
+  所以说，如果在通信方面我们我组件想要调用子组件，能用的方法只有$refs了，
+
+  因为$children是一个数组，并且不保证顺序，也没有相关的id去寻找我们需要的那个特定子组件。但是如果使用$refs去寻找特定子组件，那就必须要给那个子组件注册ref。
+
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+  父组件的模版
+
+  <!-- vm.$refs.child will be the child comp instance -->
+  <child-component ref="child"></child-comp>
+
+  <script>
+
+      // 父组件
+
+      //找到子组件并且调用它的方法
+      var myChild = this.$refs.child;
+      mymyChild.func();
+
+      // 子组件
+      //找到父组件并且调用它的方法
+      var myParent = this.$parent;
+      mymyChild.func();
+
+  </script>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+
+  3.平行组件之间的两种通信方式
+
+  a.官方提供的事件bus
+
+  <script>
+
+      var bus = new Vue()
+      // 触发组件 A 中的事件
+      bus.$emit('id-selected', 1)
+      // 在组件 B 创建的钩子中监听事件
+      bus.$on('id-selected', function(id) {
+          // ...
+      })
+
+  </script>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+b.通过父组件去找兄弟组件
+
+  <script>
+
+      //找到父组件的$refs对象，然后找到组件的兄弟组件
+
+      var $refs = this.$parent ? this.$parent.$refs : {};
+
+      var childComponent = $refs.child; //child为改组件的ref属性值
+
+      其实以上两种方法最好的实践方式是封装到项目的基类中， 这样不用每次都去定义一个空Vue() 实例，
+      
+      而是每个实例的基类中都有这个事件bus。 同样可以封装找到其他兄弟组件的方法， 但是该兄弟组件必须注册ref
+
+  </script>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+    下面这个方法是我在项目中封装的用于找到父组件， 然后再去找到兄弟组件的方法。
+
+    <script>
+
+        //平行组件之间的通信
+        getComponentByRef: function(refId) {
+            var $refs = this.$parent ? this.$parent.$refs : {};
+            for (var $id in $refs) {
+                if ($id == refId) {
+                    return $refs[$id];
+                }
+            }
+            return null;
+        }
+
+        // 使用
+
+        //在组件中直接使用
+
+        this.getComponentByRef("booknode").updateNode(this.node);
+
+    </script>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+ <!-- ------------------------------------------------------------------------------------ -->
+
+ 检测是否是数组
+
+ if (value instanceof Array) {
+
+ }
+
+ ECMAScript5新增了 Array.isArray()方法
+
+ if (Array.isArray(value)) {
+
+ }
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+sort方法
+
+该方法有缺陷，sort()方法会调用每个数组项的toString()转型方法，然后比较字符串进行排序。
+
+var values = [0, 1, 5, 10, 15];
+values.sort();
+alert(values); //0,1,10,15,5
+
+因此sort()方法接受一个比较函数作为参数。
+
+<script>
+
+    function compare(value1, value2) {
+        if (value1 < value2) {
+            return -1;
+        } else if (value1 > value2) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    var values = [0, 1, 5, 10, 15];
+    values.sort(compare);
+    alert(values); //0,1,5,10,15
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+splice方法
+
+splice方法始终返回一个数组，该数组包含了从原始数组中删除的项。
+
+<script>
+    var colors = ["red", "green", "blue"];
+    var removed = colors.splice(0, 1); // 删除第一项
+    console.log(colors); // green,blue
+    console.log(removed); // red，返回的数组中只包含一项
+
+    removed = colors.splice(1, 0, "yellow", "orange"); // 从位置1 开始插入两项
+    console.log(colors); // green,yellow,orange,blue
+    console.log(removed); // 返回的是一个空数组
+
+    removed = colors.splice(1, 1, "red", "purple"); // 插入两项，删除一项
+    console.log(colors); // green,red,purple,orange,blue
+    console.log(removed); // yellow，返回的数组中只包含一项
+</script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+迭代方法
+
+ECMAScript5为数组定义了5个迭代方法。
+
+every(): 对数组中的每一项运行给定函数，如果该函数对每一项都返回true，则返回true。
+
+filter(): 对数组中的每一项运行给定函数，返回该函数会返回true 的项组成的数组。
+
+forEach(): 对数组中的每一项运行给定函数。这个方法没有返回值。
+
+map(): 对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组。
+
+some(): 对数组中的每一项运行给定函数，如果该函数对任一项返回true，则返回true。
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

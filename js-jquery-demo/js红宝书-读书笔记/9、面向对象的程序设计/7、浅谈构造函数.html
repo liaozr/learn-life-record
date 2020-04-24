@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ------------------------------------------------------------------------------------- -->
+
+  3 构造函数模式
+
+  <script>
+
+      function CreatePerson(name) {
+          this.name = name;
+          this.showName = function() {
+              alert(this.name);
+          }
+      }
+
+      var p1 = new CreatePerson('haha');
+      p1.showName();
+
+      var p2 = new CreatePerson('hehe');
+      p2.showName();
+
+  </script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+  我们通过这二个方面来改变：
+
+  1 函数名首字母大写
+  这是为了区别于普通的函数，构造函数本身其实就是普通的函数，只是我们专门用它来实现了构造的功能，
+
+  所以专门起了一个名字叫构造函数，任何函数都可以成为构造函数，这取决于你调用函数的方式，当使用了New的方式调用就成了构造函数。
+
+  2 New 关键字调用
+  调用函数的时候用了 New关键字，那么New到底做了什么？用不用New有什么区别？再来看下面的例子
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+<script>
+
+    function CreatePerson(name) {
+        this.name = name;
+        this.showName = function() {
+            alert(this.name);
+        };
+        console.log(this);
+    }
+
+    new CreatePerson('haha');   //CreatePerson
+
+    CreatePerson('haha');   //window
+
+</script>
+
+我们会发现当用New去调用一个函数的时候，this的指向会不一样
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

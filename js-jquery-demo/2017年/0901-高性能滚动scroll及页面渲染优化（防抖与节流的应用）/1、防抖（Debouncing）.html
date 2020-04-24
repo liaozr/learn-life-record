@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+防抖技术即是可以把多个顺序地调用合并成一次，也就是在一定时间内，规定事件被触发的次数。
+通俗一点来说，看看下面这个简化的例子
+
+大概功能就是如果 500ms 内没有连续触发两次 scroll 事件，
+
+那么才会触发我们真正想在 scroll 事件中触发的函数。
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+防抖动：防抖技术即是可以把多个顺序地调用合并成一次，也就是在一定时间内，规定事件被触发的次数。
+
+防抖动：防抖技术即是可以把多个顺序地调用合并成一次，也就是在一定时间内，规定事件被触发的次数。
+
+防抖动：防抖技术即是可以把多个顺序地调用合并成一次，也就是在一定时间内，规定事件被触发的次数。
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+<script type="text/javascript">
+
+    // 防抖动函数
+    function debounce(func, wait, immediate) {
+        var timeout;
+        return function() {
+            var context = this , args = arguments;
+            var later = function () {
+                timeout = null ;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
+    };
+
+    var myEfficientFn = debounce(function() {
+
+      // 滚动中的真正的操作
+       console.log('窗口的大小变动了，执行了方法了')
+
+    }, 250);
+
+    // 绑定监听
+    window.addEventListener('resize', myEfficientFn);
+
+</script>
+  </body>
+</html>

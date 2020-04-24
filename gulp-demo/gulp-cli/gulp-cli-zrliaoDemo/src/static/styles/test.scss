@@ -1,0 +1,29 @@
+
+$fs12:0.38rem;
+$fs12:0.4rem;
+
+@mixin size($width:auto,$height:auto) {
+      width: $width;
+      height: $height;
+}
+
+@mixin fontsize($size:$fs14) {
+    font-size:$size;
+
+}
+
+body{
+	p{
+		color:blue;
+		@include fontsize(36px)
+		@include size(12px,20px)
+
+	}
+	.bb{
+		color:pink;
+		font-size: 35px;
+		.cc{
+			color:green;
+		}
+	}
+}

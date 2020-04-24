@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+通过 for-of 循环来遍历数组元素和索引
+
+方法 forEach() 允许你遍历一个数组的元素和索引：
+
+<script>
+    var arr = ["a", "b", "c"];
+    arr.forEach(function(elem, index) {
+        console.log("index = " + index + ", elem = " + elem);
+    });
+    // Output:
+    // index = 0, elem = a
+    // index = 1, elem = b
+    // index = 2, elem = c
+</script>
+
+ES6 的 for-of 循环支持 ES6 迭代（通过 iterables 和 iterators）和解构。
+
+如果你通过数组的新方法 enteries() 再结合解构，可以达到上面 forEach 同样的效果：
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+<script>
+
+    const arr2 = ["a", "b", "c"];
+    for (const [index, elem] of arr2.entries()) {
+        console.log(`index = ${index}, elem = ${elem}`);
+    }
+
+    // arr2.enteries()
+    //通过索引-元素配对返回一个可迭代对象。然后通过解构数组 [index, elem] 直接得到每一对元素和索引。console.log()
+    //的参数是 ES6 中的模板字面量特性，这个特性带给字符串解析模板变量的能力。
+
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        import {
+            fetchMovieById
+        } from './../api/api';
+
+        export default {
+            data() {
+                return {
+                    loading: true,
+                    id: '',
+                    movie: {}
+                }
+            },
+            mounted() {
+                // 获取到浏览器上（路由）的参数id值
+                this.id = this.$route.params.id;
+                fetchMovieById(this.id)
+                    .then(data => {
+                        this.movie = data;
+                        this.loading = false;
+                })
+            }
+        };
+    </script>
+
+    <!-- -------------------------------------------------------------------------- -->
+
+    <!-- api.js -->
+
+    <script>
+        // 这些都是配置访问豆瓣电影API接口的URL地址，弄成一个函数参数
+        export function fetchMovieById(id) {
+            return fetch(`movie/subject/${id}`);
+        }
+    </script>
+
+    <!-- --------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

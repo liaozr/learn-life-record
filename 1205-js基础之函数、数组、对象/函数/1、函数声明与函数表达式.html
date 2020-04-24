@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    函数声明和函数表达式之间最重要的区别是它们的名称标识符将会绑定在何处。
+
+    函数声明会绑定在自身的作用域中，而函数表达式会绑定在表达式自身的函数中，而不是所在作用域中。
+
+    举个栗子：
+
+    <script>
+
+        // 函数表达式
+        var foo = function bar1() {}
+        console.log(bar1) // ReferenceError: bar1 is not defined
+
+
+
+
+        //  函数声明
+        function bar() {}
+        console.log(bar) // function bar(){}
+
+    </script>
+
+</body>
+
+</html>

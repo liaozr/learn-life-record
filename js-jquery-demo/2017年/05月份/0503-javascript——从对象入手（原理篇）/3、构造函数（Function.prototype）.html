@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<script>
+    var fun = new Function('x', 'return x');
+
+    function fun2(x) {
+        return x;
+    }
+</script>
+
+上面的例子 fun2为是我们常用的定义函数的方法，如果第一节你完全理解了的话，
+
+你能很容易判断出fun2.prototype 指向fun2的原型，
+
+1. 函数是对象，函数的原型是Function
+
+2. Object.prototype是原型链的终点
+
+函数源于Object.prototype，它是一个具有特殊使命的对象，通过它定义其它类型，
+
+简单的说，JavaScript定义了Function类型用来定义其它类型
+
+1. 首先： JavaScript中先创建的是Object.prototype这个原型对象。
+
+2. 然后：在这个原型对象的基础之上创建了 Function.prototype这个原型对象。
+
+3. 其次：通过这个原型对象 创建出来Function这个函数。
+
+4. 最后 : 又通过Function这个函数创建出来之后，Object（）这个对象。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+Function.prototype.__proto__ == Object.prototype（原型链的终点）
+
+Function.prototype.__proto__ == Object.prototype（原型链的终点）
+
+Function.prototype.__proto__ == Object.prototype（原型链的终点）
+
+<!-- --------------------------------------------------------------------------------- -->
+
+<script>
+
+    function Obj() {
+        this.name = 'obj';
+        this.getName = function() {
+            return this.name;
+        }
+    }
+
+    Obj.prototype.protoName = 'protoObj';
+    Obj.prototype.getProtoName = function() {
+        return this.protoName
+    }
+
+    // name 、 getName 自有属性
+    // protoName 、 getProtoName 原型属性
+
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    对于图片过多的页面，为了加速页面加载速度，所以很多时候我们需要将页面内未出现在可视区域内的图片先不做加载， 等到滚动到可视区域后再去加载。这样子对于页面加载性能上会有很大的提升，也提高了用户体验。
+    <script>
+        var n = 0,
+            imgNum = $("img").length,
+            img = $('img');
+
+        lazyload();
+
+        $(window).scroll(lazyload);
+
+        function lazyload(event) {
+            for (var i = n; i < imgNum; i++) {
+                if (img.eq(i).offset().top < parseInt($(window).height()) + parseInt($(window).scrollTop())) {
+                    if (img.eq(i).attr("src") == "default.jpg") {
+                        var src = img.eq(i).attr("data-src");
+                        img.eq(i).attr("src", src);
+
+                        n = i + 1;
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

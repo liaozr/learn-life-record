@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.min.js"></script>
+</head>
+<style>
+    .hide {
+        opacity: 0;
+    }
+</style>
+
+<body>
+    <div id="app">
+
+        <input ref="photoUpload" @change="handlePhotoUpload" type="file" class="hide">
+
+        <button @click='triggerFileUpload'>上传文件</button>
+        
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+                triggerFileUpload: function() {
+                    this.$refs.photoUpload.click(); // 这是什么鬼？
+                },
+                handlePhotoUpload: function() {
+                    console.log("触发了input的change事件")
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

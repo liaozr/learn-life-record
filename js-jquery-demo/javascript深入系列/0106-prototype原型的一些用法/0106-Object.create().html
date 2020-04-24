@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+Object.create方法用于从原型对象生成新的实例对象，可以替代new命令。
+
+它接受一个对象作为参数，返回一个新对象，后者完全继承前者的属性，即原有对象成为新对象的原型。
+
+<script>
+    var A = {
+        print: function() {
+            console.log('hello');
+        }
+    };
+
+    var B = Object.create(A);
+
+    B.print()  // hello
+
+    console.log( B.print === A.print ) // true
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+object.create方法生成的新对象，动态继承了原型。
+
+在原型上添加或修改任何方法，会立刻反映在新对象之上。
+
+<script>
+
+    var o1 = {
+        p: 1
+    };
+    var o2 = Object.create(o1);
+
+    o1.p = 2;
+    console.log( o2.p)
+    // 2
+
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+Object.create方法生成的对象，继承了它的原型对象的构造函数。
+
+<script>
+
+    function A() {}
+    var a = new A();
+    var b = Object.create(a);
+
+  console.log( b.constructor === A ) // true
+  console.log( b instanceof A ) // true
+  console.log(b.constructor.name) // A
+
+</script>
+
+上面代码中，b对象的原型是a对象，因此继承了a对象的构造函数A。
+
+<!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

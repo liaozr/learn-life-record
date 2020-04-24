@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- 
+
+数据绑定
+
+WXML 中的动态数据均来自对应 Page 的 data。
+
+简单绑定
+数据绑定使用 Mustache 语法（双大括号）将变量包起来，可以作用于：
+
+ -->
+
+<!-- 内容 -->
+<view> {{ message }} </view>
+<script>
+Page({
+  data: {
+    message: 'Hello MINA!'
+  }
+})
+</script>
+
+
+<!-- 组件属性(需要在双引号之内) -->
+
+<view id="item-{{id}}"> </view>
+<script>
+Page({
+  data: {
+    id: 0
+  }
+})
+</script>
+
+<!-- 控制属性(需要在双引号之内) -->
+
+<view wx:if="{{condition}}"> </view>
+<script>
+Page({
+  data: {
+    condition: true
+  }
+})
+</script>
+
+
+<!-- 数组 -->
+<view wx:for="{{[zero, 1, 2, 3, 4]}}"> {{item}} </view>
+
+<script>
+Page({
+  data: {
+    zero: 0
+  }
+})
+</script>
+<!-- 最终组合成数组[0, 1, 2, 3, 4]。 -->
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+
+<!-- 对象 -->
+
+<template is="objectCombine" data="{{for: a, bar: b}}"></template>
+
+<script>
+Page({
+  data: {
+    a: 1,
+    b: 2
+  }
+})
+</script>
+
+<!-- 最终组合成的对象是 {for: 1, bar: 2} -->
+
+<!-- 也可以用扩展运算符 ... 来将一个对象展开 -->
+
+<template is="objectCombine" data="{{...obj1, ...obj2, e: 5}}"></template>
+<script>
+Page({
+  data: {
+    obj1: {
+      a: 1,
+      b: 2
+    },
+    obj2: {
+      c: 3,
+      d: 4
+    }
+  }
+})
+</script>
+<!-- 最终组合成的对象是 {a: 1, b: 2, c: 3, d: 4, e: 5}。 -->
+
+如果对象的 key 和 value 相同，也可以间接地表达。
+
+<template is="objectCombine" data="{{foo, bar}}"></template>
+<script>
+Page({
+  data: {
+    foo: 'my-foo',
+    bar: 'my-bar'
+  }
+})
+</script>
+<!-- 最终组合成的对象是 {foo: 'my-foo', bar:'my-bar'}。 -->
+
+<!-- 注意：上述方式可以随意组合，但是如有存在变量名相同的情况，后边的会覆盖前面，如： -->
+
+<template is="objectCombine" data="{{...obj1, ...obj2, a, c: 6}}"></template>
+<script>
+Page({
+  data: {
+    obj1: {
+      a: 1,
+      b: 2
+    },
+    obj2: {
+      b: 3,
+      c: 4
+    },
+    a: 5
+  }
+})
+</script>
+<!-- 最终组合成的对象是 {a: 5, b: 3, c: 6}。 -->
+
+<!-- ------------------------------------------------------------------------ -->
+
+</body>
+</html>

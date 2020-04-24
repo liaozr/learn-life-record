@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+        let TestClass = function() {
+            this.name = '111';
+        }
+        
+        let subClass = new TestClass();
+
+        subClass.name = '守候';
+
+        console.log(subClass.name); //守候
+
+        let subClass1 = new TestClass();
+
+        console.log(subClass1.name)
+
+        //111   这个也是不难理解，回忆下（new的四个步骤）就差不多了！但是有一个坑，虽然一般不会出现，但是有必要提一下。在构造函数里面返回一个对象，会直接返回这个对象，而不是执行构造函数后创建的对象
+
+    </script>
+
+</body>
+
+</html>

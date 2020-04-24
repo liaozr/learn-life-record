@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+字符串实现了 ES6 迭代，如果你通过迭代来访问字符串
+
+你可以获得编码过的单个字（每个字用 1 或 2 个 JavaScript 字符表示）。
+
+例如：
+
+<script>
+    for (const ch of "x\uD83D\uDE80y") {
+        console.log(ch.length);
+    }
+    // Output:
+    // 1
+    // 2
+    // 1
+</script>
+
+这让你能够很方便地得到一个字符串中实际的字数：
+
+> [..."x\uD83D\uDE80y"].length
+
+3
+
+展开操作符 (...) 将它的操作对象展开并插入数组。
+
+</body>
+</html>

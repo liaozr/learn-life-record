@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+// --       ---------------------------------------------------------------------------------------------------------
+
+        localStorage.aa = false;
+        var b = localStorage.aa
+
+        console.log(b)  // false
+        console.log(Boolean(b))  //true
+        console.log(typeof b)  // string
+
+       //  因为大家都知道，localStorage 是只能 存 字符串 的，所有值 存到localStorage 里面 去 都会以  一个 字符串的形式来展现的。
+
+       // 所以，上面的b 值 一定 是字符串  的 false值，也就是  'false'  也就是  b = 'false'
+
+// --       ---------------------------------------------------------------------------------------------------------
+
+
+       //  字符串 'false'  转 布尔值 false的 推荐 转换方式
+
+        var value = "false";
+
+        var flag = value ==="false" ? false : true;
+
+
+// --       ---------------------------------------------------------------------------------------------------------
+
+
+        if ( b ) {
+            console.log("test")
+        }else{
+            console.log('error')
+        } //  输出的值 是  test ，因为 b是 字符串 ，b的字符串值是存在的，所以，输出的值为test
+
+
+// --       ---------------------------------------------------------------------------------------------------------
+
+
+        if ( b === 'false' ? false :true ) {
+            console.log("test")
+        }else{
+            console.log('error')
+        } //  输出的值 是  error ，因为 b在这里会被转换成布尔值 ，b的值会被转换成布尔值false，所以，输出的值为 error
+
+// --       ---------------------------------------------------------------------------------------------------------
+
+
+        // 兼容  布尔以及  字符串的  兼容写法
+        if(typeof b == 'string' ){
+            if ( b === 'false' ? false :true ) {
+                console.log("test")
+            }else{
+                console.log('error')
+            }
+        }else{
+            if ( b ) {
+                console.log("test")
+            }else{
+                console.log('error')
+            }
+
+        }  // 输出的值 为error
+
+// --       ---------------------------------------------------------------------------------------------------------
+
+
+    </script>
+</body>
+
+</html>

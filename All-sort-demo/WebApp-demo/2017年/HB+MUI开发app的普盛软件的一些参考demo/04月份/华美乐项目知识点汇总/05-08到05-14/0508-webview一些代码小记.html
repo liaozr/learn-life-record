@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script type="text/javascript">
+
+        //  把当前的 webview  关掉
+        plus.webview.currentWebview().close();
+
+// -----------------------------------------------------------------------------------
+
+        // webview 后退 时 ，一些接口得刷新 获得最新数据
+        var oldBack= mui.back;
+		    mui.back = function() {
+
+              // xiangmu/project-details.html 这个ID 值来自于 一开始 怎么打开进入到这个页面的，
+              // 在这里，openNew里面的即为 它的 ID 值
+
+              // openNew("xiangmu/project-details.html");
+
+              plus.webview.getWebviewById("xiangmu/project-details.html").evalJS("init()");
+
+              
+              这里想要 某个webview 执行init() 方法的话，用
+              
+              // <div class="list tongzhi" data-page='./oa/tongzhi-gonggao.html'>
+              //     <a>
+              //       通知公告
+              //     </a>
+              // </div>
+              // plus.webview.getWebviewById("./oa/tongzhi-gonggao.html").evalJS("init()");
+
+
+              plus.webview.currentWebview().close();
+		    }
+
+// -----------------------------------------------------------------------------------
+
+        //  callback 是 弹出框 点击 确定 后的一个 回调 函数
+        plus.nativeUI.alert(jsonData.msg,callback);
+
+        function callback(){
+           plus.webview.currentWebview().close();
+        }
+
+        // 自动关闭的对话框 
+        plus.nativeUI.toast(msg);
+
+// -----------------------------------------------------------------------------------
+
+
+
+    </script>
+</body>
+
+</html>

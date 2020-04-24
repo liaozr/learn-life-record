@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+推荐使用transform的translate带替代margin或position定位的top/right/bottom/left值了，
+
+而用transform的scaleX/Y替代width/height的运动。
+
+<body>
+    <!-- ------------------------------------------------------------------------------------ -->
+
+    vr虚拟体验移动端场景里面的一些脚本代码
+    <script>
+        $(function() {
+            $.fn.anim = function(x, loop) {
+                if (loop == 0) {
+                    loop = " animloop";
+                } else {
+                    loop = "";
+                }
+                return $(this).removeClass(x + ' animated' + loop).css("opacity", 1).addClass(x + ' animated' + loop).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+                    loop == "" && $(this).removeClass(x + ' animated');
+                });
+            };
+        });
+        if (garyClass == "gray1") {
+
+            window.setTimeout(function() {
+                $(element).eq(0).anim("zoomIn2");
+            }, 100);
+            window.setTimeout(function() {
+                $(element).eq(1).anim("fadeInUp2");
+            }, 150);
+            window.setTimeout(function() {
+                $(element).eq(2).anim("fadeInUp2");
+            }, 300);
+        }
+    </script>
+
+    <!-- ---------------------------------------------------------------------------------- -->
+
+    作用在html里面的元素一般是这样的
+
+    <img src="images/p1_3.png" class="animated delay_1 fadeInUp" /> 这里的关键点是要 animated 要跟 fadeInUp 等要一起作用在同一个元素上，才会有效果的
+
+    <!-- ------------------------------------------------------------------------------------ -->
+
+    animation 动画相关的css
+
+    <style>
+        /*动画相关*/
+
+        .animated {
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        ----------------------------------------------------------------------------------------
+        /*从下渐变进入*/
+
+        .fadeInUp2 {
+            -webkit-animation-name: fadeInUp2;
+            animation-name: fadeInUp2;
+            -webkit-animation-duration: 1.5s;
+            animation-duration: 1.5s;
+            transform-origin: top;
+            animation-delay: 0s;
+            -webkit-animation-timing-function: ease;
+            animation-timing-function: ease;
+        }
+
+        @-webkit-keyframes fadeInUp2 {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(0, 60px, 0);
+                transform: translate3d(0, 60px, 0);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        @keyframes fadeInUp2 {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(0, 60px, 0);
+                -ms-transform: translate3d(0, 60px, 0);
+                transform: translate3d(0, 60px, 0);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: translate3d(0, 0, 0);
+                -ms-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        -------------------------------------------------------------------------------
+        /*从上渐变进入*/
+
+        .fadeInDown2 {
+            -webkit-animation-name: fadeInDown2;
+            animation-name: fadeInDown2;
+            -webkit-animation-duration: 1.5s;
+            animation-duration: 1.5s;
+            transform-origin: top;
+            animation-delay: 0s;
+            -webkit-animation-timing-function: ease;
+            animation-timing-function: ease;
+        }
+
+        @-webkit-keyframes fadeInDown2 {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -80px, 0);
+                transform: translate3d(0, -80px, 0);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        @keyframes fadeInDown2 {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -80px, 0);
+                -ms-transform: translate3d(0, -80px, 0);
+                transform: translate3d(0, -80px, 0);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: translate3d(0, 0, 0);
+                -ms-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        -----------------------------------------------------------------------------
+        /*渐变显示*/
+
+        @-webkit-keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: .7;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: .7;
+            }
+        }
+
+        .fadeIn {
+            -webkit-animation-duration: 2s;
+            animation-duration: 2s;
+            -webkit-animation-name: fadeIn;
+            animation-name: fadeIn;
+        }
+
+        --------------------------------------------------------------------------------
+        /*缩小进入*/
+
+        @keyframes zoomIn2 {
+            0% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .zoomIn2 {
+            -webkit-animation-duration: 2s;
+            animation-duration: 2s;
+            -webkit-animation-name: zoomIn2;
+            animation-name: zoomIn2;
+        }
+
+        --------------------------------------------------------------------------------
+        /*放大消失*/
+
+        .zoomOut2 {
+            -webkit-animation-name: zoomOut2;
+            animation-name: zoomOut2;
+            -webkit-animation-duration: 3s;
+            animation-duration: 3s;
+            animation-delay: 1s;
+        }
+
+        @-webkit-keyframes zoomOut2 {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                -webkit-transform: scale3d(3, 3, 3);
+                transform: scale3d(3, 3, 3);
+                display: none;
+            }
+        }
+
+        @keyframes zoomOut2 {
+            0% {
+                opacity: 1;
+                transform: scale3d(1, 1, 1);
+            }
+            100% {
+                opacity: 0;
+                -webkit-transform: scale3d(3, 3, 3);
+                -ms-transform: scale3d(3, 3, 3);
+                transform: scale3d(5, 5, 5);
+                display: none;
+            }
+        }
+
+        ------------------------------------------------------------------------------
+        /*右侧渐变进入*/
+
+        @-webkit-keyframes fadeInRight {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(100%, 0, 0);
+                transform: translate3d(100%, 0, 0);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+
+        @keyframes fadeInRight {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(100%, 0, 0);
+                transform: translate3d(100%, 0, 0);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+
+        .fadeInRight {
+            -webkit-animation-name: fadeInRight;
+            animation-name: fadeInRight;
+        }
+
+        -------------------------------------------------------------------------------
+        /*左侧渐变进入*/
+
+        @-webkit-keyframes fadeInLeft {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(-100%, 0, 0);
+                transform: translate3d(-100%, 0, 0);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+
+        @keyframes fadeInLeft {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(-100%, 0, 0);
+                transform: translate3d(-100%, 0, 0);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+
+        .fadeInLeft {
+            -webkit-animation-name: fadeInLeft;
+            animation-name: fadeInLeft;
+        }
+
+        -------------------------------------------------------------------------
+        /*右侧渐变进入2*/
+
+        @-webkit-keyframes fadeInRight2 {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(100px, 0, 0);
+                transform: translate3d(100px, 0, 0);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+
+        @keyframes fadeInRight2 {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(100px, 0, 0);
+                transform: translate3d(100px, 0, 0);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+
+        .fadeInRight2 {
+            -webkit-animation-name: fadeInRight2;
+            animation-name: fadeInRight2;
+            -webkit-animation-duration: 2s;
+            animation-duration: 2s;
+        }
+
+        ----------------------------------------------------------------------------
+        /*左侧渐变进入2*/
+
+        @-webkit-keyframes fadeInLeft2 {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(-100px, 0, 0);
+                transform: translate3d(-100px, 0, 0);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+
+        @keyframes fadeInLeft2 {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(-100px, 0, 0);
+                transform: translate3d(-100px, 0, 0);
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+
+        .fadeInLeft2 {
+            -webkit-animation-name: fadeInLeft2;
+            animation-name: fadeInLeft2;
+            -webkit-animation-duration: 2s;
+            animation-duration: 2s;
+        }
+
+    </style>
+<!-- -------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.staticfile.org/vue/1.0.28/vue.js'></script>
+
+</head>
+
+<body>
+    <div class="td td-red">
+        {{planFinishTime | DateDif}}
+        <!-- 输出的是： 延期3天 -->
+        <!-- 输出的是： 延期3天 -->
+    </div>
+
+    <div class="td td-red">
+        {{planFinishTime2 | DateDif}}
+        <!--输出的是 按时完成  -->
+        <!--输出的是 按时完成  -->
+    </div>
+
+    <script>
+
+        //  vue的一个自带的全局过滤器  ，常用于 比对条件得出 不同的值。
+        //  vue的一个自带的全局过滤器  ，常用于 比对条件得出 不同的值。
+        //  vue的一个自带的全局过滤器  ，常用于 比对条件得出 不同的值。
+        Vue.filter('DateDif', function(value) {
+            var now = new Date();
+            var num = DateDiff(value, now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate());
+            if (num > 0) {
+                return "延期" + num + "天";
+            }
+            return "按时完成";
+        })
+
+        var vm = new Vue({
+            el: "body",
+            data: {
+              // data里面的时间格式是 2006-12-18 这种格式的
+              planFinishTime:'2017-04-16',
+              planFinishTime2:'2017-04-12'
+            }
+        })
+
+        //计算天数差的函数，通用
+        //sDate1和sDate2是2006-12-18格式
+        function DateDiff(sDate1, sDate2) {
+            var aDate, oDate1, oDate2, iDays
+            aDate = sDate1.split("-")
+            oDate1 = new Date(aDate[0] + '-' + aDate[1] + '-' + aDate[2]) //转换为12-18-2006格式
+            aDate = sDate2.split("-")
+            oDate2 = new Date(aDate[0] + '-' + aDate[1] + '-' + aDate[2])
+            iDays = parseInt((oDate1 - oDate2) / 1000 / 60 / 60 / 24) //把相差的毫秒数转换为天数
+            return iDays;
+        }
+    </script>
+</body>
+
+</html>

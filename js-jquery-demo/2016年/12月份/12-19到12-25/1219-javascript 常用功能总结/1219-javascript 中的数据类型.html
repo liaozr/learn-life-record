@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+JavaScript 中的数据类型
+
+JavaScript 提供三种元数据类型，string，number，和Boolean,可使用typeof(v) 测试变量V 的类型，
+
+typeof(v)==="number"
+
+提供五种基本的引用类型：
+
+Object, Array, Function, Date 及RegExp。
+
+数组，函数，日期和正则表达式是特殊类型，
+
+但是严格来讲，日期和正则表达式是元数据类型，可封装在其他对象中。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+JS 中变量类型，数组元素类型，函数参数以及返回值的类型不需要声明类型，类型之间的转换是自动执行的。
+
+变量值可以是：
+1. 数值：如字符串，数字或布尔值。
+2. 对象引用： 可引用典型对象，也可以是数据，函数，日期或正则表达式。
+3. 特殊数据值，Null,是典型的用于初始化对象的默认值。
+4. 特殊数据undefined，常用于已被定义，但未赋值的变量。
+
+string 是一系列的Unicode 字符串，String 如“hello world”,’A3FO’或空字符串“”，字符串连接可通过+操作符来执行，也可以使用=号来验证两个字符串是否相等；
+
+if (firstName + lastName === "James Bond") ...
+numeric 表示64位的浮点数，在JS 中没有明显的区分整形和浮点数，如果一个表达式的值不等于某个数字，那么它的值可设为NaN,表示非数字，可联合isNaN使用。
+
+<!-- ---------------------------------------------------------------------------- -->
+
+小结：JavaScript 支持4种基本的数据结构。
+
+1：array lists：如["one","two","three"]，special JS对象
+
+2：records：特殊的JS 对象，如{firstName:"Tom", lastName:"Smith"}；
+
+3：maps： 如{"one":1, "two":2, "three":3}
+
+4：entity 表：如下表所示,是一种特殊的map，值是有固定ID的记录。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+</body>
+</html>

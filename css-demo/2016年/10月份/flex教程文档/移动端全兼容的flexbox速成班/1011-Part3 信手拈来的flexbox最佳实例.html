@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+(以下代码片段均遵循flexbox移动端全兼容性写法，已验证机型列表见文章最后) 
+
+我们先来回顾一下flexbox的属性体系：
+
+直白的解释，我们常说的“flexbox”其实包含“父元素”，“子元素”2个部分
+
+将“父元素”定义为一个flexbox，则在”父元素”里的“子元素们”就被赋予了可以自由伸缩的能力。 
+
+赋予神奇能力的代码片段如下：
+
+<style>
+
+	/*定义为flexbox的 "父元素" */
+	.flex-cont{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+	}
+
+	/*给 "子元素" 赋予自由伸缩的能力 */
+	.flex-item{
+		-webkit-box-flex:1;
+		-webkit-flex:1;
+		flex:1;
+	}
+
+</style>
+
+
+</body>
+</html>

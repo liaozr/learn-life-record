@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<script>
+
+    let server = http.createServer();
+
+    let url = require('url');
+
+    server.on('connection', function(socket) {
+        console.log('客户端连接 ');
+    });
+
+    server.on('request', function(req, res) {
+        let {
+            pathname,
+            query
+        } = url.parse(req.url, true);
+        let result = [];
+        req.on('data', function(data) {
+            result.push(data);
+        });
+        req.on('end', function() {
+            let r = Buffer.concat(result);
+            res.end(r);
+        })
+    });
+
+    server.on('close', function(req, res) {
+        console.log('服务器关闭 ');
+    });
+
+    server.on('error', function(err) {
+        console.log('服务器错误 ');
+    });
+
+    server.listen(8080, function() {
+        console.log('server started at http://localhost:8080');
+    });
+
+</script>
+
+<!-- ---------------------------------------------------------------------------------------------------------------------- -->
+
+req 代表客户端的连接，server服务器把客户端的请求信息进行解析，然后放在req上面
+
+res 代表响应，如果希望向客户端回应消息，需要通过 res
+
+req和res都是从socket来的，先监听socket的data事件，然后等事件发生的时候，进行解析，解析出请头对象，再创建请求对象，再根据请求对象创建响应对象
+
+req.url 获取请求路径
+
+req.headers 请求头对象
+
+<!-- ---------------------------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

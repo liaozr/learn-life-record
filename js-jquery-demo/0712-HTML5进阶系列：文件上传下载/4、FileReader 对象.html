@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  FileReader 对象
+
+  FileReader 对象主要用来把文件读入内存，并且读取文件中的数据。
+
+  通过构造函数创建一个 FileReader 对象
+
+  <script>
+
+       var reader = new FileReader();
+
+  </script>
+
+  该对象有以下方法：
+
+  abort：中断读取操作。
+
+  readAsArrayBuffer：读取文件内容到ArrayBuffer对象中。
+
+  readAsBinaryString：将文件读取为二进制数据。
+
+  readAsDataURL：将文件读取为data: URL格式的字符串。
+
+  readAsText：将文件读取为文本。
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+  事件处理程序
+
+  事件	调用时机
+
+  onabort	当读取操作被中止时调用
+
+  onerror	当读取操作发生错误时调用
+
+  onload	当读取操作成功完成时调用
+
+  onloadend	当读取操作完成时调用,不管是成功还是失败.该处理程序在onload或者onerror之后调用
+
+  onloadstart	当读取操作将要开始之前调用
+  
+  onprogress	在读取数据过程中周期性调用
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

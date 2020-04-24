@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+<!--------------------------------------------------------------------------------------------------->
+
+更进一步可抽象成：
+
+<script>
+    
+    var isIE = function(ver){
+        var b = document.createElement('b')
+        b.innerHTML = '<!--[if IE ' + ver + ']><i></i><![endif]-->'
+        return b.getElementsByTagName('i').length === 1
+    }
+
+    if(isIE(6)){
+        // IE 6
+    }
+
+    if(isIE(9)){
+        // IE 9
+    }
+
+</script>   
+
+这样想检测哪个版本都毫无压力。但是，如果只想检测是不是 IE，
+
+而不关心浏览器版本，那只需要在调用函数的时候，不传递参数即可：
+
+var ie  = isIE()
+
+<!--------------------------------------------------------------------------------------------------->
+
+</body>
+</html>

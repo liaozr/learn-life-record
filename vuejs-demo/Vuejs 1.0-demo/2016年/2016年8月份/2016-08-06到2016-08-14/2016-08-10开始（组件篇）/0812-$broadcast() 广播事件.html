@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+</head>
+<body>
+	<!-- 使用 $emit()在它上面触发事件 -->
+	<!-- 使用 $dispatch() 派发事件，事件沿着父链冒泡 -->
+	<!-- 使用 $broadcast() 广播事件，事件向下传导给所有的后代 -->
+
+
+
+<!-- 使用 $broadcast() 广播事件，事件向下传导给所有的后代 -->
+
+<div id="app">
+    <input v-model="msg" />
+    <button v-on:click="notify">Broadcast Event</button>
+    <child-component></child-component>
+</div>
+
+<template id="child-component">
+    <ul>
+        <li v-for="item in messages">
+            父组件录入了信息：{{ item }}
+        </li>
+    </ul>
+</template>
+
+<script>
+    // 注册子组件
+    Vue.component('child-component', {
+        template: '#child-component',
+        data: function() {
+            return {
+                messages: []
+            }
+        },
+        events: {
+            'parent-msg': function(msg) {
+                this.messages.push(msg)
+            }
+        }
+    })
+    // 初始化父组件
+    new Vue({
+        el: '#app',
+        data: {
+            msg: ''
+        },
+        methods: {
+            notify: function() {
+                if (this.msg.trim()) {
+                    this.$broadcast('parent-msg', this.msg)
+                }
+            }
+        }
+    })
+</script>
+
+<!-- 我们将这个示例分为几个步骤解读：
+
+父组件的button元素绑定了click事件，该事件指向notify方法
+父组件的notify方法在处理时，调用了$broadcast，将事件派发到子组件的parent-msg事件，并给该该事件提供了一个msg参数
+子组件的events选项中定义了parent-msg事件，子组件接收到父组件的广播后，调用parent-msg事件。 -->
+</body>
+</html>

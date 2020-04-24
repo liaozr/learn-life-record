@@ -1,0 +1,139 @@
+ <!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	 <meta charset="UTF-8" />
+	<!-- Mobile Devices Support @begin -->
+    <meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" / >
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <!-- Mobile Devices Support @end -->
+    <link rel="stylesheet" href="css/base-reset.css">
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link rel="stylesheet" href="css/icons-extra.css">
+    <link rel="stylesheet" type="text/css" href="css/swiper-3.3.1.min.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">  
+
+    <script src="js/zepto1.1.6.min.js" type="text/javascript"></script>
+    <script src="js/flexible.js" type="text/javascript"></script>
+    <script src="js/flexible_css.js" type="text/javascript"></script>
+    <script src='js/swiper-3.3.1.min.js' type="text/javascript"></script>
+    <script src='js/mui.min.js'></script>
+    <script src='js/vue.min.js'></script>
+    <script src='js/layer-m/layer.js'></script>
+    
+</head>
+<body>
+    <div class="mui-bar mui-bar-nav header">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    	<h1 class="mui-title">登录</h1>
+    	<span class='wen-zhuce'>注册</span>
+    </div>
+    <div class="mui-content banshi-dating denglu">
+       <form class="mui-input-group" id='form'>
+            <div class="mui-input-row">
+                <label>用户名</label>
+            <input id='user_name'type="text" class="mui-input-clear" placeholder="请输入用户名/手机号">
+            </div>
+            <div class="mui-input-row">
+                <label>密码</label>
+                <input  id='pasword' type="password" class="mui-input-password" placeholder="请输入密码">
+            </div>
+            <div class="mui-button-row">
+                 <input type="button" class='denglu-btn' value="登录">
+            </div>
+        </form>
+        <div class="fuzhu-denglu">
+            <a class='left' href="##">短信验证登录</a>
+            <a class='left right' href="##">忘记密码</a>
+        </div>
+        <div class="hezuo-zhanghao">
+            <div class="title">
+                 <span class="line"></span>
+                 <span class="wen">使用合作账号登录</span>
+                 <span class="line"></span>
+            </div>
+            <div class="sort">
+                <div class="list"><a href="##"><img src="images/hezuo-zhanghao1.png" alt=""></a></div>
+                <div class="list"><a href="##"><img src="images/hezuo-zhanghao2.png" alt=""></a></div>
+                <div class="list"><a href="##"><img src="images/hezuo-zhanghao3.png" alt=""></a></div>
+            </div>
+        </div>
+	</div>	 
+	<script>
+			var oldback = mui.back;
+			mui.back = function() {			 
+				plus.webview.currentWebview().close();
+			}
+    </script>
+    
+    <script>
+    
+		//      用于清除localStorage
+//        		localStorage.clear();  
+       
+    	$('.denglu-btn').on("tap",function(){  
+    		var user_name=$("#user_name");
+            var pasword=$("#pasword");
+    		user_name=user_name.val();     	 
+    		pasword=pasword.val();
+    		if( !isBlank(user_name) && !isBlank(pasword) ){
+    			
+    			localStorage.setItem("user_name",user_name);
+      			form.submit();    		 
+    			
+    			var subStyles = {
+					top: "0px",
+					bottom: "0px"
+				};
+				var url='us.html';		
+				plus.webview.currentWebview().opener().evalJS("init()");
+    			plus.webview.currentWebview().close(); 				 
+ 
+    			
+//  			plus.webview.getWebviewById("us.html").show("pop-in");
+								      			
+    		}
+    		else{
+    			tanchu("请输入用户名和密码")
+    			return false
+    		}
+    	})
+    	
+    	 /**判断是否为空**/
+        function isBlank(_value) {
+            if (_value == null || _value == "" || _value == undefined) {
+                return true;
+            }
+            return false;
+        }
+        
+        ////弹出框函数
+		function tanchu(cont) {
+			layer.open({
+				btn: ['OK'],
+				content: cont, //内容
+				shade: [0.5, '#000'], //遮罩层  透明度，颜色
+				shadeClose: true, //点击遮罩层 关闭弹出层
+				time: 0 //  自动关闭时间，  0表示不自动关闭	           
+			});
+		}
+		
+    </script>
+    <script>
+    	 var vm=new Vue({
+    	 	  el:'body',
+    	 	  data:{
+    	 	  	userinfo:''
+    	 	  },
+    	 	  ready:function(){
+	    	 	    if( localStorage.getItem("user_name") !== '' &&  localStorage.getItem("user_name") !==undefined && localStorage.getItem("user_name") !==null ){
+	    	 	  	   var username=localStorage.getItem("user_name");
+//                         window.location.href='us.html' 	
+                        						
+	    	 	  	}    	 	  		   	 	  		    	 	  	  
+    	 	  } 	 	   
+    	 })
+    	
+    </script>
+</body>
+</html>

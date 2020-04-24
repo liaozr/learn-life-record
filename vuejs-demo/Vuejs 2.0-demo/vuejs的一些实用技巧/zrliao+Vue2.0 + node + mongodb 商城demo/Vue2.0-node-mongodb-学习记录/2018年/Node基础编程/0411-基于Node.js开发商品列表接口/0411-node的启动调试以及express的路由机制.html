@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    app.js里面的
+
+    这些 是 主 路由
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+    <script>
+
+        app.use('/', indexRouter);
+        app.use('/index', indexRouter);
+        app.use('/users', usersRouter);
+
+    </script>
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+   routes 文件夹下 的index.js 文件
+
+   这些是子路由
+
+  <script>
+
+      /* GET home page. */
+      router.get('/', function(req, res, next) {
+          // res.render('index', { title: 'Express' });
+          res.render('index');
+      });
+
+// ---------------------------------------------------------------------------------------------------
+
+      // 子路由
+      router.get('/test', function(req, res, next) {
+          res.send('test')
+      });
+
+  </script>
+
+  <!-- ----------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

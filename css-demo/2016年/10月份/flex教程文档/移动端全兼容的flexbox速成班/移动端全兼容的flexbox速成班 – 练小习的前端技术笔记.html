@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://www.chengrang.com/flexbox.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=10,IE=9,IE=8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<title>移动端全兼容的flexbox速成班 – 练小习的前端技术笔记</title>
+<script charset="utf-8" src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/t.js"></script><script src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/push.js"></script><script src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/hm.js"></script><script>
+window._deel = {
+    name: '练小习的前端技术笔记',
+    url: 'https://www.chengrang.com/wp-content/themes/my',
+    rss: 'https://www.chengrang.com/?feed=rss2',
+    ajaxpager: '',
+    maillist: '',
+    maillistCode: '',
+    commenton: 1,
+    roll: [0,0],
+    tougaoContentmin: 200,
+    tougaoContentmax: 5000,
+    appkey: {
+    	tqq: '801494063',
+    	tsina: '1106777879',
+    	t163: '',
+    	tsohu: ''
+    }
+}
+</script>
+<link rel="dns-prefetch" href="https://s.w.org/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.chengrang.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.1"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/wp-emoji-release.min.js" type="text/javascript"></script><style type="text/css"></style>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="style-css" href="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="codecolorer-css" href="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/codecolorer.css" type="text/css" media="screen">
+<script type="text/javascript" src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/jquery.js"></script>
+<link rel="https://api.w.org/" href="https://www.chengrang.com/wp-json/">
+<link rel="prev" title="可视化格式模型基础应用实例" href="https://www.chengrang.com/visual-formatting-model.html">
+<link rel="next" title="SVG图形绘制入门第一弹" href="https://www.chengrang.com/svg-basics.html">
+<link rel="canonical" href="https://www.chengrang.com/flexbox.html">
+<link rel="shortlink" href="https://www.chengrang.com/?p=617">
+<link rel="alternate" type="application/json+oembed" href="https://www.chengrang.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.chengrang.com%2Fflexbox.html">
+<link rel="alternate" type="text/xml+oembed" href="https://www.chengrang.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.chengrang.com%2Fflexbox.html&amp;format=xml">
+<link rel="stylesheet" href="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/coolcode.css">
+<script type="text/javascript" src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/coolcode.js"></script>
+<script type="text/javascript">
+function runcode_open_new(element)
+{
+	var code = document.getElementById(element).value;
+	var win = window.open("", "", "");
+	win.opener = null;
+	win.document.write(code);
+	win.document.close();
+}
+function runcode_copy(element)
+{
+	var codeobj = document.getElementById(element);
+	var meintext = codeobj.value;
+	try {
+	 if (window.clipboardData)
+	   {
+	  
+	   // the IE-manier
+	   window.clipboardData.setData("Text", meintext);
+	  
+	   // waarschijnlijk niet de beste manier om Moz/NS te detecteren;
+	   // het is mij echter onbekend vanaf welke versie dit precies werkt:
+	   }
+	   else if (window.netscape)
+	   {
+	  
+	   // dit is belangrijk maar staat nergens duidelijk vermeld:
+	   // you have to sign the code to enable this, or see notes below
+	   netscape.security.PrivilegeManager.enablePrivilege('UniversalXPConnect');
+	  
+	   // maak een interface naar het clipboard
+	   var clip = Components.classes['@mozilla.org/widget/clipboard;1']
+					 .createInstance(Components.interfaces.nsIClipboard);
+	   if (!clip) return;
+	  
+	   // maak een transferable
+	   var trans = Components.classes['@mozilla.org/widget/transferable;1']
+					  .createInstance(Components.interfaces.nsITransferable);
+	   if (!trans) return;
+	  
+	   // specificeer wat voor soort data we op willen halen; text in dit geval
+	   trans.addDataFlavor('text/unicode');
+	  
+	   // om de data uit de transferable te halen hebben we 2 nieuwe objecten
+	   // nodig om het in op te slaan
+	   var str = new Object();
+	   var len = new Object();
+	  
+	   var str = Components.classes["@mozilla.org/supports-string;1"]
+					.createInstance(Components.interfaces.nsISupportsString);
+	  
+	   var copytext=meintext;
+	  
+	   str.data=copytext;
+	  
+	   trans.setTransferData("text/unicode",str,copytext.length*2);
+	  
+	   var clipid=Components.interfaces.nsIClipboard;
+	  
+	   if (!clip) return false;
+	  
+	   clip.setData(trans,null,clipid.kGlobalClipboard);
+	  
+	   }
+	} catch (e) {alert('因为安全策略的原因，此项功能已被您的浏览器禁止。关闭此窗口，然后按下“Ctrl+C”组合键完成复制。');		codeobj.focus();
+	}
+	codeobj.select();
+   return false;
+}
+</script><meta name="keywords" content="flex, 表现">
+<meta name="description" content="说起flexbox，都算是件陈年旧事了，它是2009年W3C提出的一种全新的可伸缩的CSS布局方式。依赖flexbox，我们可以更简单，高效的完成可伸缩式页面的布局。  业界与flexbox的相关教程文章也是各式各样，新旧交替，很多小伙伴对flexbox想用又不敢用，究其原因也就是即分不清它各个版本的编写规范，又苦恼于大家总是挂在嘴边的一句“flexbox兼容性不好”。 所以今儿前来总结一个精华干货贴，回顾那些楼主在项目里用过的flex">
+<link rel="icon" href="https://www.chengrang.com/wp-content/uploads/2016/04/jZh1VV2Y3I1-150x150.jpg" sizes="32x32">
+<link rel="icon" href="https://www.chengrang.com/wp-content/uploads/2016/04/jZh1VV2Y3I1-300x300.jpg" sizes="192x192">
+<link rel="apple-touch-icon-precomposed" href="https://www.chengrang.com/wp-content/uploads/2016/04/jZh1VV2Y3I1-300x300.jpg">
+<meta name="msapplication-TileImage" content="https://www.chengrang.com/wp-content/uploads/2016/04/jZh1VV2Y3I1-300x300.jpg">
+<style>.article-content{font-size: 16px;line-height:27px;}.article-content p{margin:20px 0;}@media (max-width:640px){.article-content{font-size:16px}}</style><!--[if lt IE 9]><script src="https://www.chengrang.com/wp-content/themes/my/js/html5.js"></script><![endif]-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?7eb88cdf05da1140776f128a6ad77962";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+ console.log("%c练小习，熟练掌握css，熟练掌握js，熟悉若干css以及js框架，喜欢研究，喜欢新技术。精通魔兽世界各职业pve技能，精通炉石传说各职业打法。", "background-image:-webkit-gradient( linear, left top, right top, color-stop(0, #4096EE), color-stop(0.15, #FF1A00), color-stop(0.3, #4096EE), color-stop(0.45, #FF1A00), color-stop(0.6, #4096EE),color-stop(0.75, #FF1A00), color-stop(0.9, #4096EE), color-stop(1, #FF1A00) );color:transparent;-webkit-background-clip: text;font-size:14px;");
+</script>
+</head>
+<body class="single single-post postid-617 single-format-standard">
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<div class="navbar-wrap">
+<div class="navbar">
+		<div class="logo"><a href="https://www.chengrang.com/" title="练小习的前端技术笔记-">练小习的前端技术笔记</a></div>
+		<ul class="nav">
+			<li class="page_item page-item-737"><a href="https://www.chengrang.com/visual-formatting-model-index">可视化格式模型</a></li><li class="page_item page-item-726"><a href="https://www.chengrang.com/hr">招聘信息</a></li><li class="page_item page-item-174"><a href="https://www.chengrang.com/about">关于我</a></li><li class="page_item page-item-76"><a href="https://www.chengrang.com/message">留言板</a></li>
+		</ul><div class="screen-mini"><button data-type="screen-nav" class="btn btn-inverse screen-nav"><i class="icon-tasks icon-white"></i></button></div>
+		<div class="menu pull-right">
+			<form method="get" class="dropdown search-form" action="https://www.chengrang.com/">
+				<input class="search-input" name="s" type="text" placeholder="输入关键字搜索" x-webkit-speech=""><input class="btn btn-success search-submit" type="submit" value="搜索">
+				<ul class="dropdown-menu search-suggest"></ul>
+			</form>
+			<div class="btn-group pull-left">
+				<button class="btn btn-primary" data-toggle="modal" data-target="#feed">订阅</button>
+								<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">关注 <i class="caret"></i></button>
+				<ul class="dropdown-menu pull-right">
+										<li><a href="http://weibo.com/chengrang" target="_blank">新浪微博</a></li>														</ul>
+							</div>
+		</div>
+</div>
+</div>
+<header class="header">
+	<div class="speedbar">
+				<div class="toptip"><strong class="text-success">最新消息：</strong>你必须穷尽一生磨练技能，这就是成功的秘诀，也是让人家敬重的关键。</div>
+	</div>
+</header>
+<section class="container">
+	<div class="content-wrap">
+	<div class="content">
+		<div class="breadcrumbs">你的位置：<a href="https://www.chengrang.com/">练小习的前端技术笔记</a> <small>&gt;</small> <a href="https://www.chengrang.com/category/%e8%a1%a8%e7%8e%b0">表现</a> <small>&gt;</small> <span class="muted">移动端全兼容的flexbox速成班</span></div>
+				<header class="article-header">
+			<h1 class="article-title"><a href="https://www.chengrang.com/flexbox.html">移动端全兼容的flexbox速成班</a></h1>
+			<div class="meta">
+				<span class="muted"><i class="icon-list-alt icon12"></i> 表现</span>				<span class="muted"><i class="icon-user icon12"></i> 练小习 </span>
+				<time class="muted"><i class="ico icon-time icon12"></i> 4个月前 (06-17)</time>
+
+				<span class="muted"><i class="icon-comment icon12"></i>1评论</span>
+							</div>
+		</header>
+
+				
+		<article class="article-content">
+			<p>说起flexbox，都算是件陈年旧事了，它是2009年W3C提出的一种全新的可伸缩的CSS布局方式。依赖flexbox，我们可以更简单，高效的完成可伸缩式页面的布局。</p>
+<p>业界与flexbox的相关教程文章也是各式各样，新旧交替，很多小伙伴对flexbox想用又不敢用，究其原因也就是即分不清它各个版本的编写规范，又苦恼于大家总是挂在嘴边的一句“flexbox兼容性不好”。 所以今儿前来总结一个精华干货贴，回顾那些楼主在项目里用过的flexbox，来谈谈那些不用苦恼“兼容”的flexbox最佳实例（本文只聊移动端）。<span id="more-617"></span><br>
+Part1 先聊聊历史：</p>
+<p>在2009年最早版本的Flexbox规范中，我们编写为“display:box;”，</p>
+<p>中期版本的Flexbox；我们编写为“display:flexbox;”</p>
+<p>而目前的规范版本，我们定义“display:flex;”。flexbox规范的制定可谓是艰辛百变，</p>
+<p>但目前使用的最新<a href="https://www.w3.org/TR/2016/CR-css-flexbox-1-20160301" target="_blank" data-original-title="" title="">版本草案</a>已于今年3-1日正式进入<a href="https://www.w3.org/blog/news/archives/4685" target="_blank" data-original-title="" title="">W3C的候选推荐标准</a>（Candidate Recommendation）阶段，这也就意味着关于flexbox的最终规范即将落地。</p>
+<p>Part2 版本VS兼容：</p>
+<p>如下图所示，除了Opera mobile12，移动端的各大浏览器都是支持flexbox的旧版语法的，但不包含flex的wrap属性。</p>
+<p><img src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/20160510190829343.png" alt=""></p>
+<p>Part3 信手拈来的flexbox最佳实例</p>
+<p>(以下代码片段均遵循flexbox移动端全兼容性写法，已验证机型列表见文章最后) 我们先来回顾一下flexbox的属性体系：直白的解释，我们常说的“flexbox”其实包含“父元素”，“子元素”2个部分，将“父元素”定义为一个flexbox，则在”父元素”里的“子元素们”就被赋予了可以自由伸缩的能力。 赋予神奇能力的代码片段如下：<br>
+<img src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/20160510190820412.png" alt=""></p>
+<p>1.用flex做提示icon</p>
+<p>这里用到了flex父元素的“align-items”属性。 指定元素沿侧轴对齐方式 align-item: flex-start | flex-end | center | space-between | space-around | stretch;</p>
+<p><img src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/20160510190821107.png" alt=""><br>
+一句属性设置，就可以完成顶部对齐，居中对齐或是底部对齐的切换，简单方便值得拥有。</p>
+<p>【Demo Link】: <a href="http://jsfiddle.net/tikizzz/2zuthdap/" target="_blank" data-original-title="" title="">http://jsfiddle.net/tikizzz/2zuthdap/</a></p>
+<p>2.用flex做列表元素</p>
+<p>同样，只需要用flex父元素的“align-items”属性，就可以制作灵活多变的列表元素了。如下图所示，3种状态的变形都不需要修改CSS文件，只需要按需隐藏DOM结构就搞定。</p>
+<p>这里多注意1个Tips：像下图例子中的左侧图片，右侧按钮这些固定宽度的子元素，不需要增加“flex:1”的能力，维持原样即可。</p>
+<p><img src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/20160510190821663.png" alt=""></p>
+<p><img src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/20160510190822302.png" alt=""></p>
+<p>【Demo Link】: <a href="https://jsfiddle.net/tikizzz/ztdfq5dw/" target="_blank" data-original-title="" title="">https://jsfiddle.net/tikizzz/ztdfq5dw/</a></p>
+<p>3.用flex做tab</p>
+<p>做均分的tab，应该是flexbox最常见的一个功能了，实现原理很简单，只需要给“父元素”，“子元素”分别赋予“display：flex”,”flex：1″即可。子元素的宽度不会根据内容的长短而发生改变。如下图所示，前台同学增加或删减tab数量，只需要增减DOM结构即可，无需样式的修改。</p>
+<p><img src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/20160510190824335.png" alt=""></p>
+<p>★重点兼容TIPS:  在旧版的规范中，使用比例伸缩布局时，子元素的内容长短不同会导致无法“等分”，这个时候，我们需要给子元素设置一个“width:0%”来解决问题。 ★重点兼容TIPS:  不要给flexbox里的子元素设置“margin:auto”的属性，在部分安卓机下，它会导致该元素的宽度撑开到100%占位</p>
+<p><img src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/20160510190823505.png" alt=""></p>
+<p>【Demo Link】: <a href="https://jsfiddle.net/tikizzz/ztdfq5dw/" target="_blank" data-original-title="" title="">https://jsfiddle.net/tikizzz/ztdfq5dw/</a></p>
+<p>4.用flex做导航(只适合三项的布局) 一样也是利用align-items的属性即可，就可以轻松完成flexbox的导航制作。</p>
+<p><img src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/20160510190825215.png" alt=""></p>
+<p>但是导航变成单按钮布局的时候，会导致标题栏的位位移，不是特别的推荐。</p>
+<p><img src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/20160510190824773.png" alt=""></p>
+<p>【Demo Link】: <a href="https://jsfiddle.net/tikizzz/g2Lj417p/" target="_blank" data-original-title="" title="">https://jsfiddle.net/tikizzz/g2Lj417p/</a></p>
+<p>5.用flex做搜索条 利用align-items的属性，还可以轻松完成flexbox的搜索条制作。</p>
+<p><img src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/20160510190825647.png" alt=""></p>
+<p>【Demo Link】:<a href="https://jsfiddle.net/tikizzz/yut2qv9b/" target="_blank" data-original-title="" title="">https://jsfiddle.net/tikizzz/yut2qv9b/</a></p>
+<p>6.用flex做垂直居中(单/多)</p>
+<p>前面说的5个实例，其实都只用到了flexbox的基础属性+“align-items”属性。千万不要以为结束了，flexbox还可以做更多的事。例如一直很困扰我们的“垂直居中”：flexbox可以轻松实现不定宽高，不限数量的元素“水平+垂直居中”在屏幕中。<br>
+<img src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/2016051019082690.png" alt=""></p>
+<p>这部分用到了flexbox的另外一个属性：指定元素沿主轴对齐方式 justify-content: flex-start | flex-end | center space-between | space-around; 将“沿着主轴对齐方式+沿着侧轴对齐的方式”设置为居中，无论子元素是什么形态，都可以随时随地的“水平垂直居中”了。</p>
+<p><img src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/20160510190826651.png" alt=""></p>
+<p>【Demo Link】:<a href="https://jsfiddle.net/tikizzz/zq8cdkfg/" target="_blank" data-original-title="" title="">https://jsfiddle.net/tikizzz/zq8cdkfg/</a></p>
+<p>7.用flex做垂直弹性布局</p>
+<p>顶部栏，底部栏fixed，中间的元素支持滚动条，这是移动端常见的页面结构模型，我们熟称为“垂直弹性布局”。使用传统的flxed写法总是会给一些安卓机带来无法避免的烦人bug。其实只要巧妙利用flexbox的转换方向的属性，就可以轻松实现这个结构模型了。如下图，其实也就是一个横着的弹性伸缩模型，倒转垂直的弹性伸缩模型了。</p>
+<p><img src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/20160510190827298.png" alt=""></p>
+<p>这部分用到了flexbox的方向属性：指定主轴的伸缩流方向 flex-direction: row | column ; 这里注明一下，box-orient，box-direction是最老版本flex-box控制方向的2种写法，默认方向均为横向，为保证兼容性，我们需要将它们2条都写全。</p>
+<p><img src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/20160510190827905.png" alt=""></p>
+<p>【Demo Link】:<a href="https://jsfiddle.net/tikizzz/obLp1mga/" target="_blank" data-original-title="" title="">https://jsfiddle.net/tikizzz/obLp1mga/</a></p>
+<p>最后，附赠一个全DEMO的合集：<a href="http://115.159.36.96/tikizheng/flextest/demo.html" target="_blank" data-original-title="" title="">http://115.159.36.96/tikizheng/flextest/demo.html</a></p>
+<p>Part4 其他</p>
+<p>希望以上的demo对移动端开发的小伙伴们有用。当然，flexbox还有一些很帅气的属性，例如order，wrap等等，它们只是暂时还不被移动端所有的系统兼容，咋们的x5内核已经刚刚表示全面兼容flexbox的所有属性。关于flexbox的未来我们敬请期待就好！ 另，附赠  <a href="https://gist.github.com/HeGanjie/0289b5b16e2ee4b16030" target="_blank" data-original-title="" title="">&lt;&lt;移动端属性全兼容自查表&gt;&gt;</a></p>
+<p>已测机型</p>
+<p><img src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/20160510190828445.png" alt=""></p>
+<p>备注：</p>
+<p>1.以上机型是根据友盟，应用宝，微信及腾讯云运营活动数据统计整合得出的Top7机型。</p>
+<p>2.Top8-10的华为，oppo，魅族机型挑选于各品牌的占比最高机型，为品牌差异性测试而存在。</p>
+<p>3.黄色标注的分辨率为Top6的热门分辨率，占比超过iOS市场87%，Android市场的50%（安卓分辨率太多，剩余50%分辨率占比较为均分零散，故暂不列入必测范围）。</p>
+<p>4.iOS8.0+，Android4.0+涵盖了移动端90%的系统，其中iOS9.0+占比超过65%，Android4.4+占比超过60%，测试用例不强行要求涵盖各机型所有版本的系统，以最新版本为准，若因老版本出现bug次数大于3次，再加设为必测的问题版本。</p>
+<p>原文地址：<a href="https://isux.tencent.com/flexbox.html" target="_blank" data-original-title="" title="">https://isux.tencent.com/flexbox.html</a></p>
+<p>转载请注明：<a href="https://www.chengrang.com/" data-original-title="" title="">练小习的前端技术笔记</a> » <a href="https://www.chengrang.com/flexbox.html" data-original-title="" title="">移动端全兼容的flexbox速成班</a></p>		</article>
+
+		
+		<footer class="article-footer">
+			<div class="article-tags">继续浏览有关 <a href="https://www.chengrang.com/tag/flex" rel="tag">flex</a> 的文章</div>					</footer>
+
+		<nav class="article-nav">
+			<span class="article-nav-prev">上一篇 <a href="https://www.chengrang.com/visual-formatting-model.html" rel="prev">可视化格式模型基础应用实例</a></span>
+			<span class="article-nav-next"><a href="https://www.chengrang.com/svg-basics.html" rel="next">SVG图形绘制入门第一弹</a> 下一篇</span>
+		</nav>
+
+		<div class="relates">
+			<h3>与本文相关的文章</h3>
+			<ul>
+<li><a href="https://www.chengrang.com/flex-version.html">关于flex布局的目前兼容性写法</a></li><li><a href="https://www.chengrang.com/counter-increment.html">CSS计数器 counter</a></li><li><a href="https://www.chengrang.com/ios-scrollbar.html">ios下滚动条默认显示</a></li><li><a href="https://www.chengrang.com/box-shadow-one-side.html">css单边投影与双侧投影</a></li><li><a href="https://www.chengrang.com/font.html">比例字体&amp;等宽字体</a></li><li><a href="https://www.chengrang.com/canvas-particle.html">制作高大上的Canvas粒子动画</a></li><li><a href="https://www.chengrang.com/max-width.html">max-width:100%在td或者table-cell里渲染不符合预期小笔记</a></li><li><a href="https://www.chengrang.com/image-rendering.html">渲染放大的图片image-rendering笔记</a></li><li><a href="https://www.chengrang.com/visual-formatting-model.html">可视化格式模型基础应用实例</a></li><li><a href="https://www.chengrang.com/svg-animate.html">带你轻松打开SVG动画的大门</a></li><li><a href="https://www.chengrang.com/wechat-alipay-input.html">模拟微信支付宝密码输入框的效果</a></li><li><a href="https://www.chengrang.com/absolute-bottom.html">绝对定位bottom值为0的位置问题</a></li></ul>		</div>
+	
+
+		
+		<div id="respond" class="no_webshot">
+		<form action="https://www.chengrang.com/wp-comments-post.php" method="post" id="commentform">
+		
+		<div class="comt-title">
+			<div class="comt-avatar pull-left">
+				<img alt="" src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/saved_resource" srcset="https://secure.gravatar.com/avatar/?s=56&amp;d=https%3A%2F%2Fwww.chengrang.com%2Fwp-content%2Fthemes%2Fmy%2Fimg%2Fdefault.png&amp;r=g 2x" class="avatar avatar-28 photo avatar-default" height="28" width="28">			</div>
+			<div class="comt-author pull-left">
+			发表我的评论			</div>
+			<a id="cancel-comment-reply-link" class="pull-right" href="javascript:;">取消评论</a>
+		</div>
+		
+		<div class="comt">
+			<div class="comt-box">
+				<textarea placeholder="写点什么..." class="input-block-level comt-area" name="comment" id="comment" cols="100%" rows="3" tabindex="1" onkeydown="if(event.ctrlKey&amp;&amp;event.keyCode==13){document.getElementById(&#39;submit&#39;).click();return false};"></textarea>
+				<div class="comt-ctrl">
+					<button class="btn btn-primary pull-right" type="submit" name="submit" id="submit" tabindex="5"><i class="icon-ok-circle icon-white icon12"></i> 提交评论</button>
+					<div class="comt-tips pull-right"><input type="hidden" name="comment_post_ID" value="617" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="7e9d5b410f"></p><p style="display: none;"></p><div class="comt-tip comt-loading" style="display: none;">正在提交, 请稍候...</div><div class="comt-tip comt-error" style="display: none;">#</div></div>
+					<span data-type="comment-insert-smilie" class="muted comt-smilie"><i class="icon-thumbs-up icon12"></i> 表情</span>
+					<span class="muted comt-mailme"><label for="comment_mail_notify" class="checkbox inline" style="padding-top:0"><input type="checkbox" name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked">有人回复时邮件通知我</label></span>
+				</div>
+			</div>
+
+												<div class="comt-comterinfo" id="comment-author-info">
+						<h4>Hi，您需要填写昵称和邮箱！</h4>
+						<ul>
+							<li class="form-inline"><label class="hide" for="author">昵称</label><input class="ipt" type="text" name="author" id="author" value="" tabindex="2" placeholder="昵称"><span class="help-inline">昵称 (必填)</span></li>
+							<li class="form-inline"><label class="hide" for="email">邮箱</label><input class="ipt" type="text" name="email" id="email" value="" tabindex="3" placeholder="邮箱"><span class="help-inline">邮箱 (必填)</span></li>
+							<li class="form-inline"><label class="hide" for="url">网址</label><input class="ipt" type="text" name="url" id="url" value="" tabindex="4" placeholder="网址"><span class="help-inline">网址</span></li>
+						</ul>
+					</div>
+									</div>
+
+		
+	<input type="hidden" id="ak_js" name="ak_js" value="1476163018478"></form>
+	</div>
+<div id="postcomments">
+	<h3 id="comments">
+		网友最新评论<b> (1)</b>
+	</h3>
+	<ol class="commentlist">
+		<li class="comment even thread-even depth-1" id="comment-557"><div class="c-avatar"><img alt="" data-original="https://secure.gravatar.com/avatar/8a147ef59aa8f54612d46896c5f622b6?s=36&amp;d=https%3A%2F%2Fwww.chengrang.com%2Fwp-content%2Fthemes%2Fmy%2Fimg%2Fdefault.png&amp;r=g" srcset="https://secure.gravatar.com/avatar/8a147ef59aa8f54612d46896c5f622b6?s=72&amp;d=https%3A%2F%2Fwww.chengrang.com%2Fwp-content%2Fthemes%2Fmy%2Fimg%2Fdefault.png&amp;r=g 2x" class="avatar avatar-36 photo" height="36" width="36" src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/8a147ef59aa8f54612d46896c5f622b6" style="display: block;"></div><div class="c-main" id="div-comment-557">好文，收藏了<div class="c-meta"><span class="c-author">路过</span>4个月前 (06-18)<a rel="nofollow" class="comment-reply-link" href="https://www.chengrang.com/flexbox.html?replytocom=557#respond" onclick="return addComment.moveForm( &quot;div-comment-557&quot;, &quot;557&quot;, &quot;respond&quot;, &quot;617&quot; )" aria-label="回复给路过">回复</a></div></div></li><!-- #comment-## -->
+	</ol>
+	<div class="pagenav">
+			</div>
+</div>
+
+		
+	</div>
+</div>
+<aside class="sidebar">	
+<div class="widget widget_calendar"><h3 class="widget_tit">日期</h3><div id="calendar_wrap" class="calendar_wrap"><table id="wp-calendar">
+	<caption>2016年十月</caption>
+	<thead>
+	<tr>
+		<th scope="col" title="星期一">一</th>
+		<th scope="col" title="星期二">二</th>
+		<th scope="col" title="星期三">三</th>
+		<th scope="col" title="星期四">四</th>
+		<th scope="col" title="星期五">五</th>
+		<th scope="col" title="星期六">六</th>
+		<th scope="col" title="星期日">日</th>
+	</tr>
+	</thead>
+
+	<tfoot>
+	<tr>
+		<td colspan="3" id="prev"><a href="https://www.chengrang.com/2016/09">« 9月</a></td>
+		<td class="pad">&nbsp;</td>
+		<td colspan="3" id="next" class="pad">&nbsp;</td>
+	</tr>
+	</tfoot>
+
+	<tbody>
+	<tr>
+		<td colspan="5" class="pad">&nbsp;</td><td>1</td><td>2</td>
+	</tr>
+	<tr>
+		<td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td id="today">8</td><td>9</td>
+	</tr>
+	<tr>
+		<td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td>
+	</tr>
+	<tr>
+		<td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td>
+	</tr>
+	<tr>
+		<td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td>
+	</tr>
+	<tr>
+		<td>31</td>
+		<td class="pad" colspan="6">&nbsp;</td>
+	</tr>
+	</tbody>
+	</table></div></div><div class="widget d_tag"><h3 class="widget_tit">标签</h3><div class="d_tags"><a href="https://www.chengrang.com/tag/svg">svg (3)</a><a href="https://www.chengrang.com/tag/css">css (2)</a><a href="https://www.chengrang.com/tag/flex">flex (2)</a><a href="https://www.chengrang.com/tag/%e5%93%8d%e5%ba%94%e5%bc%8f">响应式 (2)</a><a href="https://www.chengrang.com/tag/autoprefixer">autoprefixer (1)</a><a href="https://www.chengrang.com/tag/base64">base64 (1)</a><a href="https://www.chengrang.com/tag/border">border (1)</a><a href="https://www.chengrang.com/tag/canvas">canvas (1)</a><a href="https://www.chengrang.com/tag/cat">cat (1)</a><a href="https://www.chengrang.com/tag/compass">compass (1)</a><a href="https://www.chengrang.com/tag/containing-block">containing block (1)</a><a href="https://www.chengrang.com/tag/contributions">Contributions (1)</a><a href="https://www.chengrang.com/tag/devicemotionevent">DeviceMotionEvent (1)</a><a href="https://www.chengrang.com/tag/deviceorientation">deviceorientation (1)</a><a href="https://www.chengrang.com/tag/github">github (1)</a><a href="https://www.chengrang.com/tag/gradient">gradient (1)</a><a href="https://www.chengrang.com/tag/grunt">grunt (1)</a><a href="https://www.chengrang.com/tag/hat">hat (1)</a><a href="https://www.chengrang.com/tag/https">https (1)</a><a href="https://www.chengrang.com/tag/iconfont">iconfont (1)</a><a href="https://www.chengrang.com/tag/indexing">indexing (1)</a><a href="https://www.chengrang.com/tag/jshint">jsHint (1)</a><a href="https://www.chengrang.com/tag/margin-top">margin-top (1)</a><a href="https://www.chengrang.com/tag/padding">padding (1)</a><a href="https://www.chengrang.com/tag/position">position (1)</a><a href="https://www.chengrang.com/tag/siwft">siwft (1)</a><a href="https://www.chengrang.com/tag/text-decoration">text-decoration (1)</a><a href="https://www.chengrang.com/tag/transform">transform (1)</a><a href="https://www.chengrang.com/tag/transparent">transparent (1)</a><a href="https://www.chengrang.com/tag/yeoman">yeoman (1)</a></div></div><div class="widget widget_links"><h3 class="widget_tit">书签</h3>
+	<ul class="xoxo blogroll">
+<li><a href="http://www.520ued.com/" target="_blank">520UED巴士站</a></li>
+<li><a href="http://f2er.club/" target="_blank">f2er.club</a></li>
+<li><a href="https://s5s5.me/" target="_blank">米随随</a></li>
+<li><a href="http://www.topcss.org/" target="_blank">进步博客</a></li>
+
+	</ul>
+</div>
+<div class="widgetRoller" style="position: fixed; top: 10px; z-index: 0; width: 360px; display: none;"><div class="widget widget_links"><h3 class="widget_tit">书签</h3>
+	<ul class="xoxo blogroll">
+<li><a href="http://www.520ued.com/" target="_blank">520UED巴士站</a></li>
+<li><a href="http://f2er.club/" target="_blank">f2er.club</a></li>
+<li><a href="https://s5s5.me/" target="_blank">米随随</a></li>
+<li><a href="http://www.topcss.org/" target="_blank">进步博客</a></li>
+
+	</ul>
+</div></div></aside></section>
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="copyright pull-left">
+            Copyright  1999 - 2016 我. All Rights Reserved
+        </div>
+        <div class="trackcode pull-right">
+                    </div>
+    </div>
+</footer>
+<script type="text/javascript" src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/form.js"></script>
+<script type="text/javascript" src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/wp-embed.min.js"></script>
+<div style="width:0px; height:0px;overflow:hidden;"><img src="./移动端全兼容的flexbox速成班 – 练小习的前端技术笔记_files/share.jpg"></div>
+
+
+
+<!-- Dynamic page generated in 1.132 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-10-08 09:38:41 -->
+
+<!-- super cache --><div class="modal hide fade" id="feed" tabindex="-1" style="width:400px;margin-left:-200px;"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">×</button><h3>订阅练小习的前端技术笔记</h3></div><div class="modal-body"><p><strong>订阅地址</strong><br><input type="text" class="input-block-level" value="https://www.chengrang.com/?feed=rss2" readonly=""></p></div></div><div class="rollto" style="display: none;"><button class="btn btn-inverse" data-type="totop" title="回顶部"><i class="icon-eject icon-white"></i></button><button class="btn btn-inverse" data-type="torespond" title="发评论"><i class="icon-comment icon-white"></i></button></div></body></html>

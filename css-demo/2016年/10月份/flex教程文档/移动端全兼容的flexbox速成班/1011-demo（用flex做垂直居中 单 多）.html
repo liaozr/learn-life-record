@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h3>6.用flex做垂直居中(单/多)</h3>
+    <div class="flex-cont flex-centerbox">
+        <div class="center-cont">
+            <h2>Title</h2>
+            <p>infomation </p>
+            <p>infomation </p>
+            <button class="f-btn">btn</button>
+        </div>
+    </div>
+    
+    <style>
+		h3{
+		    line-height: 36px;
+		    height: 36px;
+		    padding-left: 20px;
+		    background: #f2f2f2;
+		    margin:20px 0;
+		}
+		p{margin:0;padding:0}
+		
+		.f-icon {
+		    display: block;
+		    width: 20px;
+		    height: 20px;
+		    background: #31BBEE;
+		    flex:none;
+		}
+
+		.flex-cont{
+		    /*定义为flexbox的"父元素"*/
+		    display: -webkit-box; 
+		    display: -webkit-flex;
+		    display: flex;
+		}
+
+		.flex-item{
+		    /*给"子元素"赋予自由伸缩的能力*/
+		    -webkit-box-flex: 1;
+		    -webkit-flex: 1;
+		    flex: 1;
+		    width: 0%;
+		}
+
+		/*垂直居中*/
+		.flex-centerbox{
+		    width: 100%;
+		    height: 200px;
+		    background: #fafafa;
+
+		    /*子元素沿主轴对齐方式居中*/
+		    -webkit-box-pack: center;
+		    -webkit-justify-content: center;
+		    justify-content: center;
+
+
+		    /*子元素沿侧轴对齐方式垂直居中*/
+		    -webkit-box-align: center;
+		    -webkit-align-items: center;
+		    align-items: center;
+
+		    border-top:1px solid #ddd;
+		    border-bottom: 1px solid #ddd;
+		    padding:10px 0;
+		    margin:10px 0;
+		}
+
+		.center-cont{
+		    display: block;
+		    background: #ddd;
+		    text-align: center;
+		    padding:20px;
+		    margin:10px;
+		}
+    </style>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+不定序传参可以让你忽略形参的顺序，不必记住它们：
+
+<style>
+
+    @mixin blue-theme($background, $color) {
+        background: $background;
+        color: $color;
+    }
+
+    /*一般我们是如下调用: */
+    div {
+        @include blue-theme(red, white);
+    }
+
+    /*但我们也可以忽略传参的顺序，传参时以键值对的形式传参： */
+
+    div {
+        @include blue-theme($color: white, $background: red);
+    }
+
+    /*两种方式都会输出: */
+    div {
+        background: red;
+        color: white;
+    }
+
+</style>
+
+注意点:
+
+@mixin 可以用 = 表示，而 @include 可以用 + 表示
+
+@include不仅可以用在块内，也可以直接用在最外层
+
+
+</body>
+
+</html>

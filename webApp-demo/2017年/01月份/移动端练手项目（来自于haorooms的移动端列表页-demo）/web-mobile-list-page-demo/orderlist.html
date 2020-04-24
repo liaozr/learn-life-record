@@ -1,0 +1,181 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>订单详情页面</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
+  <link rel="stylesheet" href="css/dropload.css">
+  <link rel="stylesheet" type="text/css" href="css/MultiPicker.css?rev=@@hash"/>
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/first_index.css">
+</head>
+<body>
+   <div class="g-pages g-index g-orderlist">
+       <!--头部开始-->
+        <header class="g-header">
+            <div class="header">
+                   <div class="list index-icon "><a href="index.html"></a></div>
+                   <div class="list shop-icon current">
+                       <a href="cart.html"></a>
+                       <div class="cartnums" style="display:none">0</div>
+                    </div>
+                   <div class="list member-icon"><a href="##"></a></div>
+                   <div class="list prolists-icon"><a href="page-lists.html"></a></div>
+             </div>
+        </header>
+       
+        <div class="g-prodetails-content" id='mainsection'>
+              <div class="manage-address">
+                管理收货地址
+              </div>
+
+              <div class="m-list shouhuo-address shuohuo-layout">
+                     <div class="head">收货人地址</div>
+                     <div class="address-chose-list">
+                          <div class="list">
+                              <div class="message">
+                                  <input type="radio" name="chose_address" id="chose_address0">
+                                  <label for="chose_address0">上海市 虹口区 临潼路255号上海兴安得力软件有限公司
+                                  </label>
+                              </div>
+                              <div class="message">
+                               <span>姓名：</span> zrliao <span>手机号码：</span>1111111111
+                              </div>
+                          </div>
+
+                          <div class="list">
+                              <div class="message">
+                                  <input type="radio" name="chose_address" id="chose_address1">
+                                  <label for="chose_address1">上海市 虹口区 临潼路255号上海兴安得力软件有限公司22222222
+                                  </label>
+                              </div>
+                              <div class="message">
+                               <span>姓名：</span> zrliao <span>手机号码：</span>1111111111
+                              </div>
+                          </div>
+                          <div class="list">
+                              <div class="message">
+                                  <input type="radio" name="chose_address" id="chose_address2">
+                                  <label for="chose_address2">使用新的收货地址
+                                  </label>
+                              </div>
+                          </div>
+                          <div class="use-new-address">
+                              <div class="listadd">
+                                <label for="name">收货人姓名：</label>
+                                <input type="text" name="name" id="name">
+                              </div>
+                              <div class="listadd">
+                                <label for="name">所在地区：</label>
+                                <input type="text" name="area" id="multiPickerInput" readonly>
+                              </div>
+                              <div class="listadd">
+                                <label for="name">详细地址：</label>
+                                <input type="text" name="address" id="address_detail">
+                              </div>
+                              <div class="listadd">
+                                <label for="name">手机号码：</label>
+                                <input type="tel" name="address" id="tel">
+                              </div>
+                              <div class="new-add-tipswen">                              
+                                <input type="checkbox" name="tips_new_address" id="tips_new_address">
+                                <label for="tips_new_address"> 自动保存收货地址( 选择后该地址将会保存到您的收货地址列表 ) </label>
+                              </div>
+                          </div>
+                     </div>
+              </div>
+
+              <div class="m-list shouhuo-address fapiao-xinxi">
+                    <div class="head">发票信息</div>
+                    <div class="address-chose-list">
+                        <div class="use-fapiao">
+                          <input type="checkbox" name="fapiao" id="fapiao">
+                          <label for="fapiao">是否开发票</label>
+                        </div>
+                        <div class="use-new-address yaokai-fapiao">
+                            <div class="listadd">
+                              <label for="name">发票类型：</label>
+                              <select name="fapiao_sort" id="">
+                                 <option value="1">普通发票</option>
+                                 <option value="2">增值发票</option>
+                              </select>
+                            </div>
+
+                            <div class="listadd fapiao-taitou">
+                              <label for="name">发票抬头：</label>
+                              <select name="fapiao_sort" id="">
+                                 <option value="1">个人</option>
+                                 <option value="2">单位</option>
+                              </select>
+                              <input type="text" name="" id="" class='fapiao-taitou-input'>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+
+              <div class="m-list shouhuo-address shop-qingdan">
+                    <div class="head">商品清单</div>
+                    <div class="address-chose-list">
+                         <table>
+                           <thead><tr><th>商品名称</th><th>数量</th><th>小记</th></tr></thead>
+                           <tbody>
+                              <tr><td>商品名称商品名称</td><td>3</td><td>3小记</td></tr>
+                              <tr><td>商品名称商品名称</td><td>3</td><td>3小记</td></tr>
+                           </tbody>
+                         </table>
+                    </div>
+              </div>
+
+              <div class="m-list shouhuo-address comment-talk">
+                    <div class="head">给卖家留言</div>
+                    <div class="address-chose-list">
+                         <textarea name="" id="for-maijia-commit" cols="30" rows="10"></textarea>
+                    </div>
+              </div>
+        </div>
+        <div class="g-add-shop-car g-orderlist-bottom">
+              <div class="count-prices">总价：<span>￥</span><span class='price_num'>20000</span></div>
+              <div class="pay-jiesuan">提交订单</div>
+        </div>
+   </div>
+   <div id="targetContainer"></div>
+<script src='js/jquery.min.js'></script>
+<script src='js/flexible_css.js'></script>
+<script src="js/flexible.js"></script> 
+<script src='js/cart.js'></script>
+<script src='js/landscape.js'></script>  
+
+<script src="js/city/city.js"></script>
+<script src="js/city/MultiPicker.js"></script>
+<script>
+    //---------------------函数调用开始---------------------
+    new MultiPicker({
+        input : 'multiPickerInput',//点击触发插件的input框的id
+        container : 'targetContainer',//插件插入的容器id
+        jsonData: $city,
+        success : function(arr){
+            var arr_length=arr.length;
+            var area_value=$('#multiPickerInput').val();
+            area_value='';
+            for(var i=0;i<=arr_length-1;i++)
+            { 
+              var _value=arr[i].value;
+              if( i == arr_length-1 && _value =='请选择'){
+               _value='';
+              }
+              area_value+=_value+' '
+            }
+            $('#multiPickerInput').val(area_value);
+        }//回调
+    });
+    //---------------------函数调用结束---------------------
+</script>
+<script>
+   var landscape = new landscape({
+            mode: 'portrait', //portrait,landscape
+            prefix: 'Shine'
+   });
+</script>
+</body>
+</html>

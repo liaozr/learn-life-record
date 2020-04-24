@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        /** {
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }*/
+        .header {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 50px;
+            background-color: red;
+            width: 100%;
+        }
+
+        .content {
+            top: 50px;
+            bottom: 50px;
+            position: absolute;
+            left: 0;
+            right: 0;
+            padding: 0 10px 0 10px;
+            overflow-y: auto;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+
+        .content p {
+            height: 200px;
+            display: block;
+        }
+
+        .footer {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 50px;
+            background-color: blue;
+        }
+    </style>
+    <div class="header">
+    </div>
+    <div class="content">
+        <p>1212</p>
+        <p>1212</p>
+        <p>1212</p>
+        <p>1212</p>
+        <p>1212</p>
+    </div>
+    <div class="footer"></div>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+关于手机硬件加速与position:fixed和监听window滑动事件的坑
+
+昨天做一个特简单的功能掉进了这个坑里.移动端html5需要做一个导航固定在顶部,下面的内容可以无限滑动下拉加载,本来这个功能只需要给导航条一个position:fixed,然后监听window.onscroll就ok了,可是被这段代码给坑了.
+
+* {
+    -webkit-transform: translateZ(0);
+   transform: translateZ(0);
+}
+
+全局的硬件加速
+
+启用这个会使position失效
+
+<!-- ------------------------------------------------------------------------------- -->
+
+so: 启用硬件加速还不能随便用,给该用的元素用,不该用的元素能别用就别用,因为还不知道啥坑等着! 下面我是给需要滑动的内容启用硬件加速就没问题了.
+
+<style>
+    .content {
+        top: 50px;
+        bottom: 50px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        padding: 0 10px 0 10px;
+        overflow-y: auto;
+
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+</style>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

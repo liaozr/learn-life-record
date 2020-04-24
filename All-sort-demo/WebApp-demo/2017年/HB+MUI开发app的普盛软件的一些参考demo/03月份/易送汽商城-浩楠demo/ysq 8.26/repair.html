@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,minimal-ui" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="报修申请" />
+		<meta name="Description" content="报修申请" />
+		<title>报修申请</title>
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<link rel="stylesheet" href="css/base.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+		<link rel="stylesheet" href="css/public.css" />
+		<link rel="stylesheet" href="css/ww.css" />
+		<!--手机适配-->
+		<!--<script src="js/setFont.js"></script>-->
+
+	</head>
+
+	<body class="cancelOrder">
+		<div id="loadpage">
+			<img src="img/loading2.gif" alt="" />
+		</div>
+		<header class="y-mytop">
+			<h1>报修申请</h1>
+			<div class="return-box">
+				<img src="img/icon-return.png" alt="" />
+				<span>返回</span>
+			</div>
+		</header>
+		<!--消除浮动并且在ios微信浏览器下取消1.25rem上间距-->
+		<div class="clear under-top" style="margin-top:1.25rem"></div>
+		<!--产品列表-->
+		<section>
+			<div class="content repair">
+				<div class="title">报修项目<span class="color-pink mgl-10">*</span></div>
+				<select>
+                   <option value ="volvo" >报修内容</option>
+                   <option value ="saab">Saab</option>
+                   <option value="opel">Opel</option>
+                   <option value="audi">Audi</option>
+                </select>
+                <div class="title">描述</div>
+                <textarea placeholder="请输入报修项目说明"></textarea>
+			</div>
+			<div class="title-link">联系信息</div>
+			<div class="receiver-info">
+				<div class="people-info">
+					<span>刘飞</span><span>15368498544</span>
+				</div>
+				<div class="address-info">
+					<i class="location"></i><span>深圳福田奥林匹克26A</span><i class="next right"></i>
+				</div>
+				<img src="img/border.png" />
+			</div>
+			<div class="btn">提交</div>
+		</section>
+	</body>
+	<script src="js/zepto1.1.6.min.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script>
+	
+	// 返回上一页
+		$(".return-box").on('tap1',function(){
+			window.history.go(-1);
+		});
+		
+		var ua = navigator.userAgent.toLowerCase();
+			if (ua.match(/MicroMessenger/i) == "micromessenger") {
+				$(".y-mytop").css("display", "none");
+				$(".under-top").css("margin-top",0);
+			}
+		//页面加载完毕删除遮罩层
+		window.onload = function() {
+			$("html").css("overflow", "auto");
+			$("#loadpage").css("display", "none");
+		}
+		//按钮点击变色
+		$(".btn").on('touchstart',function(){
+			$(this).addClass('active');
+		});
+		$(".btn").on('touchend',function(){
+			$(this).removeClass('active');
+		});
+		////////////////////页面跳转/////////////////////
+		//返回
+		$(".return-box").on("tap1",function(){
+			window.history.go(-1);
+		});
+	</script>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="time">{{child.startTime | timefen}}</div>
+
+    <!-- 当 开始时间跟结束时间的年月日一样的时候（也就是表示在同一天的时候），结束时间 也就只显示 时分 -->
+    <div class="time2" v-show='child.startTime.slice(0,11) == child.endTime.slice(0,11)'>{{child.endTime | timefen}}</div>
+
+    <!-- 当 开始时间跟结束时间的年月日不一样的时候，结束时间也就将 全部展现出来 -->
+    <div class="time2" v-else>{{child.endTime}}</div>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+    <script>
+
+        Vue.filter('timefen', function(value) {
+
+            if (value !== '' || value !== null || value !== undefined) {
+
+                var value = value.toString();
+                var str = value.slice(11);
+                return str
+            }
+        })
+
+        Vue.filter('datefen', function(value) {
+
+            if (value !== '' || value !== null || value !== undefined) {
+
+                var value = value.toString();
+                var str = value.slice(0, 11);
+                return str
+            }
+        })
+
+    </script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

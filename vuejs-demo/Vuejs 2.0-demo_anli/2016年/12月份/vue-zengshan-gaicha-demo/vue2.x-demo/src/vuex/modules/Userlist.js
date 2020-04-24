@@ -1,0 +1,196 @@
+
+
+// 可以写成下面这种形式的
+// import { GETSTARTLIST} from '../mutation-types' 
+// import { GETTERSLISTS} from '../mutation-types' 
+// -------------------------------------------------
+
+// 不过相比上面那种形式，是更推荐下面的这种写法的。而且尤大的案例写法也是以这种形式的
+
+// 这种写法的好处是 假如mutation-types里面有很多个变量的时候，要一个个的引入到各自的模块里去，这样就不是很方便了
+// import * as types from '../mutation-types' 这个的做法就是 将所有常量导成一个对象, 从而更方便的使用
+// 但引入了这样子写法的该模块的mutations的写法就将变成 types.GETSTARTLIST代表着原有的GETSTARTLIST的了
+// 如下所示：
+// const mutations = {
+//   [types.GETSTARTLIST] (state)
+//   {
+//     state.curlisttype=''
+//     state.curlisttype=state.hot
+//   }
+// } 
+
+import * as types from '../mutation-types'
+
+// 该模块的初始状态 
+const state = {
+  	users:[
+
+    ],
+    curEditUser:{
+
+    },
+    editUser:{
+
+    },
+    editUsernew:{
+
+    }
+} 
+// 相关的 mutations
+const mutations = {
+
+   // 点击新建按钮，初始化一个空数据
+   [types.ADD_USER](state)
+   {    
+        var userLength=state.users.length +1
+        var newAdduser={
+             id:userLength,
+             name:'',
+             age:'',
+             tel:''
+        }
+        state.curEditUser='';
+        state.editUser='';
+        state.curEditUser=newAdduser
+        state.curEditUser.id=newAdduser.id
+    },
+
+    [types.COMMITNAME](state,name)
+    {     
+       state.curEditUser.name=name
+    },
+
+    [types.COMMITAGE](state,age)
+    {
+         var age=Number(age)
+         state.curEditUser.age=age
+    },
+    [types.COMMITTEL](state,tel)
+    {    
+         state.curEditUser.tel=tel
+    },
+    // 点击保存按钮
+    [types.ADD_SAVE_USER](state)
+    {
+        if( state.curEditUser.name == '' || state.curEditUser.name == undefined || state.curEditUser.name == null )
+        {
+            state.curEditUser={}
+        }
+        else{
+            state.users.push(state.curEditUser);
+            state.curEditUser=''
+        }
+    },
+    // 点击删除操作
+    [types.SHANCHU_USER](state,user)
+    {
+        // state.curEditUser =''
+        // state.users.splice(index,1)
+        state.users.$remove(user)
+
+    },
+    // 点击编辑操作
+    [types.EDIT_USER](state,index)
+    {
+          state.editUser =''
+          state.editUser=state.users[index];
+
+          var user_id=state.editUser.id
+          var newAdduser2={
+             id:user_id,
+             name:'',
+             age:'',
+             tel:''
+          }
+          state.editUsernew=newAdduser2
+    },
+    // 点击编辑更新用户列表数据
+    [types.CHANGENAME](state,name)
+    {    
+         if( state.editUsernew.age == '')
+         {
+          var age=state.editUser.age
+         }
+         else{
+          var age=state.editUsernew.age
+         }
+
+         if( state.editUsernew.tel == '')
+         {
+          var tel=state.editUser.tel
+         }
+         else{
+          var tel=state.editUsernew.tel
+         }
+          
+         state.editUsernew.name=name
+         state.editUsernew.age=age
+         state.editUsernew.tel=tel
+    },
+    [types.CHANGEAGE](state,age)
+    {    
+         if( state.editUsernew.name == '')
+         {
+          var name=state.editUser.name
+         }
+         else{
+          var name=state.editUsernew.name
+         }
+
+         if( state.editUsernew.tel == '')
+         {
+          var tel=state.editUser.tel
+         }
+         else{
+          var tel=state.editUsernew.tel
+         }
+         state.editUsernew.name=name
+         state.editUsernew.age=age
+         state.editUsernew.tel=tel
+    },
+    [types.CHANGETEL](state,tel)
+    {    
+         if( state.editUsernew.name == '')
+         {
+          var name=state.editUser.name
+         }
+         else{
+          var name=state.editUsernew.name
+         }
+         if( state.editUsernew.age == '')
+         {
+          var age=state.editUser.age
+         }
+         else{
+          var age=state.editUsernew.age
+         }
+         state.editUsernew.name=name
+         state.editUsernew.age=age
+         state.editUsernew.tel=tel
+    },
+
+    // 点击编辑保存按钮操作
+    [types.EDIT_SAVE_USER](state)
+    {    
+      if(state.editUsernew.name == '' || state.editUsernew.name == undefined || state.editUsernew.name == null)
+      {
+
+      }
+      else{
+          var user_id= state.editUsernew.id;
+          state.users[user_id-1]=state.editUsernew
+      }
+    },
+    // 点击编辑关闭按钮操作
+    [types.CLOSE_USER](state)
+    {    
+          state.curEditUser=''
+    }
+} 
+
+export default { 
+	state, 
+	mutations 
+}
+
+

@@ -1,0 +1,16 @@
+(function(){
+  window['optimizely'] = window['optimizely'] || [];
+  window['optimizely'].push(['activateGeoDelayedExperiments', {
+    'location':{
+      'city': "GUANGZHOU",
+      'continent': "AS",
+      'country': "CN",
+      'region': "GD"
+    },
+    'ip':"61.142.211.90"
+  }]);
+})
+//
+()
+
+;

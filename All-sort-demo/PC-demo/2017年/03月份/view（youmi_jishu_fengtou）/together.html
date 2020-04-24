@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Pragma" content="no-cache">
+		<title>合作条款</title>
+		<link rel="stylesheet" href="css/base-reset.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/public.css" />
+		<link rel="stylesheet" href="css/yhn.css" />
+		<link rel="stylesheet" href="css/wwNew.css" />
+		<script src="js/jquery-1.11.3.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/vue.min.js"></script>
+	</head>
+
+	<body class="together">
+		<header class="navbar navbar-default" id="top" role="banner" style="margin-top:20px;">
+			<div class="container">
+				<img class="logo left" src="img/logo.png" />
+				<div id="navbar" class="navbar-collapse collapse" style='padding-right:0'>
+					<ul class="nav navbar-nav">
+						<li class="">
+							<a href="index.html">主页</a>
+						</li>
+						<li class="">
+							<a href="selectFun.html">自助评估</a>
+						</li>
+						<li class="">
+							<a href="projectApplication.html">项目申请</a>
+						</li>
+						<li class="active">
+							<a href="together.html">合作条款</a>
+						</li>
+						<li class="">
+							<a href="aboutUs.html">关于我们</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" v-if="haslogin">
+						<li id="goCenter" class="headBox">
+							<img id="head" style="cursor: pointer;" src="img/cgx.jpg" alt="" />
+							<span id="userTips"></span>
+							<div class="downList" style="display:none;">
+								<strong></strong>
+								<div>
+									<ul>
+										<li>
+											<p id="unameTitle"></p>
+										</li>
+										<li id="makeCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-zoom-in"></span></span><strong class="down-title">创建公司</strong></li>
+										<li id="gomyCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-briefcase"></span></span><strong class="down-title">我管理的公司</strong></li>
+										<li id="assess" class="hov"><span class="dot2"><span class="glyphicon glyphicon-usd"></span></span><strong class="down-title">估价</strong></li>
+										<li id="mypaper" class="hov"><span class="dot2"><span class="glyphicon glyphicon-list-alt"></span></span><strong class="down-title">我的报价单</strong></li>
+										<li id="exit" class="hov"><span class="dot2"><span class="glyphicon glyphicon-off"></span></span><strong class="down-title">退出登录</strong></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" v-else>
+						<li>
+							<a href="login.html">登录</a>
+						</li>
+						<li>
+							<a href="register.html">注册</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+
+		<section class="content">
+			<div class="tab">
+				<div class="item active" data-page=".page1"><i></i><span>1</span>项目创建</div>
+				<div class="itemPdf" data-page="page1-pdf">
+					<a style="display: block;height: 30px;line-height: 30px;" href="load/tzyxs.pdf" download>《投资意向书》 PDF下载</a>
+					<a style="display: block;height: 30px;line-height: 30px;" href="load/bmxy.pdf" download>《保密协议》 PDF文档下载</a>
+				</div>
+				<div class="item" data-page=".page2"><i></i><span>2</span>项目审核通过</div>
+				<div class="itemPdf" data-page="page2-pdf" style="display: none;">
+					<a style="display: block;height: 40px;line-height: 40px;" href="load/zlqd.pdf" download>《尽职调查清单》 PDF下载</a>
+				</div>
+				<div class="item" data-page=".page3"><i></i><span>3</span>尽职调查通过</div>
+				<div class="item" data-page=".page4"><i></i><span>4</span>项目启动</div>
+			</div>
+			<div class="txtContent">
+				<div class="page1 page">
+					<div class="txt">本着公开公平的原则，我们公开风险投资的评估流程和相关文件，绝大多数创业者都是第一次接触此类文件，在信息透明的原则下，投资者和创业者都不会再条款上花费太多精力。</div>
+					<div class="txt">除非非常特别的情况下，凡是接受我们投资的创业公司，最终的投资条款基本都是一致的。</div>
+					<div class="txt">我们坚持创业者具有人格的独立，这是投资的基本条件之一，我们不做创业者的控制者。</div>
+					<div class="txt">我们推荐创业者仔细阅读本文档，有助于创业者了解风险投资行业的通用条款和股权投资的复杂程度，只有充分的信息对等后，后期的合作推进才会快速。</div>
+
+					<div class="title">1、凡在本站开始填报产品需求和项目申请的创业者，即意味您已同意并签署《技术风投意向书》、《保密协议》。</div>
+					<div class="tip" style="height: 100px;line-height: 100px;text-align: right;">
+						<img src="img/PDF.png" /><a href="load/tzyxs.pdf" download>《投资意向书》 PDF下载</a>
+					</div>
+					<div>
+					<div class="txt">投资方 / 或关联方。</div>
+					<div class="txt">项目公司或创始人 ____公司，以下简称“公司”。或（创始人xxx、xxx、xxx）。</div>
+					<div class="txt">投资方式 投资方通过增资方式以产品开发（含前期调研文档、产品原型设计、WEB端、微信公众号、APP、产品后台等）折算后获得公司部分的股权。</div>
+					<div class="txt"> 时效性 本协议以___________公司在悠米技术创投网注册并提交产品需求和创建公司后，即视为同意并签署本协议。如创业公司未能通过风险评估进入后续投资审核环节，则本意向书自动失效。</div>
+					<div class="txt"> 排他条款 本投资意向书签署之日起30日之内，投资方有权与公司或项目就拟进行的本投资意向条款进行独家谈判。在排他期限内，公司原股东或项目成员不得接触任何其他潜在投资者，以免与本投资意向书所拟定交易相冲突。 其他说明 本投资意向书视为投资方向项目公司或项目创始人发出的邀约，以上投资条款除了排他条款自本条款清单签署之日起生效外，其他都是非约束性的意思表示。各方签字盖章确认后将作为各方展开进一步调查和谈判的基础，直至各方签署正式投资合同。本意向书一式两份，由各方签署或盖章，项目公司或创始人团队和投资方各持一份。 各方签字盖章确认如下：</div>
+					<div class="txt" style="margin-top: 80px;"> 项目公司（盖章）： &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创投（盖章）：</div>
+					<div class="txt" style="margin-top: -5px;"> 创始人（签字）：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 授权代表人（签字）：</div>
+					</div>
+					
+					<div class="tip" style="margin-top: 80px;text-align: right;" ;>
+						<img src="img/PDF.png" /><a href="load/bmxy.pdf" download>《保密协议》 PDF文档下载</a>
+					</div>
+					<div class="txt">甲方： 投资方/</div>
+					<div class="txt" style="margin-top: -5px;">乙方： 创业公司/创始人</div>
+					<hr style="margin: 50px 0;" />
+                   
+					<div class="txt">一、投资方有意向了解创业公司的情况以探讨投资事宜。</div>
+					<div class="txt">二、根据工作需要，投资方和创业者双方及其股东、雇员或顾问等有可能接触或使用本协议所述保密信息。</div>
+					<div class="txt">三、为明确投资方和创业者双方的保密权利义务，保守双方的商业秘密，保护各方合法权益，特就协议双方保守保密信息相关事宜达成如下协议：</div>
+					<div class="txt" style="margin-top: 80px;"><span>第一条</span> 本协议所称保密信息，系指不为公众所知悉、能为权利人或授权持有人带来现时或潜在经济利益或竞争优势的任何信息、或者与本协议各方有关的商业秘密、或者其他所有通过公共渠道无法获得的任何信息，包括但不限于：</div>
+					<div class="txt"><span>1.1</span>依附于各种不同载体的有关甲乙双方及各自关联方的各种信息，包括但不限于文件、资料、报表、数据、凭证和电子记录。</div>
+					<div class="txt"> <span>1.2</span>投资方和创业者双方的经营状况、财务状况、人员状况、管理诀窍、客户名单、商业情报内容及其获取渠道、生产经营策略、渠道和方法、与任何第三方的合作情况等涉及争议情况。</div>
+					<div class="txt"><span>1.3</span>相关上级或行业主管机关的意见、批件或批示内容的部分或全部。</div>
+					<div class="txt"><span>1.4</span>甲方和乙方就本次探讨投资相关事宜签署的文件内容及进行磋商的进展，包括但不限于各方开出的条件、双方已经达成的协议、补充修改协议和目前尚存的分歧等。</div>
+					<div class="txt"><span>1.5</span>甲方和乙方为本次探讨投资事宜而相互提供的其他信息。</div>
+					<div class="txt"><span>第二条</span> 保密信息的使用：甲方向乙方提供的保密信息只能供乙方作为意向投资者尽职调查与自己决策之用。乙方向甲方提供的解决意见、建议、设想和解决方案等，只能供甲方自己决策之用。</div>
+					<div class="txt"><span>第三条</span> 保密信息的使用禁止：本协议任何一方未经协议另一方的书面或指定邮箱所发送的邮件许可，不得将保密信息以任何方式（包括但不限于邮寄、传真、携带、电子邮件等方式）提供给其他方。</div>
+					<div class="txt"><span>第四条</span> 前述规定之保密事宜甲乙双方必须明确遵守，任何一方不得违反，若因一方违反本协议条款而给对方造成名誉或经济损失，则责任方需承担由此产生的责任、损失和费用，向对方提供完全、有效的赔偿。</div>
+					<div class="txt"><span>第五条</span> 因本协议而产生或与本协议有关的任何争议，协议双方应首先通过协商解决。若协商不成，任何一方可依法向本协议签署地人民法院提起诉讼。</div>
+
+				</div>
+				<div class="page2 page" style="display: none;">
+					<div class="title">2、提交和创建项目成功后的3-15个工作日为审核期，接到通过审核的创业者即可开始按《进调清单》里面的材料准备，并约定见面时间。</div>
+					<div class="tip" style="text-align: right;">
+						<img src="img/PDF.png" /><a href="load/zlqd.pdf" download>《尽职调查清单》 PDF下载</a>
+					</div>
+					<div class="txt">尽调资料清单</div>
+					<div class="title2">一、企业基本情况</div>
+					<div class="txt">1、 关于企业基本情况的文字介绍（请附上营业执照、组织机构代码证、税务登记证原件、复印件等）</div>
+					<div class="txt">2、企业历史沿革（含设立及历次股权变更）</div>
+					<div class="txt">3、企业现行股权结构（请列示股东名称、出资额、出资方式、股权比例及出资到位情况）</div>
+					<div class="txt">4、知识产权情况（含商标清单、专利清单、专有技术）</div>
+					<div class="txt">5、关联公司情况及关联关系说明</div>
+					<div class="title2">二、财务情况</div>
+					<div class="txt">1、近二年一期的财务报表（审计后的,如有）及主要科目明细（会计师事务所审计纸版2012/2013）</div>
+					<div class="txt">2、未来三年财务预测及预测依据说明（请附上重大销售合同）</div>
+					<div class="title2">三、业务情况</div>
+					<div class="txt">1、企业主要业务</div>
+					<div class="txt">2、主要产品/服务及其特点介绍</div>
+					<div class="txt">3、主要消费对象和盈利模式</div>
+					<div class="txt">4、经营模式说明（含营销模式、采购模式、生产模式）</div>
+					<div class="title2">四、内部治理</div>
+					<div class="txt">1、企业实际控制人、高管人员、核心员工简历（含教育背景、工作经历、能力职位等）</div>
+					<div class="txt">2、员工情况（按年龄、学历、专业进行人数统计）</div>
+					<div class="txt">3、最近一个月的员工薪资表和员工社保及公积金缴纳情况说明</div>
+					<div class="title2">五、行业分析（仅提供原始资料并注明出处）</div>
+					<div class="txt">1、行业概况（市场规模、增长速度、政策法规、发展趋势等）</div>
+					<div class="txt">2、行业竞争（进入壁垒、竞争格局、主要竞争对手，企业行业地位，竞争优劣势等）</div>
+					<div class="txt">3、产业链</div>
+					<div class="title2">六、融资计划</div>
+					<div class="txt">1、企业未来三年的发展规划</div>
+					<div class="txt">2、融资额、融资用途说明</div>
+					<div class="title2">七、重要合同/协议</div>
+					<div class="txt">1、潜在订单情况说明或合同原件或复印件。</div>
+
+				</div>
+				<div class="page3 page" style="display: none;">
+					<div class="title">3、通过尽职调查的创业公司即可签订《技术投资协议》。</div>
+					<div class="tip"><img src="img/PDF.png" />《技术投资协议》 PDF下载（通过前期审核方可下载）</div>
+				</div>
+				<div class="page4 page" style="display: none;">
+					<div class="title">4、恭喜，项目开始开发。我们在下面提供一份《开发调研清单》和二个阶段的《开发完成交付清单》，帮助创业者了解技术开发的运作。</div>
+					<div class="list">
+						<div class="txt" style="margin: 50px 0;">《开发调研清单》</div>
+						<div class="txt">行业分析</div>
+						<div class="txt">用户群分析</div>
+						<div class="txt">竞争对手分析</div>
+						<div class="txt">品牌定位</div>
+						<div class="txt">现有业务分析</div>
+						<div class="txt">衍生业务分析</div>
+						<div class="txt">用户需求挖掘</div>
+						<div class="txt">产品概念设计</div>
+						<div class="txt">用户行为分析</div>
+						<div class="txt">流程分析</div>
+						<div class="txt">产品发展路径</div>
+						<div class="txt">运营可行性分析</div>
+						<div class="txt">技术可行性分析</div>
+
+						<div class="txt" style="margin: 50px 0;">《产品设计交付清单》</div>
+
+						<div class="txt">思维导图设计</div>
+						<div class="txt">交互设计</div>
+						<div class="txt">动效设计</div>
+						<div class="txt">原型设计</div>
+						<div class="txt">PRD设计</div>
+						<div class="txt">视觉设计</div>
+						<div class="txt">技术方案设计</div>
+						<div class="txt">信息架构设计</div>
+
+						<div class="txt" style="margin: 50px 0;">《技术开发与实施交付清单》</div>
+
+						<div class="txt">技术开发文档</div>
+						<div class="txt">数据库接口文档</div>
+						<div class="txt">项目管理文档</div>
+						<div class="txt">项目测试文档</div>
+						<div class="txt">PC端开发</div>
+						<div class="txt">WAP端开发</div>
+						<div class="txt">IOS/安卓开发</div>
+						<div class="txt">后台开发</div>
+						<div class="txt">软件产品验收清单</div>
+						<div class="txt">服务器架构与部署</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<footer id="footer"></footer>
+	</body>
+	<script src="js/login.js"></script>
+	<script>
+	$("#footer").load("footer.html");
+		$(".tab .item").on('click',function(){
+			$(".page").css('display','none');
+			$(this).siblings().removeClass('active');
+			$(this).addClass('active');
+		    $($(this).data("page")).css('display','block');
+		});
+	</script>
+
+</html>

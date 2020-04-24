@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+ 接下来就是ajax的使用。mui 提供了ajax的使用方法， 
+
+ 不过如果你按照文档那样，每个ajax调用都写那么一堆代码，一会你的代码就会臃肿不堪。
+
+ 所以，我对ajax调用又做了一个简单的封装，避免每次都设置相同的参数：
+
+ <script>
+	function postData(url, data, callback, waitingDialog) {  
+	      
+	    mui.ajax(url,{  
+	        data:'data='+JSON.stringify(data),  
+	        dataType:'json',  
+	        type:'post',  
+	        contentType:"application/x-www-form-urlencoded; charset=utf-8",  
+	        timeout:60000,  
+	        success:callback,  
+	        error:function(xhr,type,errorThrown){  
+	            waitingDialog.close();  
+	            mui.alert("<网络连接失败，请重新尝试一下>", "错误", "OK", null);  
+	        }  
+	    });  
+	}  
+</script>
+
+data 属性：就是要传递给服务端的数据。之所以要加上 'data=' 这个东西，就是为了让服务器端知道变量的名字是 "data" 。而传递的json 数据，也必须通过JSON.stringify方式转换成字符串。
+ 
+contentType属性：这个很重要。如果没有这个，你在后台得到的中文字符串就会是乱码。其实如果你熟悉Jquery，对这个属性应该不会陌生。
+ 
+error属性：出错的处理。这里的 waitingDialog 是一个等待的对话框。在点击登录按
+
+钮后，会显示一个等待的对话框。无论出错了，还是正常处理了，都必须要关闭这个等待的对话框。同时用 mui.alert 
+
+以上就是 ajax 的请求函数。
+
+ 
+ <!-- ------------------------------------------------------------------------------ -->
+    
+ 接下来看看登录按钮的处理：
+
+<script>
+	// 登录处理，还记得我们上一篇写得的按钮关联的事件吧  
+	document.getElementById("loginBtn").addEventListener('tap', function(){  
+	  // 显示一个等待的对话框  
+	  var wd = plus.nativeUI.showWaiting();  
+	  // 构造要传递的json数据  
+	  // $id 是一个通过 id 取得对象的方法，  
+	  // 内容就是 return document.getElementById();  
+	  var data = {"userName": $id('username').value,   
+	          "userPassword":md5Hash($id('userpassword').value)  
+	  };  
+
+	  // 调用ajax  上面封装好的一个方法 postData。
+	  postData(SERVER_HOST + MODULE_LOGIN, //服务端的URL  
+	    data,// json 数据  
+	    function(data) {  
+	      wd.close(); // 调用成功，先关闭等待的对话框  
+	      if(data.result != "checkOK") {  
+	        // 如果密码错误，提示一下信息  
+	        mui.alert("用户名或密码错误", "登录错误", "关闭");  
+	        return;  
+	      }  
+	      // 保存token，以便于下次自动登录  
+	      localStorage.setItem(TOKEN_USER, $id('username').value);  
+	      localStorage.setItem(TOKEN_LOGIN, data.token);  
+	      // 清空用户名，密码  
+	      $id('username').value = "";  
+	      $id("userpassword").value = "";  
+	      // 打开下一个画面  
+	      mui.openWindow(  
+	        {  
+	          url:'mainShow.html',  
+	          id:'mainShow',  
+	        }  
+	      );  
+	    },  
+	    wd//传递给postData的最后一个参数，失败的时候关闭等待对话框  
+	  );  
+	}); 
+</script> 
+ 
+    上面的代码都有注释，但是有的地方还是说明一下。
+
+    plus.nativeUI.showWaiting(); 这是一个原生的调用，并非用 div 
+
+    来模拟对话框。这也是HBuilder的强力武器之一：Native.js。Native.
+
+    js的概念，在第一篇入门文章里有介绍。具体的API用法，请参照官方的文档，里边有一个 Native.js 的部分。
+
+ <!--  ---------------------------------------------------------------------------------- -->
+
+ 传递给服务器端的数据的部分，正如流程里所示，对密码进行了加密。对于 ajax 的调用，使用了之前封装的 postData 方法。
+
+
+ 返回值是一个 json 对象，变量名字为 data。
+
+ 如果 data.result 不等于 "checkOK" ，那么就认为密码错误，提示错误信息。
+
+ 注意：在实际的应用中，判断返回数据的有效性，最好不使用字符串，而是使用数字。
+
+ 如 1表示密码错误，0表示校验通过。并且，对于返回值的格式，最好有统一的格式定义。之前我为了尽快完成功能，只是随意地使用了各种字符串，各种变量来处理返回的状态，等到程序大到一定程度的时候，就发现这很混乱，不容易维护了。
+
+ 保存 token ，是为了下次打开程序的时候能自动登录，无需再次输入用户名和密码。
+
+ 当用户再次打开应用的时候，先判断localstorage 里是否保存有 token。
+
+ 如果有 token ，那么就通过ajax发送给服务器，服务器判断token 
+
+ 的有效性，如果验证通过，那么自动登录就成功，否则失败。
+
+
+ 之后，有一个清除用户名和密码的操作。为什么需要这个操作？在 webview 的理解这篇文章说过，页面的webview 创建完毕后，是不会自己销毁的。
+
+
+ 虽然你后面可以再次迁移到别的webview，但是新的webview也只是覆盖在了之前的webview上。
+
+ 当我们的程序有注销的功能的时候，需要再次显示登录画面。如果登录画面没有经过 销毁-> 再构建的过程，那么显示登录画面的时候，就会显示出来你上次输入的用户名和密码。所以，我们在这里手动清空一下。
+
+ 之后，使用 mui.openWindow 打开下一个页面。
+ 
+ 接下来是服务器端的部分。在ajax中，我们给服务器端传递的参数名字叫 data，那么无论你是使用java也好，还是php 也好，都需要从 request 中取出 "data" 这个变量。这个变量的值就是字符串化的json。
+
+<!--  ----------------------------------------------------------------------------- -->
+
+</body>
+</html>

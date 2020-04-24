@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Pragma" content="no-cache">
+		<title>自助评估</title>
+		<link rel="stylesheet" href="css/base-reset.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/public.css" />
+		<link rel="stylesheet" href="css/yhn.css" />
+		<link rel="stylesheet" href="css/wwNew.css" />
+	</head>
+
+	<body class="selectFun">
+		<header class="navbar navbar-default" id="top" role="banner" style="margin-top:20px;margin-bottom: 0;">
+			<div class="container">
+				<img class="logo left" src="img/logo.png" />
+				<div id="navbar" class="navbar-collapse collapse" style='padding-right:0'>
+					<ul class="nav navbar-nav">
+						<li class="">
+							<a href="index.html">主页</a>
+						</li>
+						<li class="active">
+							<a href="selectFun.html">自助评估</a>
+						</li>
+						<li class="">
+							<a href="projectApplication.html">项目申请</a>
+						</li>
+						<li class="">
+							<a href="together.html">合作条款</a>
+						</li>
+						<li class="">
+							<a href="aboutUs.html">关于我们</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" v-if="haslogin">
+						<li id="goCenter" class="headBox">
+							<img id="head" style="cursor: pointer;" src="img/cgx.jpg" alt="" />
+							<span id="userTips"></span>
+							<div class="downList" style="display:none;">
+								<strong></strong>
+								<div>
+									<ul>
+										<li>
+											<p id="unameTitle"></p>
+										</li>
+										<li id="makeCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-zoom-in"></span></span><strong class="down-title">创建公司</strong></li>
+										<li id="gomyCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-briefcase"></span></span><strong class="down-title">我管理的公司</strong></li>
+										<li id="assess" class="hov"><span class="dot2"><span class="glyphicon glyphicon-usd"></span></span><strong class="down-title">估价</strong></li>
+										<li id="mypaper" class="hov"><span class="dot2"><span class="glyphicon glyphicon-list-alt"></span></span><strong class="down-title">我的报价单</strong></li>
+										<li id="exit" class="hov"><span class="dot2"><span class="glyphicon glyphicon-off"></span></span><strong class="down-title">退出登录</strong></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" v-else>
+						<li>
+							<a href="login.html">登录</a>
+						</li>
+						<li>
+							<a href="register.html">注册</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+		<div class="bar">
+			<div class="btn-div">
+				<div class="btn active btn-first" data-id="1"><span>1</span>第一步,项目类型</div>
+				<div class="btn btn-second" data-id="2"><span>2</span>第二步,功能评估</div>
+				<div class="btn btn-third" data-id="3"><span>3</span>第三步,计算结果</div>
+			</div>
+		</div>
+		<section class="firstPage" style="display: none;">
+			<div class="title">自助评估您的项目需求</div>
+			<div class="tip">在正式申请悠米技术天使投资前,请仔细评估一下您自己的产品需求，对下步的沟通和申请会大有帮助的。</div>
+			<div class="item-div">
+				<div class="item" data-arr="webArr" style="background: url(img/item-web.png);"><img src="img/check-web.png"></img>
+				</div>
+				<div class="item" data-arr="iosArr" style="background: url(img/item-ios.png);"><img src="img/check-ios.png"></img>
+				</div>
+				<div class="item" data-arr="androidArr" style="background: url(img/item-android.png);"><img src="img/check-android.png"></img>
+				</div>
+				<div class="item" data-arr="weixinArr" style="background: url(img/item-weixin.png);"><img src="img/check-weixin.png"></img>
+				</div>
+				<div class="item" data-arr="h5Arr" style="background: url(img/item-h5.png);"><img src="img/check-h5.png"></img>
+				</div>
+				<!--<div class="item" data-arr="serviceArr" style="background: url(img/item-other.png);"><img src="img/check-other.png"></img>
+				</div>-->
+				<div style="clear: both;"></div>
+			</div>
+			<center>
+				<div class="next-btn" style="border-radius:4px;">下一步</div>
+			</center>
+		</section>
+		<section class="secondPage" style="display: none;">
+			<div class="itemList">
+				<span class="itemBtn active" data-arr="webArr">Web网站<span>4</span></span>
+				<span class="itemBtn" data-arr="iosArr">移动应用IOS<span>4</span></span>
+				<span class="itemBtn" data-arr="androidArr">移动应用Android<span>4</span></span>
+				<span class="itemBtn" data-arr="weixinArr">微信公众号<span>4</span></span>
+				<span class="itemBtn" data-arr="h5Arr">前端项目<span>4</span></span>
+				<span class="itemBtn" data-arr="serviceArr">管理后台<span>4</span></span>
+				<div style="clear: both;"></div>
+			</div>
+			<div class="groupList" style="display: none;">
+				<span class="group" data-arr="webArr" style="background: url(img/item-web.png) no-repeat;background-size: contain;"><img src = "img/check-web.png"></img></span>
+				<span class="group" data-arr="iosArr" style="background: url(img/item-ios.png) no-repeat;background-size: contain;"><img src = "img/check-ios.png"></img></span>
+				<span class="group" data-arr="androidArr" style="background: url(img/item-android.png) no-repeat;background-size: contain;"><img src = "img/check-android.png"></img></span>
+				<span class="group" data-arr="weixinArr" style="background: url(img/item-weixin.png) no-repeat;background-size: contain;"><img src = "img/check-weixin.png"></img></span>
+				<span class="group" data-arr="h5Arr" style="background: url(img/item-h5.png) no-repeat;background-size: contain;"><img src = "img/check-h5.png"></img></span>
+				<!--<span class="group" data-arr="serviceArr" style="background: url(img/item-other.png) no-repeat;background-size: contain;"><img src = "img/check-other.png"></img></span>-->
+				<div style="clear: both;"></div>
+			</div>
+			<div class="change-btn">修改平台</div>
+			<div id="content" class="content">
+				<div class="table-title">
+					<div>分类</div>
+					<div>模块</div>
+					<div>功能点</div>
+				</div>
+				<ul class="type">
+					<li class="type-li" v-for="item in dataArr">
+						<div class="type-div">{{item.type}}</div>
+						<ul class="model">
+							<li class="model-li" v-for="subItem in item.item">
+								<div class="model-div"><span>{{subItem.model}}</span>
+									<template v-if="subItem.type != 'radio'">
+										<template v-if="subItem.checkArr.length == subItem.item.length">
+											<input type="checkbox" class="allCheck" name="{{subItem.val}}" checked="checked" style="display: block;">
+										</template>
+										<template v-if="subItem.checkArr.length != subItem.item.length">
+											<input type="checkbox" class="allCheck" name="{{subItem.val}}">
+										</template>
+									</template>
+								</div>
+								<div class="model-fun">
+									<div v-for="funItem in subItem.item" class="fun-item-div" data-tip="{{funItem.tip}}">
+										<template v-if="subItem.type == 'radio'">
+											<input type="radio" id="{{funItem.val}}" value="{{funItem.val}}" name="{{funItem.val}}" v-model="subItem.checkArr">
+											<label for="{{funItem.val}}">{{funItem.fun}}</label>
+										</template>
+										<template v-if="subItem.type != 'radio'">
+											<input type="checkbox" class="singleCheck" id="{{funItem.val}}" value="{{funItem.val}}" v-model="subItem.checkArr">
+											<label for="{{funItem.val}}">{{funItem.fun}}</label>
+										</template>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li>
+					<li class="type-li" v-if="dataType == 'h5Arr'">
+						<div class="type-div">页面数量</div>
+						<ul class="model">
+							<li class="model-li" style="padding: 10px;">
+								<input id="pageNum" type="text" onkeyup="value=value.replace(/[^\d]/g,'');h5pageNum = value"  value="{{h5pageNum}}" v-model="h5pageNum" placeholder="请输入页面数量" style="border: none;width: 300px;" />
+							</li>
+						</ul>
+					</li>
+					<div class="clearBtnDiv">
+						<button class="reset btn btn-primary">还原默认</button>
+						<button class="oneKeyClear btn btn-primary">一键清空</button>
+						<button class="oneKeySelectAll btn btn-primary">一键全选</button>
+					</div>
+					<center>
+						<button class="submit btn btn-primary" onclick="sss();">计算结果</button>
+					</center>
+				</ul>
+			</div>
+			<div class="tips">
+				<div class="tips-title">功能点描述</div>
+				<div class="tips-txt">鼠标移到对应的功能点上，此处会显示功能点说明</div>
+				<img class="tips-img" onload="setImgSuccess()" onerror="setImgError()" />
+				<div class="borderDiv"></div>
+			</div>
+		</section>
+		</div>
+		<section class="thirdPage" style="display: none;">
+			<div class="result-div">
+				<div class="box1">
+					<div class="title">悠米技术创投预估开发周期</div>
+					<div class="workDay">预估报价：<span id="moneyTxt"></span>元</div>
+					<div class="workDay2">开发周期：<span id="dateTxt"></span>个工作日</div>
+					<div class="total">共有<span id="itemNumTxt"></span>个平台，<span id="funNumTxt"></span>个功能模块<span class="look">查看功能清单</span></div>
+				</div>
+				<div class="box2">
+					<div class="btn resetBtn">调整需求重新计算</div>
+				</div>
+			</div>
+			<div class="result-btn-div">
+				<div class="btn btn-primary">保存我的需求</div>
+			</div>
+			<div class="save-div" style="display: none;">
+				<div class="title">保存报价</div>
+				<div class="tip">您保存的项目，可以在[我的报价单]列表查看或编辑</div>
+				<textarea class="verify" id="companyName" placeholder="填写项目名称（必填）"></textarea>
+				<textarea class="remark" id="companyRemark" style="height: 140px;" placeholder="填写项目描述"></textarea>
+				<div class="btn btn-primary submit" style="padding-top: 9px;">确认保存</div>
+			</div>
+			<div id="showMy" class="content" style="display: none;">
+				<div v-for="bigItem in dataArr" style="margin-top: 50px;">
+					<div class="show-title">{{bigItem.type}}<span>{{bigItem.num}}</span></div>
+					<div class="show-table-title">
+						<div>分类</div>
+						<div>模块</div>
+						<div>功能点</div>
+					</div>
+					<ul class="show-type">
+						<li class="show-type-li" v-for="item in bigItem.arr">
+							<div class="show-type-div">{{item | ifNullItem}}</div>
+							<ul class="show-model">
+								<li class="show-model-li" v-for="subItem in item.item" v-if="subItem.checkArr.length > 0">
+									<div class="show-model-div"><span>{{subItem.model}}</span>
+									</div>
+									<div class="show-model-fun">
+										<div v-for="funItem in subItem.item" class="show-fun-item-div" v-if="subItem.checkArr.indexOf(funItem.val) != -1">
+											<label for="{{funItem.fun}}">{{funItem.fun}}</label>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</li>
+						<li class="show-type-li" v-if="bigItem.type == '前端项目'">
+							<div class="show-type-div">页面数量</div>
+							<ul class="show-model">
+								<li class="show-model-li" style="padding: 10px;">
+									<input  disabled="disabled" type="text" value="{{bigItem.pageNum}}" placeholder="请输入页面数量" style="border: none;width: 300px;" />
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+		<div class="shadow" style="display: none;"></div>
+		<div class="alertWindow alertTel" style="display: none;">
+			<div class="title">手机号码验证</div>
+			<input type="text" class="num" placeholder="请输入手机号" /><span class="send">发送验证码</span>
+			<input type="text" class="verify" placeholder="手机验证码" />
+			<button class="btn btn-primary">马上验证</button>
+		</div>
+		<div class="alertWindow alertTel" style="display: none;height: 450px;">
+			<div class="title">完善账户信息</div>
+			<input type="text" class="verify" placeholder="用户名（即个性后缀，注册后无法修改）" />
+			<input type="text" class="verify" placeholder="密码" />
+			<input type="text" class="verify" placeholder="重复密码" />
+			<div style="padding: 5px 30px;font-size: 14px;">
+				<input type="checkbox" />我同意遵守《悠米技术创投服务协议》
+			</div>
+			<button class="submit">确认</button>
+			<div class="tip">已注册过账户？
+				<a>点击登录</a>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script type="text/javascript" src="js/function.js"></script>
+	<script src="js/login.js"></script>
+	<script type="text/javascript" src="layer/layer.js" ></script>
+	<script>
+		Vue.filter('ifNullItem', function(arr) {
+			for(var i = 0; i < arr.item.length; i++) {
+				if(arr.item[i].checkArr != null && arr.item[i].checkArr.length > 0) {
+					return arr.type;
+				}
+			}
+			return "";
+		})
+		var functionArr = webArr;
+		var h5pageNum = "";
+		var vm = new Vue({
+			el: '#content',
+			data: {
+				dataArr: functionArr,
+				dataType: "webArr",
+				h5pageNum:h5pageNum
+			},
+		});
+
+		var showVm = new Vue({
+			el: '#showMy',
+			data: {
+				dataArr: showArr
+			},
+		});
+
+		$(".firstPage").css('display', 'block');
+		var dataArr = [];
+		var showArr = new Array();
+		var page = 1;
+		
+//		if(sessionStorage.pageNum == undefined || sessionStorage.pageNum == ''){
+//			sessionStorage.pageNum = 1;
+//		}else{
+//			page = sessionStorage.pageNum;
+//		}
+		init();
+
+		function init() {
+			//sessionStorage.pageNum = page;
+			$(".itemBtn").css('display', 'none');
+			$(".group").removeClass("active")
+			for(var i = 0; i < dataArr.length; i++) {
+				$(".itemBtn[data-arr='" + dataArr[i] + "']").css('display', 'block');
+			}
+			for(var i = 0; i < dataArr.length; i++) {
+				$(".group[data-arr='" + dataArr[i] + "']").addClass("active");
+			}
+			setNum();
+			if(page == 1) {
+				$(".selectFun").css('background-color', '#fff');
+				$(".firstPage").fadeIn(300);
+				$(".secondPage").fadeOut(300);
+				$(".thirdPage").fadeOut(300);
+				$(".btn-first").addClass("active");
+				$(".btn-second").removeClass("active");
+				$(".btn-third").removeClass("active");
+			} else if(page == 2) {
+				$(".selectFun").css('background-color', '#F0F2F5');
+				$(".firstPage").fadeOut(300);
+				$(".secondPage").fadeIn(300);
+				$(".thirdPage").fadeOut(300);
+				$(".btn-first").removeClass("active");
+				$(".btn-second").addClass("active");
+				$(".btn-third").removeClass("active");
+
+				if(dataArr.indexOf("webArr") != -1) {
+					functionArr = webArr;
+					vm.dataType = "webArr";
+				} else if(dataArr.indexOf("iosArr") != -1) {
+					functionArr = iosArr;
+					vm.dataType = "iosArr";
+				} else if(dataArr.indexOf("androidArr") != -1) {
+					functionArr = androidArr;
+					vm.dataType = "androidArr";
+				} else if(dataArr.indexOf("weixinArr") != -1) {
+					functionArr = weixinArr;
+					vm.dataType = "weixinArr";
+				} else if(dataArr.indexOf("h5Arr") != -1) {
+					functionArr = h5Arr;
+					vm.dataType = "h5Arr";
+				} else if(dataArr.indexOf("serviceArr") != -1) {
+					functionArr = serviceArr;
+					vm.dataType = "serviceArr";
+				}
+				vm.dataArr = functionArr;
+			} else if(page == 3) {
+				$(".selectFun").css('background-color', '#F0F2F5');
+				$(".firstPage").fadeOut(300);
+				$(".secondPage").fadeOut(300);
+				$(".thirdPage").fadeIn(300);
+				$(".btn-first").removeClass("active");
+				$(".btn-second").removeClass("active");
+				$(".btn-third").addClass("active");
+				showArr = new Array();
+				var obj = new Object();
+				for(var i = 0; i < dataArr.length; i++) {
+					if(dataArr[i] == "webArr") {
+						obj = new Object();
+						obj.type = "Web网站"
+						obj.arr = webArr;
+						obj.num = getNum("webArr");
+						showArr.push(obj);
+					} else if(dataArr[i] == "iosArr") {
+						obj = new Object();
+						obj.type = "移动应用IOS"
+						obj.arr = iosArr;
+						obj.num = getNum("iosArr");
+						showArr.push(obj);
+					} else if(dataArr[i] == "androidArr") {
+						obj = new Object();
+						obj.type = "移动应用Android"
+						obj.arr = androidArr;
+						obj.num = getNum("androidArr");
+						showArr.push(obj);
+					} else if(dataArr[i] == "weixinArr") {
+						obj = new Object();
+						obj.type = "微信公众号"
+						obj.arr = weixinArr;
+						obj.num = getNum("weixinArr");
+						showArr.push(obj);
+					} else if(dataArr[i] == "h5Arr") {
+						obj = new Object();
+						obj.type = "前端项目"
+						obj.arr = h5Arr;
+						obj.pageNum = h5pageNum;
+						obj.num = getNum("h5Arr");
+						showArr.push(obj);
+					} else if(dataArr[i] == "serviceArr") {
+						obj = new Object();
+						obj.type = "管理后台"
+						obj.arr = serviceArr;
+						obj.num = getNum("serviceArr");
+						showArr.push(obj);
+					}
+					showVm.dataArr = showArr;
+				}
+
+			}
+		}
+		//		$(".btn-div").on('click', '.btn', function() {
+		//			page = $(this).data("id");
+		//			init();
+		//		});
+
+		$(".resetBtn").on('click', function() {
+			page = 2;
+			init();
+		});
+
+		$(".look").on('click', function() {
+			if($("#showMy").css("display") == "none") {
+				$("#showMy").css("display", "block");
+			} else {
+				$("#showMy").css("display", "none");
+			}
+		});
+
+		$(".result-btn-div").on('click', '.btn', function() {
+			if(sessionStorage.haslogin == "yes") {
+				$(".save-div").css("display", "block");
+			} else {
+				window.location.href = "login.html";
+			}
+
+		});
+
+		$(".save-div").on('click', '.submit', function() {
+			if($("#companyName").val() == undefined || $("#companyName").val().trim() == "") {
+				layer.msg("项目名不能为空");
+				return;
+			}
+			if($("#companyRemark").val() == undefined || $("#companyRemark").val().trim() == "") {
+				layer.msg("请填写项目备注");
+				return;
+			}
+			console.log(funStr);
+			sendData = {
+				mobile: sessionStorage.mobile,
+				name: $("#companyName").val(),
+				remark: $("#companyRemark").val(),
+				price: price,
+				day: day,
+				points: funStr,
+				companyId:"11",
+				companyName:"posun"
+			};
+			$.ajax({
+				type: "post",
+				url: "/services/ws/project/save",
+				contentType: "application/json",
+				data: JSON.stringify(sendData),
+				success: function(jsonData) {
+					if(JSON.parse(jsonData).status == "true") {
+						window.location.href = "personal.html";
+					} else {
+						layer.msg("计算失败");
+					}
+				}
+			});
+		});
+
+		$(".itemList").on('click', '.itemBtn', function() {
+			$(this).siblings().removeClass("active");
+			$(this).addClass("active");
+			if($(this).data("arr") == "webArr") {
+				functionArr = webArr;
+				vm.dataType = "webArr";
+			} else if($(this).data("arr") == "iosArr") {
+				functionArr = iosArr;
+				vm.dataType = "iosArr";
+			} else if($(this).data("arr") == "androidArr") {
+				functionArr = androidArr;
+				vm.dataType = "androidArr";
+			} else if($(this).data("arr") == "weixinArr") {
+				functionArr = weixinArr;
+				vm.dataType = "weixinArr";
+			} else if($(this).data("arr") == "h5Arr") {
+				functionArr = h5Arr;
+				vm.dataType = "h5Arr";
+			} else if($(this).data("arr") == "serviceArr") {
+				functionArr = serviceArr;
+				vm.dataType = "serviceArr";
+			}
+			vm.dataArr = functionArr;
+		});
+		$(".change-btn").on('click', function() {
+			if($(this).html() == "修改平台") {
+				$(this).html("保存平台");
+				$(this).css("background", "#272822");
+			} else {
+				$(this).html("修改平台");
+				$(this).css("background", "#8996A6");
+			}
+			if($(".groupList").css("display") == "none") {
+				$(".groupList").css("display", "block");
+				$(".tips").css("top", "300px");
+			} else {
+				$(".groupList").css("display", "none");
+				var itemArr = $(".group");
+				dataArr = ["serviceArr"];
+				for(var i = 0; i < itemArr.length; i++) {
+					if($(itemArr[i]).hasClass("active")) {
+						dataArr.push($(itemArr[i]).data("arr"));
+					}
+				}
+				init();
+				$(".tips").css("top", "100px");
+			}
+		});
+		$(".groupList").on('click', '.group', function() {
+			$(this).toggleClass("active");
+		});
+
+		$(".item-div").on('click', '.item', function() {
+			$(this).toggleClass("active")
+			var itemArr = $(".item");
+			var flag = false;
+			for(var i = 0; i < itemArr.length; i++) {
+				if($(itemArr[i]).hasClass("active")) {
+					flag = true;
+					break;
+				}
+			}
+			if(flag) {
+				$(".next-btn").addClass("active");
+			} else {
+				$(".next-btn").removeClass("active");
+			}
+		});
+		$(".next-btn").on('click', function() {
+			if($(this).hasClass("active")) {
+				page = 2;
+				var itemArr = $(".item");
+				dataArr = ["serviceArr"];
+				for(var i = 0; i < itemArr.length; i++) {
+					if($(itemArr[i]).hasClass("active")) {
+						dataArr.push($(itemArr[i]).data("arr"));
+					}
+				}
+				init();
+			}
+		});
+		$("#content").on('mouseover', '.model-li', function() {
+			$(this).find(".allCheck").css('display', 'inline-block');
+		});
+		$("#content").on('mouseleave', '.model-li', function() {
+			if($(this).find(".allCheck").prop('checked') == false) {
+				$(this).find(".allCheck").css('display', 'none');
+			}
+		});
+		$("#content").on('click', '.allCheck', function() {
+			if($(this).prop('checked') == true) {
+				setAllCheck($(this).parent().text(), 'Y');
+				$(this).parent().next().find("input").prop("checked", "checked");
+			} else {
+				setAllCheck($(this).parent().text(), 'N');
+				$(this).parent().next().find("input").removeAttr("checked");
+			}
+			setTimeout(setNum, 100);
+		});
+
+		var urlStr = "";
+		$("#content").on('mouseover', '.fun-item-div', function() {
+			$(this).addClass("active");
+			$(".tips").animate({
+				'top': ($(this).offset().top - 250) + "px"
+			}, 10);
+
+			if($(".itemBtn.active").data("arr") == "webArr") {
+				urlStr = "P001-1";
+			} else if($(".itemBtn.active").data("arr") == "iosArr") {
+				urlStr = "P002-2";
+			} else if($(".itemBtn.active").data("arr") == "androidArr") {
+				urlStr = "P003-3";
+			} else if($(".itemBtn.active").data("arr") == "weixinArr") {
+				urlStr = "P004-4";
+			} else if($(".itemBtn.active").data("arr") == "h5Arr") {
+				urlStr = "P005-5";
+			} else if($(".itemBtn.active").data("arr") == "serviceArr") {
+				urlStr = "P006-6";
+			}
+			$(".tips-title").text($(this).parent().prev().text().trim() + " > " + $(this).text().trim());
+			$(".tips-txt").text($(this).data("tip"));
+			$(".tips-img").attr('src', "./tipImg/" + urlStr + getIndex($(this).parent().prev().text().trim(), $(this).text().trim()) + ".png");
+		});
+
+		function setImgError() {
+			$(".tips-img").css("display", "none");
+		}
+
+		function setImgSuccess() {
+			$(".tips-img").css("display", "block");
+		}
+
+		function getIndex(modelName, name) {
+			for(var i = 0; i < functionArr.length; i++) {
+				for(var j = 0; j < functionArr[i].item.length; j++) {
+					if(functionArr[i].item[j].model == modelName) {
+						for(var k = 0; k < functionArr[i].item[j].item.length; k++) {
+							if(functionArr[i].item[j].item[k].fun == name) {
+								return formatNum(i + 1).toString() + formatNum(j + 1).toString() + formatNum(k + 1).toString();
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		function formatNum(num) {
+			if(num < 10) {
+				return "0" + num
+			} else {
+				return num;
+			}
+		}
+
+		$("#content").on('mouseleave', '.fun-item-div', function() {
+			$(this).removeClass("active");
+			$(".tips-title").text("功能点描述");
+			$(".tips-txt").text("鼠标移到对应的功能点上，此处会显示功能点说明");
+			$(".tips-img").attr('src', "");
+			$(".tips-img").css("display", "none");
+		});
+
+		function setAllCheck(name, flag) {
+			for(var i = 0; i < functionArr.length; i++) {
+				for(var j = 0; j < functionArr[i].item.length; j++) {
+					if(functionArr[i].item[j].model.trim() == name.trim()) {
+						if(flag == 'Y') {
+							functionArr[i].item[j].checkArr = [];
+							for(var k = 0; k < functionArr[i].item[j].item.length; k++) {
+								functionArr[i].item[j].checkArr.push(functionArr[i].item[j].item[k].val);
+							}
+						} else {
+							functionArr[i].item[j].checkArr = [];
+						}
+						break;
+					}
+				}
+			}
+		}
+
+		var newArr = new Array();
+
+		function sss() {
+			newArr = new Array();
+			if(dataArr.length <= 1){
+				layer.msg("请至少选择一个项目");
+				return;
+			}
+			for(var i = 0; i < dataArr.length; i++) {
+				if(dataArr[i] == "webArr") {
+					functionArr = webArr;
+					if(!getResult()) {
+						return;
+					}
+				} else if(dataArr[i] == "iosArr") {
+					functionArr = iosArr;
+					if(!getResult()) {
+						return;
+					}
+				} else if(dataArr[i] == "androidArr") {
+					functionArr = androidArr;
+					if(!getResult()) {
+						return;
+					}
+				} else if(dataArr[i] == "weixinArr") {
+					functionArr = weixinArr;
+					getResult();
+				} else if(dataArr[i] == "h5Arr") {
+					functionArr = h5Arr;
+					if(!getResult()) {
+						return;
+					}
+				} else if(dataArr[i] == "serviceArr") {
+					functionArr = serviceArr;
+					if(!getResult()) {
+						return;
+					}
+				}
+			}
+			funStr = "";
+			for(var i = 0; i < newArr.length; i++) {
+				funStr += newArr[i] + ",";
+			}
+			if(h5pageNum == "") {
+				funStr += "0";
+			} else {
+				funStr += h5pageNum;
+			}
+			if(dataArr.indexOf("h5Arr") != -1 && h5pageNum == 0){
+				layer.msg("前端项目请填写页面数量");
+				return;
+			}
+			submit(funStr, newArr.length);
+		}
+
+		var sendData;
+		var price;
+		var day;
+		var funStr;
+
+		function submit(data, num) {
+			sendData = {
+				points: data
+			};
+			$.ajax({
+				type: "post",
+				url: "/services/ws/project/assess",
+				contentType: "application/json",
+				data: JSON.stringify(sendData),
+				success: function(jsonData) {
+					if(JSON.parse(jsonData).status == "true") {
+						price = parseInt(JSON.parse(jsonData).price);
+						day = parseInt(JSON.parse(jsonData).day);
+						$("#moneyTxt").text(parseInt(price * 0.9) + "-" + parseInt(price * 1.1));
+						$("#dateTxt").text(parseInt(day * 0.9) + "-" + parseInt(day * 1.1));
+						$("#itemNumTxt").text(dataArr.length);
+						$("#funNumTxt").text(num);
+						page = 3;
+						init();
+					} else {
+						layer.msg("计算失败");
+					}
+				}
+			});
+		};
+		var singleItemNum = 0;
+
+		function getResult() {
+			singleItemNum = 0;
+			for(var i = 0; i < functionArr.length; i++) {
+				for(var j = 0; j < functionArr[i].item.length; j++) {
+					singleItemNum += functionArr[i].item[j].checkArr.length;
+					newArr = newArr.concat(functionArr[i].item[j].checkArr);
+				}
+			}
+			if(singleItemNum < 1) {
+				layer.msg("每个项目至少选择1个功能点");
+				return false;
+			}
+			return true;
+		}
+
+		function setNum() {
+			for(var i = 0; i < dataArr.length; i++) {
+				$(".itemBtn[data-arr='" + dataArr[i] + "']").find("span").text(getNum(dataArr[i]));
+			}
+		}
+		var num = 0;
+		var tempArr = new Array();
+
+		function getNum(type) {
+			num = 0;
+			if(type == "webArr") {
+				tempArr = webArr;
+			} else if(type == "iosArr") {
+				tempArr = iosArr;
+			} else if(type == "androidArr") {
+				tempArr = androidArr;
+			} else if(type == "weixinArr") {
+				tempArr = weixinArr;
+			} else if(type == "h5Arr") {
+				tempArr = h5Arr;
+			} else if(type == "serviceArr") {
+				tempArr = serviceArr;
+			}
+			for(var i = 0; i < tempArr.length; i++) {
+				for(var j = 0; j < tempArr[i].item.length; j++) {
+					num += tempArr[i].item[j].checkArr.length;
+				}
+			}
+			return num;
+		}
+
+		$(".oneKeyClear").on('click', function() {
+			for(var i = 0; i < functionArr.length; i++) {
+				for(var j = 0; j < functionArr[i].item.length; j++) {
+					if(functionArr[i].item[j].type != "radio") {
+						functionArr[i].item[j].checkArr = [];
+					}
+				}
+			}
+			$(".allCheck").removeAttr("checked");
+			$(".allCheck").css('display', 'none');
+			$("#pageNum").val("");
+			setNum();
+		});
+		$(".reset").on('click', function() {
+			for(var i = 0; i < functionArr.length; i++) {
+				for(var j = 0; j < functionArr[i].item.length; j++) {
+					if(functionArr[i].item[j].defaultArr != null) {
+						functionArr[i].item[j].checkArr = functionArr[i].item[j].defaultArr;
+					} else {
+						functionArr[i].item[j].checkArr = [];
+					}
+				}
+			}
+			$(".allCheck").removeAttr("checked");
+			$(".allCheck").find(".allCheck").css('display', 'none');
+			setNum();
+		});
+		
+		$(".oneKeySelectAll").on('click', function() {
+			for(var i = 0; i < functionArr.length; i++) {
+				for(var j = 0; j < functionArr[i].item.length; j++) {
+					if(functionArr[i].item[j].type != "radio") {
+						functionArr[i].item[j].checkArr = [];
+						for(var k = 0; k < functionArr[i].item[j].item.length; k++) {
+							functionArr[i].item[j].checkArr.push(functionArr[i].item[j].item[k].val);
+						}
+					}
+				}
+			}
+			setNum();
+		});
+		
+		
+		var checkFlag = true;
+		var itemArr;
+		$("#content").on('click', ".singleCheck", function() {
+			checkFlag = true;
+			itemArr = $(this).parent().parent().find("input");
+			for(var i = 0; i < itemArr.length; i++) {
+				if($(itemArr[i]).prop('checked') == false) {
+					checkFlag = false;
+				}
+			}
+			if(checkFlag) {
+				$(this).parent().parent().prev().find("input").prop("checked", "checked");
+			} else {
+				$(this).parent().parent().prev().find("input").removeAttr("checked");
+			}
+			setTimeout(setNum, 100);
+		});
+	</script>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  
+    利用 Math.max() 与 Math.min() 方法
+
+    思路： 将数组转换成参数传进Math.max()或Math.min()。
+
+    <script>
+
+        Array.prototype.max = function() {
+          return Math.max.apply({}, this) //或 return Math.max(...this)
+        }
+
+        [1, 45, 23, 3, 6, 2, 7, 234, 56].max() // 234
+
+    </script>
+
+</body>
+
+</html>

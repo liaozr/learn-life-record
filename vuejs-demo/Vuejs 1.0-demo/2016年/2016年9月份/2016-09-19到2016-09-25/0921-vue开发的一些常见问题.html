@@ -1,0 +1,177 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<!-- 配置路由 -->
+	<script>
+         const router=new VueRouter({
+         	history:true,
+         	saveScrollPosition:true  //当用户点击后退时，用popstate事件相应
+         })
+	</script>
+<!-- ------------------------------------------------------------------------------ -->
+
+
+<div @click="check"></div>
+methods: {
+    check () {
+        alert('ok')
+    }
+}
+
+大家会发现并不会alert，但是语法没错误呀，这是为什么呢？
+
+让我妈修改alert
+
+methods: {
+    check () {
+        window.alert('ok')
+    }
+}
+<!-- 也是this 指向的问题 -->
+
+<!-- ------------------------------------------------------------------------------------------ -->
+
+方法传值
+
+我们在input中的方法希望获取input的value，怎么获取呢？
+
+可以通过$event这个对象，通过将$event传入方法
+
+<input type="text" value="value" @input="change($event)"/>
+我们可以成功的拿到我们希望的值
+
+change (e) {
+  console.log(e.target.value)
+  this.value = e.target.value
+}
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+迭代判断
+
+比如我们有一个列表，我们希望能显示我们当前选中的那一个，如何实现呢？
+
+基本思路是通过$index来判断是否是当前迭代对象，然后去增减class或者style来实现不同的样式
+
+<ul>
+  <!-- 方法1 class-->
+  <li v-for="item in list" :class="{'active': $index === activeId}">{{item}}</li>
+  
+  <!-- 方法2 style-->
+  <li v-for="item in list" :style="{backgroundColor: $index === activeId ? 'red' : 'white'}">{{item}}</li>
+</ul>
+<script>
+	data () {
+	  return {
+	    list: ['a', 'b', 'c'],
+	    activeId: 0
+	  }
+	}
+</script>
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+camelCase vs. kebab-case
+
+HTML 特性不区分大小写。名字形式为 camelCase 的 prop 用作特性时，需要转为 kebab-case（短横线隔开）(官网例子)
+
+<script>
+	Vue.component('child', {
+	  // camelCase in JavaScript
+	  props: ['myMessage'],
+	  template: '<span>{{ myMessage }}</span>'
+	})
+</script>
+
+<!-- kebab-case in HTML -->
+<child my-message="hello!"></child>
+
+另外props的写法
+
+简写
+
+props: ['demo-first', 'demo-second']
+带类型
+
+props: {
+    'demo-first': Number,
+    'demo-second': Number
+}
+带多种检查
+
+props: {
+    'demo-first': {
+        type: Number,
+        default: 0
+    }
+    ...
+}
+所以， 当你获取不到props的值的时候，可以先仔细检查拼写是否正确。
+
+
+传值与传字面量
+
+在vue的组件中传递数据，如果是单纯传递字面量，如
+
+<hello result="success"></hello>
+
+那么在hello中获取的props result的值就是“success”，如果希望进行值传递，需要在指令前加 ':' 冒号，这样，父层的success的值改变，hello的值也会跟着改变。
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+v-cloak
+
+如果出现{{}}的短暂出现的情况，可以通过添加v-cloak来处理。
+
+这个指令保持在元素上直到关联实例结束编译。和 CSS 规则如 [v-cloak] { display: none } 一起用时，这个指令可以隐藏未编译的 Mustache 标签直到实例准备完毕。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+使用sass
+
+首先安装依赖
+
+npm i node-sass sass-loader -D
+然后在vue的style里添加
+
+<style lang="scss" scoped>
+注意：是"scss"!然后重启webpack，就ok啦
+</style>
+
+
+/*--------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+
+引用图片
+
+首先，如果使用的是img标签那么可以这样
+
+data () {
+    return {
+        img: require('path/to/your/source')
+    }
+}
+
+然后在template中
+
+<img :src="img" />
+
+
+如果使用的是背景图的方式，那么
+
+可以这样
+
+data () {
+    return {
+        img: require('path/to/your/source')
+    }
+}
+
+<div :style="{backgroundImage: 'url(' + img + ')'}"></div>
+
+/*------------------------------------------------------------------------*/
+</body>
+</html>

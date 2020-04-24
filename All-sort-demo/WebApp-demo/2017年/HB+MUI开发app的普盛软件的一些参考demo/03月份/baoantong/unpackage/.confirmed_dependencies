@@ -1,0 +1,388 @@
+{
+	"index.html": {
+		"resources": [
+			"js/zepto1.1.6.min.js",
+			"css/base-reset.css",
+			"js/flexible_css.js",
+			"css/index.css",
+			"images/u142.png",
+			"images/u140active.png",
+			"css/mui.min.css",
+			"images/u144.png",
+			"js/swiper-3.3.1.min.js",
+			"js/flexible.js",
+			"css/icons-extra.css",
+			"css/swiper-3.3.1.min.css",
+			"js/mui.min.js",
+			"images/u140.png",
+			"images/u144active.png",
+			"images/u142active.png",
+			"fonts/mui-icons-extra.ttf"
+		],
+		"refer": [
+			"us.html",
+			"baoliao.html",
+			"section.html",
+			"home.html",
+			"guide.html"
+		]
+	},
+	"us.html": {
+		"resources": [
+			"images/g.png",
+			"images/d.png",
+			"images/c.png",
+			"images/e.png",
+			"images/b.png",
+			"fonts/mui.ttf",
+			"images/f.png",
+			"images/h.png",
+			"images/i.png",
+			"images/a.png",
+			"fonts/mui-icons-extra.ttf",
+			"css/base-reset.css",
+			"js/swiper-3.3.1.min.js",
+			"css/icons-extra.css",
+			"js/zepto1.1.6.min.js",
+			"css/index.css",
+			"js/flexible_css.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/flexible.js",
+			"css/swiper-3.3.1.min.css",
+			"css/resett.css",
+			"js/vue.min.js"
+		],
+		"refer": [
+			"denglu.html"
+		]
+	},
+	"baoliao.html": {
+		"resources": [
+			"css/base-reset.css",
+			"images/u32.png",
+			"css/index.css",
+			"images/bb.jpg",
+			"fonts/mui.ttf",
+			"images/u34.png",
+			"css/mui.min.css",
+			"images/u30.png",
+			"css/icons-extra.css",
+			"css/swiper-3.3.1.min.css",
+			"fonts/mui-icons-extra.ttf",
+			"js/swiper-3.3.1.min.js",
+			"js/zepto1.1.6.min.js",
+			"js/flexible_css.js",
+			"js/flexible.js",
+			"js/mui.min.js",
+			"pullrefresh_sub.html",
+			"images/u142.png",
+			"images/u144.png",
+			"images/u140active.png",
+			"pullrefresh_sub1.html",
+			"js/vue.min.js"
+		],
+		"refer": [
+			"denglu.html",
+			"pullrefresh_sub.html",
+			"baoliao_details.html",
+			"pullrefresh_sub1.html",
+			"woyao_baoliao.html",
+			"us.html"
+		]
+	},
+	"section.html": {
+		"resources": [
+			"css/base-reset.css",
+			"images/u32.png",
+			"css/index.css",
+			"images/u34.png",
+			"css/mui.min.css",
+			"images/u30.png",
+			"css/icons-extra.css",
+			"css/swiper-3.3.1.min.css",
+			"fonts/mui-icons-extra.ttf",
+			"fonts/mui.ttf",
+			"js/mui.min.js",
+			"js/swiper-3.3.1.min.js",
+			"js/zepto1.1.6.min.js",
+			"js/flexible_css.js",
+			"js/flexible.js",
+			"pullrefresh_sub.html"
+		],
+		"refer": [
+			"banshi_dating.html",
+			"gonggong_fuwu.html",
+			"shenghuo_zixun.html",
+			"pullrefresh_sub.html",
+			"webview_embed.html",
+			"webview_embed2.html"
+		]
+	},
+	"banshi_dating.html": {
+		"resources": [
+			"css/base-reset.css",
+			"images/banshidating/e.png",
+			"images/banshidating/i.png",
+			"images/banshidating/d.png",
+			"images/banshidating/a.png",
+			"images/banshidating/c.png",
+			"css/mui.min.css",
+			"images/banshidating/h.png",
+			"images/banshidating/b.png",
+			"images/banshidating/j.png",
+			"images/banshidating/g.png",
+			"images/banshidating/f.png",
+			"fonts/mui.ttf",
+			"js/swiper-3.3.1.min.js",
+			"css/icons-extra.css",
+			"js/zepto1.1.6.min.js",
+			"css/index.css",
+			"js/flexible_css.js",
+			"fonts/mui-icons-extra.ttf",
+			"js/mui.min.js",
+			"js/flexible.js",
+			"css/swiper-3.3.1.min.css"
+		]
+	},
+	"gonggong_fuwu.html": {
+		"resources": [
+			"css/base-reset.css",
+			"images/banshidating/d.png",
+			"images/banshidating/c.png",
+			"fonts/mui.ttf",
+			"js/jquery-1.9.1.js",
+			"js/swiper-3.3.1.min.js",
+			"css/icons-extra.css",
+			"images/banshidating/e.png",
+			"css/index.css",
+			"js/flexible_css.js",
+			"images/banshidating/a.png",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/flexible.js",
+			"images/banshidating/b.png",
+			"css/swiper-3.3.1.min.css",
+			"images/banshidating/f.png",
+			"fonts/mui-icons-extra.ttf"
+		]
+	},
+	"shenghuo_zixun.html": {
+		"resources": [
+			"css/base-reset.css",
+			"images/banshidating/d.png",
+			"images/banshidating/c.png",
+			"fonts/mui.ttf",
+			"images/banshidating/h.png",
+			"js/swiper-3.3.1.min.js",
+			"css/icons-extra.css",
+			"js/zepto1.1.6.min.js",
+			"images/banshidating/e.png",
+			"css/index.css",
+			"js/flexible_css.js",
+			"images/banshidating/a.png",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"images/shenghuo-icon2.png",
+			"images/banshidating/b.png",
+			"js/flexible.js",
+			"images/shenghuo-icon.png",
+			"css/swiper-3.3.1.min.css",
+			"images/banshidating/g.png",
+			"images/banshidating/f.png"
+		]
+	},
+	"denglu.html": {
+		"resources": [
+			"css/base-reset.css",
+			"images/hezuo-zhanghao2.png",
+			"images/hezuo-zhanghao1.png",
+			"css/mui.min.css",
+			"images/hezuo-zhanghao3.png",
+			"fonts/mui.ttf",
+			"js/swiper-3.3.1.min.js",
+			"css/icons-extra.css",
+			"js/zepto1.1.6.min.js",
+			"css/index.css",
+			"js/flexible_css.js",
+			"js/mui.min.js",
+			"js/flexible.js",
+			"css/swiper-3.3.1.min.css",
+			"denglu.html",
+			"js/layer-m/need/layer.css",
+			"js/layer-m/layer.js",
+			"js/vue.min.js",
+			"us.html",
+			"fonts/mui-icons-extra.ttf"
+		],
+		"refer": [
+			"denglu.html",
+			"us.html"
+		]
+	},
+	"pullrefresh_sub.html": {
+		"resources": [
+			"css/base-reset.css",
+			"images/bb.jpg",
+			"css/mui.min.css",
+			"css/index.css",
+			"css/icons-extra.css",
+			"css/swiper-3.3.1.min.css",
+			"js/zepto1.1.6.min.js",
+			"images/u32.png",
+			"js/flexible_css.js",
+			"js/mui.min.js",
+			"images/u34.png",
+			"images/u30.png",
+			"js/swiper-3.3.1.min.js",
+			"js/flexible.js"
+		]
+	},
+	"baoliao_details.html": {
+		"resources": [
+			"images/baoliao2.jpg",
+			"css/base-reset.css",
+			"images/baoliao.jpg",
+			"css/mui.min.css",
+			"js/vue.min.js",
+			"js/jquery-1.9.1.js",
+			"js/flexible_css.js",
+			"js/mui.min.js",
+			"js/swiper-3.3.1.min.js",
+			"js/flexible.js",
+			"fonts/mui.ttf",
+			"css/icons-extra.css",
+			"css/index.css",
+			"fonts/mui-icons-extra.ttf",
+			"css/swiper-3.3.1.min.css"
+		]
+	},
+	"pullrefresh_sub1.html": {
+		"resources": [
+			"css/base-reset.css",
+			"images/u32.png",
+			"js/swiper-3.3.1.min.js",
+			"css/icons-extra.css",
+			"js/zepto1.1.6.min.js",
+			"js/flexible_css.js",
+			"css/index.css",
+			"images/bb.jpg",
+			"images/u34.png",
+			"css/mui.min.css",
+			"js/flexible.js",
+			"images/u30.png",
+			"css/swiper-3.3.1.min.css",
+			"js/mui.min.js",
+			"css/resett.css",
+			"fonts/mui-icons-extra.ttf"
+		],
+		"refer": [
+			"baoliao_details.html"
+		]
+	},
+	"webview_embed.html": {
+		"resources": [
+			"css/common.css",
+			"js/mui.min.js",
+			"css/base-reset.css",
+			"css/mui.min.css",
+			"js/jquery-1.9.1.js",
+			"js/flexible_css.js",
+			"css/index.css",
+			"fonts/mui.ttf",
+			"js/swiper-3.3.1.min.js",
+			"js/flexible.js",
+			"css/icons-extra.css",
+			"css/swiper-3.3.1.min.css"
+		]
+	},
+	"webview_embed2.html": {
+		"resources": [
+			"js/jquery-1.9.1.js",
+			"css/base-reset.css",
+			"js/flexible_css.js",
+			"css/index.css",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/swiper-3.3.1.min.js",
+			"js/flexible.js",
+			"css/icons-extra.css",
+			"css/swiper-3.3.1.min.css",
+			"fonts/mui.ttf"
+		]
+	},
+	"woyao_baoliao.html": {
+		"resources": [
+			"css/base-reset.css",
+			"fonts/mui.ttf",
+			"js/skin/default/icon.png",
+			"js/vue.min.js",
+			"js/jquery-1.9.1.js",
+			"js/swiper-3.3.1.min.js",
+			"css/icons-extra.css",
+			"js/picker/mui.picker.min.css",
+			"css/index.css",
+			"js/flexible_css.js",
+			"images/icon-addPic.png",
+			"js/mui.min.js",
+			"js/skin/default/layer.css",
+			"js/layer.js",
+			"css/mui.min.css",
+			"js/picker/mui.picker.min.js",
+			"js/flexible.js",
+			"css/swiper-3.3.1.min.css",
+			"baoliao.html"
+		],
+		"refer": [
+			"baoliao.html"
+		]
+	},
+	"home.html": {
+		"resources": [
+			"css/base-reset.css",
+			"css/index.css",
+			"images/u142.png",
+			"images/u140active.png",
+			"css/mui.min.css",
+			"images/u144.png",
+			"css/icons-extra.css",
+			"css/swiper-3.3.1.min.css",
+			"js/zepto1.1.6.min.js",
+			"js/flexible_css.js",
+			"js/mui.min.js",
+			"js/swiper-3.3.1.min.js",
+			"js/flexible.js",
+			"images/u142active.png",
+			"images/u140.png",
+			"images/u144active.png",
+			"section.html"
+		],
+		"refer": [
+			"us.html",
+			"baoliao.html",
+			"section.html",
+			"denglu.html",
+			"pullrefresh_sub1.html"
+		]
+	},
+	"guide.html": {
+		"resources": [
+			"css/base-reset.css",
+			"images/yindao3.png",
+			"css/mui.min.css",
+			"images/yindao2.png",
+			"images/yindao1.png",
+			"css/index.css",
+			"css/icons-extra.css",
+			"css/swiper-3.3.1.min.css",
+			"js/zepto1.1.6.min.js",
+			"js/flexible_css.js",
+			"js/mui.min.js",
+			"js/swiper-3.3.1.min.js",
+			"js/flexible.js"
+		],
+		"refer": [
+			"home.html"
+		]
+	}
+}

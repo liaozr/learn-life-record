@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+    <div id="app">
+        <input id="man" value="man" type="radio" v-model='picked'>
+        <label for="man">Man</label>
+        <br>
+        <input id="woman" value="woman" type="radio" v-model='picked'>
+        <label for="woman">Woman</label>
+        <div style="margin-left:10px">{{picked}}</div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello World!',
+                picked: 'man'
+            },
+        })
+    </script>
+</body>
+
+</html>

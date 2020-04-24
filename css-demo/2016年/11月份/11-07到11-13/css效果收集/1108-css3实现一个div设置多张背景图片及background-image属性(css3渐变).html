@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+写法：
+
+css3设置多张背景图片
+
+css3设置多张背景图片，可以如下写：
+
+<style>
+    .aa {
+        background: url("haoroomsCSS1_s.jpg") 0 0 no-repeat,
+                    url("haoroomsCSS2_s.jpg") 200px 0 no-repeat,
+                    url("haorooms.jpg") 400px 201px no-repeat;
+    }
+</style>
+
+也可以这么写：
+
+<style>
+  .bb{
+    background-image:url("1.jpg"),url("2.jpg"),url("3.jpg");
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-position: 0 0, 200px 0, 400px 201px;
+  }
+</style>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+css3背景渐变
+
+标准写法
+
+background-image: linear-gradient(  [ <angle> | <side-or-corner> ,]? <color-stop> [, <color-stop>]+ );
+
+上面这种CSS语法我们经常见到，可能有人看不懂具体的意思，其实上面的些符号含义与正则表达式有很多一致之处：
+
+[]在正则中表示一个字符类，这里，你可以理解为一个小单元。
+
+|表示候选。也就是“或者”的意思，要么前面的，要么就后面的。
+
+?为量词，表示0个或1个，言外之意就是，你可以不指定方向，直接渐变色走起。例如：
+
+background:linear-gradient(red, yellow);
+就是从上往下的红黄条纹效果。
+
++也是量词，表示1个或者更多个。因此，终止颜色是不可缺少的。例如：linear-gradient(red)是酱油命，白板。
+
+<>中的是关键字，主要是让开发人员知道这里应该放些什么内容。
+
+水平渐变
+<style>
+    .cc {
+        background-image: linear-gradient(left, red 100px, yellow 200px);
+    }
+</style>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+左上角渐变
+
+那从(100px, 100px)到(200px, 200px)应该就是从左上角开始，写法如下：
+
+<style>
+    .dd {
+        background-image: linear-gradient(left top, red 100px, yellow 200px);
+    }
+</style>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+前缀兼容
+
+基本的写法如下：
+
+background-image: linear-gradient(top, #fff, #dededc);
+
+但是为了兼容，有时候要写多个前缀，变成如下：
+
+<style>
+    .ee {
+        background-image: -ms-linear-gradient(top, #fff, #dededc);
+        background-image: -moz-linear-gradient(top, #fff, #dededc);
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dededc));
+        background-image: -webkit-linear-gradient(top, #fff, #dededc);
+        background-image: -o-linear-gradient(top, #fff, #dededc);
+        background-image: linear-gradient(top, #fff, #dededc);
+    }
+</style>
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+请说一下Vue响应式数据的原理？
+
+Vue底层对于响应式数据的核心是object.defineProperty，
+
+Vue在初始化数据时，会给data中的属性使用object.defineProperty重新定义属性（劫持属性的getter和setter），当页面使用对应属性时，会进行依赖收集（收集当前组件的watcher）,如果属性发生变化，会通知相关依赖进行更新操作
+
+总结：
+
+Vue通过数据劫持配合发布者-订阅者的设计模式，内部通过调用object.defineProperty()
+
+来劫持各个属性的getter和setter，在数据变化的时候通知订阅者，并触发相应的回调
+
+
+--------------------------------------------------------------------------------------------
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  读取文本
+
+  对于type="file"的input元素，用户选择文件上传后会生成一个FileList对象，结构如下：
+
+  <script>
+      // FileList对象
+      {
+          0: {
+              lastModified: 1482289489971，
+              lastModifiedDate: Wed Dec 21 2016 11: 04: 49 GMT + 0800，
+              name: "index.html"，
+              size: 1325，
+              type: "text/html"，
+          },
+          1: {
+              ...
+          },
+          length: 2
+      }
+  </script>
+
+  我们从中可以获取文件名、修改时间、大小和文件类型等信息，文件内容也是包含在里面的，
+
+  不过需要FileReader的读取文件方法才能获取，对于纯文本，我们使用readAsText方法，如下：
+
+  <script>
+
+      //FileReader读取文件内容
+      var reader = new FileReader();
+      reader.readAsText(files[0], 'UTF-8');
+
+      reader.onload = function(e) {
+          // urlData就是对应的文件内容
+          var urlData = this.result;
+      };
+      
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  对象的内容是由一些储存在特定命名位置的（任意类型的）值组成的，我们称之为属性。
+
+  getter 与 setter
+  getter
+
+  get 语法将一个对象属性绑定到查询该属性时将被调用的一个函数上。
+
+  该方法会覆盖单个属性默认的 [[Get]] 操作（获得属性值的操作）。
+
+  用法：
+
+  {get prop() { … } } // prop 为要绑定到给定函数的属性名
+
+  {get [expression]() { … } } //从ECMAScript 2015 (ES6)开始，还可以使用一个计算的属性名的表达式绑定到给定的函数。
+
+  例如：
+
+  <script>
+
+      var myObj = {
+          get a() {
+              return 2
+          }
+      }
+
+      //也可以通过 defineProperty 创建：
+
+      Object.defineProperty(myObj, "b", {
+          get: function() {
+              return this.a * 2
+          },
+          enumrable: true
+      })
+
+      console.log( myObj.a ) // 2
+      console.log( myObj.b ) // 4
+
+      myObj.a = 3
+
+      console.log( myObj.a ) // 2
+
+  </script>
+
+  如上面例子，不管是对象文字语法中的get a() { .. }， 还是defineProperty(..)中的显式定义， 二者都会在对象中创建一个不包含值的属性，
+
+  对于这个属性的访问会自动调用一个隐藏函数，它的返回值会被当作属性访问的返回值。
+
+  同时由于我们只定义了 a 的 getter， 所以对 a 的值进行设置时 set 操作会忽略赋值操作，且不会抛出错误。 为了让属性更合理，
+
+  我们还应当定义 setter。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  setter
+
+  set 语法会覆盖单个属性默认的 [[Put]] 操作（赋值操作）。
+
+  通常来说 getter 和 setter 是成对出现的（ 只定义一个的话通常会产生意料之外的行为）。
+
+  例如：
+
+  <script>
+
+      var myObj2 = {
+          get a() {
+              return this._a_;
+          },
+          set a(val) {
+              this._a_ = val * 2
+          }
+      }
+
+      Object.defineProperty(myObj2, "b", {
+          get: function() {
+              return this.a
+          },
+          set:function(val){
+              this.a= val * 2
+          },
+          enumrable: true
+      })
+
+      myObj2.a = 2;
+
+      console.log( myObj2.a ); // 4
+
+      console.log( myObj2.b ); // 4
+
+  </script>
+
+  注意，在本例中， 实际上我们把赋值（ [[Put]]） 操作中的值 2 存储到了另一个变量\_a\_中。 名称\_a\_只是一种惯例， 没有任何特殊的行为，
+
+  和其他普通属性一样。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

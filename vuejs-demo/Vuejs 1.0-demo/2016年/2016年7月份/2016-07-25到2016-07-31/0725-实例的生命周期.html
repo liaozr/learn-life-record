@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.min.js"></script>
+</head>
+<body>
+	<script>
+   var vm=new Vue({
+   	data:{
+   		a:1
+   	},
+   	created:function(){//实例建造以后
+   		console.log('a is:'+this.a)  // this 指向 vm 实例
+
+   		// 也有一些其它的钩子，在实例生命周期的不同阶段调用，如 compiled、 ready 、destroyed。
+   		// 钩子的 this 指向调用它的 Vue 实例。
+   	}
+   })
+	</script>
+
+	
+</body>
+</html>

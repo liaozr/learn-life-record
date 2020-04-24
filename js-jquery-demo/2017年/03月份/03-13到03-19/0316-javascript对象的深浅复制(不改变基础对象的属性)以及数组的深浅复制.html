@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+6.对象拷贝与赋值
+
+<script>
+    var obj = {
+        name: 'xiaoming',
+        age: 23
+    };
+
+    var newObj = obj;
+
+    newObj.name = 'xiaohua';
+
+    console.log(obj.name); // 'xiaohua'
+    console.log(newObj.name); // 'xiaohua'
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+上方我们将obj对象赋值给了newObj对象，从而改变newObj的name属性，
+
+但是obj对象的name属性也被篡改，这是因为实际上newObj对象获得的只是一个内存地址
+
+，而不是真正 的拷贝，所以obj对象被篡改。
+
+<script>
+    var obj2 = {
+        name: 'xiaoming',
+        age: 23
+    };
+
+    var newObj2 = Object.assign({}, obj2, {
+        color: 'blue'
+    });
+
+    newObj2.name = 'xiaohua';
+
+    console.log(obj2.name); // 'xiaoming'
+    console.log(newObj2.name); // 'xiaohua'
+    console.log(newObj2.color); // 'blue'
+</script>
+
+上方利用Object.assign()方法进行对象的深拷贝可以避免源对象被篡改的可能。
+
+因为Object.assign() 方法可以把任意多个的源对象自身的可枚举属性拷贝给目标对象，然后返回目标对象。
+
+但是Object.assign() 只是一级属性复制，比浅拷贝多深拷贝了一层，使用的时候，还要注意这个问题。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+<script>
+    var obj3 = {
+        name: 'xiaoming',
+        age: 23
+    };
+
+    var newObj3 = Object.create(obj3);
+    newObj3.name = 'xiaohua';
+
+    console.log(obj3.name); // 'xiaoming'
+    console.log(newObj3.name); // 'xiaohua'
+ </script>
+
+我们也可以使用Object.create()方法进行对象的拷贝，
+
+Object.create()方法可以创建一个具有指定原型对象和属性的新对象。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+<script>
+    var obj1 = {
+        prop: {
+            name: 'one'
+        }
+    };
+    obj2 = Object.create(obj1);
+    obj2.prop.name = 'two';
+    console.log(obj1.prop.name);
+    //two
+</script>
+
+Object.create方法指定的第1个参数为新建对象的原型对象
+
+在获取一个对象的属性值时，才会有可能沿着原型链向下寻找，属性赋值没有这个
+
+给一个对象属性赋值时，如果这个属性不存在，那么就直接为这个对象添加这个属性并赋值(不会去理会原型链中的存在，除了某些特殊情况，如原型链中有这个属性的set方法,或这个属性被设置只读不可写的)
+
+obj2.prop.name='two' 先计算obj2.prop的值，在原型链中被发现，
+
+然后再计算obj2.prop对应的对象(不检查原型链)中是否存在name属性~~~
+
+<!-- ------------------------------------------------------------------------------- -->
+
+<script>
+
+    var obj3 = {
+        name: 'wsscat',
+        age: 0
+    }
+
+    var obj4={};
+    obj4.name = obj3.name;
+    obj4.age = obj3.age
+
+    obj3.name = 'autumns';
+    obj4.age=1;
+    console.log(obj3); //Object {name: "autumns", age: 0}
+    console.log(obj4); //Object {name: "wsscat", age: 1}
+
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+数组
+
+对于数组我们可以使用slice()来解决上面的问题
+
+slice
+
+<script>
+
+    var arr = ['wsscat', 'autumns', 'winds'];
+
+    var arrCopy = arr.slice(0);
+    // 当start 为0 时， 等于说是 克隆一个新的数组，
+    // 克隆后 两个数组进行各自的操作，都互不影响，
+
+    arrCopy[0] = 'tacssw'
+
+    console.log(arr)    //['wsscat', 'autumns', 'winds']
+
+    console.log(arrCopy)   //['tacssw', 'autumns', 'winds']
+
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+slice 参数 ： slice（start，end）；
+
+slice 方法，在string对象和array对象 的用法上类似。
+
+对于数组对象来说，slice 方法提取 从 start下标起 以end下标 为结尾的 一段元素（但不包括end下标的元素），然后返回新的数组，对原数组没有任何是影响，
+
+当参数为负时 则该参数 是从 数组的末尾 索引 开始算起，（-1 指的是 数组中倒数第一个元素， -2 指的是，数组中倒数第二个元素。）
+
+当参数为一个参数，当为一个参数时，提取 是以 start下标起 至末尾的 部分元素。
+
+当start 为0 时， 等于说是 克隆一个新的数组，克隆后 两个数组进行各自的操作，都互不影响，
+
+var clone = array.slice(0)；
+
+<!-- --------------------------------------------------------------------------------- -->
+
+splice 的参数 ：splice (start, deleteCount, [item1[, item2[, . . . [,itemN]]]])
+
+数组从 start下标开始，删除deleteCount 个元素，并且可以在这个位置开始添加 n个元素
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

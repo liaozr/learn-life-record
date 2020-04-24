@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="touxiang-des">
+        <img :src="setHead()" alt="" @click="takePicture()" id="head-img">
+        <span class="name">{{empName}}</span>
+    </div>
+
+    <div class="shadow" style="display: none;">
+        <div class="photeUpDiv">
+            <div class="item" id="getCamera">拍照</div>
+            <div class="item" id="getPhoto">相册</div>
+            <div class="item" id="closePhoto">取消</div>
+        </div>
+    </div>
+
+
+    <script>
+        var vm = new Vue({
+            el: 'body',
+            data: {
+                empName: '',
+                id: '',
+                orgName: '',
+                email: '',
+                workPhone: '',
+                mobilePhone: '',
+                sex: '',
+            },
+            methods: {
+                setHead: function() {
+                    var headPortrait = localStorage.headPortrait;
+                    if (isDefine(headPortrait)) {
+                        return getBaseImgUrl() + getThumbImg(headPortrait);
+                    } else {
+                        return "images/kehu/icon-user.png";
+                    }
+
+                },
+                takePicture: function() {
+                    $(".shadow").fadeIn(300);
+                },
+
+            },
+            ready: function() {
+            }
+        })
+
+// ---------------------------------------------------------------------------------------
+
+        $(".shadow").on('click', function() {
+            $(this).fadeOut(300);
+        });
+
+        $(".closePhoto").on('click', function() {
+            $(this).fadeOut(300);
+        });
+
+        $("#getPhoto").on('click', function() {
+            pickGallery();
+        });
+
+        $("#getCamera").on('click', function() {
+            captureImage();
+        });
+
+  // ---------------------------------------------------------------------------------------
+
+        /*
+         * 拍照
+         */
+        var headImg = null;
+
+        function captureImage() {
+
+            var dataStr = new Date().getTime();
+            var cmr = plus.camera.getCamera();
+            console.log("Camera supperted image formats: " + cmr.supportedImageFormats);
+            var res = cmr.supportedImageResolutions[0]; //字符串数组，摄像头支持的拍照分辨率
+            var fmt = $.locStorage.fmt;
+            var dst_path = "_doc/img/" + dataStr + "Z." + fmt;
+            var Orientation;
+            cmr.captureImage(function(path) {
+                console.log("拍照完成===============" + new Date());
+                console.log("拍照本地URL路径:" + path);
+                console.log("拍照平台绝对路径:" + plus.io.convertLocalFileSystemURL(path)); //将本地URL路径转换成平台绝对路径
+
+                var wt = plus.nativeUI.showWaiting();
+
+                var http = new XMLHttpRequest();
+                http.open("GET", "file://" + plus.io.convertLocalFileSystemURL(path), true);
+                http.responseType = "blob";
+                http.onload = function(e) {
+                    //通过图片读取
+                    var image = new Image();
+                    image.onload = function() {
+                        EXIF.getData(image, function() {
+                            console.log("图像数据===============" + new Date());
+                            Orientation = EXIF.getTag(this, 'Orientation');
+                            console.log("Orientation:" + Orientation);
+                            process();
+                        });
+                    };
+                    image.src = URL.createObjectURL(http.response);
+
+                };
+                http.send();
+
+                function process() {
+                    plus.io.resolveLocalFileSystemURL(path, function(entry) {
+                        console.log("读取文件===============" + new Date());
+                        var rotate = 0;
+                        var quality = 20;
+                        switch (Orientation) {
+                            case 6:
+                                rotate = 90;
+                                break;
+                            case 3:
+                                rotate = 180;
+                                break;
+                            case 8:
+                                rotate = 3 / 2 * 180;
+                                break;
+                        }
+                        if (plus.os.name == "iOS") {
+                            rotate = 0; //iOS不旋转
+                            quality = 1;
+                        }
+                        plus.zip.compressImage({
+                                src: path,
+                                dst: dst_path,
+                                quality: quality,
+                                overwrite: true,
+                                rotate: rotate,
+
+                            },
+                            function() {
+                                console.log("压缩旋转===============" + new Date());vb
+                                console.log("Compress success!");
+                                headImg = "file://" + plus.io.convertLocalFileSystemURL(dst_path);
+                                console.log("========================" + headImg);
+                                document.getElementById("head-img").src = headImg;
+                                wt.close();
+                                wt = null;
+                                console.log('删除目标对象');
+                                entry.remove(); //递归删除目录
+
+                            },
+                            function(error) {
+                                console.log("Compress error!");
+                                wt.close();
+                                wt = null;
+                                alert("Compress error!");
+                            });
+
+
+
+
+                    }, function(e) {
+                        outLine("读取拍照文件错误：" + e.message);
+                        wt.close();
+                        wt = null;
+                    });
+
+                }
+            }, function(err) {}, {
+                resolution: res,
+                format: fmt
+            });
+        }
+
+// ---------------------------------------------------------------------------------------
+
+        function pickGallery() {
+            var dataStr = new Date().getTime();
+            var dst_path = "_doc/img/" + dataStr + "Z.jpg";
+            plus.gallery.pick(function(path) {
+                console.log("从相册中选:" + path);
+                var quality = 20;
+                if (plus.os.name == "iOS") {
+                    quality = 1;
+                }
+                plus.zip.compressImage({
+                        src: path,
+                        dst: dst_path,
+                        quality: quality,
+                        overwrite: true,
+                    },
+                    function() {
+                        console.log("Compress success!");
+                        headImg = "file://" + plus.io.convertLocalFileSystemURL(dst_path);
+                        console.log("========================" + headImg);
+                        document.getElementById("head-img").src = headImg;
+                    },
+                    function(error) {
+                        console.log("Compress error!");
+
+                        headImg = path;
+                        console.log("========================" + headImg);
+                        document.getElementById("head-img").src = headImg;
+
+
+                    });
+
+            }, function(err) {}, {
+                filename: dst_path
+            });
+        }
+
+// ---------------------------------------------------------------------------------------
+
+    </script>
+
+</body>
+
+</html>

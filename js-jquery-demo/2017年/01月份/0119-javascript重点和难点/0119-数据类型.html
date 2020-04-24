@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+数据类型
+
+6种原始值（不可变。“除非重置当前变量，否则不能改变元素值。”）
+
+Null(只有一个值： null)
+
+Undefined(一个没有被赋值的变量会有个默认值 undefined)
+
+Number
+
+Boolean(两个值：true 和 false)
+
+String
+
+Symbol和Object(对象指内存中的可以被标识符引用的一块区域)
+
+<!-- ----------------------------------------------------------------------------- -->
+
+数据类型检测
+
+typeof(对变量或值调用 typeof 运算符将返回(字符串)下列值之一)
+
+undefined - Undefined类型
+number - Number类型
+boolean - Boolean类型
+string - String类型
+symbol - Symbol类型(ECMAScript6新增)
+function - 函数对象([[Call]]在ECMA-262条款中实现了)
+object - 引用类型 或 Null类型
+
+<script>
+
+    typeof(Function) // function (Function是函数对象)
+    typeof(new Function) // function (new Function也是是函数对象，同等：var func = function(){})
+    console.log( typeof(Array)) // function (Array是函数对象)
+    console.log( typeof(new Array)) // object（实例化的Array就是object）
+    
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+</body>
+</html>

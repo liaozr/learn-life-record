@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ------------------------------------------------------------------------------------------------------ -->
+
+    刚开始看promise源码的时候总不能很好的理解then和resolve函数的运行机理，但是如果你静下心来，
+
+    反过来根据执行promise时的逻辑来推演，就不难理解了。
+
+    这里一定要注意的点是：promise里面的then函数仅仅是注册了后续需要执行的代码，
+
+    真正的执行是在resolve方法里面执行的，理清了这层，再来分析源码会省力的多。
+
+  <!-- ------------------------------------------------------------------------------------------------------ -->
+
+
+    一、resolve 后的执行情况 无论是 resolve, reject，都会将函数剩余的代码执行完
+
+    <script>
+
+        const promise1 = new Promise((resolve, reject) => {
+            console.log('mark 1');
+            resolve('hello world'); // reject('hello world');
+            console.log('mark 2');
+        });
+
+        promise1.then(result => {
+            console.log(result);
+        }).catch(err => {
+            console.log(err);
+        });
+
+// ------------------------------------------------------------------------------------------------------
+
+        相当于：
+
+        const promise2 = new Promise((resolve, reject) => {
+            console.log('mark 1');
+            console.log('mark 2');
+            resolve('hello world'); // reject('hello world');
+        });
+
+        promise2.then(result => {
+            console.log(result);
+        }).catch(err => {
+            console.log(err);
+        });
+
+// ------------------------------------------------------------------------------------------------------
+
+        如果你不想在 resolve 或 reject 后执行剩下的代码段， 可以在 resolve 后将其返回
+
+        const promise3 = new Promise((resolve, reject) => {
+            console.log('mark 1');
+            return resolve('hello world'); // reject('hello world');
+
+            console.log('mark 2');  // never be here
+            // 这段代码是 不会被执行到的
+
+        });
+
+        promise3.then(result => {
+            console.log(result);
+        }).catch(err => {
+            console.log(err);
+        });
+
+// ------------------------------------------------------------------------------------------------------
+
+
+    </script>
+
+<!-- -------------------------------------------------------------------------------------------------------- -->
+
+
+    八、resolved 状态的 Promise 不会立即执行
+
+    <script>
+
+        let i = 0;
+
+        Promise.resolve('resolved promise').then(() => {
+            i += 2
+        })
+
+        console.log(i) // 0
+
+    </script>
+
+    即使是 resolve 的 Promise 调用 then 方法也是异步执行。
+
+    <!-- -------------------------------------------------------------------------------------------------------- -->
+
+
+    九、结合 async/await 编写同步代码
+
+   async/await 函数可以帮助我们彻底摆脱回调地狱的烦恼，用一种同步的方式来编写异步函数。
+   await 后面可以接数值，如果是异步请求的话可以接 Thunk 函数和 Promise 对象。
+
+  <script>
+
+      const timeout = (ms) => {
+          return new Promise((resolve) => {
+              setTimeout(() => {
+                  resolve(ms + ' passed')
+              }, ms)
+          })
+      }
+
+      const asyncFunc = async() => {
+          const value1 = await timeout(2000)
+          console.log(value1)
+          const value2 = await timeout(2000)
+          console.log(value2)
+      }
+
+      asyncFunc()
+      console.log('now')
+
+      // 打印出的数据为：
+      //  now
+      //  2000 passed
+      //  2000 passed
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------------------------------- -->
+  
+
+</body>
+
+</html>

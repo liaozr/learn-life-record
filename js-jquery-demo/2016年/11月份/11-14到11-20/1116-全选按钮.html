@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 30px;
+        }
+
+        #container {
+            border: 1px solid black;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+
+    <script>
+        $(function() {
+            //绑定按钮点击事件
+            $('#add').on('click', function() {
+                //看看是不是全选
+                if ($('#selectAll').is(':checked')) {
+                    $('#container').append(' <input type="checkbox" checked="checked"/>');
+                } else {
+                    $('#container').append(' <input type="checkbox" />');
+                }
+            });
+
+            //全选逻辑
+            $('#selectAll').on('click', function() {
+                if (this.checked) {
+                    $('#container').find('input:checkbox').prop('checked', 'checked');
+                } else {
+                    $('#container').find('input:checkbox').removeProp('checked');
+                }
+            });
+        })
+    </script>
+
+    <input id="selectAll" type="checkbox" /> <button id="add">add</button>
+
+    <div id="container">
+        <input type="checkbox" />
+        <input type="checkbox" />
+        <input type="checkbox" />
+        <input type="checkbox" />
+    </div>
+</body>
+
+</html>

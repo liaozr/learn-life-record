@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- ---------------------------------------------------------------------------------------------- -->
+
+    <script src='js/swiper-3.3.1.min.js'></script>
+    <script src='js/mui.min.js'></script>
+    <script src="js/zepto1.1.6.min.js"></script>
+    <script src='js/vue.min.js'></script>
+    <script src="authNeed/aes.js"></script>
+    <script src="authNeed/Base64.js"></script>
+    <script src="authNeed/mode-ecb.js"></script>
+    <script src="js/public.js"></script>
+    <!--本地数据存储可以放这里方便管理-->
+    <script src="js/locStorage.js"></script>
+    <!--Sea.js 前端模块化开发框架-->
+    <script type="text/javascript" src="js/sea.js"></script>
+
+    <!-- ---------------------------------------------------------------------------------------------- -->
+
+    <script>
+
+// --------------------------------------------------------------------------------------------
+
+        seajs.config({
+            base: "./js/", //与当前目录平级的js目录
+            alias: {
+                //"$": "http://apps.bdimg.com/libs/jquery/1.8.3/jquery.js"
+            }
+        });
+
+        //加载多个模块，在加载完成时，执行回调
+        var sqlObj = null;
+        seajs.use("db", function(sql) {
+            sqlObj = sql;
+            //创建数据库
+            seajs.use("$");
+            sqlObj.createDataBase($.locStorage.dbName, "", "数据库", 2 * 1024 * 1024);
+        });
+
+// --------------------------------------------------------------------------------------------
+
+
+        var vm = new Vue({
+            el: "body",
+            data: {
+                userName: "",
+                password: "",
+                gengxinFlag: false,
+                clickflag: false,
+                gengxinFlag2: true,
+                ipvalue: ""
+            },
+            watch: {
+                ipvalue: function() {
+                    localStorage.removeItem('ipstr');
+                    localStorage.ipstr = this.ipvalue;
+                    this.ipvalue = localStorage.ipstr
+                },
+                userName: function() {
+                    localStorage.removeItem('loginuname');
+                    localStorage.loginuname = this.userName
+                }
+            },
+            ready: function() {
+
+                if (localStorage.loginuname == "" || localStorage.loginuname == undefined || localStorage.loginuname == null) {
+                    this.userName = '';
+                    this.password = '';
+                } else {
+
+                    this.userName = '';
+                    this.userName = localStorage.loginuname;
+                    this.password = localStorage.loginunamepwd;
+                }
+
+                if (localStorage.ipstr == "" || localStorage.ipstr == undefined || localStorage.ipstr == null) {
+                    localStorage.ipstr = "103.236.252.138:900"
+                    this.ipvalue = localStorage.ipstr;
+                } else {
+                    this.ipvalue = localStorage.ipstr;
+                }
+            }
+        });
+        
+// --------------------------------------------------------------------------------------------
+
+    </script>
+
+    <!-- ---------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

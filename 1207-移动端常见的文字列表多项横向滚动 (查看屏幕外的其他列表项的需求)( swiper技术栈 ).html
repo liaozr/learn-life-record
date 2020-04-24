@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://cdn.bootcss.com/Swiper/4.0.7/css/swiper.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/Swiper/4.0.7/js/swiper.min.js"></script>
+</head>
+
+<body>
+
+    <style>
+        .g-swiper {
+            width: 100%;
+        }
+
+        .g-swiper .swiper-slide {
+            width: 150px;
+            height: 35px;
+            line-height: 35px;
+            border: 1px solid #ccc;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 0.234375rem;
+            color: #999;
+            font-size: 0.375rem;
+        }
+    </style>
+
+    <div class="g-swiper">
+        <div class="swiper-container" id="newhouseswip">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide current">学区房</div>
+                <div class="swiper-slide">刚需房</div>
+                <div class="swiper-slide">性价比</div>
+                <div class="swiper-slide">最佳户型</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var swiper = new Swiper('#newhouseswip', {
+            slidesPerView: 2.5,
+            paginationClickable: true,
+            spaceBetween: 12,
+            initialSlide: 0,
+            freeModeMomentum: false,
+            freeMode: true
+        });
+    </script>
+
+</body>
+
+</html>

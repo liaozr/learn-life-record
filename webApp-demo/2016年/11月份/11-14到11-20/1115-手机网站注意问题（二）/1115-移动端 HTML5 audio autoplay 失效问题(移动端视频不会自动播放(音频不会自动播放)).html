@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.min.js'></script>
+</head>
+
+<body>
+
+    <!-- --------------------------------------------------------------------------------- -->
+
+    <style>
+        .audio {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+        }
+    </style>
+
+    <div class="audio" onclick="playOrPaused()">
+
+        <audio id="audioPlay" loop="" autoplay="autoplay" style="display:none;z-index:0;width:1px;height:1px;left:0px;bottom:0px">
+		         <source src="qingtian.mp3" type="audio/mpeg">
+	      </audio>
+        <div class="play-div"> <span class="player-tip">暂停</span>
+            <div class="player-button animation"></div>
+        </div>
+
+    </div>
+
+    <!-- --------------------------------------------------------------------------------- -->
+
+    <script>
+        function playOrPaused() {
+            var audio = document.getElementById("audioPlay");
+            if (audio.paused) {
+                audio.play();
+                $(".player-button").addClass("animation");
+                $('.player-tip').text('暂停');
+                return;
+            }
+            audio.pause();
+            $(".player-button").removeClass("animation");
+            $('.player-tip').text('播放');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+输入 a = 2, b = 4 输出 a = 4, b =2
+
+这种问题非常巧妙，需要大家跳出惯有的思维，利用 a , b进行置换。
+
+主要是利用 + - 去进行运算，类似 a = a + ( b - a) 实际上等同于最后 的 a = b;
+
+<script>
+    function swap(a, b) {
+        b = b - a;
+        a = a + b;
+        b = a - b;
+        console.log(a)  // 7
+        console.log(b)  // 4
+        return [a, b];
+    }
+
+    swap(4,7);
+
+    function swap2(a, b) {
+        a^=b;
+        b^=a;
+        a^=b;
+        console.log(a)  // 7
+        console.log(b)  // 8
+        // return [a, b];
+    }
+    swap2(8,7);
+
+</script>
+
+题目是，不用临时变量，临时变量是干嘛的呢？当然是存储临时值用的了，对吧。
+
+那么，不用临时变量，我们可以把临时值存储到当前现有的变量中，对吧。
+
+就好像是创造了一个临时变量一样。上面两个例子中，
+
+都是用两个变量的差或两个变量的积作为临时值，然后存储到其中一个变量，
+
+再由相应的运算交换两个变量的值。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+</html>

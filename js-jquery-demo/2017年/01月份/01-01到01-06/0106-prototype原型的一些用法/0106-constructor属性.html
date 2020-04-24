@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  
+  prototype对象有一个constructor属性，默认指向prototype对象所在的构造函数。
+
+<script>
+    function P() {}
+
+    console.log( P.prototype.constructor === P )
+    // true
+</script>
+
+  由于constructor属性定义在prototype对象上面，意味着可以被所有实例对象继承。
+
+<script>
+    function P() {}
+    var p = new P();
+
+    p.constructor
+        // function P() {}
+
+    p.constructor === P.prototype.constructor
+        // true
+
+    p.hasOwnProperty('constructor')
+    // false
+
+</script>
+
+  上面代码中，p是构造函数P的实例对象，但是p自身没有contructor属性，该属性其实是读取原型链上面的
+
+  P.prototype.constructor属性。
+
+<!-- ---------------------------------------------------------------------------- -->
+
+  constructor属性的作用，是分辨原型对象到底属于哪个构造函数。
+
+  <script>
+      function F() {};
+      var f = new F();
+
+      console.log( f.constructor === F  ) // t rue
+      console.log( f.constructor === RegExp )  // false
+  </script>
+
+  上面代码表示，使用constructor属性，
+
+  确定实例对象f的构造函数是F，而不是RegExp。
+
+  <!-- --------------------------------------------------------------------------- -->
+
+  有了constructor属性，就可以从实例新建另一个实例。
+
+  <script>
+      function Constr() {}
+      var x = new Constr();
+
+      var y = new x.constructor();
+      console.log( y instanceof Constr ) // true
+  </script>
+
+  上面代码中，x是构造函数Constr的实例，可以从x.constructor间接调用构造函数。
+
+  这使得在实例方法中，调用自身的构造函数成为可能。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+此外，通过name属性，可以从实例得到构造函数的名称。
+
+<script>
+
+    function Foo() {}
+    var f = new Foo();
+    console.log( f.constructor.name )  // "Foo"
+
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+
+</body>
+
+</html>

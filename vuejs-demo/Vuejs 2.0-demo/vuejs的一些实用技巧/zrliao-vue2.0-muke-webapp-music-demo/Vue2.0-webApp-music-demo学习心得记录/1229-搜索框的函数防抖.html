@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input ref='searchInput' v-model='query' :placeholder="placeholader" class="box" />
+
+    <script>
+    
+        export default {
+            created() {
+
+                // 之所以这么写的目的还不知道，待后续章节完善。
+                this.$watch('query', debounce((newQuery) => {
+                    this.$emit('query', newQuery)
+                }, 200))
+            }
+        }
+
+        function debounce(func, delay) {
+            var timer = void 0;
+            return function() {
+                var _this = this;
+
+                for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                    args[_key] = arguments[_key];
+                }
+
+                if (timer) {
+                    clearTimeout(timer);
+                }
+                timer = setTimeout(function() {
+                    func.apply(_this, args);
+                }, delay);
+            };
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://cdn.bootcss.com/vue/2.4.1/vue.min.js"></script>
+
+    <!-- <script src="https://cdn.bootcss.com/vue/1.0.18/vue.min.js"></script> -->
+
+</head>
+
+<body>
+
+    <div id="app">
+
+        <div v-for='item in items'>
+           <!-- 将 开始时间 小于结束时间的 显示出来  -->
+            <span v-show="dateCompare(item.starttime,item.endtime)">{{item.text}}</span>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#app',
+            data: {
+              items:[
+                {
+                  text:1111,
+                  starttime:'2017-08-01',
+                  endtime:'2017-08-04'
+                },
+                {
+                  text:22222,
+                  starttime:'2017-08-02',
+                  endtime:'2017-08-04'
+                },
+                {
+                  text:33333,
+                  starttime:'2017-08-06',
+                  endtime:'2017-08-04'
+                }
+              ]
+            },
+            methods:{
+               //比较两个日期大小
+
+               //   1.0版本的vue 想用 函数的计算结果，只能将函数 写到 methods标签里面，不然，数据不会动态响应的。
+               compareTime:function(startDate,endDate ){
+                   if( isDefine(startDate) && isDefine(endDate) ){
+                       var aStart=startDate.split('-'); //转成成数组，分别为年，月，日，下同
+                       var aEnd=endDate.split('-');
+                       var startDateTemp = aStart[0]+"/" + aStart[1]+ "/" + aStart[2];
+                       var endDateTemp = aEnd[0] + "/" + aEnd[1] + "/" + aEnd[2];
+                       if (startDateTemp < endDateTemp){
+                          return true;
+                       }else{
+                          return false;
+                       }
+                   }else{
+                      return false;
+                   }
+               }
+            }
+        })
+
+        // 2.0 版本的 vue 可以 用 最外层 函数 的结果，也可以动态响应
+        function dateCompare(startDate,endDate){
+            if( isDefine(startDate) && isDefine(endDate) ){
+                var aStart=startDate.split('-'); //转成成数组，分别为年，月，日，下同
+                var aEnd=endDate.split('-');
+                var startDateTemp = aStart[0]+"/" + aStart[1]+ "/" + aStart[2];
+                var endDateTemp = aEnd[0] + "/" + aEnd[1] + "/" + aEnd[2];
+                if (startDateTemp < endDateTemp){
+                   return true;
+                }else{
+                   return false;
+                }
+            }else{
+               return false;
+            }
+        }
+
+        // 判断有没定义字符串
+        function isDefine(para) {
+            if(typeof para == 'undefined' || para == "" || para == null || para == undefined )
+              return false;
+            else{
+              return true;
+            }
+        }
+
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------ -->
+
+     实践中发现，1.0版本的是不能 将 没在 vue里面 的函数 直接用到 vue里面中去的，
+
+     如果这个函数 不是  在methods 里面定义的，是不能 直接用在 页面上显示 效果的。
+
+
+     而2.0版本的 vue 就已经修复了这个bug，可以直接 使用 最外层 定义的函数的返回结果，也可以
+
+     动态响应，不强制要求一定要把函数 写到  methods 方法里面，是能直接使用 最外层 的函数的返回结果的。
+
+  <!-- ------------------------------------------------------------------------------------------ -->
+
+  下面的那段代码中，data-progress 记得 是要 加上冒号的，不然，
+
+  vue是不会把 这个data-progress 里面的 代码  当做 js表达式来处理的。
+
+
+  下面的那段代码中，data-progress 记得 是要 加上冒号的，不然，
+
+  vue是不会把 这个data-progress 里面的 代码  当做 js表达式来处理的。
+  
+  <!-- ------------------------------------------------------------------------------------------ -->
+
+
+  <div v-for='(index,item) in items' class="jindu-lists">
+
+      <div class="center-msg">
+          <div class="wen">
+              <div class="yishou">
+                  已收：<span class="yishou-wen">{{item.paidMny}}</span> 元
+              </div>
+              <div class="yishou">
+                  应收：<span class="yingshou-wen">{{item.payableMny}}</span> 元
+              </div>
+          </div>
+          <div class="jindu">
+              <div class="td td-progress">
+
+                  <div class="mui-progressbar progress" :data-progress="hetongbaifenbi(item.paidMny,item.payableMny)">
+                      <span></span>
+                  </div>
+
+                  <span class='progress-num' v-bind:style="{left: hetongbaifenbi(item.paidMny,item.payableMny) + '%' }" :class="{'yibai':hetongbaifenbi(item.paidMny,item.payableMny) == '100'}" v-text="hetongbaifenbi(item.paidMny,item.payableMny) +'%' "></span>
+
+                  <span class="daosanjiao" v-bind:style="{left: hetongbaifenbi(item.paidMny,item.payableMny) + '%' }"></span>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <script>
+      var hetongVM = new Vue({
+          el: 'body',
+          data: {
+              items: [],
+              hetongMsg: {},
+              ckno: '',
+              contractId: localStorage.selectContractId,
+              showloading: true,
+              dataflag: true
+          },
+          methods: {
+              hetongbaifenbi: function(yishounum, yingshounum) {
+                  if (yingshounum == 0) {
+                      return 0
+                  } else {
+
+                      var baifenbinum = (Number(yishounum) / Number(yingshounum)).toFixed(2) * 100;
+
+                      return baifenbinum
+
+                  }
+              }
+          }
+      })
+  </script>
+
+  <!-- ------------------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

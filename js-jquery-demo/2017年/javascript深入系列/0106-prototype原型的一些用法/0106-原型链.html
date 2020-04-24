@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  所有对象的原型最终都可以上溯到Object.prototype，
+
+  即Object构造函数的prototype属性指向的那个对象。
+
+  null对象没有自己的原型
+
+<script>
+    Object.getPrototypeOf(Object.prototype)
+    // null
+</script>
+
+上面代码表示，Object.prototype对象的原型是null，由于null没有任何属性，所以原型链到此为止。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+“原型链”的作用是，读取对象的某个属性时，JavaScript引擎先寻找对象本身的属性，如果找不到，就到它的原型去找，如果还是找不到，就到原型的原型去找。
+
+如果直到最顶层的Object.prototype还是找不到，则返回undefined。
+
+如果对象自身和它的原型，都定义了一个同名属性，那么优先读取对象自身的属性，这叫做“覆盖”（overiding）。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+需要注意的是，一级级向上，在原型链寻找某个属性，对性能是有影响的。
+
+所寻找的属性在越上层的原型对象，对性能的影响越大。如果寻找某个不存在的属性，将会遍历整个原型链。
+
+</body>
+</html>

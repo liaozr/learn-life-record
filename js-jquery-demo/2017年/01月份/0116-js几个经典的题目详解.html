@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+<script>
+    var a = 1;
+
+    var b = function a(x) {
+        x && a(--x);
+    };
+
+    alert(a);
+
+
+    // 打印出的值为 1
+</script>
+
+需要知道的是，函数声明会覆盖变量声明，但不会覆盖变量赋值，为了解释这个，我们来看一个例子：
+
+<script>
+    function value() {
+        return 1;
+    }
+    var value;
+    alert(typeof value); //"function"
+</script>
+
+尽快变量声明在下面定义，但是变量value依然是function，也就是说这种情况下，
+函数声明的优先级高于变量声明的优先级，但如果该    变量value赋值了，那结果就完全不一样了：
+
+<script>
+    function value() {
+        return 1;
+    }
+    var value = 1;
+    alert(typeof value); //"number"
+</script>
+
+该value赋值以后，变量赋值初始化就覆盖了函数声明。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+<script>
+
+    function b(x, y, a) {
+        arguments[2] = 10;
+        alert(a);
+    }
+    b(1, 2, 3);
+
+    // 打印出的值 为 10
+</script>
+
+关于这个题目，ECMAsCRIPT 262-3的规范有解释的。
+
+活动对象是在进入函数上下文时刻被创建的，它通过函数的arguments属性初始化。
+arguments属性的值是Arguments对象.
+
+<!-- ------------------------------------------------------------------------------- -->
+
+<script>
+    function a() {
+        alert(this);
+    }
+    a.call(null);
+
+    // 打印出的值 是 [object Window]
+
+</script>
+
+这个问题主要考察 Javascript 的 this 关键字
+
+关于Javascript语言中this关键字的用法
+
+关于 a.call(null);  根据ECMAScript262规范规定：如果第一个参数传入的对象调用者是null
+或者undefined的话，call方法将把全局对象（也就是window）作为this的值。
+
+所以，不管你什么时候传入null，其this都是全局对象window，所以该题目可以理解成如下代码：
+
+function a() {
+alert(this);
+}
+a.call(window);
+
+所以弹出的结果是[object Window]就很容易理解了。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

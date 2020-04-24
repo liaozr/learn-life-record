@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="vue.js"></script>
+</head>
+<style>
+    .error{
+        color:red;
+    }
+</style>
+<body>
+ <div id="app">
+     <!--  一个绑定的message 实现了一切的感觉 -->
+     <form action="##">
+         <div v-show="!message" class="error">you must add message here</div>
+         <textarea v-model='message' name="wenbenkuang" id="" cols="30" rows="10"></textarea>
+         <button v-show='message'>send message</button>
+     </form>
+ </div>
+ <script>
+     var vm=new Vue({
+         el:'#app',
+         data:{
+               message: ''
+         }
+     })
+ </script>
+</body>
+</html>

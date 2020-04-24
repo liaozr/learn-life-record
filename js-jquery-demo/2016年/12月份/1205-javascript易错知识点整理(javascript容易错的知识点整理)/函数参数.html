@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<script>
+    function test6() {
+        console.log(arguments); // [1, 2]
+    }
+
+    test6(1, 2);
+</script>
+
+上方利用函数中的arguments对象获取传入函数的参数数组，所以输出数组[1, 2]。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+<script>
+    function test7() {
+        return function() {
+            console.log(arguments); // 未执行到此，无输出
+        }
+    }
+
+    test7(1, 2);
+</script>
+
+上方同样利用arguments获取参数，但因test7(1, 2)未执行return中的函数，所以无输出
+，若执行test7(1, 2)(3, 4)则会输出[3, 4]。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+<script>
+    var args = [1, 2];
+
+    function test9() {
+        console.log(arguments); // [1, 2, 3, 4]
+    }
+
+    Array.prototype.push.call(args, 3, 4);
+
+    test9(...args);
+</script>
+
+上方利用Array.prototype.push.call()方法向args数组中插入了3和4，
+
+并利用ES6延展操作符(...)将数组展开并传入test9，所以console为[1, 2, 3, 4]。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+</html>

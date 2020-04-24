@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="mui.min.css">
+    <script src='mui.min.js'></script>
+</head>
+<style>
+.progress{
+  width:100%;
+  height:4px;
+  display: inline-block;
+}
+</style>
+<body>
+    <div class="td td-progress">
+        <div class="mui-progressbar progress" data-progress="20">
+            <span></span>
+        </div>
+        <p class='progress-num'></p>
+    </div><br>
+    <div class="td td-progress">
+        <div class="mui-progressbar progress" data-progress="50">
+            <span></span>
+        </div>
+        <p class='progress-num'></p>
+    </div>
+
+    <script>
+        //进度条展示
+        function jindutiao() {
+            var progressbar1 = mui('.progress');
+            var progress_length = progressbar1.length;
+            for (var i = 0; i < progress_length; i++) {
+                var progress_e = progressbar1[i];
+                var progressnum = progress_e.getAttribute('data-progress');
+
+                var progress = progressbar1[i];
+                mui(progress).progressbar().setProgress(progress.getAttribute('data-progress'));
+            }
+        }
+        jindutiao();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examples</title>
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/jqueryui/1.12.0/jquery-ui.min.js"></script>
+</head>
+<body>
+<span class='glyphicon glyphicon-shopping-cart' style="float:right;font-size:30px;padding-right:50px" id='shoppingCart'></span>
+    <table class="table table-hover">
+    	<thead>
+    		<tr>
+	    		<th><label><input type="checkbox" class="checkAll">全选</label></th>
+	    		<th>商品</th>
+	    		<th>单价</th>
+	    		<th>购买数量</th>
+	    		<th>价格</th>
+    		</tr>
+    	</thead>
+    	<tbody id="tbody">
+    		<tr class="tips" draggable="true">
+	    		<td><input type="checkbox" class="check" ></td>
+	    		<td>商品1 <span class="glyphicon glyphicon-calendar shopitems" style="font-size:40px;vertical-align:center"></span></td>
+	    		<td>￥23.00</td>
+	    		<td><button class="reduce">-</button><input type="text" class="" value="0"  style="width:40px;text-align:center"><button class="add">+</button></td>
+	    		<td>￥：<span>0.00</span>    <button class="remove">删除</button></td>
+	    	</tr>
+	    	<tr class="tips" draggable="true">
+	    		<td><input type="checkbox" class="check" ></td>
+	    		<td>商品2 <span class="glyphicon glyphicon-calendar shopitems" style="font-size:40px;vertical:center"></span></td>
+	    		<td>￥32.00</td>
+	    		<td><button class="reduce">-</button><input type="text" class="" value="0"  style="width:40px;text-align:center"><button class="add">+</button></td>
+	    		<td>￥：<span>0.00</span>    <button class="remove">删除</button></td>
+	    	</tr>
+	    	<tr class="tips" draggable="true">
+	    		<td><input type="checkbox" class="check" ></td>
+	    		<td>商品3 <span class="glyphicon glyphicon-calendar shopitems" style="font-size:40px;vertical:center"></span></td>
+	    		<td>￥26.00</td>
+	    		<td><button class="reduce">-</button><input type="text"  class=""  value="0" style="width:40px;text-align:center"><button class="add">+</button></td>
+	    		<td>￥：<span>0.00</span>    <button class="remove">删除</button></td>
+	    	</tr>
+    	</tbody>
+    	<tbody>
+    		<tr>
+    			<td><label><input type="checkbox" class="checkAll">全选</label></td>
+    			<td colspan="2" style="text-align:center">商品数：<span id='total_num'></span></td>
+    			<td colspan="2" style="text-align:center">总价：<span id="total_price"></span></td>
+    		</tr>
+    	</tbody>
+    </table>
+    <script>
+    $(function(){
+    	$('.check').prop('checked',true);
+    	$('.checkAll').prop('checked',true);
+    	$('.checkAll').on('click',function(){
+    		if(this.checked){
+    			$(".check").prop('checked',true);
+    		
+    		}else{$(".check").prop('checked',false);}
+		totalAll();
+    	})
+    	$('.check').on('click',function(){
+    		var i=$('.check').length;
+    		var check_i=0;
+    		$('.check').each(function(){
+    			if(this.checked){check_i++}
+    		})
+    		if(check_i==i){
+    			$('.checkAll').prop('checked',true)
+    		}else{$('.checkAll').prop('checked',false)}
+    		totalAll();
+    	})
+    	/*************商品的增加 价格变化******************/
+    	$('.add').on('click',function(){
+    		var num=$(this).prev().val();
+    		num++;
+    		$(this).prev().val(num);
+    		var price = $(this).parent().prev().html().slice(1,$(this).parent().prev().html().length);
+    		var total = (price*num).toFixed(2);
+    		$(this).parent().next().children('span').html(total);
+    		totalAll();
+    		shoppingCartAnimate();
+    	})
+    	/****************商品减少 价格变化*******************/
+    	$('.reduce').on('click',function(){
+    		var num=$(this).next().val();
+    		if(num<=0){num=0}
+    		else{num--};
+    		$(this).next().val(num);
+    		var price = $(this).parent().prev().html().slice(1,$(this).parent().prev().html().length);
+    		var total = (price*num).toFixed(2);
+    		$(this).parent().next().children('span').html(total);
+    		totalAll();
+    	})
+    	/***********************计算商品数 计算价格************************/
+    	function totalAll(){
+    		var num_checked=0;
+	    	var price_checked=0;
+    		$('.check').each(function(){
+	    		if($(this).prop('checked')){
+	    			 num_checked += parseInt($(this).parent().next().next().next().children('input').val());
+	    			 price_checked += parseInt($(this).parent().next().next().next().next().children('span').html());
+	    		}
+	    		$('#total_num').html(num_checked);
+	    		$('#total_price').html(price_checked.toFixed(2));
+
+	    	})
+    	}
+    	/*****************************删除商品****************************/
+    	$('.remove').on('click',function(){
+    		$(this).parent().parent().remove();
+    		totalAll();
+    	})
+    	/*********************商品飞入购物车******************************/
+    	function shoppingCartAnimate(){
+		    var goodsItem = $('.shopitems');
+		    var flyShop= goodsItem.clone();
+		    $('body').append(flyShop);
+		    flyShop.css({
+		        'z-index': 9000,
+		        'display': 'block',
+		        'position': 'absolute',
+		        'top': goodsItem.offset().top +'px',
+		        'left': goodsItem.offset().left +'px',
+		       'font-size':'40px'
+		    });
+		    flyShop.animate({
+		        top: $('#shoppingCart').offset().top,
+		        left: $('#shoppingCart').offset().left,
+		        fontSize:'20px'
+		    }, 'slow', function() {
+		        flyShop.remove();
+		        $('#shoppingCart').effect('shake', { times: 1,distance:5}, 100);      
+	    		});
+		 }
+		/*************************实现拖动效果 实现商品位置摆放**************************/
+		$('.tips').each(function(){
+			this.ondragend=function(e){
+			e.preventDeflaut;
+			var _this=e.target
+			$(this).remove();
+			$('#tbody').append(_this);
+		}
+		})
+		/****************拖动删除*****************/
+		/*****************拖动特效**************/
+    })
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+如前所述，__proto__属性指向当前对象的原型对象，即构造函数的prototype属性。
+
+<script>
+    var obj = new Object();
+
+    obj.__proto__ === Object.prototype
+        // true
+    obj.__proto__ === obj.constructor.prototype
+        // true
+</script>
+
+上面代码首先新建了一个对象obj，它的__proto__属性，指向构造函数（Object或obj.constructor）的prototype属性。所以，两者比较以后，返回true。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+因此，获取实例对象obj的原型对象，有三种方法。
+
+<script>
+
+    obj.__proto__
+
+    obj.constructor.prototype
+
+    Object.getPrototypeOf(obj)
+
+</script>
+
+上面三种方法之中，前两种都不是很可靠。最新的ES6标准规定，
+
+__proto__属性只有浏览器才需要部署，其他环境可以不部署。
+
+而obj.constructor.prototype在手动改变原型对象时，可能会失效。
+
+<script>
+    var P = function() {};
+    var p = new P();
+
+    var C = function() {};
+    C.prototype = p;
+    var c = new C();
+
+    c.constructor.prototype === p // false
+</script>
+
+上面代码中，C构造函数的原型对象被改成了p，结果c.constructor.prototype就失真了。
+
+所以，在改变原型对象时，一般要同时设置constructor属性。
+
+<script>
+    C.prototype = p;
+    C.prototype.constructor = C;
+
+    c.constructor.prototype === p // true
+
+    // 所以，推荐使用第三种Object.getPrototypeOf方法，获取原型对象。
+
+    var o = new Object();
+    console.log(   Object.getPrototypeOf(o) === Object.prototype )
+    // true
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+</body>
+</html>

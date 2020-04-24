@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures -->
+<html lang="zh-CN" dir="ltr" class="redesign " data-ffo-opensanslight="true" data-ffo-opensans="true"><head prefix="og: http://ogp.me/ns#"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="./闭包 - JavaScript _ MDN_files/analytics.js.下载"></script><script type="text/javascript" async="" src="./闭包 - JavaScript _ MDN_files/geo2.js.下载"></script>
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <script>(function(d) { d.className = d.className.replace(/\bno-js/, ''); })(document.documentElement);</script>
+  
+    
+  
+  <script src="./闭包 - JavaScript _ MDN_files/237572123.js.下载"></script>
+  
+
+  
+  <title>闭包 - JavaScript | MDN</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
+    <link rel="home" href="https://developer.mozilla.org/zh-CN/">
+    <link rel="copyright" href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#copyright">
+  
+
+  
+    
+    
+    <link href="./闭包 - JavaScript _ MDN_files/mdn.6937e46b0d30.css" rel="stylesheet" type="text/css">
+
+    
+  
+    <link href="./闭包 - JavaScript _ MDN_files/wiki.d9818563511b.css" rel="stylesheet" type="text/css">
+
+    
+
+    <!-- common social tags -->
+    
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://developer.cdn.mozilla.net/static/img/opengraph-logo.dc4e08e2f6af.png">
+    <meta property="og:site_name" content="Mozilla 开发者网络">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image" content="https://developer.cdn.mozilla.net/static/img/opengraph-logo.dc4e08e2f6af.png">
+    <meta name="twitter:site" content="@MozDevNet">
+    <meta name="twitter:creator" content="@MozDevNet">
+    <link rel="search" type="application/opensearchdescription+xml" href="https://developer.mozilla.org/zh-CN/search/xml" title="Mozilla 开发者网络">
+  
+
+  <!-- third-generation iPad with high-resolution Retina display: -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://developer.cdn.mozilla.net/static/img/favicon144.a6e4162070f4.png">
+  <!-- iPhone with high-resolution Retina display: -->
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://developer.cdn.mozilla.net/static/img/favicon114.0e9fabd44f85.png">
+  <!-- first- and second-generation iPad: -->
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://developer.cdn.mozilla.net/static/img/favicon72.8ff9d87c82a0.png">
+  <!-- non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+  <link rel="apple-touch-icon-precomposed" href="https://developer.cdn.mozilla.net/static/img/favicon57.a2490b9a2d76.png">
+  <!-- basic favicon -->
+  
+    
+  
+  <link rel="shortcut icon" href="https://developer.cdn.mozilla.net/static/img/favicon32.e02854fdcf73.png">
+  <!--[if IE]>
+  <meta http-equiv="imagetoolbar" content="no">
+  <script type="text/javascript" src="https://developer.cdn.mozilla.net/static/build/js/html5shiv.3948ccddab6f.js" charset="utf-8"></script>
+  <![endif]-->
+
+  
+  <link rel="alternate" type="application/json" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures$json">
+  <link rel="canonical" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures">
+
+  
+    
+      <link rel="alternate" hreflang="en-US" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures" title="Closures">
+    
+      <link rel="alternate" hreflang="de" href="https://developer.mozilla.org/de/docs/Web/JavaScript/Closures" title="Closures (Funktionsabschlüsse)">
+    
+      <link rel="alternate" hreflang="es" href="https://developer.mozilla.org/es/docs/Web/JavaScript/Closures" title="Closures">
+    
+      <link rel="alternate" hreflang="fr" href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Closures" title="Closures (Fermetures)">
+    
+      <link rel="alternate" hreflang="id" href="https://developer.mozilla.org/id/docs/Web/JavaScript/Panduan/Closures" title="Closures">
+    
+      <link rel="alternate" hreflang="it" href="https://developer.mozilla.org/it/docs/Web/JavaScript/Chiusure" title="Chiusure">
+    
+      <link rel="alternate" hreflang="ja" href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Closures" title="クロージャ">
+    
+      <link rel="alternate" hreflang="ko" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures" title="클로저">
+    
+      <link rel="alternate" hreflang="pl" href="https://developer.mozilla.org/pl/docs/Web/JavaScript/Domkniecia" title="Domknięcia">
+    
+      <link rel="alternate" hreflang="pt-BR" href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Closures" title="Closures">
+    
+      <link rel="alternate" hreflang="ru" href="https://developer.mozilla.org/ru/docs/Web/JavaScript/Closures" title="Замыкания">
+    
+      <link rel="alternate" hreflang="zh-TW" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Closures" title="閉包">
+    
+  
+
+  <!-- document-specific social tags -->
+  <meta property="og:title" content="闭包">
+  <meta property="og:url" content="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures">
+  <meta name="twitter:url" content="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures">
+  <meta name="twitter:title" content="闭包">
+  
+  <meta property="og:description" content="闭包是指那些能够访问独立(自由)变量的函数 (变量在本地使用，但定义在一个封闭的作用域中)。换句话说，这些函数可以“记忆”它被创建时候的环境。">
+  <meta name="description" content="闭包是指那些能够访问独立(自由)变量的函数 (变量在本地使用，但定义在一个封闭的作用域中)。换句话说，这些函数可以“记忆”它被创建时候的环境。">
+  <meta name="twitter:description" content="闭包是指那些能够访问独立(自由)变量的函数 (变量在本地使用，但定义在一个封闭的作用域中)。换句话说，这些函数可以“记忆”它被创建时候的环境。">
+  
+
+  
+  <script type="text/javascript">
+    
+      var document_saved = 0;
+    
+  </script>
+
+
+
+  
+    
+
+<script type="text/javascript">
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-36116321-5', 'mozilla.org');
+    ga('set', 'anonymizeIp', true);
+
+    
+
+    // dimension9 == "Section editing"
+    
+        // dimension12 == 'Page Revision"
+        ga('set', 'dimension12', '1115299');
+
+    (function() {
+        // http://cfsimplicity.com/61/removing-analytics-clutter-from-campaign-urls
+        var win = window;
+        var removeUtms = function(){
+            var location = win.location;
+            if (location.href.indexOf('utm') != -1 && win.history.replaceState) {
+                win.history.replaceState({}, '', location.pathname);
+            }
+        };
+
+        ga('send', 'pageview', {'hitCallback': removeUtms});
+    })();
+</script>
+
+  
+<script async="" data-manual="true" src="./闭包 - JavaScript _ MDN_files/syntax-prism.7a66ddfa68bf.js.下载"></script></head>
+<body data-slug="Web/JavaScript/Closures" contextmenu="edit-history-menu" data-search-url="" class="document  ">
+
+  <script type="text/javascript">
+    (function(win) {
+        'use strict';
+
+        
+            (function(){
+  var FLAGS = {
+    'compat_api': false,'iperceptions': false,'kumaediting': false,'page_move': false,'registration_disabled': false,'search_suggestions': false,'section_edit': false,'sg_task_completion': false,'spam_admin_override': false,'spam_checks_enabled': true,'spam_spammer_override': false,'spam_submissions_enabled': false,'spam_testing_mode': false,'wiki_samples': true,'wiki_spam_exempted': false,'wiki_spam_training': false
+    },
+    SWITCHES = {
+    'wiki_error_on_delete': false,'wiki_force_immediate_rendering': false,'enable_optimizely': true,'welcome_email': true,'application_ACAO': true,'store_revision_ips': true,'dumb_doc_urls': true,'newsletter': true,'newsletter_article': true
+    },
+    SAMPLES = {
+    
+    };
+  window.waffle = {
+    "flag_is_active": function waffle_flag(flag_name) {
+      
+      return !!FLAGS[flag_name];
+    },
+    "switch_is_active": function waffle_switch(switch_name) {
+      
+      return !!SWITCHES[switch_name];
+    },
+    "sample_is_active": function waffle_sample(sample_name) {
+      
+      return !!SAMPLES[sample_name];
+    },
+    "FLAGS": FLAGS,
+    "SWITCHES": SWITCHES,
+    "SAMPLES": SAMPLES
+  };
+})();
+
+        
+
+        // This needs to be set before ckeditor.js loads
+        window.CKEDITOR_BASEPATH = '/static/js/libs/ckeditor/build/ckeditor/';
+
+        // This represents the site configuration
+        win.mdn = {
+            // Properties and settings for CKEditor will go here
+            ckeditor: {},
+            // Feature test results and methods will be placed here
+            features: {},
+            // The path to static assets (images, CSS, JS) in MDN
+            staticPath: 'https://developer.cdn.mozilla.net/static/',
+            // Optimizely API
+            optimizely: win['optimizely'] || [],
+            // Site notifications
+            
+            notifications: [],
+            
+            // Wiki-specific settings will be placed here
+            wiki: {
+                autosuggestTitleUrl: '/zh-CN/docs/get-documents'
+            },
+            // Assets that need to be dynamically injected
+            assets: {
+                css: {
+                    'editor-content': ['https://developer.cdn.mozilla.net/static/build/styles/editor-content.ca5bcae084b2.css',],
+                    'wiki-compat-tables': ['https://developer.cdn.mozilla.net/static/build/styles/wiki-compat-tables.a042fac0d66c.css',]
+                },
+                js: {
+                    'syntax-prism': ['https://developer.cdn.mozilla.net/static/build/js/syntax-prism.7a66ddfa68bf.js',],
+                    'wiki-compat-tables': ['https://developer.cdn.mozilla.net/static/build/js/wiki-compat-tables.14ce5dcb2c3d.js',]
+                }
+            }
+        };
+    })(this);
+</script>
+
+  
+
+  <ul id="nav-access">
+    <li><a href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#document-main" id="skip-main">跳到主要内容</a></li>
+    <li><a id="skip-language" href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#language">选择语言</a></li>
+    <li><a href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#q" id="skip-search">跳到搜索</a></li>
+  </ul>
+
+  <!-- Header -->
+  <header id="main-header"><div class="center">
+
+    <div id="tabzilla">
+        <a href="https://www.mozilla.org/" class="no-track">mozilla</a>
+    </div>
+
+    <div class="clear header-clear"></div>
+
+
+    <a href="https://developer.mozilla.org/zh-CN/" class="logo">Mozilla 开发者网络</a>
+
+
+    <div id="nav-sec">
+        
+                  <ul>
+                  <li><div class="login">
+    
+      
+       <a href="https://developer.mozilla.org/users/github/login/?next=%2Fzh-CN%2Fdocs%2FWeb%2FJavaScript%2FClosures" class="login-link js-login-link" data-service="GitHub">
+        登录
+        <i class="icon-github" aria-hidden="true"></i>
+      </a>
+    
+</div></li>
+                </ul>
+        
+    </div>
+
+    <nav id="main-nav" role="navigation"><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web">网络技术<i aria-hidden="true" class="icon-caret-down"></i></a>
+
+        <div class="submenu submenu-cols-2 js-submenu" id="nav-platform-submenu">
+          <div class="submenu-column">
+            <div class="title">技术</div>
+            <ul>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML">HTML</a></li>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS">CSS</a></li>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">JavaScript</a></li>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/Graphics">图像</a></li>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP">HTTP</a></li>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API">API / DOM</a></li>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Mozilla/Add-ons/WebExtensions">Web扩展</a></li>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/MathML">MathML</a></li>
+            </ul>
+          </div><div class="submenu-column last">
+            <div class="title">参考和指引</div>
+            <ul>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Learn">学习 web 开发</a></li>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/Tutorials">教程</a></li>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/Reference">参考文献</a></li>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide">开发者指南</a></li>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/Accessibility">无障碍环境</a></li>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Games">游戏开发</a></li>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Web">...更多文档</a></li>
+            </ul>
+          </div>
+        </div>
+      </li><li><a href="https://developer.mozilla.org/zh-CN/docs/Zones">Mozilla 文档<i aria-hidden="true" class="icon-caret-down"></i></a>
+
+        <div class="submenu js-submenu" id="nav-zones-submenu">
+          <div class="submenu-column">
+            <ul>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Mozilla/Add-ons">附加组件</a></li>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/Mozilla/Firefox">Firefox</a></li>
+            </ul>
+          </div>
+        </div>
+      </li><li><a href="https://developer.mozilla.org/zh-CN/docs/Tools">开发者工具</a></li><li><a href="https://developer.mozilla.org/zh-CN/docs/MDN/Feedback">反馈<i aria-hidden="true" class="icon-caret-down"></i></a>
+
+        <div class="submenu js-submenu" id="nav-contact-submenu">
+          <div class="submenu-column">
+            <ul>
+                <li><a href="https://support.mozilla.org/">获取 Firefox 帮助<i aria-hidden="true" class="icon-external-link"></i></a></li>
+                <li><a href="http://stackoverflow.com/">获取 Web 开发帮助<i aria-hidden="true" class="icon-external-link"></i></a></li>
+            </ul>
+            <ul>
+              <li><a href="https://developer.mozilla.org/zh-CN/docs/MDN/Community">加入 MDN 社区</a></li>
+              <li><a target="_blank" href="https://bugzilla.mozilla.org/form.doc?bug_file_loc=https%3A//developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures">报告内容问题<i aria-hidden="true" class="icon-external-link"></i></a></li>
+              <li><a target="_blank" href="https://bugzilla.mozilla.org/form.mdn">报告缺陷<i aria-hidden="true" class="icon-external-link"></i></a></li>
+            </ul>
+          </div>
+        </div>
+
+      </li><li class="nav-search-link"><a href="https://developer.mozilla.org/zh-CN/search" title="Search"><i aria-hidden="true" class="icon-search"></i></a></li><li class="main-nav-search"><form action="https://developer.mozilla.org/zh-CN/search" method="get" role="search">
+        <div class="search-wrap">
+          <label for="main-q" class="offscreen">搜索</label>
+          <input type="search" id="main-q" name="q" placeholder="搜索" data-value="" value="">
+          <span class="search-trigger"><i aria-hidden="true" class="icon-search"></i></span>&nbsp;
+          <button type="submit" class="offscreen">搜索</button>
+        </div>
+      </form></li></ul></nav>
+  </div></header>
+
+  <!-- Content will go here -->
+  <main id="content"><div class="center clear">
+  
+
+   <!-- end is_zone -->
+
+
+    <div class="wiki-main-content" id="document-main" role="main"><div class="center">
+      
+      <div class="article-meta">
+        <!-- action buttons -->
+        
+
+  
+    
+    
+  
+
+  
+    
+  
+
+  
+
+  <ul class="page-buttons" data-sticky="false">
+      
+      <li><button id="languages-menu" class="transparent" aria-haspopup="true" aria-owns="languages-menu-submenu" aria-expanded="false"><span>语言</span><i aria-hidden="true" class="icon-language"></i></button>
+
+        <div class="submenu js-submenu" id="languages-menu-submenu">
+          <div class="submenu-column">
+            <ul id="translations">
+              
+                
+                  <li><bdi><a rel="internal" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures" title="英语 (美国)">English (US) (en-US)</a></bdi></li>
+                
+                  <li><bdi><a rel="internal" href="https://developer.mozilla.org/de/docs/Web/JavaScript/Closures" title="德语">Deutsch (de)</a></bdi></li>
+                
+                  <li><bdi><a rel="internal" href="https://developer.mozilla.org/es/docs/Web/JavaScript/Closures" title="西班牙语">Español (es)</a></bdi></li>
+                
+                  <li><bdi><a rel="internal" href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Closures" title="法语">Français (fr)</a></bdi></li>
+                
+                  <li><bdi><a rel="internal" href="https://developer.mozilla.org/id/docs/Web/JavaScript/Panduan/Closures" title="印尼语">Bahasa Indonesia (id)</a></bdi></li>
+                
+                  <li><bdi><a rel="internal" href="https://developer.mozilla.org/it/docs/Web/JavaScript/Chiusure" title="意大利语">Italiano (it)</a></bdi></li>
+                
+                  <li><bdi><a rel="internal" href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Closures" title="日语">日本語 (ja)</a></bdi></li>
+                
+                  <li><bdi><a rel="internal" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures" title="朝鲜语">한국어 (ko)</a></bdi></li>
+                
+                  <li><bdi><a rel="internal" href="https://developer.mozilla.org/pl/docs/Web/JavaScript/Domkniecia" title="波兰语">Polski (pl)</a></bdi></li>
+                
+                  <li><bdi><a rel="internal" href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Closures" title="葡萄牙语 (巴西)">Português (do&nbsp;Brasil) (pt-BR)</a></bdi></li>
+                
+                  <li><bdi><a rel="internal" href="https://developer.mozilla.org/ru/docs/Web/JavaScript/Closures" title="俄语">Русский (ru)</a></bdi></li>
+                
+                  <li><bdi><a rel="internal" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Closures" title="繁体中文">正體中文 (繁體) (zh-TW)</a></bdi></li>
+                
+              
+
+              
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      
+      <li class="page-buttons-edit"><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures$edit" class="button" data-optimizely-hook="button-edit-doc" id="edit-button">编辑<i aria-hidden="true" class="icon-pencil"></i></a></li>
+      
+
+        
+
+        <li><button id="advanced-menu" class="only-icon" aria-haspopup="true" aria-owns="advanced-menu-submenu" aria-expanded="false"><span>高级</span><i aria-hidden="true" class="icon-cog"></i></button>
+        <div class="submenu js-submenu" id="advanced-menu-submenu">
+          <!-- this page -->
+          <div class="submenu-column">
+            <div class="title">高级</div>
+            <ul>
+                <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures$history" rel="nofollow, noindex">历史记录</a></li>
+                
+                
+                
+
+
+                
+
+                
+                
+                
+                <li class="page-print"><a href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#" onclick="return window.print();">打印此文章</a></li>
+            </ul>
+          </div>
+        </div>
+  </li></ul>
+
+        <!-- crumbs -->
+        
+  <nav class="crumbs" role="navigation"><ol xmlns:v="http://rdf.data-vocabulary.org/#" aria-label="面包屑导航">
+    <li typeof="v:Breadcrumb"><a href="https://developer.mozilla.org/zh-CN" rel="v:url" property="v:title">MDN</a></li>
+    
+      <li class="crumb" typeof="v:Breadcrumb"><a href="https://developer.mozilla.org/zh-CN/docs/Web" rel="v:url" property="v:title">Web 技术文档</a></li>
+    
+      <li class="crumb" typeof="v:Breadcrumb"><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript" rel="v:url" property="v:title">JavaScript</a></li>
+    
+    <li class="crumb" typeof="v:Breadcrumb" property="v:title">闭包</li>
+  </ol></nav>
+      </div>
+
+      <!-- heading -->
+      <div id="wiki-document-head" class="document-head">
+          <span class="from-search-previous-box">
+            <a class="button from-search-previous only-icon disabled" title="前一个搜索结果" data-empty-title="没有更靠前的搜索结果"><i aria-hidden="true" class="icon-chevron-left"></i></a>
+          </span>
+          <span class="from-search-navigate-wrap">
+            <a href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#" class="from-search-navigate"><span class="from-search-navigate-up"><i aria-hidden="true" class="icon-double-angle-up"></i></span><span class="from-search-navigate-down"><i aria-hidden="true" class="icon-double-angle-down"></i></span></a>
+          </span>
+          <div class="from-search-toc submenu">
+            <span class="title">您的搜索结果</span>
+            <ol></ol>
+          </div>
+          <span class="from-search-next-box">
+            <a class="button from-search-next only-icon disabled" title="后一个搜索结果" data-empty-title="没有更靠前的搜索结果"><i aria-hidden="true" class="icon-chevron-right"></i></a>
+          </span>
+
+        
+        <div class="contributor-avatars" data-all-text="查看所有贡献者" data-alternate-message="隐藏贡献者" data-has-hidden="1">
+            <ul>
+            
+                <li class="shown">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/xgqfrms" title="查看个人资料：xgqfrms">
+                <img src="./闭包 - JavaScript _ MDN_files/3db6c24b48f7270d47f56abeb6a7cfcb" class="avatar loaded" height="34" width="34" alt="xgqfrms"></a>
+                </li>
+            
+                <li class="shown">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/wth" title="查看个人资料：wth">
+                <img src="./闭包 - JavaScript _ MDN_files/1a9adfa9ba9060c8ff67a3abceb5e25f" class="avatar loaded" height="34" width="34" alt="wth"></a>
+                </li>
+            
+                <li class="shown">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/Jack-Q" title="查看个人资料：Jack-Q">
+                <img src="./闭包 - JavaScript _ MDN_files/45ccdac1ed1c2cafb5c4fc91770f4609" class="avatar loaded" height="34" width="34" alt="Jack-Q"></a>
+                </li>
+            
+                <li class="shown">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/distums" title="查看个人资料：distums">
+                <img src="./闭包 - JavaScript _ MDN_files/e2ba1286835d13eaf631d4d2406bcbc0" class="avatar loaded" height="34" width="34" alt="distums"></a>
+                </li>
+            
+                <li class="shown">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/Poisonloc" title="查看个人资料：Poisonloc">
+                <img src="./闭包 - JavaScript _ MDN_files/12cce21cb3a2a4482aaf41c2d65afafb" class="avatar loaded" height="34" width="34" alt="Poisonloc"></a>
+                </li>
+            
+                <li class="shown">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/mysticzap" title="查看个人资料：mysticzap">
+                <img src="./闭包 - JavaScript _ MDN_files/4f52c4cf2a05b68c49b28bbe2f0edb44" class="avatar loaded" height="34" width="34" alt="mysticzap"></a>
+                </li>
+            
+                <li class="hidden">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/vino24" title="查看个人资料：vino24">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="vino24" data-src="https://secure.gravatar.com/avatar/2d85abaa6f9fd4d39816c4c54571d396?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">vino24</noscript></a>
+                </li>
+            
+                <li class="hidden">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/ziyunfei" title="查看个人资料：ziyunfei">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="ziyunfei" data-src="https://secure.gravatar.com/avatar/2dbf9c055c2b32d3ca45d25be0117423?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">ziyunfei</noscript></a>
+                </li>
+            
+                <li class="hidden">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/putdownTheCode" title="查看个人资料：putdownTheCode">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="putdownTheCode" data-src="https://secure.gravatar.com/avatar/e7582f0a152a03d058f82080208a1f86?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">putdownTheCode</noscript></a>
+                </li>
+            
+                <li class="hidden">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/yang.rc" title="查看个人资料：yang.rc">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="yang.rc" data-src="https://secure.gravatar.com/avatar/257e3cf0ff017e3a09de55daccb3fad9?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">yang.rc</noscript></a>
+                </li>
+            
+                <li class="hidden">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/maybe" title="查看个人资料：maybe">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="maybe" data-src="https://secure.gravatar.com/avatar/042d8ebd24bf86bd98a76a8233f275e9?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">maybe</noscript></a>
+                </li>
+            
+                <li class="hidden">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/fskuok" title="查看个人资料：fskuok">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="fskuok" data-src="https://secure.gravatar.com/avatar/f5bdd476c92e77763ac474907448fc45?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">fskuok</noscript></a>
+                </li>
+            
+                <li class="hidden">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/devyps" title="查看个人资料：devyps">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="devyps" data-src="https://secure.gravatar.com/avatar/e0170f887a8ca473f48d16927fb0e608?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">devyps</noscript></a>
+                </li>
+            
+                <li class="hidden">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/Breezewish" title="查看个人资料：Breezewish">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="Breezewish" data-src="https://secure.gravatar.com/avatar/733dbb8048e11b7a9b7a0439f5680170?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">Breezewish</noscript></a>
+                </li>
+            
+                <li class="hidden">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/phoenix.huang" title="查看个人资料：phoenix.huang">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="phoenix.huang" data-src="https://secure.gravatar.com/avatar/be3303c4d6730adc7a00d767deba2ff7?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">phoenix.huang</noscript></a>
+                </li>
+            
+                <li class="hidden">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/kangkai92" title="查看个人资料：kangkai92">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="kangkai92" data-src="https://secure.gravatar.com/avatar/0793dc224df64c8917cf43aff7c75bca?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">kangkai92</noscript></a>
+                </li>
+            
+                <li class="hidden">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/teoli" title="查看个人资料：teoli">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="teoli" data-src="https://secure.gravatar.com/avatar/d0d90148e08e3b64ccf75c46f31442c5?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">teoli</noscript></a>
+                </li>
+            
+                <li class="hidden">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/hui314" title="查看个人资料：hui314">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="hui314" data-src="https://secure.gravatar.com/avatar/1e62255f1566122ad806d22679f77f17?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">hui314</noscript></a>
+                </li>
+            
+                <li class="hidden">
+                <a href="https://developer.mozilla.org/zh-CN/profiles/rogersuen" title="查看个人资料：rogersuen">
+                <noscript data-width="34" data-height="34" data-class="avatar" data-alt="rogersuen" data-src="https://secure.gravatar.com/avatar/13cf245e0292ccde95b56cc5b11fc3b6?s=34&amp;r=pg&amp;d=https%3A%2F%2Fdeveloper.cdn.mozilla.net%2Fmedia%2Fimg%2Favatar.png">rogersuen</noscript></a>
+                </li>
+            
+            </ul>
+        <button id="contributors-toggle" type="button" class="transparent" data-alternate-message="隐藏贡献者">查看所有贡献者</button></div>
+        
+
+        <h1><wbr>闭包</h1>
+
+      </div>
+      
+
+      <!-- start the main content container -->
+        <div id="wiki-column-container" class="wiki-right-present wiki-left-present">
+
+          <!-- content row with three strips -->
+          <div class="column-container column-container-reverse">
+
+            
+              <!-- TOC, approvals, etc -->
+              <div class="column-strip wiki-column" id="wiki-right">
+              
+              <!-- table of contents -->
+              <div id="toc" class="toc toggleable fixed" style="width: 289px; top: 0px; max-height: 734px;">
+                <a href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#toc" class="title toggler" data-open-icon="icon-plus" data-closed-icon="icon-minus" aria-haspopup="true">在本文章中<i class="icon-minus"></i></a>
+                <ol class="toggle-container">
+                  <li><a href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#词法作用域" rel="internal">词法作用域</a></li><li><a href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#闭包" rel="internal">闭包</a></li><li><a href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#Practical_closures" rel="internal">实用的闭包</a></li><li><a href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#Emulating_private_methods_with_closures" rel="internal">用闭包模拟私有方法</a></li><li><a href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#Creating_closures_in_loops_A_common_mistake" rel="internal">在循环中创建闭包：一个常见错误</a></li><li><a href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#Performance_considerations" rel="internal">性能考量</a>
+                </li></ol>
+              </div>
+              
+              </div>
+            
+
+            
+            
+              
+            
+
+            <!-- center: main article content -->
+            <div id="wiki-content" class="column-half wiki-column text-content">
+
+              
+
+              
+
+              
+                
+                
+                
+              
+              
+
+              <!-- just the article content -->
+              <article id="wikiArticle">
+                
+                  
+                    <p></p><section class="Quick_links" id="Quick_Links"><!-- --></section><p></p>
+
+<p class="summary">闭包是指那些能够访问独立(自由)变量的函数 (变量在本地使用，但定义在一个封闭的作用域中)。换句话说，这些函数可以“记忆”它被创建时候的环境。</p>
+
+<h2 id="词法作用域">词法作用域</h2>
+
+<p>考虑如下的函数：</p>
+
+<div style="width: auto; overflow: hidden;">
+<pre class="brush: js line-numbers  language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> name <span class="token operator">=</span> <span class="token string">"Mozilla"</span><span class="token punctuation">;</span>
+  <span class="token keyword">function</span> <span class="token function">displayName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">alert</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">displayName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</div>
+
+<p>函数 <code>init()</code> 创建了一个局部变量 <code>name</code>，然后定义了名为 <code>displayName()</code> 的函数。 <code>displayName()</code> 是一个内部函数——定义于 <code>init()</code> 之内且仅在该函数体内可用。<code>displayName()</code> 没有任何自己的局部变量，然而它可以访问到外部函数的变量，即可以使用父函数中声明的&nbsp;<code>name</code> 变量。</p>
+
+<p></p><p><iframe src="./闭包 - JavaScript _ MDN_files/saved_resource.html" height="200" width="100%" frameborder="0"></iframe></p><p></p>
+
+<p><a title="http://jsfiddle.net/xAFs9/" href="http://jsfiddle.net/xAFs9/3/" class="external external-icon">运行</a>代码可以发现这可以正常工作。这是<em>词法作用域</em>的一个例子：在 JavaScript 中，变量的作用域是由它在源代码中所处位置决定的（<em>显然如此</em>），并且嵌套的函数可以访问到其外层作用域中声明的变量。</p>
+
+<h2 id="闭包">闭包</h2>
+
+<p>现在来考虑如下的例子：</p>
+
+<pre class="brush: js line-numbers  language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">makeFunc</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> name <span class="token operator">=</span> <span class="token string">"Mozilla"</span><span class="token punctuation">;</span>
+  <span class="token keyword">function</span> <span class="token function">displayName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">alert</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> displayName<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> myFunc <span class="token operator">=</span> <span class="token function">makeFunc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">myFunc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>运行这段代码的效果和之前的 <code>init()</code> 示例完全一样：字符串 "Mozilla" 将被显示在一个 JavaScript 警告框中。其中的不同 — 也是有意思的地方 — 在于 <code>displayName()</code> 内部函数在执行前被从其外围函数中返回了。</p>
+
+<p>这段代码看起来别扭却能正常运行。通常，函数中的局部变量仅在函数的执行期间可用。一旦 <code>makeFunc()</code> 执行过后，我们会很合理的认为 name 变量将不再可用。虽然代码运行的没问题，但实际并不是这样的。</p>
+
+<p>这个谜题的答案是 <code>myFunc</code> 变成一个 <em>闭包</em> 了。 闭包是一种特殊的对象。它由两部分构成：函数，以及创建该函数的环境。环境由闭包创建时在作用域中的任何局部变量组成。在我们的例子中，<code>myFunc</code> 是一个闭包，由 <code>displayName</code> 函数和闭包创建时存在的 "Mozilla" 字符串形成。</p>
+
+<p>下面是一个更有意思的示例 — <code>makeAdder</code> 函数：</p>
+
+<pre class="brush: js line-numbers  language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">makeAdder</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> x <span class="token operator">+</span> y<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> add5 <span class="token operator">=</span> <span class="token function">makeAdder</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> add10 <span class="token operator">=</span> <span class="token function">makeAdder</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">add5</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// 7</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">add10</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 12</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在这个示例中，我们定义了 <code>makeAdder(x)</code> 函数：带有一个参数 <code>x</code> 并返回一个新的函数。返回的函数带有一个参数 <code>y</code>，并返回 <code>x</code> 和 <code>y</code> 的和。</p>
+
+<p>从本质上讲，<code>makeAdder</code> 是一个函数工厂 — 创建将指定的值和它的参数求和的函数，在上面的示例中，我们使用函数工厂创建了两个新函数 — 一个将其参数和 5 求和，另一个和 10 求和。</p>
+
+<p><code>add5</code> 和 <code>add10</code> 都是闭包。它们共享相同的函数定义，但是保存了不同的环境。在 <code>add5</code> 的环境中，<code>x</code> 为 5。而在 <code>add10</code> 中，<code>x</code> 则为 10。</p>
+
+<h2 name="Practical_closures" id="Practical_closures">实用的闭包</h2>
+
+<p>理论就是这些了 — 可是闭包确实有用吗？让我们看看闭包的实践意义。闭包允许将函数与其所操作的某些数据（环境）关连起来。这显然类似于面向对象编程。在面对象编程中，对象允许我们将某些数据（对象的属性）与一个或者多个方法相关联。</p>
+
+<p>因而，一般说来，可以使用只有一个方法的对象的地方，都可以使用闭包。</p>
+
+<p>在 Web 中，您可能想这样做的情形非常普遍。大部分我们所写的 Web JavaScript 代码都是事件驱动的 — 定义某种行为，然后将其添加到用户触发的事件之上（比如点击或者按键）。我们的代码通常添加为回调：响应事件而执行的函数。</p>
+
+<p>以下是一个实际的示例：假设我们想在页面上添加一些可以调整字号的按钮。一种方法是以像素为单位指定 <code>body</code> 元素的 <code>font-size</code>，然后通过相对的 em 单位设置页面中其它元素（例如页眉）的字号：</p>
+
+<pre class="brush: css line-numbers  language-css"><code class=" language-css"><span class="token selector">body </span><span class="token punctuation">{</span>
+  <span class="token property">font-family</span><span class="token punctuation">:</span> Helvetica, Arial, sans-serif<span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token number">12</span>px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">h1 </span><span class="token punctuation">{</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token number">1.5</span>em<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">h2 </span><span class="token punctuation">{</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token number">1.2</span>em<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>我们的交互式的文本尺寸按钮可以修改 <code>body</code> 元素的 <code>font-size</code> 属性，而由于我们使用相对的单位，页面中的其它元素也会相应地调整。</p>
+
+<p>以下是 JavaScript：</p>
+
+<pre class="brush: js line-numbers  language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">makeSizer</span><span class="token punctuation">(</span>size<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>style<span class="token punctuation">.</span>fontSize <span class="token operator">=</span> size <span class="token operator">+</span> <span class="token string">'px'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> size12 <span class="token operator">=</span> <span class="token function">makeSizer</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> size14 <span class="token operator">=</span> <span class="token function">makeSizer</span><span class="token punctuation">(</span><span class="token number">14</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> size16 <span class="token operator">=</span> <span class="token function">makeSizer</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>size12</code>，<code>size14</code> 和 <code>size16</code> 为将 <code>body</code> 文本相应地调整为 12，14，16 像素的函数。我们可以将它们分别添加到按钮上（这里是链接）。如下所示：</p>
+
+<pre class="brush: js line-numbers  language-js"><code class=" language-js">document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'size-12'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>onclick <span class="token operator">=</span> size12<span class="token punctuation">;</span>
+document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'size-14'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>onclick <span class="token operator">=</span> size14<span class="token punctuation">;</span>
+document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'size-16'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>onclick <span class="token operator">=</span> size16<span class="token punctuation">;</span><span class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<pre class="brush: html line-numbers  language-html"><code class=" language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>size-12<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>12<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>size-14<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>14<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>size-16<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>16<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span><span class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p></p><p><iframe src="./闭包 - JavaScript _ MDN_files/saved_resource(1).html" height="200" width="100%" frameborder="0"></iframe></p><p></p>
+
+<p>&nbsp;</p>
+
+<h2 name="Emulating_private_methods_with_closures" id="Emulating_private_methods_with_closures">用闭包模拟私有方法</h2>
+
+<p>诸如 Java 在内的一些语言支持将方法声明为私有的，即它们只能被同一个类中的其它方法所调用。</p>
+
+<p>对此，JavaScript 并不提供原生的支持，但是可以使用闭包模拟私有方法。私有方法不仅仅有利于限制对代码的访问：还提供了管理全局命名空间的强大能力，避免非核心的方法弄乱了代码的公共接口部分。</p>
+
+<p>下面的示例展现了如何使用闭包来定义公共函数，且其可以访问私有函数和变量。这个方式也称为 <a title="http://www.google.com/search?q=javascript+module+pattern" href="http://www.google.com/search?q=javascript+module+pattern" class="external external-icon">模块模式（module pattern）：</a></p>
+
+<pre class="brush: js line-numbers  language-js"><code class=" language-js"><span class="token keyword">var</span> Counter <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> privateCounter <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword">function</span> <span class="token function">changeBy</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    privateCounter <span class="token operator">+</span><span class="token operator">=</span> val<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    increment<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">changeBy</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    decrement<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">changeBy</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    value<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> privateCounter<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>   
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Counter<span class="token punctuation">.</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* logs 0 */</span>
+Counter<span class="token punctuation">.</span><span class="token function">increment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Counter<span class="token punctuation">.</span><span class="token function">increment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Counter<span class="token punctuation">.</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* logs 2 */</span>
+Counter<span class="token punctuation">.</span><span class="token function">decrement</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Counter<span class="token punctuation">.</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* logs 1 */</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里有很多细节。在以往的示例中，每个闭包都有它自己的环境；而这次我们只创建了一个环境，为三个函数所共享：<code>Counter.increment，</code><code>Counter.decrement</code> 和 <code>Counter.value</code>。</p>
+
+<p>该共享环境创建于一个匿名函数体内，该函数一经定义立刻执行。环境中包含两个私有项：名为 <code>privateCounter</code> 的变量和名为 <code>changeBy</code> 的函数。 这两项都无法在匿名函数外部直接访问。必须通过匿名包装器返回的三个公共函数访问。</p>
+
+<p>这三个公共函数是共享同一个环境的闭包。多亏 JavaScript 的词法范围的作用域，它们都可以访问 <code>privateCounter</code> 变量和 <code>changeBy</code> 函数。</p>
+
+<p>您应该注意到了，我们定义了一个匿名函数用于创建计数器，然后直接调用该函数，并将返回值赋给 <code>Counter</code> 变量。也可以将这个函数保存到另一个变量中，以便创建多个计数器。</p>
+
+<pre class="brush: js line-numbers  language-js"><code class=" language-js"><span class="token keyword">var</span> makeCounter <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> privateCounter <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword">function</span> <span class="token function">changeBy</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    privateCounter <span class="token operator">+</span><span class="token operator">=</span> val<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    increment<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">changeBy</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    decrement<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">changeBy</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    value<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> privateCounter<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>  
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> Counter1 <span class="token operator">=</span> <span class="token function">makeCounter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> Counter2 <span class="token operator">=</span> <span class="token function">makeCounter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Counter1<span class="token punctuation">.</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* logs 0 */</span>
+Counter1<span class="token punctuation">.</span><span class="token function">increment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Counter1<span class="token punctuation">.</span><span class="token function">increment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Counter1<span class="token punctuation">.</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* logs 2 */</span>
+Counter1<span class="token punctuation">.</span><span class="token function">decrement</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Counter1<span class="token punctuation">.</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* logs 1 */</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Counter2<span class="token punctuation">.</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* logs 0 */</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>请注意两个计数器是如何维护它们各自的独立性的。每次调用 <code>makeCounter()</code> 函数期间，其环境是不同的。每次调用中， <code>privateCounter 中含有不同的实例。</code></p>
+
+<p>这种形式的闭包提供了许多通常由面向对象编程U所享有的益处，尤其是数据隐藏和封装。</p>
+
+<h2 name="Creating_closures_in_loops_A_common_mistake" id="Creating_closures_in_loops_A_common_mistake">在循环中创建闭包：一个常见错误</h2>
+
+<p>在 JavaScript 1.7 引入 <a title="let" href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Statements/let"><code>let</code> 关键字</a> 之前，闭包的一个常见的问题发生于在循环中创建闭包。参考下面的示例：</p>
+
+<pre class="brush: html line-numbers  language-html"><code class=" language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>help<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Helpful notes will appear here<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>E-mail: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>email<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>email<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Name: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Age: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>age<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>age<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="brush: js line-numbers  language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">showHelp</span><span class="token punctuation">(</span>help<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'help'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> help<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">setupHelp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> helpText <span class="token operator">=</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span><span class="token string">'id'</span><span class="token punctuation">:</span> <span class="token string">'email'</span><span class="token punctuation">,</span> <span class="token string">'help'</span><span class="token punctuation">:</span> <span class="token string">'Your e-mail address'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span><span class="token string">'id'</span><span class="token punctuation">:</span> <span class="token string">'name'</span><span class="token punctuation">,</span> <span class="token string">'help'</span><span class="token punctuation">:</span> <span class="token string">'Your full name'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span><span class="token string">'id'</span><span class="token punctuation">:</span> <span class="token string">'age'</span><span class="token punctuation">,</span> <span class="token string">'help'</span><span class="token punctuation">:</span> <span class="token string">'Your age (you must be over 16)'</span><span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> helpText<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> item <span class="token operator">=</span> helpText<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span>item<span class="token punctuation">.</span>id<span class="token punctuation">)</span><span class="token punctuation">.</span>onfocus <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">showHelp</span><span class="token punctuation">(</span>item<span class="token punctuation">.</span>help<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">setupHelp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p></p><p><iframe src="./闭包 - JavaScript _ MDN_files/saved_resource(2).html" height="200" width="100%" frameborder="0"></iframe></p><p></p>
+
+<p>数组 <code>helpText</code> 中定义了三个有用的提示信息，每一个都关联于对应的文档中的输入域的 ID。通过循环这三项定义，依次为每一个输入域添加了一个 <code>onfocus</code> 事件处理函数，以便显示帮助信息。</p>
+
+<p>运行这段代码后，您会发现它没有达到想要的效果。无论焦点在哪个输入域上，显示的都是关于年龄的消息。</p>
+
+<p>该问题的原因在于赋给 <code>onfocus</code>&nbsp;是闭包<span style="line-height: 1.5;">（</span>setupHelp<span style="line-height: 1.5;">）</span><span style="line-height: 1.5;">中的匿名函数而不是闭包对象</span><span style="line-height: 1.5;">；在闭包（</span>setupHelp<span style="line-height: 1.5;">）中一共创建了三个匿名函数，但是它们都共享同一个环境（item）。在 </span><code style="font-style: normal; line-height: 1.5;">onfocus</code><span style="line-height: 1.5;"> 的回调被执行时，循环早已经完成，且此时 </span><code style="font-style: normal; line-height: 1.5;">item</code><span style="line-height: 1.5;"> 变量（由所有三个闭包所共享）已经指向了 </span><code style="font-style: normal; line-height: 1.5;">helpText</code><span style="line-height: 1.5;"> 列表中的最后一项。</span></p>
+
+<p>解决这个问题的一种方案是使onfocus指向一个新的闭包对象。</p>
+
+<pre class="brush: js line-numbers  language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">showHelp</span><span class="token punctuation">(</span>help<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'help'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> help<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">makeHelpCallback</span><span class="token punctuation">(</span>help<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">showHelp</span><span class="token punctuation">(</span>help<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">setupHelp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> helpText <span class="token operator">=</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span><span class="token string">'id'</span><span class="token punctuation">:</span> <span class="token string">'email'</span><span class="token punctuation">,</span> <span class="token string">'help'</span><span class="token punctuation">:</span> <span class="token string">'Your e-mail address'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span><span class="token string">'id'</span><span class="token punctuation">:</span> <span class="token string">'name'</span><span class="token punctuation">,</span> <span class="token string">'help'</span><span class="token punctuation">:</span> <span class="token string">'Your full name'</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span><span class="token string">'id'</span><span class="token punctuation">:</span> <span class="token string">'age'</span><span class="token punctuation">,</span> <span class="token string">'help'</span><span class="token punctuation">:</span> <span class="token string">'Your age (you must be over 16)'</span><span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> helpText<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> item <span class="token operator">=</span> helpText<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span>item<span class="token punctuation">.</span>id<span class="token punctuation">)</span><span class="token punctuation">.</span>onfocus <span class="token operator">=</span> <span class="token function">makeHelpCallback</span><span class="token punctuation">(</span>item<span class="token punctuation">.</span>help<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">setupHelp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p></p><p><iframe src="./闭包 - JavaScript _ MDN_files/saved_resource(3).html" height="300" width="100%" frameborder="0"></iframe></p><p></p>
+
+<p>这段代码可以如我们所期望的那样工作。所有的回调不再共享同一个环境， <code>makeHelpCallback</code> 函数为每一个回调创建一个新的环境。在这些环境中，<code>help</code> 指向 <code>helpText</code> 数组中对应的字符串。</p>
+
+<h2 name="Performance_considerations" id="Performance_considerations">性能考量</h2>
+
+<p>如果不是因为某些特殊任务而需要闭包，在没有必要的情况下，在其它函数中创建函数是不明智的，因为闭包对脚本性能具有负面影响，包括处理速度和内存消耗。</p>
+
+<p>例如，在创建新的对象或者类时，方法通常应该关联于对象的原型，而不是定义到对象的构造器中。原因是这将导致每次构造器被调用，方法都会被重新赋值一次（也就是说，为每一个对象的创建）。</p>
+
+<p>考虑以下虽然不切实际但却说明问题的示例：</p>
+
+<pre class="brush: js line-numbers  language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">MyObject</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>message <span class="token operator">=</span> message<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>getName <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">this</span><span class="token punctuation">.</span>getMessage <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>message<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上面的代码并未利用到闭包的益处，因此，应该修改为如下常规形式：</p>
+
+<pre class="brush: js line-numbers  language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">MyObject</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>message <span class="token operator">=</span> message<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+MyObject<span class="token punctuation">.</span>prototype <span class="token operator">=</span> <span class="token punctuation">{</span>
+  getName<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  getMessage<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>message<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>或者改成：</p>
+
+<pre class="brush: js line-numbers  language-js"><code class=" language-js"><span class="token keyword">function</span> <span class="token function">MyObject</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>message <span class="token operator">=</span> message<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+MyObject<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>getName <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+MyObject<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>getMessage <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>message<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在前面的两个示例中，继承的原型可以为所有对象共享，且不必在每一次创建对象时定义方法。参见 <a title="en-US/docs/JavaScript/Guide/Details of the Object Model" href="https://developer.mozilla.org/zh-CN/docs/JavaScript/Guide/Details_of_the_Object_Model">对象模型的细节</a> 一章可以了解更为详细的信息。</p>
+                  
+                
+              </article>
+
+              
+
+                <!-- contributors -->
+                <div class="wiki-block contributors">
+                  <h2 class="offscreen">文档标签和贡献者</h2>
+                  
+                  
+  <div class="tag-attach-list contributors-sub">
+    <i aria-hidden="true" class="icon-tags icon-fw"></i>
+    <strong>标签：</strong>&nbsp;
+    <ul class="tags tags-small">
+      
+        <li><a href="https://developer.mozilla.org/zh-CN/docs/tag/JavaScript">JavaScript</a></li>
+      
+        <li><a href="https://developer.mozilla.org/zh-CN/docs/tag/%E6%8C%87%E5%8D%97">指南</a></li>
+      
+        <li><a href="https://developer.mozilla.org/zh-CN/docs/tag/%E8%BF%9B%E9%98%B6">进阶</a></li>
+      
+        <li><a href="https://developer.mozilla.org/zh-CN/docs/tag/%E9%97%AD%E5%8C%85">闭包</a></li>
+      
+    </ul>
+  </div>
+
+
+                  
+                    <div class="contributors-sub">
+                      <i aria-hidden="true" class="icon-group icon-fw"></i>&nbsp;<strong>此页面的贡献者：</strong> 
+        <a href="https://developer.mozilla.org/zh-CN/profiles/xgqfrms">xgqfrms</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/wth">wth</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/Jack-Q">Jack-Q</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/distums">distums</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/Poisonloc">Poisonloc</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/mysticzap">mysticzap</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/vino24">vino24</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/ziyunfei">ziyunfei</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/putdownTheCode">putdownTheCode</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/yang.rc">yang.rc</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/maybe">maybe</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/fskuok">fskuok</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/devyps">devyps</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/Breezewish">Breezewish</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/phoenix.huang">phoenix.huang</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/kangkai92">kangkai92</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/teoli">teoli</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/hui314">hui314</a>, 
+    
+        <a href="https://developer.mozilla.org/zh-CN/profiles/rogersuen">rogersuen</a>
+    
+                    </div>
+                  
+
+                  
+                    <div class="contributors-sub">
+                      <i aria-hidden="true" class="icon-clock-o icon-fw"></i>&nbsp;<strong>最后编辑者:</strong>
+                      <a href="https://developer.mozilla.org/zh-CN/profiles/xgqfrms">xgqfrms</a>,
+                      <time datetime="2016-09-04T22:49:18-07:00">Sep 4, 2016, 10:49:18 PM</time>
+                    </div>
+                  
+                </div>
+              
+
+              
+                <div class="wiki-block wiki-block-newsletter">
+                  <div class="newsletter-box">
+                    <div class="newsletter">
+    <form id="newsletterForm" name="newsletter-form" class="nodisable" action="https://www.mozilla.org/en-US/newsletter/" method="post">
+        <h2 class="newsletter-teaser">Learn the best of web development</h2>
+        <p class="newsletter-description">Sign up for our newsletter:</p>
+        <input type="hidden" id="fmt" name="fmt" value="H">
+        <input type="hidden" id="newsletterNewslettersInput" name="newsletters" value="app-dev">
+
+        <div id="newsletterErrors" class="newsletter-errors"></div>
+
+        <div id="newsletterEmail" class="form-group">
+            <label for="newsletterEmailInput" class="form-label offscreen">E-mail</label>
+            <input type="email" id="newsletterEmailInput" name="email" class="form-input newsletter-input-email" required="" placeholder="you@example.com" size="30">
+        </div>
+
+        <div id="newsletterPrivacy" class="form-group form-group-agree hidden">
+            <input type="checkbox" id="newsletterPrivacyInput" name="privacy" required="">
+            <label for="newsletterPrivacyInput">
+            I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/">Privacy Policy</a>.
+            </label>
+        </div>
+        <div id="newsletterSubmit">
+            <button id="newsletter-submit" type="submit" class="button positive">Sign up now</button>
+        </div>
+        
+        <p class="newsletter-lang">The newsletter is offered in English only at the moment.</p>
+        
+    </form>
+    <div id="newsletterThanks" class="newsletter-thanks hidden">
+        <h2>Thanks! Please check your inbox to confirm your subscription.</h2>
+        <p>If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. Please check your inbox or your spam filter for an email from us.
+        </p>
+    </div>
+    <button id="newsletterHide" type="button" class="only-icon newsletter-hide"><span>Hide Newsletter Sign-up</span><i aria-hidden="true" class="icon-times"></i></button>
+</div>
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- quick links and zone subnav strip -->
+              <div id="wiki-left" class="column-strip wiki-column">
+
+              
+
+                
+
+                
+                  <!-- quick links -->
+                  
+  <div class="quick-links" id="quick-links">
+    <div class="title see-also">另见</div>
+     
+ <ol> 
+  <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript"><strong><em>JavaScript</em></strong></a></li> 
+  <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Tutorials"><strong>教程:</strong></a></li> 
+  <li data-default-state="closed" class="toggleable" data-closed="true"><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide" class="toggler" aria-haspopup="true"><i aria-hidden="true" class="icon-caret-right"></i>JavaScript 指南</a> 
+    <ol class="toggle-container" style="display: none;"> 
+      <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Introduction">Introduction</a></li> 
+      <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Grammar_and_Types">Grammar and types</a></li> 
+      <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Control_flow_and_error_handling">Control flow and error handling</a></li> 
+      <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Loops_and_iteration">Loops and iteration</a></li> 
+      <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Functions">Functions</a></li> 
+      <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Expressions_and_Operators">Expressions and operators</a></li> 
+      <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Numbers_and_dates">Numbers and dates</a></li> 
+      <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Text_formatting">Text formatting</a></li> 
+      <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions">Regular expressions</a></li> 
+      <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Indexed_collections">Indexed collections</a></li> 
+      <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Keyed_collections">Keyed collections</a></li> 
+      <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Working_with_Objects">Working with objects</a></li> 
+      <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Details_of_the_Object_Model">Details of the object model</a></li> 
+      <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Iterators_and_generators">Iterators and generators</a></li> 
+      <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Meta_programming">Meta programming</a></li> 
+   </ol> 
+  </li> 
+  <li data-default-state="closed" class="toggleable" data-closed="true"><a href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#" class="toggler" aria-haspopup="true"><i aria-hidden="true" class="icon-caret-right"></i>快速入门</a> 
+   <ol class="toggle-container" style="display: none;"> 
+    <li><a href="https://developer.mozilla.org/zh-CN/Learn/Getting_started_with_the_web/JavaScript_basics">JavaScript 基础知识</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/JavaScript_technologies_overview">JavaScript 知识概要</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript">Javascript 面向对象编程</a></li> 
+   </ol> 
+  </li> 
+  <li data-default-state="open" class="toggleable current" data-closed=""><a href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#" class="toggler" aria-haspopup="true"><i aria-hidden="true" class="icon-caret-down"></i>中级教程</a> 
+   <ol class="toggle-container" aria-expanded="true" style="display: block;"> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/A_re-introduction_to_JavaScript">深入 JavaScript</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures">JavaScript 数据结构</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Equality_comparisons_and_sameness">如何正确判断相等性</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures">Closures</a></li> 
+   </ol> 
+  </li> 
+  <li data-default-state="closed" class="toggleable" data-closed="true"><a href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#" class="toggler" aria-haspopup="true"><i aria-hidden="true" class="icon-caret-right"></i>高级</a> 
+   <ol class="toggle-container" style="display: none;"> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain">继承和原型链</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode">严格模式</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Typed_arrays">JavaScript 类型化数组</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/SIMD_types">SIMD types</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Memory_Management">内存管理</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/EventLoop">Concurrency model and Event Loop</a></li> 
+   </ol> 
+  </li> 
+  <li><strong><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference">引用:</a></strong></li> 
+  <li data-default-state="closed" class="toggleable" data-closed="true"><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects" class="toggler" aria-haspopup="true"><i aria-hidden="true" class="icon-caret-right"></i>内置对象</a> 
+   <ol class="toggle-container" style="display: none;"><li><a title="在 JavaScript 中 Array 是一个用来构造数组的全局对象，它是一个高阶的类似有序列表的对象。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></li><li><a title="ArrayBuffer （缓冲数组）是一种用于呈现通用、固定长度的二进制数据的类型。不能直接构造并填充 ArrayBuffer 的内容，而应该先创建一个 ArrayBufferView 对象，该对象用具体的格式来呈现 ArrayBuffer 的内容，你可以使用此对象来读写 ArrayBuffer 的内容。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a></li><li><span class="sidebar-icon"><span title="这是一个实验性的 API，请尽量不要在生产环境中使用它。"><i class="icon-beaker"> </i></span></span><a title="原子对象以静态方法的形式提供原子操作。这些操作使用“共享数组缓存”对象。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Atomics">Atomics</a></li><li><a title="Boolean对象是一个包装了布尔值的对象." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></li><li><a title="DataView 视图提供了一种用于向 ArrayBuffer 读写数据的底层接口。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/DataView">DataView</a></li><li><a title="创建 Date 实例用来处理日期和时间。Date 对象基于1970年1月1日（世界标准时间）起的毫秒数。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Date">Date</a></li><li><a title="通过Error的构造器可以创建一个错误对象。当运行时错误产生时，Error的实例对象会被抛出。Error对象可用于用户自定义的异常的基础对象。下面列出了各种内建的标准错误类型。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></li><li><a title="本对象代表了一个关于 eval 函数的错误." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/EvalError">EvalError</a></li><li><a title="Float32Array 类型数组代表的是平台字节顺序为32位的浮点数型数组(对应于 C 浮点数据类型) 。 如果需要控制字节顺序， 使用 DataView 替代。其内容初始化为0。一旦建立起来，你可以使用这个对象的方法对其元素进行操作，或者使用标准数组索引语法 (使用方括号)。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Float32Array">Float32Array</a></li><li><a title="Float64Array 类型数组代表的是平台字节顺序为64位的浮点数型数组(对应于 C 浮点数据类型) 。 如果需要控制字节顺序， 使用 DataView 替代。其内容初始化为0。一旦建立起来，你可以使用这个对象的方法对其元素进行操作，或者使用标准数组索引语法 (使用方括号)。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Float64Array">Float64Array</a></li><li><a title="Function 构造器会创建一个新的 Function 对象。 在 JavaScript 中每个函数都是一个Function对象。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function">Function</a></li><li><a title="这个生成器对象是由一个生成器函数 generator function 返回的。并且它是同时遵守 The iterable protocol 可遍历协议和The iterator protocol 迭代器模式协议 ." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Generator">生成器</a></li><li><a title="GeneratorFunction构造器生成新的generator function 对象。在JavaScript中，生成器函数实际上都是GeneratorFunction的实例对象" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E6%95%B0">生成器函数</a></li><li><a title="全局属性 Infinity 是一个数值，表示无穷大。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Infinity">Infinity</a></li><li><a title="The Int16Array typed array represents an array of twos-complement 16-bit signed integers in the platform byte order. If control over byte order is needed, use DataView instead. The contents are initialized to 0. Once established, you can reference elements in the array using the object&#39;s methods, or using standard array index syntax (that is, using bracket notation)." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Int16Array">Int16Array</a></li><li><a title="The Int32Array typed array represents an array of twos-complement 32-bit signed integers in the platform byte order. If control over byte order is needed, use DataView instead. The contents are initialized to 0. Once established, you can reference elements in the array using the object&#39;s methods, or using standard array index syntax (that is, using bracket notation)." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Int32Array">Int32Array</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Int32Array$translate">[我来译!]</a></li><li><a title="Int8Array 类型数组为8位二进制补码有符号整数的数组. 初始化内容为0. 你可以使用构造对象来初始化一个Int8Array对象, 也可以使用标准的数组语法 (大括号语法初始化)." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Int8Array">Int8Array</a></li><li><a title="InternalError 对象表示出现在JavaScript引擎内部的错误。 例如： &quot;InternalError: too much recursion&quot;（内部错误：递归过深）。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/InternalError">内部错误</a></li><li><a title="国际化的构造函数和其他构造函数的几个语言敏感的方法（可见See also）一样，使用同样的模式来识别语言区域和确定使用哪一种语言格式：他们都接收 locales 和 options 参数，使用 options.localeMatcher 属性指定的一个算法来对比应用请求的和支持的语言区域，来确定使用哪一个语言区域。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Intl">Intl</a></li><li><a title="The Intl.Collator object is a constructor for collators, objects that enable language sensitive string comparison." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Collator">Intl.Collator</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Collator$translate">[我来译!]</a></li><li><a title="The Intl.DateTimeFormat object is a constructor for objects that enable language sensitive date and time formatting." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat">Intl.DateTimeFormat</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat$translate">[我来译!]</a></li><li><a title="The Intl.NumberFormat object is a constructor for objects that enable language sensitive number formatting." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat">Intl.NumberFormat</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat$translate">[我来译!]</a></li><li><span class="sidebar-icon"><span title="This deprecated API should no longer be used, but will probably still work."><i class="icon-thumbs-down-alt"> </i></span></span><a title="The Iterator function returns an object which implements legacy iterator protocol and iterates over enumerable properties of an object." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Iterator">Iterator</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Iterator$translate">[我来译!]</a></li><li><a title="JSON 对象包含了两个方法，一是解析 JavaScript Object Notation (JSON)，二是将值转换为 JSON。这个对象本身不能被调用或者作为构造函数，除了它的这两个方法属性外 JSON 对象本身并没有什么有用的功能。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a></li><li><a title="Map对象就是简单的键/值映射。其中键和值可以是任意值(对象或者原始值)。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map">Map</a></li><li><a title="Math 是一个内置对象， 为数学常量和数学函数提供了属性和方法，而不是一个函数对象。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math">Math</a></li><li><a title="全局属性 NaN 表示 Not-A-Number 的值。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/NaN">NaN</a></li><li><a title="JavaScript 的 Number 对象是经过封装的能让你处理数字值的对象。Number 对象由 Number() 构造器创建。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></li><li><a title="Object 构造函数创建一个对象包装（object wrapper）。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></li><li><span class="sidebar-icon"><span title="This is an obsolete API and is no longer guaranteed to work."><i class="icon-trash"> </i></span></span><a title="ParallelArray的目标是在web应用程序中让数据并行." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/ParallelArray">ParallelArray</a></li><li><a title="Promise 对象用于异步(asynchronous)计算.。一个Promise对象代表着一个还未完成，但预期将来会完成的操作。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></li><li><a title="Editorial review completed." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy</a></li><li><a title="The RangeError object indicates an error when a value is not in the set or range of allowed values." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RangeError">RangeError</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RangeError$translate">[我来译!]</a></li><li><a title="ReferenceError（引用错误） 对象表明一个不存在的变量被引用。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError">ReferenceError</a></li><li><a title="Reflect 对象提供了若干个能对任意对象进行某种特定的可拦截操作（interceptable operation）的方法。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect">Reflect</a></li><li><a title="RegExp 构造函数可创建一个正则表达式对象，用特定的模式匹配文本。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a></li><li><span class="sidebar-icon"><span title="这是一个实验性的 API，请尽量不要在生产环境中使用它。"><i class="icon-beaker"> </i></span></span><a title="SIMD (pronounced &quot;sim-dee&quot;) is short for Single Instruction/Multiple Data which is one classification of computer architectures. SIMD operations perform the same computation on multiple data points resulting in data level parallelism and thus performance gains, for example for 3D graphics and video processing, physics simulations or cryptography, and other domains." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/SIMD">SIMD</a></li><li><span class="sidebar-icon"><span title="这是一个实验性的 API，请尽量不要在生产环境中使用它。"><i class="icon-beaker"> </i></span></span><a title="The SIMD.Bool16x8 data type is a 128-bit vector divided into 8 lanes storing boolean values." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Bool16x8">SIMD.Bool16x8</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Bool16x8$translate">[我来译!]</a></li><li><span class="sidebar-icon"><span title="这是一个实验性的 API，请尽量不要在生产环境中使用它。"><i class="icon-beaker"> </i></span></span><a title="The SIMD.Bool32x4 data type is a 128-bit vector divided into 4 lanes storing boolean values." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Bool32x4">SIMD.Bool32x4</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Bool32x4$translate">[我来译!]</a></li><li><span class="sidebar-icon"><span title="这是一个实验性的 API，请尽量不要在生产环境中使用它。"><i class="icon-beaker"> </i></span></span><a title="The SIMD.Bool64x2 data type is a 128-bit vector divided into 2 lanes storing boolean values." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Bool64x2">SIMD.Bool64x2</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Bool64x2$translate">[我来译!]</a></li><li><span class="sidebar-icon"><span title="这是一个实验性的 API，请尽量不要在生产环境中使用它。"><i class="icon-beaker"> </i></span></span><a title="The SIMD.Bool8x16 data type is a 128-bit vector divided into 16 lanes storing boolean values." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Bool8x16">SIMD.Bool8x16</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Bool8x16$translate">[我来译!]</a></li><li><span class="sidebar-icon"><span title="这是一个实验性的 API，请尽量不要在生产环境中使用它。"><i class="icon-beaker"> </i></span></span><a title="The SIMD.Float32x4 data type is a 128-bit vector divided into 4 lanes storing single precision floating point values." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Float32x4">SIMD.Float32x4</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Float32x4$translate">[我来译!]</a></li><li><span class="sidebar-icon"><span title="这是一个实验性的 API，请尽量不要在生产环境中使用它。"><i class="icon-beaker"> </i></span></span><a title="The SIMD.Float64x2 data type is a 128-bit vector divided into 2 lanes storing double precision floating point values." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Float64x2">SIMD.Float64x2</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Float64x2$translate">[我来译!]</a></li><li><span class="sidebar-icon"><span title="这是一个实验性的 API，请尽量不要在生产环境中使用它。"><i class="icon-beaker"> </i></span></span><a title="The SIMD.Int16x8 data type is a 128-bit vector divided into 8 lanes storing 16-bit signed integer values." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Int16x8">SIMD.Int16x8</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Int16x8$translate">[我来译!]</a></li><li><span class="sidebar-icon"><span title="这是一个实验性的 API，请尽量不要在生产环境中使用它。"><i class="icon-beaker"> </i></span></span><a title="The SIMD.Int32x4 data type is a 128-bit vector divided into 4 lanes storing 32-bit signed integer values." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Int32x4">SIMD.Int32x4</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Int32x4$translate">[我来译!]</a></li><li><span class="sidebar-icon"><span title="这是一个实验性的 API，请尽量不要在生产环境中使用它。"><i class="icon-beaker"> </i></span></span><a title="The SIMD.Int8x16 data type is a 128-bit vector divided into 16 lanes storing 8-bit signed integer values." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Int8x16">SIMD.Int8x16</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Int8x16$translate">[我来译!]</a></li><li><span class="sidebar-icon"><span title="这是一个实验性的 API，请尽量不要在生产环境中使用它。"><i class="icon-beaker"> </i></span></span><a title="The SIMD.Uint16x8 data type is a 128-bit vector divided into 8 lanes storing 16-bit unsigned integer values." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint16x8">SIMD.Uint16x8</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint16x8$translate">[我来译!]</a></li><li><span class="sidebar-icon"><span title="这是一个实验性的 API，请尽量不要在生产环境中使用它。"><i class="icon-beaker"> </i></span></span><a title="The SIMD.Uint32x4 data type is a 128-bit vector divided into 4 lanes storing 32-bit unsigned integer values." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint32x4">SIMD.Uint32x4</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint32x4$translate">[我来译!]</a></li><li><span class="sidebar-icon"><span title="这是一个实验性的 API，请尽量不要在生产环境中使用它。"><i class="icon-beaker"> </i></span></span><a title="The SIMD.Uint8x16 data type is a 128-bit vector divided into 16 lanes storing 8-bit unsigned integer values." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint8x16">SIMD.Uint8x16</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint8x16$translate">[我来译!]</a></li><li><a title="集合（Set）对象允许你存储任意类型的唯一值（不能重复），无论它是原始值或者是对象引用。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Set">Set</a></li><li><span class="sidebar-icon"><span title="这是一个实验性的 API，请尽量不要在生产环境中使用它。"><i class="icon-beaker"> </i></span></span><a title="The SharedArrayBuffer object is used to represent a generic, fixed-length raw binary data buffer, similar to the ArrayBuffer object, but in a way that they can be used to create views on shared memory. Unlike an ArrayBuffer, a SharedArrayBuffer cannot become detached." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer">SharedArrayBuffer</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer$translate">[我来译!]</a></li><li><span class="sidebar-icon"><span title="This deprecated API should no longer be used, but will probably still work."><i class="icon-thumbs-down-alt"> </i></span></span><a title="The StopIteration object is used to tell the end of the iteration in the legacy iterator protocol." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/StopIteration">StopIteration</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/StopIteration$translate">[我来译!]</a></li><li><a title="String 全局对象是用来构造字符串的构造函数。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></li><li><a title="符号是一种特殊的、不可变的数据类型，可以作为对象属性的标识符使用。符号对象是一个符号 原始数据类型的隐式对象包装器。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol">Symbol</a></li><li><a title="SyntaxError 对象代表尝试解析语法上不合法的代码的错误." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError">SyntaxError</a></li><li><a title="TypeError（类型错误） 对象用来表示值的类型非预期类型时发生的错误。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/TypeError">TypeError</a></li><li><a title="TypedArray 对象表示底层的二进制数据缓存区的类数组视图. 没有名为 TypedArray 的全局属性，也不存在直接可见的 TypedArray 构造器。相反，有若干不同的全局属性的值是类型数组的特殊构造器（typed array constructors for specific element types），用于特定的元素类型，这些在下文有列出。接下来，会介绍能和任何包含任意类型元素的类型数组一起使用的通用属性和方法。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/TypedArray">TypedArray</a></li><li><a title="The URIError object represents an error when a global URI handling function was used in a wrong way." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/URIError">URIError</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/URIError$translate">[我来译!]</a></li><li><a title="The Uint16Array typed array represents an array of 16-bit unsigned integers in the platform byte order. If control over byte order is needed, use DataView instead. The contents are initialized to 0. Once established, you can reference elements in the array using the object&#39;s methods, or using standard array index syntax (that is, using bracket notation)." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array">Uint16Array</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array$translate">[我来译!]</a></li><li><a title="Uint32Array 表示一个32位的无符号的整数数组，以字节的形式。 如果需要以字节的形式操作，使用{jsxref(&quot;DataView&quot;)}}代替。 内容初始化为0。 一旦创建，你可以用对象的方法引用数组里的元素，或者使用标准的数组index语法（即，使用中括号）。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array">Uint32Array</a></li><li><a title="Uint8Array 数组类型表示一个8位无符号整型数组，创建时内容被初始化为0。创建完后，可以以对象的方式或使用数组下标索引的方式引用数组中的元素。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array">Uint8Array</a></li><li><a title="The Uint8ClampedArray typed array represents an array of 8-bit unsigned integers clamped to 0-255; if you specified a value that is out of the range of [0,255], 0 or 255 will be set instead. The contents are initialized to 0. Once established, you can reference elements in the array using the object&#39;s methods, or using standard array index syntax (that is, using bracket notation)." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray">Uint8ClampedArray</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray$translate">[我来译!]</a></li><li><a title="WeakMap对象就是简单的键/值映射.但键只能是对象值,不可以是原始值." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/WeakMap">WeakMap</a></li><li><a title="一个 WeakSet 对象是一个无序的集合, 可以用它来存储任意的对象值, 并且对这些对象值保持弱引用." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/WeakSet">WeakSet</a></li><li><a title="decodeURI() 方法用于解码由 encodeURI 方法或者其它类似方法编码的统一资源标识符（URI）" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/decodeURI">decodeURI()</a></li><li><a title="decodeURIComponent() 方法用于解码由 encodeURIComponent 方法或者其它类似方法编码的部分统一资源标识符（URI）。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent">decodeURIComponent()</a></li><li><a title="encodeURI() 是对统一资源标识符（URI）进行编码的方法。它使用1到4个转义字符串来替换UTF-8编码字符串中的每个字符（只有由两个代理字符区组成的字符才用四个转义字符编码）。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI()</a></li><li><a title="encodeURIComponent()是对统一资源标识符（URI）的组成部分进行编码的方法。它使用一到四个转义字符串来替换UTF-8编码字符串中的每个字符（只有由两个Unicode代理区字符组成的字符才用四个转义字符编码）。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent()</a></li><li><span class="sidebar-icon"><span title="This deprecated API should no longer be used, but will probably still work."><i class="icon-thumbs-down-alt"> </i></span></span><a title="废弃的 escape() 方法生成新的由十六进制转移序列替换的字符串. 使用 encodeURI 或 encodeURIComponent 代替." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/escape">escape()</a></li><li><a title="将一个JavaScript代码字符串求值成特定的对象。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/eval">eval()</a></li><li><a title="该全局 isFinite() 函数用来判断被传入的参数值是否为一个有限数值（finite number）。在必要情况下，参数会首先转为一个数值。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/isFinite">isFinite()</a></li><li><a title="isNaN() 函数用来判断一个值是否为 NaN。注：isNaN函数包含一些非常有意思的强制转换规则；你也可以通过 ECMAScript 6 中定义的 Number.isNaN() 或者 typeof 来判断一个值是否为非数值。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/isNaN">isNaN()</a></li><li><a title="值 null 是一个 JavaScript 字面量，表示空值（null or an &quot;empty&quot; value），即没有对象被呈现（no object value is present）。它是 JavaScript 原始值 之一。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></li><li><a title="parseFloat()方法将参数中指定的字符串解析成为一个浮点数字并返回." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/parseFloat">parseFloat</a></li><li><a title="概述" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/parseInt">parseInt</a></li><li><a title="undefined有多重角色,通常情况下,我们所说的undefined都指的是全局对象的一个属性&quot;undefined&quot;." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></li><li><span class="sidebar-icon"><span title="This deprecated API should no longer be used, but will probably still work."><i class="icon-thumbs-down-alt"> </i></span></span><a title="已废弃的 unescape() 方法计算生成一个新的字符串，其中的十六进制转义序列将被其表示的字符替换。上述的转义序列就像escape里介绍的一样。因为 unescape 已经废弃，建议使用 decodeURI()或者decodeURIComponent 替代本方法。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/unescape">unescape()</a></li><li><a title="uneval() 函数创建一个代表对象的源代码的字符串。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/uneval">uneval()</a></li></ol> 
+  </li> 
+  <li data-default-state="closed" class="toggleable" data-closed="true"><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators" class="toggler" aria-haspopup="true"><i aria-hidden="true" class="icon-caret-right"></i>表达式和运算符</a> 
+   <ol class="toggle-container" style="display: none;"><li><a title="算术运算符（Arithmetic operators）把数值（原始值或变量）作为它们的操作数（operand），然后返回一个单数值。标准的算术运算符有加 (+)，减 (-)，乘(*)，除(/)。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Arithmetic_Operators">算术运算符</a></li><li><span class="sidebar-icon"><span title="This API has not been standardized."><i class="icon-warning-sign"> </i></span></span><a title="数组推导式是一种新的 JavaScript 表达式语法，使用它，你可以在一个原有数组的基础上快速的构造出（推导出）一个新的数组。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Array_comprehensions">数组推导式</a></li><li><a title="赋值运算符（assignment operator）基于右值（right operand）的值，给左值（left operand）赋值。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Assignment_Operators">赋值运算符</a></li><li><a title="按位操作符（Bitwise operators） 将其操作数（operands）当作32位的比特序列（由0和1组成），而不是十进制、十六进制或八进制数值。例如，十进制数9，用二进制表示则为1001。按位操作符操作数字的二进制形式，但是返回值依然是标准的JavaScript数值。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators">按位操作符</a></li><li><a title="逗号操作符 对它的每个操作对象求值（从左至右），然后返回最后一个操作对象的值。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Comma_Operator">逗号操作符</a></li><li><a title="JavaScript 有两种比较方式：严格比较运算符和转换类型比较运算符。对于严格比较运算符（三个 =）来说，为ture的情况是仅当两个操作数拥有相同的类型，而对于被广泛使用的比较运算符（两个 =）来说，会在进行比较之前，将两个操作数转换成相同的类型。对于关系运算符（两个==）来说，会先将操作数转为原始值，待他们类型相同，再进行比较运算。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Comparison_Operators">比较操作符</a></li><li><a title="条件（三元）运算符是 JavaScript 仅有的使用三个操作数的运算符。本运算符经常作为 if 语句的简短形式来使用。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Conditional_Operator">条件运算符</a></li><li><a title="解构赋值（destructuring assignment）语法是一个Javascript表达式，它使得从数组或者对象中提取数据赋值给不同的变量成为可能。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment">解构赋值</a></li><li><a title="表达式闭包是定义简单函数的一种便捷方式。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Expression_closures">Expression closures</a></li><li><span class="sidebar-icon"><span title="This API has not been standardized."><i class="icon-warning-sign"> </i></span></span><a title="The generator comprehension syntax is a JavaScript expression which allows you to quickly assemble a new generator function based on an existing iterable object. Comprehensions exist in many programming languages and the upcoming ECMAScript 7 standard defines array comprehensions for JavaScript." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Generator_comprehensions">Generator推倒式</a></li><li><a title="圆括号运算符( ) 用来控制表达式中的运算优先级." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Grouping">圆括号运算符</a></li><li><a title="function 关键字可以用于在表达式中定义旧式的生成器函数。为使定义的函数为一个旧式的生成器函数，该函数的函数体中需要至少包含一个 yield 表达式。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Legacy_generator_function">旧式生成器函数</a></li><li><a title="逻辑运算符通常用于布尔型（逻辑）值；这种情况，它们返回一个布尔型值。然而，&amp;&amp;和||运算符实际上返回一个指定操作数的值，因此这些运算符也用于非布尔型，它们返回一个非布尔型值。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Logical_Operators">逻辑运算符</a></li><li><a title="对象可以通过 new Object(), Object.create() 方法， 或者使用字面 标记 (初始化 标记)初始化。 对象初始化，由花括号{}包含的一个由0个或者多个对象属性名和关联值组成的列表构成。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Object_initializer">Object initializer</a></li><li><a title="运算符的优先级决定了表达式中运算执行的先后顺序，优先级高的运算符最先被执行。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Operator_Precedence">运算符优先级</a></li><li><a title="属性访问器提供了两种方式用于访问一个对象的属性，它们分别是点符号和括号。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Property_Accessors">Property accessors</a></li><li><a title="展开运算符允许一个表达式在某处展开，在多个参数（用于函数调用）或者多个元素（用于数组字面量）或者多个变量（用于解构赋值）的地方就会这样。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Spread_operator">展开运算符</a></li><li><a title="类表达式是用来定义类的一种语法。和函数表达式相同的一点是，类表达式可以是命名也可以是匿名的。如果是命名类表达式，这个名字只能在类体内部才能访问到。JavaScript 的类也是基于原型继承的。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/class">类表达式</a></li><li><a title="delete 操作符用来删除一个对象的属性。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/delete">delete</a></li><li><a title="function 关键字可用来在一个表达式中定义一个函数。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/function">函数表达式</a></li><li><a title="function*关键字可以在表达式内部定义一个生成器函数。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/function*">function* expression</a></li><li><a title="如果指定的属性存在于指定的对象中，则 in 运算符会返回 true。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/in">in</a></li><li><a title="instanceof运算符可以用来判断某个构造函数的prototype属性所指向的對象是否存在于另外一个要检测对象的原型链上。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/instanceof">instanceof</a></li><li><a title="Editorial review completed." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new">new运算符</a></li><li><a title="new.target语法由一个关键字&quot;new&quot;，一个点，和一个属性名&quot;target&quot;组成。通常&quot;new.&quot;的作用是提供属性访问的上下文，但这里&quot;new.&quot;其实不是一个真正的对象。不过在构造方法调用中，new.target指向被new调用的构造函数，所以&quot;new.&quot;成为了一个虚拟上下文。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new.target">new.target</a></li><li><a title="super 关键字用于访问父对象上的函数。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/super">super</a></li><li><a title="在JavaScript中，函数的this关键字的行为与其他语言相比有很多不同。在JavaScript的严格模式和非严格模式下也略有区别。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this">this</a></li><li><a title="typeof操作符返回一个字符串,表示未经求值的操作数(unevaluated operand)的类型。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/typeof">typeof</a></li><li><a title="void 运算符会对给定的表达式进行求值，然后直接返回 undefined。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/void">void 运算符</a></li><li><a title="yield 关键字用来暂停和继续一个生成器函数 (function* or legacy generator)." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/yield">yield</a></li><li><a title="在生成器中，yield* 可以把需要 yield 的值委托给另外一个生成器或者其他任意的可迭代对象。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/yield*">yield*</a></li></ol> 
+  </li> 
+  <li data-default-state="closed" class="toggleable" data-closed="true"><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements" class="toggler" aria-haspopup="true"><i aria-hidden="true" class="icon-caret-right"></i>语句和声明</a> 
+   <ol class="toggle-container" style="display: none;"><li><a title="The legacy generator function statement declares legacy generator functions with the specified parameters." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/Legacy_generator_function">Legacy generator function原始函数生成器[函数普通定义]</a></li><li><a title="语句块 (或其他语言中的 复合语句) 用来组织零个或多条语句. 用一对花括号界定语句块." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/block">block</a></li><li><a title="break 语句 中止当前循环，switch 语句或 label 语句，并把程序控制流转到紧接着被中止语句后面的语句。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/break">break</a></li><li><a title="关键字创建一个基于原型继承的新类(译者注：ES6新加入的class关键字是语法糖，本质还是函数)" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/class">class</a></li><li><a title="Editorial review completed." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/const">const</a></li><li><a title="continue 语句结束当前（或标签）的循环语句的本次迭代，并继续执行循环的下一次迭代。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/continue">continue</a></li><li><a title="调用任何一个可用的调试器,如果没有调试器可用,则该语句没有任何效果." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/debugger">debugger</a></li><li><a title="The default keyword can be used in two situations in JavaScript: within a switch statement, or with an export statement." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/default">default</a></li><li><a title="do...while 语句创建了一个循环,该循环执行一个指定的语句直到condition 的值为 false. condition 在执行statement后才会被赋值,statement至少执行一次." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/do...while">do...while</a></li><li><a title="empty 语句 用来表明没有语句, 尽管JavaScript语法希望有语句会被执行." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/Empty">empty</a></li><li><a title="export语句用于从给定文件（或模块）导出函数和对象。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/export">export</a></li><li><a title="for语句用于创建一个循环,它包含了三个可选的表达式,三个可选的表达式包围在圆括号中并由分号分隔,后面跟随一个语句或一组语句在循环中执行." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for">for</a></li><li><span class="sidebar-icon"><span title="This deprecated API should no longer be used, but will probably still work."><i class="icon-thumbs-down-alt"> </i></span></span><a title="使用一个变量迭代一个对象的所有属性值,对于每一个属性值,有一个指定的语句块被执行." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for_each...in">for each...in</a></li><li><a title="以任意序迭代一个对象的可枚举属性。每个不同的属性，语句都会被执行一次。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...in">for...in</a></li><li><a title="for...of语句在可迭代对象(包括 Array, Map, Set, String, TypedArray，arguments 对象等等)上创建一个迭代循环，对每个不同属性的属性值,调用一个自定义的有执行语句的迭代挂钩." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...of">for...of</a></li><li><a title="函数声明用指定的参数声明一个函数。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/function">function</a></li><li><a title="function* 声明（function关键字后跟一个星号）定义一个generator（生成器）函数，返回一个Generator对象。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/function*">function*</a></li><li><a title="当指定条件为 true 时，if 语句 会执行一条语句。如果该条件为 false，则执行另一条语句。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/if...else">if...else</a></li><li><a title="name参数用于接收导出成员的对象名称。member参数指定独立成员，而name参数导入所有成员。如果模块导出单个默认参数，而不是一系列成员，name也可以是函数。
+ 下面提供一些示例说明语法。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/import">import</a></li><li><a title="标记语句（labeled statement）可以和 break 或 continue 语句一起使用。标记就是在一条语句前面加个可以引用的标识符（identifier）。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/label">label</a></li><li><a title="let 声明了一个块级域的局部变量，并且可以给它一个初始化值。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/let">let</a></li><li><a title="return 语句终止函数的执行，并返回一个指定的值给函数调用者。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/return">return</a></li><li><a title="switch语句对一个表达式求值，将结果与 case 子语句比较，如果匹配，则从 case 处的语句向下执行。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/switch">switch</a></li><li><a title="throw 语句用来抛出用户自定义异常。当前函数的执行将会被中止（throw之后的语句将会得不到执行），接着执行流程会转移到第一个 catch 语句块。如果在调用方函数中没有任何catch语句块，那么程序将会被中止。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/throw">throw</a></li><li><a title="try...catch语句将能引发错误的代码放在try块中，并且对应一个响应，然后有异常被抛出。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/try...catch">try...catch</a></li><li><a title="var声明了一个变量，并且可以同时初始化该变量。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/var">var</a></li><li><a title="while 语句可以在某个条件表达式为真的前提下，循环执行指定的一段代码，直到那个表达式不为真时结束循环。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/while">while</a></li><li><span class="sidebar-icon"><span title="This deprecated API should no longer be used, but will probably still work."><i class="icon-thumbs-down-alt"> </i></span></span><a title="with語句的作用是擴展作用域鏈（scope chain）。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/with">with</a></li></ol> 
+  </li> 
+  <li data-default-state="closed" class="toggleable" data-closed="true"><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions" class="toggler" aria-haspopup="true"><i aria-hidden="true" class="icon-caret-right"></i>函数</a> 
+   <ol class="toggle-container" style="display: none;"><li><a title="arguments 是一个类数组对象。代表传给一个function的参数列表。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/arguments">arguments</a></li><li><a title="箭头函数就是个简写形式的函数表达式，并且它拥有词法作用域的this值（即不会新产生自己作用域下的this, arguments, super 和 new.target 等对象）。此外，箭头函数总是匿名的。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions">箭头函数</a></li><li><a title="如果一个形参没有被传入对应的实参或者传入了undefined,则该形参会被赋一个默认值." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Default_parameters">默认参数值</a></li><li><a title="ECMAScript从ECMAScript6开始，引入了一种更简短的在对象初始器中定义方法的语法，这是一种把方法名直接赋给函数的简写方式。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Method_definitions">方法的定义</a></li><li><a title="剩余参数（rest parameter）允许长度不确定的实参表示为一个数组。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Rest_parameters">剩余参数</a></li><li><a title="get 语句作为函数绑定在对象的属性上,当访问该属性时调用该函数." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/get">getter</a></li><li><a title="Editorial review completed." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/set">setter</a></li></ol> 
+  </li> 
+  <li data-default-state="closed" class="toggleable" data-closed="true"><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes" class="toggler" aria-haspopup="true"><i aria-hidden="true" class="icon-caret-right"></i>Classes</a> 
+   <ol class="toggle-container" style="display: none;"><li><a title="当用class 创建对象时，constructor是一个用来创建和初始化的对象的特殊方法。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes/constructor">构造方法</a></li><li><a title="extends关键词被用在类声明或者类表达式以创建一个其他类的子类。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes/extends">extends</a></li><li><a title="static关键字定义一个类中的静态方法。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes/static">static</a></li></ol> 
+  </li> 
+  <li data-default-state="closed" class="toggleable" data-closed="true"><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors" class="toggler" aria-haspopup="true"><i aria-hidden="true" class="icon-caret-right"></i>Errors</a> 
+   <ol class="toggle-container" style="display: none;"><li><a title="错误." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Property_access_denied">Error: Permission denied to access property "x"</a></li><li><a title="内部错误." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Too_much_recursion">InternalError: too much recursion</a></li><li><a title="RangeError" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Not_a_codepoint">RangeError: argument is not a valid code point</a></li><li><a title="RangeError" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Invalid_array_length">RangeError: invalid array length</a></li><li><a title="RangeError" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Precision_range">RangeError: precision is out of range</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Precision_range$translate">[我来译!]</a></li><li><a title="RangeError" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Bad_radix">RangeError: radix must be an integer</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Bad_radix$translate">[我来译!]</a></li><li><a title="RangeError" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Resulting_string_too_large">RangeError: repeat count must be less than infinity</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Resulting_string_too_large$translate">[我来译!]</a></li><li><a title="RangeError" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Negative_repetition_count">RangeError: repeat count must be non-negative</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Negative_repetition_count$translate">[我来译!]</a></li><li><a title="ReferenceError." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Not_defined">ReferenceError: "x" is not defined</a></li><li><a title="ReferenceError warning in strict mode only." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Undeclared_var">ReferenceError: assignment to undeclared variable "x"</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Undeclared_var$translate">[我来译!]</a></li><li><a title="A strict-mode-only warning that a ReferenceError occurred. JavaScript execution won&#39;t be halted." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Deprecated_caller_or_arguments_usage">ReferenceError: deprecated caller or arguments usage</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Deprecated_caller_or_arguments_usage$translate">[我来译!]</a></li><li><a title="ReferenceError." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Invalid_assignment_left-hand_side">ReferenceError: invalid assignment left-hand side</a></li><li><a title="ReferenceError warning in strict mode only." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Undefined_prop">ReferenceError: reference to undefined property "x"</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Undefined_prop$translate">[我来译!]</a></li><li><a title="SyntaxError warning in strict mode only." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Bad_octal">SyntaxError: "x" is not a legal ECMA-262 octal constant</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Bad_octal$translate">[我来译!]</a></li><li><a title="SyntaxError" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/JSON_bad_parse">SyntaxError: JSON.parse: bad parsing</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/JSON_bad_parse$translate">[我来译!]</a></li><li><a title="SyntaxError" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Malformed_formal_parameter">SyntaxError: Malformed formal parameter</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Malformed_formal_parameter$translate">[我来译!]</a></li><li><a title="SyntaxError" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Unexpected_token">SyntaxError: Unexpected token</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Unexpected_token$translate">[我来译!]</a></li><li><a title="A warning that a SyntaxError occurred. JavaScript execution won&#39;t be halted." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Deprecated_source_map_pragma">SyntaxError: Using //@ to indicate sourceURL pragmas is deprecated. Use //# instead</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Deprecated_source_map_pragma$translate">[我来译!]</a></li><li><a title="SyntaxError." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Missing_parenthesis_after_argument_list">SyntaxError: missing ) after argument list</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Missing_parenthesis_after_argument_list$translate">[我来译!]</a></li><li><a title="SyntaxError." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Missing_semicolon_before_statement">SyntaxError: missing ; before statement</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Missing_semicolon_before_statement$translate">[我来译!]</a></li><li><a title="SyntaxError." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Missing_bracket_after_list">SyntaxError: missing ] after element list</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Missing_bracket_after_list$translate">[我来译!]</a></li><li><a title="SyntaxError" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Missing_curly_after_property_list">SyntaxError: missing } after property list</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Missing_curly_after_property_list$translate">[我来译!]</a></li><li><a title="SyntaxError" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Redeclared_parameter">SyntaxError: redeclaration of formal parameter "x"</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Redeclared_parameter$translate">[我来译!]</a></li><li><a title="SyntaxError." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Bad_return_or_yield">SyntaxError: return not in function</a></li><li><a title="SyntaxError 只在严格模式下会出现的警告。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Equal_as_assign">SyntaxError: test for equality (==) mistyped as assignment (=)?</a></li><li><a title="SyntaxError" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Unterminated_string_literal">SyntaxError: unterminated string literal</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Unterminated_string_literal$translate">[我来译!]</a></li><li><a title="TypeError." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/No_properties">TypeError: "x" has no properties</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/No_properties$translate">[我来译!]</a></li><li><a title="TypeError." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Unexpected_type">TypeError: "x" is (not) "y"</a></li><li><a title="TypeError" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Not_a_constructor">TypeError: "x" is not a constructor</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Not_a_constructor$translate">[我来译!]</a></li><li><a title="TypeError." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Not_a_function">TypeError: "x" is not a function</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Not_a_function$translate">[我来译!]</a></li><li><a title="TypeError" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Read-only">TypeError: "x" is read-only</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Read-only$translate">[我来译!]</a></li><li><a title="TypeError." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/More_arguments_needed">TypeError: More arguments needed</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/More_arguments_needed$translate">[我来译!]</a></li><li><a title="TypeError" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Array_sort_argument">TypeError: invalid Array.prototype.sort argument</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Array_sort_argument$translate">[我来译!]</a></li><li><a title="TypeError in strict mode only." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Cant_delete">TypeError: property "x" is non-configurable and can't be deleted</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Cant_delete$translate">[我来译!]</a></li><li><a title="TypeError warning in strict mode only." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Var_hides_argument">TypeError: variable "x" redeclares argument</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Var_hides_argument$translate">[我来译!]</a></li><li><a title="A warning. JavaScript execution won&#39;t be halted." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Already_has_pragma">Warning: -file- is being assigned a //# sourceMappingURL, but already has one</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Already_has_pragma$translate">[我来译!]</a></li><li><a title="Warning" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/For-each-in_loops_are_deprecated">Warning: JavaScript 1.6's for-each-in loops are deprecated</a> <a title="此页面仍未被本地化, 期待您的翻译!" style="opacity: 0.5;" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/For-each-in_loops_are_deprecated$translate">[我来译!]</a></li><li><a title="警告" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Errors/Stmt_after_return">Warning: unreachable code after return statement</a></li></ol> 
+  </li> 
+  <li data-default-state="closed" class="toggleable" data-closed="true"><a href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#" class="toggler" aria-haspopup="true"><i aria-hidden="true" class="icon-caret-right"></i>更多</a> 
+   <ol class="toggle-container" style="display: none;"> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Lexical_grammar">词法文法</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures">JavaScript 数据结构</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Enumerability_and_ownership_of_properties">属性的可枚举性和所有权</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols">Iteration protocols</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode">严格模式</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode/Transitioning_to_strict_mode">切换到严格模式</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Template_literals">模板字符串</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Deprecated_and_obsolete_features">已废弃的特性</a></li> 
+   </ol> 
+  </li> 
+  <li data-default-state="closed" class="toggleable" data-closed="true"><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/New_in_JavaScript" class="toggler" aria-haspopup="true"><i aria-hidden="true" class="icon-caret-right"></i>New in JavaScript</a> 
+   <ol class="toggle-container" style="display: none;"><li><a title="" href="https://developer.mozilla.org/zh-CN/docs/JavaScript/ECMAScript_5_support_in_Mozilla">Mozilla对ECMAScript 5的支持</a></li><li><a title="" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla">Mozilla对ECMAScript 6的支持</a></li><li><a title="下一代ECMAScript 是指在ECMAScript 6 (ES2015)被推出后的 ECMA-262标准的新特性(通常被称为 JavaScript). 即使在ECMAScript 6 于2015年6月17日完成之前，新的特性也早已在提议中. 你可以在 tc39/ecma262 这个仓库中看见最新版的提议." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_7_support_in_Mozilla">Mozilla对下一代ECMAScript 的支持</a></li><li><a title="下面是Firefox发布版本的JavaScript日志更新情况。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/New_in_JavaScript/Firefox_JavaScript_changelog">Firefox中的JavaScript更新日志</a></li><li><a title="下面介绍的是JavaScript从Netscape Navigator 2.0到3.0的更新日志。旧的Netscape文档请参考&quot;第1版之后新增的特性&quot;。Netscape Navigator 3.0在1996年8月19发布，是支持JavaScript的浏览器的第二个主要的版本。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/New_in_JavaScript/1.1">JavaScript 1.1的新特性</a></li><li><a title="下面介绍的是JavaScript从Netscape Navigator 3.0到4.0的更新日志。旧的Netscape文档可以在archive.org上面找到。Netscape Navigator 4.0在1997年6月11日发布，它是是支持JavaScript的浏览器的第三个主要的版本。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/New_in_JavaScript/1.2">JavaScript 1.2的新特性</a></li><li><a title="下面介绍的是JavaScript从Netscape Navigator 4.0到4.5的更新日志。旧的Netscape文档可以在archive.org上面找到。Netscape Navigator 4.5是在1998年10月19日发布的。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/New_in_JavaScript/1.3">JavaScript 1.3的新特性</a></li><li><a title="The following is a changelog for JavaScript 1.4, which was only used for Netscape&#39;s server side JavaScript released in 1999. The old Netscape documentation can be found on archive.org." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/New_in_JavaScript/1.4">JavaScript 1.4的新特性</a></li><li><a title="以下为JavaScript 1.5 的更新日志。该版本包含在发行于2000年11月14日的Netscape Navigator 6.0中，也在后续的的Netscape Navigator版本和Firefox 1.0中使用。你可以拿JavaScript 1.5 和JScript version 5.5，Internet Explorer 5.5进行比较，后者发行于2000年7月。相应的ECMA 标准是 ECMA-262 Edition 3版 (自1999年12月)。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/New_in_JavaScript/1.5">JavaScript 1.5 的新特性</a></li><li><a title="" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/New_in_JavaScript/1.6">JavaScript 1.6 的新特性</a></li><li><a title="The following is a changelog for JavaScript 1.7. This version was included in Firefox 2 (October 2006)." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/New_in_JavaScript/1.7">New in JavaScript 1.7</a></li><li><a title="以下为JavaScript 1.8的更新日志。JavaScript 1.8 是 Gecko 1.9（已合并在 Firefox 3 中）的一部分。参见 bug 380236 以跟踪 JavaScript 1.8。" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/New_in_JavaScript/1.8">New in JavaScript 1.8</a></li><li><a title="下面是JavaScript 1.8.1 的更新内容. 该版本已包含在 Firefox 3.5 中." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/New_in_JavaScript/1.8.1">JavaScript 1.8.1 的新特性</a></li><li><a title="下面的内容是JavaScript 1.8.5的更新记录. 该版本已包含在Firefox 4中." href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/New_in_JavaScript/1.8.5">JavaScript 1.8.5 的新特性</a></li></ol> 
+  </li> 
+  <li><strong><a href="https://developer.mozilla.org/zh-CN/docs/MDN">文档:</a></strong></li> 
+  <li data-default-state="closed" class="toggleable" data-closed="true"><a href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#" class="toggler" aria-haspopup="true"><i aria-hidden="true" class="icon-caret-right"></i>常用列表</a> 
+   <ol class="toggle-container" style="display: none;"> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Index">全部页面索引</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Methods_Index">方法索引</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Properties_Index">属性索引</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/tag/JavaScript">拥有 "JavaScript" 标签的页面</a></li> 
+   </ol> 
+  </li> 
+  <li data-default-state="closed" class="toggleable" data-closed="true"><a href="https://developer.mozilla.org/cn/docs/Web/JavaScript/Closures#" class="toggler" aria-haspopup="true"><i aria-hidden="true" class="icon-caret-right"></i>贡献</a> 
+   <ol class="toggle-container" style="display: none;"> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/MDN/Doc_status/JavaScript">JavaScript 文档翻译状态</a></li> 
+    <li><a href="https://developer.mozilla.org/zh-CN/docs/MDN">MDN 项目</a></li> 
+   </ol> 
+  </li> 
+ </ol> 
+
+  </div>
+                
+
+                <!-- approvals -->
+                
+
+              
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div> <!-- ends "main-content" -->
+
+  <menu type="context" id="edit-history-menu">
+    <menuitem data-action="/zh-CN/docs/Web/JavaScript/Closures$edit" label="编辑页面"></menuitem>
+    <menuitem data-action="/zh-CN/docs/Web/JavaScript/Closures$history" label="查看页面历史"></menuitem>
+  </menu>
+
+  </div></main>
+
+  <!-- Footer -->
+  <footer id="main-footer"><div class="center">
+    <div class="column-container">
+      <div class="column-main">
+        
+        <div class="contentinfo">
+          <p>© 2005-2016 Mozilla 开发者网络及各贡献者</p> <p>内容可按<a href="https://developer.mozilla.org/en-US/docs/MDN/About#Copyrights_and_licenses">这些许可协议</a>使用。</p>
+          <ul>
+            <li><a href="https://developer.mozilla.org/docs/MDN/About">关于 MDN</a></li>
+            <li><a href="https://www.mozilla.org/about/legal/terms/mozilla">条款</a></li>
+            <li><a href="https://www.mozilla.org/privacy/websites/">隐私</a></li>
+            <li><a href="https://www.mozilla.org/privacy/websites/#cookies">Cookie</a></li>
+            <li><a href="https://github.com/mozilla/kuma">贡献代码</a></li>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="column-strip">
+        
+          
+  
+    <form class="languages go" method="get" action="https://developer.mozilla.org/zh-CN/docs/Web">
+      <label for="language">其他语言：</label>
+      <select id="language" class="wiki-l10n" name="next" dir="ltr">
+        <option title="简体中文" value="/zh-CN/docs/Web/JavaScript/Closures" selected="">
+          中文 (简体) (zh-CN)
+        </option>
+        
+          <option title="英语 (美国)" value="/en-US/docs/Web/JavaScript/Closures">
+            English (US) (en-US)
+          </option>
+          <option title="德语" value="/de/docs/Web/JavaScript/Closures">
+            Deutsch (de)
+          </option>
+          <option title="西班牙语" value="/es/docs/Web/JavaScript/Closures">
+            Español (es)
+          </option>
+          <option title="法语" value="/fr/docs/Web/JavaScript/Closures">
+            Français (fr)
+          </option>
+          <option title="印尼语" value="/id/docs/Web/JavaScript/Panduan/Closures">
+            Bahasa Indonesia (id)
+          </option>
+          <option title="意大利语" value="/it/docs/Web/JavaScript/Chiusure">
+            Italiano (it)
+          </option>
+          <option title="日语" value="/ja/docs/Web/JavaScript/Closures">
+            日本語 (ja)
+          </option>
+          <option title="朝鲜语" value="/ko/docs/Web/JavaScript/Guide/Closures">
+            한국어 (ko)
+          </option>
+          <option title="波兰语" value="/pl/docs/Web/JavaScript/Domkniecia">
+            Polski (pl)
+          </option>
+          <option title="葡萄牙语 (巴西)" value="/pt-BR/docs/Web/JavaScript/Guide/Closures">
+            Português (do&nbsp;Brasil) (pt-BR)
+          </option>
+          <option title="俄语" value="/ru/docs/Web/JavaScript/Closures">
+            Русский (ru)
+          </option>
+          <option title="繁体中文" value="/zh-TW/docs/Web/JavaScript/Closures">
+            正體中文 (繁體) (zh-TW)
+          </option>
+      </select>
+      <noscript>&lt;button type="submit"&gt;转到&lt;/button&gt;</noscript>
+    </form>
+  
+
+        
+      </div>
+    </div>
+  </div></footer>
+
+  <!-- site js -->
+  
+    
+    <!--[if lte IE 8]><script type="text/javascript" src="https://developer.cdn.mozilla.net/static/build/js/selectivizr.091e18cf669b.js" charset="utf-8"></script><![endif]-->
+
+    <form id="_persona_login" method="post" action="https://developer.mozilla.org/users/persona/signin" data-csrf-token-url="/users/persona/csrf" data-request="{&quot;siteName&quot;: &quot;Mozilla Developer Network&quot;, &quot;siteLogo&quot;: &quot;/static/img/opengraph-logo.png&quot;}" data-persona-script="https://login.persona.org/include.js">
+  <input type="hidden" name="csrfmiddlewaretoken" value="" id="_persona_csrf_token">
+  <input type="hidden" name="next" value="" id="_persona_next_url">
+  <input type="hidden" name="process" value="" id="_persona_process">
+  <input type="hidden" name="assertion" id="_persona_assertion">
+</form>
+
+
+    <script type="text/javascript" src="./闭包 - JavaScript _ MDN_files/main.1d36afa1ebbb.js.下载" charset="utf-8"></script>
+    
+      <script>
+        if(window.mdn && mdn.analytics) mdn.analytics.trackOutboundLinks();
+      </script>
+    
+    
+    <script type="text/javascript" src="./闭包 - JavaScript _ MDN_files/javascript.bd223426d7d5.js.下载"></script>
+  
+    <script async="" type="text/javascript" src="./闭包 - JavaScript _ MDN_files/wiki.d85ddd33511e.js.下载" charset="utf-8"></script>
+
+
+  
+
+  
+
+  
+
+  
+    <script async="" type="text/javascript" src="./闭包 - JavaScript _ MDN_files/newsletter.48002b650382.js.下载" charset="utf-8"></script>
+  
+
+
+
+</body></html>

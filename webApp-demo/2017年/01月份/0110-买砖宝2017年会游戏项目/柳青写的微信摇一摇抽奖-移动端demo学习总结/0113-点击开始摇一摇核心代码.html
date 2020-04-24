@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        //  点击 开始摇一摇 核心代码
+        $('.screen3 .start').click(function() {
+            $.get("./php/get_status.php", function(res) {
+                 // 此处点击摇一摇开始按钮 请求后台数据，1表示活动开始，0表示没有开始
+                //  什么时候摇一摇 是可以由后台的一个开关控制的。
+
+                // 因为活动现场不太好把控，所以，得由主持人喊开始后，后台工作人员
+                // 就把后台的摇一摇开关开启（后台有一个页面），然后就可以开始摇一摇了。（ 前端这边调用后台get_status.php 这个文件的接口）
+                var msg = eval('(' + res + ')');
+
+                // 如果值是1的话，则表明摇一摇活动已经开始。
+                if (msg.status == '1') {
+                    $('.screen3').css('opacity', '1').removeClass('animated bounceInRight');
+                    $('.screen3').addClass('animated bounceOutLeft');
+                    $('.screen4').addClass('animated bounceInRight');
+
+                    // 执行摇一摇事件
+                    shake();
+
+                    //  倒计时事件
+                    function countDown() {
+                        clearTimeout(sto);
+                        if (i > 0) {
+                            i--;
+                            $('.screen4 .time').html(i);
+                            var sto = setTimeout(countDown, 1000);
+                        } else {
+                            // 倒计时结束了已经。把结果输出到页面
+                            $('.tips2').fadeIn();
+                            $('.tips2 .grade').html(count2);
+
+                            // 提交摇一摇的数据到后台数据库
+                            $.post('./php/pos_award.php', {
+                                'u_id': getCookie('cid'),
+                                'waggle': count,
+                                'score': count2
+                            });
+                        }
+                    }
+                    setTimeout(countDown, 1500);
+
+                } else {
+                    //  表示摇一摇活动还没开始，需提醒好动还没开始
+                    $('.tips1').fadeIn();
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

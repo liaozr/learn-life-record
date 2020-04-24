@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+  <!-- ----------------------------------------------------------- -->
+
+    首先是要 install 安装 element 这个UI框架
+    cnpm install element-ui@next --save
+
+    然后可以在package.json这个文件里面下可以看到：
+
+    "dependencies": {
+      "element-ui": "^1.0.0-rc.6",
+      "vue": "^2.0.1",
+      "vue-resource": "^1.0.3",
+      "vue-router": "^2.0.0",
+      "vuex": "^2.0.0"
+    }
+
+    说明 element-ui已经安装成功了。
+
+<!-- ------------------------------------------------------------------     -->
+
+然后在 main.js 引入并注册
+<script type="text/javascript">
+
+
+import Element from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
+Vue.use(Element)
+
+
+</script>
+<!-- ---------------------------------------------------------------------- -->
+
+给豆瓣的电影列表套个衣服(样式) :
+
+<el-card class="box-card">
+
+    <div slot="header" class="clearfix">
+        <h1 style="line-height: 36px; color: #20A0FF">豆瓣电影排行榜</h2>
+    </div>
+
+    <div v-for="article in articles" class="text item">
+        {{article.title}}
+    </div>
+    
+</el-card>
+
+<!-- ----------------------------------------------------------------------- -->
+
+  </body>
+</html>

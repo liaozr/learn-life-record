@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- ------------------------------------------------------------------------------ -->
+
+    <script>
+        (function($) {
+            $.init();
+            var arr2 = [];
+            $.ajax(getBaseServerUrl() + '/app/order/findHomeDecoration', {
+                type: 'post', //HTTP请求类型
+                dataType: 'json',
+                contentType: "application/json",
+                data: {
+                    empId: localStorage.empId,
+                },
+                success: function(jsonData) {
+                    if (jsonData.status) {
+                        console.log(jsonData)
+                        arr2 = jsonData.data;
+                        vm.guwenname = jsonData.data[0].salesmanName;
+                        console.log(vm.guwenname)
+                        dispose(arr2)
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {}
+            });
+
+            // 用于mui选择器的dispose 函数
+            function dispose(arr2) {
+                var arr3 = [];
+
+                // 把选择器的值 展现到一个数组 arr3里面
+                for (var i = 0; i < arr2.length; i++) {
+                    arr3.push(arr2[i].salesmanName)
+                }
+                $('.gouwuche-top .jiazhuang-guwen')[0].addEventListener('tap', function() {
+                    var cardPicker = new $.PopPicker({
+                        layer: 1
+                    });
+
+                    // setData 数组展现的值 到 cardPicker 选择器里面 。
+                    cardPicker.setData(arr3);
+                    // items则为数组里面的每一项 值。
+                    cardPicker.show(function(items) {
+                        $('.jiazhuang-guwen span')[0].innerText = items[0];
+                        cardPicker.dispose();
+                    });
+                }, false);
+            }
+
+        })(mui);
+    </script>
+
+    <!-- ------------------------------------------------------------------------------ -->
+
+    或者也可以这样
+
+    <script>
+        // 获取授权类型
+        mui.ajax({
+            url: getBaseServerUrl() + '/app/inform/getInformAuthTypeList',
+            dataType: 'json',
+            contentType: "application/json",
+            data: {
+                empId: localStorage.empId
+            },
+            type: 'post',
+            success: function(jsonData) {
+                if (jsonData.status == 'true') {
+                    console.log(jsonData);
+                    var length = jsonData.data.length;
+                    vm.showloading = false;
+
+                    for (var i = 0; i < length; i++) {
+                        vm.arrleixingname.push(jsonData.data[i].authName)
+                    }
+
+                    vm.arrleixingName = [];
+                    var length = jsonData.data.length;
+
+                    for (var i = 0; i < length; i++) {
+                        var msg = {
+                            value: '',
+                            text: ''
+                        }
+                        vm.arrleixingName.push(msg);
+                        vm.arrleixingName[i].value = jsonData.data[i].authCode;
+                        vm.arrleixingName[i].text = jsonData.data[i].authName;
+                    }
+                } else {
+                    plus.nativeUI.alert(jsonData.msg);
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus);
+            }
+        });
+
+// -------------------------------------------------------------------------------------
+
+        //  选择器  vm.arrleixingName 数组的属性值 建议为 value跟 text，不然有坑。
+        shouquan_leixing.addEventListener('tap', function() {
+        var cardPicker = new $.PopPicker({
+          layer: 1,
+        });
+        cardPicker.setData(vm.arrleixingName);
+        cardPicker.show(function(items) {
+          cardVal1.innerText = items[0].text;
+
+          var leixingCode=items[0].value;
+
+          if(leixingCode == 20){
+            openNew("shouquan-leixing.html")
+          }
+          cardPicker.dispose();
+        });
+      }, false);
+      
+// -------------------------------------------------------------------------------------
+
+    </script>
+
+    <!-- -------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------------------------------------ -->
+
+    先来了解 下 事件的监听 addEventListener
+
+    表示监听 transition动画结束的事件 transitionend ，并执行回调函数 done
+
+    this.$refs.cdWrapper.addEventListener("transitionend", done)
+
+<!-- ------------------------------------------------------------------------------------------------------------------ -->
+
+    <transition name="normal" @enter="enter" @after-enter="afterEnter" @leave="leave" @after-leave="afterLeave">
+
+        <div class="normal-player" v-show='fullScreen'>
+
+        </div>
+
+    </transition>
+
+<!-- ------------------------------------------------------------------------------------------------------------------ -->
+
+     transition 的 name 值 ，就是 写css了，什么，normal-enter-lave normal-leave之类的 样式代码的。
+
+     <script>
+
+        export default {
+            data() {
+                return {
+
+                }
+            },
+            methods: {
+
+                //  一些 动画钩子函数的方法
+                enter(el, done) {
+
+                    const {
+                        x,
+                        y,
+                        scale
+                    } = this._getPosAndScale()
+
+                    let animation = {
+                        0: {
+                            transform: `translate3d(${x}px,${y}px,0) scale(${scale})`
+                        },
+                        60: {
+                            transform: `translate3d(0,0,0) scale(1.1)`
+                        },
+                        100: {
+                            transform: `translate3d(0,0,0) scale(1)`
+                        }
+                    }
+
+                    animations.registerAnimation({
+                        name: 'move',
+                        animation,
+                        presets: {
+                            duration: 400,
+                            easing: 'linear'
+                        }
+                    })
+
+                    animations.runAnimation(this.$refs.cdWrapper, 'move', done)
+
+                },
+                // afterEnter 是enter 动画钩子函数的回调函数
+                afterEnter() {
+                    animations.unregisterAnimation('move')
+                    this.$refs.cdWrapper.style.animation = ''
+                },
+                leave(el, done) {
+                    this.$refs.cdWrapper.style.transition = 'all 0.4s'
+                    const {
+                        x,
+                        y,
+                        scale
+                    } = this._getPosAndScale()
+                    this.$refs.cdWrapper.style[transform] = `translate3d(${x}px,${y}px,0) scale(${scale})`
+
+                    this.$refs.cdWrapper.addEventListener("transitionend", done)
+                },
+                // leave的 done回调事件
+                afterLeave() {
+                    this.$refs.cdWrapper.style.transition = ''
+                    this.$refs.cdWrapper.style[transform] = ''
+                },
+                _getPosAndScale() {
+                    const targetWidth = 40
+                    const paddingLeft = 40
+                    const paddingBottom = 30
+                    const paddingTop = 80
+                    const width = window.innerWidth * 0.8
+                    const scale = targetWidth / width
+                    const x = -(window.innerWidth / 2 - paddingLeft)
+                    const y = window.innerHeight - paddingTop - width / 2 - paddingBottom
+                    return {
+                        x,
+                        y,
+                        scale
+                    }
+
+                }
+            }
+        }
+     </script>
+
+<!-- ------------------------------------------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

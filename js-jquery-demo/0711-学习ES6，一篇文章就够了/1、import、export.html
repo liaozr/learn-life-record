@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    import导入模块、 export导出模块
+
+    <script>
+
+        // 全部导入
+        import people from './example'
+
+        // 将整个模块当作单一对象进行导入，该模块的所有导出都会作为对象的属性存在
+        import * as example from "./example.js"
+        console.log(example.name)
+        console.log(example.getName())
+
+        // 导入部分，引入非 default 时，使用花括号
+        import {name,  age } from './example'
+
+        // 导出默认, 有且只有一个默认
+        export default App
+         
+    </script>
+
+</body>
+
+</html>

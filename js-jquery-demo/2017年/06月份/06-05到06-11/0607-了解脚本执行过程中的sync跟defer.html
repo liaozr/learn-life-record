@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+  defer!
+
+  把script放body尾的话有个缺点就是要等DOM加载好了才会去加载并执行script脚本。
+
+  前面开头的时候说过获取／加载脚本内容不会阻塞，只有运行脚本内容的时候才会阻塞！
+
+  如果能在加载DOM的同时加载script脚本，等到DOM解析好了再运行脚本，这样就可以节省部分加载脚本的时间。
+
+  当脚本比较大时提高的效率会很可观。
+
+  于是就有了script标签里的defer属性: 并行加载该脚本，直到DOM解析完了并且它前面含有defer的脚本都运行完后，才可以运行该脚本。
+
+  <title> test js tag async and defer attributes</title>
+
+  <script defer src='./script1.js'></script>
+  <script defer src='./script2.js'></script>
+
+  <h1 id='load-experiment'> hello world </h1>
+
+ 添加了defer属性的脚本是会按顺序运行的。script1先于script2运行。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+ 页面上加了async的脚本无法保证其运行顺序，这通常也是隐藏bug的来源。
+
+ 除非你确定该脚本跟页面其他脚本无依赖关系，不然慎用async吧。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+综上所述，最后引入脚本的形式大概是这样滴：
+
+<!--headScripts.js为必须在DOM解析前加载并执行的脚本-->
+<script src="headScripts.js"></script>
+
+<!-- bodyScripts.js加个defer,先加载。等DOM解析好了再执行 -->
+<script defer src="bodyScripts.js"></script>
+
+<!--独立的组件，不依赖DOM, 锦上添花型的，可用async-->
+<script async src="forumWidget.js"></script>
+<script async src="chatWidget.js"></script>
+
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

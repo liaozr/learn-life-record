@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  api请求这里，个人觉得一些偏向提供给全局使用的数据可以交给vuex的action，而普通页面数据，则在页面内部自行请求处理。
+
+  因为页面本身也是个组件，不要无端依赖vuex，高内聚低耦合，才能方便复用和维护。
+
+  另一个原因是vuex本身就应该负责的是跨组件的共享数据，啥都往里塞反而违背了初衷啊。
+
+  总之，觉得那样做会显得太分散，比如分配到新页面的同学，要不同目录去切来切去，徒增负担。
+
+  对于他负责的页面他很清楚要请求哪些接口，
+
+  哪些是公共接口，自己的接口组件内部自己请求就是，实在是公共接口再去action
+
+
+</body>
+
+</html>

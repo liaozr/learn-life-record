@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+剩余参数
+
+从参数到剩余参数和扩展操作符。
+
+在 ES5 中，获取任意数量的参数是非常麻烦的：
+
+<script>
+    // ES5
+    function printf(format) {
+        var params = [].slice.call(arguments, 1);
+        console.log('params: ', params);
+        console.log('format: ', format);
+    }
+    printf('%s %d %.2f', 'adrian', 321, Math.PI);
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+我们可以用 rest 操作符 ... 做到同样的事情。
+
+<script>
+    // ES6
+    function printf(format, ...params) {
+        console.log('params: ', params);
+        console.log('format: ', format);
+    }
+    printf('%s %d %.2f', 'adrian', 321, Math.PI);
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+编写可复用组件
+
+在写组件的时候，最好想好你是否会在某些其他地方再次用到它。
+
+对一些一次性的组件，紧密耦合是没有问题的，但对可复用的组件，就需要定义一个干净的 public 接口，让它上下文无关。
+
+一个 Vue 组件的 API 由 3 者组成 —— props, events, 以及 slots:
+
+Props 允许外部环境传递数据到组件内。
+Events 允许组件触发外部环境的副效应（side effects）。
+Slots 允许外部环境来插入内容到组件的视图结构内。
+通过 v-bind 和 v-on 的简写语法，template 可以干净简洁地传递意图：
+
+<my-component :foo="baz" :bar="qux" @event-a="doThis" @event-b="doThat">
+    <img slot="icon" src="...">
+    <p slot="main-text">Hello!</p>
+</my-component>
+
+:foo 是 v-bind:foo 的简写，@event-a 则是 v-on:event-a 的简写。
+
+<!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

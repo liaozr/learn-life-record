@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery.js"></script>
+    <script src='nextTick.js'></script>
+</head>
+
+github 地址：
+https://github.com/DDFE/next-tick
+https://github.com/DDFE/next-tick
+https://github.com/DDFE/next-tick
+
+<body>
+
+    把一些异步操作整合到下一个CPU时间片执行，比多个异步操作多次调用setTimout(fn,0)的效率要高
+
+    <script>
+
+        var fn = function() {
+            console.log(2);
+        };
+        nextTick(fn);
+
+        console.log(1);
+
+    </script>
+
+</body>
+
+</html>

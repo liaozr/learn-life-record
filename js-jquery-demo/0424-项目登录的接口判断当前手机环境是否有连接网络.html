@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+        if (checkOnline()) {
+            alert('服务器连接异常,请重新连接！');
+
+        } else {
+            alert('未检查到有效的网络，请检查手机wifi或者移动数据是否打开！');
+        }
+
+        //检测是否联网，支持离线检测的浏览器有IE6+(只支持navigator.onLine属性)、Firefox3、Safari4、Opera 10.6、Chrome、iOS 3.2版Safari和Android版WebKit。
+
+        function checkOnline() {
+          
+            if (navigator.onLine) {
+                console.log("正常工作！");
+                return true
+            } else {
+                //执行离线状态时的任务
+                console.log("离线工作！");
+                return false
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>

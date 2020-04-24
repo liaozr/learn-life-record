@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+</head>
+<style>
+    li {
+        width: 100px;
+        height: 100px;
+        background-color: green;
+    }
+</style>
+
+<body>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+
+
+    <script>
+        $.fn.countli = function(options) {
+            var defaults = {
+                'color': 'blue'
+            }
+            var settings = $.extend({}, defaults, options);
+            this.css({
+                color: settings.color
+            })
+            $(this).click(function() {
+                    var index = $(this).index();
+                    console.log(index)
+            })
+            //  return this.each(function(index) {
+            //       console.log(index);
+            //  });
+        }
+    </script>
+    <script>
+        $('li').countli({
+            'color': 'white'
+        })
+    </script>
+</body>
+
+</html>

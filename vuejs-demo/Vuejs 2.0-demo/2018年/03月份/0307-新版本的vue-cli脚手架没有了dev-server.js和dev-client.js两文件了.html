@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+  VUE开发请求本地数据的配置，早期的vue-lic下面有 dev-server.js和dev-client.js两文件，请求本地数据在dev-server.js里配置
+
+  最新的vue-webpack-template中已经去掉了dev-server.js和dev-client.js
+
+  改用 webpack.dev.conf.js代替，所以配置本地访问在webpack.dev.conf.js里配置即可。
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+  VUE开发请求本地数据的配置，早期的vue-lic下面有 dev-server.js和dev-client.js两文件，请求本地数据在dev-server.js里配置
+
+  最新的vue-webpack-template中已经去掉了dev-server.js和dev-client.js
+
+  改用 webpack.dev.conf.js代替，所以配置本地访问在webpack.dev.conf.js里配置即可。
+
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+ webpack.dev.conf.js
+
+<script>
+
+    // webpack.dev.conf.js
+
+    //首先
+    const express = require('express')
+    const app = express()
+    var appData = require('../data.json')
+    var seller = appData.seller
+    var goods = appData.goods
+    var ratings = appData.ratings
+    var apiRoutes = express.Router()
+    app.use('/api', apiRoutes)
+
+    //找到devServer,在 devServer 这个属性里面添加下面的这些代码：
+    //找到devServer,在 devServer 这个属性里面添加下面的这些代码：
+
+    before(app) {
+           app.get('/api/seller', (req, res) => {
+                res.json({
+                    // 这里是你的json内容
+                    errno: 0,
+                    data: seller
+                })
+            }),
+            app.get('/api/goods', (req, res) => {
+                res.json({
+                    // 这里是你的json内容
+                    errno: 0,
+                    data: goods
+                })
+            }),
+            app.get('/api/ratings', (req, res) => {
+                res.json({
+                    // 这里是你的json内容
+                    errno: 0,
+                    data: ratings
+                })
+            })
+    }
+</script>
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

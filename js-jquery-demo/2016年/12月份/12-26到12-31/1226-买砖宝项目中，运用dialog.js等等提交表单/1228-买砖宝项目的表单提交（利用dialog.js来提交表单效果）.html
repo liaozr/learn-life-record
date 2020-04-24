@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script type="text/javascript" src="./js/jquery.js"></script>
+<script type="text/javascript" src="./js/jquery.validation.min.js"></script>
+<script type="text/javascript" src="./js/dialog/dialog.js" id="dialog_js" charset="utf-8"></script>
+
+<body>
+
+    <form action="<?=U('shop/email/edit_email')?>" method="post" enctype="multipart/form-data" id="send_email_form">
+        <dl>
+            <dt>登录帐号</dt>
+            <dd style="min-height:54px;">
+                <input class="text" readonly="readonly" type="text" id="username" name="username" value="<?=$member_name ?>" />
+                <label></label>
+            </dd>
+        </dl>
+        <dl>
+            <dt>电子邮箱</dt>
+            <dd style="min-height:54px;">
+                <input class="text" type="text" id="email" name="email" value="<?=$member_email ?>" />
+                <label></label>
+            </dd>
+        </dl>
+        <dl>
+            <dt>验证码</dt>
+            <dd style="min-height:54px;">
+                <input type="text" class="text w50 fl" id="captcha" maxlength="4" size="10" />
+
+                <img src="<?=U('home/captcha/makecode')?>" title="验证码" name="codeimage" border="0" id="codeimage" class="fl ml5">
+
+                <a class="qiehuan_yanzheng" href="javascript:void(0);" class="ml5">换一张</a>
+                <label></label>
+            </dd>
+        </dl>
+        <dl class="mb30">
+            <dt></dt>
+            <dd>
+                <!-- 这个本身就是input submit标签，所以是不用再模拟执行 submit()方法的  -->
+                <input type="submit" class="submit" value="提交" />
+                <div id='back'>返回</div>
+            </dd>
+        </dl>
+    </form>
+
+    <script type="text/javascript">
+        $(function() {
+            $(".qiehuan_yanzheng").click(function() {
+                $("#codeimage").attr("src", '{$Think.const.SITE_URL}/captcha/makecode' + '?' + Math.random())
+            });
+
+            $("#codeimage").click(function() {
+                $("#codeimage").attr("src", '{$Think.const.SITE_URL}/captcha/makecode' + '?' + Math.random())
+            })
+
+            $('#send_email_form').validate({
+                errorPlacement: function(error, element) {
+                    var error_td = element.parent('dd');
+                    error_td.find('label').hide();
+                    error_td.append(error);
+                },
+
+                // 表单成功提交后会触发submitHandler 这个函数的
+                submitHandler: function(form) {
+                    // 这个ajaxpost方法是 dialog.js里面的一个方法来的
+                    ajaxpost('send_email_form', '', '', 'onerror');
+                    // 提交表单后，显示什么信息已提交成功是由后台的回调写的
+                    // 买砖宝这个项目里，回调的提醒框一般都是用showDialog这个函数，
+                    // showDialog这个函数也是在dialog.js里面的一个方法来的。
+                },
+                rules: {
+                    username: {
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true,
+                        remote: {
+                            url: '<?=U("shop/email/check_email")?>',
+                            type: 'get',
+                            data: {
+                                email: function() {
+                                    return $('#email').val();
+                                },
+                                username: function() {
+                                    return $('#username').val();
+                                }
+                            }
+                        }
+                    },
+                    captcha: {
+                        required: true,
+                        minlength: 4,
+                        remote: {
+                            url: '<?=U("home/captcha/check")?>',
+                            type: 'get',
+                            data: {
+                                captcha: function() {
+                                    return $('#captcha').val();
+                                }
+                            }
+                        }
+                    }
+                },
+                messages: {
+                    username: {
+                        required: '<i class="icon-exclamation-sign"></i>登录帐号不能为空'
+                    },
+                    email: {
+                        required: '<i class="icon-exclamation-sign"></i>电子邮箱不能为空',
+                        email: '<i class="icon-exclamation-sign"></i>请输入正确的邮箱地址',
+                        remote: '该邮箱已经被使用，请选择其他邮箱',
+                    },
+                    captcha: {
+                        required: '<i class="icon-exclamation-sign"></i>请输入验证码',
+                        minlength: '<i class="icon-exclamation-sign"></i>验证码长度不对',
+                        remote: '<i class="icon-exclamation-sign"></i>验证码验证失败'
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

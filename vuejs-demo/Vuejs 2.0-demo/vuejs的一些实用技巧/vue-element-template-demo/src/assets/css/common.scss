@@ -1,0 +1,93 @@
+/*----------------------------------------------------------------------------------------*/
+
+/*全文字体样式*/
+body{
+  font-family:"Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif !important;
+}
+
+body, html{
+  line-height:1;
+  font-family:'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif, 'Droid Sans Fallback';
+  user-select:none;
+  -webkit-tap-highlight-color: transparent;
+  background:$color-background;
+  color:$color-text;
+}
+
+/*----------------------------------------------------------------------------------------*/
+
+/*头部样式代码*/
+.header {
+  height:$headHeight;
+  line-height:$headHeight;
+  position: fixed;
+  top: 0;
+  background-color:$colortheme;
+  text-align: center;
+  font-size:$fs18;
+  color:$colorfff;
+  -webkit-box-shadow: none;
+  box-shadow:none;
+  z-index: 99;
+  @include zrone;
+}
+
+/*底部样式代码开始*/
+.footer {
+  position: absolute;
+  bottom: 0;
+  @include zrone;
+  height:$footerHeight;
+  line-height: $footerHeight;
+  overflow: hidden;
+  background-color:$colorfff;
+  border-top:1px solid $colorccc;
+  z-index: 99;
+  .item{
+      width:25%;
+      display: inline-block;
+      float:left;
+      text-align: center;
+      height:100%;
+      position: relative;
+      &.active{
+        color:$colortheme;
+      }
+  }
+}
+ 
+/*底部样式代码结束*/
+
+/*中间部分样式*/
+.g-content {
+  overflow-y: auto;
+  top:0;
+  bottom:$footerHeight;
+  position: absolute;
+  @include zrone;
+  /* 增加该属性，可以增加弹性*/
+  -webkit-overflow-scrolling: touch;
+  z-index:1; 
+  width:100%;
+}
+.content{
+  overflow-y: auto;
+  top:$headHeight;
+  bottom:0;
+  position: absolute;
+  @include zrone;
+  /* 增加该属性，可以增加弹性*/
+  -webkit-overflow-scrolling: touch;
+  z-index:1; 
+  width:100%;
+}
+
+[v-cloak]{
+       display:none;
+}
+
+/*触摸的全局样式*/
+.touch-active{
+    background-color:#357AE8;
+}
+/*----------------------------------------------------------------------------------------*/

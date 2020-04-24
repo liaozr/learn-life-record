@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+ES6 中的 let 和 const
+
+ES6 的 let 和 const 实现了块级所用域的变量声明方式
+
+使用 let 和 const 声明变量能有效避免由于变量提升导致的变量污染的问题.
+
+用 let 和 const 声明的变量作用域是代码块，这个设计比较符合大多数人的思维方式。
+
+（代码块简单来说就是 {} 大括号包着的区域）
+
+<script>
+    function test() {
+        if (true) {
+            var a = 'a';
+            let b = 'b';
+        }
+
+        // 输出： a
+        console.log(a);
+
+        // 抛异常：ReferenceError: b is not defined
+        console.log(b);
+    }
+
+    test();
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+关于 const 的作用有必要正确理解：
+
+严格来说， const 声明了一个指向变量的指针，并不是说 const 声明的变量不可改变，
+
+而是该指针指向的地址不可改变。
+
+MDN 的例子很赞，这里直接拷过来看：
+
+<script>
+    // NOTE: Constants can be declared with uppercase or lowercase, but a common
+    // convention is to use all-uppercase letters.
+
+    // define MY_FAV as a constant and give it the value 7
+    const MY_FAV = 7;
+
+    // this will fail silently in Firefox and Chrome (but does not fail in Safari)
+    MY_FAV = 20;
+
+    // will print 7
+    console.log("my favorite number is: " + MY_FAV);
+
+    // trying to redeclare a constant throws an error
+    const MY_FAV = 20;
+
+    // the name MY_FAV is reserved for constant above, so this will also fail
+    var MY_FAV = 20;
+
+    // MY_FAV is still 7
+    console.log("my favorite number is " + MY_FAV);
+
+    // Assigning to A const variable is a syntax error
+    const A = 1;
+    A = 2;
+
+    // const requires an initializer
+    const FOO; // SyntaxError: missing = in const declaration
+
+    // const also works on objects
+    const MY_OBJECT = {
+        "key": "value"
+    };
+
+    // Overwriting the object fails as above (in Firefox and Chrome but not in Safari)
+    MY_OBJECT = {
+        "OTHER_KEY": "value"
+    };
+
+    // However, object keys are not protected,
+    // so the following statement is executed without problems
+    MY_OBJECT.key = "otherValue"; // Use Object.freeze() to make object immutable
+</script>
+
+</body>
+</html>

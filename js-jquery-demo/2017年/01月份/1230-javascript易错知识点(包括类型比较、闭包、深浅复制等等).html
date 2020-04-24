@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+2.类型比较
+
+<script>
+    var arr = [],
+        arr2 = [1];
+
+    console.log(arr === arr2); // false
+</script>
+
+上方两个不同的数组比较，console为false。
+
+<script>
+    var arr = [],
+        arr2 = [];
+
+    console.log(arr === arr2); // false
+</script>
+
+上方两个相同的数组比较，因为两个单独的数组永不相等，所以console为false。
+
+<script>
+    var arr = [],
+        arr2 = {};
+
+    console.log(typeof(arr) === typeof(arr2)); // true
+
+    console.log( typeof Array); // function
+
+    // 一个是实例对象，一个是js内置函数
+    // Array 是函数类型来的
+
+</script>
+
+上方利用typeof比较数组和对象，因为typeof获取NULL、数组、对象的类型都为object，所以console为true。
+
+<script>
+    var arr = [];
+
+    console.log(arr instanceof Object); // true
+    console.log(arr instanceof Array); // true
+</script>
+
+上方利用instanceof判断一个变量是否属于某个对象的实例，
+
+JavaScript中数组也是对象的一种
+因为在JavaScript中数组也是对象的一种，所以两个console都为true。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+3.this指向
+
+<script>
+    var obj = {
+        name: 'xiaoming',
+        getName: function() {
+            return this.name
+        }
+    };
+
+    console.log(obj.getName()); // 'xiaoming'
+</script>
+
+上方对象方法中的this指向对象本身，所以输出”xiaoming”。
+
+<script>
+    var obj = {
+        myName: 'xiaoming',
+        getName: function() {
+            return this.myName
+        }
+    };
+
+    var nameFn = obj.getName;
+
+    console.log(nameFn()); // undefined
+</script>
+
+上方将对象中的方法赋值给了一个变量，此时方法中的this也将不再指向obj对象，从而指向window对象，
+所以console为”undefined”。
+
+<script>
+    var obj = {
+        myName: 'xiaoming',
+        getName: function() {
+            return this.myName
+        }
+    };
+
+    var obj2 = {
+        myName: 'xiaohua'
+    };
+
+    var nameFn = obj.getName;
+
+    console.log(nameFn.apply(obj2)); // 'xiaohua'
+</script>
+
+上方同样将obj对象中的方法赋值给了变量nameFn，但是通过apply方法将this指向了obj2对象，所以最终console为’xiaohua’。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+4.函数参数
+<script>
+    function test6() {
+        console.log(Array.prototype.slice.call(arguments)); // [1, 2]
+    }
+
+    test6(1, 2);
+</script>
+
+上方利用函数中的arguments类数组对象获取传入函数的参数数组，所以输出数组[1, 2]。
+
+<script>
+    function test7() {
+        return function() {
+            console.log(Array.prototype.slice.call(arguments)); // 未执行到此，无输出
+        }
+    }
+
+    test7(1, 2);
+</script>
+
+上方同样利用arguments获取参数，但因test7(1, 2)未执行return中的函数，所以无输出，
+若执行test7(1, 2)(3, 4)则会输出[3, 4]。
+
+
+<script>
+    var args = [1, 2];
+
+    function test9() {
+        console.log(Array.prototype.slice.call(arguments)); // [1, 2, 3, 4]
+    }
+
+    Array.prototype.push.call(args, 3, 4);
+
+    test9(...args);
+</script>
+
+上方利用Array.prototype.push.call()方法向args数组中插入了3和4，
+
+并利用ES6延展操作符(…)将数组展开并传入test9，所以console为[1, 2, 3, 4]。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+5.闭包问题
+
+var elem = document.getElementsByTagName('div'); // 如果页面上有5个div
+
+for(var i = 0; i < elem.length; i++) {
+    elem[i].onclick = function () {
+        alert(i); // 总是5
+    };
+}
+
+上方是一个很常见闭包问题，点击任何div弹出的值总是5，
+
+因为当你触发点击事件的时候i的值早已是5，可以用下面方式解决：
+
+<script>
+    var elem = document.getElementsByTagName('div'); // 如果页面上有5个div
+
+    for (var i = 0; i < elem.length; i++) {
+        (function(w) {
+            elem[w].onclick = function() {
+                alert(w); // 依次为0,1,2,3,4
+            };
+        })(i);
+    }
+</script>
+
+在绑定点击事件外部封装一个立即执行函数，并将i传入该函数即可。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+6.对象拷贝与赋值
+
+<script>
+    var obj = {
+        name: 'xiaoming',
+        age: 23
+    };
+
+    var newObj = obj;
+
+    newObj.name = 'xiaohua';
+
+    console.log(obj.name); // 'xiaohua'
+    console.log(newObj.name); // 'xiaohua'
+</script>
+
+上方我们将obj对象赋值给了newObj对象，从而改变newObj的name属性，
+
+但是obj对象的name属性也被篡改，这是因为实际上newObj对象获得的只是一个内存地址
+
+，而不是真正 的拷贝，所以obj对象被篡改。
+
+<script>
+    var obj2 = {
+        name: 'xiaoming',
+        age: 23
+    };
+
+    var newObj2 = Object.assign({}, obj2, {
+        color: 'blue'
+    });
+
+    newObj2.name = 'xiaohua';
+
+    console.log(obj2.name); // 'xiaoming'
+    console.log(newObj2.name); // 'xiaohua'
+    console.log(newObj2.color); // 'blue'
+</script>
+
+上方利用Object.assign()方法进行对象的深拷贝可以避免源对象被篡改的可能。
+
+因为Object.assign() 方法可以把任意多个的源对象自身的可枚举属性拷贝给目标对象，然后返回目标对象。
+
+但是Object.assign() 只是一级属性复制，比浅拷贝多深拷贝了一层，使用的时候，还要注意这个问题。
+
+<script>
+    var obj3 = {
+        name: 'xiaoming',
+        age: 23
+    };
+
+    var newObj3 = Object.create(obj3);
+
+    newObj3.name = 'xiaohua';
+
+    console.log(obj3.name); // 'xiaoming'
+    console.log(newObj3.name); // 'xiaohua'
+</script>
+
+我们也可以使用Object.create()方法进行对象的拷贝，
+
+Object.create()方法可以创建一个具有指定原型对象和属性的新对象。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+</html>

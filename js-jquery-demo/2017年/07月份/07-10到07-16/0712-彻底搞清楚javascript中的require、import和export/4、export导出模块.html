@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  export导出模块
+
+  export语法声明用于导出函数、对象、指定文件（或模块）的原始值。
+
+  注意：在node中使用的是exports,不要混淆了
+
+  export有两种模块导出方式：命名式导出（名称导出）和默认导出（定义式导出），命名式导出每个模块可以多个，而默认导出每个模块仅一个。
+
+ <script>
+
+      export { name1, name2, …, nameN };
+      export { variable1 as name1, variable2 as name2, …, nameN };
+      export let name1, name2, …, nameN; // also var
+      export let name1 = …, name2 = …, …, nameN; // also var, const
+      export default expression;
+      export default function (…) { … } // also class, function*
+      export default function name1(…) { … } // also class, function*
+      export { name1 as default, … };
+      export * from …;
+      export { name1, name2, …, nameN } from …;
+      export { import1 as name1, import2 as name2, …, nameN } from …;
+
+  </script>
+
+  name1… nameN－导出的“标识符”。导出后，可以通过这个“标识符”在另一个模块中使用import引用
+
+  default－设置模块的默认导出。设置后import不通过“标识符”而直接引用默认导入
+
+  －继承模块并导出继承模块所有的方法和属性
+  as－重命名导出“标识符”
+
+  from－从已经存在的模块、脚本文件…导出
+
+  命名式导出
+
+  模块可以通过export前缀关键词声明导出对象，导出对象可以是多个。这些导出对象用名称进行区分，称之为命名式导出。
+
+ <script>
+
+    export { myFunction }; // 导出一个已定义的函数
+    export const foo = Math.sqrt(2); // 导出一个常量
+
+  </script>
+
+  我们可以使用*和from关键字来实现的模块的继承：
+
+  export * from 'article';
+
+  模块导出时，可以指定模块的导出成员。导出成员可以认为是类中的公有对象，而非导出成员可以认为是类中的私有对象：
+
+
+  var name = 'IT笔录';
+  var domain = 'http://itbilu.com';
+  export {name, domain}; // 相当于导出
+  {name:name,domain:domain}
+
+  模块导出时，我们可以使用as关键字对导出成员进行重命名：
+
+  var name = 'IT笔录';
+  var domain = 'http://itbilu.com';
+  export {name as siteName, domain};
+  注意，下面的语法有严重错误的情况：
+
+  <script>
+
+      // 错误演示
+      export 1; // 绝对不可以
+      var a = 100;
+      export a;
+
+  </script>
+
+  export在导出接口的时候，必须与模块内部的变量具有一一对应的关系。直接导出1没有任何意义，也不可能在import的时候有一个变量与之对应
+
+  export a虽然看上去成立，但是a的值是一个数字，根本无法完成解构，因此必须写成export {a}的形式。
+
+  即使a被赋值为一个function，也是不允许的。而且，大部分风格都建议，模块中最好在末尾用一个export导出所有的接口，例如：
+
+  export {fun as default,a,b,c};
+
+  默认导出
+
+  默认导出也被称做定义式导出。命名式导出可以导出多个值，但在在import引用时，也要使用相同的名称来引用相应的值。而默认导出每个导出只有一个单一值，这个输出可以是一个函数、类或其它类型的值，这样在模块import导入时也会很容易引用。
+
+
+  export default function() {}; // 可以导出一个函数
+  export default class(){}; // 也可以出一个类
+
+  命名式导出与默认导出
+
+  默认导出可以理解为另一种形式的命名导出，默认导出可以认为是使用了default名称的命名导出。
+
+  下面两种导出方式是等价的：
+
+  const D = 123;
+  export default D;
+  export { D as default };
+  export使用示例
+
+  使用名称导出一个模块时：
+
+ <script>
+
+      // "my-module.js" 模块
+      export function cube(x) {
+        return x * x * x;
+      }
+
+      const foo = Math.PI + Math.SQRT2;
+      export { foo };
+
+      // 在另一个模块（脚本文件）中，我们可以像下面这样引用：
+
+      import { cube, foo } from 'my-module';
+      console.log(cube(3)); // 27
+      console.log(foo);    // 4.555806215962888
+
+  </script>
+
+
+  使用默认导出一个模块时：
+
+  <script>
+
+      // "my-module.js"模块
+      export default function(x) {
+          return x * x * x;
+      }
+
+      // 在另一个模块（ 脚本文件） 中， 我们可以像下面这样引用， 相对名称导出来说使用更为简单：
+
+      // 引用 "my-module.js"模块
+      import cube from 'my-module';
+      console.log(cube(3)); // 27
+
+  </script>
+  
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

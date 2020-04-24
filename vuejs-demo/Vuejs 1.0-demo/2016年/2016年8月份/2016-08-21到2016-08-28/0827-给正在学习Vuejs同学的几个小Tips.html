@@ -1,0 +1,92 @@
+ <!doctype html>
+ <html lang="en">
+ <head>
+ 	<meta charset="UTF-8">
+ 	<title>Document</title>
+ </head>
+ <body>
+ <!-- ------------------------------------------------------------------------------------ -->
+
+<!--    1. 修改 src/routers.js:    --> 
+
+<script>
+'/': { 
+   name: 'home',
+		component: function (resolve) {
+		require(['./views/fangbian.vue'], resolve) 
+   } 
+},
+
+'/orders/new': { 
+	name: 'ordersnew', 
+	component: function (resolve) {
+	   require(['./views/orders/new.vue'], resolve) 
+	} 
+}
+</script>
+
+
+<!-- ---------------------------------------------------------------------------- -->
+
+<script>	
+methods: {
+ create () { 
+ 	this.$route.router.go({name: 'order', params: {id: 1}}) 
+ 	window.alert(2) 
+ } 
+}
+
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+
+<!-- 如何跳转到某个链接?  -->
+
+<!--     1.跳转到 /orders/new?product_id=3,   用query:     -->
+
+<a href="javascript:void(0)" v-link="{name:'ordersnew',query:{product_id:3}}"></a>
+ 
+
+<!--     2、跳转到 /orders/:id/,用 params:                 -->
+
+<a href="javascript:void(0)" v-link="{name:'ordersnew',params:{id:3}}"></a>
+
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+<!--    vue 的路由都是GET方法. 都是靠GET来访问的    -->
+<script>
+	'/signin': { 
+	     name: 'signin',
+	     component: function (resolve) {
+	        require(['./views/signin.vue'], resolve)
+	    }
+	}
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+<!--    vue发起http请求    -->
+
+ <script>
+	route: { 
+		data (transition) { 
+
+			this.showLoading() 
+
+			this.$http.get( this.$config.API + '/interface/shoppings/product_details', {product_id: this.$route.params.pid} ).then(function(response){
+				this.$set('product', response.data.product)
+		    }, function (response) { 
+		    this.showAlert(response.data.error) 
+		    }) 
+		    
+		    this.hideLoading()
+		} 
+	}
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+ </body>
+ </html>

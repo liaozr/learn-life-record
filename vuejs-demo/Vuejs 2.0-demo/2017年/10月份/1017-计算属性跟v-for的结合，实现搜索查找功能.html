@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input v-model="query" type="search" placeholder="请输入 人员编号/人员名称 搜索">
+
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell mui-media" v-for="item in computedList" @click="choseEmp(item)">
+            <a href="javascript:;">
+                <img class="mui-media-object mui-pull-left" src="../images/default_photo.png">
+                <div class="mui-media-body">
+                    {{item.empName}}
+                    <p class='mui-ellipsis'>{{item.empId}} &nbsp;&nbsp;{{item.orgName}}</p>
+                </div>
+            </a>
+        </li>
+    </ul>
+
+    <script>
+        var vm = new Vue({
+            el: 'body',
+            data: {
+                empArr: [],
+                query: ""
+            },
+            methods: {
+                // 这个方法 是检测 输入框里面 输入的东西  是不是 数字 来的 ，是数字的话，就返回 true
+                isNum: function(num) {
+                    var reNum = /^\d*$/;
+                    return (reNum.test(num));
+                }
+
+            },
+            computed: {
+                computedList: function() {
+                    var vm = this;
+
+                    // 判断输入的是数字
+                    if (this.isNum(vm.query)) {
+                        return this.empArr.filter(function(item) {
+                            return item.empId.toLowerCase().indexOf(vm.query.toLowerCase()) !== -1
+                        })
+                    } else {
+                        return this.empArr.filter(function(item) {
+                            return item.empName.toLowerCase().indexOf(vm.query.toLowerCase()) !== -1
+                        })
+
+                    }
+                }
+            },
+            watch: {
+                computedList: function() {
+                    if (this.computedList.length == 0) {
+                        $("#nodata").html('<div style=" text-align:center;vertical-align: middle;width:100%;height:100%;padding-top:4.5rem;" ><img style="width:3rem" src="../images/nodata.png"></img></div>');
+                        $("#nodata").removeClass("mui-hidden");
+                    } else {
+                        $("#nodata").addClass("mui-hidden");
+                    }
+                }
+            },
+            ready: function() {
+
+            }
+        });
+    </script>
+</body>
+
+</html>

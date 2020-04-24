@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- --------------------------------------------------------------------------------------- -->
+
+  传递值给prop
+
+  初学者往往犯错的是直接传递数值给prop,但是实际上是传递了一个字符串，我们必须使用:前缀，这样告诉vue，我们后面的是一个表达式，而不是字面量：
+
+  <!-- 传递了一个字符串 "1" -->
+  <comp some-prop="1"></comp>
+  <!-- 传递实际的数字  -->
+  <comp :some-prop="1"></comp>
+
+  <!-- --------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

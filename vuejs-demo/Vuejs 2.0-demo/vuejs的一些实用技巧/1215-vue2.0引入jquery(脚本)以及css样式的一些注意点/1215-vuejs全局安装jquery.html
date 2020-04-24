@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+ cnpm install jquery --save
+
+ cnpm install jquery --save
+
+ cnpm install jquery --save
+
+ 安装完，然后就可以到package.json文件里可以看到 jquery的依赖了
+
+ "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1",
+    "mint-ui": "^2.0.5",
+    "vue": "^2.1.0",
+    "vue-resource": "^1.0.3",
+    "vue-router": "^2.1.1",
+    "vuex": "^2.0.0"
+  }
+
+<!-- ---------------------------------------------------------------------------- -->
+
+下一步：
+
+打开webpack.base.conf.js这个文件，配置下这个文件
+
+resolve: {
+  extensions: ['', '.js', '.vue'],
+  fallback: [path.join(__dirname, '../node_modules')],
+  alias: {
+    'vue$': 'vue/dist/vue.common.js',
+    'src': path.resolve(__dirname, '../src'),
+    'assets': path.resolve(__dirname, '../src/assets'),
+    'components': path.resolve(__dirname, '../src/components')
+  }
+},
+
+<!-- ----------------------------------------------------------------------------- -->
+
+在resolve这段代码的配置后面加上下面这段代码
+
+plugins:[
+   new webpack.ProvidePlugin({
+       $: "jquery",
+       jQuery: "jquery",
+       "window.jQuery": "jquery"
+   })
+],
+
+
+但是要记得，在webpack.base.conf.js这个文件里加入了上面那些代码后，得在这个文件的开头部分引入webpack进去，不然会报错的。
+
+但是要记得，在webpack.base.conf.js这个文件里加入了上面那些代码后，得在这个文件的开头部分引入webpack进去，不然会报错的。
+
+var webpack = require('webpack')
+
+这样的话，全局jquery就引入到项目里面去了，这样就不用再在 index.html页面引入 jquery了，
+是不用在页面  引入  这个jquery了。
+<!-- <script src='jquery.js'></script> -->
+
+也不用再在 所需jquery的页面上 如（App.vue页面） 上 这样
+
+import $ from ’ jquery’ 也不用这样 引入进去的了。
+
+直接在各个页面上直接用 jquery  用 $ 就行的了
+
+记得要重新 跑一次 项目才能 用 jquery的
+
+<script>
+    $(function() {
+        $('body').css({
+            "background-color": 'blue',
+            "font-size": "18px"
+        })
+    })
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  首先，我们都知道，在 JavaScript 里面，如果函数被调用过了，
+
+  并且以后不会被用到，那么垃圾回收机制就会销毁由函数创建的作用域，我们还知道，对象（函数也是对象）的传递属于传引用，也就是类似于C语言里面的指针，并不会把真正的值拷贝给变量，而是把对象所在的位置传递给变量，
+
+  所以，当函数被传引用到一个还未销毁的作用域的某个变量，由于变量存在，所以函数得存在，又因为函数的存在依赖于函数所在的词法作用域，所以函数所在的词法作用域也得存在，这样一来，就记住了该词法作用域。也就解释了该节的标题！下面举个例子说明一下：
+
+<script>
+    // 没有闭包现象的时候
+    function apple() {
+        var count = 0
+
+        function output() {
+            console.log(count)
+        }
+        fruit(output)
+    }
+
+    function fruit(arg) {
+        console.log('fruit')
+    }
+    apple() // fruit
+</script>
+
+
+当我们在调用 apple 的时候，本来 apple 在执行完毕之后 apple 的局部作用域就应该被销毁，但是由于 fruit(output) 将 output 传引用给了 arg，所以在 fruit 执行的这段时间内，arg 肯定是存在的，被引用的函数 output 也得存在，而 output 依赖的 apple 函数产生的局部作用域也得存在，这就是所谓的“记住”，把作用域给记住了！
+
+但是，上面的例子是闭包现象吗？不是，因为函数 output 内部并没有访问记住的词法作用域的变量！在执行 fruit(output) 的过程中，只发生了 arg = output 的传引用赋值，而这个过程，只是把二者关联起来了，并没有去取 arg 引用的对象的值，所以实际上也并没有访问 output 所在的词法作用域！
+</body>
+</html>

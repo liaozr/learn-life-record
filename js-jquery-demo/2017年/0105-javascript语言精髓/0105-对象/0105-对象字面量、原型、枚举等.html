@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+对象字面量
+
+对象字面量可以方便的创建新对象值的表示方法，一个对象字面量就是包围在一对花括号中的零个或多个”名/值”对。
+
+属性名可以是空字符串在内的任何字符串，如果属性名不合法的JavaScript标志符或是保留字，则要用引号括住属性名
+
+<script>
+    var empty_object = {};
+    var stooge = {
+        "first-name": "Ye",
+        "last-name": "Zixin",
+        name: "Yezixin"
+    };
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+原型
+
+每个对象都连接到一个原型对象(可以理解父类)，并且可以从中继承属性。
+
+所有通过对象字面量创建的对象都连接到
+
+Object.prototype, 是JavaScript中的标配对象。
+
+原型连接在更新是不起作用的，也就是对某个对象进行做出改变不会印象到对象的原型。
+
+只有在检索值才能起作用，在当前对象中找不到属性时会从它的原型对象中查找，原型对象没有则往上一层，及沿着原型链进行检索。
+
+当添加属性到原型时，该属性会立即对所有基于该原型创建的对象可见
+
+<!-- ------------------------------------------------------------------------------ -->
+
+枚举
+
+for in 可以用来遍历对象中所有的属性名，包括函数跟原型中的属性,可以使用typeof跟hasOwnProperty来过滤掉
+
+for in 遍历的属性名顺序是不确定的, 可以通过创建一个数组，元素为要遍历的属性名，再根据数组中顺序访问对象中的属性，即可得到想要的顺序
+
+<script>
+    for (var name in stooge) {
+        if (typeof name !== 'function') {
+          //  ...
+        }
+    }
+    properties = [
+        'first-name',
+        'last-name',
+        'name',
+        'age'
+    ];
+    for (var i = 0; i < properties.length; i += 1) {
+        console.log(stooge[properties[i]])
+    }
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+删除
+
+delete运算符，不会触及原型链中的任何对象，不过可能会让原型链中的属性透现出来
+
+<script>
+    stooge.nickname // 'Yann'
+    delete stooge.nickname
+    stooge.nickname // 'YannFather'
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+</body>
+</html>

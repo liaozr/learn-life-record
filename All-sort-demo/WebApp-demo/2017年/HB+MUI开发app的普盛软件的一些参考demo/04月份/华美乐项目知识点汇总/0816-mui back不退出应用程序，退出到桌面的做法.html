@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        var backButtonPress = 0;
+
+        // mui.back = function(event) {
+        // 	backButtonPress++;
+        // 	if (backButtonPress > 1) {
+        // 		plus.runtime.quit();
+        // 	} else {
+        // 		plus.nativeUI.toast('再按一次退出应用');
+        // 	}
+        // 	setTimeout(function() {
+        // 		backButtonPress = 0;
+        // 	}, 1000);
+        // 	return false;
+        //    };
+
+        mui.back = function(event) {
+
+            backButtonPress++;
+
+            if (backButtonPress > 1) {
+
+                //plus.runtime.quit();
+                //后台运行
+                var main = plus.android.runtimeMainActivity();
+                var Intent = plus.android.importClass("android.content.Intent");
+                var intent = new Intent();
+
+                intent.setAction(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+
+                main.startActivity(intent);
+
+            } else {
+                plus.nativeUI.toast('再按一次退出到桌面');
+            }
+
+            setTimeout(function() {
+                backButtonPress = 0;
+            }, 1000);
+
+            return false;
+
+        };
+
+    </script>
+
+</body>
+
+</html>

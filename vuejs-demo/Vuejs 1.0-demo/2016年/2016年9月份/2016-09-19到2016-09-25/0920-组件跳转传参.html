@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<!-- 路由表router.js -->
+	
+	<script>
+		 '/': {
+		    component: require('./components/index')
+		  },
+		  '/list': {
+		    component: require('./components/list')
+		  },
+		  //增加详情页的跳转路由，并在路径上加上id传参，具名为name：show
+		  '/show/:id': {
+		      name:"show",
+		      component: require('./components/show')
+		   },
+		  '*': {
+		    component: require('./components/notFound')
+		  }
+	</script>
+    
+    <!-- 组件show.vue里面 -->
+
+
+    <script>
+
+	  created:function(){
+	       //获取params的参数ID
+	       var id=this.$route.params.id;
+
+	       //根据获取的参数ID，返回不同的data对象（真实业务中，这里应该是Ajax获取数据）
+	       if (id==1){
+	            this.$data={"id":id,"name":"hello111","age":24};
+	       }else{
+	        this.$data={"id":id,"name":"hello222","age":28};
+	       }
+	  },
+	  ready: function () {
+	      console.log(this.$data);
+	  }
+	  
+    </script>
+    
+
+</body>
+</html>

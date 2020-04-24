@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+类和对象
+
+<!-- --------------------------------------------------------------------------------- -->
+
+用 ECMAScript 6，我们从“构造函数”🔨 来到了“类”🍸。
+
+在 JavaScript 中，每个对象都有一个原型对象。
+
+所有的 JavaScript 对象都从它们的原型对象那里继承方法和属性。
+
+在 ES5 中，为了实现面向对象编程（OOP），我们使用构造函数来创建对象，如下：
+
+<script>
+    // ES5
+    var Animal = (function() {
+        function MyConstructor(name) {
+            this.name = name;
+        }
+        MyConstructor.prototype.speak = function speak() {
+            console.log(this.name + ' makes a noise.');
+        };
+        return MyConstructor;
+    })();
+    var animal = new Animal('animal');
+    animal.speak(); // animal makes a noise.
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+ES6 中有了一些语法糖。通过像 class 和 constructor 这样的关键字和减少样板代码，
+
+我们可以做到同样的事情。另外，speak() 相对照 constructor.prototype.speak = function () 更加清晰：
+
+<script>
+
+    // ES6
+    class Animal {
+      constructor(name) {
+        this.name = name;
+      }
+      speak() {
+        console.log(this.name + ' makes a noise.');
+      }
+    }
+    const animal = new Animal('animal');
+    animal.speak(); // animal makes a noise.
+
+</script>
+
+正如你所见，两种式样（ES5 与 6）在幕后产生相同的结果而且用法一致。
+
+最佳实践：
+总是使用 class 语法并避免直接直接操纵 prototype。为什么？因为它让代码更加简洁和易于理解。
+
+避免使用空的构造函数。如果没有指定，类有一个默认的构造函数。
+
+
+</body>
+</html>

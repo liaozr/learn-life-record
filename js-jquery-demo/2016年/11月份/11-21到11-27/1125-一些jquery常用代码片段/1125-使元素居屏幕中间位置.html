@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery.js"></script>
+</head>
+
+
+<body>
+
+    <script>
+        $(document).ready(function() {
+            jQuery.fn.center = function() {
+                this.css("position", "absolute");
+                this.css("top", ($(window).height() - this.height()) / 2 + $(window).scrollTop() + "px");
+                this.css("left", ($(window).width() - this.width()) / 2 + $(window).scrollLeft() + "px");
+                return this;
+            }
+            $("#id").center();
+        });
+    </script>
+    <div id='id'></div>
+    <style>
+        #id {
+            width: 500px;
+            height: 500px;
+            display: inline-block;
+            background-color: red;
+        }
+    </style>
+</body>
+
+</html>

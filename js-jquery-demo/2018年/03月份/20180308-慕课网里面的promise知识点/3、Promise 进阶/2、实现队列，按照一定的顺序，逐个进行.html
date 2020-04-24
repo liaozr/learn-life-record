@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    let promise  = dosomething()
+
+    promise =  promise.then(domesomgthingelse)
+    promise =  promise.then(domesomgthingelse2)
+    promise =  promise.then(domesomgthingelse3)
+
+<!-- --------------------------------------------------------------------------- -->
+
+
+    使用 forEach 实现队列
+
+
+    <script>
+        function queue(things){
+          let promise = Promise.resolve()
+          things.forEach( thing => {
+             promise = promise.then( () =>{
+               return new Promise (resolve => {
+                 doThing( thing, () =>{
+                   resolve()
+                 })
+               })
+             })
+          })
+          return promise
+        }
+        queue(['lots','of','things'])
+    </script>
+
+</body>
+
+</html>

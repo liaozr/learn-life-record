@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+子组件引用
+
+尽管我们有 props 和 events，有时候你可能仍然需要在 JavaScript 中直接操作子组件。为此你必须使用 ref 分配一个 reference ID 给子组件。
+
+<div id="parent">
+    <user-profile ref="profile"></user-profile>
+</div>
+<script>
+    var parent = new Vue({
+        el: '#parent'
+    })
+    // 访问子组件实例
+    var child = parent.$refs.profile
+</script>
+
+当 ref 和 v-for 一起使用的时候，你得到的 ref 将会是一个包含了从数据源镜像的数组或者对象。
+
+$refs 只有在组件被渲染后才能获得，而且它不是响应式的。
+
+也就意味着只是一个直接子组件操作的逃生口 —— 你应该避免在模板或者 computed 属性中使用 $refs。
+
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+教程网址：
+http://www.jianshu.com/p/8e5fb763c3d7
+http://www.jianshu.com/p/8e5fb763c3d7
+
+npm install axios --save
+
+<!-- ----------------------------------------------------------------------------- -->
+
+<script>
+     //  get 请求
+
+     // Make a request for a user with a given ID
+     axios.get('/user?ID=12345')
+        .then(function(response) {
+            console.log(response);
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+
+    // Optionally the request above could also be done as
+    axios.get('/user', {
+            params: {
+                ID: 12345
+            }
+        })
+        .then(function(response) {
+            console.log(response);
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+<script>
+
+    // post请求
+
+    axios.post('/user', {
+            firstName: 'Fred',
+            lastName: 'Flintstone'
+        })
+        .then(function(response) {
+            console.log(response);
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+Response
+
+当我们ajax获取数据成功后会返回一个response对象，它包含了以下内容：
+
+<script>
+    {
+        // `data` is the response that was provided by the server
+        data: {},
+
+        // `status` is the HTTP status code from the server response
+        status: 200,
+
+        // `statusText` is the HTTP status message from the server response
+        statusText: 'OK',
+
+        // `headers` the headers that the server responded with
+        headers: {},
+
+        // `config` is the config that was provided to `axios` for the request
+        config: {}
+    }
+
+    // response是通过promise的then方法来获取,具体使用方法如下：
+    axios.get('/user/12345')
+        .then(function(response) {
+            console.log(response.data);
+            console.log(response.status);
+            console.log(response.statusText);
+            console.log(response.headers);
+            console.log(response.config);
+        });
+
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+</body>
+</html>

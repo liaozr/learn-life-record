@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  
+<!-- --------------------------------------------------------------------------------- -->
+
+    <script>
+
+        $.ajax({
+            url: "http://localhost:8080/STS/rest/user",
+            type: "post",
+            data: $('#postForm').serialize(),
+            success: function(data) {
+                $('#serverResponse').html(data);
+            },
+            error: function(data) {
+                $('#serverResponse').html(data.status + " : " + data.statusText + " : " + data.responseText);
+            }
+        });
+
+    </script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+    如上， 通过$('#postForm').serialize() 可以对form表单进行序列化，
+
+    从而将form表单中的所有参数传递到服务端。
+
+    但是上述方式，只能传递一般的参数， 上传文件的文件流是无法被序列化并传递的。
+
+    不过如今主流浏览器都开始支持一个叫做FormData的对象， 有了这个FormData， 我们就可以轻松地使用Ajax方式进行文件上传了。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

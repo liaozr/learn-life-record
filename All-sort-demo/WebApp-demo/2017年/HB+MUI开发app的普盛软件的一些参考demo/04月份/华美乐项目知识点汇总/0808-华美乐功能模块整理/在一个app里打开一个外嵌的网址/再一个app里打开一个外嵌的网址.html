@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        $(".zhengwu-guanli").on('tap', function() {
+
+            mui.openWindow({
+                url: "webview_embed.html",
+                id: "webview_embed.html",
+                createNew: false,
+                show: {
+                    autoShow: true, //页面loaded事件发生后自动显示，默认为true
+                    aniShow: "pop-in", //页面显示动画，默认为”slide-in-right“；
+                    duration: 200 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+                },
+                waiting: {
+                    autoShow: true,
+                    title: '正在加载...',
+                }
+            });
+
+        })
+
+    </script>
+
+ <!-- ----------------------------------------------------------------------------------------------------------------- -->
+
+  <!-- webview_embed.html -->
+
+  
+
+
+</body>
+
+</html>

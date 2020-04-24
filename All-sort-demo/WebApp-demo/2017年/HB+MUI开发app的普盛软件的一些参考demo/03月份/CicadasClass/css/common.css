@@ -1,0 +1,183 @@
+/*覆盖标准mui的css定义*/
+.mui-bar-nav {
+	background-color: #3192D2;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.mui-bar-nav a,
+.mui-bar .mui-btn-link {
+	color: white;
+}
+.cc-title {
+	color: white;
+}
+
+/*title样式*/
+.top-bar {
+	position: fixed;
+	z-index: 10;
+	right: 0;
+	left: 0;
+	height: 45px;
+	padding-right: 10px;
+	padding-left: 10px;
+	border-bottom: 0;
+	background-color: #3192D2;
+	-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .85);
+	box-shadow: 0 0 0 rgba(0, 0, 0, .85);
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+.top-bar-nav {
+	top: 0;
+	-webkit-box-shadow: 0 0 0;
+	box-shadow: 0 0 0;
+}
+/*正中间title*/
+.top-bar-title {
+	font-size: 17px;
+	font-weight: 500;
+	line-height: 44px;
+	position: absolute;
+	display: block;
+	width: 100%;
+	margin: 0 -10px;
+	padding: 0;
+	text-align: center;
+	white-space: nowrap;
+	color: #fff;
+}
+/*left title*/
+.top-bar-left-title {
+	font-size: 17px;
+	font-weight: 500;
+	line-height: 44px;
+	position: absolute;
+	display: block;
+	width: 100%;
+	padding: 0;
+	text-align: left;
+	white-space: nowrap;
+	color: #fff;
+	margin: 0 5px;
+}
+.top-bar-icon {
+	font-family: Muiicons;
+	font-size: 24px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 1;
+	display: inline-block;
+	text-decoration: none;
+	-webkit-font-smoothing: antialiased;
+}
+.top-bar .top-bar-icon {
+	font-size: 24px;
+	position: relative;
+	z-index: 20;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.top-bar-icon-right {
+	float: right;
+	width: 1.67em;
+	height: 1.67em;
+	display: block;
+	margin: 3px 0;
+	background-image: url(../img/notice_normal.png);
+	background-size: cover;
+}
+
+
+/*首页底部tab*/
+
+.bottom-bar {
+	position: fixed;
+	z-index: 10;
+	right: 0;
+	left: 0;
+	height: 44px;
+	padding-right: 10px;
+	padding-left: 10px;
+	border-bottom: 0;
+	background-color: #f7f7f7;
+	-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, .85);
+	box-shadow: 0 0 1px rgba(0, 0, 0, .85);
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+.bottom-bar-tab {
+	bottom: 0;
+	display: table;
+	width: 100%;
+	height: 50px;
+	padding: 0;
+	table-layout: fixed;
+	border-top: 0;
+	border-bottom: 0;
+	-webkit-touch-callout: none;
+}
+.bottom-bar-tab .bottom-tab-item.bottom-active {
+	color: #3192D2;
+	/*mui #007aff*/
+}
+.bottom-bar-tab .bottom-tab-item {
+	display: table-cell;
+	overflow: hidden;
+	width: 1%;
+	height: 50px;
+	text-align: center;
+	vertical-align: middle;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: #929292;
+	text-decoration: none;
+}
+.bottom-icon {
+	top: 3px;
+	width: 1.78em;
+	height: 1.78em;
+	padding-top: 0;
+	padding-bottom: 0;
+	background-position: center;
+	display: inline-block;
+	background-size: cover;
+}
+
+
+/*首页*/
+.icon-home {
+	background-image: url(../img/icon_home_nor.png);
+}
+
+.bottom-active .icon-home {
+	background-image: url(../img/icon_home_pressed.png);
+}
+
+
+/*任务*/
+.bottom-active .icon-task {
+	background-image: url(../img/icon_task_pressed.png);
+}
+
+.icon-task {
+	background-image: url(../img/icon_task_nor.png);
+}
+
+
+/*我的*/
+.icon-mine {
+	background-image: url(../img/icon_mine_normal.png);
+}
+
+.bottom-active .icon-mine {
+	background-image: url(../img/icon_mine_pressed.png);
+}
+
+.bottom-tab-label {
+	font-size: 11px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+

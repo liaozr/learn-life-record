@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<!-- app.js -->
+
+<!-- 
+
+app.js使用App()函数注册一个小程序，可以指定小程序的生命周期
+小程序的App()生命周期中三个事件可以监听:onLaunch，onShow，onHide。
+
+onLaunch：小程序加载完成之后调用,全局只触发一次
+onShow： 小程序启动，或者从后台到前台会触发一次
+onHide：小程序从前台到后台会触发一次
+
+ -->
+
+<!-- 例如: -->
+<script>
+
+
+App({ 
+  onLaunch: function () { 
+    console.log('App Launch')
+  }, 
+  onShow: function () {
+    console.log('App Show')  
+  },  
+  onHide: function () {
+    console.log('App Hide')  
+  }, 
+  globalData: {
+    hasLogin: false  
+  }
+})
+
+// 其中app.js的globalData可以设置全局的变量,在一个页面中可以
+// 通过getApp()函数获取小程序的实例，使用App的getCurrentPage()可以获取到当前页面的实例。
+
+ </script>
+</body>
+</html>

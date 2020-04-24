@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  所有函数都有一个不可枚举的 prototype（原型）属性，这个属性是一个指针，指向一个对象。
+
+  <script>
+
+      function Foo() {}
+      Foo.prototype // {}
+  </script>
+
+  这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法，我们通常称这个对象为 Foo 的原型。
+
+  上一节【构造函数模式】里面有说，new操作符会新建一个对象，并把该对象的原型链指向构造函数的 prototype 所指向的对象。
+
+  这里出现了一个重点词原型链，我们先解释下什么叫做原型链。
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+  原型链
+
+  原型链也被称为 [[Prototype]]链，是对象的内置属性。原型链是 ECMAScript 中实现继承的主要办法，其基本思想就是让一个引用类型继承另一个引用类型的属性和和方法。
+  例如我们新建个对象 a，然后给它指定它的原型链的指向：
+
+<script>
+    var a = {}
+    var b = {
+        x: 2
+    }
+    Object.setPrototypeOf(a, b)
+    a.x // 2
+
+</script>
+
+  这个例子中我们通过Object.setPrototypeOf()方法把 a 的原型链指向 b，然后 a 就继承了 b 的属性，当查询 a 中没有的 x 属性时，会指向到 b.x 的值。
+
+  这里原理上说是委托比说是继承更符合真实情况。
+
+  因为真实情况如上段所说是 a 把自身没有的属性查询委托给 b，如果 b 中也没 x 属性的话，系统会继续循着原型链往上查。
+
+  所有普通的 [[Prototype]] 链最终都会指向内置的 Object.prototype。如果 Object.prototype 也没有的话就会提示 undefined。
+
+  这里提示一下，由于所有普通的对象都”源于“（或者说把 [[Prototype]] 链的顶端设置为）
+  这个 Object.prototype 对象，所以它包含 Javascript 中许多通用的功能。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  上面说过，new操作符会新建一个对象，并把该对象的原型链指向构造函数的 prototype 属性所指向的对象（即原型对象）。
+
+  使用原型对象的好处是可以让所有对象实例共享它所包含的属性和方法。
+  换句话说，不必在构造函数中定义对象实例的信息，而是可以将这些信息直接添加到原型对象中。
+
+  例如：
+
+  <script>
+
+      function Person() {}
+
+      Person.prototype = {
+          name: 'h',
+          sayName: function() {
+              alert(this.name)
+          }
+      }
+
+      var a = new Person()
+      a.sayName() // h
+
+  </script>
+
+  这种方法因为重写了 Person.prototype ，所以默认的 Person.prototype.constructor 也会丢失，如果需要修复 constructor，可以使用Object.defineProperty()。
+
+  <script>
+
+      Object.defineProperty(Person.prototype, "constructor", {
+          enumerable: false,
+          value: Person
+      })
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  不过实例一般都是要有属于自己的全部属性的。
+
+  所以日常开发中设计对象更常见的做法是构造函数模式跟原型模式组合使用：
+
+  <script>
+
+      function Person(name, age) {
+          this.name = name
+          this.age = age
+      }
+
+      Person.prototype.sayName = function() {
+          alert(this.name)
+      }
+
+      a = new Person('a', 20)
+      b = new Person('b', 22)
+
+      a.sayName() // a
+
+  </script>
+
+  这里很像一些面向“类”的语言的行为，a 和 b 是 Person 类的实例，a 和 b 继承了 Person 类的特性。
+
+  但实际上 JavaScript 和面向类的语言不同，它并没有类作为对象的抽象模式或者说蓝图。
+
+  JavaScript 中只有对象。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

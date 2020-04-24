@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+
+    父组件是使用 props 传递数据给子组件，
+
+    但如果子组件要把数据传递回去则使用自定义事件！
+
+    <div id="app">
+        <p>{{total}}</p>
+        <button-counter v-on:increment='incrementTotal'></button-counter>
+        <button-counter @increment='incrementTotal'></button-counter>
+    </div>
+
+    <script>
+        Vue.component('button-counter', {
+            template: '<button v-on:click="increment">{{counter}}</button>',
+            data: function() {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                increment: function() {
+                    this.counter += 1;
+                    this.$emit('increment')
+                }
+            }
+        })
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                total: 0
+            },
+            methods: {
+                incrementTotal: function() {
+                    this.total += 1;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

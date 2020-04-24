@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+禁用 input 字段
+
+有时你可能需要禁用表单的 submit 按钮或者某个 input 字段，
+
+直到用户执行了某些操作（例如，检查“已阅读条款”复选框）。可以添加 disabled 属性，直到你想启用它时：
+
+<script>
+
+    $('input[type="submit"]').prop('disabled', true);
+
+    // 你要做的就是执行 removeAttr 方法，并把要移除的属性作为参数传入：
+
+    $('input[type="submit"]').removeAttr('disabled');
+
+</script>
+
+
+</body>
+</html>

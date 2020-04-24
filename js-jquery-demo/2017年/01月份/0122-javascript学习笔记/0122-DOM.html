@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+ Node属性：
+
+（1）parentNode
+
+ 该节点的父节点，或者针对类似Document对象应该是null，因为它没有父节点。
+
+（2）childNodes
+
+返回只读的类数组对象（NodeList对象），它是该节点的子节点的实时表。
+
+注意：该属性还包括文本节点和评论节点。
+
+（3）firstChild、lastChild
+
+该节点的子节点中的第一个和最后一个，如果该节点没有子节点则为null
+
+注意：这两个属性返回的除了HTML元素子节点，还可能是文本节点或评论节点。
+
+（4）nextSibling、previousSibling
+
+该节点的兄弟节点中的前一个和下一个。具有相同父节点的两个节点称为兄弟节点。节点的顺序反映了它们在文档中出现的顺序。这两个属性将节点之间以双向链表形式连接起来。
+
+注意：这两个属性返回的除了HTML元素子节点，还可能是文本节点或评论节点。
+
+（5）textContent
+
+返回该节点和它的所有后代节点的文本内容。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+<div id="div">我是<span>textContent</span></div>
+
+<script>
+    document.getElementById('div').textContent // 我是textContent
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+（1）innerHTML
+
+读取Element的 innerHTML 属性作为字符串标记返回那个元素的内容。
+
+<div id="div">
+    <p>123</p>
+</div>
+
+<script>
+    var d = document.getElementById('div');
+
+    d.innerHTML // "<p>123</p>"
+
+    // 除了获取， 还可以设置
+    d.innerHTML = '<span>99</span>'
+
+    // <div id="div"><span>99</span></div>
+</script>
+
+--------------------------------------------------------------------------------
+
+（2）outerHTML
+
+outerHTML属性返回一个字符串，内容为指定元素节点的所有HTML代码，包括它自身和包含的所有子元素。
+
+<script>
+
+    d.outerHTML
+    // "<div id="div"><p>123</p></div>"
+
+</script>
+
+outerHTML属性是可读写的，当设置元素的outerHTML时，元素本身被新的内容所替换。
+
+注意：只有Element节点有outerHTML属性，Document节点没有。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+1.6.2 插入节点
+
+我们可以用node的方法appendChild()或insertBefore()来讲新节点插入到文档中。
+
+（1）appendChild()
+
+接受一个节点对象作为参数，将其作为最后一个子节点，插入当前节点。
+
+parentNode.appendChild(newNode)
+
+（2）insertBefore()
+
+用于将某个节点插入当前节点的指定位置。它接受两个参数，第一个参数是所要插入的节点，第二个参数是当前节点的一个子节点，新的节点将插在这个节点的前面。该方法返回被插入的新节点。
+
+parenNode.insertBefore(newNode,oldNode)
+
+<!-- ----------------------------------------------------------------------------- -->
+
+1.6.3 删除和替换节点
+
+（1）removeChild()
+
+从文档树中删除一个节点。
+
+注意：该方法不是在待删除的节点上调用，而是在其父节点上调用。在父节点上调用该方法，并将需要删除的子节点作为方法参数传递给它。
+
+n.parentNode.removeChild(n);
+
+--------------------------------------------------------------------------------
+
+（2）replaceChild()
+
+删除一个子节点并用一个新节点替换它。也是在父节点上调用该方法，第一个参数是新节点，第二个参数是需要替代的节点。
+
+var span = document.createElement('span');
+
+n.parentNode.replaceChild(span,n);
+
+--------------------------------------------------------------------------------
+
+<!-- ------------------------------------------------------------------------------ -->
+
+
+
+
+</body>
+</html>

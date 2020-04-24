@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+  原型与继承
+
+  原型是 JavaScript 当中最容易造成困惑的一个概念。
+
+  原因之一是因为原型这个词会在两个语境下使用：
+
+  <!-- --------------------------------------------------------------------------------------------- -->
+
+  原型关系
+
+  每个对象都有自己的原型对象，并会继承它原型的所有属性。
+
+  你可以通过 .__proto__ 这种非标准的机制来获取一个对象的原型（在ES6中，在 ES5 标准里还可以通过 Object.getPrototypeOf() 方法来获取）。
+
+  一般的对象还会继承一个叫做 .constructor 的属性指向其构造函数。当你使用构造函数生成一个对象时，其 .__proto__ 属性会指向构造函数的 .prototype 属性。
+
+  <!-- --------------------------------------------------------------------------------------------- -->
+
+  原型属性
+
+  每个被定义的函数都有一个名为 .prototype 的属性。
+
+  它是一个继承了原型链上所有属性的对象。这个对象也默认包括一个 .constructor 属性，指向原始的构造函数。
+
+  所有用构造函数生成的对象也会继承一个指向这个函数的 .constructor 属性（用控制台把对象打出来会比较好理解，也可以看下面的示例）。
+
+  <script>
+
+      function Dog(breed, name) {
+          this.breed = breed,
+          this.name = name
+      }
+
+      Dog.prototype.describe = function() {
+          console.log(`${this.name} is a ${this.breed}`)
+      }
+
+
+      const rusty = new Dog('Beagle', 'Rusty');
+
+      console.log( rusty.__proto__  == Dog.prototype)  // true
+
+      console.log(rusty.constructor)
+
+      // 打印出的数据为
+      // function Dog(breed, name) {
+      //     this.breed = breed,
+      //         this.name = name
+      // }
+
+      console.log(rusty.__proto__)
+      // object{}
+
+
+// --------------------------------------------------------------------------------------------
+
+      /* .prototype property points to an object which has constructor and attached
+      properties to be inherited by objects created by this constructor. */
+      console.log(Dog.prototype) // { describe: ƒ , constructor: ƒ }
+
+      /* Object created from Dog constructor function */
+      console.log(rusty) //  { breed: "Beagle", name: "Rusty" }
+
+      /* Object inherited properties from constructor function's prototype */
+      console.log(rusty.describe()) // "Rusty is a Beagle"
+
+      /* .__proto__ property points to the .prototype property of the constructor function */
+      console.log(rusty.__proto__) // { describe: ƒ , constructor: ƒ }
+
+      /* .constructor property points to the constructor of the object */
+      console.log(rusty.constructor) // ƒ Dog(breed, name) { ... }
+
+  </script>
+
+  <!-- --------------------------------------------------------------------------------------------- -->
+
+  原型链
+
+  原型链描述了对象之间相互引用的关系。
+
+  当获取一个对象的属性时，JavaScript 引擎会先从这个对象本身开始查找。
+
+  如果没有找到，就会转向其原型上的属性，直到第一次找到这个属性为止。
+
+  原型链上的最后一个对象是内置的 Object.prototype 而它的原型则是 null（也就是所谓原型链的终点）。
+
+  JavaScript 引擎在查找属性到这一层还是没有找到时就会返回 undefined.
+
+  <!-- --------------------------------------------------------------------------------------------- -->
+
+  自有属性与继承属性
+
+  对象的属性分为自有和继承两种。
+
+  自有属性也就是在对象内部定义的属性。
+
+  继承属性则是通过原型链获得的属性。继承属性是不可枚举的（也就是在 for/in 循环里看不到的）。
+
+  <script>
+
+      function Car() {}
+      Car.prototype.wheels = 4;
+      Car.prototype.airbags = 1;
+
+      var myCar = new Car();
+      myCar.color = 'black';
+
+      /*  Check for Property including Prototype Chain:  */
+      console.log('airbags' in myCar) // true
+      console.log(myCar.wheels) // 4
+      console.log(myCar.year) // undefined
+
+      /*  Check for Own Property:  */
+      console.log(myCar.hasOwnProperty('airbags')) // false — Inherited
+      console.log(myCar.hasOwnProperty('color')) // true
+
+      // Object.create(obj)  方法可以指定原型来创建对象：
+      //
+      // var dog = {
+      //     legs: 4
+      // };
+
+      var myDog = Object.create(dog);
+
+      console.log(myDog.hasOwnProperty('legs')) // false
+      console.log(myDog.legs) // 4
+      console.log(myDog.__proto__ === dog) // true
+
+  </script>
+
+  <!-- --------------------------------------------------------------------------------------------- -->
+
+  类继承与原型继承
+
+  在类继承模式当中，对象继承自各式各样的类。就好像为对象设置好了一些模版和描述，并创建出了子类关系。
+
+  我们可以通过 new 关键字从构造函数中创建这样的对象。
+
+  但类继承模式有以下这些缺点：
+
+  死板的层级关系
+
+  高度耦合
+  基类薄弱
+  代码重复
+
+  以及传说中的大猩猩/香蕉问题——“What you wanted was a banana, what you got was a gorilla holding the banana, and the entire jungle.”
+
+  在原型继承模式中，一个对象可以直接继承另一个对象。
+
+  我们可以通过 Object.create() 或者其他对象方法及工厂函数来创建对象。
+
+  <!-- --------------------------------------------------------------------------------------------- -->
+
+  下面是三种不同的原型继承的形式：
+
+  原型代理 我们通常称那些用来给其他对象提供模型的对象为代理原型。
+  当你继承一个代理原型时，新的对象可以获取对代理原型属性的引用。这种操作通常使用 Object.create() 来完成。
+
+  拼接继承 通过拷贝一个对象的属性来进行继承，不会产生引用关系，这种操作通常使用 Object.assign() 来进行。
+
+  函数继承 这种方法是通过工厂函数（工厂函数是指不通过 new 关键字创建并返回对象的函数）来创建对象，然后直接将新的属性添加到对象上。
+
+  这种形式的好处是我们可以使用闭包进行数据封装。
+
+  <!-- --------------------------------------------------------------------------------------------- -->
+
+<script>
+
+      const person = function(name) {
+        const message = `Hello! My name is ${name}`;
+        return { greeting: () => console.log(message) }
+      }
+
+      const will = person("Will");
+      will.greeting();     // Hello! My name is Will
+
+</script>
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

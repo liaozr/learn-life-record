@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <script src="js/flexible.js" type="text/javascript"></script>
+    <script src="js/flexible_css.js" type="text/javascript"></script>
+    
+</head>
+<body>
+
+	<div class="mui-bar mui-bar-nav">
+     	<h1 class="mui-title">案件查询</h1>
+    </div>
+
+    <div class="mui-content">
+	</div>
+
+    <div class="bottom-bar bottom-bar-tab">
+	        
+  	</div>
+
+</body>
+
+<style>
+
+/* 头部样式代码 */
+.mui-bar {
+    background-color: rgba(22, 155, 213, 1);
+    height: 1.25rem;
+}
+
+
+/* 中间content部分样式 */
+.mui-bar-nav~.mui-content{
+
+	/*这个被注释了的代码段也是可以的，不过测试发现中间的mui-content部分不完全撑起来*/
+    /*padding-top: 1.25rem;
+    padding-bottom: 1.25rem;*/
+    
+    /*推荐用下面这段代码，经测试也是可用的*/
+    /*padding-top:0;在这的作用是冲掉mui.css的固有样式*/
+    padding-top:0;
+    padding-bottom: 0;
+    overflow-y: auto;
+    top: 1.25rem;
+    bottom: 1.25rem;
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* 底部footer样式 */
+.bottom-bar-tab {
+	/* 
+	记住，底部一般不要加上display:table;这个属性的，
+	不然，底部的高度会比css已设置好的高度高出几像素的 
+	*/
+    /* display: table; */
+    width: 100%;
+    height: 1.25rem;
+    background-color: yellow;
+    
+}
+.bottom-bar {
+    position: fixed;
+    z-index: 10;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    padding: 0;
+    padding-right: 0.312rem;
+    padding-left: 0.312rem;
+    border-bottom: 0;
+ }
+
+</style>
+</html>

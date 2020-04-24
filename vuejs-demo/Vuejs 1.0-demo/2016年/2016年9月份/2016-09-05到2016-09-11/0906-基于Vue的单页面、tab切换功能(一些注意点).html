@@ -1,0 +1,92 @@
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+v-transition和transition-mode的完整支持，为了切换效果能正常工作，路由组件必须不是一个片段实例。
+在路由的0.7.2+中支持keep-alive（关于keep-alive）
+所以在app.vue写入：
+
+<!-- app.vue -->
+
+<template>
+    <div class="main">
+        <router-view
+          keep-alive
+          transition="fade"
+          transition-mode='out-in'></router-view>
+    </div>
+</template>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+<!--    在home.vue中实现tab切换    -->
+
+<!--   home.vue  -->
+<template>
+	<div class="home">
+	    <div class="bd" style="height: 100%;">
+	        <div class="weui_tab">
+	            <ul class="weui_navbar">
+	                <li class="weui_navbar_item"
+	                    v-for="tab in tabs"
+	                    :class="{'weui_bar_item_on':$index===selected}"
+	                    @click="choose($index)">{{tab.tabName}}</li>
+	            </ul>
+	            <div class="weui_tab_bd">
+	                <component :is="currentView" transition="fade" transition-mode="out-in"></component>
+	            </div>
+	        </div>
+	    </div>      
+	</div>
+</template>
+<script>
+import  tab_1 from './tab/tab_1.vue';
+import  tab_2 from './tab/tab_2.vue';
+export default{
+    data(){
+        return{
+            tabs:[
+                {tabName:'Vuejs'},
+                {tabName:'VueTab'}
+            ],
+            selected:0,
+            currentView:'view_0'
+        }
+    },
+    components:{
+        'view_0':tab_1,
+        'view_1':tab_2
+    },
+    methods:{
+        choose(index) {
+            this.selected=index;
+            this.currentView='view_'+index;
+        }
+    }
+}
+</script>
+
+两个动态组件为tab_1.vue和tab_2.vue。引入这两个模块，对外输出对组件的操作export default{}，在template模板中将动态组件加载进去，使用保留的<component>元素，动态地绑定它的is特性，从而根据不同的值动态的切换组件，在需要点击的tab导航上，需要v-for循环出两个导航，然后动态绑定class，根据当前点击的tab导航$index动态的切换class名:class="{'weui_bar_item_on':$index===selected}"，然后给li绑定click事件，从而让其在被点击时执行事件@click="choose($index)"。
+
+由于默认情况下显示第一个组件且第一个tab变灰，所以在data设置默认值。为了切换有过渡，添加了transition="fade" transition-mode="out-in"并在css中设置动画的执行过程：
+
+
+<!--  切换动画   -->
+<style>
+.fade-transition {
+    transition: opacity 0.3s ease;
+}
+.fade-enter,
+.fade-leave {
+    opacity: 0;
+}
+</style>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+利用v-link实现路由链接
+在组件中，用到了路由，在给a写路由链接时候要使用v-link而不是href。在带有v-link指令的元素，如果v-link对应的URL匹配当前路径，则该元素会被添加一个特定的class，默认为.v-link-active，这个默认值，我们可以通过在创建路由时指定linkActiveClass全局选项来自定义，也可以通过activeClass内联选项来单独制定：
+
+<a v-link="{path:'/a',activeClass:'active'}">test</a>
+
+<!-- ------------------------------------------------------------------------------------- -->

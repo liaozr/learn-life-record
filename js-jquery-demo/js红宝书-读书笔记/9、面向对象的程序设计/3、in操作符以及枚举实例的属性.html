@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+ in操作符
+
+（prop in obj）通过in操作符可以判定对象是否有该属性，不论是本身含有还是原型含有，都返回true。
+
+可以通过in配合hasOwnProperty()确定该属性是存在于对象中还是原型中：
+
+<script>
+
+    function Person() {}
+
+    var p = Person.prototype;
+    p.name = "晨落梦公子";
+    p.age = 24;
+    var person1 = new Person();
+
+    //  hasOwnProperty 是指 该对象有没有这个自有属性，不包含原型链上的。
+    console.log(person1.hasOwnProperty("name")); // false
+
+    // in操作符可以判定对象是否有该属性，不论是本身含有还是原型含有，都返回true。
+    console.log("name" in person1); //true
+
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+Object.keys()方法可以取得对象上所有可枚举的实例属性。
+
+<script>
+
+    function Person() {}
+    Person.prototype.name = "Nicholas";
+    Person.prototype.age = 29;
+    Person.prototype.job = "Software Engineer";
+    Person.prototype.sayName = function() {
+        alert(this.name);
+    };
+    var keys = Object.keys(Person.prototype);
+    alert(keys); //"name,age,job,sayName"
+
+    var p1 = new Person();
+    p1.name = "Rob";
+    p1.age = 31;
+    var p1keys = Object.keys(p1);
+    alert(p1keys); //"name,age"
+
+</script>
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+</html>

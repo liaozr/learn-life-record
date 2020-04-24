@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+1. 添加到主屏后的标题（IOS）
+
+<meta name="apple-mobile-web-app-title" content="标题"> 
+
+<!-- ------------------------------------------------------------------------ -->
+
+2. 启用 WebApp 全屏模式（IOS）
+
+当网站添加到主屏幕后再点击进行启动时，可隐藏地址栏（从浏览器跳转或输入链接进入并没有此效果）
+<meta name="apple-mobile-web-app-capable" content="yes" /> 
+<meta name="apple-touch-fullscreen" content="yes" /> 
+
+<!-- ------------------------------------------------------------------------ -->
+
+4. 设置状态栏的背景颜色（IOS）
+
+设置状态栏的背景颜色，只有在 "apple-mobile-web-app-capable" content="yes" 时生效
+
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+content 参数：
+default ：状态栏背景是白色。
+black ：状态栏背景是黑色。
+black-translucent ：状态栏背景是半透明。 如果设置为 default 或 black ,网页内容从状态栏底部开始。 如果设置为 black-translucent ,网页内容充满整个屏幕，顶部会被状态栏遮挡。
+
+<!-- ------------------------------------------------------------------------ -->
+
+5. 移动端手机号码识别（IOS）
+
+<meta name="format-detection" content="telephone=no" />
+
+开启电话功能
+<a href="tel:123456">123456</a>
+
+开启短信功能：
+<a href="sms:123456">123456</a> 
+
+<!-- ------------------------------------------------------------------------ -->
+
+8. IOS Web app启动动画
+
+由于iPad 的启动画面是不包括状态栏区域的。所以启动图片需要减去状态栏区域所对应的方向上的20px大小，相应地在retina设备上要减去40px的大小
+
+<!-- iPhone -->
+<link href="apple-touch-startup-image-320x460.png" media="(device-width: 320px)" rel="apple-touch-startup-image">
+
+<!-- iPhone (Retina) -->
+<link href="apple-touch-startup-image-640x960.png" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+
+<!-- iPad (portrait) -->
+<link href="apple-touch-startup-image-768x1004.png" media="(device-width: 768px) and (orientation: portrait)" rel="apple-touch-startup-image">
+
+<!-- iPad (landscape) -->
+<link href="apple-touch-startup-image-748x1024.png" media="(device-width: 768px) and (orientation: landscape)" rel="apple-touch-startup-image">
+
+<!-- iPad (Retina, portrait) -->
+<link href="apple-touch-startup-image-1536x2008.png" media="(device-width: 1536px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+
+<!-- iPad (Retina, landscape) -->
+<link href="apple-touch-startup-image-2048x1496.png" media="(device-width: 1536px)  and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+（landscape：横屏 | portrait：竖屏）
+
+<!-- --------------------------------------------------------------------------- -->
+
+ meta模板
+
+<meta charset="utf-8">
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+<title>标题</title>
+
+<!-- --------------------------------------------------------------------------- -->
+
+触摸事件的响应顺序
+1、ontouchstart 
+2、ontouchmove 
+3、ontouchend 
+4、onclick
+
+<!-- --------------------------------------------------------------------------- -->
+
+10、webkit表单输入框placeholder的颜色值能改变么
+
+input::-webkit-input-placeholder{color:#AAAAAA;}
+input:focus::-webkit-input-placeholder{color:#EEEEEE;}
+
+<!-- --------------------------------------------------------------------------- -->
+
+14. 禁止文本缩放
+
+当移动设备横竖屏切换时，文本的大小会重新计算，进行相应的缩放，当我们不需要这种情况时，可以选择禁止：
+html {
+　  -webkit-text-size-adjust: 100%;
+}
+
+需要注意的是，PC端的该属性已经被移除，该属性在移动端要生效，必须设置 `meta viewport’。
+
+<!-- --------------------------------------------------------------------------- -->
+
+
+17. 移动端禁止选中内容
+
+如果你不想用户可以选中页面中的内容，那么你可以在css中禁掉：
+<style>	
+
+	.user-select-none {
+	  -webkit-user-select: none;  
+	  -moz-user-select: none;     
+	  -ms-user-select: none;            
+	}
+	
+</style>
+
+<!-- --------------------------------------------------------------------------- -->
+
+19. 如何禁止保存或拷贝图像（IOS）
+
+通常当你在手机或者pad上长按图像 img ，会弹出选项 存储图像 或者 拷贝图像，如果你不想让用户这么操作，那么你可以通过以下方法来禁止：
+
+img { -webkit-touch-callout: none; }
+
+<!-- --------------------------------------------------------------------------- -->
+
+20.模拟按钮hover效果
+
+<script type="text/javascript">
+
+	var btnBlue = document.querySelector(".btn-blue");
+
+	btnBlue.ontouchstart = function(){
+	    this.className = "btn-blue btn-blue-on"
+	}
+
+	btnBlue.ontouchend = function(){
+	    this.className = "btn-blue"
+	}
+
+</script>
+
+<!-- --------------------------------------------------------------------------- -->
+
+22.audio元素和video元素在ios和andriod中无法自动播放
+
+应对方案：触屏即播
+
+$('html').one('touchstart',function(){
+    audio.play()
+})
+
+<!-- --------------------------------------------------------------------------- -->
+
+24.手机拍照和上传图片
+
+<input type="file">的accept 属性
+
+<!-- 选择照片 -->
+<input type=file accept="image/*">
+
+<!-- 选择视频 -->
+<input type=file accept="video/*">
+
+<!-- --------------------------------------------------------------------------- -->
+
+开启硬件加速
+解决页面闪白
+保证动画流畅
+
+<style>
+  .css {
+     -webkit-transform: translate3d(0, 0, 0);
+     -moz-transform: translate3d(0, 0, 0);
+     -ms-transform: translate3d(0, 0, 0);
+     transform: translate3d(0, 0, 0);
+  }
+</style>
+
+设计高性能CSS3动画的几个要素
+尽可能地使用合成属性transform和opacity来设计CSS3动画，
+不使用position的left和top来定位
+利用translate3D开启GPU加速
+
+<!-- --------------------------------------------------------------------------- -->
+
+26. android 上去掉语音输入按钮
+
+input::-webkit-input-speech-button {display: none}
+
+<!-- --------------------------------------------------------------------------- -->
+
+</body>
+</html>

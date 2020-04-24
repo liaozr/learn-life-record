@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+    <style>
+        div {
+            display: inline-block;
+        }
+
+        div.list {
+            display: block;
+        }
+    </style>
+    <div id="app">
+        <div class="list" v-for='(item,index) in items'>
+            <div v-show=' index1 !== index'>{{item.msg}}</div>
+            <input v-show=' index1 == index' type="text" v-model='item.msg'>
+            <div class="bianji" ref='bianji' @click='bianji(index)'>编辑</div>
+            <div class="bianji" v-show='index1 == index' @click='save(index)'>保存</div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                items: [{
+                        msg: 'zzzzzzz',
+                        time: 2016
+                    },
+                    {
+                        msg: 'qqqqqqq',
+                        time: 2017
+                    }
+                ],
+                index1: null
+            },
+            methods: {
+                bianji: function(index) {
+                    this.index1 = index;
+                },
+                save: function(index) {
+                    this.index1 = index;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ----------------------------------------------------------------------------------------- -->
+
+  使用Array.from()把类数组对象转为数组
+
+  一般来说，含有length属性的对象就可以当作类数组对象。
+
+  平时获取多个DOM对象后，不能使用数组中的很多方法。我们可以使用Array.from方便的转换为数组,。
+
+  <script>
+
+      var divs = Array.from(document.querySelectorAll('div'))
+
+      divs.forEach((value, index) => {})
+
+  </script>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+  使用fill()初始化数组
+
+  想要以某个值初始化数组，需要遍历。而使用fill()方法，就方便了很多。
+
+  <script>
+
+      var arr = new Array(100) // 建立一个100元素的数组
+      arr.fill('初始值', 0, arr.length)
+      
+  </script>
+
+  第一个参数是要填充的值，后面两个与一般的数组方法一样，起始索引和结束索引(不包括)。
+
+  <!-- ----------------------------------------------------------------------------------------- -->
+
+  使用includes方法
+
+  和字符串的includes方法一样，看数组中是否有给定值。
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

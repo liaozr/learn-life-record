@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src='vue.js'></script>
+</head>
+<body>
+
+vue版本为2.0版本，1.0无此问题。
+
+使用组件嵌套，在父组件的模板中访问$children变量
+
+在渲染完成后没有再将$children变量写入过父组件的data变量（或其他vm数据）
+
+就会触发此问题。
+
+<!--父组件HTML模板-->
+
+<div id="app">
+    <div>{{$children.length}}</div>
+    <!--此处显示0，应该为3-->
+    <child></child>
+    <child></child>
+    <child></child>
+</div>
+
+<script>
+    //子组件代码
+    Vue.component("child", {
+        template: "<div>child</div>",
+    });
+
+    //父组件声明
+    new Vue({
+        el: "#app",
+    });
+</script>
+
+ <!-- ------------------------------------------------------------------------ -->
+￼
+
+解决方案1：使用\$forceUpdate()
+
+注册父组件的mounted方法，执行$forceUpdate()
+
+<div id="app2">
+    <div>{{$children.length}}</div>
+    <child></child>
+    <child></child>
+    <child></child>
+</div>
+
+<script>
+    Vue.component("child", {
+        template: "<div>child</div>",
+    });
+
+    new Vue({
+        el: "#app2",
+        mounted: function() {
+            this.$forceUpdate(); //强制重新绘制
+        }
+    });
+</script>
+
+$children正确了：
+￼
+<!-- --------------------------------------------------------------------------------- -->
+
+
+解决方案2：使用vm的变量代替\$children
+
+注册父组件的mounted方法，将$children赋值给自定义的vm的变量。
+
+同时模板中使用自定义的变量来代替默认的$children
+
+<div id="app3">
+    <div>{{child.length}}</div>
+    <!--使用自定义的child对象-->
+    <child></child>
+    <child></child>
+    <child></child>
+</div>
+
+<script>
+    Vue.component("child", {
+        template: "<div>child</div>",
+    });
+
+    var vm = new Vue({
+        el: "#app3",
+        data: {
+            child: []
+        },
+        mounted: function() {
+            this.child = this.$children; //手动将$children对象赋值给自定义child变量
+        }
+    });
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <audio style="display: none;" src="http://xunlei.sc.chinaz.com/files/download/sound1/201410/5018.mp3" id="musicBox" preload="preload" controls></audio>
+
+    <!-- ------------------------------------------------------------------------------ -->
+
+    <script>
+        var SHAKE_THRESHOLD = 3000;
+        var last_update = 0;
+        var x = y = z = last_x = last_y = last_z = 0;
+        var media;
+        media = document.getElementById("musicBox");
+
+        function init() {
+            last_update = new Date().getTime();
+            if (window.DeviceMotionEvent) {
+                window.addEventListener('devicemotion', deviceMotionHandler, false);
+            } else {
+                alert('not support mobile event');
+            }
+        }
+
+        function deviceMotionHandler(eventData) {
+            var acceleration = eventData.accelerationIncludingGravity;
+            var curTime = new Date().getTime();
+            if ((curTime - last_update) > 100) {
+                var diffTime = curTime - last_update;
+                last_update = curTime;
+                x = acceleration.x;
+                y = acceleration.y;
+                z = acceleration.z;
+                var speed = Math.abs(x + y + z - last_x - last_y - last_z) /
+                    diffTime * 10000;
+                if (speed > SHAKE_THRESHOLD) {
+                    media.play();
+                }
+                last_x = x;
+                last_y = y;
+                last_z = z;
+            }
+        }
+        window.onload = function() {
+            init();
+        }
+    </script>
+
+    <!-- ------------------------------------------------------------------------------ -->
+    
+</body>
+
+</html>

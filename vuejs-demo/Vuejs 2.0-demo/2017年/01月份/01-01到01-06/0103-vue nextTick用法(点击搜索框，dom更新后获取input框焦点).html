@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+    <div class="soubox" id='soubox'>
+        <button class="showsearch" @click="showsou">搜索</button>
+        <div class="sou" v-show="showit">
+            <input type="text" name="" id="keywords">
+            <div class="closesou" @click="hidesou">X</div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: "#soubox",
+            data: {
+                showit: false
+            },
+            methods: {
+                showsou() {
+                    this.showit = true;
+                    this.$nextTick(function() {
+                            document.getElementById("keywords").focus();
+                            console.log("dom更新了")
+                    })
+                    // 单纯这样是不行的，因为dom已经更新了，
+                    // document.getElementById("keywords").focus();
+                    // this.showit = true;后，这句相当于是更新了dom结构
+                    // 所以得在nextTick钩子里 执行dom更新后的回调
+                },
+                hidesou() {
+                    this.showit = false;
+                }
+            }
+        })
+    </script>
+
+    <!-- -------------------------------------------------------------------------- -->
+
+    <!--
+    <script>
+        // 修改数据
+        vm.msg = 'Hello'
+            // DOM 还没有更新
+        Vue.nextTick(function() {
+            // DOM 更新了
+        })
+    </script>
+     -->
+
+    <!-- ---------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

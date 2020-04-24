@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    计算数组的极值
+
+    <script>
+        function smallest(array) {
+            return Math.min.apply(Math, array);
+        }
+
+        function largest(array) {
+            return Math.max.apply(Math, array);
+        }
+
+        smallest([0, 1, 2.2, 3.3]); // 0
+
+        largest([0, 1, 2.2, 3.3]); // 3.3
+    </script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+使用let解决循环问题
+
+这是let独有的特性(参考)
+
+<script>
+    var funcs = [];
+
+    for (let i = 0; i < 10; i++) {
+        funcs.push(function() {
+            console.log(i);
+        });
+    }
+
+    funcs.forEach(function(func) {
+        func(); // 从 0 到 9 依次输出
+    })
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+将arguments转为数组
+
+<script>
+
+    function transformToArray(arg) {
+        return Array.prototype.slice.call(arg);
+    }
+
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+Math.round函数的坑
+
+<script>
+    Math.round(-3.2) //-3
+
+    Math.round(-3.5) //-3(这个就奇怪了)
+
+    Math.round(-3.8) //-4
+
+    //其实，Math.round(x)等同于：
+    Math.floor(x + 0.5)
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+巧用||和&&
+
+<script>
+
+    var bar = $ || 233;
+    //如果$存在，则把$赋值给bar；如果$不存在，则把233赋值给bar
+
+    $ === undefined && (window.$ = jQuery);
+    //如果$不存在,则把jQuery赋值给window.$；如果$存在，则不执行后面的表达式
+
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+上传图片预览功能
+
+<input type="file" name="file" onchange="showPreview(this)" />
+<img id="portrait" src="" width="70" height="75">
+
+<script>
+
+    function showPreview(source) {
+        var file = source.files[0];
+        if (window.FileReader) {
+            var fr = new FileReader();
+            fr.onloadend = function(e) {
+                document.getElementById("portrait").src = e.target.result;
+            };
+            fr.readAsDataURL(file);
+        }
+    }
+
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+判断一个值是否是对象
+
+<script>
+
+    function isObject(value) {
+        return value === Object(value);
+    }
+
+    isObject({}); // true
+    isObject(123); // false
+
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

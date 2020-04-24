@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  <!--下拉刷新容器-->
+  <div class="w-content mui-scroll-wrapper" style="top:0" id="pullrefresh">
+
+    <div class="mui-scroll">
+        <!--数据列表-->
+        <ul class="mui-table-view mui-table-view-chevron">
+        </ul>
+    </div>
+
+  </div>
+
+其次，通过 mui.init 方法中 pullRefresh 参数配置下拉刷新各项参数，如下：
+
+<script>
+
+    //初始化下拉刷新模块
+    mui.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: {
+					callback: pulldownRefresh
+				},
+				up: {
+					contentrefresh: '正在加载...',
+					callback: pullupRefresh
+				}
+			}
+		});
+
+    if(mui.os.plus) {
+			mui.plusReady(function() {
+				setTimeout(function() {
+					if(mui.os.ios) {
+						// mui('#pullrefresh').pullRefresh().pulldownLoading();
+						pulldownRefresh();
+						pullupRefresh()
+
+					} else {
+						mui('#pullrefresh').pullRefresh().pulldownLoading();
+						pulldownRefresh();
+						pullupRefresh()
+					}
+				}, 1000);
+
+			});
+		}
+    else {
+			mui.ready(function() {
+				//mui('#pullrefresh').pullRefresh().pulldownLoading();
+				pulldownRefresh();
+				pullupRefresh()
+			});
+		}
+
+
+    function pulldownRefresh() {
+			mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+		}
+
+		function pullupRefresh() {
+         getData();
+		}
+
+    function getData(schedule,bussinessType,stage) {
+
+			vm.dataCishu++;
+			mui.ajax(getBaseServerUrl() + '/sites/sitesTask/queryTaskList', {
+				type: 'post', //HTTP请求类型
+				dataType: 'json',
+                contentType: "application/json",
+				headers: {
+					 "auth": localStorage.headParam
+			    },
+				data: {
+					sitesId: localStorage.selectSitesId,
+					pageNo: 10 * vm.counter,
+					bussinessType:bussinessType,
+					schedule:schedule,
+					stage:stage
+				},
+				success: function(jsonData) {
+					// closeProgress();
+					vm.loading = false;
+					setTimeout(function() {
+						var documentheight = $('.mui-bar').height() + $('.w-content').height();
+						$('html,body').css({
+							height: documentheight
+						})
+					}, 0)
+
+					vm.dataArr = jsonData.other.tasklist;
+					$("#nodata").addClass("mui-hidden");
+					$("#main").removeClass("mui-hidden");
+					if(vm.counter == 1) {
+						mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+						if(vm.dataArr.length == 0) {
+							$("#nodata").html('<div style=" text-align:center;vertical-align: middle;width:100%;height:100%;padding-top:4.5rem;" ><img style="width:3rem" src="../images/nodata.png"></img></div>');
+							$("#nodata").removeClass("mui-hidden");
+							$("#main").addClass("mui-hidden");
+
+						}
+					} else {
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+						if(vm.dataArr.length == 0) {
+							mui.toast('没有更多')
+						}
+					}
+
+					function concatArray(alldata, jsondata) {
+						Array.prototype.push.apply(alldata, jsondata);
+						arr = unique1(alldata);
+						return arr;
+					}
+
+					function unique1(arr) {
+						for(var i = 0, len = arr.length; i < len; i++) {
+							for(var j = i + 1; j < len; j++) {
+								if(arr[i] === arr[j]) { //获取没重复的最右一值放入新数组
+									arr.splice(j, 1);
+								}
+							}
+						}
+						return arr;
+					}
+					concatArray(vm.alldata, vm.dataArr)
+					vm.alldata = concatArray(vm.alldata, vm.dataArr);
+
+
+					if(vm.counter == 1 && vm.dataCishu == 2){
+
+						// vm.alldata.splice(1,10)
+					}
+
+					console.log(JSON.stringify( vm.alldata.length) )
+
+					vm.showloading=false
+				},
+				error: function() {
+					alert(' Error occurred ');
+					// closeProgress();
+					vm.loading = false;
+					if(vm.counter == 1) {
+						mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					} else {
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+					}
+
+				}
+			});
+		}
+
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+  模式说明：
+  优点：
+
+  可自定义下拉刷新样式，更改文字等等.参考关于自定义下拉刷新样式问答
+
+  缺点：
+
+  相比单 webview，性能消耗更大，不过都比 div 模式的要好用
+
+  DOM结构需要统一配置
+
+  滚动到特定位置
+
+  下拉刷新组件滚动到特定位置的方法类似区域滚动组件
+
+  目前仅支持 双 webview 模式
+
+  更改下拉刷新文字位置
+
+  *可以解决修改下拉刷新子页面默认top值后,下拉刷新提示框位置异常问题
+
+  根据实际需求在父页面给mui-content设置top属性
+
+  目前仅支持 双 webview 模式
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+  <style>
+
+      .mui-bar-nav~.mui-content .mui-pull-top-pocket {
+          top: 180px !important;
+      }
+
+  </style>
+
+  自动触发下拉刷新
+
+  mui 支持设置首次加载时自动触发一次下拉刷新，配置如下auto参数为:true即可，上拉加载同样支持此配置
+
+  <script>
+
+      mui.init({
+          pullRefresh: {
+              container:"#refreshContainer", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+              down: {
+                  auto: true, //可选,默认false.首次加载自动下拉刷新一次
+              },
+              up: {
+                  auto: true //可选,默认false.首次加载自动上拉加载一次
+              }
+          }
+      });
+
+  </script>
+
+  <!-- ------------------------------------------------------------------------------------------------ -->
+
+  下拉刷新结束
+
+  两种模式在下拉刷新过程中，当获取新数据后，都需要执行 endPulldown 方法， 该方法的作用是关闭“正在刷新”的样式提示，内容区域回滚顶部位置，如下：
+
+  <script>
+
+      function pullfresh - function() {
+          //业务逻辑代码，比如通过ajax从服务器获取新数据；
+          // ......
+          //注意，加载完新数据后，必须执行如下代码，注意：若为ajax请求，则需将如下代码放置在处理完ajax响应数据之后
+          //没有更多内容了，endPulldown 传入true， 不再执行下拉刷新
+          mui('#refreshContainer').pullRefresh().endPulldown();
+      }
+  </script>
+
+  <!-- ------------------------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

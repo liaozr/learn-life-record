@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+jquery那可真方便了，委托的关键是怎么通过父节点来找到对应的子节点的。可以通过event.target，如能拿到this，那就是想做啥就做啥。委托也有专门的api。如delegate和on了。
+
+target方式，不演示了，这里大致说一下on，请看例子。注意回调函数里this是currentTarget的(原文此处写的是target，且看下面的“注意”)（这个跟jquery没关，绑定到dom上的回调函数里的this都是currentTarget的）。
+
+<div id='outer'>
+	<div id='center'>
+		<div id="inner"></div>
+	</div>
+</div>
+<style>
+	#center{
+		width:50px;height:50px;background-color: red;
+	}
+</style>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+	$('#outer').on('click','#center',function(e){
+		alert(this.id);  //center
+		alert(e.target.id)  //center
+		alert(e.currentTarget.id)  //center
+	});
+</script>
+
+<!--    $('#container').on('blur','input',function()    -->
+
+</body>
+</html>

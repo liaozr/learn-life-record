@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+  @each
+
+  Sass中的数组
+
+  在Sass中,数组便是通过空格或者逗号分隔的一系列的值,比如1 2 3 4或1,2,3,4.
+
+  还可以由多维数组,比如1 2, 3 4表示包含1 2与3 4两个数组的数组,还可以这样(1 2) (3 4)
+
+  @each语句的作用与@for类似,但使用语法不同:
+
+
+  @each $var in <list>
+
+  <list>是一系列以逗号分隔的值列表(数组):
+    
+<!-- -------------------------------------------------------------------------------- -->
+
+<style>
+
+    @each $icon in user,nav,person {
+        .#{$icon}-icon {
+            background-image: url('/images/#{$icon}.png');
+        }
+    }
+
+    /*输出为： */
+    .user-icon {
+        background-image: url("/images/user.png");
+    }
+    .nav-icon {
+        background-image: url("/images/nav.png");
+    }
+    .person-icon {
+        background-image: url("/images/person.png");
+    }
+
+</style>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+
+  对于多维数组:
+
+  @each $var1, $var2 in ($value,$value), ($value,$value)
+
+  例子：
+
+  <style>
+
+    @each $font, $size in (large-1, 10px), (large-2, 20px) {
+
+    }
+      .#{$font} {
+        font-size: $size;
+
+      }
+
+    }
+
+    /*输出为：*/
+
+    .large-1 { font-size: 10px; }
+
+    .large-2 { font-size: 20px; }
+
+    对于元素是键值对形式的数组:
+
+    @each $key, $value in (key: value, key: value)
+
+    /*例子：*/
+
+    @each $selector, $size in (div: 10px, p: 20px) {
+
+      #{$selector} {
+
+        font-size: $size;
+
+      }
+
+    }
+
+    /*输出为：*/
+
+    div { font-size: 10px; }
+    p { font-size: 20px; }
+
+  </style>
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script src="vue.js"></script>
+
+</head>
+
+<body>
+    <template id="child-com">
+        <div>
+            <span>我是子组件child-com</span>
+            <input type="button" value="按钮" @click="change">
+            <strong>{{b}}</strong>
+        </div>
+    </template>
+    <template id="compa">
+        <div>
+             子组件compa
+        </div>
+    </template>
+
+    <div id="box">
+        父级: ->{{a}}
+        <compa @click.native='parshijian'></compa>
+        <br>
+        <child-com :msg="a" @parentcvent='changesEvent'></child-com>
+        {{b}}
+    </div>
+
+    <script>
+        window.onload = function() {
+
+            Vue.component('child-com', {
+                template: "#child-com",
+                data() {
+                    return {
+                        b: ''
+                    }
+                },
+                props: ['msg'],
+                mounted() {
+                    this.b = this.msg;
+                },
+                methods: {
+                    change() {
+                        this.b = '被改了';
+
+                        // 但如果子组件要把数据传递回去则使用自定义事件！
+
+                        // 驼峰的话你需要将驼峰变成短斜杠
+                        // parent-event
+                        // 这里的自定义事件 事件命名方式是不能以驼峰写法的方式命名的
+                        // this.$emit('parentEvent',this.b);  则这样子的命名方式是错误的。  数据会出不来的。
+                        this.$emit('parentcvent',this.b);
+                    }
+                }
+            })
+            Vue.component('compa', {
+                template: "#compa",
+                data() {
+                    return {
+
+                    }
+                },
+                methods: {
+                }
+            })
+            new Vue({
+                el: '#box',
+                data: {
+                    a: '我是父组件数据',
+                    b:''
+                },
+                methods:{
+                    changesEvent(msg){
+                      this.a=msg;
+                      this.b='这条数据是从子组件child-com按钮触发后传递过来的'
+                    },
+                    parshijian() {
+                       alert("子组件compa被点击了")
+                    }
+                }
+            });
+        };
+    </script>
+</body>
+
+</html>

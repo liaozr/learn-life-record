@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  
+<!-- --------------------------------------------------------------------------------- -->
+
+  Promise 方式
+
+  <script>
+
+      /**
+       * Promise 方式
+       */
+      function getUserByPromise() {
+          fetchUser()
+              .then((data) => {
+                  console.log(data);
+              }, (error) => {
+                  console.log(error);
+              })
+      }
+
+      getUserByPromise();
+
+  </script>
+
+  Promise 的方式虽然解决了 callback hell，但是这种方式充满了 Promise的 then() 方法
+
+  ，如果处理流程复杂的话，整段代码将充满 then。语义化不明显，代码流程不能很好的表示执行流程。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+  Generator 方式
+
+  <script>
+
+      /**
+       * Generator 方式
+       */
+      function* fetchUserByGenerator() {
+          const user = yield fetchUser();
+          return user;
+      }
+
+      const g = fetchUserByGenerator();
+      const result = g.next().value;
+      result.then((v) => {
+          console.log(v);
+      }, (error) => {
+          console.log(error);
+      })
+
+  </script>
+
+
+  Generator 的方式解决了 Promise 的一些问题，流程更加直观、语义化。
+
+  但是 Generator 的问题在于，函数的执行需要依靠执行器，每次都需要通过 g.next() 的方式去执行。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+  async 方式
+
+  <script>
+
+      /**
+       * async 方式
+       */
+      async function getUserByAsync() {
+          let user = await fetchUser();
+          return user;
+      }
+
+      getUserByAsync()
+          .then(v => console.log(v));
+
+  </script>
+
+  async 函数完美的解决了上面两种方式的问题。
+
+  流程清晰，直观、语义明显。操作异步流程就如同操作同步流程。
+
+  同时 async 函数自带执行器，执行的时候无需手动加载。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

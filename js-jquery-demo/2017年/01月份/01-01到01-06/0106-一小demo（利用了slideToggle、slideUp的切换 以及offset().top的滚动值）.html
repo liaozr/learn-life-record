@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+</head>
+<script>
+    $(function() {
+        var listheight = 0;
+        $(".list .aa").each(function(index) {
+            $(this).click(function() {
+              
+                $(".zhankai").stop(true).eq(index).slideToggle();
+                $(this).parent().siblings().find(".zhankai").slideUp();
+
+                listheight = $(this).parent().offset().top;
+
+                $('html,body').animate({
+                    scrollTop: listheight
+                }, 500)
+
+            })
+        })
+    })
+</script>
+
+<body>
+    <div class="layout">
+        <div class="list">
+            <div class="aa">列表一</div>
+            <div class="zhankai">列表一的信息</div>
+        </div>
+        <div class="list">
+            <div class="aa">列表2</div>
+            <div class="zhankai">列表2的信息</div>
+        </div>
+        <div class="list">
+            <div class="aa">列表3</div>
+            <div class="zhankai">列表3的信息</div>
+        </div>
+        <div class="list">
+            <div class="aa">列表4</div>
+            <div class="zhankai">列表4的信息</div>
+        </div>
+        <div class="list">
+            <div class="aa">列表5</div>
+            <div class="zhankai">列表5的信息</div>
+        </div>
+        <div class="list">
+            <div class="aa">列表6</div>
+            <div class="zhankai">列表6的信息</div>
+        </div>
+        <div class="list">
+            <div class="aa">列表7</div>
+            <div class="zhankai">列表7的信息</div>
+        </div>
+        <div class="list">
+            <div class="aa">列表8</div>
+            <div class="zhankai">列表8的信息</div>
+        </div>
+        <div class="list">
+            <div class="aa">列表9</div>
+            <div class="zhankai">列表9的信息</div>
+        </div>
+    </div>
+</body>
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .list {
+        width: 100%;
+        cursor: pointer;
+        height: 100px;
+        margin-bottom: 10px;
+    }
+
+    .aa {
+        width: 100%;
+        height: 50px;
+        background-color: pink;
+    }
+
+    .zhankai {
+        width: 100%;
+        height: 50px;
+        background-color: #ccc;
+        display: none;
+    }
+</style>
+
+</html>

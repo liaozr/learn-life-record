@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.2.6/vue.js"></script>
+
+</head>
+
+<body>
+
+计算setter
+
+计算属性默认是只有getter的，那么data属性里面你的值发生改变了，计算属性要从新执行
+
+而setter的作用是调用计算属性的时候给一个初始值，那么data属性里面的值也会跟着做相应的改变
+
+
+<div id="demo">
+    <input type="text" v-model='firstName'> {{ fullName }}
+</div>
+
+<script>
+    new Vue({
+        el: "#demo",
+        data: {
+            firstName: 'Foo',
+            lastName: 'Bar'
+        },
+        // 接上面的代码段
+        computed: {
+            fullName: {
+                // getter
+                get: function() {
+                    return this.firstName + ' ' + this.lastName
+                },
+                // setter
+                set: function(newValue) {
+                    var names = newValue.split(' ')
+                    this.firstName = names[0]
+                    this.lastName = names[names.length - 1]
+                }
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

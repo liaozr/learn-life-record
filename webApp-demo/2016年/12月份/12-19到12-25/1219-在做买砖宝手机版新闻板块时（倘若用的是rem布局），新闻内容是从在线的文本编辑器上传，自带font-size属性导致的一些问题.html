@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  在做买砖宝手机版新闻板块时（倘若用的是rem布局），新闻内容是从在线的文本编辑器上传，自带font-size属性导致的一些问题
+
+  在做买砖宝手机版新闻板块时（倘若用的是rem布局），新闻内容是从在线的文本编辑器上传，自带font-size属性导致的一些问题
+
+  一般从文本编辑器里过来的样式都是这样子的：
+  <span style="color:#000000;line-height:1.5;font-size:18px;background-color:#FFFFFF;">”的视频刷爆了你的朋友圈。</span>
+
+  这就意味着你不能用rem布局了，因为这个是行内样式，你是覆盖不了的。
+
+  所以，一般有这种文本编辑器上传新闻之类的，是不能用rem布局的
+
+<!-- ------------------------------------------------------------------------------- -->
+
+  所以只能采取强制 viewport宽度 的做法了。
+
+  如下面代码所示：之所以会采取 content="width=320"。是因为在测试的时候发现，
+
+  若content="width=640"的话，font-size:14px在浏览器上的表现还是很小的
+
+  所以就换了content="width=320"了，这样14px就相当比较大的了。
+
+  <!--  强制320的宽度  -->
+  <!-- <meta name="viewport" content="width=320, user-scalable=no, target-densitydpi=device-dpi"> -->
+  <script>
+      if (/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+          var version = parseFloat(RegExp.$1);
+          if (version > 2.3) {
+              var phoneScale = parseInt(window.screen.width) / 320;
+              if (/MZ-M571C/.test(navigator.userAgent)) {
+                  document.write('<meta name="viewport" content="width=320, minimum-scale = 0.5, maximum-scale= 0.5">');
+              } else if (/M571C/.test(navigator.userAgent) && /LizhiFM/.test(navigator.userAgent)) {
+                  document.write('<meta name="viewport" content="width=320, minimum-scale = 0.5, maximum-scale= 0.5">');
+              } else {
+                  document.write('<meta name="viewport" content="width=320, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+              }
+          } else {
+              document.write('<meta name="viewport" content="width=320, target-densitydpi=device-dpi">');
+          }
+      } else {
+          document.write('<meta name="viewport" content="width=320, user-scalable=no, target-densitydpi=device-dpi">');
+      }
+  </script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+</body>
+</html>

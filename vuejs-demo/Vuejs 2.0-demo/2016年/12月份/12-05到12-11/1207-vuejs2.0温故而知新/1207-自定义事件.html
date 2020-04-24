@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+
+    使用 v-on 所有 Vue 实例都实现了 Events 接口，即：
+
+    通过 $on(eventName) 监听事件
+
+    通过 $emit(eventName) 触发事件
+
+    如此，我们可以这样来传递事件（定义了 2 个 button，可以发送 increment 事件给父组件触发 incrementTotal）。
+
+    <div id="counter-event-example">
+        <p>{{ total }}</p>
+        <button-counter v-on:increment="incrementTotal"></button-counter>
+        <button-counter v-on:increment="incrementTotal"></button-counter>
+    </div>
+    <script>
+        Vue.component('button-counter', {
+            template: '<button v-on:click="increment">{{ counter }}</button>',
+            data: function() {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                increment: function() {
+                    this.counter += 1
+                    this.$emit('increment')
+                }
+            },
+        })
+        new Vue({
+            el: '#counter-event-example',
+            data: {
+                total: 0
+            },
+            methods: {
+                incrementTotal: function() {
+                    this.total += 1
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

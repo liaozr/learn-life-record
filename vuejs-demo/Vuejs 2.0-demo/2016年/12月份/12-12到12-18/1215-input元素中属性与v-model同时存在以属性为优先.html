@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+
+    如下代码：
+
+    当文本框中的value属性与v-model冲突时会以
+
+    v-model的值为优先，有v-model会忽略掉 inline value值的
+
+    从而会忽略了input的value属性
+
+    最终console.log输出的也是“vueText”
+
+    inline value attributes will be ignored when using v-model.
+
+    Declare initial values in the component's data option instead.
+
+    <div id="app">
+        <input type="text" v-model="a" value="inputText">
+    </div>
+
+    <script>
+        var v = new Vue({
+            el: '#app',
+            data: {
+                a: "vueText"
+            }
+        });
+        console.log(v.a); //vueText
+    </script>
+</body>
+
+</html>

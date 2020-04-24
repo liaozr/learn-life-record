@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    二、:not()的应用技巧 我们平时在书写导航栏分割线的时候，最后一个标签是没有分割线的，我们一般的写法如下：
+    <div class="nav"><li>1</li><li>2</li><li>3</li></div>
+    <style>
+
+        /* 先给所有添加右侧边框 */
+        .nav li {
+            /*border-right: 1px solid #666;*/
+            width:50px;height:50px;
+        }
+
+        /* 再去除最后一个边框 */
+        /*.nav li:last-child {
+            border-right: none;
+        }*/
+
+        /*运用:not()之后如下书写： */
+        .nav li:not(:last-child) {
+            border-right: 1px solid #666;
+        }
+    </style>
+
+  <!-- ----------------------------------------------------------------------------------- -->
+
+   四、表格单元格等宽
+
+   用如下代码可以让表格单元格等宽
+  <table class='haorooms'>
+      <tbody>
+        <tr><td>1</td><td>1</td><td>12343434343434</td></tr>
+        <tr><td>2</td><td>2</td><td>2</td></tr>
+      </tbody>
+  </table>
+  <style>
+      .haorooms td{
+        background-color: red;
+      }
+      .haorooms td{
+          /*table-layout: fixed;*/
+      }
+  </style>
+
+  <!-- ----------------------------------------------------------------------------------- -->
+
+  八、在nth-child中使用负数
+
+  nth-child中使用负数，可以选择小于等于某个数的值，例如：
+  <style>
+      li:nth-child(-n+4) {
+          background: red
+      }
+  </style>
+  小于等于4的li，显示为红色！
+
+  还可以如下应用：
+
+  <style>
+      li {
+          display: none;
+      }
+
+      li:nth-child(-n+3) {
+          display: block;
+      }
+  </style>
+
+  上面代码的含义是，我们让前三个li显示（小于等于3的）,其他的li都隐藏！
+  
+</body>
+
+</html>

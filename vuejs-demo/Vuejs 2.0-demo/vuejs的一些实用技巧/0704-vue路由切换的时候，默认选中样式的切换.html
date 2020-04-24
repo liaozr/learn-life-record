@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <!-- ------------------------------------------------------------------------------------------ -->
+
+  <script>
+
+    // 如下 表示的 是 默认路由组件 是 home组件
+    {
+  	   path:'/',
+  	   component:Home,
+  	   meta: {
+  	      keepAlive: true // 需要被缓存
+  	   }
+  	},
+  	{
+  	   path:'/home',
+  	   component:Home,
+  	   name:'home',
+  	   meta: {
+  	      keepAlive: true // 需要被缓存
+  	   }
+  	}
+
+  </script>
+
+<!-- ------------------------------------------------------------------------------------------ -->
+
+  <!-- <router-link :to="{name: 'home'}" tag='li' exact class='item'>Home</router-link> -->
+
+  <!-- 对于 组件的默认路由 是不建议 上面这么写的 ，组件的默认路由 建议写成下面这样子  -->
+
+  <!-- 判断是否活跃使用的是包含性匹配，exact内联选项完全匹配路径 -->
+
+  <router-link  to="/" tag='li' exact class='item'>Home</router-link>
+
+   <!--
+
+  "exact" 属 性
+
+  判断是否活跃使用的是包含性匹配，exact内联选项完全匹配路径
+
+  开启router-link的严格模式
+
+  <router-link :to="/" exact>home</router-link>
+
+  上面这个标签如果不加exact属性，则会在vue2.leenty.com/article页面下也会被匹配到，
+
+  这却不是我们的本意,在加了这个属性后就会正确的匹配到vue2.leenty.com下
+
+ -->
+
+<!-- ------------------------------------------------------------------------------------------ -->
+
+</body>
+</html>

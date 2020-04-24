@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ------------------------------------------------------------------------------- -->
+
+  列表循环选中思路：{ active:index==selectedIndex } 在点击事件里动态里绑定selectedIndex状态为传过来的index;
+
+  非列表循环则是写死{ active:selectedIndex==1 },{ active:selectedIndex==2 }这样能实现纯ui效果；
+  
+  <!-- ------------------------------------------------------------------------------- -->
+
+  思考：变化：用id替换index；因为往往选择后，在某一时刻总是会调用这些数据请求接口的；所以直接
+
+  { active:item.id == selectedFiledId } 这样能 在事件处理中节省一个状态变量，且直接绑定了接口所需字段；
+
+  <!-- ------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

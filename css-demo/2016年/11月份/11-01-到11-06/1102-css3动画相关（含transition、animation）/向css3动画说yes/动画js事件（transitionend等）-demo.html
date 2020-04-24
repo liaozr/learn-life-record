@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+</head>
+
+<body>
+
+    transition动画监听
+
+    this动画只有webkitTransitionEnd这一个事件
+
+    <script>
+
+        dom.addEventListener("webkitTransitionEnd", function() {
+            console.log("end");
+        }, false);
+
+    </script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+    <img id="myDIV" class="setImg" src="1-2.png">
+    <style>
+        #myDIV {
+            transition: all 3s ease;
+        }
+
+        #myDIV:hover {
+            opacity: 0.2;
+            transition: all 2s ease;
+        }
+    </style>
+
+    <script>
+        function whichTransitionEvent() {
+            var t,
+                el = document.getElementById("myDIV")
+
+            var transitions = {
+                "transition": "transitionend",
+                "MozTransition": "transitionend",
+                "WebkitTransition": "webkitTransitionEnd"
+            }
+
+            for (t in transitions) {
+                if (el.style[t] !== undefined) {
+                    return transitions[t];
+                }
+            }
+        }
+
+        var transitionEvent = whichTransitionEvent();
+
+        // jquery 调用
+        // transitionend 等事件要记得用 jquery 的 one 方法
+
+        $("#myDIV").one(transitionEvent, function(event) {
+            // Do something when the transition ends
+            $("#myDIV").css({
+                'margin-left': '100px'
+            })
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    教程网址：
+    http://www.jianshu.com/p/7064613bf9f8
+    http://www.jianshu.com/p/7064613bf9f8
+    http://www.jianshu.com/p/7064613bf9f8
+
+    <script>
+
+        // 可以把下面那段脚本  放到 含有  flexible.js 库的地方
+        // 所以这段脚本 可以 放到项目的 公共脚本中即可。
+        // 可以把下面那段脚本  放到 含有  flexible.js 库的地方
+        // 所以这段脚本 可以 放到项目的 公共脚本中即可。
+
+        /*
+         * 适用于获取屏幕宽度等分设置html的font-size情况，比如 flexible.js库
+         */
+        //计算最终html font-size
+
+        function modifileRootRem() {
+            var root = window.document.documentElement;
+            var fontSize = parseFloat(root.style.fontSize);
+            var finalFontSize = parseFloat(window.getComputedStyle(root).getPropertyValue("font-size"));
+            if (finalFontSize === fontSize) return;
+            root.style.fontSize = fontSize + (fontSize - finalFontSize) + "px";
+        }
+
+        if (typeof window.onload === 'function') {
+            var oldFun = window.onload;
+            window.onload = function() {
+                oldFun();
+                modifileRootRem();
+            }
+        } else {
+            window.onload = modifileRootRem;
+        }
+
+    </script>
+
+</body>
+
+</html>

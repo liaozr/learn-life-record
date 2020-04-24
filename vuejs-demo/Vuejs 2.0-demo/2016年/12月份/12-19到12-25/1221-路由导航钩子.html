@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+全局导航钩子 一共两个，
+
+router.beforeEach
+和
+router.afterEach
+一个触发于导航开始前，一个触发于导航开始后。用法呢，都是一样的，如下！
+
+<script>
+    const router = new VueRouter({...
+    })
+    router.beforeEach((to, from, next) => {
+        console.log('小弟B：哎呀妈呀！大兄弟，这是要去哪呀？', to)
+        console.log('小弟A：大兄弟，哪儿旮沓的呀！', from)
+        next(false) // 大哥：谁让你过去的？
+            // 调用next(false)中止导航，于是页面回到跳转前
+    })
+</script>
+
+<script>
+    router.afterEach((to, from, next) => {
+        console.log('小弟B：哎呀妈呀！大兄弟，这是要去哪呀？', to)
+        console.log('小弟A：大兄弟，哪儿旮沓的呀！', from)
+        next() // 大哥：过去吧！
+            // 调用next通过路由
+    })
+</script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+单个路由独享的钩子 ，同样是两个方法beforeEnter和afterEnter，同样的套路。
+
+套路如下：
+
+<script>
+    const router = new VueRouter({
+        routes: [
+          {
+              path: '/demo',
+              component: Demo,
+              beforeEnter: (to, from, next) => {
+                  console.log('小弟B：哎呀妈呀！大兄弟，这是要去哪呀？', to)
+                  console.log('小弟A：大兄弟，哪儿旮沓的呀！', from)
+                  next() // 大哥：过去吧！
+                      // 调用next通过路由
+              },
+              afterEnter: (to, from, next) => {
+                  console.log('小弟B：哎呀妈呀！大兄弟，这是要去哪呀？', to)
+                  console.log('小弟A：大兄弟，哪儿旮沓的呀！', from)
+                  next({
+                          path: '/'
+                      }) // 大哥：像那边走！
+                      // 调用next({ path: '/' })中止导航，并跳到首页
+              }
+          }
+        ]
+    })
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+组件内的钩子，依然是一对基友方法
+
+beforeRouteEnter和beforeRouteLeave
+
+套路还是一样的0.0
+
+<script>
+    const Demo = {
+        template: `<div>this is a Demo </div>`,
+        beforeRouteEnter(to, from, next) {
+            console.log('小弟B：哎呀妈呀！大兄弟，这是要去哪呀？', to)
+            console.log('小弟A：大兄弟，哪儿旮沓的呀！', from)
+            next() // 大哥：过去吧！
+                // 在渲染该组件的对应路由被 confirm 前调用
+                // 不！能！获取组件实例 `this`
+                // 因为当钩子执行前，组件实例还没被创建
+        },
+        beforeRouteLeave(to, from, next) {
+            console.log('小弟B：哎呀妈呀！大兄弟，这是要去哪呀？', to)
+            console.log('小弟A：大兄弟，哪儿旮沓的呀！', from)
+            next() // 大哥：过去吧！
+                // 导航离开该组件的对应路由时调用
+                // 可以访问组件实例 `this`
+        }
+    }
+</script>
+
+</body>
+</html>

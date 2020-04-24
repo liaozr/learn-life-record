@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        /*图片上传*/
+
+        .shadow {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background-color: rgba(0, 0, 0, 0.3);
+            left: 0;
+            bottom: 0;
+            z-index: 888;
+        }
+
+        .photeUpDiv {
+            width: 100%;
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            z-index: 999;
+        }
+
+        .photeUpDiv .item {
+            height: 1.3rem;
+            background-color: white;
+            border: 1px solid #ccc;
+            width: 95%;
+            margin: 0 auto;
+            padding: 0 0.3rem;
+            line-height: 1.3rem;
+            color: black;
+            font-size: 0.4rem;
+        }
+
+        .photeUpDiv .item:first-child {
+            border-top-left-radius: 0.2rem;
+            border-top-right-radius: 0.2rem;
+        }
+
+        .photeUpDiv .item:nth-child(2) {
+            border-bottom-left-radius: 0.2rem;
+            border-bottom-right-radius: 0.2rem;
+        }
+
+        .photeUpDiv .item:last-child {
+            border-radius: 0.2rem;
+            margin-top: 0.2rem;
+            text-align: center;
+            font-size: 0.5rem;
+            color: #007AFF;
+        }
+
+        .loading {
+            position: fixed;
+            z-index: 999999;
+            width: 100%;
+            height: 16rem;
+            background: rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+
+        .loading>span {
+            position: absolute;
+            top: 40%;
+            left: 46%
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wlCamerBox f-overflow">
+
+        <div v-for='(index,item) in photoList'>
+            <div>
+                <!-- <img  v-show="item.flag" :src="item.wuliuUrl | formatURL " class="upploadImg2" /> -->
+                <img v-show="item.flag" src="{{ item.wuliuUrl}}" class="upploadImg2" />
+                <img v-else class='upploadImg' src="../images/addphoto.png" alt="" />
+                <input type="file" class="uploadphoto" name="uploadfile" accept="image/*" style="display: none;" />
+            </div>
+            <p>{{item.photoPosition}}</p>
+
+            <!-- 下面注释掉的span标签是用于关闭图片的 -->
+            <span v-show="item.flag" @click='close(index,item)'></span>
+        </div>
+    </div>
+
+    <div class="shadow" style="display: none;">
+        <div class="photeUpDiv">
+            <div class="item" id="getCamera">拍照</div>
+            <div class="item" id="getPhoto">相册</div>
+            <div class="item" id="closePhoto">取消</div>
+        </div>
+    </div>
+
+    <script src="upload/LocalResizeIMG.js"></script>
+    <script src="upload/mobileBUGFix.mini.js"></script>
+
+    <script>
+        var createPaperVM = new Vue({
+            el: 'body',
+            data: {
+                songhuodan: '',
+                dataArr: {
+
+                },
+                photoList: [],
+
+            },
+            methods: {
+                save: function(e) {
+                    this.dataArr.photoList = this.photoList;
+                    var flagpaizhao = true;
+                    for (var i = 0; i < this.dataArr.photoList.length; i++) {
+                        if (this.dataArr.photoList[i].photoUrl == '' || this.dataArr.photoList[i].photoUrl == null || this.dataArr.photoList[i].photoUrl == undefined) {
+                            flagpaizhao = false;
+                        } else {
+                            flagpaizhao = true;
+                        }
+                    }
+
+                    if (flagpaizhao) {
+                        init(this.dataArr);
+                    } else {
+                        plus.nativeUI.alert('请先把送货所需资料拍照好');
+                    }
+
+                    // init(this.dataArr);
+                },
+                close: function(index, item) {
+                    item.imgurl = '';
+                    item.photoUrl = '';
+                    item.wuliuUrl = '';
+                    item.flag = false;
+                }
+            },
+            ready: function() {
+                this.dataArr = JSON.parse(localStorage.songhuomsg);
+
+
+                this.photoList = this.dataArr.photoList;
+
+                var arr = this.photoList;
+
+                var length = this.photoList.length;
+
+                var photoList = this.dataArr.photoList;
+
+                //      var msg={
+                //      	"photoOptionId":'',   //拍照选项编号
+                // "photoOption":'',                        //拍照选项名称
+                // "photoUrl":'' ,         //给后台的照片路径
+                // 'imgurl':'',             //前台展示的照片路径
+                // 'flag':false
+                //      }
+
+                var msg = {
+                    "photoOptionId": '', //拍照选项编号
+                    "photoOption": '' //拍照选项名称
+                }
+
+                for (var i = 0; i < length; i++) {
+
+                    msg.photoOptionId = this.photoList[i].tplId;
+                    msg.photoOption = this.photoList[i].photoStandard;
+                    this.photoList[i] = $.extend(true, this.photoList[i], msg);
+
+                    if (typeof this.photoList[i].flag == 'undefined') {
+                        Vue.set(this.photoList[i], "flag", false)
+                    }
+                    if (typeof this.photoList[i].imgurl == 'undefined') {
+
+                        Vue.set(this.photoList[i], "imgurl", '')
+                    }
+                    if (typeof this.photoList[i].photoUrl == 'undefined') {
+
+                        Vue.set(this.photoList[i], "photoUrl", '')
+                    }
+                    if (typeof this.photoList[i].wuliuUrl == 'undefined') {
+
+                        Vue.set(this.photoList[i], "wuliuUrl", '')
+                    }
+                }
+
+                this.photoList = this.dataArr.photoList;
+
+                console.log(this.photoList)
+
+            }
+        })
+
+
+        var photoImgUrlArr = new Array();
+        var photoDataArr = new Array();
+
+
+        $(document).ready(function(e) {
+            $('.uploadphoto').localResizeIMG({
+                width: 500,
+                quality: 0.4,
+                success: function(result) {
+
+                    createPaperVM.photoList[imgindex].flag = true;
+
+s                    uploadImg(result.clearBase64);
+                    //plus.webview.getWebviewById().evalJS("addPhoto("+createPaperVM.photoName+"")");
+                }
+            });
+        });
+
+
+        // 扩展API加载完毕后调用onPlusReady回调函数
+        document.addEventListener("plusready", onPlusReady, false);
+        // 扩展API加载完毕，现在可以正常调用扩展API
+        var imgindex;
+
+        function onPlusReady() {
+            if (plus.os.name == "iOS") {
+                $(".wlCamerBox .upploadImg").each(function(index) {
+                    $(this).on('tap', function() {
+
+                        // $("#uploadphoto").click();
+                        imgindex = index;
+                        $('.uploadphoto').eq(index).trigger('click')
+                    });
+                })
+            } else {
+                $(".wlCamerBox .upploadImg").each(function(index) {
+                    $(this).on('tap', function() {
+                        imgindex = index;
+                        $(".shadow").fadeIn(300);
+                    });
+                })
+            }
+        }
+
+        $(".shadow").on('tap', function() {
+            $(this).fadeOut(300);
+        });
+
+        $(".closePhoto").on('tap', function() {
+            $(this).fadeOut(300);
+        });
+
+        $("#getPhoto").on('tap', function() {
+            $(".uploadphoto").click();
+        });
+
+
+        $("#getCamera").on('tap', function() {
+            captureImage();
+        });
+        // 拍照
+        function captureImage() {
+            var cmr = plus.camera.getCamera();
+            var res = cmr.supportedImageResolutions[0];
+            var fmt = cmr.supportedImageFormats[0];
+            cmr.captureImage(function(path) {
+                    $(".loading").css('display', 'block');
+                    plus.io.resolveLocalFileSystemURL(path, function(entry) {
+                        appendFile(entry.toLocalURL());
+                    }, function(e) {
+                        outLine("读取拍照文件错误：" + e.message);
+                    });
+                },
+                function(error) {
+                    alert("Capture image failed: " + error.message);
+                    $(".loading").css('display', 'none');
+                }, {
+                    resolution: res,
+                    format: fmt
+                }
+            );
+        }
+
+        function appendFile(path) {
+            var img = new Image();
+            img.src = path; // 传过来的图片路径在这里用。
+            img.onload = function() {
+                var that = this;
+                //生成比例
+                var w = that.width,
+                    h = that.height,
+                    scale = w / h;
+                w = 480 || w; //480  你想压缩到多大，改这里
+                h = w / scale;
+                //生成canvas
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                $(canvas).attr({
+                    width: w,
+                    height: h
+                });
+                ctx.drawImage(that, 0, 0, w, h);
+
+                var base64 = canvas.toDataURL('image/jpeg', 0.4 || 0.4); //1最清晰，越低越模糊。有一点不清楚这里明明设置的是jpeg。弹出 base64 开头的一段 data：image/png;却是png。哎开心就好，开心就好
+                var clearBase64 = base64.substring(base64.indexOf("base64,") + 7, base64.length);
+                uploadImg(clearBase64);
+                $(".loading").css('display', 'none');
+            }
+        }
+
+        function uploadImg(str) {
+            mui.ajax(getBaseServerUrl() + '/pubs/common/encodeImage/upload', {
+                dataType: 'json',
+                contentType: "application/json",
+                data: {
+                    str: str
+                },
+                type: 'post',
+                success: function(jsonData) {
+                    console.log(jsonData);
+                    if (jsonData.url && jsonData.url != "" && jsonData.url != undefined && jsonData.url != null) {
+
+                        createPaperVM.photoList[imgindex].wuliuUrl = getBaseImgUrl() + jsonData.url;
+
+                        createPaperVM.photoList[imgindex].photoUrl = getBaseImgUrl() + jsonData.url;
+
+                        console.log(JSON.stringify(createPaperVM.photoList));
+                        
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {}
+            });
+        }
+
+
+        function init(dataArr) {
+            mui.ajax(getBaseServerUrl() + '/app/deliveryPhoto/save', {
+                dataType: 'json',
+                contentType: "application/json",
+                data: dataArr,
+                type: 'post',
+                success: function(jsonData) {
+                    console.log(jsonData)
+                    if (jsonData.status == 'true') {
+                        localStorage.lzrWuliuMsg = JSON.stringify(dataArr);
+                        openNew(save.getAttribute('data-page'));
+                    } else {
+                        var msg = jsonData.msg;
+                        console.log(msg)
+                        plus.nativeUI.alert(msg);
+
+                    }
+                },
+                error: function() {
+                    log('error')
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

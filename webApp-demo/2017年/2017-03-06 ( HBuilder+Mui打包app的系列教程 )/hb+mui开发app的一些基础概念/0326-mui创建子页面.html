@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+创建子页面
+
+在mobile app开发过程中，经常遇到卡头卡尾的页面，此时若使用局部滚动，在android手机上会出现滚动不流畅的问题；
+
+mui的解决思路是：将需要滚动的区域通过单独的webview实现，完全使用原生滚动。
+
+具体做法则是：将目标页面分解为主页面和内容页面，主页面显示卡头卡尾区域，比如顶部导航、底部选项卡等；
+
+内容页面显示具体需要滚动的内容，然后在主页面中调用mui.init方法初始化内容页面。
+
+<script>
+
+	mui.init({
+	    subpages:[{
+	      url:your-subpage-url,//子页面HTML地址，支持本地地址和网络地址
+	      id:your-subpage-id,//子页面标志
+	      styles:{
+	        top:subpage-top-position,//子页面顶部位置
+	        bottom:subpage-bottom-position,//子页面底部位置
+	        width:subpage-width,//子页面宽度，默认为100%
+	        height:subpage-height,//子页面高度，默认为100%
+	        ......
+	      },
+	      extras:{}//额外扩展参数
+	    }]
+	});
+
+</script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+参数说明：
+
+styles:表示窗口属性，参考5+规范中的WebviewStyle；特别注意，height和width两个属性,即使不设置，也默认按100%计算；因此若设置了top值为非"0px"的情况，建议同时设置bottom值，否则5+ runtime根据高度100%计算，可能会造成页面真实底部位置超出屏幕范围的情况；left、right同理。
+
+index.html的作用就是显示固定导航，list.html显示具体列表内容，列表项的滚动是在list.html所在webview中使用原生滚动，既保证了滚动条不会穿透顶部导航，符合app的体验，也保证了列表流畅滚动，解决了区域滚动卡顿的问题。 list.html就是index.html的子页面，创建代码比较简单，如下：
+
+<script>
+	
+	mui.init({
+	    subpages:[{
+	      url:'list.html',
+	      id:'list.html',
+	      styles:{
+	        top:'45px',//mui标题栏默认高度为45px；
+	        bottom:'0px'//默认为0px，可不定义；
+	      }
+	    }]
+	});
+
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+
+</body>
+</html>

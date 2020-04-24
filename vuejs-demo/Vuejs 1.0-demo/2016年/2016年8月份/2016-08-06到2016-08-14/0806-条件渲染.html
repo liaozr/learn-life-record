@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+</head>
+<body>
+	<div id="app">
+    <h1 v-if="ok">Yes</h1>
+    <!--  v-if 如果是false的话，是不会渲染dom元素的    -->
+
+    <!-- v-show为false的话是会渲染dom元素的，效果等同于display:none; -->
+
+    <!--  v-else 就是判断ok的反向值    -->
+    <h1 v-else>No</h1>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      ok: false // 控制台 操作
+    }
+  })
+  </script>
+
+<!-- ---------------------------------------------------------------------- -->
+
+<div id="app2">
+    <template v-if="ok">
+      <h1>Title</h1>
+      <p>Paragraph 1</p>
+      <p>Paragraph 2</p>
+    </template>
+    <template v-if="ok1">
+      <h1>A</h1>
+      <p>Paragraph A</p>
+      <p>Paragraph A</p>
+    </template>
+    <template v-if="ok2">
+      <h1>B</h1>
+      <p>Paragraph B</p>
+      <p>Paragraph B</p>
+    </template>
+  </div>
+  <script>
+      var vm = new Vue({
+	    el: '#app2',
+	    data: {
+	      ok: true, // 控制台 操作
+	      ok1:true, // 控制台 操作
+	      ok2:false // 控制台 操作
+	    }
+	  })
+  </script>
+<!-- ----------------------------------------------------------------------------------------- -->
+
+<div id="app3">
+  <!--vue.js 规定 template 不能使用 v-show-->
+    <template v-show="ok">
+      <h1>Title</h1>
+      <p>Paragraph 1</p>
+      <p>Paragraph 2</p>
+    </template>
+    <!--在一般的标签，使用 v-show 是可以的-->
+    <h1 v-show="ok">Hello!</h1>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app3',
+    data: {
+      ok: false, // 控制台 操作，看 dom 结构
+
+    }
+  })
+  </script>
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+<div id="app4">
+    <div v-if="Math.random() > 0.5">
+      Sorry
+    </div>
+    <div v-else>
+      Not sorry
+    </div>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app4',
+    data: {
+    }
+  })
+  </script>
+<!-- ------------------------------------------------------------------------- -->
+
+ <div id="app5">
+    <div v-if="Math.random() > 0.5">
+    	<!--  vuejs不支持 v-if的嵌套 -->
+      <h1>这是错误的 用法，v-if 嵌套 另一个 v-if</h1>
+      <div v-if="Math.random() > 0.5">儿子出来</div>
+      <div v-else>儿子出不来了…真麻烦</div>
+    <div v-else>爸爸累了，想睡觉</div>
+    </div>
+  </div>
+  <script>
+  var vm = new Vue({
+    el: '#app5',
+    data: {}
+  })
+  </script>
+</body>
+</html>

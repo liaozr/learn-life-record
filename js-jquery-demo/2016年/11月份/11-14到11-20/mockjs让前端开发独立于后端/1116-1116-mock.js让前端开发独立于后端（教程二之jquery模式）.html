@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://mockjs.com/dist/mock.js"></script>
+
+</head>
+
+<body>
+  <!-- --------------------------------------------------------------------------------- -->
+
+  如果是接口式开发的话，经常是前端已经页面写好了，后端的接口还不能给。
+
+  有时为了让页面‘正常显示’，前端开发人员就会造一堆的静态假数据，等接口写好，再调接口，
+
+  删静态数据。于是就想能不能自己模拟数据，百度之，mock.js可以实现。
+
+  <!-- --------------------------------------------------------------------------------- -->
+  
+    Mock.js实现的功能。
+
+    基于数据模板生成数据。 基于HTML模板生成数据。 拦截并模拟Ajax请求。
+
+  <!-- --------------------------------------------------------------------------------- -->
+
+    <div>
+        <h1 id="mockjs">mockjs</h1>
+    </div>
+
+    <!-- ------------------------------------------------------------------------------ -->
+
+    <script type="text/javascript">
+        //调用mock方法模拟数据
+        Mock.mock('http://mockjs2333', {
+                "userName": '@name', //模拟名称
+                "age|1-100": 100, //模拟年龄(1-100)
+                "color": "@color", //模拟色值
+                "date": "@date('yyyy-MM-dd')", //模拟时间
+                "url": "@url()", //模拟url
+                "content": "@cparagraph()" //模拟文本
+             }
+        );
+
+        //ajax请求
+        $("#mockjs").click(function() {
+            $.ajax({
+                url: "http://mockjs2333", //请求的url地址
+                dataType: "json", //返回格式为json
+                async: true, //请求是否异步，默认为异步，这也是ajax重要特性
+                data: {}, //参数值
+                type: "GET", //请求方式
+                beforeSend: function() {
+                    //请求前的处理
+                },
+                success: function(req) {
+                    //请求成功时处理
+                    console.log(req);
+                },
+                complete: function() {
+                    //请求完成的处理
+                },
+                error: function() {
+                    //请求出错处理
+                }
+            })
+        });
+    </script>
+
+<!-- -------------------------------------------------------------------------------   -->
+<!-- --------------------------------------------------------------------------------- -->
+
+<span>显示列表：<span>
+<ul class="demo"></ul>
+<script>
+    // 使用 Mock
+    Mock.mock('Event/wap/test', { /*地址任意*/
+        'result|5': [{
+            'id|+1': 1,
+            'email': '@EMAIL',
+            'name': '@STRING'
+        }]
+    });
+
+    $.ajax({
+        url: 'Event/wap/test',
+        dataType: 'json',
+        success: function(data, status, jqXHR) {
+            var content = "";
+            if (data != null) {
+              for (i = 0; i < data.result.length; i++) {
+                    content += '<li>\<span>' + data.result[i].id + '、' + data.result[i].name + '的邮箱是：' + data.result[i].email + '</span>\</li>';
+              }
+              $(".demo").html(content);
+            }
+        }
+    });
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

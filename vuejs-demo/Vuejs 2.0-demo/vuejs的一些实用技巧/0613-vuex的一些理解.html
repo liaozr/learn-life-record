@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+  理解
+
+  View : 视图(Vue组件)
+  State:状态(一般是一个对象,存储我们需要的数据信息)
+  Actions: 通过提交mutation,来改变State
+
+  用户与视图交互,触发Actions,执行Actions的回调,提交mutation,导致State发生改变,State重新渲染视图.
+
+  <!-- -------------------------------------------------------------------------------------- -->
+
+  State
+
+  单一状态树
+  我理解其实就是说State就是一个对象,包含你需要的应用状态(数据).
+  当然你要先对其进行一个初始化.
+
+  为什么我们可以在每个组件获取Vuex
+  Vuex 通过 store 选项，从根组件『注入』到每一个子组件中（需调用 Vue.use(Vuex)）.其实就是在new Vue()传入store,前面代码已经有就不重复贴了.
+
+  <!-- -------------------------------------------------------------------------------------- -->
+
+  Getters
+
+  我们可以理解Getters为Store的计算属性,通过Getters可以对Store中State做处理.
+
+  Getters 接受 state 作为其第一个参数,也可以接受其他 getters 作为第二个参数.
+
+  在子组件去获取Vuex的状态
+
+  在计算属性中通过mapGetters辅助函数.将 store 中的 getters 映射到局部计算属性
+
+  computed: {
+    ...mapGetters(['getUserInfo'])
+  },
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+  Mutations
+
+  几个重要点:
+
+  更改 Vuex 的 store 中的State的唯一方法是提交(commit) mutation
+
+  每个 mutation 都有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler),在回调函数中处理state.
+  接受 state 作为第一个参数.
+
+  不能直接调用一个 mutation handler,只可以通过commit(type)去触发一个 mutation handler.
+
+  commit()可以接受除state外的额外的参数,该参数称为mutation的载荷.载荷一般是包含多个字段(key)的对象.
+
+  使用常量替代 Mutation 事件类型.最好就是把这些常量放在单独的文件中,统一管理,如我demo中的mutation-types.js.
+
+  <!-- -------------------------------------------------------------------------------------- -->
+
+Actions
+
+Action 可以包含任意异步操作
+Action里面实际执行的是提交mutation
+通过store.dispatch()分发Actions.
+
+Actions 同样支持载荷方式和对象方式进行分发
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+Modules
+
+Vuex 允许把store 分割成模块（module）。每个模块拥有自己的 state、mutation、action、getter .
+
+这样更加方便管理,细粒度化.
+
+对于模块内部的 mutation 和 getter，
+
+接收的第一个参数state是模块的局部状态对象。
+
+接收的第一个参数state是模块的局部状态对象。
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+1. State渲染Vue组件(视图)
+
+2. Vue组件(视图)与用户交互过程中分发(dispatch)Actions
+
+3. Actions执行相应的回调,commit(type)
+
+4. 触发Mutations的事件,更改Store中的State.
+
+5. State发生变化,重新刷新视图Vue组件
+
+6. Actions在与后台API进行HTTP交互时候触发.
+
+7. Devtools: 一个Vue 的官方调试工具
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

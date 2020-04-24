@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='layer-m/layer.js'></script>
+</head>
+
+<input type="button" value='点击登录' id='denglu'>
+
+<body>
+    <script>
+        denglu.onclick = function() {
+            tanchu("请输入你的用户名");
+        }
+
+        ////弹出层函数
+        function tanchu(cont) {
+            layer.open({
+                btn: ['OK'],
+                content: cont, //内容
+                shade: [0.5, '#000'], //遮罩层  透明度，颜色
+                shadeClose: true, //点击遮罩层 关闭弹出层
+                time: 0 //  自动关闭时间，  0表示不自动关闭
+            });
+        }
+    </script>
+
+    <script>
+        //提示
+        layer.open({
+            content: 'hello layer',
+            skin: 'msg',
+            time: 2 //2秒后自动关闭
+        });
+    </script>
+
+    <!-- ------------------------------------------------------------------------------- -->
+
+    <!--进入到页面的时候就先判断要让他确认这个信息
+    -->
+    <script>
+        var data = `  1、若为虚假信息，将会计入违规. <br />
+          2、若地理位置不够详细，会导致问题得不到处理。
+          3、图片必须为问题相关的图片，否则不予处理。`
+        layer.ready(function() {
+            layer.confirm(data, {
+                btn: ['同意须知并继续', '取消'] //按钮
+            }, function() {
+                $(".layui-layer-setwin .layui-layer-close1").trigger("click")
+            }, function() {
+                plus.webview.currentWebview().close();
+            });
+        });
+    </script>
+    
+    <!-- ------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

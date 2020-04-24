@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- -------------------------------------------------------------------------------------------------- -->
+
+  函数防抖动(Debouncing) 是解决这个问题的一种方式，通过限制需要经过的时间，直到再次调用函数。
+
+  一个正确实现函数防抖的方法是：把多个函数放在一个函数里调用，隔一定时间执行一次。
+
+  这里有一个使用原生javascript实现的例子，用到了作用域、闭包、this和定时事件：
+
+  <script>
+
+      // debounce函数用来包裹我们的事件
+      function debounce(fn, delay) {
+          // 持久化一个定时器 timer
+          let timer = null;
+          // 闭包函数可以访问 timer
+          return function() {
+              // 通过 'this' 和 'arguments'
+              // 获得函数的作用域和参数
+              let context = this;
+              let args = arguments;
+              // 如果事件被触发，清除 timer 并重新开始计时
+              clearTimeout(timer);
+              timer = setTimeout(function() {
+                  fn.apply(context, args);
+              }, delay);
+          }
+      }
+  </script>
+
+<!-- -------------------------------------------------------------------------------------------------- -->
+
+  当这个函数绑定在一个事件上，只有经过一段指定的时间后才会被调用。
+
+  你可以像这样去使用这个函数:
+
+  <script>
+
+      // 当用户滚动时函数会被调用
+      function foo() {
+          console.log('You are scrolling!');
+      }
+
+      // 在事件触发的两秒后，我们包裹在debounce中的函数才会被触发
+      let elem = document.getElementById('container');
+      elem.addEventListener('scroll', debounce(foo, 2000));
+
+  </script>
+
+  函数节流是另一个类似函数防抖的技巧，除了使用等待一段时间再调用函数的方法，
+
+  函数节流还限制固定时间内只能调用一次。所以一个事件如果在100毫秒内发生10次
+
+  函数节流会每2秒调用一次函数，而不是100毫秒内全部调用。
+
+  <!-- -------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  自有属性与继承属性
+
+  对象的属性分为自有和继承两种。
+
+  自有属性也就是在对象内部定义的属性。
+
+  继承属性则是通过原型链获得的属性。继承属性是不可枚举的（也就是在 for/in 循环里看不到的）。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  Object.keys(obj), Object.values(obj)， Object.entries(obj)
+
+  Object.keys()方法会返回一个数组，包含所有可枚举属性。不查找原型链。
+
+  Object.values()方法会返回一个数组，包含所有可枚举属性值。不查找原型链。
+
+  Object.entries()方法会返回一个数组，包含所有可枚举 [key，value] 对。不查找原型链。
+
+  注意返回的数组中元素的排列顺序和使用for...in循环遍历该对象时返回的顺序一致 （他们与for-in的主要区别是for-in循环还会枚举其原型链上的属性）。
+
+  <script>
+
+      var obj = {
+          a: 1,
+          b: 2,
+          c: 3
+      }
+
+      Object.defineProperty(obj, "d", {
+          value: 4,
+          enumerable: false
+      })
+
+      obj.d // 4
+
+      console.log( Object.keys(obj) )    // ["a", "b", "c"]
+      console.log( Object.values(obj)  ) // [1, 2, 3]
+      console.log( Object.entries(obj) ) // [["a", 1], ["b", 2], ["c", 3]]
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  Object.getOwnPropertyNames(obj)
+
+  该方法会返回一个数组，包含所有属性，无论它们是否可枚举。不查找原型链。
+
+  <script>
+
+      var obj = {
+          a: 1,
+          b: 2,
+          c: 3
+      }
+
+      Object.defineProperty(obj, "d", {
+          value: 4,
+          enumerable: false
+      })
+
+      console.log( Object.getOwnPropertyNames(obj) ) // ["a", "b", "c", "d"]
+
+  </script>
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

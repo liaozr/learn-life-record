@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- -------------------------------------------------------------------- -->
+
+<!-- store.js -->
+<script>
+
+	const store = new Vuex.Store({
+
+		state: {
+			messages: []
+		},
+
+		actions: {
+			newMessage({ commit }, msg) {
+				commit('NEW_MESSAGE', msg)
+			}
+		},
+		mutations: {
+			NEW_MESSAGE(state, msg) {
+				state.messages.push(msg)
+			}
+		}
+	})
+
+	export default store
+
+</script>
+
+ <!-- ------------------------------------------------------------------------- -->
+
+<!-- Client.vue -->
+
+<script>
+
+	import { mapState, mapActions } from 'vuex'
+
+	export default {
+	  data() {
+	    return {
+	      msg: ''
+	    }
+	  },
+	  props: ['clientid'],
+
+	  computed: {
+	    ...mapState({
+	      messages: state => state.messages
+	    })
+	  },
+
+	  methods: {
+	    trySendMessage() {
+	      this.newMessage({
+	        text: this.msg,
+	        sender: this.clientid
+	      })
+	      this.resetMessage()
+	    },
+	    resetMessage() {
+	      this.msg = ''
+	    },
+	    ...mapActions(['newMessage'])
+	  }
+	}
+</script>
+
+<!-- -------------------------------------------------------------------------- -->
+
+使用mapState来生成对共享消息集合的引用。
+
+使用mapActions来生成创建一个新消息的动作（action）。
+
+<!-- ---------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

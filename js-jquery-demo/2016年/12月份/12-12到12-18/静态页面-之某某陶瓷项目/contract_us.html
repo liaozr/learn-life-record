@@ -1,0 +1,117 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>某某装饰</title>
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/idangerous.swiper.css">
+    <link rel="stylesheet" href="css/index.css">
+    <!--语言特殊的css-->
+    <style>
+    .prop_rotate_angle sup,.prop_rotate_angle .posblk-deg{font-size:11px; color:#CDCDCD; font-weight:normal; font-style:normal; }
+    ins#qiao-wrap{height:0;}
+    #qiao-wrap{display:block;}
+  </style>
+    <script src='js/jquery-2.1.1.min.js'></script>
+    <script src='js/idangerous.swiper.min.js'></script>
+    <script src="js/lockBaiduMap.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=570E1e7563f6e47308e7928f68f9b6d3"></script>
+</head>
+<body>
+     <div class="g-header">
+           <div class="logo">
+                 <a href="index.html"><img src="images/logo.png" alt=""></a>
+           </div>
+     </div>
+     <div class="g-layout g-pros use-commit contract-us">
+          <div class='banner'>
+	         <div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						 <img src="images/banner.jpg" alt="">
+					</div>
+					<div class="swiper-slide">
+						 <img src="images/banner2.jpg" alt="">
+					</div>
+				</div>
+			 </div>
+            <div class="pagination"></div>
+		 </div>
+         <div class="nav">
+           <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="about_us.html">关于我们</a></li>
+                    <li><a href="new.html">新闻动态</a></li>
+                    <li><a href="show_pro.html">案例展示</a></li>
+                    <li><a href="use_commit.html">用户留言</a></li>
+                    <li class='cur'><a href="contract_us.html">联系我们</a></li>
+           </ul>
+        </div>
+        <div class="m-center m-new-center news-list">
+              <div class="m-list-modlues">
+                    <div class="head">
+                             <div class="tubiao">
+                                  <div class="hei"></div>
+                                  <div class="yellow"><strong>联系我们</strong></div>
+                             </div>
+                             <div class="line-layout">
+                                     <div class="line">
+                                     </div>
+                                     <div class="line">
+                                     </div>
+                                     <div class="line">
+                                     </div>
+                             </div>
+                             <div class="more">
+                                <a href="##">MORE</a>
+                             </div>
+                    </div>
+                    <div class="baidu-map" id='map'>
+                        <div class="img-map">
+                            <div class="img-center">
+                                
+                            </div>
+                        </div>
+                        <div id="mapdynamic"></div>
+                        <div class="address-message">
+                            <div class="show-list new-content">
+                                 <p>
+                                  某某装饰设计有限公司<br>
+                                  地址:某某省某某县某某镇山某某建材工业园区<br> 
+                                  电话:0314-8888XXXX<br>
+                                  传真:0314-8888XXXX
+                                 </p>
+                            </div>                            
+                        </div>     
+                    </div>     
+
+               </div>
+        </div>
+     </div>
+     <div class="footer">
+         <div class="footer-center">
+              <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about_us.html">关于我们</a></li>
+            <li><a href="new.html">新闻动态</a></li>
+            <li><a href="show_pro.html">案例展示</a></li>
+            <li><a href="use_commit.html">用户留言</a></li>
+            <li><a href="contract_us.html">联系我们</a></li>
+          </ul>
+         </div>
+     </div>
+     <script src='js/index.js'></script>
+     <script>
+         $(function(){
+            $('#map .img-map .img-center').lockBaiduMap({
+                city : '佛山',
+                address : '新媒体产业园'
+            });
+         })
+     </script>
+</body>
+</html>

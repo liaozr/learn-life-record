@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+    active-class 设置链接激活时使用的 CSS 类名。
+
+    默认值可以通过路由的构造选项 linkActiveClass 来全局配置。
+
+    <router-link active-class replace to="/Tap/btn">proImg</router-link>
+
+    <script>
+
+        const router = new VueRouter({
+
+            mode: 'history',
+            linkActiveClass: 'link-active',
+            routes: []
+            
+        });
+
+    </script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+    <style>
+        .link-active{
+
+        }
+    </style>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

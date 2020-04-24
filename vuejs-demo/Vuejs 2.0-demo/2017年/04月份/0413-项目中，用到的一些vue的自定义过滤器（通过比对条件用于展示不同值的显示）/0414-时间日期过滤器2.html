@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.staticfile.org/vue/1.0.28/vue.js'></script>
+
+</head>
+
+<body>
+
+
+
+    <span class="time">{{planStartTime | formatDate}}</span>
+
+    <!-- 其中 planStartTime 输出的值 是 2017-04-14 -->
+    <!-- 这个过滤器的作用就是 将  2017-04-14的当前这个时间点 转成 4/14 这种格式的 -->
+    <!-- 打印出的值 是  4/14 -->
+    <!-- 打印出的值 是  4/14 -->
+
+    <script>
+
+        // vue的一个全局过滤器
+        // vue的一个全局过滤器
+        // vue的一个全局过滤器
+
+        Vue.filter('formatDate', function(value) {
+            if (!isEmpty(value)) {
+                var dateVal = new Date(value);
+                console.log(dateVal)
+                // 打印出的是这个：
+                // Fri Apr 14 2017 08:00:00 GMT+0800 (中国标准时间)
+                //  dateVal.getMonth() + 1  返回的值 是  4 当前的月份
+                // dateVal.getDate()  返回的值 是当期的日期 14
+
+                //  所以 输出的值 是  4/14
+                return (dateVal.getMonth() + 1) + "/" + dateVal.getDate();
+            }
+            return "";
+        })
+
+        new Vue({
+          el:'body',
+          data:{
+             planStartTime:'2017-04-14'
+          }
+        })
+
+        function isEmpty(str) {
+          	if(str == "" || str == null || str == undefined || str == "undefined") {
+          		return true;
+          	}
+          	return false;
+        }
+
+    </script>
+</body>
+
+</html>

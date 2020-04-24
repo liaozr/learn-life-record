@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.min.js"></script>
+    <style>
+        button[disabled] {
+            cursor: not-allowed;
+            opacity: .5;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" @input='shuru($event)' v-model='pinglun'>
+        <button :disabled="tweetIsEmpty">提交</button>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                pinglun: '',
+                tweetIsEmpty: true
+            },
+            methods: {
+                shuru: function(e) {
+                    if (e.target.value.length > 1) {
+                        this.tweetIsEmpty = false;
+                        console.log("可以提交了")
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- 
+
+第三种：v-if 和 terminal指令
+
+这是我推荐的一种做法，简单有效。还是那个结构，我们给要延迟渲染的组件加上v-if：
+ -->
+
+<app>
+    <A></A>
+    <B v-if="showB"></B>
+    <C v-if="showC"></C>
+</app>
+<script>
+	new Vue({
+	    data: {
+	        showB: false,
+	        showC: false
+	    },
+	    created () {
+	        // 显示B
+	        setTimeout(() => {
+	            this.showB = true;
+	        }, 0);
+	        // 显示C
+	        setTimeout(() => {
+	            this.showC = true;
+	        }, 0);
+	    }
+	});
+</script>
+<!-- 
+这个示例写起来略显啰嗦，但它已经实现了我们想要的顺序渲染的效果。页面会在A组件初始化完后显示，然后再按顺序渲染其余的组件，整个页面渲染方式看起来是流式的。
+
+有些人可能会担心v-if存在一个编译/卸载过程，会有性能影响。但这里并不需要担心，因为v-if是惰性的，只有当第一次值为true时才会开始初始化。
+
+这种写法看起来很麻烦，如果我们能实现一个类似v-if的组件，然后直接指定多少秒后渲染，那就更好了，例如： -->
+
+<app>
+    <A></A>
+    <B v-lazy="0"></B>
+    <C v-lazy="100"></C>
+</app>
+<!-- 
+一个简单的指令即可，不需要js端任何配合，并且可以用在普通dom上面，Nice！
+
+在vue里，类似v-if和v-for这种是terminal指令，会在指令内部编译组件。如果你想要自己实现一个terminal指令，需要加上terminal: true，例如： -->
+
+
+<script>
+    // 这个是自定义指令的做法
+	Vue.directive('lazy', {
+	    terminal: true,
+	    bind () {},
+	    update () {},
+	    unbind () {}
+	});
+</script>
+
+</body>
+</html>

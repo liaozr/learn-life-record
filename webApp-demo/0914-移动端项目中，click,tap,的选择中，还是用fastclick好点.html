@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.js"></script>
+<script>
+    $(function() {
+        //fastclick用于消除在移动浏览器上触发click事件与一个物理Tap(敲击)之间的300s延迟
+        FastClick.attach(document.body);
+    });
+</script>
+
+<body>
+
+    脚本必须加载到实例化fastclick在页面的任何元素之前。 实例化 fastclick 最好在body元素的前面
+
+    <div class="aa">
+        点击此处
+    </div>
+
+    <script>
+        $(function() {
+            $('.aa').click(function() {
+                alert(333)
+            })
+        })
+    </script>
+
+</body>
+
+</html>

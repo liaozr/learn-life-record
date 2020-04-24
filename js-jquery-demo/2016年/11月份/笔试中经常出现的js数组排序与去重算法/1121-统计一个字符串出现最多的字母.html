@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    首先我们要先统计字符串中各个字符出现的次数，我们可以使用最笨的遍历方法进行统计：
+
+    <script>
+        let countChar = function countChar(str) {
+            let ro = {};
+            for (let c of str) {
+                if (!ro[c]) {
+                    ro[c] = 1;
+                } else {
+                    ro[c]++;
+                }
+            }
+            console.log(ro);
+            return ro;
+        }
+        countChar('1,2,3,1,2,4,5,5,5');
+    </script>
+</body>
+
+</html>

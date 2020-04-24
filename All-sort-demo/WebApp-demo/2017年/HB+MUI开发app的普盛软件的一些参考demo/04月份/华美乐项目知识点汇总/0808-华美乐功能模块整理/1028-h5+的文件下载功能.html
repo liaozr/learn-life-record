@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        showloading();
+
+        var filepath = item.filePath;
+
+        filepath = filepath.replace(/\\/g, '/');
+
+        var lujing = getBasejichuImgUrl() + filepath;
+
+        var xiazaiflag = false;
+
+        $.ajax({
+            url: lujing,
+            type: 'get',
+            complete: function(response) {
+                if (response.status == 404) {
+
+                    plus.nativeUI.alert('此文件不能下载！')
+                    xiazaiflag = false;
+                    return false;
+                }
+                else {
+
+                    var dtask = plus.downloader.createDownload(lujing, {}, function(d, status) {
+                        // 下载完成
+                        if (status == 200) {
+
+                            closeloading();
+
+                            // alert( "Download success: " + d.filename );
+                            // plus.runtime.openFile(lujing);
+                            plus.runtime.openFile(d.filename);
+
+                        } else {
+
+                            closeloading();
+                            alert("文件下载失败！");
+                        }
+                    });
+
+                    dtask.start();
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>

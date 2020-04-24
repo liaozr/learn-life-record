@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    我们知道所有的Array都是有length属性的，就算是空数组，那么length 为0，那么字符串有没有呢？接下来我们来验证一下。
+
+    <script>
+
+        var str = "sdfsd5565s6dfsd65sd6+d5fd5";
+
+        console.log(str.length) // 26结果是有的，所以我们在判断类型时，不能单纯拿有没有length属性来判断是不是数组了，
+
+        // 我们可以用下面的方法来判断是否是数组：
+        var obj = [1, 2];
+        
+        console.log( toString.call(obj) === '[object Array]' );  // true
+
+    </script>
+
+</body>
+
+</html>

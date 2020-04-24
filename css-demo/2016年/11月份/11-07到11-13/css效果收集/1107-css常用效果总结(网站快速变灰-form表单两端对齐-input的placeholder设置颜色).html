@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+css有不少常用的效果，你在平时浏览网站的时候可能会看到，但是真的要自己写的时候，有时候会突然忘记，今天稍微对那些常见的效果做一下小结。
+
+<div class="red">测试红色块</div>
+<div class="blue">测试lan色块</div>
+<!-- --------------------------------------------------------------------- -->
+
+1、每逢大的灾难的时候，很多网站变成了灰色，如何让网站快速变灰？css代码是很简单的，用的是css的filter功能。
+
+代码如下：
+<style>
+
+/*test样式*/
+    .red{background-color: red;width:50px;height:50px;margin:20px auto;}
+    .blue{background-color: blue;width:50px;height:50px;margin:40px auto;}
+
+
+/*主要代码如下：*/
+/*----------------------------------------------------------------------------*/
+	html {
+	   filter: grayscale(100%);
+	   /*IE浏览器*/
+	  -webkit-filter: grayscale(100%);
+	  /*谷歌浏览器*/
+	  -moz-filter: grayscale(100%);
+	  /*火狐*/
+	  -ms-filter: grayscale(100%);
+	  -o-filter: grayscale(100%);
+	  filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+	  -webkit-filter: grayscale(1);
+	  /*谷歌浏览器*/
+	}
+
+</style>
+
+有一些网站FLASH动画的颜色不能被CSS滤镜控制，可以在FLASH代码的和之间插入：
+
+<param value="false" name="menu"/>
+<param value="opaque" name="wmode"/>
+
+<!-- ------------------------------------------------------------------------------ -->
+<br>
+<br>
+
+2、DIV可编辑，就是让一个div变成一个类似input输入框的效果。
+
+在div中添加contentEditable="true" 属性就可以了，如下：
+
+<div id="div1" contentEditable="true"  ></div>  
+
+<div id="div2" contentEditable="true" ></div>  
+
+ <div contentEditable="true"  id="div3"></div> 
+
+<!-- --------------------------------------------------------------------------- -->
+<br>
+<br>
+
+3、有些网站为了不让用户复制，设置了div禁止选择的功能，设置如下属性：
+
+unselectable="on" onselectstart="return false;"
+
+具体代码：
+
+<div unselectable="on" onselectstart="return false;">
+     sdfsdfswerwer324234234234
+</div>
+
+这样，DIV里面的东西就不能选择复制了！
+
+<!-- ---------------------------------------------------------------------------- -->
+<br>
+<br>
+
+4、CSS 中form表单两端对齐
+
+做form表单的时候，前面经常有姓名，年龄，公司名称等等，有的是2个字，有的是4个字，如何让字对齐呢？有的人的做法是打几个空格，但是这样不是很准确，最好的办法是如下：
+
+css代码:
+
+<style>
+    .test1{width:100px;}
+	.test1 {
+	            text-align:justify;
+	            text-justify:distribute-all-lines;/*ie6-8*/
+	            text-align-last:justify;/* ie9*/
+	            -moz-text-align-last:justify;/*ff*/
+	            -webkit-text-align-last:justify;/*chrome 20+*/
+	}
+	@media screen and (-webkit-min-device-pixel-ratio:0){/* chrome*/
+	    .test1:after{
+	        content:".";
+	        display: inline-block;
+	        width:100%;
+	        overflow:hidden;
+	        height:0;
+	    }
+	}
+</style>
+
+html代码：
+
+<div class="box1">
+    <div class="test1">姓名23332</div>
+    <div class="test1">姓名姓名</div>
+    <div class="test1">姓名</div>
+    <div class="test1">所</div>
+    <div class="test1">工作单</div>
+</div>
+
+<!-- -------------------------------------------------------------------- -->
+
+<br>
+<br>
+
+6、给input的placeholder设置颜色
+
+<input type="text" placeholder="text zrliao" class='test'>
+设置方法如下：
+
+<style>
+	::-webkit-input-placeholder { /* WebKit browsers */
+	    color: #D84C29;
+	}
+	:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	    color: #D84C29;
+	}
+	::-moz-placeholder { /* Mozilla Firefox 19+ */
+	    color: #D84C29;
+	}
+	:-ms-input-placeholder { /* Internet Explorer 10+ */
+	    color: #D84C29;
+	}
+</style>
+
+<!-- ------------------------------------------------------------------------- -->
+
+</body>
+</html>

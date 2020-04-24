@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	 <form  method="post" id="form" action="##">
+		   <input type="search" name="" id="search" placeholder="搜索">
+	 </form>
+     <script>
+     	  // 点击手机软键盘的搜索框 
+     	  // pc浏览器上可以通过 在input search输入框中按下回车键模拟
+
+		   form.onsubmit = function() {
+			    var search_value=search.value;
+			     alert(search_value)
+			    return false;
+		   };
+
+     </script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+     两步：
+	 1.<input type="search">
+	 2.input放在form里面  ，这点也是蛮重要的。
+
+	 你想要抓取键盘上的 go、搜索 事件。
+
+	 <form method="post" id="form1" action="#">
+		 <input type="search">
+	 </form>
+
+	 <script>
+		form1.onsubmit = function() {
+		    // your code        
+		    return false;
+		};
+    </script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+</body>
+</html>

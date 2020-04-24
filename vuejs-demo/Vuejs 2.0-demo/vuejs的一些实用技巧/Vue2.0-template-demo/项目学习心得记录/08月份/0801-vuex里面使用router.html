@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <script>
+
+    // 登录成功后，跳转路由
+    
+    import router from '../router'; // 导入路由
+
+    export const login = ({ commit }, user) => {
+      commit(types.USER_SIGNIN, user)
+
+      // 自定义鉴权
+      // var token='zrliaoTokin';
+
+      // 华美乐鉴权字符串：
+      // 这个鉴权字符串是通过base64 等等 加密过后的鉴权字符串 ，
+      // 一般可以在用户登录的时候拿到这个鉴权，鉴权的组成一般也是由 用户的一些个人信息组成的一个字符串，在通过base64等的转换的
+
+      // var token='B9590F0F97BA0D679C56B3484901AE22A80C59F2A29135193EE67141F473654B6E408A492BD7E5F30727F361DE2293411392B422602DE30E53262F7DBA27A36509AF073AB8CBB749CAF1EAAF07231A6E4F1162204A65435A362784496312CAAC7CEE2E0DA409A2918E28193627C29A106092C27C48C834AD743BD8F18FE84EF646C65F891AFB6BE514D52688E89D5222C39CDB98357A981AC4F182EFD091F5DC024DDD8BE60C6C8B38AB023CA08CE0A0';
+
+      var token =
+        'AES_MPT/YvVoACgpmpKGrLj9SRtrW11IJGGuaD4inbFdfaSaB6+sgE9iQXypZtg3DvrjXRWdDYaYV6SYIX2N3ju/8gODYqt/q0umQ+jGjV+F98Jkc08s1AsHML0AQq+0rWue2h6AHaci3wRdV0M3Vqcy4qw/Jes/rTHl403Tt3Xv8gs7k0Bxao8oyugnxYjRfcMnGOcoe62T68EGhCTCqm+z9e++oOFc7qgt5HcH4l78SefKC+A48T6/R1e0PKfdEQucgTwzXsx0lAfcgjoK2Hi4yoxcT5FxpsDbiMWCV2+Xko01bLV4TKp1NQwNCc3daYIeOh9cEBEwdAyD9Oasby5nI7+R9ERqSUNp6hDw/p+gKbs='
+
+      commit(types.USER_TOKEN, token)
+      setToken(token);
+
+      console.log(user)
+
+      var self = this;
+
+      // 华美乐 登录接口
+      return new Promise((resolve, reject) => {
+        fetch({
+          baseURL: HOST,
+          url: HOST + '/system/user/login',
+          method: 'get',
+          params: user
+        }).then((response) => {
+
+          let data = response.data;
+          console.log('登录信息')
+          console.log(data)
+          resolve(response.data);
+
+          router.replace({ path: '/user' })
+
+        }).catch((error) => {
+          console.log(error)
+          reject(error)
+        })
+      })
+
+    }
+
+  </script>
+
+</body>
+
+</html>

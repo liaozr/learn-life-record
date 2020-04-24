@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+方法三：用随机数，随机数也是避免缓存的一种很不错的方法！
+
+<script>
+
+URL 参数后加上 "?ran=" + Math.random(); //当然这里参数 ran可以任意取了
+
+方法四：用随机时间，和随机数一样。
+
+在 URL 参数后加上 "?timestamp=" + new Date().getTime();
+
+<!-- ------------------------------------------------------------------------- -->
+
+用php后端清理
+
+在服务端加 header("Cache-Control: no-cache, must-revalidate");等等(如php中)
+
+<!-- --------------------------------------------------------------------------- -->
+</script>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+    用子路由最简单，盖住父路由页面，返回时刷新滚动条啥的都不用判断了
+
+    具体的看图片信息。
+
+    这个是 recommend.vue 组件。
+
+    <template>
+
+        <div class="recommend" ref="recommend">
+            <scroll ref='scroll' class="recommend-content" :lists="discList">
+            </scroll>
+            <router-view></router-view>
+        </div>
+
+    </template>
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+    这种布局的话，在项目中有用到输入框的话，建议就是输入框尽量不要放在靠近页面底端的这种布局了。
+
+    尽量跟 产品 或者设计商量，页面底部不要放input输入框。
+
+    再者 就是 有input输入框 的页面，尽量不要用 fixed 布局 就是了，自己衡量下弊端就行了。
+
+    可以参考慕课网 vue-music-webApp-demo  这个demo里面的search.vue这个组件。
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+</body>
+
+</html>

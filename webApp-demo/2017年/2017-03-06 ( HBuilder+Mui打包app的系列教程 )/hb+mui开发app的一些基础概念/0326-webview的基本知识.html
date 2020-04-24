@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------------- -->
+
+创建新的Webview窗口
+
+WebviewObject plus.webview.create( url, id, styles, extras );
+
+说明：
+
+创建Webview窗口，用于加载新的HTML页面，
+
+可通过styles设置Webview窗口的样式，
+
+创建完成后需要调用show方法才能将Webview窗口显示出来。
+
+<!-- ------------------------------------------------------------------------ -->
+
+显示Webview窗口
+
+void plus.webview.show( id_wvobj, aniShow, duration, showedCB, extras );
+
+说明：
+显示已创建或隐藏的Webview窗口，需先获取窗口对象或窗口id，并可指定显示窗口的动画及动画持续时间。
+
+<!-- ------------------------------------------------------------------------ -->
+
+隐藏Webview窗口
+
+void plus.webview.hide( id_wvobj, aniHide, duration, extras );
+
+说明：
+根据指定的WebviewObject对象或id隐藏Webview窗口，使得窗口不可见。
+
+<!-- ------------------------------------------------------------------------ -->
+
+获取当前窗口的WebviewObject对象
+
+WebviewObject plus.webview.currentWebview();
+
+说明：
+获取当前页面所属的Webview窗口对象。
+
+<!-- ------------------------------------------------------------------------ -->
+
+查找指定标识的WebviewObject窗口
+
+WebviewObject plus.webview.getWebviewById( id );
+
+说明：
+在已创建的窗口列表中查找指定标识的Webview窗口并返回。 
+
+若没有查找到指定标识的窗口则返回null，若存在多个相同标识的Webview窗口，则返回第一个创建的Webview窗口。 
+
+如果要获取应用入口页面所属的Webview窗口，其标识为应用的%APPID%，可通过plus.runtime.appid获取。
+
+<!-- ------------------------------------------------------------------------ -->
+
+创建并打开Webview窗口
+
+WebviewObject plus.webview.open( url, id, styles, aniShow, duration, showedCB );
+
+说明：
+
+创建并显示Webview窗口，用于加载新的HTML页面，可通过styles设置Webview窗口的样式，创建完成后自动将Webview窗口显示出来。
+
+以上来源于html5plus文档，只列举了部分最常用的方法，旨在为后文做铺垫，由于不是文档，所以也得也不清楚，如果想详细了解请看这里html5plus webview API。
+
+<!-- ------------------------------------------------------------------------ -->
+
+
+
+
+</body>
+</html>

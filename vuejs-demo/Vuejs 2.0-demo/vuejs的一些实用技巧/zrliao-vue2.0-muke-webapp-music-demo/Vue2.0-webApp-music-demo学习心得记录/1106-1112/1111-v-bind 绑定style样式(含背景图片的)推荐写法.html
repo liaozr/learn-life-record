@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.4/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="bg" :style='bgStyle'>
+
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                img: 'https://y.gtimg.cn/music/photo_new/T001R300x300M0000025NhlN2yWrP4.jpg'
+            },
+            computed: {
+                bgStyle() {
+                    return `background:url(${this.img}) no-repeat center center;width:200px;height:200px;padding:20px;`
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

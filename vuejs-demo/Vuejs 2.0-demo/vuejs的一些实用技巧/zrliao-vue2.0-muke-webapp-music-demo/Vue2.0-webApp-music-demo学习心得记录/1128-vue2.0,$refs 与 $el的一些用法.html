@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.4/vue.js"></script>
+
+</head>
+
+<body>
+
+<!-- -----------------------------------------------------------------------------------------------------     -->
+
+    <div id="app">
+        <div ref='aa' class="aa">
+            111111
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+
+            },
+            mounted() {
+                this.$refs.aa.style.top = '12px'
+            }
+        })
+    </script>
+
+<!-- -----------------------------------------------------------------------------------------------------     -->
+
+    但在 .vue 文件中  的组件写法的时候
+
+    <scroll ref="scroll"></scroll>
+
+    要想改变 这个 scroll  组件的一些样式的话，得这么改
+
+    this.$refs.scroll.$el.style.top
+
+<!-- -----------------------------------------------------------------------------------------------------     -->
+
+
+<!-- -----------------------------------------------------------------------------------------------------     -->
+
+    但在 .vue 文件中的组件写法的时候
+
+    <scroll ref="scroll"></scroll>
+
+    要想改变 这个 scroll  组件的一些样式的话，得这么改
+
+    this.$refs.scroll.$el.style.top
+
+<!-- -----------------------------------------------------------------------------------------------------     -->
+
+</body>
+
+</html>

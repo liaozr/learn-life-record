@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+大多数人使用box-shadow的方法是，制定三个长度和一个颜色值。
+
+box-shadow: 2px 3px 4px rgba(0, 0, 0, .5);
+
+box-shadow第一个长度表示水平方向投影，第二个为垂直方向投影，第三个为模糊半径。
+
+
+设置偏移量，就可以把投影的顶部和左边隐藏起来，只要这两个方向上的偏移量不小于4px就行，不够会导致外漏的投影过于浓重
+
+最终解决方案是使用box-shadow的第四个长度参数，排在模糊半径参数之后，称作扩张半径。
+
+这个参数会根据你指定的值去扩张或缩小（负值）投影的尺寸。
+
+比如一个-5px的扩张半径会把投影宽度和高度各减少10px（每边5px）
+
+所以我们使用一个负的扩张半径，而他的值正好等于模糊半径
+
+<!-- --------------------------------------------------------------------------------- -->
+
+<div class="aa">
+
+</div>
+<div class="bb">
+
+</div>
+<style>
+    .aa {
+        width: 200px;
+        height: 100px;
+        background-color: #ccc;
+        box-shadow: 0 5px 4px -4px black;
+    }
+    .bb {
+        width: 200px;
+        height: 100px;
+        background-color: #ccc;
+        margin-top: 20px;
+    }
+</style>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

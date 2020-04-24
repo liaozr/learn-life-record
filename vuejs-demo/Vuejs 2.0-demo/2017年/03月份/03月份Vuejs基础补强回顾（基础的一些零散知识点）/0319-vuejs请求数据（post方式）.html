@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script src="vue.js"></script>
+    <script src="vue-resource.js"></script>
+    <script>
+        window.onload=function(){
+            new Vue({
+                el:'body',
+                data:{
+
+                },
+                methods:{
+                    get:function(){
+                        this.$http.post('post.php',{
+                            a:1,
+                            b:20
+                        },{  // post方式提交得加上下面那段代码 才行的
+                            // emulateJSON:true
+                            emulateJSON:true
+                        }).then(function(res){
+                            alert(res.data);
+                        },function(res){
+                            alert(res.status);
+                        });
+                    }
+                }
+            });
+        };
+
+        //  在使用的时候遇到一个小坑,这个$http请求和jquery的ajax还是有点区别，这里的post的data默认不是以form data的形式，而是request payload。解决起来也很简单：在vue实例中添加headers字段:
+
+        //        http: {
+        //            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        //        }
+
+
+        // 后来翻了下vue-resource的源码，发现有更加简单的做法:
+        // Vue.http.options.emulateJSON = true;
+
+    </script>
+
+</head>
+<body>
+    <input type="button" value="按钮" @click="get()">
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

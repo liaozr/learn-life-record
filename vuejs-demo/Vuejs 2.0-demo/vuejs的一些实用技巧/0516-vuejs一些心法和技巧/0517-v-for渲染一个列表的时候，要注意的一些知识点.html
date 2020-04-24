@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.min.js"></script>
+</head>
+
+<body>
+
+  <!-- --------------------------------------------------------------------------------------- -->
+
+  vuejs1.0 v-for track-by vs vuejs2.0 :key="item.id"
+
+  在vue v-for渲染一个列表时，如果不用被操作的item数据id作为key的话，
+
+  那么vuejs会默认使用数组index作为key，而这时如果数据列表发生变化，
+
+  比如一个item被删除，则可能会发生数据不同步的怪异错误，
+
+  强烈建议永远在v-for处理列表数据时，加上:key="item.id"!!!
+
+  v-for="skill in pskills" :key="skill.id"
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+<div id="app">
+    <div v-for='item in items' :key="item.id">
+        <span>{{item.text}}</span><br>
+        <span>{{item.value}}</span>
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            items: [{
+                    text: 1,
+                    value: 'zrliao111'
+                },
+                {
+                    text: 2,
+                    value: 'zrliao2222'
+                },
+                {
+                    text: 3,
+                    value: 'zrliao333'
+                }
+            ]
+        }
+    })
+</script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

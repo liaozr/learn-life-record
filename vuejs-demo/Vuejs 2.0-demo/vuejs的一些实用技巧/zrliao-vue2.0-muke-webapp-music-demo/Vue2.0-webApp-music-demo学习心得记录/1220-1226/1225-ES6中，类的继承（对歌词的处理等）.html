@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+        getLyric() {
+          
+            this.currentSong.getLyric().then((lyric) => {
+
+                // Lyric 是慕课网作者自己封装的 一个解析 歌词的一个类
+                // 所以，这个 this.currentLyric 就继承了 类 Lyric 这个类中的所有方法的了。
+                //  包括下面的 play方法。
+
+                this.currentLyric = new Lyric(lyric,this.handleLyric)
+
+                if (this.playing) {
+                    //  这个play 方法是 继承自 类 Lyric里面来的，
+                    //  this.currentLyric 页面上并没有定义这个方法的。
+                    this.currentLyric.play()
+                }
+
+                console.log(this.currentLyric)
+            })
+        },
+        // 歌词处理的 回调函数
+        handleLyric(){
+
+           this.currentLineNum = lineNum
+
+           // 大于 5行，让歌词 滚动
+           if(lineNum > 5){
+             let lineEl = this.$refs.lyricLine[lineNum - 5]
+
+             // 调用scroll组件的 scrollToElement 方法
+             this.$refs.lyricList.scrollToElement(lineEl,1000)
+
+           }else{
+
+             // 调用scroll组件的 scrollToElement 方法
+             this.$refs.lyricList.scrollToElement(0,0,1000)
+
+           }
+
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	<!-- Mobile Devices Support @begin -->
+    <meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" / >
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <!-- Mobile Devices Support @end -->
+    <link rel="stylesheet" href="css/base-reset.css">
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link rel="stylesheet" href="css/icons-extra.css">
+    <link rel="stylesheet" type="text/css" href="css/swiper-3.3.1.min.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">  
+    <link href="js/picker/mui.picker.min.css" rel="stylesheet" />
+ 
+
+    <script src="js/jquery-1.9.1.js" type="text/javascript"></script>
+    <script src="js/flexible.js" type="text/javascript"></script>
+    <script src="js/flexible_css.js" type="text/javascript"></script>
+    <script src='js/swiper-3.3.1.min.js' type="text/javascript"></script>
+    <script src='js/mui.min.js'></script>
+    <script src='js/vue.min.js'></script>
+    <script src='js/layer.js'></script>
+    <script type="text/javascript" src="js/picker/mui.picker.min.js"></script>
+    
+    
+	</head>
+	<body>
+		<form action="##">
+		   <div class="mui-bar mui-bar-nav header">
+		        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    	<h1 class="mui-title">我要报料</h1>
+		    	<span class='wen-zhuce' id='tijiao'>提交</span>
+	      </div>	       
+	      <div class="mui-content banshi-dating denglu baoliaoupl">
+	      	    <div class="leibie" id='leibie'>
+						<span class='sort'>类别</span>
+						<span  class="txt" id="selectCard"><span id="cardVal1" class="selectDiv">请选择 ></span><i class="next right"></i></span>
+				</div>
+				<div class="des">
+					<textarea name="" id="" cols="30" rows="10" placeholder="请输入要反映事件的具体描述"></textarea>
+				</div>
+				<div class="upload-photo">
+	      	          <img src="images/icon-addPic.png" alt="">
+	            </div>
+	      </div>
+
+	     
+      </form>
+
+      <script>         
+        (function($) {
+			$.init();
+			 
+			var arr = [{text:"防汛防寒防风"},{text:"市容秩序"},{text:"环境卫生"}];
+			selectCard.addEventListener('click', function() {
+				var cardPicker = new $.PopPicker({
+					layer: 1
+				});
+				cardPicker.setData(arr);
+				cardPicker.show(function(items) {
+					cardVal1.innerText = items[0].text;;
+					cardPicker.dispose();
+				});
+			}, false);
+			
+		})(mui);
+
+      </script>
+		 
+		<!--进入到页面的时候就先判断要让他确认这个信息					
+		-->
+		 <script>	
+	     var data=`  1、若为虚假信息，将会计入违规. <br />
+		  2、若地理位置不够详细，会导致问题得不到处理。
+		  3、图片必须为问题相关的图片，否则不予处理。`
+		 layer.ready(function(){ 		  
+			layer.confirm(data, {
+			  btn: ['同意须知并继续','取消'] //按钮
+			}, function(){
+			   $(".layui-layer-setwin .layui-layer-close1").trigger("click")
+			}, function(){
+			   plus.webview.currentWebview().close();
+			});
+		 }); 		  
+		 </script>
+		<script>
+			var oldback = mui.back;
+			mui.back = function() {			 
+				plus.webview.currentWebview().close();
+			}
+        </script>
+	</body>
+</html>

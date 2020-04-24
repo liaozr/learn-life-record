@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    在 Vue 1.0 和 2.0 中还有一种定义组件模板的方式，即使用 DOM 元素。
+
+    在这种情况下，解析模板时仍然会将标签转为小写形式。
+
+    所以下面的代码，在 1.0 和 2.0 均不能正常运行。
+
+
+    <div id="app">
+        <MyComponent></MyComponent>
+    </div>
+    <script>
+        // main.js
+        Vue.component('MyComponent', {
+            template: '<div>hello, world</div>'
+        })
+
+        new Vue({
+            el: '#app'
+        })
+    </script>
+
+
+    <!-- ------------------------------------------------------------------------------ -->
+
+
+    <div id="app2">
+        <my-component></my-component>
+    </div>
+    <script>
+        // main.js
+        Vue.component('MyComponent', {
+            template: '<div>hello, world</div>'
+        })
+
+        new Vue({
+            el: '#app2'
+        })
+    </script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+模板解析
+
+前面提到，Vue 2.0 相对于 1.0 的最大改进就是引入了 Virtual DOM，使模板的解析不依赖于 DOM。
+
+使用 Virtual DOM 解析模板时，不必像 DOM 方式那样将模板中的标签名转成小写，而是原汁原味地保留原始标签名。然后，使用原始的标签名进行匹配组件。例如，<MyComponent></MyComponent> 不会转为为小写形式，直接以 MyComponent 为基础开始匹配。当然，匹配的规则与 1.0 是一样的，即依次匹配：原标签名、camelCase化的标签名、PascalCase化的标签名。
+
+之前在 1.0 不能正常运行的示例代码，在 2.0 中可以正常运行了：
+
+    <div id="app3">
+    </div>
+    <script>
+        Vue.component('MyComponent', {
+            template: '<div>hello, world 2</div>'
+        })
+
+        new Vue({
+            el: '#app3',
+            template: '<MyComponent></MyComponent>'
+        })
+    </script>
+
+    <!-- -------------------------------------------------------------------------------- -->
+
+
+    对于 Vue 1.0，想以 PascalCase 形态写模板，尽量以全小写或者仅首字母大写形式注册组件，
+
+    例如 <InputNumber> 组件，可以注册为 inputnumber 或者 Inputnumber。
+
+    但是，如果你想在 1.0 中使用 Input、Select 这类与 HTML 元素重名的标签名，基本上是无解的，所以是时候尝试下 Vue 2.0 了。
+
+    <!-- ------------------------------------------------------------------------------ -->
+    
+</body>
+
+</html>

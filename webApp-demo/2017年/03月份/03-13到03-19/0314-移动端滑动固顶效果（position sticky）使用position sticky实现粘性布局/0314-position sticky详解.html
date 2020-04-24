@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    下面的这个点是很重要的：
+
+    sticky 是容器相关的，也就说 sticky 的特性只会在他所处的容器里生效。
+    这个比较抽象，demo点击预览 在这里，看完之后就懂了。
+    强调这一点是因为在实际使用中，
+
+    碰到 body 设置 height：100% 的时候 sticky 元素停在某一个位置不动了。
+
+    <!-- ------------------------------------------------------------------------------ -->
+
+    而 sticky 代码仅需要如下：
+    <style>
+
+        .sticky {
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+        }
+
+        .banshi-dating .sort-list .title {
+            height: 1.111rem;
+            line-height: 1.111rem;
+            text-indent: 1em;
+            color: #444;
+            font-size: 0.389rem;
+
+            position: -webkit-sticky;
+            position: -moz-sticky;
+            position: -ms-stikcy;
+            position: -o-sticky;
+            position: sticky;
+            z-index: 999;
+            top: 0px;
+            background-color: #f0f0f0;
+        }
+    </style>
+
+    <script>
+        // 如果是检测浏览器是否支持 sticky 我更建议使用如下代码：
+        if (CSS.supports("position", "sticky") || CSS.supports("position", "-webkit-sticky")) {
+            // 支持 sticky
+        }
+    </script>
+
+    <!-- ------------------------------------------------------------------------------ -->
+
+    特性（坑）
+
+    1、sticky 不会触发 BFC。
+
+    2、z－index 无效。
+
+    3、sticky 是容器相关的，也就说 sticky 的特性只会在他所处的容器里生效。
+    这个比较抽象，demo点击预览 在这里，看完之后就懂了。
+    强调这一点是因为在实际使用中，
+
+    碰到 body 设置 height：100% 的时候 sticky 元素停在某一个位置不动了。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+生效规则
+
+position:sticky 的生效是有一定的限制的，总结如下：
+
+须指定 top, right, bottom 或 left 四个阈值其中之一，才可使粘性定位生效。否则其行为与相对定位相同。
+
+并且 top 和 bottom 同时设置时，top 生效的优先级高，left 和 right 同时设置时，left 的优先级高。
+
+设定为 position:sticky 元素的任意父节点的 overflow 属性必须是 visible，否则 position:sticky 不会生效。
+
+这里需要解释一下：
+
+如果 position:sticky 元素的任意父节点定位设置为 overflow:hidden，
+则父容器无法进行滚动，所以 position:sticky 元素也不会有滚动然后固定的情况。
+如果 position:sticky 元素的任意父节点定位设置为 position:relative | absolute | fixed，
+则元素相对父元素进行定位，而不会相对 viewprot 定位。
+
+达到设定的阀值。这个还算好理解，也就是设定了 position:sticky 的元素表现为 relative 还是 fixed 是根据元素是否
+达到设定了的阈值决定的。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+
+</body>
+
+</html>

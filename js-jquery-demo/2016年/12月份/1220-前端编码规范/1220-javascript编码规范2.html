@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+提升声明
+
+为避免上一章节所述的变量和方法定义被自动提升造成误解，把风险降到最低，我们应该手动地显示地去声明变量与方法。也就是说，所有的变量以及方法，应当定义在 function 内的首行。
+
+只用一个 var 关键字声明，多个变量用逗号隔开。
+
+不推荐
+js 代码:
+<script>
+    (function(log) {
+        'use strict';
+
+        var a = 10;
+        var b = 10;
+
+        for (var i = 0; i < 10; i++) {
+            var c = a * b * i;
+        }
+
+        function f() {
+
+        }
+
+        var d = 100;
+        var x = function() {
+            return d * d;
+        };
+        log(x());
+
+    }(window.console.log));
+</script>
+
+
+推荐
+js 代码:
+<script>
+    (function(log) {
+       'use strict';
+        var a = 10,
+            b = 10,
+            i,
+            c,
+            d,
+            x;
+        function f() {
+
+        }
+        for (i = 0; i < 10; i++) {
+            c = a * b * i;
+        }
+        d = 100;
+        x = function() {
+            return d * d;
+        };
+        log(x());
+
+    }(window.console.log));
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+把赋值尽量写在变量申明中。
+
+不推荐
+js 代码:
+<script>
+    var a,
+        b,
+        c;
+
+    a = 10;
+    b = 10;
+    c = 100;
+</script>
+
+推荐
+js 代码:
+<script>
+    var a = 10,
+        b = 10,
+        c = 100;
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+语句块内的函数声明
+
+切勿在语句块内声明函数，在 ECMAScript 5 的严格模式下，这是不合法的。
+
+函数声明应该在定义域的顶层。但在语句块内可将函数申明转化为函数表达式赋值给变量。
+
+不推荐
+js 代码:
+<script>
+    if (x) {
+        function foo() {}
+    }
+</script>
+
+推荐
+js 代码:
+<script>
+    if (x) {
+        var foo = function() {}
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+异常
+
+基本上你无法避免出现异常，特别是在做大型开发时（使用应用开发框架等等）。
+
+在没有自定义异常的情况下，从有返回值的函数中返回错误信息一定非常的棘手，更别提多不优雅了。
+
+不好的解决方案包括了传第一个引用类型来接纳错误信息，或总是返回一个对象列表，
+
+其中包含着可能的错误对象。以上方式基本上是比较简陋的异常处理方式。
+适时可做自定义异常处理。
+
+在复杂的环境中，你可以考虑抛出对象而不仅仅是字符串（默认的抛出值）。
+
+js 代码:
+
+<script>
+    if (name === undefined) {
+        throw {
+            name: 'System Error',
+            message: 'A name should always be specified!'
+        }
+    }
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+</body>
+</html>

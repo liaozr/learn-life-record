@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        mui.ajax(getBaseServerUrl() + '/sites/sitesSchedule/queryScheduleListBySites', {
+            type: 'get', //HTTP请求类型
+            data: {
+                sitesId: localStorage.selectSitesId
+            },
+            success: function(jsonData) {
+                if (jsonData.status) {
+                    vm.detaiData = jsonData.data;
+
+                    // 请求接口成功后  在进行函数的回调，再把数据渲染到页面上。
+                    // 请求接口成功后  在进行函数的回调，再把数据渲染到页面上。
+                    // 请求接口成功后  在进行函数的回调，再把数据渲染到页面上。
+
+                    setData(jsonData.data.sitesInfo);
+                } else {
+                    plus.nativeUI.alert(jsonData.msg);
+                }
+            },
+            error: function() {}
+        });
+        }
+
+        // 从服务器拿回的数据 进行处理
+        function setData(obj) {
+            var celiangb;
+            if (obj.measurenNum == "0/0") {
+                celiangb = 0;
+            } else {
+                celiangb = eval(obj.measurenNum);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+
+1、简单类型：String、Number、Boolean、Null、Undefined
+
+
+2、null与undefined有什么区别 答：null 表示一个对象被定义了，值为“空值”，而undefined 表示不存在这个值。 正因为这个原因，所以使用typeof判断是，null返回的是object，而undefined返回的是undefined。(判断两者时需要使用===严格判断)
+
+
+3、如何通过JS判断一个数组？
+
+instanceof方法
+
+
+4、谈一谈箭头函数与普通函数的区别
+
+箭头函数使得表达更加简洁。(这个是废话)
+函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
+不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替。
+
+
+5、this的指向在函数定义的时候是确定不了的，
+只有函数执行的时候才能确定this到底指向谁，实际上this的最终指向的是那个调用它的对象。
+
+this总是指向函数的直接调用者（而非间接调用者） 如果有new关键字，this指向new出来的那个对象 在事件中，this指向触发这个事件的对象，特殊的是，IE中的attachEvent中的this总是指向全局对象Window
+
+
+6、「闭包」
+一个父函数里面包含了一个子函数，子函数调用了父函数内部的变量，如果子函数在外部被调用，就产生了闭包。简单的说，闭包就是能够读取其他函数内部变量的函数。
+闭包的作用：
+①读取其他函数内部的变量
+②变量保存在内存中
+注意：
+使用过多的闭包会消耗大量内存，造成网页的性能问题，可以在函数执行完成之前把不需要的局部变量删除。
+
+特性：
+函数嵌套函数
+函数内部可以引用外部的参数和变量
+参数和变量不会被垃圾回收机制回收
+
+
+7、getElementsByTagName() //通过标签名查找
+getElementsByName() //通过元素的name属性查找
+getElementById() //通过元素的id查找
+
+
+8、说说你对作用于链的理解
+作用域链中的变量都是向上访问的，变量访问到windows对象后终止，向下访问是不允许的。 简单的说，作用域就是变量函数的可访问范围。
+
+
+9、js原型，原型链有什么特点
+
+每个对象在内部都是会初始化一个属性的，prototype（原型），当我们访问一个对象的属性时，如果这个对象不存在这个属性，那么他就会去 prototype中查找，然后 prototype中还有自己的 prototype，就这样一直找下去，这就是原型链的概念。
+
+
+10、同步和异步的区别
+同步：浏览器访问服务器请求，用户看得到页面刷新，重新发请求,等请求完，页面刷新，新内容出现，用户看到新内容,进行下一步操作。
+
+异步：浏览器访问服务器请求，用户正常操作，浏览器后端进行请求。等请求完，页面不刷新，新内容也会出现，用户看到新内容。
+
+
+11、说说你对Promise的理解
+所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。
+Promise对象有以下两个特点:
+
+对象的状态不受外界影响，Promise对象代表一个异步操作，有三种状态：Pending（进行中）、Resolved（已完成，又称Fulfilled）和Rejected（已失败）
+一旦状态改变，就不会再变，任何时候都可以得到这个结果。
+
+
+12、
+shift 方法
+移除数组中的第一个元素并返回该元素。
+var a=[1,2];
+alert(a.shift());
+unshift 方法
+将指定的元素插入数组开始位置并返回该数组。
+
+
+13、
+JavaScript 如何实现继承？
+(1)构造继承
+(2)原型继承
+(3)实例继承
+(4)拷贝继承
+
+<script type="text/javascript">
+
+    //原型prototype机制或apply和call方法去实现较简单，建议使用构造函数与原型混合方式。
+
+	function Parent() { 
+	  this.name = 'song';
+	}
+
+	function Child() {
+	  this.age = 28;
+	}
+
+	Child.prototype = new Parent(); //通过原型,继承了Parent
+	var demo = new Child();
+	alert(demo.age);
+	alert(demo.name); //得到被继承的属性
+
+</script>
+
+
+14、javaScript 有哪几种创建对象的方式
+
+<script type="text/javascript">
+
+	(1)对象字面量的方式
+	person={firstname:"Mark",lastname:"Yun",age:25,eyecolor:"black"};
+
+
+	(4)用工厂方式来创建（内置对象）
+	var jsCreater = new Object();
+	jsCreater.name = "Brendan Eich"; //JavaScript的发明者
+	jsCreater.work = "JavaScript";
+	jsCreater.info = function() { 
+	  alert("我是"+this.work+"的发明者"+this.name);
+	}
+	jsCreater.info();
+
+
+	(5)用原型方式来创建
+	function Standard(){}
+	Standard.prototype.name = "ECMAScript";
+	Standard.prototype.event = function() { 
+	  alert(this.name+"是脚本语言标准规范");
+	}
+	var jiaoben = new Standard();
+	jiaoben.event();
+
+
+	(6)用混合方式来创建
+	function iPhone(name,event) {
+	   this.name = name;
+	   this.event = event;
+	}
+	iPhone.prototype.sell = function() { 
+	  alert("我是"+this.name+"，我是iPhone5s的"+this.event+"~ haha!");
+	}
+	var SE = new iPhone("iPhone SE","官方翻新机");
+	SE.sell();
+
+</script>
+
+15、new 操作符具体干了什么呢？
+(1)创建一个空对象，并且 this 变量引用该对象，同时还继承了该函数的原型。
+(2)属性和方法被加入到 this 引用的对象中。
+(3)新创建的对象由 this 所引用，并且最后隐式的返回 this 。
+//
+var obj = {};
+obj.__proto__ = Base.prototype;
+Base.call(obj);
+
+
+16、同步和异步的区别？
+同步的概念应该是来自于操作系统中关于同步的概念:不同进程为协同完成某项工作而在先后次序上调整(通过阻塞,唤醒等方式)。
+同步强调的是顺序性，谁先谁后；异步则不存在这种顺序性。
+//
+同步：浏览器访问服务器请求，用户看得到页面刷新，重新发请求,等请求完，页面刷新，新内容出现，用户看到新内容,进行下一步操作。
+//
+异步：浏览器访问服务器请求，用户正常操作，浏览器后端进行请求。等请求完，页面不刷新，新内容也会出现，用户看到新内容。
+
+
+
+</body>
+</html>

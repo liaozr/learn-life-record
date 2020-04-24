@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+</head>
+<body>
+	 <pre>
+        使用 props 传输资料予子组件
+
+        小凡故意把 props , data 重复名称(初学者一定会出现这个问题的
+    </pre>
+    <!-- 组件实例的作用域是孤立的。这意味着不能并且不应该在子组件的模版内直接引用父组件的数据，可以使用props把数据传给子组件   -->
+
+    <!-- prop 是组件数据的一个字段，期望从父组件传下来，子组件需要显示的用props选项声明props  -->
+    <div id="app1">
+        <child msg="hello!"></child>
+    </div>
+    <script>
+    Vue.config.debug = true;
+
+    // 全局注册一个组件child
+    Vue.component('child', {
+        // declare the props
+        props: ['msg'],
+        // the prop can be used inside templates, and will also
+        // be set as `this.msg`
+        template: '<span>{{ msg }}</span>',
+        data: function() {
+            return {
+                msg: '台湾小凡'  //子组件 child这个子组件 是不会直接从父组件中引用data数据的
+
+                // 建议data里面的这个msg,  不要跟子组件中的 msg重复
+            }
+        }
+    });
+    var vm = new Vue({
+        el: '#app1'
+
+    })
+    </script>
+<!-- ------------------------------------------------------------------- -->
+
+    <!--   html 无法辨别大小写，所以影响到 props 的写法（这也是初学者一开始搞不清楚的地方)
+        props 官网版 -->
+
+    <!-- HTML特性不区分大小写，名字形式为camelCase的props 用作特性时，需要转为came-case(短横线隔开)  -->
+
+    <!--  js脚本里面是区分大小写的，所以可以 myMessage 、camelCase这样子写 -->
+
+    <pre>
+        html 无法辨别大小写，所以影响到 props 的写法（这也是初学者一开始搞不清楚的地方)
+        props 官网版
+    </pre>
+    <div id="app21">
+        <child my-message="hello!"></child>
+    </div>
+    <pre>
+        我就是要 props 第一个大写版
+    </pre>
+    <div id="app22">
+        <child1 My-message="hello!"></child1>
+    </div>
+    <pre>
+        我就是要搞怪， props 最后一个字大写版
+    </pre>
+    <div id="app23">
+        <child2 my-messag-e="hello!"></child2>
+    </div>
+    <script>
+    Vue.config.debug = true;
+
+    Vue.component('child', {
+        // camelCase in JavaScript
+        props: ['myMessage'],
+        template: '<span>{{ myMessage }}0</span><br>'
+    });
+    var vm = new Vue({
+        el: '#app21'
+    });
+
+
+    //---------------------------
+    Vue.component('child1', {
+        // camelCase in JavaScript
+        props: ['MyMessage'],
+        template: '<span>{{ MyMessage }}1</span><br>'
+    });
+    var vm2 = new Vue({
+        el: '#app22'
+    });
+
+
+
+    //-----------------------------
+    Vue.component('child2', {
+        // camelCase in JavaScript
+        props: ['myMessagE'],
+        template: '<span>{{ myMessagE }}2</span><br>'
+    });
+    var vm3 = new Vue({
+        el: '#app23'
+    });
+
+    </script>
+
+<!-- ---------------------------------------------------------------- -->
+
+    <div id="app3">
+
+    	<!-- 类似于用 v-bind 绑定HTML特性到一个表达式，也可以用 v-bind绑定动态 props 到父组件的数据。每当父组件的数据变化时，也会传导给子组件 -->
+        <div>
+            <input v-model="parentMsg">
+            <br>
+            <child v-bind:my-message="parentMsg"></child>
+            <br>
+            <child :my-message="parentMsg"></child>
+        </div>
+    </div>
+    <script>
+    Vue.config.debug = true;
+    Vue.component('child', {
+        // camelCase in JavaScript
+        props: ['myMessage'],
+        template: '<span>{{ myMessage }}</span>'
+    });
+    var vm = new Vue({
+        el: '#app3',
+        data: {
+            parentMsg: '台湾小凡'
+        }
+
+    });
+    </script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+    <div id="app41">
+        <!-- 传递了一个字符串 "1" -->
+        <!-- 这个的结果为199199 ,字符串的拼接 -->
+        <comp some-prop="199"></comp> 
+
+        <br >
+        <!-- 传递实际的数字  -->
+        <!-- 如果想传递一个实际的javascript 数字，需要使用动态语法，从而让他的值被当作javascript 表达式计算 -->
+
+        <!-- 需加多个 冒号： -->
+
+        <!--  这个的结果为398  -->
+        <comp :some-prop="199"></comp>
+    </div>
+    <script>
+    Vue.config.debug = true;
+
+    // 全局注册一个组件，tag为comp
+
+    Vue.component('comp', {
+        // camelCase in JavaScript
+        props: ['someProp'],
+        template: '<span>{{ someProp+199 }}</span>'
+    });
+    var vm = new Vue({
+        el: '#app41'
+    });
+    </script>
+
+<!-- ----------------------------------------------------------------- -->
+
+    <div id="app51">
+
+    	<!-- props默认是单向绑定，当父组件的属性变化时，将传导给子组件，但是反过来不会。这是为了防止子组件无意修改了父组件的状态-这会让应用的数据流难以理解。不过也可以使用.sync  或者是 .once绑定修饰符显示地强制双向或单次绑定 -->
+        1.
+        <input v-model="parentMsg">
+        <br> 2.
+
+        <!-- 默认是单向绑定 -->
+        <child :msg="parentMsg"></child> default, one-way-down binding
+        <br> 3.
+
+        <!-- 双向绑定 -->
+        <!-- 双向绑定会把子组件的msg 属性同步回父组件的parentMsg属性 -->
+        <child :msg.sync="parentMsg"></child> explicit two-way binding
+        <br> 4.
+
+        <!-- 单次绑定 -->
+        <!-- 单次绑定在建立之后不会同步之后的变化 -->
+        <!-- 不会同步之后的变化，意思是说当  绑定建立一次之后，再改变父组件中的parentMsg值 也都是不会再改变这个组件的值的了 -->
+        <child :msg.once="parentMsg"></child> explicit one-time binding
+    </div>
+    <!-- 注意如果props是一个对象或者是数组，是按引用传递，在子组件内修改它会影响父组件的状态，不管是使用哪种绑定类型。 -->
+    <script>
+    Vue.config.debug = true;
+
+    Vue.component('child', {
+        props: ['msg'],
+        template: '<span><input v-model="msg"></span>'
+    });
+    var vm = new Vue({
+        el: '#app51',
+        data: {
+            parentMsg: '台湾小凡'
+        }
+    });
+    </script>
+
+<!-- ------------------------------------------------------------------- -->
+
+
+    <br>
+    <br>
+    <div id="app61">
+        1.
+        <input v-model="parentMsg">
+        <br> 2.
+        <example
+        :prop-a="100"
+        prop-b="100"
+        :prop-c=""
+        :prop-d=""
+        :prop-e.sync="parentMsg"
+        :prop-f="13"
+        :prop-g="100"
+        prop-h="100"
+        prop-m="100"
+        ></example>
+    </div>
+    <template id="pp">
+    <ul>
+        <li>propA : {{propA+1}}</li>
+        <li>propB : {{propB+1}}</li>
+        <li>propC : {{propC+1}}</li>
+        <li>propD : <pre>{{ propD | json 4 }}</pre></li>
+        <li>propE : {{propE+1}}</li>
+        <li>propF : {{propF+1}}</li>
+        <li>propG : {{propG+1}}</li>
+        <li>propH : {{propH+1}}  <pre>{{ propH | json 4 }}</pre></li>
+        <li>propM : {{propM+1}}</li>
+    </ul>
+    </template>
+    <script>
+    Vue.config.debug = true;
+    Vue.component('example', {
+        props: {
+            // 基础类型检测 （`null` 意思是任何类型都可以）
+            propA: Number,
+            // 多种类型 (1.0.21+)
+            propM: [String, Number],
+            // 必需且是字符串
+            propB: {
+                type: String,
+                required: true
+            },
+            // 数字，有默认值
+            propC: {
+                type: Number,
+                default: 100
+            },
+            // 对象/数组的默认值应当由一个函数返回
+            propD: {
+                type: Object,
+                default: function() {
+                    return {
+                        msg: 'hello'
+                    }
+                }
+            },
+            // 指定这个 prop 为双向绑定
+            // 如果绑定类型不对将抛出一条警告
+            propE: {
+                twoWay: true
+            },
+            // 自定义验证函数
+            propF: {
+                validator: function(value) {
+                    return value > 10
+                }
+            },
+            // 转换函数（1.0.12 新增）
+            // 在设置值之前转换值
+            propG: {
+                coerce: function(val) {
+                    return val + '' // 将值转换为字符串
+                }
+            },
+            propH: {
+                coerce: function(val) {
+                    return JSON.parse(val) // 将 JSON 字符串转换为对象
+                }
+            }
+        },
+        template:'#pp'
+    });
+    var vm = new Vue({
+        el: '#app61',
+        data: {
+            parentMsg: '台湾小凡'
+        }
+    });
+    </script>
+    
+<!-- -------------------------------------------------------------------------------------- -->
+
+
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- -------------------------------------------------------------------------- -->
+
+关闭页面
+
+mui框架将窗口关闭功能封装在mui.back方法中，
+
+具体执行逻辑是：若当前webview为预加载页面，则hide当前webview；
+
+否则，close当前webview。
+
+<!-- -------------------------------------------------------------------------- -->
+
+执行beforeback参数对应的函数若返回false，则不再执行mui.back()
+
+方法；否则（返回true或无返回值），继续执行mui.back()方法；
+
+示例：从列表打开详情页面，从详情页面再返回后希望刷新列表界面，此时可注册beforeback参数，然后通过自定义事件通知列表页面刷新数据，示例代码如下：
+
+<script>
+
+	mui.init({
+	    beforeback: function(){
+	        //获得列表界面的webview
+	        var list = plus.webview.getWebviewById('list');
+	        //触发列表界面的自定义事件（refresh）,从而进行数据刷新
+
+	        mui.fire(list,'refresh');
+	        //返回true，继续页面关闭逻辑
+	        return true;
+	    }
+	});
+
+</script>
+
+<!-- --------------------------------------------------------------------------- -->
+
+若要自定义业务逻辑，就需要复写
+
+mui.back方法了；
+
+如下为一个自定义示例，每次都需要用户确认后，才会关闭当前页面。
+
+每次都需要用户确认后，才会关闭当前页面.
+
+<script>
+
+	//备份mui.back，
+	// mui.back已将窗口关闭逻辑封装的比较完善（预加载及父子窗口），
+	// 因此最好复用mui.back
+
+	var old_back = mui.back;
+	mui.back = function(){
+	  var btn = ["确定","取消"];
+	  mui.confirm('确认关闭当前窗口？','Hello MUI',btn,function(e){
+	    if(e.index==0){
+	        //执行mui封装好的窗口关闭逻辑；
+	        old_back();
+	    }
+	  });
+	}
+
+</script>
+
+注意：自定义关闭逻辑时，一定要重写
+mui.back，不能简单通过addEventListener增加back按键监听，
+因为addEventListener只会增加新的执行逻辑，老的监听逻辑依然会执行；
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+<!--  处理 安卓机的 返回按钮的时候  再按一次退出应用的  -->
+<!--  处理 安卓机的 返回按钮的时候  再按一次退出应用的  -->
+
+<script>
+
+		//返回按钮事件
+		var backButtonPress = 0;
+		mui.back = function(event) {
+			backButtonPress++;
+			if (backButtonPress > 1) {
+				plus.runtime.quit();
+			} else {
+				plus.nativeUI.toast('再按一次退出应用');
+			}
+			setTimeout(function() {
+				backButtonPress = 0;
+			}, 1000);
+			return false;
+		};
+
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+<script>
+		mui.back = function() {
+			if (!first) {
+				first = new Date().getTime();
+				mui.toast('再按一次退出应用');
+				setTimeout(function() {
+					first = null;
+				}, 800);
+			} else {
+				if (new Date().getTime() - first < 800) {
+					plus.runtime.quit();
+				}
+			}
+		};
+</script>
+<!-- ----------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

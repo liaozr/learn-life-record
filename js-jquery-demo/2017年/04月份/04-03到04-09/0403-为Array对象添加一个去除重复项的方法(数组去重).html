@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	数组去重本身算法不是很难，但是在 JavaScript 中很多人会忽视 NaN 的存在，
+
+	因为在 JS 中 NaN !== NaN 。但是在去重中我们又不能保留两个 NaN 
+
+	，所以需要进行一下判断，这是很多人容易忽视的。ES5的实现如下：
+
+	<script>
+		
+		Array.prototype.uniq = function () {
+		  var arr = [];
+		  var flag = true;
+		  this.forEach(function(item) {
+		    // 排除 NaN (重要！！！)
+		    if (item != item) {
+		      flag && arr.indexOf(item) === -1 ? arr.push(item) : '';
+		      flag = false;
+		    } else {
+		      arr.indexOf(item) === -1 ? arr.push(item) : ''
+		    }
+		  });
+		  return arr;
+		}
+
+	</script>
+
+    我们只需要在数组上直接调用 uniq 方法就可以了，如：
+    
+    <script>
+
+    	var arr=[false, true, undefined, null, NaN, 0, 1,'a', 'a', NaN,'您好','您好'];
+
+    	console.log ( arr.uniq() );
+    	// [false, true, undefined, null, NaN, 0, 1, "a", "您好"]
+
+    </script>
+
+    <!-- ------------------------------------------------------------------------------- -->
+
+
+
+</body>
+</html>

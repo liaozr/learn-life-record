@@ -1,0 +1,351 @@
+{
+	"login.html": {
+		"resources": [
+			"img/user.png",
+			"img/login_logo.png",
+			"js/flexible_css.debug.js",
+			"css/base.css",
+			"js/common.js",
+			"js/zepto_1.1.3.js",
+			"img/password.png",
+			"img/login-dotcheck2.png",
+			"img/tenant.png",
+			"js/flexible.debug.js",
+			"img/login_bg.png",
+			"js/locStorage.js",
+			"img/login-dotcheck1.png",
+			"js/zepto1.1.6.min.js",
+			"js/url.js",
+			"js/sea.js",
+			"js/db.js"
+		],
+		"refer": [
+			"index.html",
+			"index1.html"
+		]
+	},
+	"index.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/flexible_css.debug.js",
+			"css/base.css",
+			"js/flexible.debug.js",
+			"home.html",
+			"css/common.css",
+			"img/user.png",
+			"img/password.png",
+			"img/icon_task_pressed.png",
+			"img/icon_task_nor.png",
+			"img/icon_home_pressed.png",
+			"img/icon_home_nor.png",
+			"img/icon_mine_pressed.png",
+			"img/icon_mine_normal.png",
+			"img/notice_normal.png",
+			"js/zepto1.1.6.min.js",
+			"js/mui.js",
+			"fonts/mui.ttf",
+			"css/app.css",
+			"js/sea.js",
+			"js/db.js",
+			"js/locStorage.js",
+			"mine.html"
+		],
+		"refer": [
+			"home.html",
+			"mine.html",
+			"task.html",
+			"img/user.png",
+			"notice.html",
+			"about.html"
+		]
+	},
+	"home.html": {
+		"resources": [
+			"img/banner2.png",
+			"img/banner.png",
+			"img/banner3.png",
+			"img/banner1.png",
+			"js/flexible_css.debug.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/flexible.debug.js",
+			"img/second_icon_zsk.png",
+			"img/second_icon_pyq.png",
+			"img/second_icon_ks.png",
+			"fonts/mui.ttf",
+			"img/second_icon_zlwd.png",
+			"img/tip.png",
+			"img/second_icon_qd.png",
+			"img/second_icon_kc.png",
+			"img/second_icon_wz.png",
+			"css/home.css",
+			"js/sub.js",
+			"js/zepto1.1.6.min.js",
+			"js/sea.js",
+			"js/locStorage.js",
+			"js/db.js",
+			"js/vue.min.js",
+			"img/shuijiao.jpg",
+			"img/muwu.jpg",
+			"img/yuantiao.jpg",
+			"img/cbd.jpg"
+		],
+		"refer": [
+			"qiandao.html",
+			"kecheng.html",
+			"wenzhang.html"
+		]
+	},
+	"notice.html": {
+		"resources": [
+			"css/base.css",
+			"img/title_button_back.png",
+			"css/common.css",
+			"css/mui.min.css",
+			"js/vue.min.js",
+			"js/zepto1.1.6.min.js",
+			"js/flexible_css.debug.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"js/flexible.debug.js",
+			"js/url.js",
+			"js/common.js",
+			"js/locStorage.js",
+			"notice_sub.html"
+		],
+		"refer": [
+			"notice_sub.html"
+		]
+	},
+	"notice_sub.html": {
+		"resources": [
+			"js/vue.min.js",
+			"js/url.js",
+			"js/zepto1.1.6.min.js",
+			"js/flexible_css.debug.js",
+			"css/base.css",
+			"js/common.js",
+			"js/mui.min.js",
+			"css/common.css",
+			"css/mui.min.css",
+			"js/flexible.debug.js",
+			"js/locStorage.js",
+			"fonts/mui.ttf",
+			"img/notice_pressed.png",
+			"img/iv_bj.png"
+		],
+		"refer": [
+			"notice_detail.html"
+		]
+	},
+	"notice_detail.html": {
+		"resources": [
+			"js/url.js",
+			"js/zepto1.1.6.min.js",
+			"js/flexible_css.debug.js",
+			"css/base.css",
+			"js/common.js",
+			"img/title_button_back.png",
+			"js/mui.min.js",
+			"css/common.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/vue.min.js",
+			"js/flexible.debug.js",
+			"js/locStorage.js"
+		],
+		"refer": []
+	},
+	"mine.html": {
+		"resources": [
+			"img/default_photo.png",
+			"js/flexible_css.debug.js",
+			"css/base.css",
+			"js/mui.min.js",
+			"css/common.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"img/tip.png",
+			"js/flexible.debug.js",
+			"img/icon.png",
+			"js/url.js",
+			"js/vue.min.js",
+			"js/zepto1.1.6.min.js",
+			"js/common.js",
+			"js/locStorage.js"
+		],
+		"refer": [
+			"empDetail.html",
+			"about.html",
+			"feedback.html",
+			"help.html"
+		]
+	},
+	"empDetail.html": {
+		"resources": [
+			"img/radio_checked.png",
+			"img/title_button_back.png",
+			"img/muwu.jpg",
+			"img/radio_normal.png",
+			"img/default_photo.png",
+			"css/base.css",
+			"js/flexible_css.debug.js",
+			"fonts/mui.ttf",
+			"js/vue.min.js",
+			"js/flexible.debug.js",
+			"js/zepto1.1.6.min.js",
+			"css/common.css",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/locStorage.js",
+			"img/editl.png",
+			"css/app.css",
+			"js/common.js",
+			"js/url.js"
+		]
+	},
+	"about.html": {
+		"resources": [
+			"img/title_button_back.png",
+			"img/qr.png",
+			"js/flexible_css.debug.js",
+			"css/base.css",
+			"js/common.js",
+			"css/mui.min.css",
+			"js/flexible.debug.js",
+			"js/mui.min.js",
+			"js/zepto1.1.6.min.js",
+			"img/banner3.png",
+			"css/common.css",
+			"fonts/mui.ttf"
+		]
+	},
+	"feedback.html": {
+		"resources": [
+			"js/mui.picker.js",
+			"img/title_button_back.png",
+			"js/mui.poppicker.js",
+			"css/mui.poppicker.css",
+			"css/mui.picker.css",
+			"img/icon-right.png",
+			"js/url.js",
+			"js/flexible_css.debug.js",
+			"fonts/mui.ttf",
+			"js/vue.min.js",
+			"js/flexible.debug.js",
+			"js/zepto1.1.6.min.js",
+			"js/common.js",
+			"css/common.css",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/locStorage.js"
+		]
+	},
+	"help.html": {
+		"resources": [
+			"img/title_button_back.png",
+			"help_sub.html",
+			"fonts/mui.ttf",
+			"js/zepto1.1.6.min.js",
+			"js/flexible_css.debug.js",
+			"css/base.css",
+			"js/mui.min.js",
+			"css/common.css",
+			"css/mui.min.css",
+			"js/flexible.debug.js"
+		],
+		"refer": [
+			"help_sub.html"
+		]
+	},
+	"help_sub.html": {
+		"refer": [
+			"notice_detail.html",
+			"help_detail.html"
+		],
+		"resources": [
+			"js/url.js",
+			"js/zepto1.1.6.min.js",
+			"js/flexible_css.debug.js",
+			"css/base.css",
+			"js/common.js",
+			"js/mui.min.js",
+			"css/common.css",
+			"css/mui.min.css",
+			"js/vue.min.js",
+			"js/flexible.debug.js",
+			"js/locStorage.js"
+		]
+	},
+	"help_detail.html": {
+		"resources": [
+			"js/zepto1.1.6.min.js",
+			"js/flexible_css.debug.js",
+			"img/title_button_back.png",
+			"js/mui.min.js",
+			"css/common.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/vue.min.js",
+			"js/flexible.debug.js",
+			"js/common.js"
+		]
+	},
+	"qiandao.html": {
+		"resources": [
+			"js/flexible_css.debug.js",
+			"css/base.css",
+			"img/title_button_back.png",
+			"css/mui.min.css",
+			"js/flexible.debug.js",
+			"css/common.css"
+		]
+	},
+	"kecheng.html": {
+		"resources": [
+			"js/flexible_css.debug.js",
+			"css/base.css",
+			"img/title_button_back.png",
+			"css/mui.min.css",
+			"js/flexible.debug.js",
+			"css/common.css"
+		]
+	},
+	"wenzhang_sub.html": {
+		"resources": [
+			"js/url.js",
+			"js/zepto1.1.6.min.js",
+			"js/flexible_css.debug.js",
+			"css/base.css",
+			"js/common.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"js/vue.min.js",
+			"js/flexible.debug.js",
+			"js/locStorage.js",
+			"css/common.css",
+			"img/shuijiao.jpg"
+		],
+		"refer": [
+			"notice_detail.html"
+		]
+	},
+	"wenzhang.html": {
+		"resources": [
+			"js/zepto1.1.6.min.js",
+			"js/flexible_css.debug.js",
+			"css/base.css",
+			"img/title_button_back.png",
+			"js/mui.min.js",
+			"wenzhang_sub.html",
+			"css/mui.min.css",
+			"js/flexible.debug.js",
+			"css/common.css",
+			"fonts/mui.ttf"
+		],
+		"refer": [
+			"wenzhang_sub.html"
+		]
+	}
+}

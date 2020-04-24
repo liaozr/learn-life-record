@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  
+  <!-- ---------------------------------------------------------------------------------------------------- -->
+
+    子组件是不能够随随便便修改 父组件传给子组件的 props值的，不然是会提示报错的
+    子组件是不能够随随便便修改 父组件传给子组件的 props值的，不然是会提示报错的
+
+
+    <script type="text/ecmascript-6">
+
+        export default {
+            props: {
+                switches: {
+                    type: Array,
+                    default: []
+                },
+                currentIndex: {
+                    type: Number,
+                    default: 0
+                }
+            },
+            methods: {
+
+                switchesItem(item, index) {
+                    //下面这样子做是会报错的，相当于 在子组件里面 把这个 props值 给改变了
+                    // 子组件是不能够随随便便修改 父组件传给子组件的 props值的，不然是会提示报错的
+                    // this.currentIndex = index
+                }
+            }
+        }
+
+    </script>
+
+    <!-- ---------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

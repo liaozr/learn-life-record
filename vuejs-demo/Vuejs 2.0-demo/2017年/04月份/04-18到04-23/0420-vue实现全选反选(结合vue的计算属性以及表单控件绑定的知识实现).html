@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>check</title>
+    <script src="https://cdn.bootcss.com/vue/2.2.6/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="root">
+
+        <!--
+
+      复选框
+      单个勾选框，逻辑值：
+      <input type="checkbox" id="checkbox" v-model="checked">
+      <label for="checkbox">{{ checked }}</label>
+
+     -->
+
+        <!-- ---------------------------------------------------------------------------- -->
+        <form action="">
+            <table>
+                <tr>
+                    <td>
+                        <label for="checkAll">
+             <input type="checkbox" v-model="checkAll" id="checkAll" />全选({{checkedCounts}})
+           </label>
+                    </td>
+                    <td>姓名</td>
+                    <td>年龄</td>
+                </tr>
+                <tr v-for="user in users">
+                    <td><input type="checkbox" name="user" :value="user.username" v-model="checked" /></td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.age}}</td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                users: [{
+                        "username": "aaa",
+                        "age": 25
+                    },
+                    {
+                        "username": "bbb",
+                        "age": 24
+                    }
+                ],
+                // 多个勾选框，绑定到同一个数组：
+                // 多个勾选框，绑定到同一个数组：
+                checked: []
+            },
+            computed: {
+                checkedCounts() {
+                    return this.checked.length
+                },
+                checkAll: {
+                    get: function() {
+                        return this.users.length == this.checked.length
+                    },
+                    set: function(val) {
+                        if (val) {
+                            this.checked = this.users.map(function(user) {
+                                return user.username
+                            })
+                        } else {
+                            this.checked = []
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+1.CSS实现垂直水平居中
+
+一道经典的问题，实现方法有很多种，以下是其中一种实现：
+HTML结构：
+
+<div class="wrapper">
+    <div class="content"></div>
+</div>
+
+CSS：
+<style>
+    .wrapper {
+        position: relative;
+    }
+
+    .content {
+        background-color: #6699FF;
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        /*//父元素需要相对定位*/
+        top: 50%;
+        left: 50%;
+        margin-top: -100px;
+        /*//二分之一的height，width*/
+        margin-left: -100px;
+    }
+</style>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+2.display有哪些值？说明他们的作用。
+
+  block         块类型。默认宽度为父元素宽度，可设置宽高，换行显示。
+  none          缺省值。象行内元素类型一样显示。
+  inline        行内元素类型。默认宽度为内容宽度，不可设置宽高，同行显示。
+  inline-block  默认宽度为内容宽度，可以设置宽高，同行显示。
+
+  list-item     象块类型元素一样显示，并添加样式列表标记。
+  table         此元素会作为块级表格来显示。
+  inherit       规定应该从父元素继承 display 属性的值。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+3.行内元素有哪些?块级元素有哪些?CSS的盒模型?
+
+块级元素：div,p,h1,form,ul,li;
+
+行内元素 : span>,a,label,input,img,strong,em;
+
+CSS盒模型:内容，border ,margin，padding
+
+<!-- ------------------------------------------------------------------------------ -->
+
+
+4.CSS引入的方式有哪些? link和@import的区别是?
+
+内联 内嵌 外链 导入
+区别 ：同时加载
+前者无兼容性，后者CSS2.1以下浏览器不支持
+Link 支持使用javascript改变样式，后者不可
+<!-- ---------------------------------------------------------------------------------------- -->
+
+5.CSS选择符有哪些?哪些属性可以继承?优先级算法如何计算?内联和important哪个优先级高?
+
+标签选择符 类选择符 id选择符
+继承不如指定 Id>class>标签选择
+后者优先级高
+
+<!-- ------------------------------------------------------------------------------- -->
+
+6.CSS清除浮动的几种方法（至少两种）
+
+使用带clear属性的空元素
+
+使用CSS的overflow属性；
+
+使用CSS的:after伪元素；
+
+使用邻接元素处理；
+
+<!-- -------------------------------------------------------------------------------- -->
+
+7.CSS居中（包括水平居中和垂直居中）
+
+内联元素居中方案
+水平居中设置：
+1.行内元素
+
+设置 text-align:center；
+2.Flex布局
+
+设置display:flex;justify-content:center;(灵活运用,支持Chroime，Firefox，IE9+)
+垂直居中设置：
+1.父元素高度确定的单行文本（内联元素）
+
+设置 height = line-height；
+
+2.父元素高度确定的多行文本（内联元素）
+
+a:插入 table （插入方法和水平居中一样），然后设置 vertical-align:middle；
+b:先设置 display:table-cell 再设置 vertical-align:middle；
+块级元素居中方案
+水平居中设置：
+1.定宽块状元素
+设置 左右 margin 值为 auto；
+
+2.不定宽块状元素
+
+a:在元素外加入 table 标签（完整的，包括 table、tbody、tr、td），该元素写在 td 内，然后设置 margin 的值为 auto；
+b:给该元素设置 displa:inine 方法；
+c:父元素设置 position:relative 和 left:50%，子元素设置 position:relative 和 left:50%；
+垂直居中设置：
+
+使用position:absolute（fixed）,设置left、top、margin-left、margin-top的属性;
+利用position:fixed（absolute）属性，margin:auto这个必须不要忘记了;
+利用display:table-cell属性使内容垂直居中;
+使用css3的新属性transform:translate(x,y)属性;
+使用:before元素;
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+
+
+</body>
+</html>

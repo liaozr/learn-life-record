@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+// ---------------------------------------------------------------------------------------------------------
+
+        mui('#pullrefresh').pullRefresh().setStopped(true); //暂时禁止滚动
+
+        mui('#pullrefresh').pullRefresh().setStopped(false); //开启禁止滚动
+
+// ---------------------------------------------------------------------------------------------------------
+
+        监听mui 选择器  的 取消操作
+
+        /* 没有选择时间的时候启用下拉刷新 */
+
+        mui("body").on("tap",".mui-dtpicker-header > button",function(){
+           mui('#pullrefresh').pullRefresh().setStopped(false);
+        });
+
+        mui("body").on("tap",".mui-backdrop",function(){
+            mui('#pullrefresh').pullRefresh().setStopped(false);
+        });
+
+// ---------------------------------------------------------------------------------------------------------
+
+
+    </script>
+
+
+</body>
+
+</html>

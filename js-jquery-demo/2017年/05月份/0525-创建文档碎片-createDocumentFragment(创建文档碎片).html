@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------- -->
+
+    <script>
+
+// ----------------------------------------------------------------------------
+
+        //		var fragment_1 = document.createDocumentFragment();
+        //		fragment_1.innerHTML = '<p>我是一个粉刷匠</p>';
+        //		document.body.appendChild(fragment_1);
+        //		var fragment_2 = document.createElement('p');
+        //		fragment_2.innerHTML = '粉刷本领强';
+        //		document.body.appendChild(fragment_2);
+        //		var ul = document.createElement("ul");
+        //		for(var i = 0; i < 10000; i++) {
+        //			var li = document.createElement("li");
+        //			var text = document.createTextNode(i);
+        //			li.appendChild(text);
+        //			ul.appendChild(li);
+        //			//一个一个地添加进document.body节点中
+        //			document.body.appendChild(ul);
+        //		}
+
+// ----------------------------------------------------------------------------
+
+        var fragmeng = document.createDocumentFragment();
+
+        var ul = document.createElement("ul");
+
+        for (var i = 0; i < 10000; i++) {
+            var li = document.createElement("li");
+            var text = document.createTextNode(i);
+            li.appendChild(text);
+            ul.appendChild(li);
+
+            //先把每个li存放在文档碎片中
+            fragmeng.appendChild(ul);
+        }
+
+        //最后把全部 li 一次性添加到document中
+        document.body.appendChild(fragmeng);
+
+// ----------------------------------------------------------------------------
+
+    </script>
+
+<!-- --------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

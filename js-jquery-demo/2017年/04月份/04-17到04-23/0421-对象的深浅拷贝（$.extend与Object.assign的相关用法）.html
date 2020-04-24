@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+    <script>
+        var obj1 = {
+            text: 1,
+            value: 'zrliao',
+            msg: 'msg111'
+        }
+
+        var obj2 = {
+            text: 2,
+            value: 'zrliao2',
+            others: "liaozhongren"
+        }
+
+        var objall = $.extend(true, obj1, obj2); // 深拷贝
+        objall.text = '3'
+        console.log(objall);
+        console.log(obj2);
+
+        // 打印出来的数据为：
+        // Object {text: 3, value: "zrliao2", msg: "msg111", others: "liaozhongren"}
+
+        //Object {text: 2, value: "zrliao2", others: "liaozhongren"}
+    </script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+    <script>
+        var obj3 = {
+            text: 3,
+            value: 'zrliao33',
+            msg: 'msg333'
+        }
+
+        var obj4 = {
+            text: 4,
+            value: 'zrliao4',
+        }
+
+        var objall2 = Object.assign({},obj3,obj4);
+        objall2.text = '5'
+        console.log(objall2);
+        console.log(obj4);
+
+        // 打印出来的数据为：
+        // Object {text: "5", value: "zrliao4", msg: "msg333"}
+        // Object {text: 4, value: "zrliao4"}
+
+    </script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+
+所以，从上面可以看出，  $.extend 与  Object.assign(); 的作用上基本是一样的。
+
+$.extend 与  Object.assign(); 的作用上基本是一样的。
+
+利用Object.assign()方法进行对象的深拷贝可以避免源对象被篡改的可能。
+
+因为Object.assign() 方法可以把任意多个的源对象自身的可枚举属性拷贝给目标对象，然后返回目标对象。
+
+但是Object.assign() 只是一级属性复制，比浅拷贝多深拷贝了一层，使用的时候，还要注意这个问题。
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

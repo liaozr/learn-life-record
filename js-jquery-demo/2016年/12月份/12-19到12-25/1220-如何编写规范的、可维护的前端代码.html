@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+在构建Web页面的过程中，要尽量让这三者保持松耦合的关系，不要牵一发而动全身，一个层面小的改动需要改动另外两个层面。
+
+首先要从文件级别上隔离这三部分，在HTML中通过引入文件的方式导入Javascript和CSS。
+
+要做到三者的松耦合，开发中需要注意的地方又如下几点：
+
+在CSS代码中不要包含Javascript
+在Javascript代码中不要包含CSS
+在HTML代码中不要包含Javascript
+在Javascript中不要包含HTML
+
+CSS代码中不要包含Javascript，指的是在CSS代码中慎用可计算的样式，如IE 8的 expression，CSS3的calc等等，从使用角度来讲全是很强大，从代码维护的角度来看，不推荐使用。
+
+出现了Bug的时候，需要同时Check Javascript和CSS代码。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+二、HTML页面中引用了大量的外部Javascript文件和CSS文件
+
+HTML页面中引用了大量的外部Javascript文件和CSS文件，我们知道
+
+每一个引用外部文件的 script标签 或者 style标签 都会引起一个HTTP请求，而一个HTTP请求的代价其实是很高昂的
+
+首先要通过DNS Server把域名变为IP，然后在浏览器与服务器之间建立TCP链接，建立TCP链接之后，浏览器向服务器发送HTTP请求，服务器处理完请求后，将结果返回给浏览器，最后关闭TCP链接。整个HTTP的请求的代价还是很大的。
+
+另外浏览器对于HTTP请求的并发数量是有限制的，每个浏览器不等，基本在4个左右。
+
+当HTML页面中引用了大量的外部Javascript文件和CSS文件，
+
+我们可以考虑通过合并以及压缩Javascript，CSS文件来达到减少HTTP请求数量，以及HTTP结果的目的。
+
+Grunt是一个基于任务的JavaScript项目命令行构建工具，通过Grunt可以将多个文件合并成一个文件，并且进行压缩处理。Grunt没有开发平台的限制，只要是前端项目，都可以使用Grunt来配置任务。Grunt有着广泛的社区支持，有很多的现有的插件。
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+三、Javascript代码全局变量
+
+看完了HTML代码之后，又过了一下页面主要的Javascript代码，发现的问题主要是Javascript代码引入了太多的全局变量。
+JavaScript全局变量在很小的程序中可能会带来方便，但随着程序越来越大，它很快变得难以处理。
+
+因为一个全局变量可以被程序的任何部分在任意时间改变，使得程序的行为被极大地复杂化。
+
+在程序中使用全局变量降低了程序的可靠性。
+
+定义Javascript的方式有三种：
+
+<script>
+    //  在所有函数外部使用var定义变量
+    var foo = 10;
+    // 没有使用var，直接声明变量
+    foo = 10;
+    window.foo = 10;
+</script>
+
+其中第二种隐式的声明了全局变量，尤其需要注意。
+
+我们应该尽量少的引入全局变量，jQuery也不过提供了两个全局变量：$, jQuery。
+
+那么有没有可能在注入Javascript到HTML页面之后，实现零个全局变量的引入？
+
+通过立即执行函数可以达到这一点，参见下面的代码：
+
+<script>
+    (function(){
+       "use strict";
+        var doc = 'win.document';
+        console.log(doc);
+        // declare other variables here
+        // other code goes here
+    })();
+    // console.log(doc);
+    //这句代码是会报错的，因为变量doc此时 是局部变量来的
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+如果你需要将该对象返回，可以使用如下的方式：
+<script>
+      var module1 = (function(){
+      　　　　var _count = 0;
+      　　　　var m1 = function(){
+      　　　　　　//...
+                 var aa=4
+                 return aa
+      　　　　};
+      　　　　var m2 = function(){
+      　　　　　　//...
+                 console.log("m2")
+      　　　　};
+
+      　　　　return {
+      　　　　　　m1 : m1,
+      　　　　　　m2 : m2
+      　　　　};
+      })();
+ </script>
+
+这样的话只会引入一个全局变量 module1，而且该对象具有很好的封装性，其内部变量“_count”，在外部是无法访问的。
+
+整个页面其实也还有一些其他小的问题，在这里就不一一赘述了。
+
+说了半天老代码的问题，其实没有对老代码有任何偏见，因为不论它是否美丑，都在为系统服务，都在产生价值。我们只是在追求更好的代码，更可读，更易维护的代码。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+</body>
+</html>

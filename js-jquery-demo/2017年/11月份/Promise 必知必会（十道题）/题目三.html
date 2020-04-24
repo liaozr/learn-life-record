@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        const promise = new Promise((resolve, reject) => {
+            resolve('success1')
+            reject('error')
+            resolve('success2')
+        })
+
+        promise
+            .then((res) => {
+                console.log('then: ', res)
+            })
+            .catch((err) => {
+                console.log('catch: ', err)
+            })
+
+    </script>
+
+    运行结果：
+
+    then: success1
+
+    解释：构造函数中的 resolve 或 reject 只有第一次执行有效，多次调用没有任何作用，呼应代码二结论：promise 状态一旦改变则不能再变。
+
+</body>
+
+</html>

@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<!-- ------------------------------------------------------------------------------- -->
+
+<!-- 
+
+v-on 
+用于绑定事件监听器，事件类型由参数指定。
+
+在监听原生DOM事件时，如果只定义一个参数。 DOM event 为事件的唯一参数;如果在内联语句处理器中访问原生DOM事件，则可以用特殊变量$event把它传入方法中。
+
+ -->
+
+<!-- 方法 -->
+<button v-on:click="methods"></button>
+<!-- 内联语句 -->
+<button v-on:click="methods(123, $event)"></button>
+<!-- 缩写 -->
+<button @click="methods"></button>
+<!-- 停止冒泡 -->
+<button @click.stop="methods"></button>
+<!-- 阻止默认行为 -->
+<button @click.prevent="methods"></button>
+<!-- 阻止默认行为，没有表达式 -->
+<button @submit.prevent></button>
+<!-- 串联修饰符 -->
+<button @click.stop.prevent="methods"></button>
+<!-- 修饰符，键别名 -->
+<button @keyup.enter="onEnter"></button>
+
+<!-- 键修饰符，键代码 -->
+<button @keyup.13="onEnter"></button>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+<!-- v-ref -->
+
+在父组件上注册一个子组件的索引，便于直接访问。不需要表达式，必须提供参数id。可以通过父组件的$refs对象访问子组件
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+
+<!-- v-el -->
+
+<!-- 
+为DOM元素注册一个索引，方便通过所属实例的$els访问这个元素。可以用v-el:smoe-el设置this.$els.smoeEl 
+-->
+
+   
+<div class="app">
+    
+    <span v-el:msg>hello</span>
+    <span v-el:other-msg>Vue</span>
+    
+</div>
+
+<script src="vue1.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+    
+    new Vue({
+        el: '.app',
+        ready: function () {
+            console.log( this.$els.msg.textContent ); // hello
+            console.log( this.$els.otherMsg ); // <span>Vue<span>
+        }
+    });
+    
+</script>
+<!-- ----------------------------------------------------------------------------- -->
+
+<!-- v-cloak -->
+
+<!-- v-cloak 这个指令保持在元素上知道关联实例结果编译。
+解决闪烁问题 -->
+<style>
+	[v-cloak] {
+	    dispnay: none;
+	}
+</style>
+
+<div v-cloak>
+    {{message}}
+</div>
+<!-- ------------------------------------------------------------------------------ -->
+
+<!-- 自定义指令 -->
+
+<!-- 自定义指令提供一种机制将数据的变化映射为DOM行为。 -->
+
+<!-- 
+钩子函数
+Vue中的钩子函数都是可选的，相互之间没有制约关系 
+-->
+
+<!-- 
+
+bind， 只调用一次，在指令第一次绑定到元素上时调用。
+update， 在bind之后立即以初始值为参数第一次调用，之后每当绑定值变化时调用，参数为新值与旧值。
+unbind，只调用一次，在指令从元素上绑定时调用。 
+
+-->
+<script>
+
+Vue.directive('my-directive', {
+    bind: function () {
+        // 准备工作
+        // 例如，添加时间处理器或只需要运行一次的高耗任务
+    },
+    update: function () {
+        // 值更新时的工作
+        // 也会以初始值为参数调用一次    
+    },
+    unbind: function () {
+        // 清理工作
+        // 例如，删除bind() 添加的事件监听器    
+    }
+});
+</script>
+
+
+<!-- 只需要update函数是，可以传入一个函数替代定义对象 -->
+<script>
+
+Vue.direactive('my-directive', function () {
+    // update();
+});  
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+在Vue中如何让v-for循环出来的列表里面的click事件只对当前列表内元素有效?
+
+从数据角度出发，定好数据结构，然后操作数据
+通过$event对象，获取当前事件源，然后操作下面的元素.
+<div class="app">
+    
+    <ul>
+        <li @click="toggle(item)" v-for="item in items">
+            <span v-show="item.show">{{item.content}}</span>
+        </li>
+    </ul>
+    
+</div>
+
+<script src="vue1.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+    
+    new Vue({
+        el: '.app',
+        data: {
+            items: [
+                {
+                    content: '1 item',
+                    show: true
+                }, {
+                    content: '2 item',
+                    show: true
+                }, {
+                    content: '3 item',
+                    show: false
+                }
+            ]
+        },
+        methods: {
+            toggle: function ( item ) {
+                item.show = !item.show;
+            }
+        }
+    });
+</script>
+<!-- ------------------------------------------------------------------------------------ -->
+
+<!-- 什么是计算属性 -->
+
+计算属性就是当其依赖属性的值发生变化时，这个属性的值会自动更新，与之相关的DOM部分也会同步自动更新。
+
+<div class="app">
+    
+    <input type="text" v-model="didi" />
+    <input type="text" v-model="family" />
+    <br />
+    
+    didi = {{didi}}, family = {{family}}, didiFamily = {{didiFamily}}
+    
+</div>
+
+
+<script src="vue1.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+    
+    new Vue({
+        el: '.app',
+        data: {
+            didi: 'didi',
+            family: 'family'
+        },
+        computed: {
+            didiFamily: {
+                get: function () {
+                    return this.didi + this.family;
+                },
+                set: function ( val ) {
+                    var names = val.split(' ');
+                    this.didi = names[0];
+                    this.family = names[1];
+                }
+            }
+        }
+    });
+    
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+<!-- 计算属性getter不执行的场景 -->
+
+<!-- 
+
+当计算属性依赖的数据属性发生改变时，计算属性的getter方法就会执行。在有些情况下，虽然依赖数据属性发生了改变，但计算属性的getter方法并不会执行。
+
+当包含计算属性的节点被移出模板中其它地方没有再引用该属性时，那么对应的计算属性的getter不会执行。 -->
+
+<div class="app">
+    
+    <button @click="toggleShow">Toggle Show Total Price</button>
+    <p v-if="showTotal">Total Price = {{totalPrices}}</p>
+    {{totalPrices}}
+</div>
+
+<script src="vue1.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+    
+    new Vue({
+        el: '.app',
+        data: {
+            showTotal: true,
+            basePrice: 100
+        },
+        computed: {
+            totalPrices: function () {
+                return this.basePrice + 1;
+            }
+        },
+        methods: {
+            toggleShow: function () {
+                this.showTotal = !this.showTotal; 
+            }
+        }
+    });
+</script>
+<!-- --------------------------------------------------------------------------- -->
+
+</body>
+</html>

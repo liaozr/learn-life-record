@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  typeof
+
+  typeof 运算符返回一个用于识别其运算数类型的字符串。
+
+  但是仍然会一些糟糕的问题存在
+
+  无法识别 Array, 即伪数组，因为数组其实也是对象。解决方案
+  无法识别 null
+  无法识别 NaN 和数字
+
+  <script>
+      console.log(typeof []); // object
+      console.log(typeof null); // object
+
+      // 识别 null 更简单方便的方法
+      myvalue = null
+      console.log(myvalue === null); // true
+
+      // typeof 不能辨别出 null 与对象, 也可以这样解决
+      if (myvalue && typeof myvalue === 'object') {
+          // myvalue 是一个对象或数组
+      } else {
+          console.log('is null');
+          // return 'null';
+      }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    监听 audio 标签的 canplay 事件， 表示的 是 audio 标签可以播放了。
+
+    类似于 js里面的 函数节流的概念。
+
+    timeupdate 监听的是 audio 标签 当前 播放的 进度时间，如 1:12 等等
+
+    audio  有一个 监听事件 是 监听播放 音频结束的一个事件，叫 ended
+
+    就是音频播放结束的一个事件。
+
+    audio标签的 onplay事件 跟 oncanplay事件 比较的话，onplay事件是当歌曲在开始播放的时候触发的，
+    oncanplay事件是歌曲可以播放，准备就绪的时候可以触发的，
+
+    在项目实践的时候，为了防止歌曲的快速切换引起的不正常的bug的产生，通常用 onplay事件 代替 oncanplay事件
+
+    也就是说onplay事件好点。
+
+    <audio ref="audio" :src="currentSong.url" @play="readyplay" @error="errorplay" @timeupdate='updateTime' @ended="ended"></audio>
+
+    <script>
+
+           togglePlaying() {
+
+                if (!this.songReady) {
+                    return
+                }
+                this.setplaystate(!this.playing)
+            },
+
+            next() {
+
+                if (!this.songReady) {
+                    return
+                }
+
+                let index = this.currentIndex + 1
+                if (index == this.playlist.length) {
+                    index = 0
+                }
+                this.$store.dispatch('nextIndex', index)
+
+                if (!this.playing) {
+                    this.togglePlaying()
+                }
+                this.songReady = false
+            },
+
+            prev() {
+
+                if (!this.songReady) {
+                    return
+                }
+                let index = this.currentIndex - 1
+                if (index == -1) {
+                    index = this.playlist.length - 1
+                }
+                this.$store.dispatch('prevIndex', index)
+
+                if (!this.playing) {
+                    this.togglePlaying()
+                }
+
+                this.songReady = false
+            },
+            //单曲循环的逻辑实现
+            loop(){
+               // 把当前audio的播放进度时间重置  为 0
+               //  且让它继续播放即可
+               this.$refs.audio.currentTime = 0
+               this.$refs.audio.play()
+            },
+            readyplay() {
+                this.songReady = true
+            },
+
+            errorplay() {
+                this.songReady = true
+            },
+            ended(){
+              // playMode.loop 表示的是 如果当前播放模式 是 单曲循环 的时候
+              if(this.mode == playMode.loop){
+                this.loop()
+              }else{
+                this.next()
+              }
+            },
+            // e.target.currentTime 返回的 就是当前audio标签 播放歌曲的 时间进度 值。
+            updateTime(e) {
+                this.currrentTime = e.target.currentTime
+            },
+            // 把 时间戳 转换 成  分和秒  的形式
+            format(interval) {
+                interval = interval | 0
+
+                const minute = interval / 60 | 0
+                const second = this._pad(interval % 60)
+                return `${minute}:${second}`
+            },
+            _pad(num, n = 2) {
+                let len = num.toString().length
+                while (len < n) {
+                    num = '0' + num
+                    len++
+                }
+                return num
+            }
+
+    </script>
+
+</body>
+
+</html>

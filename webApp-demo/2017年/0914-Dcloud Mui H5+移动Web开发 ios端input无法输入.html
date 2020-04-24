@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    在ios端发现input标签无法输入，Android端正常。 原因是mui框架的有个css样式
+
+    <!-- ----------------------------------------------------------------------------------------------- -->
+
+    <style>
+        * {
+            -webkit-user-select: none;
+        }
+    </style>
+
+    <!-- ----------------------------------------------------------------------------------------------- -->
+
+    其作用是禁掉用户可以选中页面中的内容。 添加以下style样式即可
+
+    经测试，在其他app上，input框  textarea 框 也都是 可以 长按 粘贴的，说明，app上，在input框
+
+    不要求 长按可不可以粘贴 ，不长按粘贴的话，ios上会出现 一些小问题。
+
+    <input type="text">
+
+    <style>
+
+        input,textarea{
+            -webkit-user-select: auto !important;
+        }
+        
+    </style>
+
+    <!-- ----------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<!-- ------------------------------------------------------------------------------- -->
+
+先说说怎么绑定事件，
+
+说到事件，就得说说冒泡机制，
+
+说到冒泡机制，就必须说委托，
+
+说到事件，就得提提自定义事件，
+
+说到自定义事件，就不得不说观察者模式和发布订阅模式。
+
+<!-- ------------------------------------------------------------------------ -->
+
+<!-- 一、监听事件 -->
+
+绑定事件，IE有attachEvent,  w3c有 addEventListener
+
+解除绑定，IE有detachEvent,  w3c有 removeEventListener
+
+<!-- --------------------------------------------------------------------------- -->
+
+<!-- 二、冒泡机制和捕获机制 -->
+
+冒泡机制，w3c都支持的。
+element.addEventListener(type, handler, false)这句代码里的第三个参数就是说明是否使用捕获机制，一般我们都使用冒泡的。至于捕获机制，我个人目前尚未遇到具体的使用场景。
+
+冒泡机制:
+看这样一种情况，父元素是ul，子元素是li，两个元素都绑定点击事件。如果我们点击了li，li的点击事件当然被触发了，那么ul是不是也触发了呢，答案是肯定的。那么就涉及到一个问题。谁先触发的问题。
+冒泡机制是指先触发子元素的click事件，然后再触发父元素的click事件，是由内向外的。我觉得冒泡这个名字不好，冒泡给人的感觉是由下向上传播的感觉的。这个是根据dom树来的，不是太直观。是不是叫波纹机制比较好呢，因为在中间激起波纹，是由内向外传播的。
+
+捕获机制:
+捕获机制就是从外向内传播的（捕获有一种“收网”的意味,或者说，捕获是“抓”，你想，用手抓自然就是由外向内嘛）。先触发父节点的点击事件，然后触发子节点的点击事件。
+
+
+<ul>
+	<li ></li>
+</ul>
+<script>
+	var ul = document.getElementsByTagName('ul')[0];
+	var li = document.getElementsByTagName('li')[0];
+	document.addEventListener('click',function(){alert('document')},true);//第三个参数为true使用捕获
+	ul.addEventListener('click',function(){alert('ul')},true);
+	li.addEventListener('click',function(){alert('li')},true);
+</script>
+
+<!-- 阻止默认事件 -->
+
+jquery也有 e.stopPropagation 和 e.preventDefault()；
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+
+
+</body>
+</html>

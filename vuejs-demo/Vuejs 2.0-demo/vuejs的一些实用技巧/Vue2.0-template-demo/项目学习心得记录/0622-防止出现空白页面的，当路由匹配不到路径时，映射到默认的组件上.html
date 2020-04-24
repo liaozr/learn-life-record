@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+      <script>
+
+           // 这个是防止出现空白页面的，当路由匹配不到路径时，映射到默认的home组件上
+
+           {
+              path:'*',
+              component:Home,
+              meta: {
+                 keepAlive: true // 需要被缓存
+              }
+           }
+
+      </script>
+
+</body>
+
+</html>

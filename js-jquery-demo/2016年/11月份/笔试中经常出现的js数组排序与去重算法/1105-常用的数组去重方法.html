@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+<!-- --------------------------------------------------------------------------------- -->
+
+    方法一：
+    <script>
+        var arr = [1, 'a', 'a', 'b', 'd', 'e', 'e', 1, 0,'你好','你好']
+
+        function test() {
+            for (var i = 0; i < arr.length; i++) {
+                for (var j = i + 1; j < arr.length; j++) {
+                    if ( arr[i] === arr[j] ){
+                       arr.splice(j, 1);
+                    }
+                    //如果前一个值与后一个值相等，那么就去掉后一个值，splice()可以修改原数组
+                }
+            }
+            console.log(arr)
+            return arr;
+        }
+        test();
+    </script>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+    方法二 hash法
+
+    <script>
+        function repeat2(arr) {
+            //遍历arr中每个元素，同时声明hash
+            for (var i = 0, hash = {}; i < arr.length; i++) {
+                //hash中是否包含当前元素值的建
+                //如果不包含,就hash添加一个新元素，以当前元素值为key，value默认为1
+                if (hash[arr[i]] === undefined) {
+                    hash[arr[i]] = 1;
+                }
+            } //(遍历结束)
+            //将hash转为索引:
+            var i = 0;
+            var arr2 = [];
+            for (arr2[i++] in hash);
+            console.log(arr2);
+            return arr2;
+        }
+        var arr = [1, 'a', 'a', 'b', 'd', 'e', 'e', 1, 0,'你好','你好'];
+        repeat2(arr)
+
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+    方法三(ES6)
+
+    <script>
+        var arr = [1, 1, 4, 50, 50, 6, 2, 2];
+
+        function unique(arr) {
+            return Array.from(new Set(arr));
+        }
+        unique(arr);
+
+    </script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+于是，现在我们可以用一行代码实现数组去重了：
+
+<script>
+    let array = Array.from(new Set([1, 1, 1, 2, 3, 2, 4]));
+    // console.log(array);
+    // => [1, 2, 3, 4]
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

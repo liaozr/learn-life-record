@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='transform.js'></script>
+    <script src="tick.js"></script>
+</head>
+
+<body>
+    <div id="test1"></div>
+    <script>
+        var domElement = document.querySelector("#test1");
+        Transform(domElement);
+
+        domElement.rotateZ = 45;
+
+        //set "translateX", "translateY", "translateZ", "scaleX", "scaleY", "scaleZ", "rotateX", "rotateY", "rotateZ", "skewX", "skewY", "originX", "originY", "originZ"
+
+        domElement.translateX = 100;
+        domElement.scaleX = 0.5;
+        domElement.originX = 0.5;
+
+        //get "translateX", "translateY", "translateZ", "scaleX", "scaleY", "scaleZ", "rotateX", "rotateY", "rotateZ", "skewX", "skewY", "originX", "originY", "originZ"
+        console.log(domElement.translateX) //100
+    </script>
+
+    <style>
+        #test1 {
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+            background-color: red;
+        }
+    </style>
+
+    <!-- ---------------------------------------------------------------------------------- -->
+
+    <div id="test2"></div>
+    <script>
+        var element2 = document.querySelector("#test2");
+        Transform(element2);
+
+        tick(function() {
+            element2.rotateY++;
+        });
+    </script>
+
+    <style>
+        #test2 {
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+            background-color: red;
+        }
+    </style>
+    <!-- ------------------------------------------------------------------------------------ -->
+
+    <div id="test5"></div>
+
+    <script>
+        var element5 = document.querySelector("#test5");
+        Transform(element5);
+
+        var step = 0.02;
+        tick(function() {
+            element5.scaleX < 0.5 && (step *= -1);
+            element5.scaleX > 1.5 && (step *= -1);
+            element5.scaleX += step;
+            element5.scaleY += step;
+        });
+    </script>
+
+    <style>
+        #test5 {
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+            background-color: green;
+        }
+    </style>
+
+    <!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

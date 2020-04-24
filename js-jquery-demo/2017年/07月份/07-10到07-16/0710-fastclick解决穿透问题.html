@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  
+
+    fastclick 使用fastclick库，其实现思路是，取消 click 事件（参看源码 164-173 行），
+
+    用 touchend 模拟快速点击行为（参看源码 521-610 行）。
+
+
+    <script>
+
+        FastClick.attach(document.body);
+
+        // 从此所有点击事件都使用click， 不会出现“ 穿透” 的问题， 并且没有300ms的延迟。
+
+    </script>
+
+</body>
+
+</html>

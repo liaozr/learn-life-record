@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+在路由跳转的过程中会传递一个object，我们可以通过watch方法查看路由信息对象。
+
+<script>
+    watch: {
+        '$route' (to, from) {
+            console.log(to);
+            console.log(from);
+        },
+    }
+</script>
+
+{
+    ...
+    params: { id: '123' },
+    query: { name: 'jack' },
+    ...
+}
+
+这两个参数会在页面跳转后写在路径中，路径相当于/page/123?name=jack
+
+<!-- ------------------------------------------------------------------------------ -->
+
+传递数据
+
+在路由配置文件中定义参数
+
+//命名路由,路由传参
+{ name: 'com03', path: '/03/:sex', component: Page03 },
+路径后面的/:sex就是我们要传递的参数。
+
+this.$router.push({ path: '/03/441'})
+此时路由跳转的路径
+
+http://localhost:8080/#/03/441
+
+此时我们看到查看路由信息对象：
+
+<script>
+    {
+        ...
+        params: {
+            sex: '441'
+        }
+        ...
+    }
+</script>
+
+获取数据
+
+template
+
+<h2> {{ $route.params.sex }} </h2>
+
+script
+
+console.log(this.$route.params.sex)
+
+注：暂时我只发现在动态路由匹配中传入数据可以获取到params。
+
+而使用{ path: '/', params: { sex: '123' }, query: { ...}}传递的数据使用没有传递给下一个页面组件。
+
+如果有使用成功的同学欢迎在留言，我会及时更正的。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

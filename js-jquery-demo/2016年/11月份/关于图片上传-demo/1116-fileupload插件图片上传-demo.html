@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://mockjs.com/dist/mock.js"></script>
+
+    <script type="text/javascript" src="js/fileupload/jquery.iframe-transport.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/fileupload/jquery.ui.widget.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/fileupload/jquery.fileupload.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <div class="upload-thumb">
+        <div class="image">
+            <img nctype="goods_image" src="images/moren_image.png">
+        </div>
+    </div>
+
+    <div class="ncsc-upload-btn">
+        <a href="javascript:void(0);">
+            <span>
+               <input type="file" hidefocus="true" size="1" class="input-file" name="goods_image" id="goods_image">
+           </span>
+            <p><i class="icon-upload-alt"></i>图片上传</p>
+        </a>
+    </div>
+    <input type="hidden" name="image_path" id="image_path" nctype="goods_image" value="" />
+
+    <!-- -------------------------------------------------------------------------------- -->
+
+    <script>
+
+        Mock.mock('Event/wap/test', { /*地址任意*/
+            "apic_name": '@name', //模拟名称
+            "message": "@cparagraph()", //模拟文本
+            "error":undefined,
+            'thumb_name':"@image()",
+            "name": '@name', //模拟名称
+        });
+
+        /* 产品效果图ajax上传 */
+        $('#goods_image').fileupload({
+            dataType: 'json',
+            url: "Event/wap/test",
+
+            add: function(e, data) {
+                $('img[nctype="goods_image"]').attr('src', '');
+                data.submit();
+            },
+            done: function(e, data) {
+                var param = data.result;
+                console.log(param);
+                var apic_name = param.apic_name;
+                console.log(param.apic_name);
+                $("input[name='goods_name']").val(apic_name);
+                if (typeof(param.message) != 'undefined') {
+                    alert(param.message);
+                }
+                if (typeof(param.error) != 'undefined') {
+                    alert(param.error);
+                    $("img[nctype='goods_image']").attr('src', "   ");
+                    $('#image_path').val('');
+                } else {
+                    $("img[nctype='goods_image']").attr('src', param.thumb_name);
+                    $('#image_path').val(param.name);
+                }
+            }
+        });
+    </script>
+<!-- --------------------------------------------------------------------------     -->
+
+<!-- 买砖宝 fileupload 上传demo的代码案例 -->
+<script>
+    /* 产品效果图ajax上传 */
+    // $('#goods_image').fileupload({
+    //     dataType: 'json',
+    //     url: "<?=U('goods_add/image_upload',['upload_type'=>uploadedfile])?>",
+    //     add: function(e, data) {
+    //         $('img[nctype="goods_image"]').attr('src', '');
+    //         data.submit();
+    //     },
+    //     done: function(e, data) {
+    //         var param = data.result;
+    //         var apic_name = param.apic_name;
+    //         $("input[name='goods_name']").val(apic_name);
+    //         if (typeof(param.message) != 'undefined') {
+    //             alert(param.message);
+    //         }
+    //         if (typeof(param.error) != 'undefined') {
+    //             alert(param.error);
+    //             $("img[nctype='goods_image']").attr('src', "   ");
+    //             $('#image_path').val('');
+    //         } else {
+    //             $("img[nctype='goods_image']").attr('src', param.thumb_name);
+    //             $('#image_path').val(param.name);
+    //         }
+    //     }
+    // });
+</script>
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

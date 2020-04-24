@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    border-radius 相信这个属性，写过css的同学都知道，用来产生圆角，比如画一个圆形：
+    <div class="aa"></div>
+    <style>
+        div.aa{
+            width: 100px;
+            height: 100px;
+            background: red;
+            border-radius: 50px;
+        }
+    </style>
+
+    然后我们来看看它的语法：border-radius: [左上] [右上] [右下] [左下]，于是我们来画一个半圆 那如果要画一个椭圆该怎么办呢？你会发现上面的语法貌似做不到了，其实border-radius的值还有一种语法: x半径/y半径：
+    <div class="bb"></div>
+    <style>
+        div.bb{
+            width: 100px;
+            height: 50px;
+            background: red;
+            border-radius: 50px/25px;
+        }
+    </style>
+</body>
+
+</html>

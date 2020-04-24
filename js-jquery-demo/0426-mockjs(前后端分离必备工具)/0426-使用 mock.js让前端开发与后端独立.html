@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://mockjs.com/dist/mock.js"></script>
+    <script src='https://cdn.staticfile.org/vue/2.2.6/vue.js'></script>
+
+</head>
+
+Mock.js实现的功能
+
+基于数据模板生成数据。
+
+基于HTML模板生成数据。
+
+拦截并模拟Ajax请求。
+
+<body>
+    <div id='app'>
+        <h1 id="mockjs">mockjs</h1>
+        <span>{{dataArr.userName}}</span><br>
+        <span>{{dataArr.content}}</span><br>
+        <span>{{dataArr.date}}</span><br>
+        <span>{{dataArr.url}}</span>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                dataArr: {
+
+                }
+            },
+            mounted() {
+                init()
+            }
+        })
+        //ajax请求
+        function init() {
+            //调用mock方法模拟数据
+            Mock.mock(
+                'http://mockjs', {
+                    "userName": '@name', //模拟名称
+                    "age|1-100": 100, //模拟年龄(1-100)
+                    "color": "@color", //模拟色值
+                    "date": "@date('yyyy-MM-dd')", //模拟时间
+                    "url": "@url()", //模拟url
+                    "content": "@cparagraph()" //模拟文本
+                }
+            );
+            $.ajax({
+                url: "http://mockjs", //请求的url地址
+                dataType: "json", //返回格式为json
+                data: {}, //参数值
+                type: "GET", //请求方式
+                success: function(jsonData) {
+                    //请求成功时处理
+                    vm.dataArr = jsonData;
+                    console.log(jsonData);
+                },
+                error: function() {
+                    //请求出错处理
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

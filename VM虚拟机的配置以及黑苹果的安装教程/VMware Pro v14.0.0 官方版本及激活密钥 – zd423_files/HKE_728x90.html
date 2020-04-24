@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://s0.2mdn.net/4663420/1512968319044/HKG728x90SC/HKE_728x90.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style></style>
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=IE8">
+	<meta name="ad.size" content="width=728,height=90">
+	<title>HKExpress</title>
+<!--Adobe Edge Runtime-->
+    <script src="./jquery-1.7.1.min.js.下载"></script><script src="./edge.2.0.1.min.js.下载"></script><script src="./HKE_728x90_edge.js.下载"></script><script src="./HKE_728x90_edgeActions.js.下载"></script><script type="text/javascript" charset="utf-8" src="./HKE_728x90_edgePreload.js.下载"></script>
+    <style>
+        .edgeLoad-EDGE-1235320427 { visibility:hidden; }
+    </style>
+<!--Adobe Edge Runtime End-->
+<script type="text/javascript">
+    // Compulsory Clicktag block (Single Clicktag)
+    var clickTag = "http://www.hkexpress.com/zh-cn/promos/fly-for-HKD12";
+
+    window.onload = function () {
+        var click = document.getElementById("click");
+        click.href = clickTag;
+    };
+</script>
+
+<script type="text/javascript">
+    
+      (function() {
+        var relegateNavigation = '';
+        var handleClickTagMessage = function(e) {
+          try {
+            var eventData = JSON.parse(e.data);
+          } catch (err) {
+            return;
+          }
+          if (eventData.isInitClickTag) {
+            if (eventData.clickTags) {
+              for (var i = 0; i < eventData.clickTags.length; i++) {
+                var clkTag = eventData.clickTags[i];
+                window[clkTag.name] = clkTag.url;
+              }
+            } else if (eventData.clickTag) {
+              window.clickTag = eventData.clickTag;
+            }
+            relegateNavigation = eventData.relegateNavigation;
+          }
+        };
+
+        if (open.call) {
+          window.open = function(open) {
+            return function(url, name, features) {
+              if (relegateNavigation === 'parent') {
+                var message = {'clickTag': url, 'isPostClickTag': true};
+                parent.postMessage(JSON.stringify(message), '*');
+              } else {
+                var args = [url, name];
+                if (features) {
+                  args.push(features);
+                }
+                open.apply(window, args);
+              }
+            };
+          }(window.open);
+        }
+
+        if (window.addEventListener) {
+          window.addEventListener(
+              'message', handleClickTagMessage, false);
+        } else {
+          window.attachEvent('onmessage', handleClickTagMessage);
+        }
+      })();
+    
+  </script></head>
+<body style="margin:0;padding:0;">
+	<a id="click" target="_blank" href="http://www.hkexpress.com/zh-cn/promos/fly-for-HKD12"><div id="Stage" class="EDGE-1235320427" style="position: relative; transform: translateZ(0px); background-color: rgb(255, 255, 255); width: 728px; height: 90px; overflow: hidden;">
+	<div id="Stage_bg" class="Stage_bg_id" style="position: absolute; margin: 0px; left: 0px; top: 0px; width: 543px; height: 211px; right: auto; bottom: auto; transform-origin: 50% 50% 0px; background-size: 100% 100%; background-image: url(&quot;images/bg.jpg&quot;); background-position: 0px 0px; background-repeat: no-repeat; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; transform-style: preserve-3d; transform: translate(184px, -57px) translateZ(0px) rotate(0deg) scale(1, 1);"></div><div id="Stage_hl" class="Stage_hl_id" style="position: absolute; display: block; margin: 0px; left: 209px; top: 11px; width: 200px; height: 41px; right: auto; bottom: auto; background-size: 100% 100%; background-image: url(&quot;images/hl.png&quot;); background-position: 0px 0px; background-repeat: no-repeat; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform-origin: 63% 50% 0px; transform-style: preserve-3d; transform: translate(0px, 0px) translateZ(0px) rotate(0deg) scale(1, 1);"></div><div id="Stage_k" class="Stage_k_id" style="position: absolute; display: block; margin: 0px; left: 0px; top: 0px; width: 143px; height: 26px; right: auto; bottom: auto; transform-origin: 63% 50% 0px; background-size: 100% 100%; background-image: url(&quot;images/k.png&quot;); background-position: 0px 0px; background-repeat: no-repeat; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; transform-style: preserve-3d; transform: translate(267px, 51px) translateZ(0px) rotate(0deg) scale(1, 1);"></div><div id="Stage_p" class="Stage_p_id" style="position: absolute; display: block; margin: 0px; left: 385px; top: 0px; width: 151px; height: 90px; right: auto; bottom: auto; background-size: 100% 100%; background-image: url(&quot;images/p.png&quot;); background-position: 0px 0px; background-repeat: no-repeat; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform-style: preserve-3d; transform: translate(0px, 0px) translateZ(0px) rotate(0deg) scale(1, 1);"></div><div id="Stage_pl" class="Stage_pl_id" style="position: absolute; display: none; margin: 0px; left: 385px; top: 3px; width: 151px; height: 90px; right: auto; bottom: auto; background-size: 100% 100%; background-image: url(&quot;images/pl.png&quot;); background-position: 0px 0px; background-repeat: no-repeat; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0;"></div><div id="Stage_r4" class="Stage_r4_id" style="position: absolute; display: block; margin: 0px; left: 0px; top: 0px; width: 200px; height: 13px; right: auto; bottom: auto; transform-origin: 50% 50% 0px; background-size: 100% 100%; background-image: url(&quot;images/r4.png&quot;); background-position: 0px 0px; background-repeat: no-repeat; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; transform-style: preserve-3d; transform: translate(185px, 75px) translateZ(0px) rotate(0deg) scale(1, 1);"></div><div id="Stage_t" class="Stage_t_id" style="position: absolute; margin: 0px; left: 0px; top: 0px; width: 226px; height: 90px; right: auto; bottom: auto; background-size: 100% 100%; background-image: url(&quot;images/t.png&quot;); background-position: 0px 0px; background-repeat: no-repeat; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div><div id="Stage_b" class="Stage_b_id" style="position: absolute; margin: 0px; left: 520px; top: 25px; width: 207px; height: 64px; right: auto; bottom: auto; background-size: 100% 100%; background-image: url(&quot;images/b.png&quot;); background-position: 0px 0px; background-repeat: no-repeat; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div><div id="Stage_Border" class="Stage_Border_id" style="position: absolute; margin: 0px; left: 0px; top: 0px; width: 726px; height: 88px; right: auto; bottom: auto; border: 1px solid rgb(153, 153, 153); background-color: rgba(192, 192, 192, 0); -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div></div></a>
+
+</body></html>

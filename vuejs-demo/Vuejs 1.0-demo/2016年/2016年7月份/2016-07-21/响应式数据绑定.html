@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.min.js"></script>
+</head>
+<body>
+	<div id="example-2">
+        <p v-if="greeting">Hello!</p>
+        <!--   v-if 是vuejs里面的一个逻辑判断指令 -->
+        <!-- 当greeting为true的时候，这个p标签才会显现 -->
+        
+        <!-- 指令带有v-前缀，以提示它们是vuejs里的一个特殊属性 -->
+        <!-- v-for表示 显示数组元素 -->
+        <!-- v-bind指令用于绑定HTML特性 -->
+    </div>
+
+    <script>
+		var exampleVM2 = new Vue({
+		  el: '#example-2',
+		  data: {
+		    greeting: true
+		  }
+		})
+	</script>
+</body>
+</html>

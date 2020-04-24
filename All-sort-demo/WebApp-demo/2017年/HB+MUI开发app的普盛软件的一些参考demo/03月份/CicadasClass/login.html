@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="知了云课堂" />
+		<meta name="Description" content="知了云课堂" />
+		<title>知了云课堂</title>
+		<link rel="stylesheet" href="css/base.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+	</head>
+	<style>
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			font-family: "微软雅黑";
+		}
+		body{
+			//background: url(img/login_bg.png);
+			background:#3D96DE;
+		}
+		.logo>img {
+			display: block;
+			width: 4rem;
+			margin: 0 auto;
+			margin-top: 3rem;
+		}
+		/*登录框*/
+		
+		.login-box {
+			width: 7.6rem;
+			margin: 0 auto;
+			margin-top: 1rem;
+		}
+		
+		.login-box>div {
+			background: #fff;
+			width: 7rem;
+			padding: .3rem;
+			font-size: .4rem;
+			border-radius: 1rem;
+			border: 1px solid #D9D9D9;
+			margin-bottom: .5rem;
+		}
+		
+		.login-box>div>img {
+			width: .6rem;
+			float: left
+		}
+		
+		.login-box>div>input {
+			border: none;
+			outline: none;
+			margin-left: .3rem;
+			text-align: center;
+			width: 4rem;
+		}
+		
+		.remerBox {
+			width: 7.6rem;
+			margin: 0 auto;
+		}
+		
+		.dotBox {
+			width: 2.5rem;
+			float: right;
+			margin-top: .2rem;
+		}
+		
+		.dotcheck {
+			float: left;
+			width: .6rem;
+			height: .6rem;
+			background: url(img/login-dotcheck2.png) no-repeat;
+			background-size: 100% 100%;
+		}
+		
+		.dotcheck.active {
+			background: url(img/login-dotcheck1.png) no-repeat;
+			background-size: 100% 100%;
+		}
+		
+		.wjmm {
+			font-size: .4rem;
+			margin-left: .2rem;
+			color: #fff;
+			font-weight: bold;
+		}
+		
+		.login-btn-char {
+			position: relative;
+			width: 7.6rem;
+			height: 1.2rem;
+			margin: 0 auto;
+			margin-top: 1.5rem;
+			font-size: .5rem;
+			line-height: 1.2rem;
+			text-align: center;
+			border-radius: 1rem;
+			border: 1px solid #D9D9D9;
+			color: #fff;
+			font-weight: bold;
+		}
+	</style>
+
+	<body>
+		<!--<div style="position:absolute;z-index:-1;width:100%;height:100%;">
+			<img src="img/login_bg.png" width="100%" height="100%" />
+		</div>-->
+		<header class="logo">
+			<img src="img/login_logo.png" alt="" />
+		</header>
+		<section class="login-box">
+			<div>
+				<img src="img/tenant.png" />
+				<input class="inp" id="tenant" type="text" placeholder="请输入租户" />
+			</div>
+			<div>
+				<img src="img/user.png" />
+				<input class="inp" id="uname" type="text" placeholder="请输入账号" />
+			</div>
+			<div>
+				<img src="img/password.png" />
+				<input class="inp" id="pwd" type="password" placeholder="请输入密码" />
+			</div>
+		</section>
+		<div class='remerBox'>
+			<div class="dotBox">
+				<span class="dotcheck"></span>
+				<span class="left wjmm">记住密码</span>
+			</div>
+		</div>
+		<div class="login-btn-char">登录</div>
+	</body>
+	<script src="js/zepto1.1.6.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script src="js/locStorage.js"></script>
+	<script src="js/url.js"></script>
+	<!--Sea.js 前端模块化开发框架-->
+	<script type="text/javascript" src="js/sea.js"></script>
+	<script>
+		//当前版本号
+		var wgtVer = null;
+
+		document.addEventListener("plusready", function() {
+			
+			plus.key.addEventListener('backbutton', function() {
+				if(confirm('确认退出？')) {
+					plus.runtime.quit();
+				}
+			}, false);
+
+			plus.runtime.getProperty(plus.runtime.appid, function(inf) {
+				wgtVer = inf.version;
+				console.log("当前应用版本：" + wgtVer);
+			});
+			//checkNew();
+			
+		});
+		
+		//检查服务器版本
+		function checkNew(){
+			var url = $.url.findAuthResource;
+			console.log("菜单接口地址" + url);
+			$.marketApi.ajaxRequest({
+				type: "GET",
+				url: url,
+				data: {
+					"empId": empId
+				},
+				callback: function(menus) {
+					//alert(JSON.stringify(menus));
+					console.log(JSON.stringify(menus));
+					var menuInfos = menus.menuInfos;
+					if(menuInfos.length>0){
+						sqlObj.insertMenus(menuInfos, insertMenusResult);
+					}else{
+						alert("没有菜单配置，请联系系统管理员");
+					}
+					
+					/* 
+					 var firstMenu = [];
+					 for (var i = 0; i < menuInfos.length; i++) {//menuName
+					     if (Number(menuInfos[i].menuLevel) == 1) {
+					         firstMenu.push(menuInfos[i]);
+					     }
+					 };
+					 setMenu(firstMenu);*/
+				},
+				errorCallback: function(xhr, errorType, error, msg) {
+					console.log(JSON.stringify(errorType))
+					alert(msg);
+				}
+
+			});
+		}
+
+		seajs.config({});
+		//加载多个模块，在加载完成时，执行回调
+		var sqlObj = null;
+		seajs.use("db", function(sql) {
+			sqlObj = sql;
+			//创建数据库
+			seajs.use("$");
+			sqlObj.createDataBase($.locStorage.dbName, "1.0", "数据库", 2 * 1024 * 1024);
+		});
+
+		/**/
+		setHost();
+
+		$('#tenant').val(localStorage.getItem($.locStorage.emp.tenantId));
+		$('#uname').val(localStorage.getItem($.locStorage.emp.empId));
+		/*是否记住了密码*/
+		if(localStorage.getItem($.locStorage.emp.password) != null && localStorage.getItem($.locStorage.emp.password) != '') {
+			$('#pwd').val(localStorage.getItem($.locStorage.emp.password));
+			$(".dotcheck").addClass("active");
+		} else {
+			$('#pwd').val("");
+			$(".dotcheck").removeClass("active");
+		}
+
+		$(".login-btn-char").on("touchstart", function() {
+			$(this).css("background", "#EC971F");
+		});
+
+		$(".login-btn-char").on("touchend", function() {
+			$(this).css("background", "none");
+		});
+
+		$(".dotBox").on("tap1", function() {
+			$(".dotcheck").toggleClass("active");
+		});
+
+		$(".login-btn-char").on('tap1', function() {
+			if($("#tenant").val().trim() == "") {
+				alert("请输入租户");
+				return;
+			}
+
+			if($("#uname").val().trim() == "") {
+				alert("请输入账号");
+				return;
+			}
+			if($("#pwd").val().trim() == "") {
+				alert("请输入密码");
+				return;
+			}
+			console.log("登陆输入验证");
+			login();
+
+		});
+
+		function login() {
+			var tenant = $('#tenant').val();
+			var uname = $('#uname').val();
+			var pwd = $('#pwd').val();
+
+			var url = $.url.login;
+			console.log("登陆接口地址" + url);
+			$.marketApi.ajaxRequest({
+				type: "GET",
+				url: url,
+				data: {
+					"userName": uname,
+					"tenantId": tenant,
+					"password": pwd
+				},
+				callback: function(sdata) {
+					//alert("登陆成功！返回数据格式" + JSON.stringify(sdata));
+					console.log("" + JSON.stringify(sdata));
+					/*处理登陆返回数据*/
+					if($(".dotcheck").hasClass("active")) {
+						localStorage.setItem($.locStorage.emp.password, $("#pwd").val());
+					} else {
+						localStorage.setItem($.locStorage.emp.password, "");
+					}
+					// {"email":"ts718@163.com","empDesc":"","empName":"天晟","empOrg":"A","empOrgName":"万利加集团","fullSpell":"TIANSHENG","headPortrait":"/upload/posun/img/201612120407020010001.JPG","id":"10001","idCard":"429006","mobilePhone":"13828865333","offWorkTime":"","password":"2112602f127f2410d3101101100100727109","position":"","pwdExpired":false,"relCustomerId":"","relStoreId":"","sex":"男","startWorkTime":"","superiorId":"","superiorName":"","sysPwd":"N","tenant":{"enableIm":"N","extraFunction":"","i18nSupport":"Y","moneyDecimal":2,"priceDecimal":6,"taxDecimal":2,"tenantLogo":"","tenantName":"万利加","tenantTitle":"万利加移动管理平台","udf1":"","udf10":"","udf2":"","udf3":"","udf4":"","udf5":"","udf6":"","udf7":"","udf8":"","udf9":""},"tenantId":"posun","userStatus":"NORMAL","userType":"10","workPhone":"18609065536"} at login.html:207
+					//将登陆信息放入本地存储
+					localStorage.setItem($.locStorage.emp.tenantId, sdata.tenantId);
+					localStorage.setItem($.locStorage.emp.empId, sdata.id);
+					localStorage.setItem($.locStorage.emp.empName, sdata.empName);
+					localStorage.setItem($.locStorage.emp.empOrg, sdata.empOrg);
+					localStorage.setItem($.locStorage.emp.empOrgName, sdata.empOrgName);
+					localStorage.setItem($.locStorage.emp.position, sdata.position);
+					localStorage.setItem($.locStorage.emp.sex, sdata.sex);
+					localStorage.setItem($.locStorage.emp.workPhone, sdata.workPhone);
+					localStorage.setItem($.locStorage.emp.mobilePhone, sdata.mobilePhone);
+					localStorage.setItem($.locStorage.emp.email, sdata.email);
+					localStorage.setItem($.locStorage.emp.sysPwd, sdata.sysPwd);
+					localStorage.setItem($.locStorage.emp.idCard, sdata.idCard);
+					localStorage.setItem($.locStorage.emp.headPortrait, sdata.headPortrait);
+					processMenu(sdata.id);
+				},
+				errorCallback: function(xhr, errorType, error, msg) {
+
+					alert(msg);
+				}
+			});
+		}
+
+		/*
+		 * 获取菜单存储到本地数据库
+		 */
+		function processMenu(empId) {
+			var url = $.url.findAuthResource;
+			console.log("菜单接口地址" + url);
+			$.marketApi.ajaxRequest({
+				type: "GET",
+				url: url,
+				data: {
+					"empId": empId
+				},
+				callback: function(menus) {
+					//alert(JSON.stringify(menus));
+					console.log(JSON.stringify(menus));
+					var menuInfos = menus.menuInfos;
+					if(menuInfos.length>0){
+						sqlObj.insertMenus(menuInfos, insertMenusResult);
+					}else{
+						alert("没有菜单配置，请联系系统管理员");
+					}
+					
+					/* 
+					 var firstMenu = [];
+					 for (var i = 0; i < menuInfos.length; i++) {//menuName
+					     if (Number(menuInfos[i].menuLevel) == 1) {
+					         firstMenu.push(menuInfos[i]);
+					     }
+					 };
+					 setMenu(firstMenu);*/
+				},
+				errorCallback: function(xhr, errorType, error, msg) {
+					console.log(JSON.stringify(errorType))
+					alert(msg);
+				}
+
+			});
+		}
+
+		function insertMenusResult() {
+			var array = plus.webview.all();
+			if(array) {
+				for(var i = 0, len = array.length; i < len; i++) {
+					console.log(array[i].getURL());
+				}
+			}
+			console.log("当前webview："+plus.webview.currentWebview().getURL());
+			plus.webview.create("index.html", "index.html", {'popGesture': 'hide'});
+			plus.webview.getWebviewById("index.html").show("pop-in", 200, function() {
+				plus.webview.currentWebview().hide();
+			});
+			
+		}
+	</script>
+
+</html>

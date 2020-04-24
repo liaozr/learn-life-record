@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        $('#store_setting_intro').next().html('还可以输入' + (500 - $('#store_setting_intro').val().length) + '字');
+        $('#store_setting_intro').bind('keyup', function() {
+            var len = $(this).val().length;
+            var label = $(this).next();
+            if (len <= 500) {
+                label.html('还可以输入' + (500 - len) + '字');
+                // $('input[type="submit"]').attr('disabled', false);
+                $('input[type="submit"]').removeAttr('disabled');
+            } else {
+                label.html('已经超过' + (len - 500) + '字');
+                $('input[type="submit"]').attr('disabled', true);
+            }
+
+        });
+    </script>
+</body>
+
+</html>

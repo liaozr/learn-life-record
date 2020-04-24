@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  
+<!-- --------------------------------------------------------------------------------------------- -->
+
+1.首先我们把这段js封装到自执行函数里面，也就是:
+
+<script>
+
+   (function(){})()
+
+</script>
+
+ 这类型的函数，目的是生成一个新的执行上下文环境，防止里面的变量污染全局环境。
+ 想学习更多相关知识，请点击js立即执行函数
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+ 2.声明所需参数:
+
+<script>
+
+   var imgList = [],delay,time,offset;
+
+</script>
+
+ imgList：保存所有图片节点的数组
+ delay：保存的是setTimeout生成的引用
+ time：控制防抖函数延迟执行的时间
+ offset：设置图片距离可视区域多远则立即加载的偏差值
+
+ <!-- --------------------------------------------------------------------------------------------- -->
+
+ 3.监听scroll事件，执行防抖函数
+
+<script>
+
+    function imgLoad(selector) {
+
+        _selector = selector || '.imgLazyLoad';
+        let nodes = document.querySelectorAll(selector);
+        imgList = Array.apply(null, nodes);
+        window.addEventListener('scroll', _delay, false)
+
+    };
+
+</script>
+
+ 获得图片列表：使用document.querySelectorAll方法获取所有需要实现懒加载的图片列表。
+
+ 这里得到的只是个nodeList，所以这里利用Array.apply将nodes转变成一个数组保存到imgList中。
+
+ 更多apply相关知识点请点击apply用法
+
+ window监听事件：window监听scroll事件，执行节流函数_delay，此函数后面介绍
+
+ <!-- --------------------------------------------------------------------------------------------- -->
+
+ 4.声明防抖函数
+
+<script>
+
+    function _delay() { //函数防抖
+        clearTimeout(delay);
+        delay = setTimeout(() => {
+            _loadImg();
+        }, time)
+    };
+
+</script>
+
+ 下划线函数：加下划线函数命名没有特殊功能，只是一种约定成俗的做法，表明这是一个私有函数（并没有强制规定使用，看团队习惯斟酌使用）
+
+ 函数防抖目的：在类似scroll、resize事件中执行大量DOM操作或者计算时，
+
+ 就会出现再次触发事件而上一次事件中的DOM操作和计算还没完成的情况，结果浏览器掉帧了，导致性能下降，影响用户体验。
+
+ 想了解更多相关知识点，请点击浏览器浏览器scroll优化
+
+ 函数防抖原理：每次执行_delay函数先清除上一次setTimeout生成的引用，阻止上一次的函数调用（如果还没执行的话），然后创建一个
+
+ 新的setTimeout，在time保存的时间间隔后调用函数
+
+ <!-- --------------------------------------------------------------------------------------------- -->
+
+ 5.加载图片
+
+<script>
+
+    function _loadImg() { //执行图片加载
+        for (let i = 0; i < imgList.length; i++) {
+            if (_isShow(imgList[i])) {
+                imgList[i].src = imgList[i].getAttribute('data-src');
+                imgList.splice(i, 1);
+            }
+        }
+    };
+
+</script>
+
+ 何时显示判断：循环输出每个imgList中保存的图片对象，_isShow函数判断是否需要显示图片，
+
+ 需要的话，立即从图片对象中的data-src属性中取得链接并赋值给当前图片的src进行加载
+
+ 图片对象删除：每次判断图片需要显示并进行加载后从数组中取出此图片对象引用，避免下次循环重复判断
+
+ <!-- --------------------------------------------------------------------------------------------- -->
+
+
+ 6.判断图片是否显示
+
+<script>
+
+    function _isShow(el) {
+
+        let coords = el.getBoundingClientRect();
+        return (coords.left >= 0 && coords.left >= 0 && coords.top) <= (document.documentElement.clientHeight || window.innerHeight) + parseInt(offset);
+        s
+    };
+
+</script>
+
+ 何时显示图片?
+ 当图片出现在屏幕可视局域时显示~
+ 怎么判断图片出现在图片可视区域？
+ 通过调用元素的getBoundingClientRect方法获得一个包含了一组用于描述边框的相对于视口的左上角位置而言的只读属性——left、top、right和bottom，在和浏览器视口相应宽高进行对比即可判断元素是否出现在可视区域中，offset是偏差值，可以进行显示偏差设置
+
+ 1.top：此元素上边框距离浏览器视口顶部大小
+ 2.left：此元素左边框距离浏览器视口左边大小
+ 3.right：此元素右边框距离浏览器视口左边大小
+ 4.bottom：此元素底边框距离浏览器视口顶部大小
+ 注意这里right和bottom的描述，不是距离视口右边和底部，而是左边和顶部~此例子中只考虑垂直方向上的值(top)和浏览器视口高度的比较。
+ 查看更多元素的getBoundingClientRect方法知识，请点击元素getBoundingClientRect方法
+
+ 综上，图片懒加载功能初步形成，当然还有很多可以优化的地方（比如只有用户停止滚动图片才会显示），后续会不断完善~
+
+ <!-- --------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

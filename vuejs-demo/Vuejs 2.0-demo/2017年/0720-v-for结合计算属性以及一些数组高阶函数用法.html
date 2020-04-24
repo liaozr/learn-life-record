@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.bootcss.com/vue/2.4.1/vue.min.js"></script>
+
+</head>
+
+<body>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  <div id='app'>
+
+      <div>
+
+        <ul>
+           <li v-for=" (item,index) in list" v-text='`${item} - ${index} `'></li>
+        </ul>
+
+        <ul>
+           <li v-for=" (item,index) in filter" v-text='`${item} - ${index} `'></li>
+        </ul>
+
+        <button @click="randomList">随机重置数组的值</button>
+
+      </div>
+  </div>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  <script>
+
+      new Vue({
+        el:"#app",
+        data:{
+            list: [1, 2, 3, 4]
+        },
+        //检测计算 随着原数组用随机数改变的同时，来筛选出不同的过滤结果，筛选结果是原数组的里面为偶数的值拼成一个新数组
+        //1.我们还可以用methods方法，但是不能一直监控
+        computed: {
+          filter() {
+            return this.list.filter((item) => {
+              return item % 2
+            })
+          }
+        },
+        methods: {
+          //这里就是随着改变data原数组里的值
+          randomList() {
+            this.list = this.list.map(item => {
+              return item + Math.round(Math.random() * 9 + 1)
+            })
+          }
+        }
+      })
+
+  </script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

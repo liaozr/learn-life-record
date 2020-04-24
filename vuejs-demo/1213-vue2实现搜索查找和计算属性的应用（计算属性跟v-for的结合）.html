@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <template>
+    <div id="app">
+    		 <headmenu headvalue='用户列表'></headmenu>
+    		 <div class="userlist_layout" transition='expand'>
+    		 	   <div class="add_search_md">
+    		 	   	   <input type="text" v-model='query' placeholder='请输入姓名'>
+    		 	   	   <button @click='search'>搜索</button> <br>
+    		 	   	   <button @click='addUser'>添加</button>
+    	 	 	   </div>
+    		 	   <div class="userinfo" v-if='users.length'>
+    		 	   	  <table>
+    		 	   	  	<thead><tr><th>姓名</th><th>年龄</th><th>电话</th><th>操作</th></tr></thead>
+    		 	   	  	<tbody>
+    		 	   	        <!-- <tr v-for="user in users | filterBy guanjianzi in 'name' "> -->
+    		 	   	        <tr v-for="(user,index) in users">
+    		 	   	  			<td v-text='user.name'></td>
+    		 	   	  			<td v-text='user.age'></td>
+    		 	   	  			<td v-text='user.tel'></td>
+    		 	   	  			<td>
+                        <button @click="edit_user(index)">编辑</button>
+    		 	   	  				<button @click="delete_user(index)" class='danger'>删除</button>
+     		 	   	  			</td>
+    		 	   	  		</tr>
+    		 	   	  	</tbody>
+    		 	   	  	<tfoot></tfoot>
+    		 	   	  </table>
+    		 	   </div>
+    		 </div>
+	 </div>
+</template>
+
+<!-- --------------------------------------------------------------------- -->
+
+    <script>
+        import Headmenu from './Headmenu'
+
+        import {
+            mapGetters,
+            mapActions
+        } from 'vuex'
+
+        export default {
+            data() {
+                return {
+                    query: ''
+                }
+            },
+            components: {
+                Headmenu
+            },
+            // 利用计算属性实现用户名的查找。
+            computed: {
+                users: function() {
+                    var vm = this
+                    return this.$store.state.Userlist.users.filter(function(user) {
+                        return user.name.toLowerCase().indexOf(vm.query.toLowerCase()) !== -1
+                    })
+                }
+            },
+            methods: {
+                ...mapActions(['delete_user']),
+                addUser() {
+                    this.$store.dispatch('addUser');
+                    this.$router.push({
+                        path: '/useradd'
+                    })
+                },
+                edit_user(index) {
+                    this.$store.dispatch('edit_user', index);
+                    var user_id = this.$store.state.Userlist.users[index].id;
+                    this.$router.push({
+                        name: 'useredit',
+                        params: {
+                            id: user_id
+                        }
+                    })
+                },
+                search() {
+                    var keywords = this.query
+                    this.$router.push({
+                        path: '/userlist',
+                        query: {
+                            keyword: keywords
+                        }
+                    })
+                }
+            }
+        }
+    </script>
+
+    <!-- ----------------------------------------------------------------------- -->
+
+    <script>
+        var vm = new Vue({
+            el: '#example',
+            data: {
+                message: 'Hello'
+            },
+            computed: {
+                // a computed getter
+                reversedMessage: function() {
+                    // `this` points to the vm instance
+                    return this.message.split('').reverse().join('')
+                }
+            }
+        })
+    </script>
+    
+    <!-- ---------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

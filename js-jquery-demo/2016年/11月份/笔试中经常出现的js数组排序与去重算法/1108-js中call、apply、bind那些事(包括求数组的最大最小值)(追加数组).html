@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+改变函数执行时的上下文，再具体一点就是改变函数运行时的this指向。
+
+改变函数执行时的上下文，再具体一点就是改变函数运行时的this指向。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+call、apply与bind的差别
+
+call和apply改变了函数的this上下文后便执行该函数
+
+而bind则是返回改变了上下文后的一个函数。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+call、apply的区别
+
+他们俩之间的差别在于参数的区别，call和aplly的第一个参数都是要改变上下文的对象，
+
+而call从第二个参数开始以参数列表的形式展现
+
+apply则是把除了改变上下文对象的参数放在一个数组里面作为它的第二个参数。
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+fn.call(obj, arg1, arg2, arg3...);
+
+fn.apply(obj, [arg1, arg2, arg3...]);
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+<!-- 常见应用场景 -->
+
+求数组中的最大和最小值
+
+<script>
+    var arr = [34, 5, 3, 6, 54, 6, -67, 5, 7, 6, -8, 687];
+
+    var arr_max=Math.max.apply(Math, arr);
+    // console.log(arr_max);
+
+    var arr_max2=Math.max.call(Math, 34, 5, 3, 6, 54, 6, -67, 5, 7, 6, -8, 687);
+    // console.log(arr_max2)
+
+    var arr_min=Math.min.apply(Math, arr);
+    // console.log(arr_min)
+
+    var arr_min2=Math.min.call(Math, 34, 5, 3, 6, 54, 6, -67, 5, 7, 6, -8, 687);
+    // console.log(arr_min2)
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+数组追加
+
+在js中要往数组中添加元素，可以直接用push方法，
+
+<script>
+
+    var arr1 = [1, 2, 3];
+    var arr2 = [4, 5, 6];
+
+    // 第一种方法
+    [].push.apply(arr1, arr2);
+
+    // 第二种方法
+    // arr1.push(...arr2)
+
+    console.log(arr1); //[1, 2, 3, 4, 5, 6]
+
+    // console.log(arr2); [4,5,6]
+
+</script>
+
+使用了一个辅助的空数组（为了访问非静态方法)，就是把 arr2 利用 apply 的数组参数特性 push 到 arr1 中。
+
+这样通过解构可以写成 arr1.push(...arr2)
+
+ 如果需要返回一个全新的对象，还可以使用 [...arr1, arr2]。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+在es6中新添加了一个...操作符，用于将数组展开成列表，具体可参见MDN上的文档。
+
+因此，我们这里可以使用该操作符，直接调用max()和min()方法：
+
+<script>
+
+    let getMaxProfit = function getMaxProfit(arr) {
+        let max = Math.max(...arr);
+        let min = Math.min(...arr);
+        console.log(max-min); // 6
+        return max - min;
+    }
+    var arr=[4,5,1,2,4,7];
+    getMaxProfit(arr);
+
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+
+柯里化，即Currying，可以是函数变得更加灵活。
+
+我们可以一次性传入多个参数调用它；也可以只传入一部分参数来调用它，让它返回一个函数去处理剩下的参数。
+
+<script>
+
+    var add = function(x) {
+        return function(y) {
+            return x + y;
+        };
+    };
+
+    console.log(add(1)(1)); // 输出2
+
+    var add1 = add(1);
+    console.log(add1(1)); // 输出2
+
+    var add10 = add(10);
+    console.log(add10(1)); // 输出11
+
+</script>
+
+代码中，我们可以一次性传入2个1作为参数add(1)(1)
+
+也可以传入1个参数之后获取add1与add10函数，这样使用起来非常灵活。
+
+</body>
+</html>

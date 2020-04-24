@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<!-- ------------------------------------------------------------------------- -->
+
+     ...App 就是 render: h => h(App) 啊
+
+     vue-resource已经不再是官方推荐的ajax工具，由axios代替
+
+     作者已经声明过了，推荐用axios代替。
+
+<!-- ------------------------------------------------------------------------- -->
+
+     v-for循环，注意参数顺序为(item,index) in items
+
+    <a class="list-group-item" v-for="(plan,index) in plans">
+
+    v-for中，对象是用key， 数组用的是index
+
+    举个例子：
+
+    数组的：
+    <div v-for="(item,index) in items">
+
+    </div>
+
+    <!-- ------------------------------------------------------------------ -->
+
+    对象的：
+    <div v-for="(value, key) in object">
+      {{ key }} : {{ value }}
+    </div>
+<!-- ------------------------------------------------------------------------ -->
+
+
+  :src  属性，这个是vue的属性绑定简写 v-bind: 可以缩写为 :
+
+  比如a标签的 href 可以写为 :href
+
+  并且在vue的指令里就一定不要写插值表达式了( :src={{xx}} )，vue自己会去解析
+
+
+  <img :src="plan.avatar" class="avatar img-circle img-responsive" />
+
+<!-- ------------------------------------------------------------------------- -->
+
+<script>
+  import { mapGetters , mapActions } from 'vuex'
+
+  export default{
+      data() {
+           return{
+
+           }
+      },
+      computed:{
+         ...mapGetters(['plans'])
+      },
+      methods:{
+        ...mapActions(['deletePlan'])
+      }
+   }
+</script>
+<!-- --------------------------------------------------------------------------- -->
+<script>
+// 相关的 mutations
+const mutations = {
+      [types.GETTERSLISTS](state,gettercan)
+      {
+           if(gettercan == 'hot')
+           {
+                state.curlisttype=''
+                state.curlisttype=state.hot
+           }
+           else if(gettercan == 'new'){
+               state.curlisttype=''
+               state.curlisttype=state.new
+           }
+           else if(gettercan == 'day'){
+               state.curlisttype=''
+               state.curlisttype=state.day
+           }
+      },
+      // 记得这里是要加上个逗号的
+      [types.GETSTARTLIST] (state)
+      {
+        state.curlisttype=''
+        state.curlisttype=state.hot
+      }
+}
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+<script>
+      export default{
+      		data(){
+      			return {
+
+      			}
+      		},
+      		computed:{
+                 ...mapGetters(['getnavlists','getcurlist'])
+      		},
+      		methods:{
+                  ...mapActions(['getterlists','getstartlist'])
+      		},
+      		created(){
+      			this.getstartlist()   //要先 执行这个this.getstarlist()，要不然上面那个getcurlist[0].type会报错的。
+      		},
+          mounted(){
+            this.getstartlist()
+          }
+      }
+</script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

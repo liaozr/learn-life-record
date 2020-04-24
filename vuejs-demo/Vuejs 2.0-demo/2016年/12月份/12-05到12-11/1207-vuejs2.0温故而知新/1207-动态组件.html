@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+动态组件
+
+你可以使用同一个挂载点，并动态地将其切换为其他 Component。只需要使用保留的 元素并动态绑定到它的 is 属性:
+
+<script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            currentView: 'home'
+        },
+        components: {
+            home: { /* ... */ },
+            posts: { /* ... */ },
+            archive: { /* ... */ }
+        }
+    })
+</script>
+
+<component v-bind:is="currentView">
+  <!-- 当 vm.currentView 改变后 component 类型也会发生改变 -->
+</component>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+</body>
+</html>

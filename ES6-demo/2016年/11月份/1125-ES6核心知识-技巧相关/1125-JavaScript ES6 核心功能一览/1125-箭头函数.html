@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+箭头函数
+
+ES6 没有移除函数表达式，但是新增了一种，叫做箭头函数。
+
+在 ES5 中，对于 this 我们有一些问题：
+
+<script>
+    // ES5
+    var _this = this; // 保持一个引用
+    $('.btn').click(function(event) {
+        _this.sendData(); // 引用的是外层的 this
+    });
+    $('.input').on('change', function(event) {
+        this.sendData(); // 引用的是外层的 this
+    }.bind(this)); // 绑定到外层的 this
+</script>
+
+
+你需要使用一个临时的 this 在函数内部进行引用或用 bind 绑定。在 ES6 中，你可以用箭头函数。
+
+<script>
+    // ES6
+    // 引用的是外部的那个 this
+    $('.btn').click((event) => this.sendData());
+    // 隐式返回
+    const ids = [291, 288, 984];
+    const messages = ids.map(value => `ID is ${value}`);
+</script>
+
+</body>
+</html>

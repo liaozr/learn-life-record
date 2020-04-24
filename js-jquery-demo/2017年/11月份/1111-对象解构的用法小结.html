@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        var msg = {
+            aa: 1,
+            bb: 2,
+            cc: {
+                text: 'zrliao'
+            }
+        }
+
+        let { cc } = msg;
+
+        // 这样就相当于 与 对象里面的 一个 属性 给提取 出来了，这就是 传说中的 对象解构。
+        
+        console.log(cc)  //  打印出的数据为： Object {text: "zrliao"}
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='flexible.js'></script>
+    <script src='flexible_css.js'></script>
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+</head>
+<style>
+    .g-chose {
+        height: 1.25rem;
+        border-bottom: 1px solid #eee;
+        background-color: #f7f7f7;
+        position: relative;
+        z-index: 201;
+    }
+
+    .g-chose ul {
+        padding: 0.15625rem 0 0.15625rem 0;
+        display: table;
+        width: 100%;
+    }
+
+    .g-chose ul li {
+        display: table-cell;
+        vertical-align: middle;
+        height: 0.9375rem;
+        border-left: 1px solid #ccc;
+        font-size: 0.4375rem;
+    }
+
+    .g-chose ul li span.name {
+        text-indent: 2em;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .g-chose ul li span.down {
+        width: 0.46875rem;
+        height: 0.46875rem;
+        float: right;
+        background-size: 0.453125rem;
+        margin-right: 0.46875rem;
+        margin-top: 0.109375rem;
+        display: inline-block;
+    }
+
+    .g-chose ul li span.up {
+        width: 0.46875rem;
+        height: 0.46875rem;
+        float: right;
+        background-size: 0.453125rem;
+        margin-right: 0.46875rem;
+        margin-top: 0.109375rem;
+        display: inline-block;
+    }
+    /*区域、价格、户型选项区域开始*/
+
+    .choice_wrap {
+        position: absolute;
+        width: 100%;
+        z-index: 10000;
+    }
+
+    .choice_wrap .choice_item {
+        line-height: 50px;
+        font-size: 0.375rem;
+        height: 9.6875rem;
+        overflow-y: scroll;
+    }
+
+    .bgf {
+        background: #fff;
+    }
+
+    .choice_wrap .choice_item li {
+        padding: 0 12px;
+        border-bottom: 1px solid #ccc;
+        height: 1.5625rem;
+        line-height: 1.5625rem;
+    }
+
+    .choice_wrap .choice_item li a.current {
+        color: #e8382b;
+    }
+
+    .choice_wrap .choice_item li a {
+        color: #333;
+        text-decoration: none;
+        font-size: 0.5rem;
+    }
+
+    p {
+        min-height: 1000px;
+    }
+
+    .zhezhaocneg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: #242424;
+        opacity: 0.6;
+    }
+
+</style>
+
+<body>
+
+    <div id="app">
+
+        <div class="g-chose">
+            <ul>
+                <li @click="chose(0)" data-classes="region" id="region"><span class='name'>区域</span><span class='down-icon down'></span></li>
+
+                <li @click="chose(1)" data-classes="price" id="price"><span class='name'>价格</span><span class='down-icon down'></span></li>
+
+                <li @click="chose(2)" data-classes="family" id="family"><span class='name'>户型</span><span class='down-icon down'></span></li>
+
+            </ul>
+        </div>
+
+        <!--选项切换开始-->
+        <section class="choice_wrap" id='move'>
+
+            <ul v-show="curindex == 0 && flag" class="bgf choice_item region" data-flag="region">
+                <li class="current"><a href="#" class="current">全部</a></li>
+                <li><a href="#">宝山</a></li>
+                <li><a href="#">长宁</a></li>
+                <li><a href="#">崇明</a></li>
+                <li><a href="#">奉贤</a></li>
+                <li><a href="#">黄埔</a></li>
+                <li><a href="#">宝山</a></li>
+                <li><a href="#">长宁</a></li>
+                <li><a href="#">崇明</a></li>
+                <li><a href="#">奉贤</a></li>
+                <li><a href="#">黄埔</a></li>
+                <li><a href="#">宝山</a></li>
+                <li><a href="#">长宁</a></li>
+                <li><a href="#">崇明</a></li>
+                <li><a href="#">奉贤</a></li>
+                <li><a href="#">黄埔</a></li>
+            </ul>
+
+            <ul v-if="curindex == 1 && flag" class="bgf choice_item price" data-flag="price">
+                <li><a href="#">全部</a></li>
+                <li><a href="#">2万以下</a></li>
+                <li><a href="#">2万-3万</a></li>
+                <li><a href="#">3万-5万</a></li>
+                <li><a href="#">5万以上</a></li>
+                <li><a href="#">待定</a></li>
+            </ul>
+
+            <ul v-if="curindex == 2 && flag" class="bgf choice_item family" data-flag="family">
+                <li><a href="#">全部</a></li>
+                <li><a href="#">一房</a></li>
+                <li><a href="#">两房</a></li>
+                <li><a href="#">三房</a></li>
+                <li><a href="#">四房</a></li>
+                <li><a href="#">五房</a></li>
+            </ul>
+
+        </section>
+
+        <p>1212手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是1212手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是手动是</p>
+        <p>1212</p>
+        <p>444444444</p>
+
+        <div @touchmove.prevent :class="{'zhezhaocneg':zhezhao}"></div>
+
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                curindex: null,
+                flag: false,
+                zhezhao: false
+            },
+            methods: {
+                chose: function(index) {
+                    this.curindex = index
+                    this.flag = !this.flag
+                }
+            },
+            watch: {
+                flag: function() {
+                    if (this.flag) {
+                        this.zhezhao = true
+                        stopBodyScroll('isFixed')
+                    } else {
+                        this.zhezhao = false
+                        stopBodyScroll()
+                    }
+                }
+            }
+        })
+
+        var bodyEl = document.body
+        var top = 0
+        function stopBodyScroll(isFixed) {
+            if (isFixed) {
+                top = window.scrollY
+                bodyEl.style.position = 'fixed'
+                bodyEl.style.top = -top + 'px'
+            } else {
+                bodyEl.style.position = ''
+                bodyEl.style.top = ''
+
+                window.scrollTo(0, top) // 回到原先的top
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

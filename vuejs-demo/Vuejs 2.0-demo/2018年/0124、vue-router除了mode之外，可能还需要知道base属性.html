@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  应用基路径也就是说我们应该将router的配置修改一下
+
+  <script>
+
+      let link = ''
+
+      if (window.location.host === 'm.kurisu.fm') {
+          link = '/pay/my'
+      }
+      
+      export default new Router({
+          base: link, // 在此设定应用的基路径
+          /*在window.location.host === 'm.kurisu.fm'的情况下，路由会将path为'/'的路径变为'/pay/my'，如果没有这个配置的话router还是会按'/'的路径去匹配路由，这样用户将会无法正常访问到页面*/
+          routes: [
+              {
+                  path: '/',
+                  name: 'JXGlobal',
+                  component: JXGlobal
+              },
+              {
+                  path: '/auth',
+                  component: Auth
+              }
+          ]
+      })
+
+  </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+  当你使用new的时候，会：
+  
+  创建一个新的空对象；
+
+  将this绑定到该对象；
+
+  添加一个名为__proto__的新属性，并且指向构造函数的原型(prototype)；
+
+  返回该this对象。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+<script>
+
+    function Student(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // 现在我们使用new来创建一个新的对象:
+    var first = new Student('John', 26);
+
+    console.log(first.name);
+    // John
+
+    console.log(first.age);
+    // 26
+
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+到底发生了什么呢？
+
+一个新的对象创建，我们叫它obj；
+
+this绑定到obj，任何对this的引用就是对obj的引用；
+
+__proto__属性被添加到obj对象。
+
+obj.__proto__会指向Student.prototype；
+
+该obj对象被赋值给first变量。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+Student的构造函数有一个叫.prototype的属性，
+
+该属性又有一个.constructor的属性反过来指向Student构造。
+
+它们构成了一个环。当我们使用new去创建一个新的对象，
+
+每一个对象都有.__proto__属性反过来指向Student.prototype。
+
+这个设计对于继承来说很重要。因为原型对象被所有由该构造函数创建的对象共享。
+
+当我们添加函数和属性到原型对象中，其它所有的对象都可以使用。
+
+在本文我们只创建了两个Student对象，如果我们创建20，000个
+
+那么将属性和函数放到prototype而不是每一个对象将会节省非常很多的存储和计算资源。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

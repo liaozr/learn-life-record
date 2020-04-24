@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <template>
+
+        <div ref='wrapper' class="wrapper">
+           <slot></slot>
+        </div>
+
+    </template>
+
+    <script>
+        import BScroll from 'better-scroll'
+        export default {
+            data() {
+                return {
+
+                }
+            },
+            props: {
+                probeType: {
+                    type: Number,
+                    default: 1
+                },
+                click: {
+                    type: Boolean,
+                    default: true
+                },
+                data: {
+                    type: Array,
+                    default: null
+                }
+            },
+            methods: {
+
+                // 这个初始化 方法 是 要 滑动这些 dom 的，所以，必须 得在  mounted钩子里面执行 这些方法
+                // this.$refs.wrapper 表示 dom 已经 生成完毕了。
+                initScroll() {
+                    if (!this.$refs.wrapper) {
+
+                    }
+                },
+
+                _getRecommend:function(){
+                   getRecommend().then((res) => {
+                       if(res.code == ERR_OK){
+                          console.log(res.data.slider)
+                          this.recommends=res.data.slider;
+                       }
+                   })
+               },
+               getDiscLists(){
+                   getDiscList2()
+                         .then((data) => {
+                             console.log("imgcccc");
+                             console.log(data)
+                             if(data.code == ERR_OK){
+                               this.discList=data.data.list
+                             }
+                   })
+               },
+            },
+            mounted() {
+
+                // 在 mounted 钩子里面 慕课老师 建议 是 用  setTimeout 代替  nextTick钩子
+                // setTimeout(() =>{
+                //
+                // },20) 确保  dom 已经 生成 完毕了
+
+                setTimeout(() => {
+                    this.initScroll()
+                }, 20) // 这里的 时间 值 可以 是 0， 也可以是20 ，之所以可以是 20 是因为 浏览器的 最小 刷新时间 是 20毫秒
+
+            },
+            created(){
+
+              //  这个钩子 里面  可以 放  ajax 请求数据 的 一些 方法 或者是 函数
+
+              // 建议这么写，mounted 钩子里面 跟created 钩子 里面  不建议  写 函数 跟方法，
+              // 函数跟方法建议写在 methods里面，以保证结构的清晰。
+
+              this._getRecommend()
+              this.getDiscLists()
+
+            }
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>let的学习</title>
+	<style>
+		ul,li{
+			list-style: none;
+		}
+		.tab{
+
+		}
+		.tab .tab-head{
+			height: 40px;
+		}
+		.tab .tab-head li{
+			float:left;
+			width: 100px;
+			height: 40px;
+			line-height: 40px;
+			text-align: center;
+			background-color: green;
+			color:#fff;
+		}
+		.tab .tab-head li.change{
+			background-color: #9da;
+		}
+		.tab .tab-con div{
+			width: 200px;
+			height: 200px;
+			padding: 50px;
+			display: none;
+		}
+		.tab .tab-con div.show{
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div class="tab">
+		<ul class="tab-head">
+			<li class="change">腾讯视频</li>
+			<li>腾讯新闻</li>
+			<li>腾讯体育</li>
+		</ul>
+		<div class="tab-con">
+			<div class="show">大作战</div>
+			<div>开会</div>
+			<div>NBA</div>
+		</div>
+	</div>
+</body>
+<script>
+   //let 就是ES6新增的一声明变量的操作符 它是不存在变量提升的
+	let tabHead=document.getElementsByClassName('tab-head')[0];
+	let oLis=tabHead.getElementsByTagName('li');
+	let tabCon=document.getElementsByClassName('tab-con')[0];
+	let oDivs=tabCon.getElementsByTagName('div');
+	var  len=oLis.length;
+	var  num=1;
+	console.dir(this);
+	console.log(window.num);
+	console.log(window.len);
+	//ES5的写法
+	// for (var i=0;i<len;i++){
+	// 	oLis[i].index=i;
+	// 	oLis[i].onclick=function () {
+	// 		console.log(i);
+	// 		for(var j=0;j<len;j++){
+	// 			oLis[j].className="";
+	// 			oDivs[j].className="";
+	// 		}
+	// 		oLis[this.index].className="change";
+	// 		oDivs[this.index].className="show"
+	// 	}
+	// }
+	for (let i=0;i<len;i++){
+		oLis[i].onclick=()=>{
+			console.log(this);Map
+			setTimeout(()=>{
+				console.log(this);
+			},1000);
+			for(let j=0;j<len;j++){
+				oLis[j].className="";
+				oDivs[j].className="";
+			}
+			oLis[i].className="change";
+			oDivs[i].className="show"
+		}
+	}
+
+</script>
+</html>

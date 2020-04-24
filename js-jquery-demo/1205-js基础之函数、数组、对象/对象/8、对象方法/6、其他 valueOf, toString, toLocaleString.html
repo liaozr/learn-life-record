@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  obj.valueOf()
+
+  该方法返回值为该对象的原始值。
+
+  JavaScript 调用valueOf()方法用来把对象转换成原始类型的值（数值、字符串和布尔值）。
+
+  你很少需要自己调用此函数；当遇到一种需要转换成一个原始值情况时候，
+
+  JavaScript 会自动调用此函数。例如运算obj + 123。
+
+  <script>
+
+      var a = {
+          x: 1
+      }
+      
+      a.valueOf() // Object {x: 1}
+      a.valueOf = () => 1
+      console.log(a + 123) // 124
+
+  </script>
+
+  默认情况下, valueOf()会被每个对象 Object 继承。
+
+  每一个内置对象都会覆盖这个方法为了返回一个合理的值，如果对象没有原始值，valueOf()就会返回对象自身。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  obj.toString()
+
+  该方法返回一个表示该对象的字符串。
+
+  每个对象都有一个toString()方法，当对象被表示为文本值时或者当以期望字符串的方式引用对象时，该方法被自动调用。比如在 alert 一个对象或其他某个操作或者运算需要字符串的时候的时候，就会自动调用该对象的toString()方法。
+
+  默认情况下，toString()方法被每个继承自 Object 的对象继承。
+
+  如果此方法在自定义对象中未被覆盖，toString()返回 “[object type]”，其中 type 是对象类型，例如：
+
+  <script>
+
+      var o = new Object();
+      o.toString(); // 返回了[object Object]
+
+  </script>
+
+  所以我们可以利用toString方法来检测对象类型，为了避免使用到被覆盖的toString 方法被覆盖(默认情况下一般都会被覆盖的，
+
+  我们直接调用Object.prototype.toString()来使用：
+
+
+  <script>
+
+      Object.prototype.toString.call(new Date()) // "[object Date]"
+      Object.prototype.toString.call(new Array()) // "[object Array]"
+      Object.prototype.toString.call(Math) // "[object Math]"
+      // 从 javascript 1.8.5 开始可以检测 undefined 与 null
+      Object.prototype.toString.call(undefined) // "[object Undefined]"
+      Object.prototype.toString.call(null) // "[object Null]"
+
+  </script>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  obj.toLocaleString()
+
+  该方法主要用于被本地化相关对象覆盖。一般返回调用toString()方法的结果。
+
+  覆盖了toLocaleString()方法的对象包括以下这些：
+
+  Array: Array.prototype.toLocaleString()
+  Number: Number.prototype.toLocaleString()
+  Date: Date.prototype.toLocaleString()
+
+  由于在不同地区该方法返回的结果可能不同，因此toLocaleString只是用来显示结果给用户，最好不要在脚本中用来做基本计算。
+
+  例如，同样是 3 月 21 日，在美国，toLocaleString可能会返回 “03/21/08 01:02:03”，而在欧洲，
+
+  返回值则可能是 “21/03/08 01:02:03”，因为欧洲的惯例是将日期放在月份前面。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

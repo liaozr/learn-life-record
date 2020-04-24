@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  获取表单控件值
+
+　通常我们可以直接使用 v-model 将表单控件与数据进行绑定，
+
+  但是有时候我们也会需要在用户输入的时候获取当前值（比如：实时验证当前输入控件内容的有效性）。
+
+　这时我们可以使用 @input 或 @change 事件绑定我们自己的处理函数，并传入 $event 对象以获取当前控件的输入值：
+
+  <input type='text' @change='change($event)'>
+
+  <script>
+
+      change(e) {
+          let curVal = e.target.value
+          if (/^\d+$/.test(curVal)) {
+              this.num = +curVal
+          } else {
+              console.error('%s is not a number!', curVal)
+          }
+      }
+      
+  </script>
+
+  当然，如果 UI 框架采用 Element 会更简单，它的事件回调会直接传入当前值。
+
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+  
+<!-- ---------------------------------------------------------------------------------- -->
+
+  1.路由匹配参数
+
+  首先在路由配置文件router.js中做好配置。标红出就是对 /linkParams/的路径做拦截，这种类型的链接后面的内容会被vue-router映射成name参数。
+
+  代码中获取name的方式如下：
+
+  let name = this.$route.params.name; // 链接里的name被封装进了 this.$route.params
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  2.Get请求传参
+
+  这个明明实在不好形容啊。不过真的是和Get请求一样。你完全可以在链接后加上?进行传参。
+
+  样例：http://localhost:8080/linkParamsQuestion?age=18
+
+  项目里获取：
+
+  let age = this.$route.query.age;   //问号后面参数会被封装进 this.$route.query;
+
+  <!-- ---------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+原型是类的核心。这句话并非空穴来风，
+
+类的所有实例对象都从同一个原型对象中继承属性 （也就是属性类型中的继承属性）。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+如何定义类？
+
+构造函数（第一节已经叙述了构造函数的特殊性来自于new关键词，下面小节会详细讲述）
+
+Object.create()
+
+ES6语法新增的 class 关键词（实质上为语法糖）
+
+<!-- ------------------------------------------------------------------------------ -->
+
+Q: 什么是原型链？(重点)
+
+A: 原型链是JavaScript的继承机制,理解原型链前，我们需要知道prototype与__proto__
+
+prototype：是函数的一个属性（每个函数都有一个prototype属性），这个属性是一个指针，指向一个对象，即原型对象。
+
+__proto__：是一个对象拥有的内置属性
+
+（请注意：prototype是函数的内置属性，__proto__ 是对象的内置属性），是JS内部使用寻找原型链的属性。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+因为构造函数可以定义类，所以也可以理解类的prototype属性指向类的原型对象。
+
+__proto__指向实例对象继承的某个原型对象。
+
+var date = new Date();
+console.log(date.__proto__)
+console.log(Date.prototype)
+
+<!-- ------------------------------------------------------------------------------ -->
+
+原型对象Date中也存在__proto__属性（因为对象含有__proto__属性），它又标志这个原型对象的原型来源，
+
+可以看出其来自于Object，准确的说来自于Object的原型对象。此时Object的原型对象并没有__proto__属性
+
+这就是所谓的原型链,同时也说明了原型链的终点是Object.prototype
+
+<!-- ------------------------------------------------------------------------------ -->
+
+现在我们再回过头来看三种定义类的方式
+
+1. 构造函数：利用函数的prototype属性定义类的原型，从而产生新的类型，借助new 关键词实例化对象
+
+<script>
+
+    // 类名最好大写(约定)
+    function Cat() {
+        this.age = 3
+    }
+    Cat.prototype.name = 'cat'
+    var cat = new Cat(); // cat.__proto__ == Cat.prototype
+    cat.name === 'name' // name 为 cat的继承属性
+    cat.age === 3 // age 为 cat的自有属性
+</script>
+
+------------------------------------------------------------------------------
+
+2. Object.create（obj）： 返回一个实例对象，这个实例对象的原型为obj（详细用法）
+
+<script>
+    var Cat = {
+        name: 'cat'
+    }
+    var cat = Object.create(Cat);
+    // cat.__proto__ == Cat 方式2的Cat等同于方式1的Cat.prototype
+    cat.name === 'name'
+    // name 为 cat的继承属性 ,这种方式无法预置自有属性
+</script>
+------------------------------------------------------------------------------
+
+3. ES6 class 关键词： 语法糖，实质原理基本一致
+
+<script>
+    class Cat {
+        constructor() {
+            this.age = 3;
+        }
+        getAge() {
+            return this.age;
+        }
+    }
+    var cat = new Cat();
+    // cat.__proto__ == Cat.prototype
+    // age为自有属性 ， getAge 为属性方法
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

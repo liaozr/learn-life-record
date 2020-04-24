@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // 检查字符串是否为合法Email地址
+        function isEmail(str) {
+            var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+            if (reg.test(str)) {
+                console.log('Email格式输入正确');
+                return true;
+            } else {
+                console.log('请输入正确格式的Email');
+                return false;
+            }
+        }
+        
+    </script>
+
+</body>
+
+</html>

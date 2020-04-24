@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+闭包
+
+现在来考虑如下的例子：
+
+<script>
+    function makeFunc() {
+        var name = "Mozilla";
+
+        function displayName() {
+            alert(name);
+        }
+        return displayName;
+    }
+
+    var myFunc = makeFunc();
+    myFunc();
+</script>
+
+运行这段代码的效果和之前的 init() 示例完全一样：字符串 "Mozilla" 将被显示在一个 JavaScript 警告框中。
+
+其中的不同 — 也是有意思的地方 — 在于 displayName() 内部函数在执行前被从其外围函数中返回了。
+
+这段代码看起来别扭却能正常运行。
+
+通常，函数中的局部变量仅在函数的执行期间可用。一旦 makeFunc() 执行过后，我们会很合理的认为 name 变量将不再可用。虽然代码运行的没问题，但实际并不是这样的。
+
+这个谜题的答案是 myFunc 变成一个 闭包 了。
+
+闭包是一种特殊的对象。
+它由两部分构成：函数，以及创建该函数的环境。
+
+环境由闭包创建时在作用域中的任何局部变量组成。
+
+在我们的例子中，myFunc 是一个闭包，由 displayName 函数和闭包创建时存在的 "Mozilla" 字符串形成。
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+
+下面是一个更有意思的示例 — makeAdder 函数：
+
+<script>
+    function makeAdder(x) {
+        return function(y) {
+            return x + y;
+        };
+    }
+
+    var add5 = makeAdder(5);
+    var add10 = makeAdder(10);
+
+    console.log(add5(2)); // 7
+    console.log(add10(2)); // 12
+</script>
+
+在这个示例中，我们定义了 makeAdder(x) 函数：带有一个参数 x 并返回一个新的函数。返回的函数带有一个参数 y，并返回 x 和 y 的和。
+
+从本质上讲，makeAdder 是一个函数工厂 — 创建将指定的值和它的参数求和的函数，在上面的示例中，我们使用函数工厂创建了两个新函数 — 一个将其参数和 5 求和，另一个和 10 求和。
+
+add5 和 add10 都是闭包。它们共享相同的函数定义，但是保存了不同的环境。在 add5 的环境中，x 为 5。而在 add10 中，x 则为 10。
+<!-- ---------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

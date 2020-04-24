@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+ <!-- -------------------------------------------------------------------------------- -->
+
+  这个其实很简单, 如果 style 里的样式没有变量, 那么和正常的写法一样, 如果有变量:
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+  <script>
+      data() {
+          return {
+              color: '#fff',
+              img: '/a.jpg'
+          }
+      }
+  </script>
+
+  <div :style="`color:${color}; background:url(${img});`"></div>
+
+  <div :style="{width: '100px';height: '100px'; background: 'url('+img+')'}"></div>
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    <script type="text/javascript">
+
+        vue - router 纳入到 vuex 的管理中哪？
+
+        这里又得感谢尤大大为我们造好了一个小工具 vuex - router - sync。
+
+        首先， 安装
+        npm install vuex-router-sync@next --save
+
+        然后， 在项目初始化的时候将 router 同 store 联系起来就行， 简单到都不知道说啥好。
+
+
+        这个工具的原理也非常好理解， 主要是 2 点：
+
+        一是， 给 vuex 的 store 注册一个 router 的 module。
+        另一个， 就是使用 vue - router 的 afterEach hooks 来触发 mutation。
+
+    </script>
+</body>
+
+</html>

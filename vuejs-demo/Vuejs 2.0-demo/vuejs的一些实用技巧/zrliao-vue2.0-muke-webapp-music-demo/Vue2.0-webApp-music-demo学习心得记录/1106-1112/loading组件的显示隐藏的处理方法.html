@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------------------------- -->
+
+  建议这样来控制 loading 组件的显示跟隐藏  当这个数据获取到的时候，就把loading组件隐藏掉，
+
+  所以，并不建议在用另外其他标志flag 来控制 loading的显示跟隐藏，就用页面数据的 变量 来控制就好。
+
+  <div class="loading-container" v-show='!discList.length'>
+       <loading></loading>
+  </div>
+
+<!-- ----------------------------------------------------------------------------------------------------- -->
+
+
+    <template>
+
+         <div class="recommend" ref="recommend">
+             <scroll ref='scroll' class="recommend-content" :lists="discList">
+                <div>
+                     <div v-if='recommends.length' class="slider-wrapper">
+                         <slider>
+                           <div v-for="item in recommends" :key="item.id">
+                             <a :href="item.linkUrl">
+                               <img @load='loadImage' :src="item.picUrl" alt="">
+                             </a>
+                           </div>
+                         </slider>
+                     </div>
+                     <div class="recommend-list">
+                         <h1 class='list-title'>热门歌单推荐</h1>
+                         <ul>
+                           <li v-for='item in discList' class='item' :key='item.id' >
+                               <div class="icon">
+                                 <!-- <img width='60' height='60' :src="item.imgurl" alt=""> -->
+                                 <img width='60' height='60' v-lazy="item.imgurl" alt="">
+                               </div>
+                               <div class="text">
+                                   <h2 class="name">{{item.creator.name}}</h2>
+                                   <p class='desc'>{{item.dissname}}</p>
+                               </div>
+                           </li>
+                         </ul>
+                     </div>
+                </div>
+
+                <div class="loading-container" v-show='!discList.length'>
+                     <loading></loading>
+                </div>
+
+             </scroll>
+
+         </div>
+   </template>
+
+<!-- ----------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

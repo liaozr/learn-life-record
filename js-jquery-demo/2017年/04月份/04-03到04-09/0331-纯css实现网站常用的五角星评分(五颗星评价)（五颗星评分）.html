@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="rating">
+        <input type="radio" id="star5" name="rating" value="5" hidden/>
+        <label for="star5"></label>
+        <input type="radio" id="star4" name="rating" value="4" hidden/>
+        <label for="star4"></label>
+        <input type="radio" id="star3" name="rating" value="3" hidden/>
+        <label for="star3"></label>
+        <input type="radio" id="star2" name="rating" value="2" hidden/>
+        <label for="star2"></label>
+        <input type="radio" id="star1" name="rating" value="1" hidden/>
+        <label for="star1"></label>
+    </div>
+
+    <style>
+        .rating {
+            font-size: 0;
+            display: table;
+        }
+
+        .rating>label {
+            color: #ddd;
+            float: right;
+        }
+
+        .rating>label:before {
+            padding: 5px;
+            font-size: 24px;
+            line-height: 1em;
+            display: inline-block;
+            content: "★";
+        }
+
+        .rating>input:checked~label,
+        .rating:not(:checked)>label:hover,
+        .rating:not(:checked)>label:hover~label {
+            color: #FFD700;
+        }
+
+        .rating>input:checked~label:hover,
+        .rating>label:hover~input:checked~label,
+        .rating>input:checked~label:hover~label {
+            opacity: 0.5;
+        }
+    </style>
+
+    <!-- ----------------------------------------------------------------------------------------- -->
+
+    ### 展示评分模块
+    用户评完分之后，会看到展示的分数，假设五个星星，满分10分。
+
+    展示评分就比较简单，放两个一模一样的html，五角星颜色不同，灰色的放在下面，评分的亮色放在上面，然后按照百分比显示分数。
+
+    <!-- ---------------------------------------------------------------------------------------------- -->
+
+    当接口返回的分数是5分的时候，刚好占据一半的星星，2星半，只要计算出百分比就行，
+
+    只用管数据，用上vue.js数据驱动的特点来动态展示样式这个简直不要太容易。
+
+    <!-- ---------------------------------------------------------------------------------------------- -->
+
+    <div class="star-rating">
+        <div class="star-rating-top" style="width:50%">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="star-rating-bottom">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <style>
+        .star-rating {
+            unicode-bidi: bidi-override;
+            color: #ddd;
+            font-size: 0;
+            height: 25px;
+            margin: 0 auto;
+            position: relative;
+            display: table;
+            padding: 0;
+            text-shadow: 0px 1px 0 #a2a2a2;
+        }
+
+        .star-rating span {
+            padding: 5px;
+            font-size: 20px;
+        }
+
+        .star-rating span:after {
+            content: "★";
+        }
+
+        .star-rating-top {
+            color: #FFD700;
+            padding: 0;
+            position: absolute;
+            z-index: 1;
+            display: block;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .star-rating-bottom {
+            padding: 0;
+            display: block;
+            z-index: 0;
+        }
+    </style>
+
+    <!-- ----------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

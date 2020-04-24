@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    1、上三角形 上三角形，顶部是尖的，所以用border-left，border-right，和border-bottom可以实现，给bottom一个颜色，其他设置为transparent
+
+    <div id="triangle-up"></div>
+    <div id="triangle-down"></div>
+    <div id="triangle-left"></div>
+    <div id="triangle-right"></div>
+    <div id="triangle-topleft"></div>
+    <div id="triangle-topright"></div>
+    <div id="triangle-bottomleft"></div>
+    <div id="triangle-bottomright"></div>
+
+    <style>
+        div {
+            margin-top: 20px;
+        }
+    </style>
+    <!-- ----------------------------------------------------------------------------- -->
+    <style>
+        #triangle-up {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 100px solid red;
+        }
+
+        #triangle-down {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-top: 100px solid red;
+        }
+
+        #triangle-left {
+            width: 0;
+            height: 0;
+            border-top: 50px solid transparent;
+            border-right: 100px solid red;
+            border-bottom: 50px solid transparent;
+        }
+
+        #triangle-right {
+            width: 0;
+            height: 0;
+            border-top: 50px solid transparent;
+            border-left: 100px solid red;
+            border-bottom: 50px solid transparent;
+        }
+
+        #triangle-topleft {
+            width: 0;
+            height: 0;
+            border-top: 100px solid red;
+            border-right: 100px solid transparent;
+        }
+
+        #triangle-topright {
+            width: 0;
+            height: 0;
+            border-top: 100px solid red;
+            border-left: 100px solid transparent;
+        }
+
+        #triangle-bottomleft {
+            width: 0;
+            height: 0;
+            border-bottom: 100px solid red;
+            border-right: 100px solid transparent;
+        }
+
+        #triangle-bottomright {
+            width: 0;
+            height: 0;
+            border-bottom: 100px solid red;
+            border-left: 100px solid transparent;
+        }
+    </style>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="checkbox" name="" id="checkbox" v-model="checked">
+        <label for="checkbox"> this box is {{checked ? "checked" : "unchecked"}}</label>
+
+        <ul v-for='(item,index) in items'>
+            <li>
+                <input type="radio" name="" :value='item' v-model='value'>
+                <label for="">{{item}}</label>
+            </li>
+        </ul>
+        <span>favorite:{{value}}</span>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                checked: false,
+                value: '',
+                items: [
+                    'zrliao', 'liaozhongren', 'game'
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>

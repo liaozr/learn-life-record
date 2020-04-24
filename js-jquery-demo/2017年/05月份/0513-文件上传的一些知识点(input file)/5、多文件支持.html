@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+什么？一个一个添加文件太烦？别急，打开一个开关就好了。
+
+别忘了我们文章一开头就登场的FileUpload对象，它有一个multiple属性。
+
+只要这样
+
+<input id="myFile" type="file" multiple>
+
+我们就能在打开的文件选择对话框中选中多个文件了。
+
+然后你在代码里拿到的FileUpload对象的files属性就是一个选中的多文件的数组了。
+
+<script>
+
+	var fileInput = document.getElementById("myFile");
+	var files = fileInput.files;
+	
+	var formData = new FormData();
+
+	for(var i = 0; i < files.length; i++) {
+	    var file = files[i];
+	    formData.append('files[]', file, file.name);
+	}
+
+</script>
+
+FormData的append方法提供第三个可选参数用于指定文件名，
+
+这样就可以使用同一个表单项名，然后用文件名区分上传的多个文件。
+
+这样也方便前后台的循环操作。
+
+</body>
+</html>

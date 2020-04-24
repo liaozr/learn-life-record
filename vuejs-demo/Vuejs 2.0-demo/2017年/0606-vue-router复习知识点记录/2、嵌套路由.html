@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  嵌套路由
+
+  这里的 是最顶层的出口，渲染最高级路由匹配到的组件。
+  同样地，一个被渲染组件同样可以包含自己的嵌套 。例如，在 User 组件的模板添加一个 ：
+
+  children 配置就是像 routes 配置一样的路由配置数组，所以呢，你可以嵌套多层路由。
+
+  <script>
+
+      {
+          path: '/user/:id',
+          component: User,
+          children: [
+              // 空的 子路由
+              {
+                  path: '',
+                  component: UserHome
+              },
+              {
+                  // 当 /user/:id/profile 匹配成功，
+                  // UserProfile 会被渲染在 User 的 <router-view> 中
+                  path: 'profile',
+                  component: UserProfile
+              },
+              {
+                  // 当 /user/:id/posts 匹配成功
+                  // UserPosts 会被渲染在 User 的 <router-view> 中
+                  path: 'posts',
+                  component: UserPosts
+              }
+          ]
+      }
+
+  </script>
+
+  注意：以 / 开头的嵌套路径会被当作根路径。 这让你充分的使用嵌套组件而无须设置嵌套的路径。
+
+
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+如何让两个 并列的div高度相等
+
+哪个div Height值大，就将其值赋给Height值小的div，从而使2个div高度始终保持一致。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+<script>
+    function $(id) {
+        return document.getElementById(id)
+    }
+    function getHeight() {
+        if ($("left").offsetHeight >= $("right").offsetHeight) {
+            $("right").style.height = $("left").offsetHeight + "px";
+        } else {
+            $("left").style.height = $("right").offsetHeight + "px";
+        }
+    }
+    window.onload = function() {
+        getHeight();
+    }
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+另外，在实际运用，可能还会存在由于左div或右div存在padding属性而导致上述取值变多或变少的问题。
+
+比如，最终赋值时发现left比right还高10px，那么也可以通过修改上述代码解决：
+
+$("left").style.height = $("right").offsetHeight-10 + "px";
+
+<!-- ------------------------------------------------------------------------------ -->
+
+</body>
+</html>

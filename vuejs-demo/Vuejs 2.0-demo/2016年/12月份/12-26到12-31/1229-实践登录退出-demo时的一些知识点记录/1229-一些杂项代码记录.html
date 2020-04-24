@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="msg" v-if="user.id">
+        <img width="50" :src="logo" alt=""> <br> 哈哈，恭喜你已经入坑Vue2
+    </div>
+    <script>
+        import {
+            mapGetters
+        } from 'vuex'
+        export default {
+            data() {
+                return {
+                    logo: require('./../assets/logo.png')
+                }
+            },
+            computed: {
+                ...mapGetters(['user'])
+            }
+        }
+    </script>
+
+    <!-- ----------------------------------------------------------------------- -->
+
+    <div class="header">
+        <!-- 当路由名字有定义时，不等于undefined的时候 就让这个headleft组件显示出来 -->
+        <headleft v-show='$route.name !==undefined '></headleft>
+        <headcenter></headcenter>
+        <headright v-show='user.id'></headright>
+    </div>
+
+    <!-- ------------------------------------------------------------------------ -->
+
+    <div class="headerleft">
+        <div class='back' @click='back' v-if='$route.name !=="home" '>返回</div>
+        <div class='back' @click='back_index' v-else>首页</div>
+    </div>
+
+    <script>
+        export default {
+            data() {
+                return {
+
+                }
+            },
+            methods: {
+                back() {
+                    if (this.$route.name == 'login') {
+                        this.$router.push({
+                            path: '/'
+                        })
+                    } else {
+                        history.go(-1)
+                    }
+                },
+                back_index() {
+                    this.$router.push({
+                        path: '/'
+                    })
+                }
+            }
+        }
+    </script>
+
+    <!-- --------------------------------------------------------------------------- -->
+
+    <div class="headercenter">
+        <div class="center" v-show='$route.name=="login"'>登录</div>
+        <div class="center" v-show='$route.name !=="home" && $route.name !=="signout" && $route.name !=="login"'>首页</div>
+        <div class="center quit" v-show='$route.name=="signout"'>退出</div>
+    </div>
+
+    <!-- ---------------------------------------------------------------------------- -->
+    
+</body>
+
+</html>

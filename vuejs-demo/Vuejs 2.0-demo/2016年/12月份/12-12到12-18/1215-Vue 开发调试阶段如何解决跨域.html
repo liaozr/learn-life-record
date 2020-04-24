@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+在开发阶段, 一般都是用webpack或者nodejs做服务器,
+
+
+访问地址也都是本地IP, 和后台API对接时, 难免就遇到跨域的问题了.
+
+一般解决方法有这么几种:
+
+用jsonp
+
+让后端设置Access-Control-Allow-Origin
+
+使用nodejs做代理
+
+一. 用jsonp
+
+jsonp的原理是script标签引入js是不受域名限制的, 由于是模拟插入script标签, 所以不可以用post请求
+带cookies的方法参见下面设置header的方法
+
+<!-- ----------------------------------------------------------------------------- -->
+
+二. 设置header
+
+设置header比jsonp好, 可以用post方式请求, 配合后端, 也可以携带cookies
+
+后端添加如下header:
+
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Origin: www.xxx.com
+
+<!-- ------------------------------------------------------------------------------- -->
+
+如果需要携带cookies, 这里Access-Control-Allow-Origin将不可以使用泛型(即*),
+
+同时ajax请求需要设置withCredentials = true, 代码如下:
+
+原生ajax请求:
+
+<script>
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://www.xxx.com/api.php", true);
+    xhr.withCredentials = true;
+    xhr.send();
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+使用jQuery的$.ajax:
+
+<script>
+    $.ajax({
+        type: "POST",
+        url: "http://www.xxx.com/api.php",
+        dataType: 'json',
+        xhrFields: {
+            withCredentials: true
+        },
+        crossDomain: true
+    }).then((json) => {
+        // balabala...
+    })
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+</body>
+</html>

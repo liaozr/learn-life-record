@@ -1,0 +1,544 @@
+      /*公用头部页面*/
+   		body,html{font-family: "微软雅黑";}   
+      .w-head {
+      	width: 100%;
+      	height: 150px;
+      	background-color: rgba(0,0,0,0);
+      	position: absolute;
+      	left: 0;
+      	top: 0;
+      	z-index: 1000;
+      }
+      
+      .w-head .title-logo {
+      	position: absolute;
+      	left: 50px;
+      	bottom: 25%;
+      }
+      
+      .w-head .title-logo img {
+      	width: 80px;
+      	vertical-align: middle;
+      }
+      
+      .w-head .title-logo .companyName {
+      	font-size: 25px;
+      	font-weight: bold;
+      	display: inline;
+      }
+      
+      .w-head .linkBox {
+      	width: 800px;
+      	position: absolute;
+      	right: 15%;
+      	top: 30px;
+      	text-align: center;
+      	color: inherit;
+      }
+      
+      @media screen and (min-width: 1300px) and (max-width: 1600px) {
+      	.w-head .linkBox {
+      		width: 800px;
+      		position: absolute;
+      		right: 15%;
+      		top: 30px;
+      		text-align: center;
+      	}
+      }
+      
+      @media screen and (min-width: 1024px) and (max-width: 1300px) {
+      	.w-head .linkBox {
+      		width: 800px;
+      		position: absolute;
+      		right: 8%;
+      		top: 30px;
+      		text-align: center;
+      	}
+      }
+      
+      @media screen and (max-width: 1024px) {
+      	.w-head .linkBox {
+      		width: 800px;
+      		position: absolute;
+      		right: 0;
+      		top: 30px;
+      		text-align: center;
+      	}
+      }
+      
+      .w-head .linkBox a,
+      .w-head .linkBox span {
+      	width: 100px;
+      	display: inline-block;
+      	font-size: 14px;
+      	color: inherit;
+      }
+      
+      .w-head .linkBox a span:first-child {
+      	font-size: 18px;
+      	margin-bottom: 10px;
+      }
+      
+      .w-head .linkBox .point {
+      	width: 0px;
+      	height: 0px;
+      	border: 3px solid #677A87;
+      	border-radius: 50%;
+      	position: relative;
+      	top: -20px;
+      }
+
+       /*底部footer*/
+.w-footer{width: 100%;height: 410px;background:url(../img/footer.jpg) no-repeat;font-size: 14px;}
+.w-footer .content{width: 1200px;height:300px;margin: 0  auto;}
+.w-footer .content .box{padding-top: 48px;padding-left: 56px;height:300px;float: left;}
+.w-footer .content .box:first-child{width: 200px;}
+.w-footer .content .box:first-child + .box{width: 300px;}
+.w-footer .content .box:first-child + .box + .box{width: 270px;}
+.w-footer .content .box:last-child{width:100px;}     
+.w-footer .content .box:first-child .tab{font-size: 21px;color: white;font-weight: bold;border-bottom: 5px solid #6F9AFF;width: 152px;margin-bottom: 50px;}
+.w-footer .content .box:first-child + .box .tab{font-size: 21px;color: white;font-weight: bold;border-bottom: 5px solid #6F9AFF;width: 252px;margin-bottom: 50px;}
+.w-footer .content .box:first-child + .box + .box .tab{font-size: 21px;color: white;font-weight: bold;border-bottom: 5px solid #6F9AFF;width: 252px;margin-bottom: 50px;}
+.w-footer .content .box .tab{font-size: 21px;color: white;font-weight: bold;border-bottom: 5px solid #6F9AFF;width: 152px;margin-bottom: 50px;}
+.w-footer .content .box .txt{color: white;font-size: 14px;margin-top: 27px;}
+.w-footer .content .box .txt>a{color: white;font-size: 14px;}
+.w-footer .content .box:first-child + .box + .box + .box .txt{margin-left: 35px;width: 120px;margin-top: 20px;}
+.w-footer .version{text-align: center;margin-top: 68px;color: white;}
+
+
+/*公用*/
+.clearBox{clear: both;}
+.color-white{color: white;}
+.color-black{color: black;}
+.left{float:left}
+.right{float:right}
+
+/*产品*/
+.product .weixin{position: fixed;right: 2%;bottom: 10%;z-index: 1000;}
+.product .firstPage{background-color:#eee;width: 100%;height: 690px;text-align: center;padding-top: 210px;box-sizing: border-box;}
+.product .firstPage .title{font-size: 90px;color: #029FE8;font-weight: bold;}
+.product .firstPage .title img{position: relative;top:20px;margin-right: 40px;}
+.product .firstPage .title-eng{font-size: 20px;color: #029FE8;margin-top: 50px;}
+.product .firstPage .title-chi{font-size: 26px;color: white;margin-top: 10px;}
+.product .firstPage .version{color: #1C5BD1;font-size: 20px;}
+.product .firstPage .version span{cursor:pointer;border: 1px solid #1C5BD1;width: 180px;height:43px;display: inline-block;padding-top: 5px;border-radius: 5px;margin: 100px 20px 0 20px;}
+.product .firstPage .version .iphone{background: url(../img/qq-ios.png) no-repeat 0 0;width: 40px;height: 40px;display: inline-block;vertical-align: middle;margin-right: 40px;}
+.product .firstPage .version .android{background: url(../img/qq-andriod.png) no-repeat 0 0;width: 40px;height: 40px;display: inline-block;vertical-align: middle;margin-right: 40px;}
+
+
+.product .secondPage{background-color:#fff;width: 1200px;height: 600px;text-align: center;padding-top: 50px;box-sizing: border-box;margin: 0 auto;}
+.product .secondPage .title{font-size: 23px;color: #1C5BD1;font-weight: bold;}
+.product .secondPage .title:first-child + .title{font-size: 22px;color: #90A8E0;font-weight: normal;margin-top: 8px;}
+.product .secondPage .line{width: 45px;height: 5px;background-color: #E5E5E5;margin:  8px auto;}
+.product .secondPage .h-box{width: 365px;height: 365px;background-color: #FAFCFD;margin: 0 10px;display: inline-block;margin-top: 50px;}
+.product .secondPage .h-box img{margin-top: 35px;border:18px solid #E1E7F3;border-radius: 50%;}
+.product .secondPage .h-box img:hover{animation:myfirst 0.5s linear 1;-webkit-animation:myfirst 0.5s linear 1;-moz-animation:myfirst 0.5s linear 1;-ms-animation:myfirst 0.5s linear 1;}
+
+.product .secondPage .h-box:first-child +.h-box   img{border:18px solid #FBEED9;}
+.product .secondPage .h-box:first-child +.h-box +.h-box img{border:18px solid #EDECED;}
+.product .secondPage .h-box div{text-align: left;font-size: 14px;margin: 30px 20px;line-height: 30px;color: #999;white-space: nowrap;}
+
+
+.product .thirdPage{background-color:#fff;width: 100%;height: 900px;box-sizing: border-box;margin: 0 auto;position: relative;}
+.product .thirdPage .content{background-color:#eee;width: 1200px;height: 740px;text-align: center;padding-top: 50px;box-sizing: border-box;margin: 0 auto;}
+.product .thirdPage .content .title{font-size: 23px;color: #1C5BD1;font-weight: bold;}
+.product .thirdPage .content .title:first-child + .title{font-size: 22px;color: #90A8E0;font-weight: normal;margin-top: 8px;}
+.product .thirdPage .content .line{width: 45px;height: 5px;background-color: #E5E5E5;margin:  8px auto;}
+.product .thirdPage .content .h-box{width: 253px;height: 270px;background-color: #888;margin: 0 50px;display: inline-block;margin-top: 50px;border-radius: 5px;}
+.product .thirdPage .content .h-box:first-child{background-color: #52CC5D;}
+.product .thirdPage .content .h-box:first-child + .h-box{background-color: #53CCAD;}
+.product .thirdPage .content .h-box:first-child + .h-box + .h-box{background-color: #8795E0;position: relative;top:-30px}
+.product .thirdPage .content .h-box div{text-align: left;font-size: 12px;margin: 30px 20px 0 20px;line-height: 30px;color: #eee;white-space: nowrap;}
+.product .thirdPage .content .h-box div:first-child{font-size: 19px;font-weight: bold;color: #fff;}
+.product .thirdPage .content .h-box div:first-child + div{margin: 40px 20px;}
+.product .thirdPage .content .h-box:first-child + .h-box + .h-box div:first-child + div{margin-top: 10px;}
+.product .thirdPage .tip{text-align: center;font-size: 24px;color: #1C5BD1;font-weight: normal;}
+
+
+
+.product .fourthPage{background-color:#fff;width: 100%;height: 1000px;box-sizing: border-box;margin: 0 auto;text-align: center;padding-top: 50px;}
+.product .fourthPage  .title{font-size: 23px;color: #1C5BD1;font-weight: bold;}
+.product .fourthPage  .title:first-child + .title{font-size: 22px;color: #90A8E0;font-weight: normal;margin-top: 8px;}
+.product .fourthPage  .line{width: 45px;height: 5px;background-color: #E5E5E5;margin:  8px auto;}
+.product .fourthPage .content{background-color:#fff;width: 1200px;height: 740px;text-align: center;padding-top: 50px;box-sizing: border-box;margin: 0 auto;position: relative;}
+.product .fourthPage .content .h-box{width: 400px;height: 200px;position: absolute;left: 10%;top:5%;}
+.product .fourthPage .content .h-box + .h-box{left: 5%;top:35%;}
+.product .fourthPage .content .h-box + .h-box + .h-box{left: 10%;top:65%;}
+.product .fourthPage .content .h-box + .h-box + .h-box + .h-box{left: 70%;top:5%;}
+.product .fourthPage .content .h-box + .h-box + .h-box + .h-box + .h-box{left: 75%;top:35%;}
+.product .fourthPage .content .h-box + .h-box + .h-box + .h-box + .h-box + .h-box{left: 70%;top:65%;}
+.product .fourthPage .content .h-center-box{width: 250px;height: 250px;position: absolute;left: 52%;top:30%;margin-left: -125px;}
+.product .fourthPage .content .h-center-box>img{position:relative;z-index: 1000;}
+.product .fourthPage .content .circle-dotted{position:absolute;width:100%;height:100%;top:0;left:0;border:2px dotted #007AFF;border-radius: 50%;animation: myfirst 5s linear infinite;-webkit-animation: myfirst 5s linear infinite;}
+.product .fourthPage .content .circle-dotted .circlex1{position:absolute;top:125px;left:-5px;width:6px;height:6px;border:1px solid #007AFF;border-radius:50%;}
+.product .fourthPage .content .circle-dotted .circlex2{position:absolute;top:125px;right:-5px;width:6px;height:6px;border:1px solid #007AFF;border-radius:50%;}
+.product .fourthPage .content .circle-dotted .hrx{position:absolute;top:128px;right:-80px;width:80px;border-top:1px solid #007AFF;}
+.product .fourthPage .content .h-box img{width: 100px;float: left;}
+.product .fourthPage .content .h-box:hover img{animation:myfirst 0.5s linear 1;-webkit-animation:myfirst 0.5s linear 1;-moz-animation:myfirst 0.5s linear 1;-ms-animation:myfirst 0.5s linear 1;}
+.product .fourthPage .content .h-center-box img{width: 250px;}
+.product .fourthPage .content .h-box .tab{font-weight: bold;padding-top: 50px;color: #555;font-size: 17px;text-align: left;margin-left: 120px;}
+.product .fourthPage .content .h-box .txt{color: #aaa;font-size: 15px;text-align: left;margin-left: 120px;margin-top: 25px;}
+.product .fourthPage .content .h-box:hover .tab{color: #1C5BD1;}
+.product .fourthPage .content .h-box:hover .txt{color: #1C5BD1;}
+
+.product .fifthPage{background-color:#F7F7F7;width: 100%;height: 1200px;box-sizing: border-box;margin: 0 auto;text-align: center;padding-top: 50px;}
+.product .fifthPage  .title{font-size: 23px;color: #1C5BD1;font-weight: bold;}
+.product .fifthPage  .title:first-child + .title{font-size: 22px;color: #90A8E0;font-weight: normal;margin-top: 8px;}
+.product .fifthPage  .line{width: 45px;height: 5px;background-color: #E5E5E5;margin:  8px auto;}
+.product .fifthPage .content{background-color:#fff;width: 1160px;height: 825px;text-align: center;box-sizing: border-box;margin: 50px auto;position: relative;}
+.product .fifthPage .content .shadow{position: absolute;z-index: 100;width: 100%;height: 100%;font-size: 35px;text-align: center;box-sizing: border-box;display: none;}
+.product .fifthPage .content .h-box1{position: relative;text-align:left;color:#DFF2F0;width: 455px;height: 825px;float: left;background-color: #3CC9B9;}
+.product .fifthPage .content .h-box2{position: relative;text-align:left;width: 705px;height: 275px;float: left;background-color: #EBEBED;}
+.product .fifthPage .content .h-box3{position: relative;text-align:left;color:white;width: 315px;height: 275px;float: left;background-color: #998877;}
+.product .fifthPage .content .h-box4{position: relative;text-align:left;color:white;width: 315px;height: 275px;float: left;background-color: #AF9878;}
+.product .fifthPage .content .h-box5{position: relative;text-align:center;width: 390px;height: 550px;float: right;background-color: #5555ff;}
+.product .fifthPage .content .h-box1 .shadow{padding-top: 300px;color: white;background-color: rgba(0,50,50,0.3);}
+.product .fifthPage .content .h-box2 .shadow{width: 705px;height: 275px;padding-top: 100px;color: white;background-color: rgba(0,50,50,0.3);}
+.product .fifthPage .content .h-box3 .shadow{padding-top: 100px;color: white;background-color: rgba(0,50,50,0.3);}
+.product .fifthPage .content .h-box4 .shadow{padding-top: 100px;color: white;background-color: rgba(0,50,50,0.3);}
+.product .fifthPage .content .h-box5 .shadow{padding-top: 200px;color: white;background-color: rgba(0,50,50,0.3);}
+
+.product .fifthPage .content .h-box1 .tab{font-size: 34px;margin:160px 30px 20px 30px;font-weight: bold;}
+.product .fifthPage .content .h-box1 .txt{font-size: 14px;margin:20px 30px 60px 30px;line-height: 30px;}
+.product .fifthPage .content .h-box1 .btn{font-size: 14px;margin:20px 30px 20px 270px;border: 1px solid white;text-decoration: none;color: #DFF2F0;padding: 9px 37px;border-radius: 15px;}
+.product .fifthPage .content .h-box1 img{margin-top: 8px;}
+.product .fifthPage .content .h-box2 .tab{color:#666;font-size: 20px;margin:100px 0px 30px 50px;font-weight: bold;}
+.product .fifthPage .content .h-box2 .txt{color:#aaa;font-size: 14px;margin:20px 0px 60px 50px;line-height: 30px;}
+.product .fifthPage .content .h-box2 img{float: right;}
+.product .fifthPage .content .h-box3 .tab{font-size: 20px;margin:60px 0px 40px 30px;font-weight: bold;}
+.product .fifthPage .content .h-box3 .txt{font-size: 14px;margin:20px 0px 60px 30px;line-height: 30px;}
+.product .fifthPage .content .h-box4 .tab{font-size: 20px;margin:60px 0px 40px 30px;font-weight: bold;}
+.product .fifthPage .content .h-box4 .txt{font-size: 14px;margin:20px 0px 60px 30px;line-height: 30px;}
+.product .fifthPage .content .h-box5 .tab{color: #C1A335;font-size: 33px;margin:240px 0px 20px 30px;font-weight: bold;}
+.product .fifthPage .content .h-box5 .txt{color:white;font-size: 14px;margin:20px 0px 60px 30px;line-height: 30px;}
+
+.product .sixthPage{background-color:#447BD2;width: 100%;height: 1100px;box-sizing: border-box;margin: 0 auto;text-align: center;padding-top: 100px;}
+.product .sixthPage  .title{font-size: 32px;color: #fff;}
+.product .sixthPage .content{background-color:#447BD2;width: 1100px;height: 825px;text-align: center;box-sizing: border-box;margin: 50px auto;position: relative;}
+.product .sixthPage .content .h-box{margin: 0px auto;}
+.product .sixthPage .content .h-box .btn{color: #D3E0F4;font-size: 22px;border: 3px solid #D3E0F4;width: 200px;height: 90px;line-height: 85px;text-align: left;padding-left: 30px;box-sizing: border-box;margin-top: 30px;}
+.product .sixthPage .content .h-box .h-icon{background: url(../img/qq-logo17.png) no-repeat;width: 30px;height: 30px;display: inline-block;margin-left: 70px;position: relative;top: 5px;}
+.product .sixthPage .content .h-box .txt{text-align:left;color: #eee;font-family:arial;margin:0 49px;font-weight: normal;width: 600px;height: 150px;line-height: 30px;display: table;}
+.product .sixthPage .content .h-box .txt div{display: table-cell;vertical-align: middle;}
+.product .sixthPage .content .h-box:first-child +.h-box +.h-box +.h-box .txt div{padding-left: 200px;}
+ .page-line {
+      	position: fixed;
+      	z-index: 20;
+      	right: 10px;
+      	top: 40%;
+      	margin-top: -100px;
+      }
+        .page-line .swiper-pagination-switch {
+      	display: block;
+      	width: 14px;
+      	height: 14px;
+      	border-radius: 50%;
+      	margin: 0 0px 15px;
+      	opacity: 0.8;
+      	cursor: pointer;
+      	background: #B7B9C2;
+      	position: relative;
+      	right: -23px;
+      	font-size: 13px;
+      	text-align: center;
+      }
+       .page-line .swiper-pagination-switch.active {
+     	width: 60px;
+      	height: 60px;
+      	background: #2759D8;
+      	position: relative;
+      	right: 0px;
+      }
+ 
+       .page-line .swiper-pagination-switch .swiper-pagination-switch-font{
+     	display: none;
+      	color: white;
+      	position: relative;
+      	top: 18px;
+      	font-size: 18px;
+      }
+      
+       .page-line  .swiper-pagination-switch.active .swiper-pagination-switch-font{
+     	display: block;
+      	color: white;
+      	position: relative;
+      	top: 18px;
+      	font-size: 18px;
+      }
+      
+      
+/*解决方案 快消*/
+.solution-goods .firstPage{background:url(../img/qq-logo19.png);width: 100%;height: 690px;text-align: center;box-sizing: border-box;}
+.solution-goods .secondPage{background-color:#fff;width: 100%;height: 710px;text-align: center;padding-top: 30px;box-sizing: border-box;}
+.solution-goods .secondPage .title{font-size: 22px;color: #333;font-weight: bold;}
+.solution-goods .secondPage .content{background-color:#fff;width: 1200px;height: 600px;text-align: center;padding-top: 40px;box-sizing: border-box;margin: 0 auto;position: relative;}
+.solution-goods .secondPage .content .h-box{width: 330px;height: 180px;position: absolute;left: 0;top:5%;text-align: right;padding: 0 35px;}
+.solution-goods .secondPage .content .h-box + .h-box{left: 0;top:35%;}
+.solution-goods .secondPage .content .h-box + .h-box + .h-box{left: 0;top:65%;}
+.solution-goods .secondPage .content .h-box + .h-box + .h-box + .h-box{left: 68%;top:5%;text-align: left;}
+.solution-goods .secondPage .content .h-box + .h-box + .h-box + .h-box + .h-box{left: 68%;top:35%;text-align: left;}
+.solution-goods .secondPage .content .h-box + .h-box + .h-box + .h-box + .h-box + .h-box{left: 68%;top:65%;text-align: left;}
+.solution-goods .secondPage .content .h-center-box{width: 350px;height: 350px;position: absolute;left: 46%;top:20%;margin-left: -125px;}
+.solution-goods .secondPage .content .h-center-box img{width: 350px;}
+.solution-goods .secondPage .content .h-box .tab{padding-top: 50px;color: #555;font-size: 17px;}
+.solution-goods .secondPage .content .h-box .txt{color: #aaa;font-size: 15px;margin-top: 25px;}
+.solution-goods .secondPage .content .h-box .num{position: absolute;right: 0;top:50px;background-color: #A0D8D1;border-radius: 50%;padding: 2px 8px;color: white;}
+.solution-goods .secondPage .content .h-box + .h-box + .h-box + .h-box .num{left: 0;top:50px;right: auto;}
+.solution-goods .secondPage .content .h-box + .h-box + .h-box + .h-box + .h-box .num{left: 0;top:50px;right: auto;}
+.solution-goods .secondPage .content .h-box + .h-box + .h-box + .h-box + .h-box + .h-box .num{left: 0;top:50px;right: auto;}         
+
+.solution-goods .thirdPage{background-color:#DCF2FF;width: 100%;height: 800px;text-align: center;box-sizing: border-box;} 
+.solution-goods  .h-content{width: 1200px;height: 100%;text-align: center;box-sizing: border-box;margin: 0 auto;position: relative;}
+.solution-goods  .h-content .imgBox{width: 50%;height: 100%;background:url(../img/qq-logo21.png);}
+.solution-goods  .h-content .txtBox{width: 50%;height: 100%;text-align: left;font-family: "微软雅黑";font-weight: normal;padding-left: 30px;box-sizing: border-box;}     
+.solution-goods  .h-content .txtBox .num{color: #47C5FF;font-size: 70px;;margin-top: 50px;}   
+.solution-goods  .h-content .txtBox .tip{color: #333;font-size: 24px;margin-top: 20px;}   
+.solution-goods  .h-content .txtBox .title{color: #333;font-size: 30px;margin-top: 30px;}         
+.solution-goods  .h-content .txtBox .txt-box{position: relative;margin-top: 40px;left: 1300px;} 
+.solution-goods  .h-content .txtBox .txt-box .small-num{position: absolute;background-color: #47C5FF;padding: 1px 7px;border-radius: 50%;left: -36px;top: 2px;color: white;} 
+.solution-goods  .h-content .txtBox .txt-box .tab{color: #888;font-size: 18px;} 
+.solution-goods  .h-content .txtBox .txt-box .txt{color: #888;font-size: 15px;margin-top: 10px;}   
+    
+.solution-goods .fourthPage{background-color:#fff;width: 100%;height: 800px;text-align: center;box-sizing: border-box;}     
+.solution-goods .fourthPage .h-content .imgBox{width: 50%;height: 100%;background:url(../img/qq-logo22.png);}      
+.solution-goods .fourthPage .h-content .txtBox .txt-box{left: -1300px;} 
+
+.solution-goods .fifthPage{background-color:#F7F7F7;width: 100%;height: 800px;text-align: center;box-sizing: border-box;}     
+.solution-goods .fifthPage .h-content .imgBox{width: 50%;height: 100%;background:url(../img/qq-logo23.png);}        
+.solution-goods .fifthPage .h-content .txtBox .txt-box{left: 1300px;} 
+
+.solution-goods .sixthPage{background-color:#fff;width: 100%;height: 800px;text-align: center;box-sizing: border-box;}     
+.solution-goods .sixthPage .h-content .imgBox{width: 50%;height: 100%;background:url(../img/qq-logo24.png);}    
+.solution-goods .sixthPage .h-content .txtBox .txt-box{left: -1300px;} 
+
+.solution-goods .seventhPage{background-color:#DCF2FF;width: 100%;height: 800px;text-align: center;box-sizing: border-box;}     
+.solution-goods .seventhPage .h-content .imgBox{width: 50%;height: 100%;background:url(../img/qq-logo21.png);}    
+.solution-goods .seventhPage .h-content .txtBox .txt-box{left: 1300px;} 
+  
+.solution-goods .eighthPage{background-color:#fff;width: 100%;height: 800px;text-align: center;box-sizing: border-box;}     
+.solution-goods .eighthPage .h-content .imgBox{width: 50%;height: 100%;background:url(../img/qq-logo22.png);}      
+.solution-goods .eighthPage .h-content .txtBox .txt-box{left: -1300px;} 
+
+.solution-goods .ninthPage{background-color:#F7F7F7;width: 100%;height: 800px;text-align: center;box-sizing: border-box;}     
+.solution-goods .ninthPage .h-content .imgBox{width: 50%;height: 100%;background:url(../img/qq-logo23.png);}        
+.solution-goods .ninthPage .h-content .txtBox .txt-box{left: 1300px;} 
+      
+.solution-goods .tenthPage{background-color:#fff;width: 100%;height: 755px;text-align: center;box-sizing: border-box;}
+.solution-goods .tenthPage .div1{background-color:#68BAFF;width: 100%;height: 524px;text-align: center;box-sizing: border-box;padding-top: 35px;}
+.solution-goods .tenthPage .div2{background-color:#fff;width: 100%;height: 231px;text-align: center;box-sizing: border-box;}  
+.solution-goods .tenthPage .div1 .title{color: white;font-size: 34px;font-weight: bold;}   
+.solution-goods .tenthPage .div1 .tip{color: white;font-size: 18px;margin-top: 10px;margin-bottom: 70px;}   
+.solution-goods .tenthPage .div1 a{cursor:pointer;text-decoration: none;color: white;background-color: #71C389;padding: 24px 55px;font-size: 24px;box-shadow:0 0 20px rgba(0,0,0,0.3);}    
+.solution-goods .tenthPage .div1 a:hover{box-shadow:0 0 20px rgba(20,200,100,0.3);}
+.solution-goods .tenthPage .div2{position: relative;} 
+.solution-goods .tenthPage .div2 img{position: relative;top: -257px;left: 42px;}       
+      
+/*解决方案 家电*/
+.solution-appliances .firstPage{background:url(../img/qq-logo26.png);width: 100%;height: 695px;text-align: center;box-sizing: border-box;}
+.solution-appliances .secondPage{background-color:#eee;width: 100%;height: 614px;box-sizing: border-box;}
+.solution-appliances .secondPage .content .title{font-size: 42px;color: #000;font-weight: bold;margin-bottom: 20px;}
+.solution-appliances .secondPage .content .title2{font-size: 30px;color: #6D6E71;font-weight: bold;margin-top: 70px;margin-bottom: 25px;}
+.solution-appliances .secondPage .content{text-align: left;background-color:#eee;width: 800px;height: 600px;padding-top:120px;box-sizing: border-box;margin: 0 auto;position: relative;left: 100px;}
+.solution-appliances .secondPage .content .h-box{text-align: left;width: 220px;height: 85px;float: left;}
+.solution-appliances .secondPage .content .h-box .btn{color: #59AAEC;font-size: 17px;border: 1px solid #59AAEC;width: 164px;height: 53px;line-height: 53px;padding-left: 10px;box-sizing: border-box;font-weight: bold;}
+.solution-appliances .secondPage .content .h-box + .h-box + .h-box .btn{width: 172px;height: 53px;}
+.solution-appliances .secondPage .content .h-box + .h-box + .h-box + .h-box + .h-box + .h-box .btn{width: 211px;height: 53px;}
+.solution-appliances .secondPage .content .h-box .h-icon{background: url(../img/qq-logo27.png) no-repeat;width: 30px;height: 30px;display: inline-block;position: relative;top: 10px;right: 10px;float: right;}
+
+.solution-appliances .thirdPage{background-color:#fff;width: 100%;height: 574px;text-align: right;box-sizing: border-box;} 
+.solution-appliances .fourthPage{background-color:#DCF2FF;width: 100%;height: 574px;text-align: left;box-sizing: border-box;}     
+.solution-appliances .fifthPage{background-color:#fff;width: 100%;height: 574px;text-align: right;box-sizing: border-box;}     
+.solution-appliances .sixthPage{background-color:#F7F7F7;width: 100%;height: 574px;text-align: left;box-sizing: border-box;}  
+.solution-appliances .seventhPage{background-color:#fff;width: 100%;height: 574px;text-align: right;box-sizing: border-box;}    
+.solution-appliances .eighthPage{background-color:#E3F5FF;width: 100%;height: 574px;text-align: left;box-sizing: border-box}  
+
+.solution-appliances  .h-content{width: 1200px;height: 100%;text-align: right;box-sizing: border-box;margin: 0 auto;position: relative;}
+.solution-appliances  .h-content .imgBox{width: 50%;height: 100%;background:url(../img/qq-logo30.png) no-repeat;background-position: 20px 70px;}
+.solution-appliances  .h-content .txtBox{position: relative;width: 50%;height: 100%;font-family: "微软雅黑";font-weight: normal;padding-left: 30px;box-sizing: border-box;text-align: inherit;}     
+.solution-appliances  .h-content .txtBox img{margin:150px 50px 0 50px;}
+.solution-appliances  .h-content .txtBox .title{color: #888;font-size: 25px;text-align: inherit;margin:0 30px 20px 30px;}      
+.solution-appliances  .h-content .txtBox .title span{color: #F45E4F;font-size: 38px;font-weight: normal;margin-left: 15px;}       
+.solution-appliances  .h-content .txtBox .txt{text-align: left;color: #888;font-size: 18px;margin-top: 10px;line-height: 37px;}   
+    
+
+.solution-appliances .fourthPage .h-content{text-align: left;}
+.solution-appliances .fourthPage .h-content .imgBox{background:url(../img/qq-logo31.png) no-repeat;background-position: 20px 70px;}      
+.solution-appliances .fourthPage .h-content .txtBox .title span{color: #343434;}
+
+.solution-appliances .fifthPage .h-content{text-align: right;}
+.solution-appliances .fifthPage .h-content .imgBox{background:url(../img/qq-logo32.png) no-repeat;background-position: 20px 70px;}        
+.solution-appliances .fifthPage .h-content .txtBox .title span{color: #48B4F9;}
+
+.solution-appliances .sixthPage .h-content{text-align: left;}
+.solution-appliances .sixthPage .h-content .imgBox{background:url(../img/qq-logo33.png) no-repeat;background-position: 20px 70px;}   
+.solution-appliances .sixthPage .h-content .txtBox .title span{color: #6D6E71;}
+
+.solution-appliances .seventhPage .h-content{text-align: right;}
+.solution-appliances .seventhPage .h-content .imgBox{background:url(../img/qq-logo34.png) no-repeat;background-position: 20px 70px;}    
+.solution-appliances .seventhPage .h-content .txtBox .title span{color: #FFB618;}
+
+.solution-appliances .eighthPage .h-content{text-align: left;}
+.solution-appliances .eighthPage .h-content .imgBox{background:url(../img/qq-logo35.png) no-repeat;background-position: 20px 70px;}   
+.solution-appliances .eighthPage .h-content .txtBox .title span{color: #6D6E71;}
+
+.solution-appliances .tenthPage{background-color:#fff;width: 100%;height: 755px;text-align: center;box-sizing: border-box;}
+.solution-appliances .tenthPage .div1{background-color:#68BAFF;width: 100%;height: 524px;text-align: center;box-sizing: border-box;padding-top: 35px;}
+.solution-appliances .tenthPage .div2{background-color:#fff;width: 100%;height: 231px;text-align: center;box-sizing: border-box;}  
+.solution-appliances .tenthPage .div1 .title{color: white;font-size: 34px;font-weight: bold;}   
+.solution-appliances .tenthPage .div1 .tip{color: white;font-size: 18px;margin-top: 10px;margin-bottom: 70px;}   
+.solution-appliances .tenthPage .div1 a{text-decoration: none;color: white;background-color: #71C389;padding: 24px 55px;font-size: 24px;box-shadow:0 0 20px rgba(0,0,0,0.3);}    
+.solution-appliances .tenthPage .div1 a:hover{box-shadow:0 0 20px rgba(20,200,100,0.3);}
+.solution-appliances .tenthPage .div2{position: relative;} 
+.solution-appliances .tenthPage .div2 img{position: relative;top: -257px;left: 42px;}       
+            
+      
+ /*联系我们*/     
+.contactUs .firstPage{background-color:#DFDDE9;width: 100%;height: 1250px;box-sizing: border-box;padding-top: 220px;}
+.contactUs .firstPage .content{background-color:#DFDDE9;width: 1200px;height: 600px;text-align: center;box-sizing: border-box;margin: 0 auto;}
+.contactUs .firstPage .content .title{font-size: 23px;color: #34373B;font-weight: bold;}
+.contactUs .firstPage .content .title + .title{font-size: 18px;color: #49494B;font-weight: normal;margin-top: 8px;}
+.contactUs .firstPage .content img{display: block;margin:70px auto 20px;}
+.contactUs .firstPage .content img + div{font-size: 18px;margin-bottom: 60px;}
+.contactUs .firstPage .content input{outline:none;width: 435px;height: 64px;display: block;margin: 0 auto;border-radius: 32px;border: none;margin: 20px auto;padding:0 35px;font-size: 20px;box-shadow: 0 0 15px rgba(0,0,0,0.3)}    
+.contactUs .firstPage .content input.active{box-shadow: 0 0 15px rgba(100,255,0,0.3)}    
+.contactUs .firstPage .content input:hover{box-shadow: 0 0 15px rgba(100,255,0,0.3)}  
+.contactUs .firstPage .content input + a{cursor:pointer;width: 505px;height: 64px;line-height:64px;font-size:24px;display: block;border-radius: 32px;border: none;background-color: #4A6CC9;color: white;margin: 70px auto;box-shadow: 0 0 15px rgba(0,0,0,0.3)}   
+.contactUs .firstPage .content input + a:hover{box-shadow: 0 0 15px rgba(20,200,100,0.3)}
+.contactUs .firstPage .content .point{background-color: white;width: 12px;height: 12px;border-radius: 50%;margin: 0 auto;}      
+.contactUs .firstPage .content .line{background-color: white;width: 2px;height: 110px;margin: 0 auto;}   
+.contactUs .firstPage .content .line.active{background-color: #4A6CC9;}
+.contactUs .firstPage .content .point.active{background-color: #4A6CC9;position: relative;top: 12px;}      
+      
+.contactUs .secondPage{background-color:#fff;width: 100%;height: 912px;box-sizing: border-box;}
+.contactUs .secondPage .content{background-color:#fff;width: 100%;height: 595px;text-align: center;box-sizing: border-box;margin: 0 auto;padding-top: 80px;}      
+.contactUs .secondPage .content .title{font-size: 23px;color: #000;font-weight: bold;}
+.contactUs .secondPage .content .title:first-child + .title{font-size: 19px;color: #999;font-weight: normal;margin-top: 8px;}
+.contactUs .secondPage .content .map{background:url(../img/map.png) no-repeat;width: 100%;height: 387px;margin-top: 60px;}
+.contactUs .secondPage .content .info{background-color: #336BCF;width: 100%;height: 318px;}  
+.contactUs .secondPage .content .info .info-content{background-color: #336BCF;width: 1200px;height: 318px;margin: 0 auto;}
+.contactUs .secondPage .content .info .info-content > div{color:white;background-color: #336BCF;width: 25%;box-sizing: border-box;float: left;height: 100%;padding-top: 60px;font-weight: normal;}      
+.contactUs .secondPage .content .info .info-content > div div{font-size:16px;}     
+.contactUs .secondPage .content .info .info-content > div div+div+div{margin-top: 30px;}        
+      
+      
+ /*关于我们 公司概况*/     
+.aboutUs .firstPage{background:url(../img/aboutUs-bg.jpg);width: 100%;height: 1250px;box-sizing: border-box;padding-top: 200px;}
+.aboutUs .firstPage .content{width: 1200px;height: 900px;text-align: center;box-sizing: border-box;margin: 0 auto;padding-top: 100px;position: relative;}
+.aboutUs .firstPage .content .h-canvas{position: absolute;left: 250px;bottom: 123px;z-index: 1;
+animation:myfirst 5s linear infinite;-webkit-animation:myfirst 5s linear infinite;-moz-animation:myfirst 5s linear infinite;-ms-animation:myfirst 5s linear infinite;}
+@-webkit-keyframes myfirst 
+{
+0%   {transform:rotate(0);}
+100% {transform:rotate(360deg);}
+}
+@-moz-keyframes myfirst 
+{
+0%   {transform:rotate(0);}
+100% {transform:rotate(360deg);}
+}
+@-moz-keyframes myfirst 
+{
+0%   {transform:rotate(0);}
+100% {transform:rotate(360deg);}
+}
+@-ms-keyframes myfirst 
+{
+0%   {transform:rotate(0);}
+100% {transform:rotate(360deg);}
+}
+
+.aboutUs .firstPage .content .circle{width: 654px;height: 654px;background-color: rgba(44,89,201,0.6);border-radius: 50%;margin: 0 auto;position: relative;z-index: 2;}
+.aboutUs .firstPage .content .b-circle{width: 188px;height: 188px;background-color: rgba(0,0,0,1);;border-radius: 50%;position: absolute;right: 100px;top: 100px;}
+.aboutUs .firstPage .content .name{position: absolute;top: 200px;left: -90px;text-align: left;}
+.aboutUs .firstPage .content .name .name1{font-size: 50px;color: #1F42B1;font-weight: bold;}
+.aboutUs .firstPage .content .name .name2{font-size: 50px;color: #fff;font-weight: bold;}
+.aboutUs .firstPage .content .name .line1{width: 250px;height: 10px;background-color:#80A1F3;}
+.aboutUs .firstPage .content .name .tip1{color: #1F42B1;margin-top: 20px;font-size: 18px;}
+.aboutUs .firstPage .content .name .tip1 span{color: #fff}
+.aboutUs .firstPage .content .name .tip2{color: #1F42B1;margin-top: 20px;font-size: 15px;}
+.aboutUs .firstPage .content .name .tip2 span{color: #1F42B1}
+.aboutUs .firstPage .content .name .line2{width: 250px;height: 4px;background-color:#fff;margin-top: 50px;}
+.aboutUs .firstPage .content .info{text-align: left;width: 700px;position: absolute;top: 190px;left: 400px;}
+.aboutUs .firstPage .content .info .point{width: 13px;height: 13px;border-radius: 50%;background-color: white;display: inline-block;}
+.aboutUs .firstPage .content .info .line{width: 190px;height: 1px;display: inline-block;border-bottom: 1px  dashed #029FE8;position: relative;bottom: 6px;}
+.aboutUs .firstPage .content .info .point2{width: 13px;height: 13px;border-radius: 50%;background-color: #1F42B1;display: inline-block;}
+.aboutUs .firstPage .content .info .tips{font-size: 20px;color: #fff;}	
+.aboutUs .firstPage .content .info .tips > span{font-size: 20px;color: #1F42B1;margin-left: 163px;}		
+.aboutUs .firstPage .content .info .tips .h-tips{font-size: 14px;color: #fff;}			
+.aboutUs .firstPage .content .info .tips .h-tips > span{font-size: 14px;color: #1F42B1;width: 212px;display: inline-block;}		
+.aboutUs .firstPage .content .info .tips .h-tips > span:first-child{color: #fff;}	
+.aboutUs .firstPage .content .info .tips .h-tips > span + span span{color: #fff;}	
+.aboutUs .firstPage .content .info .line3{width: 150px;height: 4px;background-color:#000;margin-top: 50px;}
+.aboutUs .firstPage .content .info .line3 + div{color: white;font-size: 16px;margin-top: 15px;}
+.aboutUs .firstPage .content .info .line3 + div + div{color: white;font-size: 16px;margin-top: 5px;}
+.aboutUs .firstPage .content .info .line3 + div + div + div{color: white;font-size: 16px;margin-top: 5px;}
+.aboutUs .firstPage .content .info .line4{width: 150px;height: 6px;background-color:#fff;margin-top: 30px;}	
+.aboutUs .firstPage .content .info .line4 + div{color: white;font-size: 16px;margin-top: 10px;}	
+.aboutUs .firstPage .content .info .line4 + div span{color: white;font-size: 28px;margin-top: 15px;}	
+.aboutUs .firstPage .content .info .line4 + div + div{color: white;font-size: 16px;margin-top: 5px;}	
+.aboutUs .firstPage .content .info .line4 + div + div + div{color: white;font-size: 16px;margin-top: 5px;}	
+		
+	
+.aboutUs .secondPage{background-color:#fff;width: 100%;height: 395px;box-sizing: border-box;}
+.aboutUs .secondPage .content{background-color:#2B2C30;width: 100%;height: 395px;text-align: center;box-sizing: border-box;margin: 0 auto;padding-top: 40px;}      
+.aboutUs .secondPage .content .title{font-size: 23px;color: #fff;font-weight: bold;}
+.aboutUs .secondPage .content .title:first-child + .title{font-size: 19px;color: #fff;font-weight: normal;margin-top: 8px;}
+.aboutUs .secondPage .content .info{background-color: #2B2C30;width: 100%;margin: 0 auto;max-width: 1600px;min-width: 1200px;}  
+.aboutUs .secondPage .content .info  > div{color:white;background:url(../img/aboutUs-icon1.png) no-repeat center center;width: 25%;box-sizing: border-box;float: left;height: 300px;padding-top: 80px;font-weight: normal;}      
+.aboutUs .secondPage .content .info  > div > div{font-size: 22px;font-weight: bold;margin: 10px auto;}
+.aboutUs .secondPage .content .info  > div > div:first-child + div{color: #F5BA46;}
+      
+.aboutUs .thirdPage{background-color:#fff;width: 100%;height: auto;box-sizing: border-box;padding-top: 100px;border-bottom: 1px solid #6E90E5;padding-bottom: 100px;position: relative;}
+.aboutUs .thirdPage .content{background-color:#fff;width: 1200px;height: 592px;box-sizing: border-box;margin: 0 auto;overflow: hidden;}      
+.aboutUs .thirdPage .content img{float: left;width: 466px;height: 486px;}      
+.aboutUs .thirdPage .content .box-right{float: left;width: 670px;height: 170px;padding-left: 50px;}      
+.aboutUs .thirdPage .content div{line-height: 40px;}  
+.aboutUs .thirdPage .content div span{font-size: 20px;font-weight: bold;}   
+.aboutUs .thirdPage > img{position: absolute;left: 50%;bottom: -10px;margin-left: -20px;}
+.aboutUs .thirdPage .block-div{position: absolute;left: 50%;bottom: -5px;margin-left: -75px;width: 150px;height: 10px;background-color: #fff;}
+ 
+   
+.aboutUs .fourthPage{background-color:#fff;width: 100%;height: 751px;box-sizing: border-box;padding-top: 70px;}
+.aboutUs .fourthPage .content{background-color:#fff;width: 100%;height: 138px;text-align: center;box-sizing: border-box;margin: 0 auto;}      
+.aboutUs .fourthPage .content .title{font-size: 23px;color: #000;font-weight: bold;}
+.aboutUs .fourthPage .content .title:first-child + .title{font-size: 19px;color: #999;font-weight: normal;margin-top: 8px;}
+.aboutUs .fourthPage .content2{background:url(../img/aboutUs-bg3.jpg);width: 100%;height: 543px;box-sizing: border-box;margin: 0 auto;}      
+.aboutUs .fourthPage .content2 .content2-center{width: 1200px;height: 543px;text-align: left;box-sizing: border-box;margin: 0 auto;color: white;padding-top: 120px;}      
+.aboutUs .fourthPage .content2 .content2-center div:first-child + div + div{margin-top: 90px;margin-left: 300px;}    
+.aboutUs .fourthPage .content2 .content2-center div:first-child + div + div + div{margin-left: 300px;}    
+.aboutUs .fourthPage .content2 .content2-center div:first-child + div + div + div + div{margin-top: 90px;margin-left: 500px;}          
+.aboutUs .fourthPage .content2 .content2-center div:first-child + div + div + div + div + div{margin-left: 500px;}        
+
+.aboutUs .fifthPage{background-color:#fff;width: 100%;height: 653px;box-sizing: border-box;padding-top: 213px;position: relative;}
+.aboutUs .fifthPage .content{position: relative;background-color:#fff;width: 1140px;height: 285px;text-align: center;box-sizing: border-box;margin: 0 auto;padding-top: 180px;font-size: 18px;box-shadow:0 0 20px rgba(0,0,0,0.3);}        
+.aboutUs .fifthPage .circle{width: 227px;height: 227px;border-radius: 50%;text-align: center;background-color: #34373B;position: absolute;left: 50%;margin-left: -119px;top: -130px;color: white;}      
+.aboutUs .fifthPage .circle div:first-child{font-size: 22px;margin-top: 85px;font-weight: bold;}      
+.aboutUs .fifthPage .circle div:first-child + div{font-size: 18px;margin-top: 10px;font-weight: normal;}         
+.aboutUs .fifthPage  img{position: absolute;right: 10%;top: 60%;}      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+

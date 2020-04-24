@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<!-- ---------------------------------------------------------------------------------- -->
+
+  一、h5网站input 设置为type=number的问题
+
+  h5网页input 的type设置为number一般会产生三个问题，
+
+  一个问题是maxlength属性不好用了。另外一个是form提交的时候，默认给取整了。三是部分安卓手机出现样式问题。
+
+  问题一解决，我目前用的是js。如下
+
+<input type="number" oninput="checkTextLength(this ,10)">
+
+<script>
+    function checkTextLength(obj, length){
+        if(obj.value.length > length) {
+            obj.value = obj.value.substr(0, length);
+        }
+    }
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+问题三，去除input默认样式
+
+<style>
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+</html>

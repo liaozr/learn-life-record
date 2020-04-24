@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>Select-or-Die演示11种美化下拉框select方法</title>
+        <link rel="stylesheet" href="css/selectordie.css">
+        <style>
+            .select { width: 200px; margin: 150px auto;}
+            .sod_select { font-size: 12px;}
+        </style>
+        <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.7.2/jquery.js"></script>
+        <script src="js/selectordie.min.js"></script>
+        <script>
+            $(function() {
+                $('select').selectOrDie();
+            });
+        </script>
+    </head>
+
+    <body>
+        <div class="menu">
+            <p class="menuc">
+                <span></span>
+                <a class="cur" href="index.html">1、默认</a>
+                <a href="index2.html">2、绑定class</a>
+                <a href="index3.html">3、占位符</a>
+                <a href="index4.html">4、添加前缀</a>
+                <a href="index5.html">5、键盘循环控制</a>
+                <a href="index6.html">6、跳转到链接</a>
+                <a href="index7.html">7、设置高度(个数)</a>
+                <a href="index8.html">8、回调函数</a>
+                <a href="index9.html">9、主题1</a>
+                <a href="index10.html">10、主题2</a>
+                <a href="index11.html">11、主题3</a>
+            </p>
+        </div>
+        <div class="main">
+            <div class="mianc">
+                <h1>默认</h1>
+
+                <!-- Demo start -->
+                <div class="select">
+                    <select class="myselect">
+                        <option value="交互设计">交互设计</option>
+                        <option value="视觉设计">视觉设计</option>
+                        <optgroup label="开发">
+                            <option value="前端开发">前端开发</option>
+                            <option value="后端开发">后端开发</option>
+                        </optgroup>
+                        <option value="用户研究">用户研究</option>
+                        <option value="产品经理">产品经理</option>
+                    </select>
+                </div>
+                <!-- Demo end -->
+            </div>
+        </div>
+        <style>
+            * { margin: 0; padding: 0;}
+            html, body { height: 100%; overflow: hidden;}
+            body { font-family: Consolas,arial,"宋体";}
+            .menu { position: absolute; left: 0; top: 0; width: 200px; height: 100%; background-color: #ccc; font-family: Consolas,arial,"宋体";}
+            .menuc { height: 100%; overflow-x: hidden; overflow-y: auto;}
+            .menu span { display: block; height: 100px;}
+            .menu a { display: block; height: 40px; margin: 0 0 1px 2px; padding-left: 10px; line-height: 40px; font-size: 14px; color: #333; text-decoration: none;}
+            .menu a:hover { background-color: #eee;}
+            .menu .cur { color: #000; background-color: #fff !important;}
+            .main { height: 100%; margin-left: 200px;}
+            .mianc { position: relative; height: 100%; overflow-x: hidden; overflow-y: auto;}
+            .main h1 { width: 900px; margin: 40px auto; font: 32px "Microsoft Yahei";}
+            .explain, .sucaihuo-explain { margin-top: 20px; font-size: 14px; text-align: center; color: #f50;}
+        </style>
+    <script type="text/javascript" src="http://shouce.ren/static/ad/gg.js"></script></body>
+</html>

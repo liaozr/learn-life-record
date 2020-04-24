@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>home</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    
+</head>
+
+<body>
+    <div class="layout">
+        <div id="d1"></div>
+       <i class="admin"></i>
+
+        @@include('include/header.tpl')
+        homePagesdagjkhg dasdaser dasda
+
+        44444444444444444444
+        555555555555555555566666666666666
+      
+        <div id="Page"></div>
+        <img src="../assets/images/bg.png">
+
+        <div v-for='item in dataArr'>
+           手机号码： <span>{{item.empPhone}}</span>
+        </div>
+        <br><br><br>
+        业主名称：{{bbb.customerName}}
+    </div>
+    <script src='../assets/lib/jquery/jquery.min.js'></script>
+    <script src="https://cdn.bootcss.com/vue/2.3.2/vue.min.js"></script>
+    <script>
+
+        var vm=new Vue({
+            el:'.layout',
+            data:{
+               dataArr:[],
+               bbb:{
+
+               }
+            }
+        })
+        
+        $(function(){
+
+            $.ajax('/eidpws/app/sitesEmp/findSitesEmpList', {
+                type: 'get', //HTTP请求类型
+                data: {
+                    sitesRecordId: 1
+                },
+                success: function(jsonData) {
+                     vm.dataArr=jsonData.data;
+                     console.log(vm.dataArr)
+                },
+                error: function() {}
+            });
+
+            $.ajax('/eidpws/app/customerInfo/findCustomerInfo', {
+                type: 'get', //HTTP请求类型
+                data: {
+                    customerInfoId: 'CU0011604000893'
+                },
+                success: function(jsonData) {
+                      vm.bbb=jsonData.data;
+                      console.log(vm.bbb)
+                },
+                error: function() {}
+            });
+
+        })
+    </script>
+</body>
+ 
+
+</html>

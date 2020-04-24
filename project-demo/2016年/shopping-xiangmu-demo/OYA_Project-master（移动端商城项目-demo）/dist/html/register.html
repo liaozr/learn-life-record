@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<meta charset="UTF-8">
+		<title>注册页面</title>
+		
+		<link rel="stylesheet" type="text/css" href="../css/reset.css">
+		<link rel="stylesheet" type="text/css" href="../plugin/font_icon/iconfont.css">
+		<link rel="stylesheet" type="text/css" href="../css/base.css">
+		<link rel="stylesheet" type="text/css" href="../css/register.css">
+		
+		
+		<script src="../plugin/zepto/zepto.js"></script>
+		<script src="../plugin/zepto/touch.js"></script>
+	</head>
+	<body>
+		
+		<header class="layout-header">
+			<a href="javascript:history.go(-1)" class="go-back">
+				<span class="iconfont icon-houtui"></span>
+			</a>
+			<div class="header-text">注册</div>
+			<div class="header-nav">
+				<span class="iconfont icon-msnui-list-square"></span>
+				<ul>
+					<li><a href="../index.html">首页</a></li>
+					<li><a href="goodlist.html">积分区</a></li>
+					<li><a href="goodlist.html">夺宝区</a></li>
+					<li><a href="goodlist.html">分类</a></li>
+					<li><a href="shopCart.html">购物车</a></li>
+					<li><a href="my_center.html">个人中心</a></li>
+				</ul>
+			</div>
+		</header>
+		
+		
+		<section class="layout-center">
+			<form action="my_center.html" method="get">
+				
+				<div class="phoneNum">
+					<p>
+						<input type="text" value="86" placeholder="国家编码" readonly="readonly">
+					</p>
+					<p>
+						<input type="text" placeholder="手机号码">
+						<span></span>
+					</p>
+				</div>
+				
+				<div class="megInfo">
+					<p>
+						<input type="text" placeholder="短信验证码">
+						<span></span>
+					</p>
+					<p>
+						<input type="button" value="获取短息验证码">
+					</p>
+
+				</div>
+				<div class="inputPsd">
+					<p>
+						<input type="password" placeholder="输入密码">
+						<span></span>
+					</p>
+				</div>
+				<div class="checkPsd">
+					<p>
+						<input type="password" placeholder="确认密码">
+						<span></span>
+					</p>
+				</div>
+				<div class="PhoneNum">
+					<p>
+						<input type="text" value="86" readonly="readonly">
+					</p>
+					<p>
+						<input type="text" placeholder="推荐人账号">
+						<span></span>
+					</p>
+				</div>
+				<div class="submitBtn">
+					<p>
+						<input type="submit" value="注册">
+					</p>
+				</div>
+				<div class="form-foot">
+					<a href="login.html">已有账号，去登录!</a>
+				</div>
+			</form>
+		</section>
+		
+		
+		
+		<script src="../js/common.js"></script>
+		<script src="../js/register.js"></script>
+	</body>
+</html>

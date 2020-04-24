@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script src="https://cdn.bootcss.com/vue/2.4.1/vue.min.js"></script>
+</head>
+<body>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+  如果result是no的话我们就申请参与，否则就是取消参与，这只是一个试用的例子，
+
+  我们正常的场景肯定不是这样的，不用看这个result值肯定是调取后台结口，
+
+  经过查询返还你result这个字段，那就是一个异步请求，我们可以模拟一下，看看会有什么结果，
+
+  你结对意想不到
+
+  <div id='app'>
+       <div>
+           <h1 v-if="result == 'No'">申请参与</h1>
+           <h1 v-else>取消参与</h1>
+       </div>
+  </div>
+
+  <script>
+       new Vue({
+         el:"#app",
+         data () {
+             return {
+                 result : ''
+             }
+         },
+         created () {
+             setTimeout(()=>{
+                 this.result = 'No'
+             },1000)
+         }
+       })
+  </script>
+
+  我们在created生命周期里模拟一个ajax请求，当发送请求后，两秒钟后请求返回，会发生什么结果，结果一脸蒙B，你会发现先显示取消参与，
+
+  两秒后会再显示申请参与，这本质上跟我们正常的判断逻辑js一样，if.....else......
+
+  如果if不成立直接成立else,因为2秒后result发生了变化，从新计算了v-if和v-else，
+
+  如果你的页面中result参数是从sessionStorage取到或者是从url参数上截取来的，ok不会有影响
+
+  这是一个坑一个大坑那怎么办那就轮到v-else-if 出场了
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+  <div id='app2'>
+       <div>
+           <h1 v-if="result == 'No'">申请参与</h1>
+           <h1 v-else-if="result == 'Yes'">取消参与</h1>
+       </div>
+  </div>
+
+  <script>
+      new Vue({
+        el:"#app2",
+        data () {
+            return {
+                result : ''
+            }
+        },
+        created () {
+            setTimeout(()=>{
+                this.result = 'No'
+            },1000)
+        }
+      })
+
+  </script>
+
+  我们拿v-else-if 再做一个判断，在ajax不返回之前如果result不等于no或者不等于yes我则什么都不显示，
+
+  让初始result直接等于""，直到接口返回改变了数据，
+
+  从新渲染了页面，则会显示申请参与，不会像上面造成那种一闪的效果
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+  一般来说， v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。
+
+  因此，如果需要非常频繁地切换，则使用 v-show 较好；
+
+  如果在运行时条件不太可能改变，则使用 v-if 较好。
+
+  注意， v-show 不支持 template 语法，也不支持 v-else。
+
+
+  一般来说， v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。
+
+  因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件不太可能改变，则使用 v-if 较好。
+
+  注意， v-show 不支持 template 语法，也不支持 v-else。
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+
+
+</body>
+</html>

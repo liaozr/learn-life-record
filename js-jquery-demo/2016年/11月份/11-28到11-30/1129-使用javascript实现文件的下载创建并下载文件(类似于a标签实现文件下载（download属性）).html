@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+</head>
+
+HTML5中给a标签增加了一个download属性，只要有这个属性，点击这个链接时浏览器就不在打开链接指向的文件， 而是改为下载（目前只有chrome、firefox和opera支持）。
+
+ 下载时会直接使用链接的名字来作为文件名，但是是可以改的，只要给download加上想要的文件名即可，
+
+ 如：download=“not-a-file.js”。
+
+ Not enough！ 但是这样还不够，以上的方法只适合用在文件是在服务器上的情况。
+
+ 如果在浏览器端js生成的内容，想让浏览器进行下载要如何办到呢？
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+<body>
+    <div class="download">点此下载文件</div>
+    <script>
+        var aa_txt = 'aaaaaa';
+
+        $(".download").click(function() {
+                createAndDownloadFile('aa.txt', aa_txt)
+        })
+            /**
+             * 创建并下载文件
+             * @param  {String} fileName 文件名
+             * @param  {String} content  文件内容
+             */
+        function createAndDownloadFile(fileName, content) {
+            var aTag = document.createElement('a');
+            var blob = new Blob([content]);
+            aTag.download = fileName;
+            aTag.href = URL.createObjectURL(blob);
+            aTag.click();
+            URL.revokeObjectURL(blob);
+        }
+    </script>
+
+    <!-- ----------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

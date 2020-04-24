@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+animation
+语法：
+
+animation: [[@keyframes](/user/keyframes) name] [duration] [timing-function] [delay]
+
+[iteration-count] [direction] [fill-mode] [play-state];
+
+
+animation: slidein 3s ease-in 1s 2 reverse both paused;
+
+1、可自动触发，也可以通过状态或增加class触发
+
+2、安卓低端机不支持伪元素（::before和::after）动画
+
+3、animation-fill-mode 可设置动画结束及开始的状态。如为backwards，则元素默认应用第一关键帧的样式，忽略delay，可通过一开始就暂停观察（animation-play-state: paused;）；如为forwards，则在动画结束后，元素将应用动画结束后的属性值；
+
+如果animation-fill-mode的值为both，则动画会遵循backwards和forwards的规则。
+
+也就是说，它会设置开始和结束的状态。
+
+4、animation-timing-function默认应用在每个关键帧之间的变化，而不是开始到结束整个流程。所以@keyframes 中的每个关键帧可以重新定义
+
+animation-timing-function
+
+<style>
+[@keyframes](/user/keyframes) square {
+   50% {
+      top: 200px;
+      left: 400px;
+      animation-timing-function: ease-in-out;
+   }
+}
+</style>
+
+5、可以用于none到block的动画切换
+
+查看demo，主要代码如下：
+
+<style>
+
+/*child一开始为none，demo hover的时候使用动画显示*/
+.demo .child{
+    display: none;
+}
+.demo:hover .child{
+    display: block;
+    animation: showChild .3s both;
+}
+[@keyframes](/user/keyframes) showChild {
+    from{
+        opacity: 0;
+    }
+}
+</style>
+
+</body>
+</html>

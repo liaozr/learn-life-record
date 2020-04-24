@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>const的学习</title>
+</head>
+<body>
+	<form action="">
+		<div>
+			<label for="username">用户名</label><input type="text" id="username">
+		</div>
+		<button id="submit">登录</button>
+	</form>
+	<script>
+	//const ES6新增的声明变量的一个操作符 不可变
+		let submit=document.getElementById('submit');
+		let reg=/^\w{6,12}$/;
+		const config={
+			usernameError:'您的用户名不符合规则',
+			passwordError:'你的密码不符合规则'
+		}
+		submit.onclick=()=>{
+			console.log(this);
+			let username=document.getElementById('username').value;
+			console.log(username);
+			if(!reg.test(username)){
+				alert(config.usernameError);
+			  	console.log(config.usernameError);
+			}
+			//button按钮点击的时候一定要阻止默认事件
+			return false ;
+		}
+
+
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

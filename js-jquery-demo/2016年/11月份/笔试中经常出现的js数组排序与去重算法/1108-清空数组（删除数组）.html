@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+8 清空数组
+
+<script>
+
+    //方式一 通过将长度设置为0
+    var arr = [1, 2, 3, 4, 5];
+    arr.length = 0;
+
+
+    //方式二 通过splice方法
+    var arr = [1, 2, 3, 4, 5];
+    arr.splice(0, arr.length);
+
+    //方式三 通过将空数组 [] 赋值给数组(严格意义来说这只是将ary重新赋值为空数组，之前的数组如果没有引用在指向它将等待垃圾回收。)
+    var arr = [1, 2, 3, 4, 5];
+    arr = [];
+
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+
+10 不要直接使用delete来删除数组中的元素
+
+数组在js中也是对象，有时候我们可能会通过delete来删除数组中的元素，但是其实仅仅是将数组的元素的值赋值为了undefined。
+
+
+<script>
+    var arr = [1, 2, 3, 4, 5, '谦龙', '雏田'];
+    delete arr[5];
+    console.log(arr, arr[5], arr.length);
+</script>
+
+
+
+可以通过splice来删除数组中的某一项
+
+<script>
+
+    var arr = [1, 2, 3, 4, 5, '谦龙', '雏田'];
+    arr.splice(5, 1);
+    console.log(arr, arr[5], arr.length);
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+</body>
+</html>

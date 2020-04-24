@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+从 for 到 forEach 再到 for...of：
+
+<script>
+    // ES5
+    // for
+    var array = ['a', 'b', 'c', 'd'];
+
+    for (var i = 0; i < array.length; i++) {
+        var element = array[i];
+        console.log(element);
+    }
+    // --------------------------------------------------------------------
+    // forEach
+    array.forEach(function(element) {
+        console.log(element);
+    });
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+ES6 的 for…of 同样可以实现迭代。
+
+<script>
+    // ES6
+    // for ...of
+    const array2 = ['a', 'b', 'c', 'd'];
+    for (const element of array2) {
+        console.log(element);
+    }
+
+</script>
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+</html>

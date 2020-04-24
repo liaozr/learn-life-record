@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    我们之前提到过，操作dom是非常慢的，所以当添加多个元素的样式时创建一个style元素并添加到document中是更好的做法。
+
+    <ul id="testList">
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+        <li>Item</li>
+    </ul>
+
+    <script>
+        var style = $('<style>');
+
+        // Try commenting out this line, or change the color:
+        style.text('#testList li{ color:red;}');
+
+        // Placing it before the result section so it affects the elements
+        style.prependTo('#result');
+    </script>
+
+
+</body>
+
+</html>

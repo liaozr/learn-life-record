@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+JavaScript的数据类型分为两类：原始类型（primitive type）、对象类型( object type )
+
+原始类型：数字、字符串、布尔型 , 特殊的原始值 null ， undefined
+
+对象类型：对象是属性的集合，数组、函数（特殊）..
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+1.函数与方法的区别： 定义在对象中作为属性值的函数称之为方法
+
+2.原始类型都有其对应的包装对象，Number() , String() , Boolean()
+     可以通过构造函数显式创建(后面会详细解释): var str = new Number('string')
+     这时候我们就可以 str.toUpperCase() 调用它的属性方法。
+     这里有一个问题,如果我们定义一个字符串直接量 var str = 'string'
+     此时str为原始类型,但是我们常常会 str.toUpperCase() 调用属性方法,
+     str不是对象，为什么会有属性方法？
+     其实这里javascript会隐式创建包装对象,通过包装对象来调用属性以及属性方法，一旦
+     操作结束后，临时包装对象就会被销毁。
+
+   3.原始类型不可修改，对象类型的属性是可变的。
+     var str = 'string'
+     str.toUpperCase() 并不会改变'string'为'STRING',而是重新返回一个新的字符串。
+     同样，数字与布尔型的值更是无法改变,var num = 5 , 数值5无法改变，能够改变的只
+     是变量num指向的值。
+
+   4.原始类型比较大小时候，会比较其值，
+     var num1 = 5, num2 = 5
+     num1 == num2 -> true
+
+     对象类型比较其是否引用同一个基对象，
+     var obj1 = {
+        x: 1
+     }
+     var obj2 = {
+         x: 1
+     }
+
+     var obj3 = obj1
+
+     obj1 == obj2 -> false
+
+     obj1 == obj3 -> true
+
+     obj2 == obj3 -> false
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+   
+</body>
+</html>

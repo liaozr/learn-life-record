@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    更新一个小问题当this碰到return时 JavaScript
+
+    <!-- -------------------------------------------------------------------------------- -->
+
+    <script>
+        function fn() {
+            this.user = '追梦子';
+            return {};
+        }
+        var a = new fn;
+        console.log(a.user); //undefined
+    </script>
+
+    <!-- -------------------------------------------------------------------------------- -->
+
+    <script>
+        function fn() {
+            this.user = '追梦子';
+            return function() {};
+        }
+        var a = new fn;
+        console.log(a.user); //undefined
+    </script>
+
+    <!-- -------------------------------------------------------------------------------- -->
+
+    <script>
+        function fn() {
+            this.user = '追梦子';
+            return {
+              'user':'zrliao'
+            };
+        }
+        var a = new fn;
+        console.log(a.user); // zrliao
+    </script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+    <script>
+
+        function fn() {
+            this.user = '追梦子';
+            return 1;
+        }
+        var a = new fn;
+        console.log(a.user); //追梦子
+
+        function fn() {
+            this.user = '追梦子';
+            return undefined;
+        }
+        var a = new fn;
+        console.log(a.user); //追梦子
+
+    </script>
+
+    <!-- ------------------------------------------------------------------------------------ -->
+
+    什么意思呢？ 　　
+    如果返回值是一个对象，那么this指向的就是那个返回的对象，
+
+    如果返回值不是一个对象那么this还是指向函数的实例。
+    
+    <!-- ------------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

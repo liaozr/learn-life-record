@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+使用v-on 绑定自定义事件
+
+讲到这里我先给大家讲四个东西，一个是vm.$on,vm.$emit,vm.$once,vm.$off
+
+这四个东西如何用，到底是什么鬼东西，看官文档不是吹牛B对新手来说很难看的懂
+
+1.$emit 是触发事件 第一个参数是事件名，后面可以带任意参数
+
+2.$on 是监听事件 第一个参数是监听事件名，第二个是一个回调，可接收emit传来的任意参数
+
+3.$once 也是监听事件，跟$on不同的是只是监听一次只后不再监听，第二个是一个回调，可接收emit传来的任意参数
+
+4.$off 是取消监听 只有一个参数，是取消监听的参数名
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+<template id='compa'>
+    <div>
+        <button @click='demo'>到五的时候取消监听</button>
+        <p>{{ziksang1}}</p>
+        <button @click='demo2'>只监听一次,传一个参过来</button>
+        <p>{{ziksang2}}</p>
+    </div>
+</template>
+
+<div id="app">
+    <compa></compa>
+</div>
+<script>
+    Vue.component("compa", {
+        template: '#compa',
+        created() {
+            this.$on('demo', () => {
+                this.ziksang1++
+                    if (this.ziksang1 == 5) {
+                        this.$off('demo')
+                    }
+            })
+            this.$once('demo2', (value) => {
+                this.ziksang2 += value
+            })
+        },
+        data() {
+            return {
+                ziksang1: 0,
+                ziksang2: 0
+            }
+        },
+        methods: {
+            demo() {
+                this.$emit('demo')
+            },
+            demo2() {
+                this.$emit('demo2', 10)
+            }
+        }
+
+    })
+    new Vue({
+        el: '#app',
+        data: {
+
+        }
+    })
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

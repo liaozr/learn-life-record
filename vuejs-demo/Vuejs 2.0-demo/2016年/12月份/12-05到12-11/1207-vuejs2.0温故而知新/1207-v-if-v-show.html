@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+条件绑定
+
+v-if
+
+其实就是个标签啦
+
+<h1 v-if="ok">Yes</h1>
+
+<h1 v-if="ok">Yes</h1>
+<h1 v-else>No</h1>
+
+因为 v-if 必须附加到一个单一 element 上，那如果我们想切换多个元素呢？可以使用 template 元素：
+
+<template v-if="ok">
+  <h1>Title</h1>
+  <p>Paragraph 1</p>
+  <p>Paragraph 2</p>
+</template>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+v-show
+
+也可以用 v-show 来做条件显示的逻辑，
+
+<h1 v-show="ok">Hello!</h1>
+
+区别在于
+
+v-show 不支持 template 和 v-else
+
+v-if 是 lazy 的，不会渲染没有走到的条件。
+
+而 v-show 只是简单的基于 CSS 的切换。所以 v-show 的初始 render 代价较高。
+
+由于 v-if 是真实的渲染，切换后原来的 dom 会被 destroyed，而新的 dom 会被重新创建。
+
+所以切换代价更高。
+
+所以如果切换得较为频繁可以使用 v-show，如果在运行时不太会改变则可以使用 v-if。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+</html>

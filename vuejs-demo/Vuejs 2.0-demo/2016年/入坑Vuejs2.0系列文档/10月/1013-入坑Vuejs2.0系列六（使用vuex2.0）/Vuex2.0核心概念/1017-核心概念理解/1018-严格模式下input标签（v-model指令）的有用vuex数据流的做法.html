@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+  
+    严格模式下，如果在 mutation handler 之外修改了 Vuex 的 state，应用就会抛错。
+    比如我们将 Vuex 中的某个数据，用 Vue 的 v-model 绑定到 input 时，一旦感应到 input 改动，就会尝试去直接修改这个数据，严格模式下就会报错。
+
+    所以建议是绑定 value 值，然后在 input 时调用 action （分发action是用store.dispatch || action的用途是提交(commit)一个或多个mutations）。
+
+    <input :value="message" @input="updateMessage">
+    <script type="text/javascript">
+           // ...
+           computed: {
+                ...mapState({
+                    message: state => state.obj.message
+                })
+            },
+            methods: {
+                updateMessage(e) {
+                    this.$store.commit('updateMessage', e.target.value)
+                }
+            }
+    </script>
+
+    mutation 可以这么处理
+
+    <script type="text/javascript">
+        mutations: {
+            updateMessage(state, message) {
+                state.obj.message = message
+            }
+        }
+    </script>
+
+    诚然，这样做是很仔细明了的，但是我们也不能用 v-model 这么好用的方法了，另外一个方法就是继续使用 v-model ，并配套使用 双向计算属性和 setter 。
+
+    <script type="text/javascript">
+        computed: {
+            message: {
+                get() {
+                    return this.$store.state.obj.message
+                },
+                set(value) {
+                    // 直接 commit 到 mutation，type 为 updateMessage
+                    this.$store.commit('updateMessage', value)
+                }
+            }
+        }
+    </script>
+<!-- ------------------------------------------------------------------------------------------ -->
+
+    建议部署到开发环境的时候一定一定要关掉严格模式。
+
+<!-- ---------------------------------------------------------------------------------------------------     -->
+</body>
+
+</html>

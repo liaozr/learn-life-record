@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>promise</title>
+	<style>
+		.ball {
+
+			width: 80px;
+			height: 80px;
+			border-radius: 50%;
+		}
+		.ball1{
+			background-color: darkblue;
+		}
+		.ball2{
+			background-color: darkred;
+		}
+		.ball3{
+			background-color: darkgreen;
+		}
+	</style>
+</head>
+<body>
+	<div class="ball ball1" style="margin-left:0"></div>
+	<div class="ball ball2" style="margin-left:0"></div>
+	<div class="ball ball3" style="margin-left:0"></div>
+	<div class="ball ball4" style="background-color: #000"></div>
+</body>
+<script>
+
+	let ball1=document.querySelector(".ball1");
+	let ball2=document.querySelector(".ball2");
+	let ball3=document.querySelector(".ball3");
+	//普通写法
+	function animate(ball,distance,cb){
+			let marginLeft=parseInt(ball.style.marginLeft);
+			let _animate=()=>{
+				clearTimeout(ball.timer);
+				if(marginLeft===distance){
+					cb&&cb();
+				}else{
+					if(marginLeft<distance){
+						marginLeft++
+						ball.style.marginLeft=marginLeft+'px';
+					}else{
+						marginLeft--;
+						ball.style.marginLeft=marginLeft+'px'
+					}
+					ball.timer=setTimeout(_animate,5);
+				}
+				
+			}
+			_animate();
+		
+	}
+	animate(ball1,500,function(){
+		animate(ball3,600,function(){
+			animate(ball1,200,function(){
+				animate(ball2,100,function(){
+					
+				});
+			});
+		});
+	});
+</script>
+</html>

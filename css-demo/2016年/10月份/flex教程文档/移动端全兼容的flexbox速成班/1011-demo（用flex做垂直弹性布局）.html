@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+用flex做垂直弹性布局
+
+顶部栏，底部栏fixed，中间的元素支持滚动条，这是移动端常见的页面结构模型，我们熟称为“垂直弹性布局”。
+
+使用传统的flxed写法总是会给一些安卓机带来无法避免的烦人bug。
+
+其实只要巧妙利用flexbox的转换方向的属性，就可以轻松实现这个结构模型了。
+
+如下图，其实也就是一个横着的弹性伸缩模型，倒转垂直的弹性伸缩模型了。
+
+
+
+这部分用到了flexbox的方向属性：指定主轴的伸缩流方向 flex-direction: row | column ; 
+
+这里注明一下，box-orient，box-direction是最老版本flex-box控制方向的2种写法，默认方向均为横向，为保证兼容性，我们需要将它们2条都写全。
+
+
+ <h3>7.用flex做垂直弹性布局</h3>
+ <div class="page">
+    <div class="flex-cont flex-ver">
+        <div class="nav-box">
+            title
+        </div>
+        <div class=" flex-item cont-box">
+            contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent
+        </div>
+        <div class="btn-box">
+           <button class="f-btn">btn</button> 
+        </div>
+    </div>
+ </div>
+
+<style>
+h3{
+    line-height: 36px;
+    height: 36px;
+    padding-left: 20px;
+    background: #f2f2f2;
+    margin:20px 0;
+}
+p{margin:0;padding:0}
+.f-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: #31BBEE;
+    flex:none;
+}
+.flex-cont{
+    /*定义为flexbox的"父元素"*/
+    display: -webkit-box; 
+    display: -webkit-flex;
+    display: flex;
+}
+.flex-item{
+    /*给"子元素"赋予自由伸缩的能力*/
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    width: 0%;
+}
+/*垂直弹性布局*/
+.page{
+    height: 400px;
+    width: 100%;
+    border: 1px solid #ddd;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+}
+
+.page .flex-ver{
+    /*指定主轴的伸缩流方向是纵向的*/
+    -webkit-box-orient:vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+    .nav-box,.btn-box{
+    height: 45px;
+    text-align: center;
+    line-height: 45px;
+}
+    .cont-box{
+    height: auto;
+    background: #ccc;
+    width: 100%;
+    overflow: scroll;
+    -webkit-overflow-scrolling : touch;
+}
+ </style>
+
+
+</body>
+</html>

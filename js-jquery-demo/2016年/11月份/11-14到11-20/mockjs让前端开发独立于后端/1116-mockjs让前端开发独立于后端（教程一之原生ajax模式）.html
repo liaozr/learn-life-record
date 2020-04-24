@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+mock.js 可以模拟ajax数据，拦截ajax请求，返回模拟数据，无需后端返回就可以测试前端程序
+
+引入文件
+
+首先在head头中引入我们需要的mockjs文件
+
+1
+<script src="http://mockjs.com/dist/mock.js"></script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+定义数据
+在ajax请求之前，用mock定义返回数据
+
+
+Mock.mock('http://laoyu', {
+        "errorcode": 0, //0表示成功，1表示错误
+        "message": "xx信息不完整", //弹出错误信息
+});
+
+创建请求
+在ajax中,open()的url要与mock中的相同，比如我这里是http://laoyu,那么
+
+
+XHR.open（"post/get","http://laoyu",true/false）
+
+测试
+好了，说到这里，我们进行测试一下
+
+<!-- ------------------------------------------------------------------------------- -->
+
+<script>
+    //调用mock方法模拟数据
+    Mock.mock('http://laoyu', {
+        "errorcode": 0, //0表示成功，1表示错误
+        "message": "xx信息不完整", //弹出错误信息
+    });
+
+    //使用ajax进行测试
+    var xhr = new XMLHttpRequest();
+    xhr.open("post", "http://laoyu", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send(null);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+                var data = JSON.parse(xhr.responseText); //因为reponseText返回的是字符串，将字符串转换成我们想要的JSON数据，这样就可以调用了
+
+                console.log(data); //在控制台中打印出返回的内容
+            } else {
+                alert("Request was unsuccessful: " + xhr.status);
+            }
+        }
+    }
+</script>
+
+xhr.readyState的五种状态
+
+0 － （未初始化）还没有调用open()方法
+
+1 － （服务器连接已经建立）已调用open()方法，正在发送请求
+
+2 － （请求已接收）send()方法执行完成，已经接收到全部响应内容
+
+3 － （请求处理中）正在解析响应内容
+
+4 － （请求已完成）响应内容解析完成，可以在客户端调用了
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+</body>
+</html>

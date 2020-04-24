@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+（1）内置函数
+  Sass提供了很多内置函数：函数列表
+
+（2）自定义函数
+
+  Sass支持自定义函数,使用@function语句来声明函数:
+
+  <style>
+
+      @function large($n) {
+          @return $n * 2;
+      }
+
+      div {
+          font-size: large(10px);
+      }
+      
+      /*输出为：*/
+      div {
+          font-size: 20px;
+      }
+
+  </style>
+
+
+</body>
+
+</html>

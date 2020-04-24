@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+sea.js官方提供了7个插件，对Sea.js的功能进行了补充。
+
+seajs-text：用来加载HTML或者模板文件；
+seajs-style：提供了importStyle，动态地向页面中插入css；
+seajs-combo：该插件提供了依赖combo的功能，能把多个依赖的模块uri combo，减少HTTP请求；
+
+seajs-flush：该插件是对seajs-combo的补充，或者是大杀器，可以先hold住前面的模块请求，最后将请求的模块combo成一个url，一次加载hold住的模块；
+seajs-debug：基本就是提供了这样一种功能，可以通过修改config，将线上文件proxy到本地服务器，便于线上开发调试和排错；
+
+seajs-log：提供一个seajs.log API，觉得比较鸡肋；
+seajs-health：目标功能是，分析当前网页的模块健康情况。
+
+<!-- ---------------------------------------------------------------------------- -->
+
+Sea.JS 开发过程中有哪些调试技巧?
+
+seajs.cache：用Chrome访问使用Seajs的站点，打开Console，输入seajs.cache，可以看到当前加载好的模块，点开某一个，可以查看该模块的详细信息，包括该模块ID，该模块暴露的API等等信息，很常用；
+
+seajs.find：包装好的模块的API不会污染全局变量，但在Console中，有时想用一下jQuery，这样就需要使用seajs.find了，var $ = seajs.find("jquery")[0]，然后就可以在Console的上下文中使用jQuery了，PS.seajs.find返回的是一个数组；
+
+seajs.log：在Console中打印信息，功能和console.log差不多，但是不会在IE下报错。由seajs-log 插件提供,记得加载该插件。
+
+seajs.resolve: 
+
+类似 require.resolve，会利用模块系统的内部机制对传入的字符串参数进行路径解析。
+
+<script>
+	seajs.resolve('jquery');
+	// => http://path/to/jquery.js
+
+	seajs.resolve('./a', 'http://example.com/to/b.js');
+	// => http://example.com/to/a.js
+	</script>
+
+seajs.resolve 方法不光可以用来调试路径解析是否正确，还可以用在插件开发环境中。
+
+seajs.require: 全局的 require 方法，可用来直接获取模块接口，比如
+
+<script>
+	seajs.use(['a', 'b'], function() {
+
+	  var a = seajs.require('a')
+	  var b = seajs.require('b')
+
+	  // do something...
+	})
+</script>
+
+seajs.data: 通过 seajs.data，可以查看 seajs 所有配置以及一些内部变量的值，可用于插件开发。当加载遇到问题时，也可用于调试。
+
+<!-- ---------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

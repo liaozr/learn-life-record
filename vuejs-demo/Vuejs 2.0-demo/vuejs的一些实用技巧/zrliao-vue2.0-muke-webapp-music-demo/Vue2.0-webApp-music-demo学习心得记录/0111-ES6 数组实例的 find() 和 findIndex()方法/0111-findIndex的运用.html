@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  数组实例的findIndex方法的用法与find方法非常类似，
+
+  返回第一个符合条件的数组成员的位置，如果所有成员都不符合条件，则返回-1。
+
+  效果类似 与 ES5 的 indexOf 效果。
+
+  <script>
+
+      const index=[1, 5, 10, 15].findIndex(function(value) {
+          return value > 9;
+      })
+
+      console.log(index) //  打印出来的数据 为 2
+
+  </script>
+
+  这两个方法都可以接受第二个参数，用来绑定回调函数的this对象。
+
+  另外，这两个方法都可以发现NaN，弥补了数组的IndexOf方法的不足。
+
+
+</body>
+
+</html>

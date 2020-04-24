@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+ （1）Mixin
+
+  Mixin使用@mixin语句来定义需要重复使用的代码，比如说清除浮动：
+
+<style>
+
+    @mixin clearfix {
+        &:after {
+            content: "";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+    }
+
+</style>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+  使用@include语句来使用Mixin定义的代码:
+
+  <style>
+
+      div {
+          @include clearfix;
+      }
+
+      /*输出为： */
+
+      div:after {
+          content: "";
+          display: block;
+          height: 0;
+          clear: both;
+          visibility: hidden;
+      }
+
+  </style>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+  @mixin语句还可以带参数和参数默认值：
+
+  <style>
+
+      @mixin text-font($size, $weight, $color: black) {
+          font: {
+              size: $size;
+              weight: $weight;
+          }
+          color: $color;
+      }
+
+      p {
+          @include text-font(10px, bold);
+      }
+
+      /*输出为： */
+      p {
+          font-size: 10px;
+          font-weight: bold;
+          color: black;
+      }
+  </style>
+  
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

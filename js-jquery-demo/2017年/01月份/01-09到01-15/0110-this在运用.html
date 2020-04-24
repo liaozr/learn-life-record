@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+函数作为对象的方法被调用时，this指向该对象
+
+<script>
+    var object = {
+        str: "object str",
+        print: function() {
+            return this.str;
+        }
+    };
+    console.log( object.print() );
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+作为普通函数被调用时，this指向全局对象。
+
+如果在浏览器环境中，这个全局对象就是window对象。
+
+<script>
+    var str = "global"; //全局变量str
+    var object = {
+        //对象属性str
+        str: "object str",
+        print: function() {
+            return this.str;
+        }
+    };
+    //将对象方法赋值给全局函数
+    var fn = object.print;
+
+    console.log(fn());  // 值为  global
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+它的作用就是构造一个新对象，所以构造函数在执行后总会返回一个对象。
+
+所以，函数作为构造器被调用时，this指向的是这个返回的对象。
+
+<script>
+    var Person = function() {
+        this.str = "person str";
+    };
+    var person1 = new Person();
+    console.log(person1.str); //输出“person str”
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+但值得注意的是，如果构造函数显式的return一个对象，那this指向的就是这个对象，
+
+而不是构造函数的执行代码块的局域变量。
+
+<script>
+    var Person2 = function() {
+        this.str = "person str";
+        return {
+            this.str = "new person str"
+        }
+    };
+    var Person = new Person2();
+    console.log(Person.str); //输出"new person str"
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+</body>
+</html>

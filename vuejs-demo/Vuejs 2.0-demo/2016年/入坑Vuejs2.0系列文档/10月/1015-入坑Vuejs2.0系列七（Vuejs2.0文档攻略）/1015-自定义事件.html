@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src='vue.js'>
+    </script>
+</head>
+
+<body>
+    使用v-on来处理自定义事件 Vue有两个方法是用来处理事件的： 侦听事件使用 $on(eventName) 定义和触发事件使用 $emit(eventName)
+
+    <!-- ---------------------------------------------------------------------------------------- -->
+
+    组件里我们看到定义了一个计数器，还有一个计数器方法increment，模板中有一个点击事件触发increment。 最关键的是this.$emit('increment')，我们看到在increment方法中定义了一个increment事件，这个事件将会传到组件外部乃至上级。
+
+    <div id="counter-event-example">
+        <p>{{ total }}</p>
+
+        <!-- 2个 button-counter组件，他们是互相独立的 -->
+        <button-counter v-on:increment="incrementTotal"></button-counter>
+        <button-counter v-on:increment="incrementTotal"></button-counter>
+    </div>
+
+    <script type="text/javascript">
+        Vue.component('button-counter', {
+            template: '<button v-on:click="increment">{{ counter }}</button>',
+            data: function() {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                increment: function() {
+                    this.counter += 1
+
+                    // 侦听事件使用 $on(eventName) 定义和触发事件使用 $emit(eventName)
+                   // this.$emit('increment')，我们看到在increment方法中定义了一个increment事件
+                  // 这个事件将会传到组件外部乃至上级
+
+                 // v-on:increment这个自定义事件是父组件上的。而不是子组件 button-counter 这个组件的
+                    this.$emit('increment')  //在Vuejs2.0中，有触发自定义方法incrementTotal的作用
+                }
+            },
+        })
+
+        new Vue({
+            el: '#counter-event-example',
+            data: {
+                total: 0
+            },
+            methods: {
+                incrementTotal: function() {
+                    // this.total += 1
+                    console.log("这个message是come from incrementTotal这个方法的。")
+                }
+            }
+        })
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+绑定原生事件到组件 上面例子，我们是通过模板将click事件绑定到组件的，那么我们要在组件上直接绑定原生js事件怎么做呢：
+
+<my-component v-on:click.native="doTheThing"></my-component>
+
+click后面加个.native修饰器就可以了。
+
+<!-- ----------------------------------------------------------------------------------------------------- -->
+
+<input v-model="something">
+
+这是我们熟悉的代码，之前说过，v-model背后自动代理了input事件，所以它不过是一个简写，完整写法如下：
+
+<div id="example">
+    {{something}}<br>
+    <input v-bind:value="something" v-on:input="something = $event.target.value">
+</div>
+
+<script type="text/javascript">
+    new Vue({
+        el: '#example',
+        data: {
+            something: ''
+        }
+    })
+</script>
+
+所以v-model只不过是一个语法糖。
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+非父子关系的组件信息传递
+
+有时，2个组件之间并不是上下级关系，但是你也需要在他们之间交换数据，做法是：
+
+建议一个空的Vue实例作为事件传递中介：
+
+<script type="text/javascript">
+    var bus = new Vue()
+
+    然后
+
+    // 组件A的method中广播事件
+    bus.$emit('id-selected', 1)
+    // 意思是在bus中广播这个事件
+
+    // 组件B's 事件钩子
+    bus.$on('id-selected', function(id) {
+        // ...
+    })
+    // 意思在bus中侦听事件
+</script>
+
+对于更复杂的情况，我们后面会介绍“状态管理模式”。
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

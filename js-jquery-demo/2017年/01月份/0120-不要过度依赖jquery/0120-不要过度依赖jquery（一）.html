@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    1、查找搜索选择器
+    <script>
+        // 1、查找搜索选择器 按ID查找：
+        $('#test') => document.getElementById('test');
+        // 1、查找搜索选择器 按ID查找：
+        $(".test") => document.getElementsByClassName('test');
+
+        // 按标签名查找
+        $('div') => document.getElementsByTagName('div');
+
+        //  当然，你也可以统一查找
+        $("#test")
+        document.querySelector('#test');
+        $("#test div")
+        document.querySelectorAll("#test div")
+
+
+        $('#test').find('span') => document.querySelectorAll('#test span');
+
+        // 获取单个元素：
+        $('#test div').eq(0)[0] => document.querySelectorAll('#test div')[0]
+
+        // 判断节点是否存在
+        $('#test').length > 0 => document.getElementById('test') !== null
+        $('div').length > 0 => document.querySelectorAll('div').length > 0
+
+        // 清空节点
+        $('#test').empty() => document.getElementById('test').innerHTML = '';
+    </script>
+
+    <!-- -------------------------------------------------------------------------------- -->
+
+    2、获取/设置内容（值）
+
+    <script>
+        // 获取/设置元素内的内容
+        $('div').html() => document.querySelecotr('div').innerHTML
+
+        $('div').text() =>
+            var t = document.querySelector('div');
+        t.textContent || t.innerText;
+
+        $('div').html('<span>abc</span>'); => document.querySelecotr('div').innerHTML = `<span>abc</span>`;
+
+        // 获取表单值
+        $('input').val() => document.querySelector('input').value
+        $('input').val('abc') => document.querySelector('input').value = 'abc'
+    </script>
+
+    <!-- -------------------------------------------------------------------------------- -->
+
+    4、节点操作
+    <script>
+        // 创建节点
+        $('<div>') => document.createElement('div')
+
+        // 复制节点：
+        $('div').clone() => document.querySelector('div').cloneNode(true)
+
+        // 插入节点：
+        $('div').append('<span></span>')
+
+        var span = document.createElement('span');
+        document.querySelector('div').appendChild(span);
+
+        // 获取父节点
+        $('#test').parent() => document.getElementById('test').parentNode
+
+        // 删除节点
+        $('#test').remove()
+
+        var t = document.getElementById('test');
+        t.parentNode(t);
+    </script>
+
+    <!-- -------------------------------------------------------------------------------- -->
+
+    5、属性操作
+    <script>
+        // 获取属性
+        $('#test').attr('class') => document.getElementById('test').getAttribute('class')
+
+        // 删除属性
+        $('#test').removeAttr('class') =>
+
+        document.getElementById('test').removeAttribute('class')
+
+        // 设置属性
+        $('#test').attr('class', 'abc') => document.getElementById('test').setAttribute('class', 'abc');
+    </script>
+
+    <!-- -------------------------------------------------------------------------------- -->
+
+    6、css样式操作
+
+    <script>
+
+        // 设置样式
+        $('#test').css('height', '10px'); =>
+
+        document.getElementById('test').style.height = '10px';
+
+        // 获取样式
+        $('#test').css('height')
+
+        var getStyle = function(dom, attr) {
+
+            return dom.currentStyle ? dom.currentStyle[attr] : getComputedStyle(dom, false)[attr];
+
+        };
+        getStyle(document.getElementById('test'), 'height');
+
+    </script>
+
+    <!-- -------------------------------------------------------------------------------- -->
+
+    8、JSON操作
+
+    <script>
+
+        // JSON序列化
+        $.stringify({name: "TG"})  =>  JSON.stringify({name: "TG"})
+
+        // JSON反序列化
+        $.parseJSON('{ "name": "TG" }')  =>  JSON.parse('{ "name": "TG" }')
+
+    </script>
+
+    <!-- -------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

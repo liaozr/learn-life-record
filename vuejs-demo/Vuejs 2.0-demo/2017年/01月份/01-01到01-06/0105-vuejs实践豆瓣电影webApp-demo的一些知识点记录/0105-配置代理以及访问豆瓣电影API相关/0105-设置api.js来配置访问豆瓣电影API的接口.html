@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- api/api.js -->
+
+    <script>
+        /**
+         * Created by superman on 2016/12/2.
+         */
+        import axios from 'axios';
+        // 使用代理
+        const HOST = '/api/';
+
+        // 设置type类型
+        export const API_TYPE = {
+            movie: {
+                in_theaters: 'in_theaters',
+                coming_soon: 'coming_soon'
+            }
+        };
+
+// -------------------------------------------------------------------------------
+
+        // 使用export命令定义了模块的对外接口以后，
+        // 其他JS文件就可以通过import命令加载这个模块（文件）
+
+        // 使用export命令定义了模块的对外接口以后，
+        // 其他JS文件就可以通过import命令加载这个模块（文件）
+
+// -------------------------------------------------------------------------------
+
+        // export语句用于从给定文件（或模块）导出函数和对象。
+        //
+        // 有两种不同的导出方式，每种方式对应于上述的一种语法：
+        //
+        // 命名导出：
+        // export { myFunction }; // 导出一个函数声明
+        // export const foo = Math.sqrt(2); // 导出一个常量
+        //
+        // 默认导出 (每个脚本只能有一个)：
+        // export default myFunctionOrClass // 或者 'export default class {}'
+        // // 这里没有分号
+
+// -------------------------------------------------------------------------------
+
+        // axios.get()异步获取接口信息的。如下代码所示：
+        // axios.get('/index/getList').then(function (res) {
+        //     if(res.data.data.code ==1000){
+        //         setTimeout(function () {
+        //             cb(res.data.data.data);
+        //         },300)
+        //
+        //     }
+        // });
+
+        // axios.get()异步获取豆瓣电影API的数据信息。
+
+// -----------------------------------------------------------------------------
+        //
+        // Promise的基本用法
+        // Promise的出现其实是作为异步编程的一种解决方案。
+        // 比传统的解决方案-回调函数和事件-更加合理、强大。
+        // var p1 = new Promise((resolve, reject) => {
+        //   setTimeout(resolve, 1000, 'done');
+        // })
+        // p1.then(data=>{
+        //   console.log(data); // done
+        // })
+
+// -----------------------------------------------------------------------------
+        export function fetch(url) {
+            return new Promise((resolve, reject) => {
+                axios.get(HOST + url)
+                    .then(response => {
+                        resolve(response.data);
+                })
+            })
+        }
+
+        export function fetchItemByType(type) {
+            return fetch(`${type}`);
+        }
+
+        // 这些都是配置访问豆瓣电影API接口的URL地址，弄成一个函数参数
+        export function fetchMoviesByType(type, start = 0, count = 20) {
+            return fetchItemByType(`movie/${type}?start=${start}&count=${count}`)
+        }
+
+        // 这些都是配置访问豆瓣电影API接口的URL地址，弄成一个函数参数
+        export function fetchMovieById(id) {
+            return fetch(`movie/subject/${id}`);
+        }
+
+        // 这些都是配置访问豆瓣电影API接口的URL地址，弄成一个函数参数
+        export function fetchSearchMovies(query, start = 0) {
+            let url = encodeURI(`/movie/search?q=${query}&start=${start}`);
+            return fetch(url);
+        }
+
+    </script>
+
+</body>
+
+</html>

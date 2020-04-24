@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        var msg = {
+            hot: {
+                text: '热门',
+                items: []
+            }
+        }
+
+        var key = 'A';
+
+        if (!msg[key]) {
+            msg[key] = {
+                text: key,
+                items: []
+            }
+        }
+        
+        console.log('cccccccccccc')
+        console.log(msg)
+        console.log(msg.A.text) // A
+
+        // 打印出 的数据为
+        // msg={
+        //   hot: {
+        //       text: '热门',
+        //       items: []
+        //   },
+        //   A: {
+        //       text: 'A',
+        //       items: []
+        //   }
+        // }
+
+    </script>
+
+</body>
+
+</html>

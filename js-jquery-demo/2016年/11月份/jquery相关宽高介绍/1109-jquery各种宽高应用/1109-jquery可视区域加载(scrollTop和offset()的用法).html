@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery3.js'></script>
+</head>
+
+<body>
+    <div class="showdiv" id='show'></div>
+    <script>
+        $(function() {
+
+            $(window).scroll(function() {
+                var window_height = $(window).height();
+                var scrollTop = $(window).scrollTop();
+
+                // div class为showdiv到顶部的距离
+                var showdiv_offsetTop = $('.showdiv').offset().top;
+                // console.log(showdiv_offsetTop)
+                if (window_height + scrollTop >= showdiv_offsetTop) {
+                    $('.showdiv').addClass("fadeInLeft")
+                } else {
+                    $('.showdiv').removeClass('fadeInLeft');
+                }
+            })
+
+            // var showdiv = $('.showdiv');
+            // 不能用jquery的选择器去addEventListener
+            // 如用showdiv.addEventListener会报错的，addEventListener is not a function
+
+            var show=document.getElementById("show");
+
+            show.addEventListener('animationend',function(){
+                alert("showdiv的动画已经结束了");
+            }, false);
+
+            show.addEventListener('webkitAnimationend',function(){
+                alert("showdiv的动画已经结束了");
+            }, false);
+        })
+    </script>
+    <style>
+        .showdiv {
+            width: 500px;
+            height: 350px;
+            background-color: red;
+            margin: 1000px auto 0 auto;
+        }
+
+        @-webkit-keyframes fadeInLeft {
+            0% {
+                opacity: 0;
+                transform: translate3d(-100%, 0, 0);
+                -webkit-transform: translate3d(-100%, 0, 0);
+            }
+            100% {
+                opacity: 1;
+                transform: none;
+                -webkit-transform: none;
+            }
+        }
+
+        @keyframes fadeInLeft {
+            0% {
+                opacity: 0;
+                transform: translate3d(-100%, 0, 0);
+                -webkit-transform: translate3d(-100%, 0, 0);
+            }
+            100% {
+                opacity: 1;
+                transform: none;
+                -webkit-transform: none;
+            }
+        }
+
+        .fadeInLeft {
+            animation: fadeInLeft 1s ease-in-out;
+            -webkit-animation: fadeInLeft 1s ease-in-out;
+        }
+    </style>
+</body>
+
+</html>

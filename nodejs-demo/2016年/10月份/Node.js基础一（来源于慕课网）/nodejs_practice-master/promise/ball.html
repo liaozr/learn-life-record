@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ball promise</title>
+	<style>
+		.ball{
+			width: 40px;
+			height: 40px;
+			border:1px solid #ccc;
+			border-radius: 20px;
+			/*margin-left: 0px;*/
+		}
+		.ball1{
+			background: red;
+		}		
+		.ball2{
+			background:blue;
+		}
+		.ball3{
+			background:green;
+		}
+
+	</style>
+	<script type="javascript/text" src="./node_modules/bluebird/js/browser/bluebird.js"></script>
+</head>
+<body>
+	<!-- ball.style.marginLeft只能获取到行内样式的值
+		 用window.getComputedStyle(element)可以监听到外部的样式(IE8+)
+	 -->
+	<div class="ball ball1" style="margin-left:0px;"></div>
+	<div class="ball ball2" style="margin-left:0px;"></div>
+	<div class="ball ball3" style="margin-left:0px;"></div>
+</body>
+<script>
+	var ball1 = document.getElementsByClassName('ball1')[0];	
+	var ball2 = document.getElementsByClassName('ball2')[0];
+	var ball3 = document.getElementsByClassName('ball3')[0];	
+	function ballAnimate(ball,distance,cb){
+		clearTimeout(timer);
+		var timer = setTimeout(function(){
+			var ballLeft = parseInt(ball.style.marginLeft,10);
+			if(ballLeft===distance){
+				cb&&cb();
+			}else{
+				if(ballLeft<distance){
+					ballLeft++;
+				}
+				else{
+					ballLeft--;
+				}
+				//ball.style.marginLeft = marginLeft + 'px';
+				ball.style.marginLeft = ballLeft+'px';
+				ballAnimate(ball,distance,cb);
+			}
+		},16)
+	}
+
+	// ballAnimate(ball1,100,function(){
+	// 	ballAnimate(ball2,200,function(){
+	// 		ballAnimate(ball3,300,function(){
+	// 			ballAnimate(ball3,150,function(){
+	// 				ballAnimate(ball2,150,function(){
+	// 					ballAnimate(ball1,150,function(){
+
+	// 					})
+	// 				})
+	// 			})
+	// 		})
+	// 	})
+	// })
+
+	var Promise = window.Promise;
+	function promiseAnimate(ball,distance){
+		return new Promise(function(resolve,reject){
+			function _ballAnimate(){
+				clearTimeout(timer);
+				var timer = setTimeout(function(){
+					var ballLeft = parseInt(ball.style.marginLeft,10);
+					if(ballLeft===distance){
+						resolve();
+					}else{
+						if(ballLeft<distance){
+							ballLeft++;
+						}
+						else{
+							ballLeft--;
+						}
+						//ball.style.marginLeft = marginLeft + 'px';
+						ball.style.marginLeft = ballLeft+'px';
+						_ballAnimate();
+					}
+				},16)
+			}
+			_ballAnimate();
+		})
+	}
+
+
+	promiseAnimate(ball1,100)
+		.then(function(){
+			return promiseAnimate(ball2,200);
+		})
+		.then(function(){
+			return promiseAnimate(ball3,300);
+		})
+		.then(function(){
+			return promiseAnimate(ball3,150);
+		})
+		.then(function(){
+			return promiseAnimate(ball2,150);
+		})
+		.then(function(){
+			return promiseAnimate(ball1,150);
+		})
+
+
+</script>
+</html>

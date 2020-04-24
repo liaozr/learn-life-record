@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+属性内部的计算插值 弃用
+
+属性内部的计算插值已经不能再使用了：
+
+<button class="btn btn-{{ size }}"></button>
+
+应该写成行内表达式：
+<button v-bind:class="'btn btn-' + size"></button>
+
+或者计算属性：
+
+<button v-bind:class="buttonClasses"></button>
+
+<script>
+	computed: {
+	  buttonClasses: function () {
+	    return 'btn btn-' + size
+	  }
+	}
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+HTML 计算插值 deprecated
+
+HTML 的计算插值  {{{ foo }}}   已经弃用，取代的是 v-html 指令.
+
+<!-- ------------------------------------------------------------------------------ -->
+
+单次绑定弃用
+
+单次绑定 {{* foo }} 已经弃用取代的是 v-once directive.
+
+<!-- --------------------------------------------------------------------- -->
+
+
+</body>
+</html>

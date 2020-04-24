@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    教程网址： https://zhuanlan.zhihu.com/p/22949023
+
+    https://zhuanlan.zhihu.com/p/22949023
+
+    https://zhuanlan.zhihu.com/p/22949023
+
+
+    常用的一些：
+
+    <script>
+        /**判断是否为空**/
+        function isBlank(_value) {
+            if (_value == null || _value == "" || _value == undefined) {
+                return true;
+            }
+            return false;
+        }
+    </script>
+
+    <!-- ---------------------------------------------------------------------------- -->
+
+    <script>
+        //方法，验证手机
+        function checkPhone() {
+            var mobile = $('input[name=mobile]').val();
+            if (isBlank(mobile)) {
+                floatNotify.simple('请输入您的手机号码');
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+
+</body>
+
+</html>

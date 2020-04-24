@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // --------------------------------------------------------------------------------
+
+        //   生成鉴权 字符串 所需
+        var AppCid = "";
+        var imsi; //设备的国际移动用户识别码
+        var imei; //设备的国际移动设备身份码
+        var osVersion; //系统版本
+        var osName; //系统名称
+        var productModel; //手机型号
+        var appKey = "21ED4675EA45609932AF0D229322D905";
+        var loginAuth = null;
+
+        var wt = null;
+
+        // --------------------------------------------------------------------------------
+
+        if (window.plus) {
+            plusReady()
+        } else {
+            document.addEventListener('plusready', plusReady, false);
+        }
+
+        function plusReady() {
+            //plus.navigator.setStatusBarBackground("#EB6D00");
+            // plus.navigator.setStatusBarStyle('UIStatusBarStyleBlackOpaque');
+            getCid();
+
+            //getMsg();
+
+            getwgtVer();
+            imsi = plus.device.imsi;
+            imei = plus.device.imei;
+            osVersion = plus.os.version;
+            osName = plus.os.name;
+            productModel = plus.device.model;
+            makeAuth();
+        }
+
+        function getCid() {
+            var info = plus.push.getClientInfo();
+            cid = info.clientid;
+            localStorage.cid = cid;
+            console.log(cid);
+            AppCid = cid;
+        }
+
+        // --------------------------------------------------------------------------------
+
+        $("#login").on('tap', function() {
+            if (vm.userName == '' || vm.password == "") {
+                plus.nativeUI.alert('请输入用户名或者密码');
+            } else if (vm.gengxinFlag) {
+                plus.nativeUI.toast('应用更新中，待资源更新完成后再登录！');
+            } else {
+                init();
+            }
+        });
+
+        // --------------------------------------------------------------------------------
+
+        function init() {
+
+            if (vm.clickflag) {
+                return;
+            }
+            vm.clickflag = true;
+            makeAuth();
+            console.log(getBaseServerUrl() + '/system/user/login');
+            console.log(getBaseServerUrl() + '/system/user/login');
+            console.log("loginAuth:" + loginAuth);
+            wt = plus.nativeUI.showWaiting();
+
+            console.log(loginAuth)
+
+            mui.ajax(getBaseServerUrl() + '/system/user/login', {
+                type: 'get', //HTTP请求类型
+                //登录前鉴权 localStorage.auth
+                headers: {
+                    "auth": loginAuth
+                },
+                cookie: null,
+                timeout: 30000, //超时时间设置为30秒；
+                data: {
+                    tenantId: 'homello',
+                    userName: vm.userName,
+                    password: vm.password,
+                    userType: 10,
+                    esn: '',
+                    clientId: AppCid
+                },
+                success: function(jsonData) {
+                    console.log(AppCid)
+
+                    console.log("======" + JSON.stringify(jsonData))
+                    localStorage.tenantId = "homello";
+
+                    localStorage.removeItem('ipstr');
+                    localStorage.removeItem('loginuname');
+                    localStorage.removeItem('loginunamepwd');
+
+                    localStorage.ipstr = $("#ip").val();
+                    localStorage.loginuname = vm.userName;
+                    localStorage.loginunamepwd = vm.password;
+
+                    localStorage.empId = jsonData.id;
+                    localStorage.empName = jsonData.empName;
+                    localStorage.orgName = jsonData.empOrgName;
+                    localStorage.orgId = jsonData.empOrg;
+                    localStorage.email = jsonData.email;
+                    localStorage.sex = jsonData.sex;
+                    localStorage.workPhone = jsonData.workPhone;
+                    localStorage.mobilePhone = jsonData.mobilePhone;
+                    localStorage.headPortrait = jsonData.headPortrait;
+                    localStorage.lzrempId = jsonData.id;
+
+                    localStorage.postNo = jsonData.postList[0].postNo;
+
+
+                    var postName = '';
+                    if (isDefine(jsonData.postList) && jsonData.postList.length > 0) {
+                        postName = jsonData.postList[0].postName;
+                    }
+                    localStorage.postName = postName;
+
+                    plus.navigator.setFullscreen(false);
+                    // plus.navigator.setStatusBarBackground("#eb6d00");
+
+
+                    if (mui.os.ios) {
+                        plus.navigator.setStatusBarStyle('dark');
+                    }
+
+                    //登录后储存鉴权  localStorage.headParam,再打开index.html
+
+                    makeAuthAfterLogin(jsonData, function() {
+                        bindCidAndAlias(AppCid);
+                        processMenu(jsonData.id);
+                    });
+
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { //type：错误描述，可取值："timeout", "error", "abort", "parsererror"、"null"
+                    wt.close();
+                    wt = null;
+                    if (textStatus == 'timeout') {
+                        alert('请求超时，请重试！');
+                        vm.clickflag = false;
+                        return;
+                    }
+                    console.log(JSON.stringify(XMLHttpRequest));
+                    if (isDefine(XMLHttpRequest.response)) {
+                        alert(JSON.parse(XMLHttpRequest.response).errorMsg);
+                        vm.clickflag = false;
+                    } else {
+                        alert('网络异常');
+                        vm.clickflag = false;
+                    }
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+            });
+        }
+
+        /*
+         * /eidpws/system/user/bindCidAndAlias
+         */
+        function bindCidAndAlias(cid) {
+            console.log("cid==========================================" + cid);
+            console.log(getBaseServerUrl() + '/system/user/bindCidAndAlias');
+            mui.ajax({
+                url: getBaseServerUrl() + '/system/user/bindCidAndAlias',
+                dataType: 'application/json', //服务器返回json格式数据
+                type: 'get',
+                data: {
+                    userName: vm.userName,
+                    userType: 10,
+                    clientId: cid
+                },
+                headers: {
+                    "auth": localStorage.headParam
+                },
+                timeout: 20000, //超时时间设置为8秒；
+                success: function(data) {
+                    console.log("bindCidAndAlias====================" + JSON.stringify(data));
+
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(JSON.stringify(XMLHttpRequest));
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+            });
+        }
+
+        // --------------------------------------------------------------------------------
+
+        // 登录前的鉴权
+        function makeAuth() {
+            var tenant = "homello";
+            var headParam = "";
+            var wgtVer = wgtVer ? wgtVer : "1.0.0";
+            var imsi = "123";
+            var imei = "567";
+            headParam += osName;
+            headParam += ";";
+            headParam += tenant;
+            headParam += ";";
+            headParam += vm.userName;
+            headParam += ";;";
+            headParam += vm.password;
+            headParam += ";;;";
+            headParam += imsi;
+            headParam += ";";
+            headParam += imei;
+            headParam += ";;;";
+            headParam += wgtVer;
+            headParam += ";";
+            headParam += osVersion;
+            headParam += ";";
+            headParam += productModel;
+            headParam += ";";
+            headParam += appKey;
+            headParam += ";";
+            headParam += "zh-CN";
+            console.log("headParam:" + headParam);
+            var base64 = new Base64();
+            var base64Auth = base64.encode(headParam);
+            var aesAuth = Encrypt(base64Auth);
+            loginAuth = "AES_" + aesAuth;
+            console.log(loginAuth);
+
+            console.log("登陆前鉴权:" + loginAuth);
+
+            localStorage.headParam = loginAuth;
+        }
+
+        // 登录后的鉴权
+        function makeAuthAfterLogin(sdata, callback) {
+            var headParam = "";
+            headParam += osName;
+            headParam += ";";
+            headParam += 'homello';
+            headParam += ";";
+            headParam += vm.userName;
+            headParam += ";";
+            headParam += sdata.empName;
+            headParam += ";";
+            headParam += sdata.password;
+            headParam += ";";
+            headParam += sdata.empOrg;
+            headParam += ";";
+            headParam += sdata.empOrgName;
+            headParam += ";";
+            headParam += imsi;
+            headParam += ";";
+            headParam += imei;
+            headParam += ";;;";
+            headParam += wgtVer;
+            headParam += ";";
+            headParam += osVersion;
+            headParam += ";";
+            headParam += productModel;
+            headParam += ";";
+            headParam += appKey;
+            headParam += ";";
+            headParam += "zh-CN";
+            console.log("login 之后:" + headParam);
+            var base64 = new Base64();
+            var base64Auth = base64.encode(headParam);
+            //	Android;posun;10001;;123456;;;;990004690785427,352209063302435;;;1.0;5.0;SM-G9009W;21ED4675EA45609932AF0D229322D905;zh-CN
+            var aesAuth = Encrypt(base64Auth);
+            localStorage.headParam = "AES_" + aesAuth;
+            console.log("登陆后鉴权:" + localStorage.headParam);
+
+            callback();
+
+            // 登录成功后，执行回调，执行的回调是下面这两个方法
+            // bindCidAndAlias(AppCid);
+            // processMenu(jsonData.id);
+
+            // makeAuthAfterLogin(jsonData, function() {
+            //     bindCidAndAlias(AppCid);
+            //     processMenu(jsonData.id);
+            // });
+
+        }
+        
+
+    </script>
+</body>
+
+</html>

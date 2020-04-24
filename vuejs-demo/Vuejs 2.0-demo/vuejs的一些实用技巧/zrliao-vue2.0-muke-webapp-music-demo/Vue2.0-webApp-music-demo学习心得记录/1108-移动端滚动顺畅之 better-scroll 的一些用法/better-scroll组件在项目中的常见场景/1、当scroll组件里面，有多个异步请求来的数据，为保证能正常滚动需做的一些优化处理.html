@@ -1,0 +1,62 @@
+<div ref='shortCutwrapper' class="shortcut-wrapper" v-show='!query'>
+
+    <scroll :refreshDelay="refreshDelay" ref='scroll' class="shortcut" :lists='shortcut'>
+
+        <div>
+
+            <div class="hot-key">
+                <h1 class="title">热门搜索</h1>
+                <ul>
+                    <li @click='addQuery(item.k)' class='item' v-for="item in hotkey" :key='item.id'>
+                        <span>{{item.k}}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="search-history" v-show="getHistory.length > 0">
+                <h1 class='title'>
+                    <span class="text">搜索历史</span>
+                    <span class="clear" @click='showConfirm'>
+                      <i class="icon-clear"></i>
+                    </span>
+                 </h1>
+                <searchList @deleteOne="deleteOne" @select='select' :searches="getHistory"></searchList>
+            </div>
+
+        </div>
+
+    </scroll>
+</div>
+
+
+<script>
+    export default {
+        data() {
+            return {
+                hotkey: [],
+                refreshDelay: 100
+            }
+        },
+        components: {
+            scroll
+        },
+        computed: {
+            ...mapGetters(['getHistory']),
+            shortcut() {
+                return this.hotkey.concat(this.getHistory)
+            }
+        },
+        watch: {
+            query(newQuery) {
+                if (!newQuery) {
+                    setTimeout(() => {
+                        this.$refs.scroll.refresh()
+                    }, 20)
+                }
+            }
+        },
+        created() {
+            this._getHotKey()
+        }
+    }
+</script>

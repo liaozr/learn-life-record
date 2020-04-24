@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+  css属性float实现文字竖排
+
+  实现原理：把一短话的每一句放在一个div中，
+
+  设置div的宽度和要显示的字体的大小一样（div的高度=字数×字体大小）,div就变成了一个竖条每一行就只能显示一个文字，
+
+  第二个文字就会被挤到下一行，然后把div的float设置为right向右浮动排列。就达到了一首诗的竖排显示。
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+    <style>
+        * {
+            font-family: Georgia;
+        }
+
+        #content {
+            position: absolute;
+            width: 1200px;
+            height: 400px;
+            left: 50%;
+            top: 50%;
+            margin-top: -300px;
+            margin-left: -600px;
+            border: 1px dashed #2f96b4;
+            padding-top: 50px;
+            border-radius: 20px;
+        }
+
+        #contentRemark {
+            position: absolute;
+            width: 1200px;
+            height: 300px;
+            left: 50%;
+            top: 56%;
+            margin-left: -600px;
+            padding-top: 50px;
+            text-indent: 2em;
+            font-size: 20px;
+            line-height: 2em;
+        }
+
+        .PoetryName {
+            font-size: xx-large;
+            font-weight: bold;
+            line-height: 1.5em;
+            width: 1.5em;
+            float: right;
+            font-size: 36px;
+            padding-top: 40px;
+            padding-right: 20px;
+        }
+
+        .PoetryPerson {
+            width: 1.5em;
+            float: right;
+            line-height: 2em;
+            padding-top: 70px;
+            font-size: 18px;
+            color: #d3524e;
+        }
+
+        .PoetryContent {
+            width: 1.5em;
+            float: right;
+            line-height: 1.5em;
+            padding-top: 30px;
+            font-size: 20px;
+        }
+
+        .PoetryContent:hover {
+            width: 1.5em;
+            float: right;
+            line-height: 1.5em;
+            padding-top: 30px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #d3524e;
+        }
+    </style>
+
+    <div id="content">
+
+        <div class="PoetryName">爱莲说</div>
+        <div style="width:1.5em; float:right;"> </div>
+        <div class="PoetryPerson">周 敦 颐 </div>
+        <div style="width:1.5em; float:right;"> </div>
+        <div class="PoetryContent">水陆草木之花　</div>
+        <div class="PoetryContent">可爱者甚蕃　</div>
+        <div class="PoetryContent">晋陶渊明独爱菊　</div>
+        <div class="PoetryContent">自李唐来　</div>
+        <div class="PoetryContent">世人甚爱牡丹　</div>
+        <div class="PoetryContent">予独爱莲之出淤泥而不染　</div>
+        <div class="PoetryContent">濯清涟而不妖　</div>
+        <div class="PoetryContent">中通外直　</div>
+        <div class="PoetryContent">不蔓不枝　</div>
+        <div class="PoetryContent">香远益清　</div>
+        <div class="PoetryContent"> 亭亭净植　</div>
+        <div class="PoetryContent"> 可远观而不可亵玩焉　</div>
+        <div class="PoetryContent">予谓菊花之隐逸者也　</div>
+        <div class="PoetryContent">牡丹花之富贵者也　</div>
+        <div class="PoetryContent">莲花之君子者也　</div>
+        <div class="PoetryContent">噫菊之爱　</div>
+        <div class="PoetryContent">陶后鲜有闻　</div>
+        <div class="PoetryContent"> 莲之爱　</div>
+        <div class="PoetryContent"> 同予者何人　</div>
+        <div class="PoetryContent"> 牡丹之爱　</div>
+        <div class="PoetryContent"> 宜乎众矣　</div>
+
+    </div>
+    
+<!-- ----------------------------------------------------------------------------------- -->
+
+    这种方式的优缺点：
+
+    优点：网页文档的书写和我们平时正常书写网页时候一样，可以为每一行设置不同的显示样式。
+
+    缺点：如果一行文字比较长，没有办法换行~
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

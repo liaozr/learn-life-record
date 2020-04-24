@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        // dosomethingElse()这样子传进去 是以直行 的方式传进去的
+        // dosomethingElse()这样子传进去 是以直行 的方式传进去的
+
+// --------------------------------------------------------------------------------------------
+
+        // 第一个then中传入doSomethingElse，但是注意，是以立即执行的方式传入的，
+
+        // 所以doSomething和doSomethingElse是一起执行的。
+        //
+        // 因为doSomethingElse返回的是一个promise实例，而不是一个函数，因此根据promise定义的规范，这个then会被忽略，
+        //
+        // 而第二个then侦听的是第一个promise的完成时间和参数
+        //
+
+// --------------------------------------------------------------------------------------------
+
+        dosomething().then(dosomethingElse())
+                     .then(finalHandler)
+
+
+        function dosomething() {
+            console.log(1111)
+
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve('hello')
+                }, 2000)
+            })
+        }
+
+        function dosomethingElse() {
+            console.log(2222)
+        }
+
+        function finalHandler() {
+            console.log(3333)
+        }
+
+    </script>
+
+</body>
+
+</html>

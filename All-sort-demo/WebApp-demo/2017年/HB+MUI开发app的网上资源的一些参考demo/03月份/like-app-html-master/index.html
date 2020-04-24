@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <script src="js/mui.lazyload.js"></script>
+	<script src="js/mui.lazyload.img.js"></script>
+	<!--<script src="js/jquery-1.11.4.min.js"></script>-->
+    <link href="css/mui.min.css" rel="stylesheet"/>
+   	<link href="css/icons-extra.css" rel="stylesheet"/>
+   
+    <style>
+    	mui-content-goods{margin-top: 10px;}
+		h5{
+	        padding-top: 8px;
+	        padding-bottom: 8px;
+		    text-indent: 12px;
+	    }
+		.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{
+			font-size: 15px;
+			margin-top:8px;
+			color: #333;
+		}
+	</style>
+</head>
+<body>
+	<!-- 主界面菜单同时移动 -->
+	    <!-- 侧滑导航根容器 -->
+	    <div class="mui-off-canvas-wrap mui-draggable">
+	        <!-- 主页面容器 -->
+	        <div class="mui-inner-wrap">
+	            <!-- 菜单容器 -->
+	            <aside class="mui-off-canvas-left" id="offCanvasSide">
+	                <div class="mui-scroll-wrapper">
+	                    <div class="mui-scroll">
+	                        <!-- 菜单具体展示内容 -->
+	                        
+	                    </div>
+	                </div>
+	            </aside>
+	            <!-- 主页面标题 -->
+	            <header class="mui-bar mui-bar-nav">
+	                <a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left" href="#offCanvasSide"></a>
+	                <h1 class="mui-title">浮世绘</h1>
+	                <a class="mui-icon mui-icon-chat mui-pull-right" href="#"></a>
+	            </header>
+	            <nav class="mui-bar mui-bar-tab">
+	    		    <a class="mui-tab-item mui-active">
+	    		        <span class="mui-icon mui-icon mui-icon-spinner mui-spin"></span>
+	    		        <span class="mui-tab-label">画廊</span>
+	    		    </a>
+	    		    <a class="mui-tab-item">
+	    		        <span class="mui-icon mui-icon-extra mui-icon-extra-classroom"></span>
+	    		        <span class="mui-tab-label">大师说</span>
+	    		    </a>
+	    		    <a class="mui-tab-item">
+	    		        <span class="mui-icon mui-icon-extra mui-icon-extra-cart"></span>
+	    		        <span class="mui-tab-label">收藏室</span>
+	    		    </a>
+	    		    <a class="mui-tab-item">
+	    		        <span class="mui-icon mui-icon-contact"></span>
+	    		        <span class="mui-tab-label">个人中心</span>
+	    		    </a>
+	    		</nav>
+	            <!-- 主页面内容容器 -->
+	            <div class="mui-content mui-scroll-wrapper">
+	                <div class="mui-scroll">
+	                    <!-- 主界面具体展示内容 -->
+	                	
+	                	<!--图片轮播-->    
+	                    <div id="slider" class="mui-slider" >
+	                      <div class="mui-slider-group mui-slider-loop">
+	                        <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+	                        <div class="mui-slider-item mui-slider-item-duplicate">
+	                          <a href="#">
+	                            <img src="http://placehold.it/400x300">
+	                          </a>
+	                        </div>
+	                        <!-- 第一张 -->
+	                        <div class="mui-slider-item">
+	                          <a href="#">
+	                            <img src="http://placehold.it/400x300">
+	                          </a>
+	                        </div>
+	                        <!-- 第二张 -->
+	                        <div class="mui-slider-item">
+	                          <a href="#">
+	                            <img src="http://placehold.it/400x300">
+	                          </a>
+	                        </div>
+	                        <!-- 第三张 -->
+	                        <div class="mui-slider-item">
+	                          <a href="#">
+	                            <img src="http://placehold.it/400x300">
+	                          </a>
+	                        </div>
+	                        <!-- 第四张 -->
+	                        <div class="mui-slider-item">
+	                          <a href="#">
+	                            <img src="http://placehold.it/400x300">
+	                          </a>
+	                        </div>
+	                        <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+	                        <div class="mui-slider-item mui-slider-item-duplicate">
+	                          <a href="#">
+	                            <img src="http://placehold.it/400x300">
+	                          </a>
+	                        </div>
+	                      </div>
+	                      <div class="mui-slider-indicator">
+	                        <div class="mui-indicator mui-active"></div>
+	                        <div class="mui-indicator"></div>
+	                        <div class="mui-indicator"></div>
+	                        <div class="mui-indicator"></div>
+	                      </div>
+	                    </div>
+	                	
+	                	<!--搜索栏-->
+	                	<div class="mui-input-row mui-search" style="margin-top: 10px;">
+							<input type="search" class="mui-input-clear" placeholder="自画像">
+						</div>
+	                	
+	                	<!--八个分类-->
+	                	<ul class="mui-table-view mui-grid-view mui-grid-9">
+		                	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+		                	    <a href="#">
+		                	        <span class="mui-icon mui-icon-extra mui-icon-extra-holiday"></span>
+		                	        <div class="mui-media-body">皮皮虾</div>
+		                	    </a>
+		                	</li>
+		                	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+		                	    <a href="#">
+		                	        <span class="mui-icon mui-icon-extra mui-icon-extra-dictionary"><span class="mui-badge mui-badge-red">hot</span></span>
+		                	        <div class="mui-media-body">印象派</div>
+		                	    </a>
+		                	</li>
+		                	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+		                	    <a href="#">
+		                	        <span class="mui-icon mui-icon-starhalf"></span>
+		                	        <div class="mui-media-body">素描</div>
+		                	    </a>
+		                	</li>
+		                	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+		                	    <a href="#">
+		                	        <span class="mui-icon mui-icon-image"></span>
+		                	        <div class="mui-media-body">油画</div>
+		                	    </a>
+		                	</li>
+		                	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+		                	    <a href="#">
+		                	        <span class="mui-icon mui-icon-paperplane"></span>
+		                	        <div class="mui-media-body">超现实主义</div>
+		                	    </a>
+		                	</li>
+		                	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+		                	    <a href="#">
+		                	        <span class="mui-icon mui-icon-more"></span>
+		                	        <div class="mui-media-body">更多</div>
+		                	    </a>
+		                	</li>
+	                	</ul>
+	                	
+	                	<!--商品列表-->
+	                	<div class="mui-content mui-content-goods" style="background-color:#fff">
+						    <h5 style="background-color:#FFFFFF">慢生活</h5>
+						    <ul class="mui-table-view mui-grid-view lazyload-img-list">
+						        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+						            <a href="#">
+						                <img class="mui-media-object" data-lazyload="./images/shuijiao.jpg">
+						                <div class="mui-media-body">幸福就是可以一起睡觉</div>
+						            </a>
+						        </li>
+						        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+						            <a href="#">
+						                <img class="mui-media-object" data-lazyload="./images/muwu.jpg">
+						                <div class="mui-media-body">想要一间这样的木屋，静静的喝咖啡</div>
+						            </a>
+						        </li>
+						        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+						            <a href="#"><img class="mui-media-object" data-lazyload="./images/cbd.jpg">
+						                <div class="mui-media-body">Color of SIP CBD</div>
+						            </a>
+						        </li>
+						        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+						            <a href="#">
+						                <img class="mui-media-object" data-lazyload="./images/yuantiao.jpg">
+						                <div class="mui-media-body">静静看这世界</div>
+						            </a>
+						        </li>
+						    </ul>    
+						</div>
+						
+						<div class="mui-content mui-content-goods" style="background-color:#fff">
+						    <h5 style="background-color:#FFFFFF">新元素</h5>
+						    <ul class="mui-table-view mui-grid-view lazyload-img-list">
+						        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+						            <a href="#">
+						                <img class="mui-media-object" data-lazyload="./images/shuijiao.jpg">
+						                <div class="mui-media-body">幸福就是可以一起睡觉</div>
+						            </a>
+						        </li>
+						        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+						            <a href="#">
+						                <img class="mui-media-object" data-lazyload="./images/muwu.jpg">
+						                <div class="mui-media-body">想要一间这样的木屋，静静的喝咖啡</div>
+						            </a>
+						        </li>
+						        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+						            <a href="#"><img class="mui-media-object" data-lazyload="./images/cbd.jpg">
+						                <div class="mui-media-body">Color of SIP CBD</div>
+						            </a>
+						        </li>
+						        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+						            <a href="#">
+						                <img class="mui-media-object" data-lazyload="./images/yuantiao.jpg">
+						                <div class="mui-media-body">静静看这世界</div>
+						            </a>
+						        </li>
+						    </ul>    
+						</div>
+						
+						<div class="mui-content mui-content-goods" style="background-color:#fff">
+						    <h5 style="background-color:#FFFFFF">为你推荐</h5>
+						    <ul class="mui-table-view mui-grid-view lazyload-img-list">
+						        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+						            <a href="#">
+						                <img class="mui-media-object" data-lazyload="./images/shuijiao.jpg">
+						                <div class="mui-media-body">幸福就是可以一起睡觉</div>
+						            </a>
+						        </li>
+						        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+						            <a href="#">
+						                <img class="mui-media-object" data-lazyload="./images/muwu.jpg">
+						                <div class="mui-media-body">想要一间这样的木屋，静静的喝咖啡</div>
+						            </a>
+						        </li>
+						        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+						            <a href="#"><img class="mui-media-object" data-lazyload="./images/cbd.jpg">
+						                <div class="mui-media-body">Color of SIP CBD</div>
+						            </a>
+						        </li>
+						        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+						            <a href="#">
+						                <img class="mui-media-object" data-lazyload="./images/yuantiao.jpg">
+						                <div class="mui-media-body">静静看这世界</div>
+						            </a>
+						        </li>
+						    </ul>    
+						</div>
+	                
+	                </div>
+	            </div>
+	       	 <div class="mui-off-canvas-backdrop"></div>
+	        </div>
+	    </div>
+
+<script type="text/javascript" charset="utf-8">
+    
+    mui.init();
+    
+	// 图片自动轮播
+	mui("#slider").slider({
+		interval: 2000
+	});
+	// 图片懒加载
+	(function($) {
+		$(document).imageLazyload({
+			placeholder: 'images/60x60.gif'
+		});
+	})(mui);
+	// 界面滑动
+	mui('.mui-scroll-wrapper').scroll({
+		deceleration: 0.0005
+	});
+</script>	    
+</body>
+</html>

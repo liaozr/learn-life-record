@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+命名视图
+
+有时候想同时（同级）展示多个视图，而不是嵌套展示，例如创建一个布局，有 sidebar（侧导航） 和 main（主内容） 两个视图，这个时候命名视图就派上用场了。你可以在界面中拥有多个单独命名的视图，而不是只有一个单独的出口。如果 router-view 没有设置名字，那么默认为 default。
+
+<router-view class="view one"></router-view>
+<router-view class="view two" name="a"></router-view>
+<router-view class="view three" name="b"></router-view>
+
+一个视图使用一个组件渲染，因此对于同个路由，多个视图就需要多个组件。
+
+确保正确使用 components 配置（带上 s）：
+
+<script type="text/javascript">
+
+    const router = new VueRouter({
+        routes: [
+          {
+            path: '/',
+            components: {
+                default: Foo,
+                a: Bar,
+                b: Baz
+            }
+          }
+        ]
+    })
+
+</script>
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+ a demo  一个栗子
+
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+<div id="app">
+    <div id="app">
+        <h1>Named Views</h1>
+        <ul>
+            <li>
+                <router-link to="/">/</router-link>
+            </li>
+            <li>
+                <router-link to="/other">/other</router-link>
+            </li>
+        </ul>
+        <router-view class="view one"></router-view>
+        <router-view class="view two" name="a"></router-view>
+        <router-view class="view three" name="b"></router-view>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const Foo = {
+        template: '<div>组件foo</div>'
+    }
+    const Bar = {
+        template: '<div>组件bar</div>'
+    }
+    const Baz = {
+        template: '<div>组件baz</div>'
+    }
+
+    const router = new VueRouter({
+        mode: 'history',
+        routes: [
+           {
+              path: '/',
+              // a single route can define multiple named components
+              // which will be rendered into <router-view>s with corresponding names.
+              components: {
+                  default: Foo,
+                  a: Bar,
+                  b: Baz
+              }
+           },
+           {
+              path: '/other',
+              components: {
+                  default: Baz,
+                  a: Bar,
+                  b: Foo
+              }
+           }
+        ]
+    })
+
+    new Vue({
+        router,
+        el: '#app'
+    })
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+Migration to vue 2.0
+
+需要升级的包列表
+
+npm i vue@2.0.1 --save
+
+npm i vue-router@2.0.0 --save
+
+npm i vuex@2.0.0 --save
+
+npm i vuex-router-sync@3.0.0 --save
+
+npm i vuex-loader@9.5.1 --save-dev
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+下面概括一些比较常用语法的修改
+
+Vue
+
+basic
+
+​Migration from Vue 1.x
+
+​官方文档已经很详细了
+
+官方升级工具 vue-migration-helper
+
+------------------------------------------------------------------------------------------
+
+ready
+
+<script>
+	 mounted() {
+	     this.$nextTick(() => {
+	        // ready
+	     })
+	 }
+</script>
+----------------------------------------------------------------------------------------------
+
+filter
+
+现在filter只在{{}}中生效，推荐使用计算属性或者方法，比较不爽的一个点
+
+-----------------------------------------------------------------------------------------------
+
+transition
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
+
+---------------------------------------------------------------------------------------------------
+Vue-Router
+
+basic
+
+vue-router 2
+
+添加了全局和离开当前页的钩子，更灵活了
+
+------------------------------------------------------------------------------------------------------
+router-link
+
+​个人感觉不是很方便，特别是<router-link tag="a"></router-link>这样的用法
+
+
+route data
+
+<script>
+	beforeRouteEnter (to, from, next) => {
+	  next(vm => {
+	    // 通过 `vm` 访问组件实例
+	  })
+	}
+</script>
+
+--------------------------------------------------------------------------------------------------------
+Vuex
+
+basic
+
+vuex 2.0
+
+getters
+
+<script>
+	vuex: {
+	      getters: {
+	        posts: state => state.posts
+	      },
+	      actions: {
+	        getPost
+	      }
+	 }
+
+	// 现在改为
+
+	import { mapGetters, mapActions } from 'vuex'
+
+	   computed: {
+	     ...mapGetters(
+	     	['posts']
+	     )
+	   },
+	   methods: {
+	     ...mapActions([
+	       'getPost'
+	     ])
+	   }
+</script> 
+
+附上本项目升级的commit
+Migration to 2.0
+
+<!-- -------------------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

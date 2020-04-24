@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+接口地址：
+/eidpws/app/order/findMaterialOrder?empId=admin&siteId=1
+
+给出的参数信息
+参数说明
+参数名	解释	类型	必填	备注
+
+empId	用户编号	S	Y
+
+siteId	工地编号	S	Y
+
+如上面可以看出， 填写请求的时候，应该要这么写
+
+<script>
+    function init() {
+        mui.ajax(getBaseServerUrl() + '/app/order/findMaterialOrder', {
+            type: 'get', //HTTP请求类型
+            data: {
+                empId: 'admin',
+                siteId: 1
+            },
+            success: function(jsonData) {
+                vm.dataArr = jsonData.data;
+                console.log(vm.dataArr)
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus);
+            }
+        });
+    }
+</script>
+<!-- --------------------------------------------------------------------------------- -->
+
+1.2  群组消息列表查询接口
+1.2.1 URL
+GET：
+/eidpws/app/chatGroup/getChatGroupMsgList
+
+1.2.2 客户端请求
+数据格式
+请求需要JSON.stringify: NO
+
+参数说明:
+
+参数	    描述	  类型	是否必填	备注
+empId	   用户ID	  S	      Y
+groupId	 群组ID	  S     	Y
+
+
+<!-- --------------------------------------------------------------------------------- -->
+
+1.3  发送群组消息(留言)
+
+1.3.1 URL
+POST：
+/eidpws/app/chatGroup/sendMessage
+
+1.3.2 客户端请求
+数据格式
+
+请求需要JSON.stringify: YES
+
+{
+  "empId": "M001",
+  "groupId": "1",
+  "msgType": "10",
+  "content": "adsasa"
+}
+
+参数说明
+
+参数	         描述	      类型	是否必填	     备注
+empId	        用户ID	     S	   Y
+groupId	      群组ID	     S	   Y
+msgType	      消息类型	   S	   Y	    10：文本，20：语音，30：图片
+content	      消息类容	   S	   Y	    Base64编码的字符串
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- 先说下这个老话题：连续赋值 -->
+
+<!-- 例1： -->
+
+<script>
+function a(){ 
+    var o1 = o2 = 5; 
+} 
+a(); 
+console.log(o2);  // 5
+console.log(o1);  // o1 is not defined
+</script>
+
+
+<!-- 结果是什么？ -->
+
+<!-- 
+
+console.log(o1); 输出 o1 is not defined
+
+而console.log(o2);这句呢？答案是5，o2变成了全局变量了 
+
+这是实际执行顺序：
+
+var o1; 
+o2 = 5; //o2未使用var声明，所以变全局变量了 
+o1 = o2;
+-->
+
+</body>
+</html>

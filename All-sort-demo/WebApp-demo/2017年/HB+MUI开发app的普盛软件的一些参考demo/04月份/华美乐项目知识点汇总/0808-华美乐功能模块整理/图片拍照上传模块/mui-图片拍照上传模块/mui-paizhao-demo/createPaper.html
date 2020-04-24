@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>任务明细</title>
+		<!-- Mobile Devices Support @begin -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<script src="../js/flexible.js" type="text/javascript"></script>
+		<script src="../js/flexible_css.js" type="text/javascript"></script>
+		<!-- Mobile Devices Support @end -->
+		<link rel="stylesheet" href="../css/base-reset.css">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/swiper-3.3.1.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../css/lzr.css">
+		<link rel="stylesheet" href="../css/ww.css" />
+		<link rel="stylesheet" href="../css/yhn.css" />
+	</head>
+
+	<body class="createPaper">
+		<div class="mui-bar mui-bar-nav header project-list-head">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			新增图纸
+			<span id="submitBtn" class="header-right">完成</span>
+		</div>
+		<div class="loading" style="display: none;">
+			<span class="mui-spinner"></span>
+		</div>
+
+		<div id="createPaper" class="g-content g-content-daichuli g-renwu-mingxi">
+			<div class="selectItem">
+				<div class="title left">
+					图纸名称
+				</div>
+				<div class="item right">
+					<input v-model="photoName" type="text" style="height:1rem;position:relative;top:.15rem;width:3rem" placeholder="请输入" />
+				</div>
+				<i></i>
+			</div>
+			<div class="item">
+				<div>
+					<div v-if="photoUrl" class="photo-div">
+						<img src="{{photoUrl}}" class="uploadPic" />
+						<img src="../images/check-close.png" class="close" v-on:click="close()" />
+					</div>
+					<div v-else class="photo-div">
+						<img id="upploadImg" src="../images/addphoto.png" class="uploadPic"  v-on:click="takePicture()"/>
+					</div>
+					<img src="" alt="" />
+					<div style="clear: both;"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="shadow" style="display: none;">
+			<div class="photeUpDiv">
+				<div class="item" id="getCamera">拍照</div>
+				<div class="item" id="getPhoto">相册</div>
+				<div class="item" id="closePhoto">取消</div>
+			</div>
+		</div>
+		<div class="upload-shadow mui-hidden" id="upload-state">
+			<div>
+				<div style="text-align: center;color:#EB6D00 ;padding: .3rem .5rem .3rem .5rem;font-size:.4rem">
+					<div class="left" style="color: #666;">图片上传
+						<span>({{hasComplete}}/{{totalCount}})</span></div>
+					<div class="right">
+					{{percent}}%
+					</div>
+				</div>
+				<p id="progressbar1"  class="mui-progressbar mui-progressbar-royal " style="margin: .5rem;">
+					<span></span>
+				</p>
+			</div>
+		</div>
+	</body>
+	<script src="../js/global.js"></script>
+	<script src='../js/swiper-3.3.1.min.js' type="text/javascript"></script>
+	<script src='../js/mui.min.js'></script>
+	<script src='../js/vue.min.js'></script>
+	<script type="text/javascript" src="../js/zepto1.1.6.min.js" ></script>
+	<script type="text/javascript" src="../js/picker/mui.picker.min.js" ></script>
+	<script type="text/javascript" src="../js/picker/mui.poppicker.js" ></script>
+	<script src="../upload/LocalResizeIMG.js"></script>
+	<script src="../upload/mobileBUGFix.mini.js"></script>
+	<script type="text/javascript" src="../js/public.js" ></script>
+	<script src="../js/locStorage.js"></script>
+	<script src="../js/sea.js"></script>
+	<script type="text/javascript" src="../js/exif/exif.js"></script>
+	<script>
+		var sqlObj = null;
+			seajs.config({});
+			//加载多个模块，在加载完成时，执行回调
+			seajs.use("db", function(sql) {
+				sqlObj = sql;
+				//创建数据库
+				seajs.use("$");
+				sqlObj.createDataBase($.locStorage.dbName, "", "数据库", 2 * 1024 * 1024);
+			});
+
+		Vue.filter('formatUrl',function(value){
+         	if(value!=""&&value!=null&&value!=undefined){
+         		var ImgUrl=getBaseImgUrl()+value;
+         		return ImgUrl;
+         	}
+	    });
+
+		var createPaperVM = new Vue({
+			el: 'body',
+			data: {
+				photoUrl:"",
+				photoName:"",
+				postUrl:"",
+				hasComplete:0,
+				totalCount:1,
+				percent:0,
+			},
+			methods: {
+				close: function() {
+					this.photoUrl="",
+					this.postUrl=""
+				},
+				takePicture: function(){
+					$(".shadow").fadeIn(300);
+				}
+			}
+		});
+
+
+		$(".shadow").on('click', function() {
+			$(this).fadeOut(300);
+		});
+
+		$(".closePhoto").on('click', function() {
+			$(this).fadeOut(300);
+		});
+		$("#getCamera").on('click', function() {
+			captureImage();
+		});
+		$("#getPhoto").on('click', function() {
+			pickGallery();
+		});
+
+
+		var curnow = new Date();
+		var curyear = curnow.getFullYear();
+
+		var month = curnow.getMonth() + 1;
+		if (month < 10){
+				month="0"+month;
+		}
+		var day = curnow.getDate();
+		var cusid=localStorage.customerId;
+
+
+		// 拍照
+		function captureImage() {
+			var dataStr = new Date().getTime();
+			var cmr = plus.camera.getCamera();
+			console.log("Camera supperted image formats: " + cmr.supportedImageFormats);
+			var res = cmr.supportedImageResolutions[0]; //字符串数组，摄像头支持的拍照分辨率
+			var fmt = $.locStorage.fmt;  // 后缀名 为 jpg
+			var dst_path = "_doc/img/" + dataStr + "Z." + fmt;
+
+			// var pictureUrl = "/upload/" + localStorage.tenantId  + "/img/" + dataStr + "Z." + fmt;//存储服务器路径（注意 img）
+
+			// 这个 pictureUrl 指的是上传 图片到后台 保存图片的地址。
+			var pictureUrl = "/upload/" + localStorage.tenantId +'/'+curyear+'/'+month+'/'+day+'/'+cusid+'/'+ dataStr + "Z." + fmt;//存储服务器路径（注意 img）
+			console.log(pictureUrl)  //  输出的是   / upload / homello/ 2017 / 09 / 28 / CU0092302302 / 10121212Z.jpg;
+
+
+			var Orientation;
+			cmr.captureImage(function(path) {
+					console.log("拍照完成==============="+new Date());
+					console.log("拍照本地URL路径:" + path);
+					console.log("拍照平台绝对路径:" + plus.io.convertLocalFileSystemURL(path)); //将本地URL路径转换成平台绝对路径
+					var wt = plus.nativeUI.showWaiting();
+					var http = new XMLHttpRequest();
+					http.open("GET","file://"+plus.io.convertLocalFileSystemURL(path), true);
+					http.responseType = "blob";
+					http.onload = function(e) {
+					           //通过图片读取
+					            var image = new Image();
+					            image.onload = function() {
+					                EXIF.getData(image, function() {
+					                	 console.log("图像数据==============="+new Date());
+					                     Orientation =  EXIF.getTag(this, 'Orientation');
+						                 console.log("Orientation:"+Orientation);
+						                 process();
+					                });
+					            };
+					            image.src = URL.createObjectURL(http.response);
+					};
+					http.send();
+					function process(){
+						plus.io.resolveLocalFileSystemURL(path, function(entry) {
+							console.log("读取文件==============="+new Date());
+							 var rotate =0;
+							 var quality=20;
+							 switch(Orientation){
+							 	 case 6:
+							 	 	rotate = 90;
+							 		break;
+							 	 case 3:
+							 	    rotate = 180;
+							 		 break;
+							 	 case 8:
+							 	 	rotate = 3/2 * 180;
+							 	 	break;
+							 }
+							 if(plus.os.name == "iOS"){
+								rotate = 0;//iOS不旋转
+								quality=1;
+							 }
+										plus.zip.compressImage({
+											src: path,
+											dst: dst_path,
+											quality:quality,
+											overwrite: true,
+											rotate: rotate,
+
+										},
+										function() {
+											console.log("Compress success!");
+											var absPath = "file://" + plus.io.convertLocalFileSystemURL(dst_path);
+											console.log("========================"+absPath);
+
+											createPaperVM.photoUrl = absPath;
+											createPaperVM.postUrl = pictureUrl;
+											localStorage.imgUrl = pictureUrl;
+
+											wt.close();wt=null;
+											console.log('删除目标对象');
+											entry.remove(); //递归删除目录
+
+										},function(error) {
+											console.log("Compress error!");
+											wt.close();wt=null;
+											alert("Compress error!");
+										});
+
+
+
+
+							}, function(e) {
+								outLine("读取拍照文件错误：" + e.message);
+								wt.close();wt=null;
+							});
+
+					}
+			},function(err) {},{resolution: res, format: fmt });// filename: dst_path,
+
+
+		}
+
+		/*
+		 * 从相册中选择
+		 */
+		function pickGallery(){
+			var dataStr = new Date().getTime();
+			var dst_path = "_doc/img/" + dataStr + "Z.jpg" ;//存储本地路径
+
+			// var pictureUrl = "/upload/" + localStorage.tenantId  + "/img/"  + dataStr + "Z.jpg" ;//存储服务器路径（注意 img）
+
+			var pictureUrl = "/upload/" + localStorage.tenantId +'/'+curyear+'/'+month+'/'+day+'/'+cusid+'/'+ dataStr + "Z.jpg";//存储服务器路径（注意 img）
+
+			plus.gallery.pick(function(path) {
+					var wt = plus.nativeUI.showWaiting();
+					console.log("从相册中选:" + path);
+					var quality = 20;
+					if(plus.os.name == "iOS"){
+						quality=1;
+					}
+					plus.zip.compressImage({
+							src:path,
+							dst:dst_path,
+							quality:quality,
+							overwrite: true,
+						},
+						function() {
+							console.log("Compress success!");
+							wt.close();wt=null;
+							var absPath = "file://" + plus.io.convertLocalFileSystemURL(dst_path);
+							console.log("存储本地 平台绝对路径："+absPath);
+
+							createPaperVM.photoUrl = absPath;
+							createPaperVM.postUrl = pictureUrl;
+							localStorage.imgUrl = pictureUrl;
+
+						},function(error) {
+							console.log("Compress error!");
+							wt.close();wt=null;
+							alert("Compress error!");
+					});
+
+				}, function(err) {}, {filename:dst_path});
+		}
+
+
+		$("#submitBtn").on("tap",function(){
+			if(!isDefine(createPaperVM.photoName)){
+				mui.toast("请输入图纸名称");
+				return;
+			}
+			if(!isDefine(createPaperVM.photoUrl)){
+				mui.toast("请进行行图纸拍照");
+				return;
+			}
+			console.log("createPaperVM.photoUrl:"+createPaperVM.photoUrl);
+			insertImageTable(createPaperVM.photoUrl);
+		});
+
+		/*
+		 * 上传后处理没改。
+		 */
+		function save(){
+			plus.webview.getWebviewById("photoList.html").evalJS("addPhoto("+"'"+createPaperVM.photoName+"'"+")");
+			plus.webview.currentWebview().opener().opener().evalJS("init()");
+			toast( "新增图纸成功");
+			setTimeout(function(){
+			   plus.webview.currentWebview().close();
+			},1000)
+			setTimeout(function(){
+				plus.webview.getWebviewById('paper-manage.html').evalJS("jiancheTuzhi()");
+			},5000)
+		}
+
+		function insertImageTable(filePath){
+			if(isDefine(filePath)){
+				sqlObj.insertImageTable(filePath.substring(filePath.lastIndexOf("/") + 1),filePath,callback);
+			}
+		}
+
+		function callback(filePath){
+			console.log("============ssssssss");
+			uploadImg(filePath);
+		}
+
+		var index=0;
+		function uploadImg(path) { //绝对路径
+			index++;
+			//console.log("=================="+path);
+			var server = getBaseServerUrl() + "/core/common/upload";
+
+			var task = plus.uploader.createUpload(server, { method: "POST",blocksize:204800,timeout: 10 },
+				function(t, status) { //上传完成
+					console.log("上传文件的总大小：" + task.totalSize);
+					console.log("上传：" + task.uploadedSize);
+					if(status == 200 && t.state == 4) {
+						createPaperVM.hasComplete++;
+						plus.uploader.clear();
+						mui.toast("图片上传成功!");
+						$("#upload-state").addClass("mui-hidden");
+						console.log(status + "：" + t.responseText)
+						if(isDefine(t.responseText)){
+							var uploadRs = JSON.parse(t.responseText);
+							for(var i=0;i<uploadRs.length;i++){
+								if(uploadRs[i].uploadResult.toString() == 'true'){
+									var key = uploadRs[i].fileKey;
+									sqlObj.findImagePathByKey(key,deleteFile);
+									sqlObj.deleteImageTable(key);
+								}
+							}
+						}
+						save();//保存修改信息
+					} else {
+						console.log("上传失败：" + status);
+						console.error(status + "：" + t.responseText)
+						if(index <= 3){
+							uploadImg(path);
+							return;
+						}
+						save();//保存修改信息
+					}
+				}
+			);
+			task.setRequestHeader("auth", getAuth());
+
+			// task.addFile(path, { key: new Date().getTime()+"", name: "img/"+path.substring(path.lastIndexOf("/") + 1), mime: 'image/jpeg' });
+
+			// task.addFile(“这里写文件在服务端存放的地址，具体的和后台商量”, {
+			// 	key: “文件标识”,
+			// 	name: “文件名称”
+			// });
+
+			//  注意 路径前的 upload/ homello 是系统自带的了。，所以这里 name值 直接写  curyear+'/'+month+'/'+day+'/'+cusid+'/ 即可。
+			task.addFile(path, { key: new Date().getTime()+"",name:curyear+'/'+month+'/'+day+'/'+cusid+'/'+path.substring(path.lastIndexOf("/") + 1), mime: 'image/jpeg' });
+
+			task.addEventListener('statechanged',function(){
+				$("#upload-state").removeClass("mui-hidden");
+				$("#progressbar1").removeClass("mui-hidden");
+		        var percent = Math.round(task.uploadedSize/task.totalSize*100);
+		        percent =isNaN(percent)?0:percent;
+		        console.log(percent+'%');
+		        createPaperVM.percent = percent;
+		        mui("#progressbar1").progressbar({ progress: percent }).show();
+		        if(percent>=100){
+		        	 //mui("#progressbar1").progressbar({ progress: 0 }).show();
+		        }
+		   });
+
+			task.start();
+
+		}
+
+		function deleteFile(path){
+			//通过URL参数获取目录对象或文件对象
+			plus.io.resolveLocalFileSystemURL( path, function(entry){
+			        entry.remove();//递归删除目录
+			}, function(e){
+			    console.log('目标对象不存在');
+			} );
+		}
+
+	</script>
+
+</html>

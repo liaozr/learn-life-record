@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+  在组件中分发 Actions 可以使用 this.$store.dispatch()
+
+  或者 mapActions 映射组件方法到 store.dispatch 中调用（ 需要注入 root）。
+
+  在组件中分发 Actions 可以使用 this.$store.dispatch()
+
+  或者 mapActions 映射组件方法到 store.dispatch 中调用（ 需要注入 root）。
+
+<body>
+
+    <button class="btn btn-primary" @click="save()">保存</button>
+
+    <script>
+        import {
+            mapActions
+        } from 'vuex'
+
+        export default {
+            data() {
+                return {
+                    date: '',
+                    totaltime: '',
+                    commitss: ''
+                }
+            },
+            methods: {
+                ...mapActions(['datechange', 'totaltimechange', 'commitchange', 'setNewplan']),
+                save() {
+                    this.$store.dispatch('save')
+                    this.$router.push({
+                        path: '/time-entries'
+                    })
+
+                    // 还可以这么写的  promise 机制
+
+                    // this.$store.dispatch('save', 100).then(() => {
+                    //       this.$router.push('/')
+                    // })
+
+
+                    // this.$store.commit('gProgress', 100).then(() => {
+                    //      this.$router.push('/')
+                    // })
+
+     // ------------------------------------------------------------------------
+
+                    //  this.$router.go(-1)
+
+                }
+            },
+            mounted() {
+                this.setNewplan()
+            }
+        }
+
+        // actions.js
+        export const save = ( {commit} ) => {
+            commit(types.SAVE)
+        }
+        // 相关的 mutations
+       const mutations = {
+        	[types.SAVE](state)
+        	{
+            state.plans.push(state.curEditPlans);
+            state.curEditPlans='';
+         	}
+       }
+    </script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+      this.$store.dispatch('savePlan', plan)当执行了这样的方法就会调用
+
+      actions.js里的savePlan方法，
+
+      而savePlan又会触发 mutations里的 types.SAVE_PLAN 最后修改数据视图更新
+
+<!-- ----------------------------------------------------------------------------- -->
+
+      PS：在这有个技巧就是，在mutations里都是用大写下划线连接，而我们的actions里都用小写驼峰对应。
+
+      个人理解这其实就是一个发布订阅的模式
+
+      mutation-types 记录我们所有的事件名
+
+      mutations 注册我们各种数据变化的方法
+
+      actions 则可以编写异步的逻辑或者是一些逻辑，再去commit我们的事件
+
+      如果有getter 我们可以把一些需要处理返回的数据放在这即可，不进行业务操作
+
+      <!-- -------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

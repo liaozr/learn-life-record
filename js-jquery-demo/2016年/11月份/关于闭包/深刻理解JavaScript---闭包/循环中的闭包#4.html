@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+这种闭包所导致的bug往往很难被发现，因为它们表面上看起来很正常，来看一下下面的函数
+
+<script>
+    function f() {
+        var a = [];
+        var i;
+        for (i = 0; i < 3; i++) {
+            a[i] = function() {
+                return i;
+            }
+        }
+        return a;
+    }
+    //下面来运行一下函数，并将结果赋值给数组a
+    var a = f();
+    a[0](); //输出3
+    a[1](); //输出3
+    a[2](); //输出3
+</script>
+
+为啥不是0、1、2呢？为啥会这样呢？原来在这里创建的三个闭包，它们都指向了一个共同的局部变量i，但是，闭包不会记录它们的值，它们所拥有的的只是一个i的连接（即引用），因此只能返回i当前值，因为i结束循环时值为3，所以这三个函数都指向一个共同值3
+如何纠正？显然，需要a[i]指向三个不同的变量，下面是解决方案之一：
+
+<script>
+    function f() {
+        var a = [];
+        var i;
+        for (i = 0; i < 3; i++) {
+            a[i] = (function(x) {
+                return function() {
+                    console.log(x)
+                    return x;
+                }
+            })(i);
+        }
+        return a;
+    }
+    //下面来运行一下函数，并将结果赋值给数组a
+    var a = f();
+    a[0](); //输出0
+    a[1](); //输出1
+    a[2](); //输出2
+</script>
+
+
+闭包中，有var a=f(),然后又a(1)的，说明这个1就是 闭包函数的参数来的了（就是函数f里面的那个函数的参数的了）
+
+
+这里使用了自调函数，不再直接返回i的值，而是将i传递给自调函数，i赋值给了局部变量x，这样一来，每次迭代x就会拥有各自不同的值了。
+<!-- ----------------------------------------------------------------------------------------- -->
+
+解决方案二：
+<script>
+    function f() {
+        function aa(x) {
+            return function() {
+                return x;
+            }
+        }
+        var a = [];
+        var i;
+        for (i = 0; i < 3; i++) {
+            a[i] = aa(i);
+        }
+        return a;
+    }
+</script>
+
+方案二不使用自调函数，而是定义了一个内部函数实现相同的功能，每次迭代操作中，将i的值“本地化”。
+
+
+
+</body>
+</html>

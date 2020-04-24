@@ -1,0 +1,218 @@
+.g-zeren{
+	background-color: #f6f6f6;
+}
+.g-zeren .m-header{
+	width:100%;
+	height:1.173rem;
+	text-align: center;
+	line-height: 1.173rem;
+	font-size:  0.48rem;
+	background-color: #ffffff;
+}
+.g-zeren .m-content{
+	margin-top: 0.4rem;
+	-webkit-overflow-scrolling: touch;
+}
+.g-zeren .m-content .m-sort{
+	height:auto;
+}
+.g-zeren .m-content .m-sort .list{
+	padding:0.267rem;
+	background-color: #ffffff;
+	margin-bottom: 0.267rem;
+}
+.g-zeren .m-content .m-sort .list:last-child{
+	margin-bottom: 0rem;
+}
+.g-zeren .m-content .m-sort .list .title{
+	height:1.04rem;
+	line-height: 1.04rem;
+	width:100%;
+}
+.g-zeren .m-content .m-sort .list .title span{
+	color:#ff5355;
+	font-weight: bold;
+	font-size: 0.427rem;
+}
+.g-zeren .m-content .m-sort .list table{
+	width:100%;
+	border-collapse: collapse;
+    border-spacing: 0;
+}
+.g-zeren .m-content .m-sort .list table thead{
+	background-color:#f6f6f6; 
+}
+
+.g-zeren .m-content .m-sort .list table tr{
+	 height: auto;
+     border: 1px solid #e6e6e6;
+     font-size: 0.427rem;
+}
+.g-zeren .m-content .m-sort .list table tr.common{
+	     line-height: 1.067rem;
+
+}
+.g-zeren .m-content .m-sort .list table tr.big{
+	     line-height:0.853rem;
+	     font-size: 0.373rem;
+}
+.g-zeren .m-content .m-sort .list table tr.big td.big-td{
+	text-align: left;
+    padding:0.133rem;
+
+}
+.g-zeren .m-content .m-sort .list table tr th{
+   border: 1px solid #e6e6e6;
+   text-align: center;
+}
+
+.g-zeren .m-content .m-sort .list table tr td{
+   border: 1px solid #e6e6e6;
+   text-align: center;
+}
+.g-zeren .m-content .m-sort .list .tips{
+	height:1.04rem;
+	line-height: 1.34rem;
+	text-align: center;
+	font-size: 0.427rem;
+}
+.g-zeren .m-content .m-sort .list .tips span{
+	color:#fe5454;
+}
+.g-zeren .m-content .chose-leixing{
+	margin-top: 0.267rem;
+	background-color: #ffffff;
+}
+.g-zeren .m-content .chose-leixing .title{
+	height:1.04rem;
+	line-height: 1.04rem;
+	border-bottom: 1px solid #eee;
+	position: relative;
+} 
+.g-zeren .m-content .chose-leixing .title .wen{
+	position: absolute;
+	height:1.04rem;
+	line-height: 1.04rem;
+	left:0.8rem;
+}  
+.g-zeren .m-content .chose-leixing .title .right{
+	position: absolute;
+	height:1.04rem;
+	line-height: 1.04rem;
+	right:0.8rem;
+}   
+.g-zeren .m-content .chose-leixing .chose-sort{
+	height:1.573rem;
+	width:100%;
+	border:1px solid #eee;
+}
+.g-zeren .m-content .chose-leixing .chose-sort .list{
+	width:33.33%;
+	height:1.573rem;
+	line-height: 1.573rem;
+	display: inline-block;
+	float:left;
+	text-align: center;
+	vertical-align: middle;
+	position: relative;
+	font-size: 0.373rem;
+}
+.g-zeren .m-content .chose-leixing .chose-sort .list input{
+	vertical-align: middle;
+	position: absolute;
+	left:0.613rem;
+	top:0.64rem;
+	width:0.533rem;
+	height:0.533rem;
+	opacity: 0;
+	z-index: 999;
+}
+.g-zeren .m-content .chose-leixing .chose-sort .list  label{
+	position: absolute;
+	left:1.333rem;
+	top:0.08rem;
+	line-height: 0.693rem;
+	text-align: left;
+	color:#7a7a7a;
+}
+.g-zeren .m-content .chose-leixing .chose-sort .list  label .number{
+	color:#29282d;
+	font-weight: bold;
+	font-size: 0.427rem;
+}
+.g-zeren .m-content .chose-leixing .radio-icon{
+   background:url(../img/dotcheck.png) no-repeat;
+   background-size: cover;
+   position: absolute;
+	left:0.613rem;
+	top:0.64rem;
+	width:0.533rem;
+	height:0.533rem;
+	z-index:999;
+}
+.g-zeren .m-content .chose-leixing .radio-icon-checked{
+   background:url(../img/dotcheck1.png) no-repeat;
+   background-size: cover;
+   position: absolute;
+	left:0.613rem;
+	top:0.64rem;
+	width:0.533rem;
+	height:0.533rem;
+}
+.g-zeren .m-content  .shuoming{
+	height:2.0rem;
+	width:100%;
+	border-bottom: 1px solid #eee;
+	background-color: #f6f6f6;
+
+}
+.g-zeren .m-content  .shuoming .des{
+	height:2.0rem;
+ 	width: 7.147rem;
+	text-indent: 2em;
+	background:url(../img/checkIcon.png) no-repeat;
+	background-position: 0.113rem 0.373rem;
+	background-size: 0.533rem 0.533rem;
+	margin:0px auto;
+	position: relative;
+	font-size: 0.373rem;
+	line-height: 0.747rem;
+	padding-top: 0.293rem;
+}
+.g-zeren .m-content  .shuoming .des a{
+	text-decoration: none;
+}
+.g-zeren .m-content  .shuoming .des a:hover{
+	text-decoration: none;
+}
+.g-zeren .m-content  .shuoming .des span{
+	position: absolute;
+	 left:0.027rem;
+}
+.g-zeren .m-content  .shuoming .des .weizhi-two{
+	position: absolute;
+	top:0.907rem;
+}
+.g-zeren .m-content .next{
+	height:1.333rem;
+	width:100%;
+	background-color: #ffffff;
+	position: relative;
+
+}
+.g-zeren .m-content .next input{
+	width:9.2rem;
+	height:0.933rem;
+	line-height: 0.933rem;
+	text-align: center;
+	background-color: #ff5454;
+	color:white;
+	position: absolute;
+	left:50%;
+	top:50%;
+	margin-left:-4.6rem;
+	margin-top:-0.467rem;
+	border:none;
+	padding:0;
+	border-radius: 0.067rem;
+}

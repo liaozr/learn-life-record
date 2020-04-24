@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    如下图所示，template 标签的用法 它是无语义化的。
+
+    <div v-for="(index,item) in checkClasspicture" class="photoList">
+
+        <template v-for='key in item.measureDetailsList'>
+
+            <h1 style="font-size: 0.4rem;color: gray;line-height: .42rem;padding: 10px 10px 0 10px ">{{key.pictureExplain}}</h1>
+
+            <div class="photo-div" >
+
+            <img :src="setSrc(key.pictureUrl)" class="uploadPic" data-preview-src="{{img | previewImg }}" data-preview-group="{{index}}" />
+
+            </div>
+            <div style="clear: both;"></div>
+
+        </template>
+
+    </div>
+
+</body>
+
+</html>

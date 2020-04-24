@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 用了异步组件的话就不需要加上这句了
+        // import LogTime from './components/LogTime'
+
+        const routes = [
+              {
+                path: '/',
+                component: Home
+              },
+              {
+                path: '/home',
+                component: Home
+              },
+              {
+                path: '/time-entries',
+                component: TimeEntries,
+                children: [
+                    {
+                          path: 'log-time',
+                          // component:LogTime
+
+                          // LogTime属于我们TimeEntries组件的一个子路由，所以我们依旧需要配置下我们的路由，并且利用webpack让它懒加载，减少我们首屏加载的流量
+
+                          component: resolve => require( ['./components/LogTime'], resolve),
+                    }
+                ]
+               }
+        ]
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap_demo.css">
+	<script src='vue.js'></script>
+	<script type="text/javascript" src='vue-router.js'></script>
+</head>
+<body>
+		<!--         当用户点击Home链接或About链接后，链接没有显示为选中
+		当用户点击News或Message链接后，链接没有显示为选中 -->
+
+<!-- 
+
+设置activeClass
+第1个问题，可以通过设定v-link指令的activeClass解决。
+
+<a class="list-group-item" v-link="{ path: '/home', activeClass: 'active'}">Home</a>
+<a class="list-group-item" v-link="{ path: '/about', activeClass: 'active'}">About</a> 
+
+-->
+
+        <div id="app">
+			<div class="row">
+				<div class="col-xs-offset-2 col-xs-8">
+					<div class="page-header">
+						<h2>Router Basic - 05</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2 col-xs-offset-2">
+					<div class="list-group">
+						<a class="list-group-item" v-link="{ path: '/home', activeClass: 'active'}">Home</a>
+						<a class="list-group-item" v-link="{ path: '/about', activeClass: 'active'}">About</a>
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="panel">
+						<div class="panel-body">
+							<router-view></router-view>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<template id="home">
+			<div>
+				<h1>Home</h1>
+				<p>{{msg}}</p>
+			</div>
+
+			<!-- 			
+
+			第2个问题，为v-link指令设定activeClass是不起作用的，因为我们使用的是bootstrap的样式，需要设置a标签的父元素<li>才能让链接看起来处于选中状态，就像下面的代码所展现的：
+
+			<ul class="nav nav-tabs">
+			    <li class="active">
+			        <a v-link="{ path: '/home/news'}">News</a>
+			    </li>
+			    <li>
+			        <a v-link="{ path: '/home/message'}">Messages</a>
+			    </li>
+			</ul> 
+
+			-->
+
+			<div>
+				<ul class="nav nav-tabs">
+					<li :class="currentPath == '/home/news' ? 'active': ''">
+						<a v-link="{ path: '/home/news'}">News</a>
+					</li>
+					<li :class="currentPath == '/home/message' ? 'active': ''">
+						<a v-link="{ path: '/home/message'}">Messages</a>
+					</li>
+				</ul>
+				<router-view></router-view>
+			</div>
+		</template>
+
+
+		<template id="about">
+			<div>
+				<h1>About</h1>
+				<p>This is the tutorial about vue-router.</p>
+			</div>
+		</template>
+
+
+		<template id="news">
+			<div>
+				<ul>
+					<li>News 01</li>
+					<li>News 02</li>
+					<li>News 03</li>
+				</ul>
+			</div>
+		</template>
+
+		<template id="message">
+			<ul>
+				<li>Message 01</li>
+				<li>Message 02</li>
+				<li>Message 03</li>
+			</ul>
+		</template>
+		<!-- 
+		现在又出现了另一个问题，在什么情况下给currentPath赋值呢？
+
+		用户点击v-link的元素时，是路由的切换。
+		每个组件都有一个route选项，route选项有一系列钩子函数，在切换路由时会执行这些钩子函数。
+		其中一个钩子函数是data钩子函数，它用于加载和设置组件的数据。
+		 -->
+		<script>
+			var Home = Vue.extend({
+				template: '#home',
+				data: function() {
+					return {
+						msg: 'Hello, vue router!',
+						currentPath: ''
+					}
+				},
+
+				// 切换对象
+				// 每个切换钩子函数都会接受一个 transition 对象作为参数。这个切换对象包含以下函数和方法：
+
+				// transition.to 
+				// 表示将要切换到的路径的路由对象。
+			
+				route: {
+					data: function(transition){
+						transition.next({
+							currentPath: transition.to.path
+						})
+					}
+				}
+			})
+
+			var News = Vue.extend({
+				template: '#news'
+			})
+
+			var Message = Vue.extend({
+				template: '#message'
+			})
+
+			var About = Vue.extend({
+				template: '#about'
+			})
+
+			var router = new VueRouter()
+			router.redirect({
+				'/': '/home'
+			})
+
+			router.map({
+				'/home': {
+					component: Home,
+					subRoutes: {
+						'/news': {
+							component: News
+						},
+						'/message': {
+							component: Message
+						}
+					}
+				},
+				'/about': {
+					component: About
+				}
+			})
+
+			var App = Vue.extend({})
+			router.start(App, '#app')
+		</script>
+
+</body>
+</html>

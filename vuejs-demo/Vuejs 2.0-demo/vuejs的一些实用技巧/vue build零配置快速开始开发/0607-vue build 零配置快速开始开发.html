@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+  vue-cli 是官方推出的一款 Vue 脚手架工具它可以很方便的搭建简单或者完整的 Vue 开发环境。
+
+  最近它加入了一个新功能 —— vue build。
+
+  类似于 React 的 next.js 但又不完全等同。
+
+  它的功能是可以让你不用任何配置，只写一个\*.vue 文件就可以通过 vue build 命令启动。
+
+  非常适合于只想写一点 Vue 的 demo 或者小型项目的用户使用。
+
+  如果你已经安装了 vue-cli 并更新到 2.8.0，那你现在就可以开始体验！
+
+  如果你已经安装了 vue-cli 并更新到 2.8.0，那你现在就可以开始体验！
+
+<!-- --------------------------------------------------------------------------------- -->
+
+  # 全局安装 vue-cli
+  $ npm install --global vue-cli
+
+<!-- --------------------------------------------------------------------------------- -->
+
+这是一个例子，创建一个 app.vue 文件并随意写些内容：
+
+<template>
+    <h1>
+      Hello <span>Vue.js</span>
+    </h1>
+</template>
+
+<style>
+    h1 {
+        font-family: 'Helvetica Neue';
+        color: #2c3e50;
+        text-align: center;
+        margin-top: 30vh;
+    }
+    span {
+        color: #42b983;
+    }
+</style>
+
+在终端里输入 vue build app.vue 并打开 http://localhost:4000 就可以预览到结果了。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+如果 要设置 路由 那些 以及 一个 入口 index.js 的话，可以
+
+vue build index.js and go to http://localhost:4000
+
+如果要想配置路由 vuex 什么 的话 可以先安装
+
+是一样操作的
+cnpm install vue-router --save
+cnpm install vuex --save
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+
+
+</body>
+
+</html>

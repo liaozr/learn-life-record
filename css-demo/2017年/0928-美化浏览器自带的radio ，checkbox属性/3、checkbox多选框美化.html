@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="checkbox-beauty-container">
+
+        <span class="checkbox-name">苹果</span>
+        <input type="checkbox" name="checkboxName" id="checkboxName1" hidden/>
+        <label for="checkboxName1" class="checkbox-beauty"></label>
+
+
+        <span class="checkbox-name">香蕉</span>
+        <input type="checkbox" name="checkboxName" id="checkboxName2" hidden />
+        <label for="checkboxName2" class="checkbox-beauty"></label>
+
+
+        <span class="checkbox-name">橘子</span>
+        <input type="checkbox" name="checkboxName" id="checkboxName3" hidden />
+        <label for="checkboxName3" class="checkbox-beauty"></label>
+
+    </div>
+
+
+    <style>
+        .checkbox-beauty-container {
+            font-size: 0;
+        }
+        .checkbox-beauty-container .radio-beauty-container .radio-beauty:hover,
+        .radio-beauty-container .checkbox-beauty-container .radio-beauty:hover,
+        .checkbox-beauty-container .radio-beauty-container input[type="radio"]:checked+.radio-beauty,
+        .radio-beauty-container .checkbox-beauty-container input[type="radio"]:checked+.radio-beauty,
+        .checkbox-beauty-container input[type="checkbox"]:checked+.checkbox-beauty::after {
+            content: '✓';
+            font-size: 16px;
+            font-weight: bold;
+            color: green !important;
+        }
+
+        .checkbox-beauty-container .checkbox-name {
+            vertical-align: middle;
+            font-size: 16px;
+        }
+
+        .checkbox-beauty-container .checkbox-beauty {
+            width: 15px;
+            height: 15px;
+            line-height: 15px;
+            text-align: center;
+            border: 1px solid green;
+            display: inline-block;
+            margin: 0 15px 0 3px;
+            vertical-align: middle;
+        }
+
+        @media screen and (min-width: 1200px) {
+            .checkbox-beauty:hover {
+                box-shadow: 0 0 7px green;
+            }
+            .checkbox-beauty:hover::after {
+                content: '✓';
+                font-size: 16px;
+                font-weight: bold;
+                color: green;
+            }
+        }
+
+    </style>
+    
+
+</body>
+
+</html>

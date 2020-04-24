@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='localforage.min.js'></script>
+</head>
+
+<body>
+
+	<script>
+
+			// Callback version:
+			localforage.getItem('somekey', function(err, value) {
+
+				// Run this code once the value has been
+				// loaded from the offline store.
+				console.log(value);
+				
+			});
+
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    模板字面量 有了模板字面量，我们就不用做多余的嵌套拼接了。来看一下：
+
+    <script>
+        // ES5
+        var first = 'Adrian';
+        var last = 'Mejia';
+        console.log('Your name is ' + first + ' ' + last + '.');
+    </script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+    现在你可以使用反引号 (`) 和字符串插值 ${}：
+
+    <script>
+        // ES6
+        const first2 = 'Adrian';
+        const last2 = 'Mejia';
+        console.log(`Your name is ${first2} ${last2}.`);
+
+        //输出的结果是 Your name is Adrian Mejia.
+    </script>
+
+    <!-- -------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

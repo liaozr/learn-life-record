@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    table {
+        width: 1000px;
+        margin: 20px auto;
+    }
+    table th,  table tr td{
+       min-width: 140px;
+       text-align: center;
+    }
+
+    table,table tr th, table tr td { border:1px solid green; }
+    table { width: 1000px; min-height: 25px; line-height: 25px; text-align: center; border-collapse: collapse;}
+
+    .lists{
+      width:1200px;
+      /*margin:20px auto;*/
+      margin-left: 48px;
+      text-align: left
+    }
+    button{
+      display: inline-block;
+      line-height: 30px;
+      margin-top: 10px;
+      min-width: 200px;
+      margin-right: 20px;
+    }
+    .active{
+      background-color: red;
+      color:white;
+    }
+    .tip{
+      color:green;
+      margin-top: 15px;
+      display: inline-block;
+    }
+</style>
+
+<body>
+    <div id="app">
+
+        <div class="lists">
+             <span class="tip">排序都是从大到小排序的</span><br>
+             <span class="tip">综合排名需其他9个选择项都点击过了，点击综合排名才有效果(意思就是最后点)</span><br>
+
+             <button @click="select(0)">按3年内日增长率大于1的次数排序</button>
+             <button @click="select(1)">按3年内日增长率小于-1的次数排序</button>
+             <button @click="select(2)">按3年内日增长率小于-1.5的次数排序</button>
+
+             <button @click="select(3)">按2年内日增长率大于1的次数排序</button>
+             <button @click="select(4)">按2年内日增长率小于-1的次数排序</button>
+             <button @click="select(5)">按2年内日增长率小于-1.5的次数排序</button>
+
+             <button @click="select(6)">按1年内日增长率大于1的次数排序</button>
+             <button @click="select(7)">按1年内日增长率小于-1的次数排序</button>
+             <button @click="select(8)">按1年内日增长率小于-1.5的次数排序</button>
+
+             <button @click="select(9)">综合排名</button>
+
+
+
+        </div>
+
+        <table>
+            <thead>
+               <th>序号</th>
+               <th>基金代号</th>
+               <th>基金名称</th>
+               <th :class="{'active':pernum3more1}">3年内日增长率大于1的次数</th>
+               <th :class="{'active':pernum3less1}">3年内日增长率小于-1的次数</th>
+               <th :class="{'active':pernum3less15}" >3年内日增长率小于-1.5的次数</th>
+
+               <th :class="{'active':pernum2more1}">2年内日增长率大于1的次数</th>
+               <th :class="{'active':pernum2less1}">2年内日增长率小于-1的次数</th>
+               <th :class="{'active':pernum2less15}" >2年内日增长率小于-1.5的次数</th>
+
+               <th :class="{'active':pernum1more1}">1年内日增长率大于1的次数</th>
+               <th :class="{'active':pernum1less1}">1年内日增长率小于-1的次数</th>
+               <th :class="{'active':pernum1less15}" >1年内日增长率小于-1.5的次数</th>
+               <th v-if="paiming" :class="{'active':paiming}" >综合排名</th>
+            </thead>
+            <tbody>
+                <tr v-for="(item,index) in jijindata">
+                   <td>{{index+1}}</td>
+                   <td>{{item.code}}</td>
+                   <td>{{item.name}}</td>
+                   <td :class="{'active':pernum3more1}">{{item.pernum3more1}}</td>
+                   <td :class="{'active':pernum3less1}">{{item.pernum3less1}}</td>
+                   <td :class="{'active':pernum3less15}">{{item.pernum3less15}}</td>
+
+                   <td :class="{'active':pernum2more1}">{{item.pernum2more1}}</td>
+                   <td :class="{'active':pernum2less1}">{{item.pernum2less1}}</td>
+                   <td :class="{'active':pernum2less15}">{{item.pernum2less15}}</td>
+
+                   <td :class="{'active':pernum1more1}">{{item.pernum1more1}}</td>
+                   <td :class="{'active':pernum1less1}">{{item.pernum1less1}}</td>
+                   <td :class="{'active':pernum1less15}">{{item.pernum1less15}}</td>
+                   <td v-if="paiming" :class="{'active':paiming}">{{item.paiming}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<!-- <button @clcik="select(0)">按3年内日平均增长率排序</button>
+<button @clcik="select(1)">按2年内日平均增长率排序</button>
+<button @clcik="select(2)">按1年内日平均增长率排序</button>
+<button @clcik="select(3)">按2年内日最小增长率排序</button>
+<button @clcik="select(4)">按1年内日最小增长率排序</button> -->
+
+<script>
+  function test(arr) {
+      for (var i = 0; i < arr.length; i++) {
+          for (var j = i + 1; j < arr.length; j++) {
+              if ( arr[i] === arr[j] ){
+                 arr.splice(j, 1);
+              }
+              //如果前一个值与后一个值相等，那么就去掉后一个值，splice()可以修改原数组
+          }
+      }
+      console.log(arr)
+      return arr;
+  }
+
+
+    new Vue({
+        el: '#app',
+        methods:{
+           select:function(index){
+               this.pernum3more1 = false
+               this.pernum3less1 = false
+               this.pernum3less15 = false
+               this.pernum2more1 = false
+               this.pernum2less1 = false
+               this.pernum2less15 = false
+               this.pernum1more1 = false
+               this.pernum1less1 = false
+               this.pernum1less15 = false
+
+
+               this.arrcishu.push(index);
+
+               console.log(this.arrcishu)
+
+               var arr = JSON.parse(JSON.stringify(this.jijindata) )
+
+               if(index == 0){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.pernum3more1) < Number( tempj.pernum3more1 ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.pernum3more1=true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+               if(index == 1){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.pernum3less1) > Number( tempj.pernum3less1 ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.pernum3less1=true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+               if(index == 2){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.pernum3less15) > Number( tempj.pernum3less15 ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.pernum3less15=true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+
+               if(index == 3){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.pernum2more1) < Number( tempj.pernum2more1 ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.pernum2more1=true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+               if(index == 4){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.pernum2less1) > Number( tempj.pernum2less1 ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.pernum2less1=true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+               if(index == 5){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.pernum2less15) > Number( tempj.pernum2less15 ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.pernum2less15=true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+
+               if(index == 6){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.pernum1more1) < Number( tempj.pernum1more1 ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.pernum1more1=true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+               if(index == 7){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.pernum1less1) > Number( tempj.pernum1less1 ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.pernum1less1=true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+               if(index == 8){
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.pernum1less15) > Number( tempj.pernum1less15 ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+                   this.pernum1less15=true
+
+                   for(var i= 0;i<this.jijindata.length;i++){
+                       this.jijindata[i].paiming += i+1
+                   }
+                   console.log(this.jijindata)
+               }
+
+               if(index == 9){
+
+                   var arr3=test(this.arrcishu)
+
+
+                   if(arr3.length !== 10){
+                     return
+                   }
+
+                   this.paiming=true
+
+                   for (var i = 0; i < arr.length - 1; i++) {
+                       for (var j = i + 1; j < arr.length; j++) {
+                           var tempi = arr[i]; //获取第一个值，并与后一个值比较
+                           var tempj = arr[j];
+                           if ( Number(tempi.paiming) > Number( tempj.paiming ) ) {
+                               arr[i] = tempj;
+                               arr[j] = tempi; //如果前一个值比后一个值大，那么相互交换
+                           }
+                       }
+                   }
+                   this.jijindata = arr
+               }
+
+           }
+        },
+        data: {
+            pernum3more1:false,
+            pernum3less1:false,
+            pernum3less15:false,
+            pernum2more1:false,
+            pernum2less1:false,
+            pernum2less15:false,
+            pernum1more1:false,
+            pernum1less1:false,
+            pernum1less15:false,
+            paiming:false,
+            arrcishu:[],
+           jijindata:[
+             {
+               code:'160505',
+               name:'博时主题行业混合',
+               pernum3more1:"201",
+               pernum3less1:"139",
+               pernum3less15:"80",
+               pernum2more1:"129",
+               pernum2less1:"91",
+               pernum2less15:"59",
+               pernum1more1:"33",
+               pernum1less1:"18",
+               pernum1less15:"6",
+               paiming:0
+             },
+             {
+               code:'001878',
+               name:'嘉实沪港深',
+               pernum3more1:"62",
+               pernum3less1:"31",
+               pernum3less15:"17",
+               pernum2more1:"62",
+               pernum2less1:"31",
+               pernum2less15:"17",
+               pernum1more1:"59",
+               pernum1less1:"29",
+               pernum1less15:"16",
+               paiming:0
+             },
+             {
+               code:'110003',
+               name:'易方达50指数',
+               pernum3more1:"203",
+               pernum3less1:"143",
+               pernum3less15:"81",
+               pernum2more1:"134",
+               pernum2less1:"91",
+               pernum2less15:"54",
+               pernum1more1:"41",
+               pernum1less1:"19",
+               pernum1less15:"5",
+               paiming:0
+             },
+             {
+               code:'001511',
+               name:'兴全新视野',
+               pernum3more1:"27",
+               pernum3less1:"22",
+               pernum3less15:"9",
+               pernum2more1:"27",
+               pernum2less1:"22",
+               pernum2less15:"9",
+               pernum1more1:"16",
+               pernum1less1:"11",
+               pernum1less15:"2",
+               paiming:0
+             },
+             {
+               code:'040008',
+               name:'华安策略优选',
+               pernum3more1:"250",
+               pernum3less1:"177",
+               pernum3less15:"103",
+               pernum2more1:"166",
+               pernum2less1:"110",
+               pernum2less15:"75",
+               pernum1more1:"46",
+               pernum1less1:"27",
+               pernum1less15:"11",
+               paiming:0
+             },
+             {
+               code:'001542',
+               name:'国泰互联网+',
+               pernum3more1:"142",
+               pernum3less1:"87",
+               pernum3less15:"45",
+               pernum2more1:"142",
+               pernum2less1:"87",
+               pernum2less15:"45",
+               pernum1more1:"68",
+               pernum1less1:"41",
+               pernum1less15:"16",
+               paiming:0
+             },
+             {
+               code:'110022',
+               name:'易方达消费',
+               pernum3more1:"237",
+               pernum3less1:"176",
+               pernum3less15:"105",
+               pernum2more1:"171",
+               pernum2less1:"118",
+               pernum2less15:"74",
+               pernum1more1:"63",
+               pernum1less1:"40",
+               pernum1less15:"15",
+               paiming:0
+             },
+             {
+               code:'020026',
+               name:'国泰成长',
+               pernum3more1:"281",
+               pernum3less1:"197",
+               pernum3less15:"126",
+               pernum2more1:"183",
+               pernum2less1:"125",
+               pernum2less15:"80",
+               pernum1more1:"57",
+               pernum1less1:"37",
+               pernum1less15:"11",
+               paiming:0
+             },
+             {
+               code:'163402',
+               name:'兴全趋势',
+               pernum3more1:"171",
+               pernum3less1:"118",
+               pernum3less15:"64",
+               pernum2more1:"111",
+               pernum2less1:"81",
+               pernum2less15:"53",
+               pernum1more1:"22",
+               pernum1less1:"16",
+               pernum1less15:"3",
+               paiming:0
+             },
+             {
+               code:'165312',
+               name:'建信央视50',
+               pernum3more1:"203",
+               pernum3less1:"153",
+               pernum3less15:"88",
+               pernum2more1:"138",
+               pernum2less1:"100",
+               pernum2less15:"61",
+               pernum1more1:"39",
+               pernum1less1:"22",
+               pernum1less15:"5",
+               paiming:0
+             },
+             {
+               code:'002001',
+               name:'华夏回报',
+               pernum3more1:"116",
+               pernum3less1:"85",
+               pernum3less15:"48",
+               pernum2more1:"83",
+               pernum2less1:"50",
+               pernum2less15:"37",
+               pernum1more1:"28",
+               pernum1less1:"10",
+               pernum1less15:"4",
+               paiming:0
+             },
+             {
+               code:'163406',
+               name:'兴全合润',
+               pernum3more1:"246",
+               pernum3less1:"157",
+               pernum3less15:"94",
+               pernum2more1:"177",
+               pernum2less1:"115",
+               pernum2less15:"74",
+               pernum1more1:"45",
+               pernum1less1:"29",
+               pernum1less15:"11",
+               paiming:0
+             },
+             {
+               code:'000619',
+               name:'东方红产业',
+               pernum3more1:"178",
+               pernum3less1:"115",
+               pernum3less15:"75",
+               pernum2more1:"146",
+               pernum2less1:"101",
+               pernum2less15:"69",
+               pernum1more1:"38",
+               pernum1less1:"17",
+               pernum1less15:"7",
+               paiming:0
+             },
+             {
+               code:'090007',
+               name:'大成策略回报',
+               pernum3more1:"210",
+               pernum3less1:"156",
+               pernum3less15:"94",
+               pernum2more1:"136",
+               pernum2less1:"103",
+               pernum2less15:"71",
+               pernum1more1:"23",
+               pernum1less1:"17",
+               pernum1less15:"6",
+               paiming:0
+             },
+             {
+               code:'530018',
+               name:'建信深证100',
+               pernum3more1:"229",
+               pernum3less1:"166",
+               pernum3less15:"109",
+               pernum2more1:"159",
+               pernum2less1:"113",
+               pernum2less15:"84",
+               pernum1more1:"38",
+               pernum1less1:"28",
+               pernum1less15:"13",
+               paiming:0
+             },
+             {
+               code:'163407',
+               name:'兴全沪深300',
+               pernum3more1:"229",
+               pernum3less1:"166",
+               pernum3less15:"109",
+               pernum2more1:"159",
+               pernum2less1:"113",
+               pernum2less15:"84",
+               pernum1more1:"38",
+               pernum1less1:"28",
+               pernum1less15:"13",
+               paiming:0
+             },
+             {
+               code:'519671',
+               name:'银河沪深300',
+               pernum3more1:"191",
+               pernum3less1:"139",
+               pernum3less15:"79",
+               pernum2more1:"124",
+               pernum2less1:"92",
+               pernum2less15:"57",
+               pernum1more1:"34",
+               pernum1less1:"15",
+               pernum1less15:"6",
+               paiming:0
+             },
+             {
+               code:'310398',
+               name:'申万菱信沪深300',
+               pernum3more1:"197",
+               pernum3less1:"134",
+               pernum3less15:"79",
+               pernum2more1:"129",
+               pernum2less1:"90",
+               pernum2less15:"57",
+               pernum1more1:"35",
+               pernum1less1:"16",
+               pernum1less15:"6",
+               paiming:0
+             },
+             {
+               code:'160716',
+               name:'嘉实基本面',
+               pernum3more1:"184",
+               pernum3less1:"134",
+               pernum3less15:"82",
+               pernum2more1:"121",
+               pernum2less1:"88",
+               pernum2less15:"56",
+               pernum1more1:"32",
+               pernum1less1:"16",
+               pernum1less15:"3",
+               paiming:0
+             },
+             {
+               code:'481012',
+               name:'工银深证红利联接',
+               pernum3more1:"238",
+               pernum3less1:"175",
+               pernum3less15:"100",
+               pernum2more1:"163",
+               pernum2less1:"115",
+               pernum2less15:"72",
+               pernum1more1:"61",
+               pernum1less1:"38",
+               pernum1less15:"15",
+               paiming:0
+             },
+             {
+               code:'002803',
+               name:'东方红沪港深',
+               pernum3more1:"38",
+               pernum3less1:"14",
+               pernum3less15:"6",
+               pernum2more1:"38",
+               pernum2less1:"14",
+               pernum2less15:"6",
+               pernum1more1:"38",
+               pernum1less1:"14",
+               pernum1less15:"6",
+               paiming:0
+             },
+             {
+               code:'340007',
+               name:'兴全社会责任',
+               pernum3more1:"271",
+               pernum3less1:"203",
+               pernum3less15:"133",
+               pernum2more1:"186",
+               pernum2less1:"139",
+               pernum2less15:"92",
+               pernum1more1:"56",
+               pernum1less1:"50",
+               pernum1less15:"23",
+               paiming:0
+             },
+             {
+               code:'000742',
+               name:'国泰新经济',
+               pernum3more1:"214",
+               pernum3less1:"123",
+               pernum3less15:"80",
+               pernum2more1:"194",
+               pernum2less1:"114",
+               pernum2less15:"76",
+               pernum1more1:"61",
+               pernum1less1:"31",
+               pernum1less15:"12",
+               paiming:0
+             },
+             {
+               code:'163412',
+               name:'兴全轻资产',
+               pernum3more1:"295",
+               pernum3less1:"203",
+               pernum3less15:"138",
+               pernum2more1:"179",
+               pernum2less1:"115",
+               pernum2less15:"74",
+               pernum1more1:"44",
+               pernum1less1:"29",
+               pernum1less15:"11",
+               paiming:0
+             },
+             {
+               code:'519690',
+               name:'交银施罗德稳健配置',
+               pernum3more1:"241",
+               pernum3less1:"166",
+               pernum3less15:"100",
+               pernum2more1:"161",
+               pernum2less1:"104",
+               pernum2less15:"70",
+               pernum1more1:"46",
+               pernum1less1:"24",
+               pernum1less15:"10",
+               paiming:0
+             },
+             {
+               code:'530015',
+               name:'建信深证',
+               pernum3more1:"238",
+               pernum3less1:"167",
+               pernum3less15:"100",
+               pernum2more1:"161",
+               pernum2less1:"109",
+               pernum2less15:"71",
+               pernum1more1:"59",
+               pernum1less1:"32",
+               pernum1less15:"15",
+               paiming:0
+             },
+             {
+               code:'002851',
+               name:'南方品质混合',
+               pernum3more1:"47",
+               pernum3less1:"15",
+               pernum3less15:"22",
+               pernum2more1:"47",
+               pernum2less1:"15",
+               pernum2less15:"22",
+               pernum1more1:"47",
+               pernum1less1:"15",
+               pernum1less15:"22",
+               paiming:0
+             },
+             {
+               code:'000577',
+               name:'安信价值精选',
+               pernum3more1:"181",
+               pernum3less1:"112",
+               pernum3less15:"69",
+               pernum2more1:"148",
+               pernum2less1:"97",
+               pernum2less15:"63",
+               pernum1more1:"42",
+               pernum1less1:"22",
+               pernum1less15:"6",
+               paiming:0
+             },
+             {
+               code:'070032',
+               name:'嘉实优化红利',
+               pernum3more1:"236",
+               pernum3less1:"164",
+               pernum3less15:"102",
+               pernum2more1:"170",
+               pernum2less1:"107",
+               pernum2less15:"75",
+               pernum1more1:"57",
+               pernum1less1:"31",
+               pernum1less15:"18",
+               paiming:0
+             },
+             {
+               code:'001281',
+               name:'长安鑫利优选混合A',
+               pernum3more1:"40",
+               pernum3less1:"20",
+               pernum3less15:"7",
+               pernum2more1:"40",
+               pernum2less1:"20",
+               pernum2less15:"7",
+               pernum1more1:"39",
+               pernum1less1:"19",
+               pernum1less15:"7",
+               paiming:0
+             },
+             {
+               code:'001740',
+               name:'光大中国制造',
+               pernum3more1:"79",
+               pernum3less1:"50",
+               pernum3less15:"23",
+               pernum2more1:"79",
+               pernum2less1:"50",
+               pernum2less15:"23",
+               pernum1more1:"56",
+               pernum1less1:"36",
+               pernum1less15:"12",
+               paiming:0
+             },
+             {
+               code:'000251',
+               name:'工银瑞信金融地产混合',
+               pernum3more1:"214",
+               pernum3less1:"147",
+               pernum3less15:"93",
+               pernum2more1:"145",
+               pernum2less1:"111",
+               pernum2less15:"77",
+               pernum1more1:"44",
+               pernum1less1:"28",
+               pernum1less15:"13",
+               paiming:0
+             },
+             {
+               code:'270041',
+               name:'广发消费品精选混合',
+               pernum3more1:"214",
+               pernum3less1:"169",
+               pernum3less15:"101",
+               pernum2more1:"140",
+               pernum2less1:"103",
+               pernum2less15:"66",
+               pernum1more1:"39",
+               pernum1less1:"34",
+               pernum1less15:"12",
+               paiming:0
+             },
+             {
+               code:'002624',
+               name:'广发优企',
+               pernum3more1:"34",
+               pernum3less1:"20",
+               pernum3less15:"6",
+               pernum2more1:"34",
+               pernum2less1:"20",
+               pernum2less15:"6",
+               pernum1more1:"34",
+               pernum1less1:"20",
+               pernum1less15:"6",
+               paiming:0
+             },
+             {
+               code:'070032',
+               name:'嘉实优化红利',
+               pernum3more1:"236",
+               pernum3less1:"167",
+               pernum3less15:"105",
+               pernum2more1:"152",
+               pernum2less1:"112",
+               pernum2less15:"79",
+               pernum1more1:"64",
+               pernum1less1:"43",
+               pernum1less15:"26",
+               paiming:0
+             },
+             {
+               code:'003096',
+               name:'中欧医疗C',
+               pernum3more1:"70",
+               pernum3less1:"50",
+               pernum3less15:"24",
+               pernum2more1:"70",
+               pernum2less1:"50",
+               pernum2less15:"24",
+               pernum1more1:"70",
+               pernum1less1:"50",
+               pernum1less15:"24",
+               paiming:0
+             },
+             {
+               code:'000960',
+               name:'招商医药',
+               pernum3more1:"193",
+               pernum3less1:"133",
+               pernum3less15:"91",
+               pernum2more1:"174",
+               pernum2less1:"128",
+               pernum2less15:"86",
+               pernum1more1:"62",
+               pernum1less1:"40",
+               pernum1less15:"18",
+               paiming:0
+             },
+             {
+               code:'000220',
+               name:'富国医疗',
+               pernum3more1:"277",
+               pernum3less1:"216",
+               pernum3less15:"143",
+               pernum2more1:"166",
+               pernum2less1:"147",
+               pernum2less15:"102",
+               pernum1more1:"66",
+               pernum1less1:"58",
+               pernum1less15:"31",
+               paiming:0
+             },
+             {
+               code:'003095',
+               name:'中欧医疗A',
+               pernum3more1:"72",
+               pernum3less1:"50",
+               pernum3less15:"25",
+               pernum2more1:"72",
+               pernum2less1:"50",
+               pernum2less15:"25",
+               pernum1more1:"72",
+               pernum1less1:"50",
+               pernum1less15:"25",
+               paiming:0
+             },
+             {
+               code:'161726',
+               name:'招商国政生物',
+               pernum3more1:"151",
+               pernum3less1:"131",
+               pernum3less15:"89",
+               pernum2more1:"151",
+               pernum2less1:"131",
+               pernum2less15:"89",
+               pernum1more1:"49",
+               pernum1less1:"44",
+               pernum1less15:"18",
+               paiming:0
+             },
+             {
+               code:'002708',
+               name:'大漠健康生活混合',
+               pernum3more1:"35",
+               pernum3less1:"30",
+               pernum3less15:"15",
+               pernum2more1:"35",
+               pernum2less1:"30",
+               pernum2less15:"15",
+               pernum1more1:"35",
+               pernum1less1:"30",
+               pernum1less15:"15",
+               paiming:0
+             },
+             {
+               code:'000215',
+               name:'广发趋势优选',
+               pernum3more1:"61",
+               pernum3less1:"46",
+               pernum3less15:"23",
+               pernum2more1:"8",
+               pernum2less1:"6",
+               pernum2less15:"3",
+               pernum1more1:"5",
+               pernum1less1:"5",
+               pernum1less15:"3",
+               paiming:0
+             }
+           ]
+        }
+    })
+
+    function unique2(arr2) {
+        return Array.from(new Set(arr2));
+    }
+
+</script>
+
+</html>

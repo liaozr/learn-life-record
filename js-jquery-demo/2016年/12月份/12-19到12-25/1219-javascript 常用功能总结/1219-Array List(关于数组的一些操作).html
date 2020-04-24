@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+JS array 即逻辑数据结构，通过数组下标访问。
+
+如数组初始化：
+<script>
+
+var a = [1,2,3];
+
+JS数组可动态增长，因此数组索引有可能比实际元素个数多，如下：
+
+a[4] = 7;
+
+数组循环：
+
+for (i=0; i < a.length; i++) { ...}
+
+数组是特殊的对象类型，因此有很多情况下，需要判断变量是否为数组类型，
+
+使用IsArray方法：Array.isArray( a)。
+
+添加新元素到数组：
+a.push( newElement);
+
+删除：
+a.splice( i, 1);
+
+查找：
+if (a.indexOf(v) > -1)  ...
+
+循环：
+var i=0;
+for (i=0; i < a.length; i++) {
+  console.log( a);
+}
+
+如果数组较小，可使用foreach 循环：
+a.forEach( function (elem) {
+  console.log( elem);
+})
+
+JS 也提供克隆数组的函数：
+var clone = a.slice(0);
+
+</script>
+
+</body>
+</html>

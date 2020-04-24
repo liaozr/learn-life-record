@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.4/vue.js"></script>
+
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+    <div id='app'>
+
+        <p>a: {{ a }}</p>
+        <p>b: {{ b }}</p>
+        <button @click="increment">+</button>
+
+    </div>
+
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+    <script>
+          new Vue({
+            el:'#app',
+            data:{
+              a: 1
+            },
+            computed:{
+                b() {
+                    return this.a * 2
+                }
+            },
+            watch: {
+                a() {
+                    console.log('a is changed')
+                }
+            },
+            methods: {
+                increment() {
+                    this.a += 1
+                }
+            },
+            created() {
+                console.log(this._watchers)
+            }
+        })
+    </script>
+
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+    上面三个 watcher 代表了三种不同功能的 watcher，我们将其按功能分为三类：
+
+    在 watch 中定义的，用于监听属性变化的 watcher （第二个）
+
+    用于 computed 属性的 watcher （第一个） 用于页面更新的 watcher
+
+   （第三个） normal-watcher 我们在 watch 中定义的，都属于这种类型，即只要监听的属性改变了，都会触发定义好的回调函数
+
+    computed-watcher 每一个   computed 属性，最后都会生成一个对应的 watcher 对象，但是这类 watcher 有个特点，我们拿上面的 b 举例： 属性 b 依赖 a，当 a 改变的时候，b 并不会立即重新计算，只有之后其他地方需要读取 b 的时候，它才会真正计算，即具备 lazy（懒计算）特性
+
+    render-watcher 每一个组件都会有一个 render-watcher, function () {↵ vm._update(vm._render(), hydrating);↵ }, 当 data/computed 中的属性改变的时候，会调用该 render-watcher 来更新组件的视图
+
+    三种 watcher 的执行顺序 除了功能上的区别，这三种 watcher 也有固定的执行顺序，分别是： computed-render -> normal-watcher -> render-watcher 这样安排是有原因的，这样就能尽可能的保证，在更新组件视图的时候，computed 属性已经是最新值了，如果 render-watcher 排在 computed-render 前面，就会导致页面更新的时候 computed 值为旧数据
+
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+
+    监听器 Vue 的 watch 也可以用来做类似的事：
+
+    <div id="demo">{{ fullName }}</div>
+    <script>
+        var vm = new Vue({
+            el: '#demo',
+            data: {
+                firstName: 'Foo',
+                lastName: 'Bar',
+                fullName: 'Foo Bar'
+            },
+            watch: {
+                firstName: function(val) {
+                    this.fullName = val + ' ' + this.lastName
+                },
+                lastName: function(val) {
+                    this.fullName = this.firstName + ' ' + val
+                }
+            }
+        })
+    </script>
+
+    <script>
+        // 对比一下计算属性版本：
+        // var vm = new Vue({
+        //     el: '#demo',
+        //     data: {
+        //         firstName: 'Foo',
+        //         lastName: 'Bar'
+        //     },
+        //     computed: {
+        //         fullName: function() {
+        //             return this.firstName + ' ' + this.lastName
+        //         }
+        //     }
+        // })
+    </script>
+
+    <!-- ----------------------------------------------------------------------------- -->
+
+    watch 主要应用场景是异步或耗时操作：
+
+    <div id="watch-example">
+        <input type="text" name="" id="" v-model="question">
+        <div v-text='answer'></div>
+    </div>
+    <script>
+          var watchExampleVM = new Vue({
+              el: '#watch-example',
+              data: {
+                  question: '',
+                  answer: 'I cannot give you an answer until you ask a question!'
+              },
+              watch: {
+                  // 只要 question 改变，getAnswer这个函数就会执行
+                  question: function(newQuestion) {
+                      this.answer = 'Waiting for you to stop typing...'
+                      this.getAnswer()
+                  }
+              },
+              methods: {
+                  getAnswer:function(){
+                      var vm = this
+                      if (this.question.indexOf('?') === -1) {
+                          vm.answer = 'Questions usually contain a question mark. ;-)'
+                          return
+                      }
+                      vm.answer = 'Thinking...'
+                      axios.get('https://yesno.wtf/api')
+                          .then(function(response) {
+                              vm.answer = _.capitalize(response.data.answer)
+                          })
+                          .catch(function(error) {
+                              vm.answer = 'Error! Could not reach the API. ' + error
+                      })
+                   }
+               }
+           })
+      </script>
+
+      如此，使用 watch 让我们可以进行异步操作（访问 API）
+
+      ，限制操作间隔，并设置中间状态直到获得了真正的答案。
+
+    <!-- ---------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

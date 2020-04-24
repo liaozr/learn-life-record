@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        watch: {
+
+            currentSong(newSong, oldSong) {
+
+                // 这个的意思是  当 currentSong 在 同一首歌切换，两者的 id 相同 的时候，这时候就直接不做处理，直接 return 回去。
+                if (newSong.id == oldSong.id) {
+                    return
+                }
+
+                // 等 audio dom 获取到 src 后 在执行 play方法，所以 得用  nextTick钩子
+                this.$nextTick(() => {
+                    this.$refs.audio.play()
+                })
+                
+            },
+
+            playing(newPlaying) {
+
+                const audio = this.$refs.audio
+
+                // watch 这里 也同理 ，一样得把 nextTick钩子 加上去。
+                this.$nextTick(() => {
+                    newPlaying ? audio.play() : audio.pause()
+                })
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>

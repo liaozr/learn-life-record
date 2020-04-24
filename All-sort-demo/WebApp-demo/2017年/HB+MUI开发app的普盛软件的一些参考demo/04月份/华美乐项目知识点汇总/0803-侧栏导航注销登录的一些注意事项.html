@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        注销登录的一些注意事项。
+
+        注销登录的的时候，记得要把  login.html 关掉，
+
+        之前的是login.html 页面 是hide() 形式的，出现了，用户名 还是上次输入的情况
+
+        所以，要把 login.html  close 关掉 才行的。
+
+        function zhuxiao() {
+
+            plus.webview.getWebviewById("index-menu.html").close();
+
+            plus.webview.create("login.html", "login.html", {
+                'popGesture': 'close'
+            });
+
+            plus.webview.getWebviewById("login.html").show("pop-in", 200, function() {
+
+                localStorage.removeItem("tenantId")
+                localStorage.removeItem("orgId")
+                localStorage.removeItem("email")
+                localStorage.removeItem("sex")
+                localStorage.removeItem("workPhone")
+                localStorage.removeItem("mobilePhone")
+                localStorage.removeItem("headPortrait")
+                localStorage.removeItem("lzrempId")
+                localStorage.removeItem("postNo")
+                localStorage.removeItem("headParam")
+                
+                console.log('yyyyyyyyyyy')
+                console.log(localStorage.loginuname)
+
+                plus.webview.currentWebview().close();
+
+            });
+
+        }
+
+    </script>
+</body>
+
+</html>

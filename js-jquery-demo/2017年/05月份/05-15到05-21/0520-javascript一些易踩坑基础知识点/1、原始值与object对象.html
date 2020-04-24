@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  null 是原型链最顶端的元素
+
+  Object.getPrototypeOf(Object.prototype)
+
+  null
+  判断 undefined 和 null 可以用严格相等判断：
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+  <script>
+
+      if (x === null) {
+          // 判断是否为 null
+      }
+
+      if (x === undefined) {
+          // 判断是否为 undefined
+      }
+
+      if (x === void 0) {
+          // 判断是否为 undefined，void 0 === undefined
+      }
+
+      if (x != null) {
+          // 判断x既不是undefined，也不是null
+          // 这种写法等价于 if (x !== undefined && x !== null )
+      }
+  </script>
+
+  <!-- ---------------------------------------------------------------------------------- -->
+
+  NaN 是 js 中唯一一个不能自身严格相等的值：
+
+  NaN === NaN
+  //false
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+
+
+
+
+</body>
+
+</html>

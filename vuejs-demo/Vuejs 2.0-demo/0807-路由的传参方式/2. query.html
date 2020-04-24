@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+  query传递数据的方式就是URL常见的查询参数，如/foo?user=1&name=2&age=3。很好理解，下面就简单写一下用法以及结果
+
+  传递数据
+
+  template
+
+  <router-link :to="{ path: '/05', query: { name: 'query', type: 'object' }}" replace>05</router-link>
+  script
+
+  this.$router.replace({ path: '/05', query: { name: 'query', type: 'object' }})
+
+  路径结果
+  
+  http://localhost:8080/#/05?name=query&type=object
+
+
+</body>
+
+</html>

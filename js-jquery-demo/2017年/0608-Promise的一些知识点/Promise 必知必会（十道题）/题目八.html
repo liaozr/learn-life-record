@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        Promise.resolve(1)
+            .then(2)
+            .then(Promise.resolve(3))
+            .then(console.log)
+    </script>
+
+
+    运行结果：
+    1
+
+    解释：.then 或者 .catch 的参数期望是函数，传入非函数则会发生值穿透。
+
+</body>
+
+</html>

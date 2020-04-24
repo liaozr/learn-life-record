@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- 
+
+路由匹配
+动态片段
+
+语法：: 冒号开头的路径片段定义。
+
+ -->
+
+<script>
+	router.map({
+	    '/': {
+	        component: {
+	            template: '<p>主页</p>'
+	        }
+	    },
+	    '/page1/:name': {
+	        component: Page1,
+	    }        
+	});
+</script>
+
+<!-- 
+
+	'/page1/:name' 中的name 可以匹配任意字段. 例如： /page1/:news, /page1/:imgs
+
+ -->
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+<!--
+
+ 全匹配片段
+
+动态片段只能匹配路径中的一个部分，而全匹配片段是贪婪模式。
+
+ -->
+<script>
+	router.map({
+	    '/': {
+	        component: {
+	            template: '<p>主页</p>'
+	        }
+	    },
+	    '/news/*any': {
+	        component: News,
+	    }
+	});   
+</script>
+
+<!--
+'/news/*any' 可以匹配例如：/news/a/b/c,/news/a/b
+/foo/*any/bar 可以匹配 例如： /foo/a/b/bar
+ -->
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+<!-- 路由配置项 -->
+
+
+<!-- // 路由实例   -->
+<script>
+var router = new VueRouter({
+    hashbang: true, // 将路径中的 `#!` --> `#`
+    history: true, // 设置true 后，启用HTML5 history模式。通过 history.pushState() 和 history.replaceState() 来管理浏览历史记录。
+    abstract: true, // 使用一个不依赖与浏览器的浏览历史虚拟管理后台。虚拟模式在测试或实际的URL 不重要的时候。
+    transitionOnLoad: true // 在初次加载时是否对 <trouer-view>处理场景切换效果。 默认情况下，组件在初次加载时会直接渲染。 
+});
+</script> 
+<!-- -------------------------------------------------------------------------- -->
+
+<!-- 切换过程中的钩子对象 -->
+
+<!-- 属性： -->
+
+<!-- 
+	
+transition.to // 要切换的路径（目标路径）的路由对象；
+transition.from // 当前路径的路由对象；
+
+方法：
+transition.next(); // 处理切换过程的下一步
+transition.abort([reason]); // 终止或者拒绝此次切换
+transition.redirect(path); // 取消当前切换并重定向到另一个路由
+data钩子函数不管组件是否可以重用，在每次路由切换的时候都会触发。
+
+ -->
+
+<!-- // 组件 -->
+<script>
+	var Home = Vue.extend({
+	    template: '<h1>HOME</h1>',
+	    route: {
+	        activate: function ( transition ) {
+	            console.log( transition.to ); // 切换的路径（目标路径）的路由对象
+	            console.log( transition.from ); // 当前路径的路由对象
+	            transition.next();
+	            transition.abort();
+	            transition.redirect();
+	        },
+	        deactivate: function ( transition ) {
+	            transition.next(); // 处理切换过程的下一步
+	        },
+	        data: function ( transition ) { // 不管组件是否重用，每次切换路由的时候都会被调用
+	            setTimeout(function () {
+	                transition.next({
+	                    msg: 'data'
+	                });
+	            }, 1000);
+	        }
+	    }
+	});
+</script>
+<!-- ------------------------------------------------------------------------------------------ -->
+</body>
+</html>

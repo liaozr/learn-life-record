@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+在进行页面cookie操作的时候，
+
+应该尽量保证cookie个数小于20个，
+
+总大小 小于4KB
+
+应该尽量保证cookie个数小于20个，
+
+总大小 小于4KB ( 4096 )
+
+<!-- --------------------------------------------------------------------------------- -->
+
+cookie特点
+
+每个cookie的大小不能超过4KB。
+
+通过HTTP协议的方式来存储数据。
+
+cookie会影响同一域名下的根目录及其子目录。
+
+举例来说，如果当前URI是keithchou.github.io，如果设置path为'/'或者不设置（默认值为/），这个cookie对该域名的根路径和它的所有子路径都有效。
+
+如果path设置为/music，那么这个cookie只有在访问keithchou.github/music及其子路径才有效。
+
+同源政策。浏览器的同源政策规定，两个网址只要域名和端口相同，就可以共享cookie。
+
+注意，这里不要求协议相同。也就是说，'http://keithchou.com'设置的cookie，
+
+可以被'https://keithchou.com'读取。
+
+<!-- ------------------------------------------------------------------ -->
+
+cookie
+
+cookie的内容主要包括：名字，值，过期时间，路径和域。路径与域一起构成cookie的作用范围。若不设置过期时间，则表示这个cookie的生命周期为浏览器会话期间，关闭浏览器窗口，cookie就消失。这种生命期为浏览器会话期的cookie被称为会话cookie。会话cookie一般不存储在硬盘上而是保存在内存里，当然这种行为并不是规范规定的。若设置了过期时间，浏览器就会把cookie保存到硬盘上，关闭后再次打开浏览器，这些cookie仍然有效直到超过设定的过期时间。存储在硬盘上的cookie可以在不同的浏览器进程间共享，比如两个IE窗口。而对于保存在内存里的cookie，不同的浏览器有不同的处理方式。以下是cookie的操作方式：
+
+<script>
+
+    //设置cookie
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+
+    //获取cookie
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1);
+            if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
+
+    //清除cookie
+    function clearCookie(name) {
+        setCookie(name, "", -1);
+    }
+</script>
+
+由于cookie是存储在客户端，如果cookie被窃取，会造成安全性问题，如跨站请求伪造。另外由于每次客户端像服务端发起请求的时候都会带上cookie，所以会增加每次http请求的传输量。因此提出了cookie隔离的概念。
+
+cookie隔离
+
+把js，css，图片等静态资源放在非主域名下，这样在请求这些资源的时候就不会带上主域名的cookie。从而降低传输成本和服务端的压力
+
+</body>
+</html>

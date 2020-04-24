@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+vue2.0
+
+在绑定原生HTML时，弃用了原来的<span>{{{message}}}</span>，只保留了<span v-html="message"></span>的写法。
+
+<!-- ------------------------------------------------------------------------ -->
+
+在标签里的属性中，弃用了<span id="{{message}}"></span>的写法,只保留了<span v-bind:id="message"></span>
+
+<!-- ------------------------------------------------------------------------- -->
+
+filters只能在{{message|filter}}里使用，弃用了在指令里使用过滤器的用法，要实现相同的效果，需要在计算属性上实现。
+
+<!-- ------------------------------------------------------------------------- -->
+
+对于原生事件要加修饰符native <button @click.native="handleClick">点击触发 handleClick</button>
+
+<!-- -------------------------------------------------------------------------- -->
+
+生命周期里删除了beforeCompile,compiled,ready,新增了beforeMount,mounted,beforUpdate,updated。
+
+<!-- --------------------------------------------------------------------------- -->
+
+for循环里，取消了原有的$index，<div v-for="(item,index) in dataArr">需要改为ES6语法形式自己获取
+
+<!-- --------------------------------------------------------------------------- -->
+
+el属性绑定的元素，限制为一个普通元素，不能再绑定在body、html等元素上。
+
+<!-- ---------------------------------------------------------------------------- -->
+
+另一个特别喜欢的改变是，在自定义组建上绑定class后，对应的类名会传递到组件根元素上，如果存在同名的，则不会覆盖。这对设置组件样式非常有好处。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+v-for 理的track-by被替换成了key,
+
+<div v-for="item in items" :key="item.id">
+<!-- content -->
+</div>
+<!-- ----------------------------------------------------------------------------- -->
+
+v-model增加了.trim,.number等后缀修饰符<input v-model.trim="msg">
+
+<!-- ------------------------------------------------------------------------------ -->
+
+Custom events can also be used to create custom inputs that work with v-model. Remember:
+
+<input v-model="something">
+
+is just syntactic sugar for:
+
+<input v-bind:value="something" v-on:input="something = $event.target.value">
+
+<!-- ------------------------------------------------------------------------------- -->
+
+原来的
+<div transition="enter"></div>
+
+改为了标签用法
+<transition name="enter" mode="out-in"><div></div></transition>
+
+并且可以选择过渡时的动画模式。
+
+<!-- ---------------------------------------------------------------------------- -->
+
+同时过渡多个元素时，使用transition-group标签
+
+<transition-group name="slide-fade" tag="div" appear>
+
+    <div v-for="n in 5" key="n">transitiongroup</div>
+
+</transition-group>
+
+appear是标识在初始化的时候执行。
+另外，
+
+Unlike <transition>, it renders an actual element: a <span> by default.
+
+You can change the element that’s rendered with the tag attribute.
+
+Elements inside are always required to have a unique key attribute
+
+<!-- ------------------------------------------------------------------------------- -->
+
+增加了directives属性自定义指令，也可以定义全局的指令：
+
+<script>
+    // Register a global custom directive called v-focus
+    Vue.directive('focus', {
+        // When the bound element is inserted into the DOM...
+        inserted: function(el) {
+            // Focus the element
+            el.focus()
+        }
+    })
+</script>
+
+<!-- --------------------------------------------------------------------------- -->
+
+vuex里，显示的提交一个Mutation的，需要调用store.commit('increment')
+
+vuex 里增加了mapState，mapGetters，mapActions 函数作为语法糖。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+</body>
+</html>

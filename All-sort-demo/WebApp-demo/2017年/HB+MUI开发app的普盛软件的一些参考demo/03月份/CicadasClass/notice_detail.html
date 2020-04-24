@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="知了云课堂" />
+		<meta name="Description" content="知了云课堂" />
+		<title>知了云课堂</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+	</head>
+	<style>
+			html,body {
+				width:100%;
+				overflow-x:hidden;
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+			
+			.cc-article-title {
+				position: relative;
+				width: 100%;
+				font-size: 16px;
+				color: #000;
+				font-weight: 600;
+				padding-left:10px;
+			}
+			
+			.cc-article-meta {
+				padding: 5px 0 10px 10px;
+				
+			}
+			.cc-article-meta div {
+				font-size: 15px;
+				vertical-align: middle;
+				color: gray;
+				padding-right: 5px;
+				display: inline
+			}
+			
+			.cc-article-text {
+				font-size: 13px!important;
+			}
+			.cc-article-author,
+			.cc-article-time {
+				font-weight: 600;
+			}
+			.content {
+				text-align: left;
+				padding-top: 54px;
+			}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 id="title" class="mui-title cc-title"><span>详情</span></h1>
+			<div class="mui-pull-left" >
+				<a id="back" class="mui-icon">
+					<img src="img/title_button_back.png" style="width:1em;height:1em;" />
+				</a>
+			</div>
+		</header>
+		
+		
+		<div class="content" id="content">
+			<div>
+				<h2 class="cc-article-title">{{vueData.title}}</h2>
+					<div class="cc-article-meta">
+						<div class="cc-article-author">{{vueData.createEmp}}</div>
+						<div class="cc-article-text">发表于</div>
+						<div class="cc-article-time">{{vueData.createTime}}</div>
+					</div>
+					
+			</div>
+			<p id="cc-article-article" style="font-size:16px;line-height:30px;margin: 0px .5em;">
+			</p>
+		</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/zepto1.1.6.min.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script src="js/locStorage.js"></script>
+	<script src="js/url.js"></script>
+	<script>
+		mui.init();
+		if(mui.os.plus) {
+			mui.plusReady(function() {
+				setTimeout(function() {
+					var self = plus.webview.currentWebview();
+					getDetail(self.noticeId);
+				}, 1000);
+		
+			});
+		} else {
+			mui.ready(function() {
+				var self = plus.webview.currentWebview();
+				getDetail(self.noticeId);
+			});
+		}
+		var vueData;
+			var vm = new Vue({
+				el: '#content',
+				data: {
+					vueData: vueData
+				},
+			});
+		var articleEl = document.getElementById("cc-article-article");
+		/*获取详情*/
+		function getDetail(noticeId){
+			var url = $.url.noticeView;
+			console.log("通知详情" + url);
+			$.marketApi.ajaxRequest({
+					type: "GET",
+					url: url,
+					data: {
+						"id": noticeId,
+					},
+					callback: function(data) {
+						console.log(JSON.stringify(data));
+						vueData = data;
+						vm.vueData = vueData;
+						var content = vueData.content.replace("src=\"/upload", "src=\"" + getHost() + "/upload").replace("href=\"/upload", "href=\"" + getHost() + "/upload");
+						console.log(content)
+						articleEl.innerHTML = content;
+					},
+					errorCallback: function(xhr, errorType, error, msg) {
+						alert(msg);
+					}
+				});
+		}
+		
+		mui.back = function() {
+		    mui.currentWebview.close('pop-out');
+		}
+		$(".mui-pull-left").on('tap', function() {
+			mui.back();
+		});
+		
+	</script>
+</html>

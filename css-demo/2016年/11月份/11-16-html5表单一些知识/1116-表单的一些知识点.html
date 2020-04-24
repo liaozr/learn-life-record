@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <!-- -------------------------------------------------------------------------------- -->
+
+  教程：
+  http://www.haorooms.com/post/html5_form_zs
+
+  http://www.haorooms.com/post/html5_form_zs
+
+<!-- -------------------------------------------------------------------------------- -->
+
+1、Html5的autofocus属性。
+
+有个这个属性，我们不用js就能自动把焦点移动到相应的字段。
+
+例如：
+
+<input type="text" value="" autofocus   />
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+8、禁用验证
+
+有验证就有禁止，我们可以在form标签中添加novalidate属性，可以让表单不自行验证。
+
+如果提交按钮有多个，为了指定点击某一个提交按钮不必验证表单，可以在相应的按钮上添加formnovalidate属性。
+
+也可用JavaScript添加禁用验证的属性。
+
+如下：
+
+<form action="/haorooms">
+    <input type="text" id="text" required="">
+    <input type="submit" value="跳过验证，直接提交" formnovalidate>
+</form>
+
+<form action="/haorooms" novalidate>
+    <input type="text" id="text" required="">
+    <input type="submit" value="直接提交">
+</form>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+9、去掉chrome记住密码后自动填充表单的黄色背景
+
+我前面的文章分享几个前端干货，面试经常提，中，第三条，写过一个方法，去掉默认黄色背景。
+
+在前面介绍方法基础上，我这里再补充一些！
+
+设置表单属性 autocomplete="off/on" 关闭自动填充表单，自己实现记住密码。如下：
+
+<!-- 对整个表单设置 -->
+<form autocomplete="off" method=".." action="..">
+<!-- 或对单一元素设置 -->
+<input type="text" name="textboxname" autocomplete="off">
+
+<!-- --------------------------------------------------------------------------------- -->
+
+同样，对应纯色表单，可以添加如下样式去除
+
+<style>
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px #2390cc inset;
+    }
+
+</style>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+</html>

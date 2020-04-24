@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+<!-- 
+
+    前端路由，即由前端来维护一个路由规则。实现有两种，一种是利用url的hash，就是常说的锚点（#），JS通过hashChange事件来监听url的改变，IE7及以下需要用轮询；另一种就是HTML5的History模式，它使url看起来像普通网站那样，以"/"分割，没有#，但页面并没有跳转，不过使用这种模式需要服务端支持，服务端在接收到所有的请求后，都指向同一个html文件，不然会出现404。所以，SPA只有一个html，整个网站所有的内容都在这一个html里，通过js来处理。
+
+ -->
+
+<!-- -------------------------------------------------------------------- -->
+
+<!-- 一个组件的基本构成 -->
+
+<!-- 
+
+Vue.component('child', {
+    props: ['msg'],
+    template: '<span>{{ msg }}</span>',
+    data: function() {
+        return {
+            title: 'TalkingCoder'
+        }
+    },
+    methods: {
+        // ...
+    },
+    ready: function() {
+
+    },
+    beforeDestroy: function() {
+
+    },
+    events: {
+        // ...
+    }
+}); 
+-->
+
+<!-- 
+    ready和beforeDestroy是两个常用的生命周期
+
+    ready是在组件准备好时的一个回调，一般在这里我们可以使用获取数据、实例化第三方组件、绑定事件等
+
+    beforeDestroy正好相反，是在组件即将被销毁时触发回调，在这里我们销毁自定义的实例、解绑自定义事件、定时器等。
+
+ -->
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+<!-- 父子组件间的通信
+
+在Vue.js中，父子之间的通信主要通过事件来完成，这种就是我们熟悉的观察者模式（或叫订阅-发布模式），很多框架也都使用了这种设计模式，比如Angular。
+
+父组件通过Vue内置的$broadcast()向下广播事件和传递数据，
+
+子组件通过$dispatch()
+
+向上派发事件和传递数据，双方都可以在events对象内接收自定义事件，并且处理各自的业务逻辑。
+
+==========================================================================================
+
+父组件使用了多个相同子组件，如何区分呢？比如我们上面的demo使用了两次child组件，但是如何来区分这两个呢，也就是说如果给child广播事件，如何给其中指定的一个广播呢，因为广播后，它俩都会接收到事件的。
+
+我们可以使用v-ref来标识组件：
+
+<child :msg="msg1" v-ref:child1></child>
+<child :msg.sync="msg2" v-ref:child2></child>
+
+new Vue({
+    data: {
+        msg1: 'Hello，TalkingCoder',
+        msg2: '你好，TalkingCoder'
+    },
+    methods: {
+        sendData: function() {
+            this.$refs.child1.$emit('set-data', {});
+            this.$refs.child2.$emit('set-data', {});
+        }
+    }
+})
+
+通过$refs就可以给指定的组件触发事件了，事实上，通过$refs是可以获取到子组件的整个实例的。
+通过$refs就可以给指定的组件触发事件了，事实上，通过$refs是可以获取到子组件的整个实例的。
+
+
+子组件派发事件，而父组件仍然使用了多个相同子组件，如何区分是哪个组件派发的呢？还是上面的demo，比如我们的child组件$dispatch了一个自定义事件，可以这样来区分：
+
+<child :msg="msg1" v-ref:child1 @child-event="handler1"></child>
+<child :msg.sync="msg2" v-ref:child2 @child-event="handler2"></child>
+
+new Vue({
+    data: {
+        msg1: 'Hello，TalkingCoder',
+        msg2: '你好，TalkingCoder'
+    },
+    methods: {
+        sendData: function() {
+            this.$refs.child1.$emit('set-data', {});
+            this.$refs.child2.$emit('set-data', {});
+        },
+        handler1: function() {
+            // ...
+        },
+        handler2: function() {
+            // ...
+        }
+    }
+})
+像绑定DOM2事件一样，使用@xxx或v-bind:xxx来绑定自定义事件，来执行不同的方法。
+
+ -->
+
+<!-- ----------------------------------------------------------------------------- -->
+
+
+<script>
+router.map({
+    '/index': {
+        name: 'index',
+        component: function (resolve) {
+            require(['./routers/index.vue'], resolve);
+        }
+    }
+});
+
+</script>
+
+<!-- ----------------------------------------------------------- -->
+
+
+<!-- 
+
+导入的app.vue模块就是我们的入口组件了，上篇文章已经介绍过，我们通过webpack生成的index.html里，body内只有一个挂载节点<div id="app"></div>，当我们通过执行router.start(App, '#app')后，app.vue组件就会挂载到#app内了，所以app.vue组件也是我们工程起来后，第一个被调用的组件，可以在它里面完成一些全局性的操作，比如获取登录信息啊，统计日活啊等等。
+
+在app.vue内，有一个<router-view></router-view>的自定义组件，它就是整个网站的路由挂载节点了，切换路由时，它的内容会动态的切换，其实是在动态的切换不同的组件，得益于webpack，路由间的切换可以是异步按需加载。 
+
+router.map()就是设置路由匹配规则，比如访问127.0.0.1:8080/index，就会匹配到"/index"，然后通过component，在回调里使用require()异步加载组件，这个过程是可以改为同步的，不过应该没有人会这么做。
+
+vue-router支持匹配带参数的路由，比如'/user/:id'可以匹配到'/user/123'，或者'/user/*any/bar'可以匹配到'/user/a/b/bar'，:id是参数，*any是全匹配，不过vue-router支持的路由规则还是比较弱的，一般后端框架，比如Python的Tornado或者Node.js的Express是支持正则的。
+
+-->
+
+<!-- -------------------------------------------------------------------------- -->
+
+
+<!-- 
+
+路径跳转。vue-router使用v-link指令来跳转，它会隐式的在DOM上绑定点击事件：
+
+<a v-link="{path: '/index'}">首页</a>
+ 
+<p v-link="{path: '/index'}">首页</p>
+
+
+如果是在js里跳转，可以这样：
+
+module.exports = {
+    data: function() {
+        return {
+
+        }
+    },
+    methods: {
+        go: function() {
+            console.log(this.$route);
+            console.log(this.$router);
+            this.$route.router.go('/index');    // 等价于this.$router.go('/index');    
+        }
+    }
+
+    // this.$router.go('/index');         // 这两个是等价的
+    // this.$route.router.go('/index');   // 跟这个的区别   这两个是等价的
+    // $router 等价于  $route.router       
+}
+
+
+使用vue内置的$router方法也可以跳转，如果感兴趣，可以试试上面$route和$router打印出什么内容
+通过$route是可以得到当前路由的一些状态信息的，比如路径和参数。 
+
+-->
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+<!-- 
+
+vue-router还有一些钩子函数，通俗讲就是在发生一次路由时某个状态的一些回调。我们的项目main.js中使用了：
+
+router.beforeEach(function () {
+    window.scrollTo(0, 0);
+});
+
+router.afterEach(function (transition) {
+    console.log(transition);
+});
+
+beforeEach()是在路由切换开始时调用，这里我们将页面返回了顶端。
+
+afterEach()是在路由成功切换到激活状态时调用，可以打印出transition看看里面都有什么。一般在这里可以做像自动导航、自动面包屑的一些全局工作。
+
+router.redirect()很简单，就是重定向了，找不到路由时可以跳转到指定的路由。
+
+ -->
+
+<!-- ------------------------------------------------------------------------------ -->
+
+<!-- 
+
+内容分发slot
+
+slot 常用于 confirm确认框上的
+
+标题、关闭按钮是统一的，但是中间正文的内容（包括样式）是想自定义的，这时候就会用到Vue组件的slot来分发内容。
+
+
+比如子组件的template的内容为：
+<div>
+    <h1>提示</h1>
+    <slot name="content"></slot>
+    <span>确定</span>
+    <span>取消</span>
+</div>
+
+父组件这样调用子组件：
+<confirm>
+    <p slot="content">欢迎来到TalkingCoder</p>
+</confirm>
+
+最终渲染完的内容为：
+<div>
+    <h1>提示</h1>
+    <p>欢迎来到TalkingCoder</p>
+    <span>确定</span>
+    <span>取消</span>
+</div> 
+
+-->
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

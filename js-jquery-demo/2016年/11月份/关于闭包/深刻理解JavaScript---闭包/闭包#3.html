@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+javascript语句中，return语句后面的代码是不会执行的
+
+闭包#3
+
+函数通常会让自身的参数视为局部变量，所以我们创建返回函数时，也可以令其返回父级函数的参数，例如：
+
+<script>
+    function f(arg) {
+        var n = function() {
+            console.log(arg)//打印出来的值为124
+            return arg;
+        };
+        arg++;
+
+        return n;
+    }
+    var m = f(123);
+    m(); //调用函数，输出124
+</script>
+
+有一点很重要：n被赋值时函数并没有被调用，调用发生是在n被求值，
+
+也就是执行return n;语句时。所以是先执行加1操作 arg++ 的，然后在执行函数
+
+由此可以看出，函数所绑定的是作用域本身，
+
+而不是该作用域中的变量或变量当前所返回的值。
+
+</body>
+</html>

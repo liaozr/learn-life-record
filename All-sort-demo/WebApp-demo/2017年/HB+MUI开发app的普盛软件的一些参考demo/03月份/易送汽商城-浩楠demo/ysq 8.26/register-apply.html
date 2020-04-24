@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="易送气" />
+		<meta name="Description" content="易送气" />
+		<title>开户申请</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="picker/mui.picker.css" />
+		<link rel="stylesheet" href="picker/mui.poppicker.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/yhn.css" />
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wqBXfIN3HkpM1AHKWujjCdsi"></script>
+		<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+		<script src="js/zepto1.1.6.min.js"></script>
+		<script src="js/vue.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="upload/LocalResizeIMG.js"></script>
+		<script src="upload/mobileBUGFix.mini.js"></script>
+	</head>
+	<style>
+		.mui-poppicker-header .mui-btn {
+			font-size: .4rem;
+			padding: 8px;
+			width: 2rem;
+			border: 1px solid #ccc;
+			border-radius: .1rem;
+		}
+		
+		.mui-poppicker-header .mui-btn.mui-btn-blue {
+			color: #fff;
+			border: 1px solid #007aff;
+			background-color: #007aff;
+		}
+		
+		.page {
+			position: absolute;
+			display: none;
+			width: 100%;
+			height: 12.2rem;
+			background: #f8f8f8;
+			top: 1.3rem;
+		}
+		
+		html,
+		body {
+			background: #fff
+		}
+		
+		#page1 {
+			z-index: 30;
+		}
+		
+		#page2 {
+			height: 100%;
+			z-index: 20;
+		}
+		
+		#page3 {
+			z-index: 10;
+		}
+		
+		.lace {
+			width: 100%;
+		}
+	</style>
+
+	<body id="scope">
+		<div id="loadpage">
+			<img src="img/loading2.gif" alt="" />
+		</div>
+		<header class="y-mytop">
+			<h1>开户申请</h1>
+			<div class="return-box">
+				<img src="img/icon-return.png" alt="" />
+				<span>返回</span>
+			</div>
+		</header>
+		<div class="page under-top" id="page1" style="display:block;">
+			<h1>用气协议说明</h1>
+			<div class="txt">
+				<h1>燃气用户安全使用常识和管理规定</h1> 一、为什么装有燃气设备的房间不能作为卧室和休息室？ 　　装有燃气表、燃气灶和燃气管等燃气设备、设施的房间或厨房绝对不能作为卧室和休息室，因为如果燃气表、燃气灶和燃气管损坏漏气，不易察觉，更有可能引发爆炸、火灾等危险。二、使用燃气时无人照看为什么有危险？在使用燃气时，应该不要离开，随时注意燃烧情况，调节火焰。因为汤水沸溢出来，可能会浇灭火焰，或者使用小火时，火焰被风吹熄，燃气继续冒出，造成爆炸、火灾等事故。三、停用时怎样做好安全检查？ 　　在停止使用燃气时或临睡前，应该将燃气灶的开关检查一遍，是否全部关闭，要做到只只燃气阀门都关闭。 　　四、发现漏气怎么办？ 　　如在室内发现燃气气味，应立即打开门窗，并检查燃气灶开关是否关闭，如已关闭，可能是燃气管或是燃气表等处漏气，应立即将燃气表前
+			</div>
+			<div class="agree">
+				<div class="redcheck left"></div>
+				<span class="left">同意用气协议</span>
+			</div>
+			<footer class="adds-foot">
+				<h1 id="next1">下一步</h1>
+			</footer>
+		</div>
+		<div class="page under-top" id="page2">
+			<section class="new-adds-box" style="padding-bottom:1.3rem;">
+				<table class="new-adds-table">
+					<h1 class="new-adds-title" style="border:none;margin-bottom:-.2rem;;">基本信息</h1>
+					<img class="lace" src="img/border.png" alt="" />
+					<tr>
+						<td>姓名</td>
+						<td><input v-model="postData.memberName" id="username" type="text" placeholder="请输入姓名" maxlength="8" /></td>
+					</tr>
+					<tr>
+						<td>电话</td>
+						<td>
+							<input v-model="postData.mobileNo" id="phoneNum" type="tel" placeholder="请输入联系电话" maxlength="15" />
+						</td>
+					</tr>
+					<tr style="height:1.5rem;">
+						<td></td>
+						<td>
+							<input class="left" type="text" placeholder="输入验证码" style="width:2.5rem;height:1rem;border:1px solid #ddd;margin-top:.08rem; text-align: center;">
+							<button id="getcode" class="mui-btn-danger" style="padding:0 0.3rem;height:1rem;margin-left:.2rem;margin-top:-.1rem;color:#fff;">发送验证码</button>
+						</td>
+					</tr>
+				</table>
+				<table class="new-adds-table">
+					<h1 class="new-adds-title">地址信息</h1>
+					<tr id='showCityPicker3'>
+						<td>省市区</td>
+						<td id='cityResult3'>广东省 深圳市 福田区<img class="right" src="img/icon-right.png" alt="" /></td>
+					</tr>
+					<tr style="height:2.2rem;">
+						<td>详细地址</td>
+						<td><textarea v-model="postData.address" id="xxadds" placeholder="请输入详细地址" maxlength="80"></textarea></td>
+					</tr>
+				</table>
+					<div style="display: block;width:100%;height:6rem;">
+						<div id="allmap" style="width:100%;height:100%;"></div>
+					</div>
+					<!--<div id="showAddress1" style="display:none;">
+						{{postData.address}}
+					</div>-->
+				<div id="showAddress" style="margin-top:1rem;">
+					<div class="service-point">
+						<p><img src="img/adds-dot.png" alt="" />配送服务点：<span>深圳市燃气沙井供应站</span></p>
+					</div>
+				</div>
+
+				<table class="new-adds-table" style="margin-top:.3rem;">
+					<tr style="border:none;">
+						<td>瓶类</td>
+						<td>
+							<select v-model="postData.bottleTypeId" id="bottle" class="mui-btn ">
+								<option v-for="key in sss" value={{key.goodsTypeId}}>{{key.partName}}</option>
+							</select>
+							<img class="right" src="img/icon-next.png" alt="" />
+						</td>
+					</tr>
+				</table>
+				<img class="lace" src="img/border.png" alt="" />
+			</section>
+			<footer class="adds-foot2">
+				<h1 id="prev1" class="left">上一步</h1>
+				<h1 id="next2" class="right">下一步</h1>
+			</footer>
+		</div>
+		<div class="page under-top" id="page3">
+			<section class="new-adds-box" style="padding-bottom:1.3rem;">
+				<table class="new-adds-table">
+					<h1 class="new-adds-title" style="border:none;margin-bottom:-.2rem;;">身份验证</h1>
+					<img class="lace" src="img/border.png" alt="" />
+					<tr style="height:1.5rem;">
+						<td>证件类型</td>
+						<td>
+							<select v-model="postData.certificateType" class="mui-btn" id="ICType">
+								<option value="10">身份证</option>
+								<option value="20">军官证</option>
+								<option value="30">护照</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+				<table class="new-adds-table">
+					<tr>
+						<td>证件号码</td>
+						<td><input v-model="postData.certificateNo" id="ICNum" type="text" placeholder="请输入证件号码" maxlength="20" /></td>
+					</tr>
+					<tr>
+						<td>证件正面<button class="mui-btn mui-btn-danger" id="addphoto1">添加<br />照片</button></td>
+						<td id="photoBox">
+							<input type="file" id="uploadphoto" name="uploadfile" style="display:none;" />
+							<img id="ic0" class="left" src="img/timg.jpg" alt="" />
+						</td>
+					</tr>
+					<tr style="border:none;">
+						<td>证件反面<button class="mui-btn mui-btn-danger" id="addphoto2">添加<br />照片</button></td>
+						<td id="photoBox">
+							<img id="ic1" class="left" src="img/timg.jpg" alt="" />
+						</td>
+					</tr>
+				</table>
+				<img class="lace" src="img/border.png" alt="" />
+			</section>
+			<footer class="adds-foot2">
+				<h1 id="prev2" class="left">上一步</h1>
+				<h1 id="confirm" class="right">提交注册</h1>
+			</footer>
+		</div>
+
+	</body>
+	<script src="picker/mui.picker.js"></script>
+	<script src="picker/mui.poppicker.js"></script>
+	<script src="picker/city.data-3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="layer-m/layer.js"></script>
+	<script src="js/global.js"></script>
+	<script>
+		////////////公用/////////////////////
+		window.onload = function() {
+				$("html").css("overflow", "auto");
+				$("#loadpage").css("display", "none");
+			}
+			//判断IOS下微信浏览器 隐藏顶部导航 
+		var ua = navigator.userAgent.toLowerCase();
+		if(ua.match(/MicroMessenger/i) == "micromessenger") {
+			$(".y-mytop").css("display", "none");
+			$(".under-top").css("top", 0);
+		}
+		////弹出框函数
+		function tanchu(cont) {
+			layer.open({
+				btn: ['OK'],
+				content: cont, //内容
+				shade: [0.5, '#000'], //遮罩层  透明度，颜色
+				shadeClose: true, //点击遮罩层 关闭弹出层
+				time: 0 //  自动关闭时间，  0表示不自动关闭	           
+			});
+		}
+
+		/////vue实例化///
+		var vm = new Vue({
+			el: '#scope',
+			data: {
+				//瓶类信息对象 
+				sss: '',
+				//传递对象，view-model双向绑定,同时可作为最终提交数据对象
+				postData: {
+					franchiseId: "FRCH1608030007",
+					openId: "o7ej-t02ke9fVN4jh3l_W0RcoBoM",
+					memberId: "402881ec56a084470156a0e1b2100001",
+					memberName: "",
+					mobileNo: "",
+					certificateType: "",
+					certificateNo: "",
+					province: "广东省",
+					city: "深圳市",
+					county: "福田区",
+					address: "",
+					goodsTypeId: "",
+				},
+				servicepoint: {
+					addrs: "",
+					addrspoint: ""
+				}
+			},
+			ready: function() {
+				//实例化后 请求瓶类信息对象
+				$.ajax({
+					type: "get",
+					url: getBaseServerUrl() + "/client/customer/gasBottles",
+					data: {
+						bottlesType: "01",
+						franchiseId: "FRCH1608030007"
+					},
+					success: function(data) {
+						vm.sss = data;
+					},
+
+				});
+			}
+
+		});
+
+		///////第一页///////////////////////////////////////////////////////////////////////////////////////////
+		//省市区三级联动
+		(function($, doc) {
+			$.init();
+			$.ready(function() {
+				var cityPicker3 = new $.PopPicker({
+					layer: 3
+				});
+				//省市区设置默认选择 为 广东深圳福田
+				cityPicker3.pickers[0].setSelectedIndex(18);
+				cityPicker3.pickers[1].setSelectedIndex(2);
+				cityPicker3.pickers[2].setSelectedIndex(1);
+				cityPicker3.setData(cityData3);
+				var showCityPickerButton = doc.getElementById('showCityPicker3');
+				var cityResult3 = doc.getElementById('cityResult3');
+				showCityPickerButton.addEventListener('tap1', function(event) {
+					cityPicker3.show(function(items) {
+						//选择后数据页面展现
+						cityResult3.innerText = "" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+						//选择后的数据更新在最终提交对象中
+						vm.postData.province = items[0].text;
+						vm.postData.city = items[1].text;
+						vm.postData.county = items[2].text;
+						getAddress(items[0].text+items[1].text+items[2].text);
+						xxadds.value=items[0].text+","+items[1].text+","+items[2].text;
+						//返回 false 可以阻止选择框的关闭
+						//return false;
+						
+					});
+				}, false);
+			});
+		})(mui, document);
+		//姓名、电话验证；
+		$(phoneNum).on("blur", function() {
+			var phoneNum = $("#phoneNum").val();
+			if(!(/^1[3|4|5|7|8]\d{9}$/.test(phoneNum))) {
+				tanchu("您输入的手机号有误！");
+			}
+		});
+
+		$(username).on("blur", function() {
+			var username = $("#username").val();
+			if(!/^[\u4e00-\u9fa5]+$/.test($("#username").val())) {
+				tanchu("请输入中文名称！");
+			}
+		});
+		//身份证 护照 军官证验证
+		$("#ICNum").on("blur", function() {
+			var a = $("#ICType").val();
+			if(a == "10") {
+				var ICNum = $("#ICNum").val();
+				if(!(/(^\d{15}$)|(^\d{17}([0-9]|X)$)/.test(ICNum))) {
+					tanchu("您输入的证件号码有误！");
+				}
+			} else if(a == "20") {
+				var ICNum = $("#ICNum").val();
+				if(!(/^[a-zA-Z0-9]{7,21}$/.test(ICNum))) {
+					tanchu("您输入的证件号码有误！");
+				}
+			} else if(a == "30") {
+				var ICNum = $("#ICNum").val();
+				if(!(/^(P\d{7})|(G\d{8})$/.test(ICNum))) {
+					tanchu("您输入的证件号码有误！");
+				}
+			}
+		});
+		//验证码倒计时
+		var nums = 60;
+		var time1;
+		var $btn;
+
+		function sendCode(thisBtn) {
+			if($btn != thisBtn) {
+				clearInterval(time1);
+				nums = 60;
+				thisBtn.css("color", "#fff").text('获取验证码');
+			};
+			$btn = thisBtn;
+			$btn.attr("disabled", true);
+			$btn.css("color", "#fff").text('还剩' + nums + '秒');
+			time1 = setInterval(doLoop, 1000);
+		}
+
+		function doLoop() {
+			nums--;
+			if(nums > 0) {
+				$btn.text('还剩' + nums + '秒');
+			} else {
+				clearInterval(time1);
+				$btn.removeAttr("disabled");
+				$btn.css("color", "#fff").text('发送验证码');
+				nums = 60;
+			}
+		}
+
+		$(getcode).on("tap", function() {
+			sendCode($(getcode));
+		});
+		//上传模块初始化
+		var a = []; //数组a用来储存图片压缩后的src
+		//增加图片   选择2张图片后 无法再选择；
+		$("#addphoto1").click(function() {
+			if(a.length <= 0) {
+				uploadphoto.click();
+			}
+			if(a.length == 1) {
+				a = [];
+				uploadphoto.click();
+			}
+			if(a.length == 2) {
+				a[0] = "1";
+				uploadphoto.click();
+			}
+		});
+
+		$("#addphoto2").click(function() {
+			if(a.length <= 1) {
+				uploadphoto.click();
+			}
+			if(a.length == 2) {
+				a.splice(1, 1);
+				uploadphoto.click();
+			}
+		});
+		//重新选择图片
+		/*$("#del").click(function() {
+			a = [];
+			ic0.src = "img/timg.jpg";
+			ic1.src = "img/timg.jpg";
+		});*/
+		$(document).ready(function(e) {
+			$('#uploadphoto').localResizeIMG({
+				width: 500,
+				quality: 0.4,
+				success: function(result) {
+					var submitData = {
+						base64_string: result.clearBase64,
+					};
+					if(a[0] == 1) {
+						a[0] = result.clearBase64;
+					} else {
+						a[a.length] = result.clearBase64;
+					}
+				}
+			});
+
+		});
+
+		///////////////第二页///////////////////////////////////////////////////////////////
+		var cek = 0;
+		$(".redcheck").on("tap1", function() {
+			$(this).toggleClass("active").next().next().toggle("checked");
+			if(cek == 0) {
+				cek = 1;
+			} else {
+				cek = 0;
+			}
+		});
+		/////////////////////页面跳转/////////////////////////////////////////////////////////////		
+		$("#next1").on("tap1", function() {
+			/*if(cek == 0) {
+				return;
+			}*/
+			$("#page1").fadeOut(150);
+			$("#page2").fadeIn(150);
+			$("body").scrollTop("0");
+
+		});
+
+		$("#prev1").on("tap1", function() {
+			$("#page2").fadeOut(150);
+			$("#page1").fadeIn(150);
+			$("body").scrollTop("0");
+
+		});
+
+		$("#prev2").on("tap1", function() {
+			$("#page3").fadeOut(150);
+			$("#page2").fadeIn(150);
+			$("body").scrollTop("0");
+
+		});
+
+		$("#next2").on("tap1", function() {
+			/*if(!/^[\u4e00-\u9fa5]+$/.test($("#username").val())) {
+				tanchu("请您输入中文名称！");
+				return
+			};
+			if(!(/^1[3|4|5|7|8]\d{9}$/.test($("#phoneNum").val()))) {
+				tanchu("您输入的手机号有误！");
+				return
+			};
+			if($("#xxadds").val() == "") {
+				tanchu("请输入您的详细地址！");
+				return
+			};
+			if($("#bottle").val() == "") {
+				tanchu("请选择瓶类信息！");
+				return
+			};*/
+			$("#page2").fadeOut(150);
+			$("#page3").fadeIn(150);
+			$("body").scrollTop("0");
+
+		});
+
+		////////////////////页面跳转/////////////////////
+		//返回
+		$(".return-box").on("tap1", function() {
+			window.history.go(-1);
+		});
+
+		// 百度地图API功能
+
+		$("#xxadds").on('keyup', function() {
+			getAddress($(this).val());
+		});
+
+		var map = new BMap.Map("allmap");
+		var point = new BMap.Point(114.054456,22.555617);
+		map.centerAndZoom(point, 16);
+		map.enableScrollWheelZoom(true);
+		// 创建地址解析器实例
+		var myGeo = new BMap.Geocoder();
+		// 将地址解析结果显示在地图上,并调整地图视野
+		var marker = new BMap.Marker(point);
+		marker.enableDragging();
+		map.addOverlay(marker);
+		marker.addEventListener("dragend", attribute);
+
+		function getAddress(address) //深圳福田景田鲁班大厦
+		{
+			myGeo.getPoint(address, function(point) {
+				if(point) {
+					map.centerAndZoom(point, 16);
+					marker.setPosition(point);
+				} else {
+					//alert("您选择地址没有解析到结果!");
+				}
+			}, "北京市");
+		}
+		var pt;
+
+		function attribute() {
+			pt = marker.getPosition();
+			myGeo.getLocation(pt, function(rs) {
+				var addComp = rs.addressComponents;
+				$("#showAddress1").text(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+				vm.postData.address=addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
+			});
+
+		}
+
+		///////////数据请求////////////
+
+		//确认提交
+		$("#confirm").on("tap1", function() {
+			if(!(/(^\d{15}$)|(^\d{17}([0-9]|X)$)/.test($("#ICNum").val()))) {
+				tanchu("您输入的证件号码有误！");
+				return
+			};
+			if(ic1.src.slice(-8) == "timg.jpg") {
+				tanchu("请添加证件照片！");
+				return
+			};
+			/*$.ajax({
+				type: "POST",
+				url: "upload.php",
+				data: {
+					"img1": a[0],
+					"img2": a[1]
+				},
+				success: function(data) {
+					if(500 == data.status) {
+						alert(123);
+						return false;
+					} else {
+						tanchu("上传成功！");
+						return false;
+					}
+				},
+				error: function() {
+					tanchu("提交失败，请重试！");
+				}
+
+			});*/
+			
+			var ccc = JSON.stringify(vm.postData);
+			console.log(ccc);
+			$.ajax({
+				type: "post",
+				url: getBaseServerUrl() + "/client/customer/register",
+				contentType: "application/json",
+				data: ccc,
+				success: function(data) {
+					tanchu("您已成功开户！")
+				},
+				
+				error: function() {
+					tanchu("提交失败，请重试！");
+				}
+
+			});
+		});
+	</script>
+
+</html>

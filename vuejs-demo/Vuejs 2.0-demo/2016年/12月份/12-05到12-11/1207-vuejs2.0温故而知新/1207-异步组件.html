@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+异步组件
+
+在大型应用中，我们需要把 app 分成一个个小块，只在真正需要的时候才去加载组件。
+
+为了简化这个，Vue 允许把组件定义为一个工厂方法，并异步去解析组件定义。
+
+Vue 仅仅会在组件真正需要被渲染的时候才会去触发该工厂方法，然后把结果缓存下来给以后的再渲染。
+
+如：
+<script>
+    Vue.component('async-example', function(resolve, reject) {
+        setTimeout(function() {
+            resolve({
+                template: '<div>I am async!</div>'
+            })
+        }, 1000)
+    })
+</script>
+
+工厂方法接受一个 resolve 回调，会在从服务器获取到组件定义后被触发
+
+。也可以使用 reject(reason) 来指出加载失败了。
+
+这里的 setTimeout 只是用来做简单的演示，如何去获取 component 完全取决于你。
+
+一个推荐的方法是和 Webpack 的 code-splitting 功能一块儿使用异步组件：
+
+<script>
+    Vue.component('async-webpack-example', function(resolve) {
+        // 这个特殊的 require 语法会让 Webpack 去自动把你的编译后代码分割成 通过 Ajax 请求加载的 bundles
+        require(['./my-async-component'], resolve)
+    })
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+也可以在 resolve 方法中返回一个 Promise，比如通过 Webpack 2 + ES2015 语法可以这么做：
+
+<script>
+    Vue.component(
+        'async-webpack-example',
+        () => System.import('./my-async-component')
+    )
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+然后 Browserify 不支持异步组件，拥抱 Webpack 吧。
+
+</body>
+</html>

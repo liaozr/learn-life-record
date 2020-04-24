@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    可变参数
+    <script>
+
+        function f(...a) {
+
+            var sum = 0
+            a.forEach(item => {
+                sum += item * 1
+            })
+            return sum
+        }
+
+        console.log(f(1, 2, 3, 6))  // 12
+
+    </script>
+
+  <!-- ---------------------------------------------------------------------------------------- -->
+
+  ES6利用扩展运算符 合并数组
+
+  <script>
+     var params = ['hello',true,7]
+
+     var other =[
+       ...params,
+       1,
+       2
+     ]
+
+     console.log(other)  // ["hello", true, 7, 1, 2]
+  </script>
+
+
+
+
+</body>
+
+</html>

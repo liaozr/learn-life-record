@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // BgDiv遮罩层、弹出层
+
+        $('#BgDiv').bind("touchmove", function(e) {
+            e.preventDefault();
+        });
+        
+        $("#BgDiv").on("click", cancelSelect);
+
+        function cancelSelect() {
+            $(".g-chose  ul li").each(function() {
+                if ($(this).children().eq(1).hasClass("up")) {
+                    $(this).children().eq(1).addClass("down").removeClass("up");
+                }
+            })
+
+            $(".g-swiper .swiper-slide").each(function(index) {
+                if ($(this).hasClass("current")) {
+                    $(this).removeClass("current");
+                }
+            })
+
+            $(".choice_wrap ul").each(function() {
+                if ($(this).is(":visible")) {
+                    $(this).hide()
+                }
+            })
+            $('body').css("overflow", "visible");
+            $("#BgDiv").hide();
+            canvasload("mainsection");
+      }
+
+    </script>
+
+</body>
+
+</html>

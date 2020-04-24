@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+    <div id="app" ref='app'>
+        {{size}}
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                size:'',
+                n: 0
+            },
+            created() {
+                // 缓存一个this，保证下面的this指向正确，指向vue实例
+                var self = this;
+                window.onresize = function() {
+                    // console.log(this) 指向的是window对象
+                    // console.log(self) 指向的是vue实例对象
+                    self.n = Number(self.n) + 1;
+                    self.size = '最新的数据是' + self.n;
+                }
+            },
+            watch:{
+              size(){
+                this.changes();
+              }
+            },
+            methods:{
+              changes(){
+                var self = this;
+                // 此时dom更新了，把 console.log(self.$refs.app.innerText)这句放到最外面
+                // 会发现获取到的不是最新的数据来的
+                self.$nextTick(function() {
+                    console.log(self.$refs.app.innerText)
+                });
+              }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  https://www.awesomes.cn/repo/moment/moment
+
+  https://www.awesomes.cn/repo/moment/moment
+
+  https://www.awesomes.cn/repo/moment/moment
+
+
+  浏览器
+  <script src="moment.js"></script>
+
+  <script>
+      moment().format();
+  </script>
+
+  Moment.js 可以通过 cdnjs.com 获得，但要记住，可以通过合并JS文件尽量减少HTTP请求。
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+如何使用
+
+格式化日期
+
+<script>
+    moment().format('MMMM Do YYYY, h:mm:ss a'); //=>  September 8th 2015, 9:45:36 pm
+    moment().format('dddd'); //=> Tuesday
+    moment().format("MMM Do YY"); //=> Sep 8th 15
+    moment().format('YYYY [escaped] YYYY'); //=> 2015 escaped 2015
+    moment().format(); //=> 2015-09-08T21:46:43+08:00
+</script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+相对时间
+
+<script>
+    moment("20111031", "YYYYMMDD").fromNow(); //=> 4 years ago
+    moment("20120620", "YYYYMMDD").fromNow(); //=>3 years ago
+    moment().startOf('day').fromNow(); //=>a day ago
+    moment().endOf('day').fromNow(); //=>in 2 hours
+    moment().startOf('hour').fromNow(); //=>an hour ago
+</script>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

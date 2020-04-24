@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<ul>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+<script>
+	var ul = document.getElementsByTagName('ul')[0];
+
+	ul.addEventListener('mouseover',function(e){
+		if(e.target.tagName=='LI'){
+			var target = e.target;
+			target.style.background = "yellow";
+		}
+	},false);
+	ul.addEventListener('mouseout',function(e){
+		if(e.target.tagName=='LI'){
+			var target = e.target;
+			target.style.background = "green";
+		}
+	},false);
+</script>
+
+<!-- 
+
+e.target 取得的是事件发生的对象，即事件源，它是 DOM 对象。
+
+tagName 是 DOM 对象的属性，用于获取 DOM 对象的标签名，取出来是大写的
+e.target.tagName == 'LI'
+e.target.tagName == 'LI'
+换做是 e.target.tagName == 'li' 这样是没有任何dom效果的。
+
+你要取小写的用 nodeName 
+
+-->
+<!-- ----------------------------------------------------------------------------------- -->
+
+<style>
+	#oper{
+		width:30px;height:30px;background-color: red;
+	}
+</style>
+<div id = "oper">
+	<a href="#" name="info">showDetails</a>
+	<a href="#" name="update">update</a>
+	<a href="#" name="delete">delete</a>
+<div>
+<script>
+	var oper = document.getElementById('oper');
+	oper.addEventListener('click',function(e){
+		var target = e.target;
+		var name = null;
+		if(target){
+			name = target.name;
+		}
+		if(!name){
+			return ;
+		}
+		if(name == 'info'){
+			alert('showDetails');
+		}else if(name== 'update'){
+			alert('update');
+		}else if(name == 'delete'){
+			alert('delete');
+		}
+	},false);
+</script>
+
+<!-- 
+
+这里先总结一下js委托相关。
+
+1.好处大大的，因为把事件绑定到父节点上了，因此事件少了很多。
+就算新增的子节点自然也有了相关事件。删除部分子节点不用你销毁对应节点上绑定的事件。
+
+2.父节点是通过event.target来找到对应的子节点的。
+
+ -->
+
+
+</body>
+</html>

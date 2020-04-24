@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // 点击底部 tab导航 切换的一些 执行方法
+        function buttomtab() {
+
+            $(".bottom-tab-item").on("tap", function() {
+
+                $(".bottom-tab-item").removeClass("bottom-active");
+                $(this).addClass("bottom-active");
+
+                var id = $(this).data("id");
+                var content = $(this).find("span").text();
+                topContent.innerHTML = content;
+                plus.webview.getWebviewById(id).show("fade-in", 200);
+
+                if ($(this).data('mulu') == 'xiangmu') {
+                    vm.xiangmuflag = true;
+                    plus.webview.getWebviewById("xiangmu.html").evalJS("clearlocal()");
+                    vm.search_value = '';
+                    localStorage.xmsearch_value = '';
+
+                } else {
+                    vm.xiangmuflag = false;
+                    plus.webview.getWebviewById(id).evalJS("init()");
+                }
+
+           });
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

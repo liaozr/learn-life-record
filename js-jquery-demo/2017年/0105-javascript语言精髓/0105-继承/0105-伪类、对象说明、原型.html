@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+伪类
+
+JavaScript 的原型存在诸多矛盾，某些复杂的语法看起来像那些基于类的语言，掩盖了它的原型机制。
+伪类是通过构造器函数产生对象。
+
+定义构造器
+
+<script>
+    // 定义一个构造器，并扩充原型
+    var Mammal = function(name) {
+        this.name = name;
+    };
+    Mammal.prototype.get_name = function() {
+        return this.name
+    };
+    Mammal.prototype.says = function() {
+        return this.saying || '';
+    };
+    // 构造一个实例
+    var myMammal = new Mammal('My Mammal');
+    var name = myMammal.get_name();
+    console.log(name);
+</script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+对象说明符
+
+有时候构造器要接受一大串参数，但我们要记住参数的顺序非常困难，在这种情况下，最好的做法是在编写构造器让它接受一个简单的对象说明符。
+
+<script>
+
+    var myObject = maker(f, l, m, c, s);
+
+    // 对象说明符
+    var myObject = maker({
+        first: f,
+        middle: m,
+        last: l,
+        state: s,
+        city: c
+    });
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+原型
+
+基于原型的继承相比基于类的继承在概念上更为简单：
+
+一个新对象可以继承一个旧对象的属性。
+
+一旦有了一个想要的对象，可以利用Object.create方法构造出更多的实例来。
+
+<script>
+    var myMammal = {
+        name: 'Herb the Mammal'
+    };
+    var myCat = Object.create(myMammal);
+    console.log(myCat.name);
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+
+</body>
+</html>

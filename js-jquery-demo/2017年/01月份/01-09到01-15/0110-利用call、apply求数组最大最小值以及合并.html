@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    利用call和apply求一个数组的最大或者最小值
+
+    <script>
+
+        var arr = [45, 88, 634, 22, 436, 879];
+        var maxNum = Math.max.apply(Math, arr);
+
+        console.log(maxNum); //879
+
+        var minNum = Math.min.call(Math, 45, 88, 634, 22, 436, 879);
+        console.log(minNum); // 22
+
+        // ----------------------------------------------------------------------
+
+        // 利用call和apply合并数组
+
+        var arr1 = [1, 2, 3];
+        var arr2 = [4, 5, 6];
+        [].push.apply(arr1, arr2);
+        console.log(arr1);
+        //输出: [1, 2, 3, 4, 5, 6]
+
+    </script>
+
+    <!-- --------------------------------------------------------------------------- -->
+    
+
+</body>
+
+</html>

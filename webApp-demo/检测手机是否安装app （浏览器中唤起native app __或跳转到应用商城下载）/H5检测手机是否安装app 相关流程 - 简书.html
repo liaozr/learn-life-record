@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://www.jianshu.com/p/40430596e3ab -->
+<html><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<script type="text/javascript" src="./H5检测手机是否安装app 相关流程 - 简书_files/1255494d3a"></script><script src="./H5检测手机是否安装app 相关流程 - 简书_files/nr-1026.min.js.下载"></script><script src="./H5检测手机是否安装app 相关流程 - 简书_files/push.js.下载"></script><script async="" src="./H5检测手机是否安装app 相关流程 - 简书_files/analytics.js.下载"></script><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","errorBeacon":"bam.nr-data.net","licenseKey":"1255494d3a","applicationID":"15702971","transactionName":"e1daR0JWVV9RER9ZWkxdRxxDUVZE","queueTime":0,"applicationTime":66,"agent":""}</script>
+<script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(2),u=e(3),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}finally{f.emit("fn-end",[c.now()],t)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now()])}},{}],2:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],3:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],4:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=m(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){v[e]=m(e).concat(n)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(t)}function g(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var v={},y={},b={on:l,emit:t,get:w,listeners:m,context:n,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(2),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!x++){var e=h.info=NREUM.info,n=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+h.offset],null,"api");var t=d.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===d.readyState&&i()}function i(){f("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),f=e("handle"),c=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1026.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=n.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),f("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="description" content="近期公司需要针对分享流程进行优化，其中一点就是前端H5检测是否安装应用，来进行不同的判断（下载或直接跳转到app中）。原理很简单：创建一个iframe去打开uri。如果打开app成功网页进入后台，再切换回来时间会超过2.5s。利用时间去检测。下面来看具体实现过程： 你可能会遇到的问题 什么是uri，获取uri需要哪些帮助？ 安卓中应用切换到后台， 计时器仍会不断运行有什么解决方法？ 微信中不...">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=http://www.jianshu.com/p/40430596e3ab">
+
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="简书">
+
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/11520955">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="H5检测手机是否安装app 相关流程" property="twitter:title">
+  <meta content="近期公司需要针对分享流程进行优化，其中一点就是前端H5检测是否安装应用，来进行不同的判断（下载或直接跳转到app中）。原理很简单：创建一个iframe去打开uri。如果打开app成功网页进入后台，再切换回来时间会超过2.5s。利用时间去检测。下面来看具体实现过程： 你可能会遇到的问题 什么是uri，获取uri需要哪些帮助？ 安卓中应用切换到后台， 计时器仍会不断运行有什么解决方法？ 微信中不支持第三方uri,下载应用。怎么解决来完成跳转到自身app。 都会在文中找到答案。 uri获取 这里的uri,指得就是通过 Url scheme 来实现的H5与安卓、苹果应用之间的跳转链接。 我们需要..." property="twitter:description">
+  <meta content="http://www.jianshu.com/p/40430596e3ab" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="H5检测手机是否安装app 相关流程">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.jianshu.com/p/40430596e3ab">
+  <meta property="og:description" content="近期公司需要针对分享流程进行优化，其中一点就是前端H5检测是否安装应用，来进行不同的判断（下载或直接跳转到app中）。原理很简单：创建一个iframe去打开uri。如果打开app成功网页进入后台...">
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/11520955">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/11520955">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+
+    <title>H5检测手机是否安装app 相关流程 - 简书</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="vH1jM+0HmjR0MFLs9OsojqY6/n9PggvkWCtvjY/ZH1+HrQtPgOCVyoqBUFRgzB0qM9VldXTzb0I1jedC42NyfQ==">
+
+  <link rel="stylesheet" media="all" href="./H5检测手机是否安装app 相关流程 - 简书_files/web-f5f9352c7e7e9465a5f5.css">
+  
+  <link rel="stylesheet" media="all" href="./H5检测手机是否安装app 相关流程 - 简书_files/entry-f5f9352c7e7e9465a5f5.css">
+
+  <link href="http://cdn-qn0.jianshu.io/assets/favicons/favicon-ea87c042cbed82f63ec4cb18d1e1bc8b.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/57-ce5a88a3e30a8f1f353e7b7e08710b47.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/72-d8f7a49ed070ff78bc7657785924d097.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/76-be915e70264c65090f03afff88e0f50c.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/114-fa410f47eef755b2aa43b94d63357102.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/120-50638ce65b8729b7761a4e68fe25724f.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn-qn0.jianshu.io/assets/apple-touch-icons/152-13b452db96e234a630d6d7bcbedbcd22.png" sizes="152x152">
+</head>
+
+  <body lang="zh-CN" class="reader-black-font">
+    <!-- 全局顶部导航栏 -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="width-limit">
+    <!-- 左上方 Logo -->
+    <a class="logo" href="http://www.jianshu.com/"><img src="./H5检测手机是否安装app 相关流程 - 简书_files/logo-58fd04f6f0de908401aa561cda6a0688.png" alt="Logo"></a>
+
+    <!-- 右上角 -->
+      <!-- 未登录显示登录/注册/写文章 -->
+      <a class="btn write-btn" target="_blank" href="http://www.jianshu.com/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+</a>      <a class="btn sign-up" href="http://www.jianshu.com/sign_up">注册</a>
+      <a class="btn log-in" href="http://www.jianshu.com/sign_in">登录</a>
+
+    <!-- 如果用户登录，显示下拉菜单 -->
+
+    <div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="nav navbar-nav">
+            <li class="">
+              <a href="http://www.jianshu.com/">
+                <span class="menu-text">首页</span><i class="iconfont ic-navigation-discover menu-icon"></i>
+</a>            </li>
+            <li class="">
+              <a class="app-download-btn" href="http://www.jianshu.com/apps"><span class="menu-text">下载App</span><i class="iconfont ic-navigation-download menu-icon"></i></a>
+            </li>
+          <li class="search">
+            <form target="_blank" action="http://www.jianshu.com/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+              <input type="text" name="q" id="q" value="" placeholder="搜索" class="search-input">
+              <a class="search-btn" href="javascript:void(null)"><i class="iconfont ic-search"></i></a>
+              <!-- <div id="navbar-trending-search"></div> -->
+</form>          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+    
+<div class="note">
+  <div class="post">
+    <div class="article">
+        <h1 class="title">H5检测手机是否安装app 相关流程</h1>
+
+        <!-- 作者区域 -->
+        <div class="author">
+          <a class="avatar" href="http://www.jianshu.com/u/2f981eb9ecfe">
+            <img src="./H5检测手机是否安装app 相关流程 - 简书_files/c709a72b5a6a" alt="144">
+</a>          <div class="info">
+            <span class="tag">作者</span>
+            <span class="name"><a href="http://www.jianshu.com/u/2f981eb9ecfe">陌白_</a></span>
+            <!-- 关注用户按钮 -->
+            <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+            <!-- 文章数据信息 -->
+            <div class="meta">
+              <!-- 如果文章更新时间大于发布时间，那么使用 tooltip 显示更新时间 -->
+                <span class="publish-time" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="最后编辑于 2017.04.19 18:21">2017.04.19 17:51*</span>
+              <span class="wordage">字数 772</span>
+            <span class="views-count">阅读 137</span><span class="comments-count">评论 1</span><span class="likes-count">喜欢 2</span></div>
+          </div>
+          <!-- 如果是当前作者，加入编辑按钮 -->
+        </div>
+        <!-- -->
+
+        <!-- 文章内容 -->
+        <div class="show-content">
+          <blockquote><p>近期公司需要针对分享流程进行优化，其中一点就是<strong>前端H5检测是否安装应用</strong>，来进行不同的判断（下载或直接跳转到app中）。原理很简单：创建一个<strong>iframe</strong>去打开<strong>uri</strong>。如果打开app成功网页进入后台，再切换回来时间会超过2.5s。<strong>利用时间去检测</strong>。下面来看具体实现过程：</p></blockquote>
+<h3>你可能会遇到的问题</h3>
+<ul>
+<li>
+<p>什么是uri，获取uri需要哪些帮助？</p>
+</li>
+<li>
+<p>安卓中应用切换到后台， 计时器仍会不断运行有什么解决方法？</p>
+</li>
+<li>
+<p>微信中不支持第三方uri,下载应用。怎么解决来完成跳转到自身app。</p>
+</li>
+</ul>
+<p>都会在文中找到答案。</p>
+<h4>uri获取</h4>
+<blockquote><p>这里的uri,指得就是通过 Url scheme 来实现的H5与安卓、苹果应用之间的跳转链接。</p></blockquote>
+<p>我们需要找到客户端的同事，来获取如下格式的链接。</p>
+<pre class="hljs autoit"><code class="autoit">xx://<span class="hljs-string">'跳转页面'</span>/<span class="hljs-string">'携带参数'</span></code></pre>
+<blockquote><p>这里给大家简单解释下url scheme。<br>url 就是我们平常理解的链接。<br>scheme 是指url链接中的最初位置，就是上边链接中 ‘xx’的位置。<br>详细介绍可以看这里：<a href="https://sspai.com/post/31500" target="_blank">使用url scheme详解</a></p></blockquote>
+<p>用这个链接我们可以跳转到 应用中的某个页面,并可以携带一定的参数。这个是我们实现这个<strong>功能的前提</strong>哟。</p>
+<h4>具体实现</h4>
+<h5>第一步：通过iframe打开App</h5>
+<blockquote><p>Android平台则各个app厂商差异很大，比如Chrome从25及以后就不再支持通过js触发（非用户点击），所以这里使用iframe src地址等来触发scheme。</p></blockquote>
+<pre class="hljs maxima"><code class="maxima">    //在iframe 中打开APP
+    <span class="hljs-built_in">var</span> <span class="hljs-built_in">ifr</span> = document.createElement('iframe');
+    <span class="hljs-built_in">ifr</span>.src = openUrl;
+    <span class="hljs-built_in">ifr</span>.<span class="hljs-built_in">style</span>.<span class="hljs-built_in">display</span> = 'none';</code></pre>
+<h5>第二步： 判断是否安装某应用</h5>
+<blockquote><p>原理：若通过url scheme 打开app成功，那么当前h5会进入后台，通过计时器会有明显延迟。利用时间来判断。</p></blockquote>
+<pre class="hljs javascript"><code class="javascript">    <span class="hljs-comment">//检查app是否打开</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">checkOpen</span>(<span class="hljs-params">cb</span>)</span>{
+        <span class="hljs-keyword">var</span> _clickTime = +(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params">elsTime</span>) </span>{
+            <span class="hljs-keyword">if</span> ( elsTime &gt; <span class="hljs-number">3000</span> || <span class="hljs-built_in">document</span>.hidden || <span class="hljs-built_in">document</span>.webkitHidden) {
+                cb(<span class="hljs-number">1</span>);
+            } <span class="hljs-keyword">else</span> {
+                cb(<span class="hljs-number">0</span>);
+            }
+        }
+        <span class="hljs-comment">//启动间隔20ms运行的定时器，并检测累计消耗时间是否超过3000ms，超过则结束</span>
+        <span class="hljs-keyword">var</span> _count = <span class="hljs-number">0</span>, intHandle;
+        intHandle = setInterval(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+            _count++;        
+            <span class="hljs-keyword">var</span> elsTime = +(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()) - _clickTime;
+            <span class="hljs-keyword">if</span> (_count&gt;=<span class="hljs-number">100</span> || elsTime &gt; <span class="hljs-number">3000</span> ) {
+                clearInterval(intHandle);
+                check(elsTime);
+            }
+        }, <span class="hljs-number">20</span>);
+    }</code></pre>
+<h6>注意：</h6>
+<ul>
+<li>由于安卓手机,页面进入后台，定时器setTimeout仍会不断运行，所以这里使用setInterval,较小间隔时间重复多次。来根据累计时间判断。</li>
+<li>cb为回调函数，根据返回0 or 1来判断是否安装。</li>
+<li>document.hidden对大于4.4webview支持很好，为页面可见性api。</li>
+</ul>
+<h5>第三步：微信中实现打开or下载应用效果</h5>
+<blockquote><p>这里使用的是<strong>应用宝微链接</strong>实现。</p></blockquote>
+<pre class="hljs haxe"><code class="haxe"> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">callback</span>) {
+      <span class="hljs-comment">//客户端检测微信直接跳应用宝链接</span>
+      <span class="hljs-keyword">var</span> browser = BrowserInfo();
+      <span class="hljs-comment">//使用微链接</span>
+      <span class="hljs-keyword">var</span> encodeUri = encodeURIComponent(<span class="hljs-string">'你的uri'</span>);
+
+      <span class="hljs-keyword">if</span> (browser.isWeixin) {
+        window.location.href = <span class="hljs-string">'你的微链url&amp;android_schema='</span>+encodeUri;
+
+      }<span class="hljs-keyword">else</span>{
+        checkOpen(<span class="hljs-function"><span class="hljs-keyword">function</span></span>(opened){
+            <span class="hljs-keyword">callback</span> &amp;&amp; <span class="hljs-keyword">callback</span>(opened);
+        });
+
+      }
+    }</code></pre>
+<h6>注意点：</h6>
+<ul>
+<li>微链接是应用宝提供的，可以在后台获取。</li>
+<li>使用微链接<strong>必须</strong>做encodeURIComponent转义。</li>
+<li>链接地址在微链接后拼接一个android_schema参数加你的uri。</li>
+</ul>
+<h5>完整函数</h5>
+<pre class="hljs javascript"><code class="javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> openApp = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">openUrl, callback</span>) </span>{
+    <span class="hljs-comment">//检查app是否打开</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">checkOpen</span>(<span class="hljs-params">cb</span>)</span>{
+        <span class="hljs-keyword">var</span> _clickTime = +(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params">elsTime</span>) </span>{
+            <span class="hljs-keyword">if</span> ( elsTime &gt; <span class="hljs-number">3000</span> || <span class="hljs-built_in">document</span>.hidden || <span class="hljs-built_in">document</span>.webkitHidden) {
+                cb(<span class="hljs-number">1</span>);
+            } <span class="hljs-keyword">else</span> {
+                cb(<span class="hljs-number">0</span>);
+            }
+        }
+        <span class="hljs-comment">//启动间隔20ms运行的定时器，并检测累计消耗时间是否超过3000ms，超过则结束</span>
+        <span class="hljs-keyword">var</span> _count = <span class="hljs-number">0</span>, intHandle;
+        intHandle = setInterval(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+            _count++;        
+            <span class="hljs-keyword">var</span> elsTime = +(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()) - _clickTime;
+            <span class="hljs-keyword">if</span> (_count&gt;=<span class="hljs-number">100</span> || elsTime &gt; <span class="hljs-number">3000</span> ) {
+                clearInterval(intHandle);
+                check(elsTime);
+            }
+        }, <span class="hljs-number">20</span>);
+    }
+
+    <span class="hljs-comment">//在iframe 中打开APP</span>
+    <span class="hljs-keyword">var</span> ifr = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'iframe'</span>);
+    ifr.src = openUrl;
+    ifr.style.display = <span class="hljs-string">'none'</span>;
+
+    <span class="hljs-keyword">if</span> (callback) {
+      <span class="hljs-comment">//客户端检测微信直接跳应用宝链接</span>
+      <span class="hljs-keyword">var</span> browser = BrowserInfo();
+      <span class="hljs-comment">//使用微链接</span>
+      <span class="hljs-keyword">var</span> encodeUri = <span class="hljs-built_in">encodeURIComponent</span>(openUrl);
+
+      <span class="hljs-keyword">if</span> (browser.isWeixin) {
+        <span class="hljs-built_in">window</span>.location.href = <span class="hljs-string">'你的微链url&amp;android_schema='</span>+encodeUri;
+      }<span class="hljs-keyword">else</span>{
+        checkOpen(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">opened</span>)</span>{
+            callback &amp;&amp; callback(opened);
+        });
+
+      }
+    }
+
+    <span class="hljs-built_in">document</span>.body.appendChild(ifr);      
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-built_in">document</span>.body.removeChild(ifr);
+    }, <span class="hljs-number">2000</span>);  
+
+}</code></pre>
+<h5>其他</h5>
+<h6>函数中调用的BrowserInfo是一个简单的客户端检测。具体如下：</h6>
+<pre class="hljs javascript"><code class="javascript"><span class="hljs-comment">/**
+ * 客户端检测
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> BrowserInfo = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> json = {
+    <span class="hljs-attr">userAgent</span>: navigator.userAgent.toLowerCase(),
+    <span class="hljs-attr">isAndroid</span>: <span class="hljs-built_in">Boolean</span>(navigator.userAgent.match(<span class="hljs-regexp">/android/ig</span>)),
+    <span class="hljs-attr">isIphone</span>: <span class="hljs-built_in">Boolean</span>(navigator.userAgent.match(<span class="hljs-regexp">/iphone|ipod/ig</span>)),
+    <span class="hljs-attr">isIpad</span>: <span class="hljs-built_in">Boolean</span>(navigator.userAgent.match(<span class="hljs-regexp">/ipad/ig</span>)),
+    <span class="hljs-attr">isWeixin</span>: <span class="hljs-built_in">Boolean</span>(navigator.userAgent.match(<span class="hljs-regexp">/MicroMessenger/ig</span>)),
+  }
+
+  <span class="hljs-keyword">return</span> json;
+}</code></pre>
+<h6>回调函数的使用</h6>
+<blockquote><p>页面中可以通过传递回调函数，来获取返回值；并通过是否传这个参数来做进入页面检测。</p></blockquote>
+
+        </div>
+        <!--  -->
+
+        <div class="show-foot">
+          <a class="notebook" href="http://www.jianshu.com/nb/5113930">
+            <i class="iconfont ic-search-notebook"></i> <span>项目整理</span>
+</a>          <div class="copyright" data-toggle="tooltip" data-html="true" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+            © 著作权归作者所有
+          </div>
+          <div class="modal-wrap" data-report-note="">
+            <a id="report-modal">举报文章</a>
+          </div>
+        </div>
+    </div>
+
+    <!-- 文章底部作者信息 -->
+      <div class="follow-detail">
+        <div class="info">
+          <a class="avatar" href="http://www.jianshu.com/u/2f981eb9ecfe">
+            <img src="./H5检测手机是否安装app 相关流程 - 简书_files/c709a72b5a6a" alt="144">
+</a>          <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+          <a class="title" href="http://www.jianshu.com/u/2f981eb9ecfe">陌白_</a>
+        <p>写了 1671 字，被 1 人关注，获得了 7 个喜欢</p></div>
+      </div>
+
+      <div class="support-author"><p>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</p> <div class="btn btn-pay">赞赏支持</div> <!----> <!----> <!----></div>
+
+    <div class="meta-bottom">
+      <div class="like"><div class="btn like-group"><div class="btn-like"><a href="http://www.jianshu.com/sign_in"><i class="iconfont ic-like"></i>喜欢</a></div> <div class="modal-wrap"><a>2</a></div></div> <!----></div>
+      <div class="share-group">
+        <a class="share-circle" data-action="weixin-share" data-toggle="tooltip" data-original-title="分享到微信">
+          <i class="iconfont ic-wechat"></i>
+        </a>
+        <a class="share-circle" data-toggle="tooltip" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/11520955/weibo/image_28655da3318b.jpg&#39;, &#39;推荐 陌白_ 的文章《H5检测手机是否安装app 相关流程》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/40430596e3ab?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-original-title="分享到微博">
+          <i class="iconfont ic-weibo"></i>
+        </a>
+          <a class="share-circle" data-toggle="tooltip" href="http://cwb.assets.jianshu.io/notes/images/11520955/weibo/image_28655da3318b.jpg" target="_blank" data-original-title="下载长微博图片">
+            <i class="iconfont ic-picture"></i>
+          </a>
+        <a class="share-circle more-share" tabindex="0" data-toggle="popover" data-placement="top" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="
+          &lt;ul class=&quot;share-list&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/40430596e3ab?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 陌白_ 的文章《H5检测手机是否安装app 相关流程》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-zone&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/40430596e3ab?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 陌白_ 的文章《H5检测手机是否安装app 相关流程》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-twitter&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/40430596e3ab?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-facebook&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/40430596e3ab?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-google&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/40430596e3ab?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;H5检测手机是否安装app 相关流程&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-douban&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        " data-original-title="" title="">更多分享</a>
+      </div>
+    </div>
+    <div><div id="comment-list" class="comment-list"><div><form class="new-comment"><a class="avatar"><img src="./H5检测手机是否安装app 相关流程 - 简书_files/avatar_default-78d4d1f68984cd6d4379508dd94b4210.png"></a> <div class="sign-container"><a href="http://www.jianshu.com/sign_in" class="btn btn-sign">登录</a> <span>后发表评论</span></div></form></div> <div id="normal-comment-list" class="normal-comment-list"><div><div><div class="top"><span>1条评论</span> <a class="author-only">只看作者</a> <a class="close-btn" style="display: none;">关闭评论</a> <div class="pull-right"><a class="active">按喜欢排序</a><a class="">按时间正序</a><a class="">按时间倒序</a></div></div></div> <!----> <!----> <div id="comment-10227250" class="comment"><div><div class="author"><a href="http://www.jianshu.com/u/fefec8d0cc9a" target="_blank" class="avatar"><img src="./H5检测手机是否安装app 相关流程 - 简书_files/6c3a25b9-f5c4-4c1e-a3ff-adb4a03cdb1d"></a> <div class="info"><a href="http://www.jianshu.com/u/fefec8d0cc9a" target="_blank" class="name">隔壁叔叔</a> <!----> <div class="meta"><span>2楼 · 2017.04.21 16:57</span></div></div></div> <div class="comment-wrap"><p>可是你加的应用宝微链接在微信端不起作用啊，还是去AppStore，你测试了吗</p> <div class="tool-group"><a><i class="iconfont ic-zan"></i> <span>赞</span></a> <a><i class="iconfont ic-comment"></i> <span>回复</span></a> <!----> <!----></div></div></div> <div class="sub-comment-list hide"><!----> <!----></div></div> <div class="comments-placeholder" style="display: none;"><div class="author"><div class="avatar"></div> <div class="info"><div class="name"></div> <div class="meta"></div></div></div> <div class="text"></div> <div class="text animation-delay"></div> <div class="tool-group"><i class="iconfont ic-zan-active"></i><div class="zan"></div> <i class="iconfont ic-list-comments"></i><div class="zan"></div></div></div></div></div> <!----> <!----></div></div>
+  </div>
+
+  <div class="side-tool"><ul><li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style="display: none;"><a href="http://www.jianshu.com/p/40430596e3ab#" class="function-button"><i class="iconfont ic-backtop"></i></a></li> <!----> <!----> <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="分享文章"><a tabindex="0" role="button" data-toggle="popover" data-placement="left" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="&lt;ul class=&#39;share-list&#39;&gt;
+                &lt;li&gt;&lt;a class=&quot;weixin-share&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-weixin&quot;&gt;&lt;/i&gt;&lt;span&gt;分享到微信&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/11520955/weibo/image_28655da3318b.jpg&#39;, &#39;推荐 陌白_ 的文章《H5检测手机是否安装app 相关流程》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/40430596e3ab?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weibo&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-weibo&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到微博&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;http://cwb.assets.jianshu.io/notes/images/11520955/weibo/image_28655da3318b.jpg&quot; target=&quot;_blank&quot;&gt;&lt;i class=&quot;social-icon-sprite social-icon-picture&quot;&gt;&lt;/i&gt;&lt;span&gt;下载长微博图片&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/40430596e3ab?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=qzone&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 陌白_ 的文章《H5检测手机是否安装app 相关流程》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-zone&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到QQ空间&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/40430596e3ab?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=twitter&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 陌白_ 的文章《H5检测手机是否安装app 相关流程》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-twitter&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Twitter&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://www.facebook.com/dialog/share?app_id=483126645039390&amp;display=popup&amp;href=http://www.jianshu.com/p/40430596e3ab?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=facebook&#39;,x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-facebook&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Facebook&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/40430596e3ab?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=google_plus&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-google&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到Google+&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/40430596e3ab?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=douban&#39;)+&#39;&amp;title=&#39;+e(&#39;H5检测手机是否安装app 相关流程&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()&quot;&gt;&lt;i class=&#39;social-icon-sprite social-icon-douban&#39;&gt;&lt;/i&gt;&lt;span&gt;分享到豆瓣&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;" data-original-title="" title="" class="function-button"><i class="iconfont ic-share"></i></a> <!----></li></ul></div>
+</div>
+<div class="note-bottom"><div class="main"><div class="title">被以下专题收入，发现更多相似内容</div> <!----> <div class="include-collection"><!----> <a href="http://www.jianshu.com/c/NEt52a?utm_source=desktop&amp;utm_medium=notes-included-collection" target="_blank" class="item"><img src="./H5检测手机是否安装app 相关流程 - 简书_files/computer_guy.jpg"><div class="name">程序员</div></a></div> <!----></div> <!----> <!----></div>
+
+    <script type="application/json" data-name="page-data">{"user_signed_in":false,"locale":"zh-CN","os":"windows","read_mode":"day","read_font":"font2","note_show":{"is_author":false,"is_following_author":false,"is_liked_note":false,"uuid":"68ff3090-3202-4549-ac99-702f35be50de"},"note":{"id":11520955,"slug":"40430596e3ab","user_id":2144258,"notebook_id":5113930,"commentable":true,"likes_count":2,"views_count":137,"public_wordage":772,"comments_count":1,"author":{"total_wordage":1671,"followers_count":1,"total_likes_count":7}}}</script>
+    
+    <script src="./H5检测手机是否安装app 相关流程 - 简书_files/babel-polyfill-f5f9352c7e7e9465a5f5.js.下载"></script>
+    <script src="./H5检测手机是否安装app 相关流程 - 简书_files/web-base-f5f9352c7e7e9465a5f5.js.下载"></script>
+<script src="./H5检测手机是否安装app 相关流程 - 简书_files/web-f5f9352c7e7e9465a5f5.js.下载"></script>
+    
+    <script src="./H5检测手机是否安装app 相关流程 - 简书_files/entry-f5f9352c7e7e9465a5f5.js.下载"></script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-35169517-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<div style="display:none">
+  <script src="./H5检测手机是否安装app 相关流程 - 简书_files/z_stat.php" language="JavaScript"></script><script src="./H5检测手机是否安装app 相关流程 - 简书_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1258679142" target="_blank" title="站长统计">站长统计</a>
+</div>
+
+<script>
+  (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+          bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else {
+          bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+  
+
+<!----><!----></body></html>

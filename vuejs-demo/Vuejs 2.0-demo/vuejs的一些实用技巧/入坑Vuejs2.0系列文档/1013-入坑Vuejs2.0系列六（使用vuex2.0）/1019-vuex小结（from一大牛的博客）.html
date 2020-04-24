@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // store.js
+        import Vue from 'vue';
+        import Vuex from 'vuex';
+        import createLogger from 'vuex/logger';  //引入中间件
+
+        import blog from './module/blog';
+
+        // 在 Vue 中，注册 Vuex
+        Vue.use(Vuex);
+
+        export default new Vuex.Store({
+            state: {},
+            plugins: process.env.NODE_ENV !== 'production' ? [createLogger()] : [], //注册中间件
+            modules: {
+                blog
+            }
+        });
+    </script>
+<!-- ----------------------------------------------------------------------------------------     -->
+
+state: {}, 初始化 state 能有什么问题啊？
+
+当你运行你的应用的时候，你会发现，如果 navList 的变化是由一个同步的方法返回的就没有问题，但如果，它是通过异步方法返回的，你会发现虽然控制台上的 mutation log 输出正确，但你的组件中并没有得到正确的值。
+
+What happened?
+
+因为，当 action 调用之后会计算一次 getter，如果是同步的，那么此时 getter 的 state 中已经保存着最新的数据。
+
+但如果是异步的，那么此时 getter 中的 state 是一个空对象，那么上例中的 state.navList 就会返回一个 undefined。然而，undefined 就不会进入 vue 的 watch 系统，所以当异步请求结束后，即使 state 中对应字段变为了目标值，但也不会再调用 getter 了，组件中的值自然也不会更新了。
+给 state 中的每个属性设初始值，这样在第一次计算 getter 的值时就会返回对应的初始值，而这个初始值是在 vue 的系统中的，所以当异步请求结束后调用 mutation 改变 state 中对应的值后，getter 会自动触发更新，此时，组件中对应的值也就被修改了。
+
+所以，一定要记得：
+
+为每个属性设置初始化 state ！！！
+为每个属性设置初始化 state ！！！
+为每个属性设置初始化 state ！！！
+
+重要的话，说三遍！！！
+最后，在使用 modules 还需要注意，在不同 modules 下，注册的 action 或 mutation 的名字重复并不会报错，但都会被调用，所以要注意命名。
+
+<!-- ----------------------------------------------------------------------------------------------------------- -->
+
+Plugins
+vuex 自 1.0 版开始就将原先的 middlewares 替换成了 plugins。也就是说，现在使用的 plugins 就是中间件。
+
+plugins 的参数终于同之前的有所不同了，是一个数组，数组中的每一项都是一个方法，方法接受一个参数就是当前 store 的实例。
+
+<script type="text/javascript">
+// vuex source code: apply plugins
+plugins.concat(devtoolPlugin).forEach(plugin => plugin(this))
+</script>
+
+vuex 中间件的编写理解起来也十分容易，就是通过 store.subscribe 来订阅 mutation 的变化
+
+最后的 strict 属性之前已经提到了，就是用来设置时候开启严格模式的，严格模式下，state 只能通过 mutation 来修改。
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+mapActions 来获取 vuex 中设定好的 action。
+
+mapActions 接受一个数组或对象，根据相应的值将对应的 action 绑定到组件上。
+
+<script type="text/javascript">
+    import {
+        mapActions
+    } from 'vuex';
+
+    const Home = Vue.extend({
+        template,
+        methods: mapActions(['initHomePage']),
+        created() {
+            this.initHomePage();
+        }
+    });
+</script>
+
+数据拿到了，怎么绑定到组件上哪？这就可以用到另两个 helper：mapState 和 mapGetters。
+
+mapState 和 mapGetters 同样接受一个数组或对象，并根据相应的值将 store 中的 state 或 getter 绑定到组件上。
+
+<script type="text/javascript">
+    import vue from 'vue';
+    import {
+        mapState,
+        mapGetters,
+        mapActions
+    } from 'vuex';
+
+    import template from './home.html';
+
+    const Home = vue.extend({
+        template,
+        computed: {
+            ...mapState({
+                header: state => state.home.header
+            }),
+            ...mapGetters(['postsList'])
+        },
+        methods: mapActions(['initHomePage']),
+        created() {
+            this.initHomePage();
+        }
+    });
+</script>
+<!-- --------------------------------------------------------------------------------------     -->
+
+</body>
+
+</html>

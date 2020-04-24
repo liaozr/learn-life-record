@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+在以前的开发过程当中，老板：给我加个验证用户邮箱、验证用户短信...功能！
+
+function checkMessage(){...}
+function checkEmail(){...}
+function ... //茫茫多的函数
+
+这样写好了之后 function 是全局的变量，那么是全局的就难免会对项目javascript环境造成污染，可能会对其他同事造成影响，
+
+我们首先要考虑会不会影响别人，如果别人重名对你的checkMessage覆盖，那么这样的BUG是很难发现的。
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+<script>
+
+    var checkObject={
+        checkMessage: function() {
+
+        },
+        checkEmail: function() {
+           var m='zrliao';
+           console.log("msg come from checkEmail function")
+        },
+        aaa:1111
+    }
+    console.log(checkObject.aaa)
+    checkObject.checkEmail();
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+
+我们去商店买烟
+
+<script>
+    var Smoke = function(id, name) {
+        //私有属性
+        var num = 0;
+
+        //对象的公有属性  （需要new）
+        this.id = id;
+
+        //私有方法
+        function checkID() {
+            return true
+        };
+
+        //公有 setter getter 构造函数
+        this.setName = function(name) {
+            this.name = name;
+        }
+        this.getName = function() {
+            return this.name;
+        }
+        //对象的公有属性  （需要new）
+        this.information = function() {
+            //只有在Smoke内部才能调用checkID()
+            if( checkID() ){
+               return this.name+'香烟'+'订单号 :'+this.id
+            }
+        }
+    }
+
+    Smoke.prototype = {
+        money: '10元',
+        other: function() {}
+    }
+
+    var smoke = new Smoke(994857, '煊赫门');
+
+    smoke.setName('煊赫门'); //我们赋值
+
+    smoke.information();
+
+    smoke.getName();
+
+    console.log(smoke.money)
+
+</script>
+
+因为new是可以对当前对象（Smoke)的this不停地赋值【上面讲过】，
+
+而上面的没有new相当于全局执行了Smoke() 所以是他的this 指向到 window去了！
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+
+
+</body>
+</html>

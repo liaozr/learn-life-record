@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!--   v-on:submit.prevent="submit" 这样就是表单提交了 prevent是阻止表单默认提交   -->
+    <form class="login" v-on:submit.prevent="submit">
+        <div class="line">
+            <div v-show="btn && !form.id">id不能为空</div>
+            <input type="number" placeholder="输入你的id" v-model="form.id">
+        </div>
+        <div class="line">
+            <div v-show="btn && !form.name">用户名不能为空</div>
+            <input type="text" placeholder="输入你的用户名" v-model="form.name">
+        </div>
+        <button>登录</button>
+    </form>
+
+    <script>
+        export default {
+            data() {
+                return {
+                    btn: false, //true 已经提交过， false没有提交过
+                    form: {
+                        id: '',
+                        name: ''
+                    }
+                }
+            },
+            methods: {
+                submit() {
+                    this.btn = true
+                    if (!this.form.id || !this.form.name) return
+
+                    this.$store.dispatch("user_signin", this.form)
+                    // 提交成功后跳转到home主页
+                    // 用的是replace，是不同于push的一种跳转。
+                    this.$router.replace({
+                        path: '/home'
+                    })
+                }
+            },
+            // 因为组件router-view那里设置了 keep-alive ,所以当退出登录时，跳转到
+            // login页面时，表单的那些值还存在。
+            // 所以当退出登录时，在进入到login这个组件时，得把它的数据清空掉。
+            activated() {
+                this.btn = false
+                this.form.id = ''
+                this.form.name = ''
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>

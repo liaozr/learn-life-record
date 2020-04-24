@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <tbody>
+        <!-- 这是a种写法，对应着下面脚本里的a种写法 -->
+        <!--    <tr>
+	                    <th>姓名</th>
+	                    <td>
+	                        <input :value="curEdituser.name" @input="changename"  type="text">
+	                    </td>
+	                </tr>
+	                <tr>
+	                   <th>年龄</th>
+	                   <td>
+	                      <input :value="curEdituser.age"  @input="changeage"  type="text">
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <th>电话</th>
+	                    <td>
+	                        <input :value="curEdituser.tel" @input="changetel"  type="text">
+	                     </td>
+	                </tr> -->
+
+        <!-- 这是b种写法，对应着下面脚本里的b种写法 -->
+        <tr>
+            <th>姓名</th>
+            <td>
+                <input :value="curEdituser.name" @input="changename($event.target.value)" type="text">
+            </td>
+        </tr>
+        <tr>
+            <th>年龄</th>
+            <td>
+                <input :value="curEdituser.age" @input="changeage($event.target.value)" type="text">
+            </td>
+        </tr>
+        <tr>
+            <th>电话</th>
+            <td>
+                <input :value="curEdituser.tel" @input="changetel($event.target.value)" type="text">
+            </td>
+        </tr>
+
+    </tbody>
+
+    <script>
+        import Headmenu from './Headmenu'
+
+        import {
+            mapGetters,
+            mapActions
+        } from 'vuex'
+
+        export default {
+            data() {
+                return {}
+            },
+            components: {
+                Headmenu
+            },
+            methods: {
+                // 这是b种写法脚本，直接用mapActions,方便的多了
+                ...mapActions(['commitname', 'commitage', 'committel', 'changename', 'changeage', 'changetel']),
+
+                // 这是a种写法脚本，通过用
+                // this.$store.dispatch('commitname',e.target.vaule)
+                // 来分发actions
+
+                // commitname(e){
+                //    this.$store.dispatch('commitname',e.target.value)
+                // },
+                // commitage(e){
+                //    this.$store.dispatch('commitage',e.target.value)
+                // },
+                // committel(e){
+                //    this.$store.dispatch('committel',e.target.value)
+                // },
+                // changename(e){
+                //    this.$store.dispatch('changename',e.target.value)
+                // },
+                // changeage(e){
+                //    this.$store.dispatch('changeage',e.target.value)
+                // },
+                // changetel(e){
+                //    this.$store.dispatch('changetel',e.target.value)
+                // },
+                addSaveUser() {
+                    this.$store.dispatch('addSaveUser')
+                    this.$router.push({
+                        path: '/userlist'
+                    })
+                },
+                gotoback() {
+                    this.$router.push({
+                        path: '/userlist'
+                    })
+                },
+                editSaveUser() {
+                    this.$store.dispatch("editSaveUser");
+                    this.$router.push({
+                        path: '/userlist'
+                    })
+                },
+                closeUser() {
+                    this.$store.dispatch("closeUser");
+                    this.$router.push({
+                        path: '/userlist'
+                    })
+                }
+            },
+            computed: {
+                ...mapGetters(['curEdituser', 'editname', 'editage', 'edittel'])
+            }
+        }
+    </script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+删除操作中
+
+<tbody>
+    <!-- <tr v-for="user in users | filterBy guanjianzi in 'name' "> -->
+    <tr v-for="(user,index) in users">
+        <td v-text='user.name'></td>
+        <td v-text='user.age'></td>
+        <td v-text='user.tel'></td>
+        <td>
+            <button @click="edit_user(index)">编辑</button>
+            <button @click="delete_user(index)" class='danger'>删除</button>
+        </td>
+    </tr>
+</tbody>
+
+<script>
+    import Headmenu from './Headmenu'
+
+    import { mapGetters,mapActions } from 'vuex'
+
+	export default{
+		data() {
+			return{
+             keywords:'',
+             guanjianzi:''
+ 			}
+		},
+		components:{
+             Headmenu
+		},
+		computed:{
+      ...mapGetters(['users'])
+		},
+		methods:{
+      // 可以直接这样用mapActions
+			...mapActions(['delete_user']),
+
+      // 也可以用this.$store.dispatch('delete_user',index) 这样来分发actions
+			// delete_user(index){
+      //    this.$store.dispatch('delete_user',index);
+			// },
+      edit_user(index){
+              this.$store.dispatch('edit_user',index);
+              var user_id=this.$store.state.Userlist.users[index].id;
+              this.$router.push({name:'useredit',params:{id:user_id}})
+			}
+		}
+	}
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

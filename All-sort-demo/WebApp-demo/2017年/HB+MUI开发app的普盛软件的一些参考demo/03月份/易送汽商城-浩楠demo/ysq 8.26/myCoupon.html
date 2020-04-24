@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="易送气" />
+		<meta name="Description" content="易送气" />
+		<title>我的优惠券</title>
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/yhn.css" />
+		<script src="js/zepto1.1.6.min.js"></script>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+		<script type="text/javascript" src="js/global.js"></script>
+	</head>
+
+	<body style="padding-bottom:1.2rem">
+		<div id="loadpage">
+			<img src="img/loading2.gif" alt="" />
+		</div>
+		<div class="clear"></div>
+		<!--头部-->
+		<header class="y-mytop">
+			<h1>我的优惠券</h1>
+			<div class="return-box">
+				<img src="img/icon-return.png" alt="" />
+				<span>返回</span>
+			</div>
+		</header>
+
+		<section class="under-top my-coupon" style="margin-top:1.25rem">
+			<div class="my-coupon-box">
+				<h1>可使用优惠券&nbsp;&nbsp;(<span>2张</span>)</h1>
+				<div id="card-box" class="card-box">
+					<div>
+						<div class="card" v-for="item in vueCouponArr.myCoupon">
+							<span class="card-dot1"></span>
+							<span class="card-dot2"></span>
+							<h1>{{item.couponTypeName}}</h1>
+							<h2>有效期至{{item.endDate}}</h2>
+							<h3>限消费{{item.amountLimit}}以上使用。<span class="right">仅限{{item.customerName}}使用</span></h3>
+							<strong>¥<span>{{item.amount}}</span></strong>
+						</div>
+					</div>
+					<h2>没有更多的优惠券了</h2>
+				</div>
+			</div>
+		</section>
+		<footer class="Coupon-foot">
+			<h3><a href="">查看过期券》</a></h3>
+		</footer>
+	</body>
+	<script>
+		window.onload = function() {
+			$("#loadpage").css("display", "none");
+		}
+
+		var ua = navigator.userAgent.toLowerCase();
+		if (ua.match(/MicroMessenger/i) == "micromessenger") {
+			$(".y-mytop").css("display", "none");
+			$(".under-top").css("margin-top", 0);
+		}
+		////////////////////页面跳转/////////////////////
+		//返回
+		$(".return-box").on("tap1", function() {
+			window.history.go(-1);
+		});
+        
+        var couponData;
+		var vm = new Vue({
+			el: '#card-box',
+			data: {
+				vueCouponArr:couponData
+			},
+			ready: function() {
+				$.ajax({
+					type: "get",
+					url: getBaseServerUrl() + "/client/customer/myCoupon",
+					data: {
+						memberId: "4028b881568dbee701568dc0fb390001",
+						openId: "o7ej-t02ke9fVN4jh3l_W0RcoBoM",
+						franchiseId: "FRCH1608030007"
+					},
+					success: function(jsonData) {
+						couponData = jsonData;
+						vm.vueCouponArr = couponData;
+					},
+				});
+			}
+		});
+	</script>
+
+</html>

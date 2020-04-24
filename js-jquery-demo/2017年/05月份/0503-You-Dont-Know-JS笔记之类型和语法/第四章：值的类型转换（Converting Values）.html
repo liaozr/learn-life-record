@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+ToString
+
+非字符串转换成字符串，就由ToString处理。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+JSON.stringify(..)看起来和ToString相关，但注意，这和类型转换不是一回事。
+
+对大多数基础值来说，JSON.stringify(..)表现与ToString一致。
+
+JSON-safe的值可以被JSON.stringify(..)。但什么是JSON-safe的？即可以被JSON有效表示的。不是JSON-safe的很容易列出：undefined，function，symbol，有循环引用的object等。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+String(..)和Number(..)函数可以显式转换数字和字符串。注意，没有new。
+
+<script>
+
+    var a = 42;
+    var b = String(a);
+
+    var c = "3.14";
+    var d = Number(c);
+
+    b; // "42"
+    d; // 3.14
+
+</script>
+
+String(..)把任何值转换成字符串，遵从上面的ToString()规则。
+
+Number(..)把任何值转换成数字，遵从上面的ToNumber()规则。
+
+.toString()也是显式转换为字符串。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+~的另一个用处是~~可以截断数字小数部分。但需注意2点：
+
+处理负数时与Math.floor不一致。Math.floor(-49.6) === -50而~~-49.6 === -49。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+从字符串解析数字（parseInt和parseFloat）和把字符串类型转换为数字可以得到类似结果，但它们有明显的区别。
+
+<script>
+    var a = "42";
+    var b = "42px";
+
+    Number(a); // 42
+    parseInt(a); // 42
+
+    Number(b); // NaN
+    parseInt(b); // 42
+</script>
+
+从字符串解析数字可以容忍非数字字符，遇到时它只是停止从左向右解析。
+
+而类型转换时直接返NaN。解析不应该看作类型转换的替代，因为两者目的不同，解析不关心右侧的非数字字符;而类型转换只接受数字字符。
+
+提示：不要忘记parseInt操作字符串，传入非字符串没有意义。
+
+如果传入非字符串，首先按照ToString转化成字符串。
+
+另外，parseInt接受第二个参数，指定进制。（parseFloat(string)没有第二个参数！）
+
+<!-- --------------------------------------------------------------------------------- -->
+
+注意：
+
+parseInt和parseFloat对前导的空白字符（包括换行符）也容忍，但如果第一个非空字符不是数字直接返NaN。
+
+parseInt和parseFloat对空字符串返NaN。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+
+</body>
+</html>

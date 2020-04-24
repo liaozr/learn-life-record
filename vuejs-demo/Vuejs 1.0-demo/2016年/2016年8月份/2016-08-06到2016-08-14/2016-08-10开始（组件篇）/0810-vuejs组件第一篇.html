@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+</head>
+<body>
+	 <pre>
+    自定义的元素，使用 is 的特性(form 元素，使用 is 示例)
+    </pre>
+    <div id="app1">
+        <!-- 自定义的元素，使用 is 的特性(form 元素，使用 is 示例) -->
+
+    	<!-- 组件也可以是原生HTML元素的形式，以 is 特性扩展   -->
+        <hr>
+        <table border='1'>
+            <tr is="my-component1"></tr>
+            <tr is="my-component2"></tr>
+        </table>
+        <hr>
+        <input is="input1" v-model="input1">{{input1}}
+        <hr>
+        <textarea is="textarea1" v-model="textarea1"></textarea>{{textarea1}}
+        <hr>
+        <input is="checkbox_bike" v-model="checkbox_bike">{{checkbox_bike}}
+        <input is="checkbox_car" v-model="checkbox_car">{{checkbox_car}}
+        <hr> 男性：
+        <input type="radio" is="radio_sex1" v-model="radio1"/>
+        <br /> 女性：
+        <input type="radio" is="radio_sex2" v-model='radio1'/>
+        {{radio1}}
+        <hr>
+        <select is="select1" v-model="select1"></select>
+        {{select1}}
+    </div>
+    <script>
+    // Vue.extend()来创建一个组件构造器
+
+    // Vue.extend()来创建一个组件构造器
+
+    var select1 =Vue.extend({
+        template:'<select ><option selected>A</option><option>B</option><option>C</option></select>'
+    });
+    var radio_sex1 = Vue.extend({
+        template:'<input type="radio" checked="checked" name="Sex" value="male" />'
+    });
+    var radio_sex2=Vue.extend({
+        template:'<input type="radio" name="Sex" value="female" />'
+    });
+    var checkbox_bike = Vue.extend({
+        template: '<input type="checkbox" name="Bike">'
+    });
+    var checkbox_car = Vue.extend({
+        template: '<input type="checkbox" name="Car">'
+    });
+
+    var textarea1 = Vue.extend({
+        template: '<textarea rows="10" cols="30">台湾小凡使用 textarea</textarea>'
+    });
+    var input1 = Vue.extend({
+        template: '<input type="text" value="台湾小凡使用 textbox" id="input1" name="input1" >'
+    });
+    // tr1  等等这些都是一些组件
+    var tr1 = Vue.extend({
+        template: '<tr><td>项目1</td><td>{{a}}</td></tr>',
+        // 用Vue.extend({})  的。里面若是要用到 data数据的话，data得是一个 function 函数，且里面还得有一个 return
+        // 组件之间的data  是独立的，如下面组件data return 返回来的数据键值都是 a,是互不干扰的
+        data: function() {
+            return {//记得这里是要用return的
+                a: '学 vue ，还蛮开心的~'
+            }
+        }
+    });
+    var tr2 = Vue.extend({
+        template: '<tr><td>项目2</td><td>{{a}}</td></tr>',
+        data: function() {
+            return { //记得这里是要用return的
+                a: '每一个示例，都有价值'
+            }
+        }
+    });
+    // 要把这个构造器用作组件，需要用 Vue.component(tag,constructor)来注册
+    //  全局注册组件，tag为  my-component
+    // Vue.component('my-component',MyComponent)
+    var vm = new Vue({
+        el: '#app1',
+        // components里面的键值要跟  view层里面的元素app1下的  is值要对应( components里面的键值可以称之为tag  )
+        components: {  //组件要  注册过后 才可以在页面上用
+            'my-component1': tr1, //my-component1 这个组件 在页面上用tr1这个变量来表示
+            'my-component2': tr2,
+            'input1': input1,
+            'textarea1': textarea1,
+            'checkbox_bike': checkbox_bike,
+            'checkbox_car': checkbox_car,
+            'radio_sex1':radio_sex1,
+            'radio_sex2':radio_sex2,
+            'select1':select1
+        },
+        data: {
+            'input1': '',
+            'textarea1': '',
+            'checkbox_bike':'',
+            'checkbox_car':'',
+            'radio1':'',
+            'select1':''
+        }
+    });
+    </script>
+
+ <!-- -----------------------------------------------------------------------    -->
+
+    <div id="app2">
+        <pre>
+        控制台中，可以看到.
+        vue 的组件实例
+
+        (1)$options
+        可以看到 template
+
+        (2) _data
+         可以看到 data msg
+
+        (3)执行 myComponentInstance.$mount('#app2')
+        可以看到 这个 vue的组件实例，就挂载在 #app2
+        </pre>
+    </div>
+    <script>
+    var MyComponent = Vue.extend({
+        // 要渲染 html元素的话，就要记得加上  三个大括号。
+        template: '<div><h1>{{msg1}}</h1>我是 vue 的组件实例，有看到吗？{{{msg}}}</div>',
+        data: function() {
+            return { //记得这里是要用return的。
+                msg: '<font color="#ff0000">台湾小凡</font>',
+                msg1: '目前没有 vue component 的 规格文件…'
+            }
+        }
+    })
+    var myComponentInstance = new MyComponent()  // 这里是new一个组件实例
+
+    // 控制台中，可以看到.
+    // vue 的组件实例
+
+    // (1)$options
+    // 可以看到 template
+
+    // (2) _data
+    // 可以看到 data msg
+
+    // (3)执行 myComponentInstance.$mount('#app2')  
+    //  可以看到 这个 vue的组件实例，就挂载在 #app2，这里没将组件实例挂载在dom元素上，所以，页面上是不会有数据出来的。
+
+    // myComponentInstance.$mount('#app2')  可以看到 这个 vue的组件实例，就挂载在#app2上
+    console.log(myComponentInstance);
+
+    </script>
+
+<!-- ------------------------------------------------------------------- -->
+
+    <div id="app3">
+        <!--  组件在注册之后，便可以在父实例的模块中以自定义元素 <my-component>的形式使用。  -->
+        <!--  <my-component></my-component> 这个就是tag ，tag可以重复的 ，可以复制的    -->
+        <my-component></my-component>
+        <pre>
+            (1) 在 VUE.JS, 组件有一个观念，就是用很多的tag 来完成业务目的。
+            (2) tag, 可以在 v层重复使用很多次
+            (3) Vue.component , 是将 构造器注册在 html 的 tag 中，以便vue.js 渲染。
+            (4) Vue.extend, 是构造器，没有实例，可以在复制过程中，更改或加入内容予构造器中。
+        </pre>
+        <!--    <my-component2></my-component2>这个组件，在浏览器上渲染成的HTML结构是：  <div><h1>组件2号</h1></div>    -->
+
+        <!-- 注意组件的模版替换了自定义元素，自定义元素的作用只是作为一个挂载点。可以用实例选项replace 决定是否替换。 -->
+
+        <!-- tag, 可以在 v层重复使用很多次 -->
+        <my-component2></my-component2>
+        <my-component2></my-component2>
+        <my-component2></my-component2>
+    </div>
+
+     <!--  (1) 在 VUE.JS, 组件有一个观念，就是用很多的tag 来完成业务目的。
+     (2) tag, 可以在 v层重复使用很多次
+     (3) Vue.component , 是将 构造器注册在 html 的 tag 中，以便vue.js 渲染。
+     (4) Vue.extend, 是构造器，没有实例，可以在复制过程中，更改或加入内容予构造器中。 -->
+
+    <script>
+
+    //注意组件的模版替换了自定义元素，自定义元素的作用只是作为一个挂载点。可以用实例选项replace 决定是否替换。
+
+    var MyComponent = Vue.extend({
+        template: '<div><h1>{{msg1}}</h1>',
+        data: function() {
+            return {
+                msg1: '台湾小凡, 学习 vue.js'
+             }
+        }
+    })
+    // 全局注册组件，tag 为 my-component
+    // 全局注册组件，第一个参数为tag，只要看到是tag，它其实指的就是我们的HTML标签，第二个参数是构造器
+    Vue.component('my-component', MyComponent)
+
+    var MyComponent2 = Vue.extend({
+        template: '<div><h1>{{msg1}}</h1>',
+        data: function() {
+            return {
+                msg1: '组件2号'
+            }
+        }
+    })
+    // 全局注册组件，tag 为 my-component2
+    Vue.component('my-component2', MyComponent2)
+
+    var vm = new Vue({
+        el: '#app3'//el就是指定将vue实例挂载在哪个DOM上
+    })
+    </script>
+<!-- ---------------------------------------- -->
+
+    <pre>
+        Vue 实例时，使用 replace 有什么差别？
+    </pre>
+    <div id="replace" class="foo"></div>
+    <div id="insert" class="foo"></div>
+    <!-- 注意组件的模版替换了自定义元素，自定义元素的作用只是作为一个挂载点。可以用实例选项replace 决定是否替换。 -->
+    <script>
+    // 没用replace选项的，组件里的模版会替换replace掉自定义元素的。
+    var vm1 = new Vue({
+        el: '#replace',
+        template: '<p class="bar">replaced</p>'
+    })
+    // 用了replace选项的，组件里的模版是不会替换掉自定义元素的。(将组件里的模版塞到自定义元素里去的。相当于append)
+    var vm2 = new Vue({
+        el: '#insert',
+        replace: false,
+        template: '<p class="bar">inserted</p>'
+    })
+    </script>
+<!-- -------------------------------------------------------------------- -->
+
+    <!-- 局部注册 -->
+    <!--  局部注册就是 在一个大的构造器里面，将其他构造器注册到父组件中这样子  -->
+
+    <pre>
+        Vue.extend 构造父子组件
+    </pre>
+    <div id="app4">
+        <my-component></my-component>
+        <my-component></my-component>
+        <my-component></my-component>
+    </div>
+    <script>
+    //*********************************
+    //* Child
+    //*     定义：组件 span ，一点点的 data
+    //**********************************
+
+    // Child构造器
+    var Child = Vue.extend({
+        template: '<span>ABC{{msg}}</span>',
+        data: function() {
+            return {
+                msg: 'EFG'
+            }
+        }
+    })
+
+    //*********************************
+    //* br
+    //*     定义：组件 html 常用的 <br>，在此
+    //*     小凡特意当做子组件来使用
+    //**********************************
+
+    //  br构造器
+    var br = Vue.extend({
+        template:'<br>'
+    })
+
+    //**************************************************************
+    //* Parent
+    //*     定义：父组件，使用 br, child
+    //*          父组件，自已也可以使用 data
+    //*          跟子组件的data ，可以同名，因为这两个组件是独立的
+    //*          比如此例：msg，在 Parent, Chile, 都用到了，不互相影响
+    //**************************************************************
+
+    
+    //局部注册，用实例选项components 注册：
+    // 小凡：局部注册（Vue.extend）,就是小组件独立封装起来要使用时，
+    // 就是实例选项的components加上tag，来使用这个小组件.
+
+    // Parent 构造器
+    var Parent = Vue.extend({
+        template: '---Parent:{{msg}}<my-component></my-component>--- <br-component> </br-component>',
+        components: {//局部注册，用实例选项components 注册：
+             // 这里的这个<my-component> 只能用在父组件模板内
+
+            // 把其他构造器抓进来用，局部注册到 Parent组件中
+            'my-component': Child,  //这里的tag -> my-component 指的是 Parent 构造器 里面的tag，只能用在父组件的模版内的。
+            'br-component' : br
+
+        },
+        data :function(){
+            return {
+                msg:'台湾小凡'
+            }
+        }
+    })
+
+    var vm = new Vue({
+        el:'#app4',
+        components:{
+            'my-component': Parent  //这里的tag -> my-component 指的是元素 #app 下的 tag
+        }
+    })
+    </script>
+<!-- ------------------------------------------------------------------------------------------------------- -->
+
+
+    <pre>
+        注册语法糖
+    </pre>
+    <div id="app5">
+        <h3>vm</h3>
+        <my-component></my-component>
+    </div>
+    <hr>
+    <script>
+    // extend and register in one step
+    // 在单一的步骤，继承和注册，全局注册组件,  传入一个对象
+    // Vue.js 在背后自动调用 Vue.extend()
+
+    // 在一个步骤中扩展与注册。
+    Vue.component('my-component', {
+        template: '<div>全局注册组件</div>'
+    })
+    // 这里已经new Vue 实例化后，后面的代码（id为 #app51 后的构造器那些是不会再渲染的）
+    // 除非就是在这个new实例后，当渲染构造器后重新再 new一次（如后面的  new Parent({ })  才能渲染到后面的构造器的。）
+    var vm = new Vue({
+        el: '#app5'
+    });
+    </script>
+
+
+
+    <div id="app51">
+        <h3>vm1</h3>
+        <my-component></my-component>
+        <p>
+            {{firstName}} {{lastName}} {{alias}}
+        </p>
+        <my-components2></my-components2>
+    </div>
+    <script>
+    // 构造器MyComponent2
+    var MyComponent2 = Vue.extend({
+        template: '<div><h1>{{msg1}}</h1>',
+        data: function() {
+            return {
+                msg1: '组件2号'
+            }
+        }
+    });
+    // also works for local registration
+    // 本地注册，也可以这样子工作，注册语法糖，重点在这段
+    // 构造器中使用 components, 分别对指定的 tag，撰写或传入对象，来构造 组件。
+
+
+    // 构造器Parent
+    var Parent = Vue.extend({
+        components: {
+            'my-component': {
+                template: '<div>在构造器中，使用 componens 注册组件</div>'
+            },
+            'my-components2': MyComponent2
+        }
+    });
+
+    // 创建(new)一个 Parent 实例
+    var p = new Parent({
+        el: '#app51',
+        data: {
+            firstName: 'Walter',
+            lastName: 'White',
+            alias: 'Heisenberg'
+        }
+    });
+    // 挂载到元素上
+    //p.$mount('#app51')
+    </script>
+<!-- ------------------------------------------------------------------ -->
+
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    其他浏览器的解决方案 目前没有什么CSS的属性可以直接控制多行文本的省略显示，比较靠谱的办法应该就是利用相对定位在最后面加上一个省略号了，代码可以参考下面：
+
+    <!-- ---------------------------------------------------------------------------- -->
+
+    过这样会有一点问题：
+
+    需要知道显示的行数并设置行高才行；
+
+    IE6/7不支持after和content，需要添加一个标签来代替；
+
+    省略号的背景颜色跟文本背景颜色一样，并且可能会遮住部分文字，建议可以使用渐变的png背景图片代替。
+
+    <!-- ---------------------------------------------------------------------------- -->
+
+    <p>文本溢出我们经常用到的应该就是text-overflow:ellipsis了，相信大家也很熟悉，但是对于多行文本的溢出处理确接触的不是很多，最近在公司群里面有同事问到，并且自己也遇到过这个问题，所以专门研究过这个问题。文本溢出我们经常用到的应该就是text-overflow:ellipsis了，相信大家也很熟悉，但是对于多行文本的溢出处理确接触的不是很多，最近在公司群里面有同事问到，并且自己也遇到过这个问题，所以专门研究过这个问题。</p>
+    <style>
+        p {
+            position: relative;
+            line-height: 1.5em;
+            /* 高度为需要显示的行数*行高，比如这里我们显示两行，则为3 */
+            height: 3em;
+            overflow: hidden;
+        }
+
+        p:after {
+            content: "...";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 0 5px;
+            background-color: #fff;
+        }
+
+    </style>
+
+    <!-- ---------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

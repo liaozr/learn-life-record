@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+	 <style>
+    .component1 {
+        margin: 10px 10px 10px 100px;
+        display: block;
+        background-color: #ffcc66;
+    }
+
+    .component2 {
+        background-color: yellow;
+        padding: 10px;
+        margin: 10px;
+    }
+    </style>
+</head>
+<body>
+	<!-- 小凡：组件就是 tag嵌套。看到tag,就要想到这是一个组件   -->
+
+    <!-- 编译作用域 -->
+
+    <!-- 
+
+    <child-component> {{ msg }} </child-component> 
+
+    msg应该绑定到父组件的数据，还是绑定到子组件的数据？
+
+    答案是父组件，组件作用域简单地说是：
+
+    父组件模版的内容在父组件作用域内编译，子组件模版的内容在子组件作用域内编译
+
+     -->
+	<div id="vm">
+         <app>
+        </app>
+    </div>
+    <template id="app-header">
+        <div>
+            {{msg}}
+        </div>
+    </template>
+    <template id="app-footer">
+        <div>
+            {{msg}}
+        </div>
+    </template>
+    <template id="app">
+        <div>
+            <!--tag 的组成 demo -->
+            {{msg}}
+            <app-header></app-header>
+            <app-footer></app-footer>
+        </div>
+    </template>
+    <script>
+    Vue.component('app-header', {
+        template: '#app-header',
+        data: function() {
+            return {
+                msg: 'app-header 台湾小凡',
+            }
+        },
+    });
+
+    Vue.component('app-footer', {
+        template: '#app-footer',
+        data: function() {
+            return {
+                msg: 'app-footer 感谢 群友'
+            }
+        },
+    });
+
+    Vue.component('app', {
+        template: '#app',
+        data: function() {
+            return {
+                msg: '-app-'
+            }
+        },
+    });
+
+    var vm = new Vue({
+        el: '#vm',
+        data: {
+            msg: []
+        },
+    });
+    </script>
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+
+
+    <div id="vm2">
+        <app>
+        </app>
+    </div>
+
+    <template id="app-header1">
+        <div>
+            {{msg}}
+        </div>
+    </template>
+
+    <template id="app-footer1">
+        <div>
+            {{msg}}
+        </div>
+    </template>
+
+    <template id="app1">
+        <div>
+            {{msg}}
+
+            <!-- 父组件模版是不知道子组件里面的状态的 -->
+
+            <!--无效，因为 父组件作用域中，只能使用父组件的data-->
+
+            <!--父组件中无法得知子组件的 data，此行结果是 false，app-header 隐藏-->
+            <app-header v-show="someChildProperty"></app-header>
+            <app-footer></app-footer>
+        </div>
+    </template>
+
+    <script>
+    Vue.component('app-header', {
+        template: '#app-header1',
+        data: function() {
+            return {
+                'msg': 'app-header 台湾小凡',
+                'someChildProperty': true// 子组件的data，父组件无法直接使用
+             }
+        },
+    });
+
+    // 把app-header 这个组件换成下面这个写法就可以的了，因为someChildProperty是在正确的作用域内。
+    // Vue.component('app-header', {
+    //     template: '<div v-show="someChildProperty">{{msg}}</div>',
+    //     data: function() {
+    //         return {
+    //             'msg': 'app-header 台湾小凡 app-header',
+    //             'someChildProperty': true// 有效，因为是在正确的作用域内
+    //          }
+    //     },
+    // });
+
+
+    Vue.component('app-footer', {
+        template: '#app-footer1',
+        data: function() {
+            return {
+                msg: 'app-footer 感谢 群友',
+            }
+        },
+    });
+
+    Vue.component('app', {
+        template: '#app1',
+        data: function() {
+            return {
+                msg: '-app-',
+                showapp:true,
+                // someChildProperty:true   加上这句，app-header这个组件就显示出来的了。
+            }
+        },
+    });
+
+    var vm = new Vue({
+        el: '#vm2',
+        data: {
+            msg: []
+        },
+    });
+    </script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+
+    <div id="vm3">
+        <app>
+        </app>
+    </div>
+    <template id="app3">
+        <div>
+            {{msg}}
+            <child-component></child-component>
+
+            <!--无效，因为 父组件作用域中，只能使用父组件的data-->
+            <child-component1  v-show="someChildProperty" ></child-component1>
+        </div>
+    </template>
+    <script>
+    Vue.component('child-component', {
+
+        // 有效，因为是在正确的作用域内，使用全局注册，并且在此作用域使用 data
+        template: '<div v-show="someChildProperty">Child</div>',
+        data: function() {
+            return {
+                'someChildProperty': true
+            }
+        }
+    })
+    Vue.component('child-component1', {
+        // 无效，因为 父组件作用域中，无法使用子组件的data
+        template: '<div >Child-1</div>',
+        data: function() {
+            return {
+                'someChildProperty': true
+            }
+        },
+    });
+
+
+    Vue.component('app', {
+        template: '#app3',
+        data: function() {
+            return {
+                msg: '-app-',
+            }
+        },
+    });
+
+    var vm = new Vue({
+        el: '#vm3',
+        data: {
+            msg: []
+        },
+    });
+    </script>
+</body>
+</html>

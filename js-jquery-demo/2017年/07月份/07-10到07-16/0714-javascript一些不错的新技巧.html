@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+    经典的函数写法易于阅读，但是一旦将这样的函数放进回调中就会略显冗长，而且会造成一些困惑。
+
+    常规写法：
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+    <script>
+
+        function sayHello(name) {
+            console.log('Hello', name);
+        }
+
+        setTimeout(function() {
+            console.log('Loaded')
+        }, 2000);
+
+        list.forEach(function(item) {
+            console.log(item);
+        });
+
+// ------------------------------------------------------------------------------
+
+        // 速记法：
+
+        sayHello = name => console.log('Hello', name);
+
+        setTimeout(() => console.log('Loaded'), 2000);
+
+        list.forEach(item => console.log(item));
+
+    </script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+Array.find 速记法
+
+如果你曾经使用原生 JavaScript 写一个查找函数，你可能会使用 for 循环。
+
+在 ES6 中，你可以使用数组的一个新方法 find()。
+
+<script>
+
+    const pets = [
+        {
+            type: 'Dog',
+            name: 'Max'
+        },
+        {
+            type: 'Cat',
+            name: 'Karl'
+        },
+        {
+            type: 'Dog',
+            name: 'Tommy'
+        }
+    ]
+
+    function findDog(name) {
+        for (let i = 0; i < pets.length; ++i) {
+            if (pets[i].type === 'Dog' && pets[i].name === name) {
+                return pets[i];
+            }
+        }
+    }
+
+    // 速记法：
+    pet = pets.find(pet => pet.type === 'Dog' && pet.name === 'Tommy');
+
+    console.log(pet); // { type: 'Dog', name: 'Tommy' }
+
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+19. 双位取反运算符速记法
+
+逐位运算符是你在刚学习 JavaScript 时会学到的一个特性，
+
+但是如果你不处理二进制的话，基本上是从来都不会用上的。
+
+但是，双位运算符有一个非常实用的使用场景：
+
+可以用来代替 Math.floor。双位取反运算符的优势在于它执行相同操作的速度更快。
+
+你可以在这里查看更多关于位运算符的知识。
+
+常规写法：
+
+<script>
+
+    Math.floor(4.9) === 4 //true
+
+    // 速记法：
+    ~~4.9 === 4 //true
+
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,203 @@
+/**
+ * Adobe Edge: symbol definitions
+ */
+(function($, Edge, compId){
+//images folder
+var im='images/';
+
+var fonts = {};
+
+
+var resources = [
+];
+var symbols = {
+"stage": {
+   version: "2.0.1",
+   minimumCompatibleVersion: "2.0.0",
+   build: "2.0.1.268",
+   baseState: "Base State",
+   initialState: "Base State",
+   gpuAccelerate: false,
+   resizeInstances: false,
+   content: {
+         dom: [
+         {
+            id:'bg',
+            type:'image',
+            rect:['185px','0px','543px','250px','auto','auto'],
+            fill:["rgba(0,0,0,0)",im+"bg.jpg",'0px','0px']
+         },
+         {
+            id:'hl',
+            display:'none',
+            type:'image',
+            rect:['209px','16px','200px','41px','auto','auto'],
+            fill:["rgba(0,0,0,0)",im+"hl.png",'0px','0px']
+         },
+         {
+            id:'k',
+            display:'none',
+            type:'image',
+            rect:['266px','55px','143px','26px','auto','auto'],
+            fill:["rgba(0,0,0,0)",im+"k.png",'0px','0px']
+         },
+         {
+            id:'p',
+            display:'none',
+            type:'image',
+            rect:['385px','3px','151px','90px','auto','auto'],
+            fill:["rgba(0,0,0,0)",im+"p.png",'0px','0px']
+         },
+         {
+            id:'pl',
+            display:'none',
+            type:'image',
+            rect:['385px','3px','151px','90px','auto','auto'],
+            fill:["rgba(0,0,0,0)",im+"pl.png",'0px','0px']
+         },
+         {
+            id:'r4',
+            display:'none',
+            type:'image',
+            rect:['187px','75px','200px','13px','auto','auto'],
+            fill:["rgba(0,0,0,0)",im+"r4.png",'0px','0px']
+         },
+         {
+            id:'t',
+            type:'image',
+            rect:['0px','0px','226px','90px','auto','auto'],
+            fill:["rgba(0,0,0,0)",im+"t.png",'0px','0px']
+         },
+         {
+            id:'b',
+            type:'image',
+            rect:['520px','25px','207px','64px','auto','auto'],
+            fill:["rgba(0,0,0,0)",im+"b.png",'0px','0px']
+         },
+         {
+            id:'Border',
+            type:'rect',
+            rect:['0px','0px','726px','88px','auto','auto'],
+            fill:["rgba(192,192,192,0.00)"],
+            stroke:[1,"rgba(153,153,153,1.00)","solid"]
+         }],
+         symbolInstances: [
+
+         ]
+      },
+   states: {
+      "Base State": {
+         "${_b}": [
+            ["style", "left", '520px'],
+            ["style", "top", '25px']
+         ],
+         "${_Border}": [
+            ["color", "background-color", 'rgba(192,192,192,0.00)'],
+            ["style", "top", '0px'],
+            ["style", "border-width", '1px'],
+            ["color", "border-color", 'rgba(153,153,153,1.00)'],
+            ["style", "height", '88px'],
+            ["style", "border-style", 'solid'],
+            ["style", "left", '0px'],
+            ["style", "width", '726px']
+         ],
+         "${_bg}": [
+            ["style", "top", '-123px'],
+            ["style", "opacity", '0'],
+            ["style", "left", '184px'],
+            ["style", "height", '211px']
+         ],
+         "${_r4}": [
+            ["style", "top", '89px'],
+            ["style", "opacity", '0'],
+            ["style", "left", '185px'],
+            ["style", "display", 'none']
+         ],
+         "${_p}": [
+            ["style", "top", '0px'],
+            ["transform", "scaleY", '0.01'],
+            ["style", "display", 'none'],
+            ["style", "left", '385px'],
+            ["transform", "scaleX", '0.01']
+         ],
+         "${_hl}": [
+            ["style", "top", '11px'],
+            ["transform", "scaleY", '0.01'],
+            ["style", "display", 'none'],
+            ["style", "-webkit-transform-origin", [63,50], {valueTemplate:'@@0@@% @@1@@%'} ],
+            ["style", "-moz-transform-origin", [63,50],{valueTemplate:'@@0@@% @@1@@%'}],
+            ["style", "-ms-transform-origin", [63,50],{valueTemplate:'@@0@@% @@1@@%'}],
+            ["style", "msTransformOrigin", [63,50],{valueTemplate:'@@0@@% @@1@@%'}],
+            ["style", "-o-transform-origin", [63,50],{valueTemplate:'@@0@@% @@1@@%'}],
+            ["style", "left", '209px'],
+            ["transform", "scaleX", '0.01']
+         ],
+         "${_Stage}": [
+            ["color", "background-color", 'rgba(255,255,255,1)'],
+            ["style", "width", '728px'],
+            ["style", "height", '90px'],
+            ["style", "overflow", 'hidden']
+         ],
+         "${_t}": [
+            ["style", "left", '0px'],
+            ["style", "top", '0px']
+         ],
+         "${_k}": [
+            ["style", "top", '75px'],
+            ["style", "display", 'none'],
+            ["style", "opacity", '0'],
+            ["style", "left", '267px'],
+            ["style", "-webkit-transform-origin", [63,50], {valueTemplate:'@@0@@% @@1@@%'} ],
+            ["style", "-moz-transform-origin", [63,50],{valueTemplate:'@@0@@% @@1@@%'}],
+            ["style", "-ms-transform-origin", [63,50],{valueTemplate:'@@0@@% @@1@@%'}],
+            ["style", "msTransformOrigin", [63,50],{valueTemplate:'@@0@@% @@1@@%'}],
+            ["style", "-o-transform-origin", [63,50],{valueTemplate:'@@0@@% @@1@@%'}]
+         ],
+         "${_pl}": [
+            ["style", "top", '3px'],
+            ["style", "opacity", '0'],
+            ["style", "left", '385px'],
+            ["style", "display", 'none']
+         ]
+      }
+   },
+   timelines: {
+      "Default Timeline": {
+         fromState: "Base State",
+         toState: "",
+         duration: 6500,
+         autoPlay: true,
+         timeline: [
+            { id: "eid290", tween: [ "style", "${_r4}", "display", 'block', { fromValue: 'none'}], position: 6250, duration: 0 },
+            { id: "eid590", tween: [ "style", "${_k}", "top", '51px', { fromValue: '75px'}], position: 3000, duration: 1000, easing: "easeOutQuart" },
+            { id: "eid562", tween: [ "style", "${_bg}", "opacity", '1', { fromValue: '0'}], position: 0, duration: 1000 },
+            { id: "eid582", tween: [ "style", "${_hl}", "display", 'block', { fromValue: 'none'}], position: 1000, duration: 0 },
+            { id: "eid294", tween: [ "style", "${_r4}", "top", '75px', { fromValue: '89px'}], position: 6250, duration: 250, easing: "easeOutCubic" },
+            { id: "eid587", tween: [ "transform", "${_p}", "scaleX", '1', { fromValue: '0.01'}], position: 2000, duration: 1500, easing: "easeOutElastic" },
+            { id: "eid588", tween: [ "style", "${_k}", "display", 'block', { fromValue: 'none'}], position: 3000, duration: 0, easing: "easeOutElastic" },
+            { id: "eid507", tween: [ "style", "${_bg}", "top", '-57px', { fromValue: '-123px'}], position: 0, duration: 6500 },
+            { id: "eid586", tween: [ "transform", "${_p}", "scaleY", '1', { fromValue: '0.01'}], position: 2000, duration: 1500, easing: "easeOutElastic" },
+            { id: "eid591", tween: [ "style", "${_pl}", "display", 'block', { fromValue: 'none'}], position: 4000, duration: 0, easing: "easeOutQuart" },
+            { id: "eid592", tween: [ "style", "${_pl}", "display", 'none', { fromValue: 'block'}], position: 5750, duration: 0, easing: "easeOutQuart" },
+            { id: "eid293", tween: [ "style", "${_r4}", "opacity", '1', { fromValue: '0'}], position: 6250, duration: 250, easing: "easeOutCubic" },
+            { id: "eid583", tween: [ "transform", "${_hl}", "scaleY", '1', { fromValue: '0.01'}], position: 1000, duration: 1500, easing: "easeOutElastic" },
+            { id: "eid593", tween: [ "style", "${_pl}", "opacity", '0.8', { fromValue: '0'}], position: 4000, duration: 250, easing: "easeInQuart" },
+            { id: "eid594", tween: [ "style", "${_pl}", "opacity", '0', { fromValue: '0.8'}], position: 4250, duration: 1500, easing: "easeOutQuart" },
+            { id: "eid589", tween: [ "style", "${_k}", "opacity", '1', { fromValue: '0'}], position: 3000, duration: 1000, easing: "easeOutQuart" },
+            { id: "eid585", tween: [ "style", "${_p}", "display", 'block', { fromValue: 'none'}], position: 2000, duration: 0 },
+            { id: "eid584", tween: [ "transform", "${_hl}", "scaleX", '1', { fromValue: '0.01'}], position: 1000, duration: 1500, easing: "easeOutElastic" }         ]
+      }
+   }
+}
+};
+
+
+Edge.registerCompositionDefn(compId, symbols, fonts, resources);
+
+/**
+ * Adobe Edge DOM Ready Event Handler
+ */
+$(window).ready(function() {
+     Edge.launchComposition(compId);
+});
+})(jQuery, AdobeEdge, "EDGE-1235320427");

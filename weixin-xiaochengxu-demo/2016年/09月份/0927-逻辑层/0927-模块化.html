@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<!-- 文件作用域 -->
+
+<!-- 
+在 javaScript 文件中声明的变量和函数只在该文件中有效；不同的文件中可以声明相同名字的变量和函数，不会互相影响。
+
+通过全局函数 getApp() 可以获取全局的应用实例，如果需要全局的数据可以在 App() 中设置，
+
+如：
+-->
+<script>
+
+// app.js
+App({
+  globalData: 1
+})
+
+// a.js
+// The localValue can only be used in file a.js.
+var localValue = 'a'
+// Get the app instance.
+var app = getApp()
+// Get the global data and change it.
+app.globalData++
+
+// b.js
+// You can redefine localValue in file b.js, without interference with the localValue in a.js.
+var localValue = 'b'
+// If a.js it run before b.js, now the globalData shoule be 2.
+console.log(getApp().globalData)
+
+
+</script>
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+<!-- 模块化 -->
+
+<script> 
+
+// 模块化
+// 我们可以将一些公共的代码抽离成为一个单独的 js 文件，
+// 作为一个模块。模块只有通过 module.exports 才能对外暴露接口。
+
+// common.js
+function sayHello(name) {
+  console.log('Hello ' + name + '!')
+}
+module.exports = {
+  sayHello: sayHello
+}
+
+// ​在需要使用这些模块的文件中，使用 require(path) 将公共代码引入。
+var common = require('common.js')
+
+Page({
+  helloMINA: function() {
+    common.sayHello('MINA')
+  }
+})
+
+</script>
+
+<!-- ---------------------------------------------------------------------- -->
+
+</body>
+</html>

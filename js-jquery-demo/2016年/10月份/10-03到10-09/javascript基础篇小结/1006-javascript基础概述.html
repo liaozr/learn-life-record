@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+script脚本推荐放在最下边好处：防止因网络问题，页面加载时间长，
+出现空白；即便网络问题，浏览器也把DOM加载渲染完成，等待从服务端下载完js脚本，出现效果
+
+
+css不放在最下面原因通俗地讲：好比先穿好衣服在出去，浏览器先把css样式准备好，
+在加载结构层，使得页面有样子；如果放在下面，因为页面是从上往下加载，没有css，
+就剩下裸露的标签，很难看，使得用户体验不好
+
+<!-- --------------------------------------------------------------------------------- -->
+
+数据类型
+
+如何判断js中的数据类型：
+
+<script>
+// 最常见的判断方法：typeof
+
+alert(typeof a)   ------------> string
+alert(typeof b)   ------------> number
+alert(typeof c)   ------------> object
+alert(typeof d)   ------------> object
+alert(typeof e)   ------------> function
+alert(typeof f)   ------------> function
+</script>
+
+<script>
+
+// 其中typeof返回的类型都是字符串形式，需注意，例如：
+alert(typeof a == "string") -------------> true
+alert(typeof a == String) ---------------> false
+
+// 另外typeof可以判断function的类型；在判断除Object类型的对象时比较方便。
+
+// 判断已知对象类型的方法：instanceof
+
+alert(c instanceof Array) ---------------> true
+alert(d instanceof Date) 
+alert(f instanceof Function) ------------> true
+alert(f instanceof function) ------------> false
+
+// 注意：instanceof后面一定要是对象类型，并且大小写不能错，该方法适合一些条件选择或分支。
+</script>
+
+<!-- ------------------------------------------------------------------ -->
+
+<!-- Javascript的数据类型有六种（ES6新增了第七种Symbol） -->
+
+数值（number）：整数和小数（比如1和3.14）
+字符串（string）：字符组成的文本（比如"Hello World"）
+布尔值（boolean）：true（真）和false（假）两个特定值
+undefined：表示 未定义 或不存在，即此处目前没有任何值
+null：表示空缺，即此处应该有一个值，但目前为空
+对象（object）：各种值组成的集合
+
+<!-- -------------------------------------------------------------------- -->
+
+<!-- 数据类型转换 -->
+
+转换函数
+
+toString() 转换为字符串，在JavaScript中所有数据类型都可以转换为string类型
+
+parseInt()解析出一个string或者number类型的整数部分，如果没有可以转换的部分，则返回NaN（not a number）
+<script>
+      var n1 = "12";
+      var n2 = "23hello";
+      var n3 = "hello";
+      parseInt(n1); //12
+      parseInt(n2); //23
+      parseInt(n3); //NaN
+</script>
+
+parseFloat()解析出一个string的浮点数部分，如果没有可以转换的部分，则返回NaN（not a number）
+
+<!-- -------------------------------------------- -->
+
+强制类型转换:
+
+Boolean(value)- 把给定的值转换成Boolean型
+
+Number(value)-把给定的值转换成数字（可以是整数或浮点数）
+
+String(value)- 把给定的值转换成字符串
+
+<!-- -------------------------------------------------- -->
+
+隐式转换:
+<script>
+数字＋字符串：数字转换为字符串 console.log(12+"12"); //1212
+数字＋布尔值：true转换为1，false转换为0  console.log(12+true); //13
+字符串＋布尔值：布尔值转换为true或false console.log("hello"+true); //hellotrue
+布尔值＋布尔值 console.log(true+true); //2
+</script>
+
+<!-- ----------------------------------------------------------------------- -->
+
+null和undefined
+
+undefined 表示一种未知状态，声明了但没有初始化的变量，变量的值时一个未知状态。访问不存在的属性或对象window.xxx）方法没有明确返回值时，返回值是一个undefined.当对未声明的变量应用typeof运算符时，显示为undefined。
+
+null表示尚未存在的对象,null是一个有特殊意义的值。可以为变量赋值为null，此时变量的值为“已知状态”(不是undefined)，即null。（用来初始化变量，清除变量内容，释放内存）
+
+<script>
+
+ undefined==null   //结果为true,但含义不同。
+
+ undefined===null //false,两者类型不一致，前者为“undefined”，后者为“object”
+
+</script>
+ 
+ <!-- ------------------------------------------------------------------------- -->
+
+<!-- javascript脚本执行顺序 -->
+
+第一步定义： 分为var定义 和函数定义function
+
+第二步执行： 其他所有
+
+先从上往下定义完所有的后，再从上往下执行 除了var  function定义外的
+其他都是执行 如：赋值 函数调用
+在栈里面找到的，就不去堆里面找，因为栈空间小，就近原则【总之：先在栈里面找，找不到再去堆里面找】在栈里面开辟，就能找到堆里面的地址 如：var b = function(){}
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

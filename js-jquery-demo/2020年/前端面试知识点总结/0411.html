@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+
+ ::after是CSS3中伪元素写法，区别于
+
+ CSS2中:的伪类写法，
+
+ :after是css2写法，
+
+ ::after是css3写法。用于向渲染的元素后添加内容，这些添加不会出现在DOM中，仅在css渲染层加入。
+
+
+-----------------------------------------------------------------------------------------------
+
+
+使用 immediate: true 在初始化时触发watcher
+
+Vue Watchers 是添加高级功能（例如，API调用）的好方法，该功能可以在观察值发生变化时运行。
+默认情况下，观察者不会在初始化时运行。根据你的功能，这可能意味着某些数据不会完全初始化。
+watch: {
+    title: (newTitle, oldTitle) => {
+      console.log("Title changed from " + oldTitle + " to " + newTitle)
+    }
+}
+复制代码如果你需要 wather 在实例初始化后立即运行，那么你所要做的就是将 
+
+wather 转换为具有 handler(newVal, oldVal) 函数以及即时 immediate: true 的对象。
+
+watch: {
+    title: {
+      immediate: true,
+      handler(newTitle, oldTitle) {
+        console.log("Title changed from " + oldTitle + " to " + newTitle)
+      }
+    }
+}
+
+-----------------------------------------------------------------------------------------------
+
+
+把所有Props传到子组件很容易
+
+这是一个非常酷的功能，可让你将所有 props 
+
+从父组件传递到子组件。如果你有另一个组件的包装组件，这将特别方便。所以，与其把所有的 props 
+
+一个一个传下去，你可以利用这个，把所有的 props 一次传下去：
+
+<template>
+
+  <childComponent v-bind="$props" />
+
+</template>
+
+代替：
+
+<template>
+
+  <childComponent :prop1="prop1" :prop2="prop2" :prop="prop3" :prop4="prop4" ... />
+
+</template>
+
+-----------------------------------------------------------------------------------------------
+
+自定义 v-model
+
+默认情况下，v-model 
+是 @input 事件侦听器和 :value 
+
+属性上的语法糖。但是，你可以在你的Vue组件中指定一个模型属性来定义使用什么事件和value属性——非常棒！
+
+export default: {
+  model: {
+    event: 'change',
+    prop: 'checked'  
+  }
+}
+
+----------------------------------------------------------------------------------------
+
+小程序分包
+
+
+打包原则
+
+1.声明 subPackages 后，将按 subPackages 配置路径进行打包，subPackages 配置路径外的目
+
+2.录将被打包到 app（主包） 中
+
+3.app（主包）也可以有自己的 pages（即最外层的 pages 字段）
+
+4.subPackage 的根目录不能是另外一个 subPackage 内的子目录
+
+5.tabBar 页面必须在 app（主包）内
+
+
+
+</body>
+</html>

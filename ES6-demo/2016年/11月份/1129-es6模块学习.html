@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+export 命令
+
+ES6的模块功能主要由import和export两个命令组成,import用于导入其他模块提供的功能,export用于提供模块对外的一个接口.
+
+export可以输出变量
+export可以输出函数
+export可以输出类
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+import命令
+
+<script>
+     import {firstName, lastName, year} from './profile';
+</script>
+
+import命令接受一个对象（用大括号表示），里面指定要从其他模块导入的变量名。大括号里面的变量名，必须与被导入模块(export)对外接口的名称相同。
+
+import命令具有提升效果，会提升到整个模块的头部，首先执行
+
+如果想为输入的变量重新取一个名字，import命令要使用as关键字，将输入的变量重命名。
+
+<script>
+    import { lastName as surname } from './profile';
+</script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+模块的整体加载
+
+用星号（*）指定一个对象，所有输出值都加载在这个对象上面。
+
+<script>
+    import * as circle from './circle'; //整体加载circle.js文件
+</script>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+export default命令
+
+由于使用import加载模块需要知道被加载的变量或者方法,为了更加方便使用import命令,
+
+通过了 export default.表示模块指定默认输出.
+
+<script>
+    // a.js 默认输出一个函数
+    export default function() {
+        console.log('foo');
+    }
+    // b.js引入a.js
+    import xx from './a.js'
+    //由于引入是匿名函数可以自定义名字xx
+</script>
+
+如果export default默认输出的不是匿名函数
+
+<script>
+    // a.js
+    export default function foo() {
+        console.log(10)
+    }
+    // b.js导入a.js
+    import foo from 'foo'
+</script>
+
+一个模块只有一个默认输出export default
+
+<!-- --------------------------------------------------------------------------------- -->
+
+ES6模块加载特点
+
+CommonJS加载输出的其实是值得拷贝,一旦这个值已经输出,该模块再发生变化,不会影响输出的该值.
+
+ES6模块输出的是动态引用,原始值发生变化,值也变化
+
+CommonJS模块加载特点
+通过require()命令,第一次加载一个脚本,会执行整个脚本,并且生成一个对象,这个对象有很多属性,具体看之前写的CommonJS规范,下一次再加载同一脚本,直接从缓存加载.
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+跨模块常量
+
+<script>
+    export const A = 1;
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+</html>

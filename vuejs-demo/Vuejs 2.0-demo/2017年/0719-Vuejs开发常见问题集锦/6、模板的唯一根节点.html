@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  模板的唯一根节点
+  　　与 JSX 相同，组件中的模板只能有一个根节点，即下面这种写法是 错误 的：
+
+  <template>
+      <h1>Title</h1>
+      <article>Balabala...</article>
+  </template>
+
+
+  我们需要用一个块级元素把他包裹起来：
+
+  <template>
+
+    <div>
+        <h1>Title</h1>
+        <article>Balabala...</article>
+    </div>
+
+  </template>
+
+
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+//--------------------------------------------------------------------------------------------------------------------------------------------
+
+        var msg = {
+            hot: {
+                text: '热门',
+                items: []
+            },
+            B:{
+              text: 'B',
+              items: []
+            }
+        }
+
+        var key = 'A';
+
+        if (!msg[key]) {
+            msg[key] = {
+                text: key,
+                items: []
+            }
+        }
+
+        console.log('cccccccccccc')
+        console.log(msg)
+        console.log(msg.A.text) // A
+
+        // 打印出 的数据为
+        // msg={
+        //   hot: {
+        //       text: '热门',
+        //       items: []
+        //   },
+        //   A: {
+        //       text: 'A',
+        //       items: []
+        //   }
+        // }
+
+//---------------------------------------------------------------------------------------------------------------------------------------------
+
+        // 为了得到有序列表，我们需要处理map，因为对象的遍历 是无序的 ,把 对象 带 map 的 形 式 转换 成 数组的 形式
+
+         let hot=[]
+         let ret=[]
+         const HOT_NAME='热门'
+
+         for(let key in msg){
+             let val =msg[key]
+             if(val.text.match(/[a-zA-Z]/)){
+                 ret.push(val)
+             }else if(val.text == HOT_NAME){
+                 hot.push(val)
+             }
+         }
+         ret.sort((a,b) =>{
+             return a.text.charCodeAt(0) - b.text.charCodeAt(0)
+         })
+
+         console.log( JSON.stringify( hot.concat(ret) ) )
+
+        //  打印出的数据为：
+
+        // [{"text":"热门","items":[]},{"text":"A","items":[]},{"text":"B","items":[]}]
+
+//---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+<template>
+    <scroll :lists='result' :pullup='pullup' @scrollToEnd="searchMore" :beforeScroll='beforeScroll' @beforeScroll="listScroll" ref='scroll' class="suggest">
+        <ul class="suggest-list">
+            <li @click='selectItem(item)' v-for="item in result" :key='item.id' class="suggest-item">
+                <div class="icon">
+                    <i :class="getIconCls(item)"></i>
+                </div>
+                <div class="name">
+                    <p class="text" v-html="getDisplayName(item)"></p>
+                </div>
+            </li>
+            <loading v-show='hasMore' title=''></loading>
+        </ul>
+        <div v-show='!hasMore && !result.length' class="no-result-wrapper">
+             <noResult title='抱歉，暂无搜索结果'></noResult>
+        </div>
+    </scroll>
+
+</template>
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+ <script type="text/ecmascript-6">
+
+  import {search} from '@a/search'
+  import{ERR_OK} from 'assets/js/config'
+  import {createSong} from 'assets/js/song'
+  import scroll from '@c/scroll/scroll'
+  import loading from '@c/loading/loading'
+  import Singer from 'assets/js/singer'
+  import noResult from '@c/noResult/noResult'
+
+  const TYPE_SINGER = 'singer'
+
+  const perpage = 20 // 表示调用一次接口，返回的数据有几条
+
+
+  export default {
+     data(){
+         return{
+            page:1,
+            result:[],
+            pullup:true,
+            beforeScroll:true,
+            hasMore:true // 标志位
+         }
+     },
+     components:{
+        scroll,
+        loading,
+        noResult
+     },
+     props:{
+         query:{
+             type:String,
+             default:''
+         },
+         showSinger:{
+             type:Boolean,
+             default:true
+         }
+     },
+     methods:{
+         listScroll(){
+           this.$emit('listScroll')
+         }
+     }
+  }
+</script>
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+父组件 search.vue 上
+
+<input ref="search" type="text">
+
+<suggest @listScroll='blurInput' @select="saveSearch" :query='query' ref='suggest' ></suggest>
+
+<script>
+
+    blurInput() {
+        this.$refs.search.blur()
+    }
+
+</script>
+
+<!-- ------------------------------------------------------------------------------------------------ -->

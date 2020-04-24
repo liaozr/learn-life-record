@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数组的扩张</title>
+	<style>
+		.btn{
+			width: 100px;
+			height: 40px;
+			background-color: #9da;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		//Array.from()类数组转化为数组;
+		//find 找到当前数组里面第一个满足条件的值
+		//findIndex找到当前数组里面第一个满足条件值得索引
+		function likeToAry(likeAry){
+			var ary=[];
+			try{
+				ary=[].slice.call(likeAry);
+			}catch(e){
+				for(var i=0;i<likeAry.length;i++){
+					ary.push(likeAry[i]);
+				}
+			}
+			return ary;
+		}
+		var ul=document.createElement('ul');
+		for(var i=0;i<20;i++){
+			var li=document.createElement('li');
+			li.innerHTML=i;
+			ul.appendChild(li);
+		}
+		document.body.appendChild(ul);
+		var btn=document.createElement('button');
+		btn.className="btn";
+		btn.innerHTML="登录";
+		document.body.appendChild(btn);
+		btn.onclick=()=>{
+			var oLis=document.getElementsByTagName('li');
+			oLis=Array.from(oLis);
+			oLis.sort(function(a,b){
+				return parseInt(b.innerHTML)-parseInt(a.innerHTML);
+			});
+			for(var j=0;j<oLis.length;j++){
+				ul.appendChild(oLis[j]);
+			}
+			//阻止默认事件
+			return false;
+		}
+		var aryFind=[1,2,3,4,5,6,7];
+		var num=aryFind.find(function(val,index,ary){
+			return val>4;
+		});
+		console.log(num);
+	</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

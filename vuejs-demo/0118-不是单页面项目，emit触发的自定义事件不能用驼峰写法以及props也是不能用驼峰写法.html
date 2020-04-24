@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+</head>
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+
+  因为HTML不区分大小写
+  因为HTML不区分大小写
+  因为HTML不区分大小写
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+
+  如果你写在vue模板里应该可以识别，但是尽量不要这么干。用中划线代替，会自动转驼峰
+  如果你写在vue模板里应该可以识别，但是尽量不要这么干。用中划线代替，会自动转驼峰
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+
+  所以 在普通的项目中，不是单页面项目，不是写在template标签里面的。
+  props以及 emit触发的事件的名字名称建议 全都用小写，不能用驼峰的写法的。
+
+  所以 在普通的项目中，不是单页面项目，不是写在template标签里面的。
+  props以及 emit触发的事件的名字名称建议 全都用小写，不能用驼峰的写法的。
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+
+<body>
+
+    <div id="app">
+        <scroll :bbtext='aa' @clickevent='shijian'></scroll>
+    </div>
+
+    <template id='scroll'>
+        <div class="scroll" @click='bbtext2' >这是scroll组件{{bbtext}}</div>
+    </template>
+
+    <script>
+    
+        Vue.component('scroll', {
+            template: "#scroll",
+            props: {
+                bbtext: {
+                    type: String,
+                    default: ""
+                }
+            },
+            data() {
+                return {
+
+                }
+            },
+            methods: {
+                bbtext2() {
+                    this.$emit('clickevent')
+                }
+            }
+        })
+
+        new Vue({
+            el: '#app',
+            data: {
+                aa: '来自于父组件的数据'
+            },
+            methods: {
+                shijian() {
+                    console.log(1111)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

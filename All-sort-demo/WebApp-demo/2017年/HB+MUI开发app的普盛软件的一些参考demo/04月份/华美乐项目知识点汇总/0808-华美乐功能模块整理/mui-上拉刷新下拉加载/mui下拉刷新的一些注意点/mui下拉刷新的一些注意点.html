@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+
+<body>
+
+    <!-- ------------------------------------------------------------------------------------------------------------- -->
+
+    <!-- 基础页面代码 -->
+
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <span class="title">商品清单</span>
+    </header>
+
+    <div class="mui-content"></div>
+
+    <script src="../js/mui.min.js"></script>
+    <script type="text/javascript">
+        //启用双击监听
+        mui.init({
+            gestureConfig: {
+                doubletap: true
+            },
+            subpages: [{
+                url: 'jiazhuang-qingdan-sub.html',
+                id: 'jiazhuang-qingdan-sub.html',
+                styles: {
+                    top: '45px',
+                    bottom: '0px',
+                }
+            }]
+        });
+
+        var contentWebview = null;
+
+        document.querySelector('header').addEventListener('doubletap', function() {
+
+            if (contentWebview == null) {
+                contentWebview = plus.webview.currentWebview().children()[0];
+            }
+            contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+
+        });
+    </script>
+
+    <!-- ------------------------------------------------------------------------------------------------------------- -->
+
+    <!-- 第二个下拉刷新的页面 -->
+
+    这里要注意的是  第二个下拉刷新的页面，要注意的的是最外层元素的 样式问题，因为经发现，样式不对的话，下拉刷新也是会有问题的
+
+    首先 id值 为 pullrefresh 这个肯定要有，其次，class的值为 mui-content mui-scroll-wrapper  这两个也是要有的，
+
+    其中，class类为  mui-scroll-wrapper 这个是 必须要有的，否则 ，ios的下拉刷新 会出现划不动的现象
+
+    所以，建议的 页面布局 就是 下面 这样子的。
+
+--------------------------------------------------------------------------------------------------
+
+    其中，还要注意的是， id为 pullrefresh 的容器 下，要有 一个 最外层 的容器 包着
+
+    内容部分，如下面的  mui-scroll main 部分，就是 包着 内容部分，
+
+    不然，在 ios 机子中，会出现一些兼容性的问题的。
+
+
+    其中，还要注意的是， id为 pullrefresh 的容器 下，要有 一个 最外层 的容器 包着
+
+    内容部分，如下面的  mui-scroll main 部分，就是 包着 内容部分，
+
+    不然，在 ios 机子中，会出现一些兼容性的问题的。
+
+--------------------------------------------------------------------------------------------------
+
+    <div id="pullrefresh" class="mui-content mui-scroll-wrapper" v-show='!dataflag && !showloading' style='display: none;'>
+        <div class="mui-scroll main">
+            <!--  这里写 第二个页面下拉刷新的内容-->
+
+            这里 section 这里的样式 也是不能写 style='display:none;' 的了，否则下拉刷新，下拉加载
+            的布局也是会出现异常情况的。
+
+            这里面下拉刷新的内容layout部分 也是不能在加上 style=display:none;的了，否则下拉刷新，下拉加载
+            的布局也是会出现异常情况的。
+
+            <section class="y-sdcl-sec under-top" style='margin-top: 0rem;'>
+      					<div v-for="(index,item) in dataArr"  @tap.stop.prevent="goToSonPage(item,index)" :key="item.id">
+
+      					</div>
+    				</section>
+
+        </div>
+    </div>
+
+-----------------------------------------------------------------------------------------------------------------------
+
+    还有个注意点就是：
+
+    用了mui的下拉刷新后，在 vue的ready或者mounted 钩子里面 是不用 在默认  执行  默认的 ajax 事件的了。
+
+    否则会出现 列表  拉不动的情况的。
+
+    <script>
+        var vm = new Vue({
+            el: 'body',
+            data: {
+                dataArr: [
+
+                ],
+                dataflag: true,
+                showloading: true,
+                inpValue: '',
+                sousaoflag: false
+            },
+            ready: function() {
+
+                // this.$nextTick(function(){
+                // 	 init(this.inpValue);
+                // })
+                
+            }
+        });
+    </script>
+
+-----------------------------------------------------------------------------------------------------------------------
+
+    <script>
+
+        var page = 1;
+        var pageNo = 10;
+
+        //初始化下拉刷新模块
+        mui.init({
+            pullRefresh: {
+                container: '#pullrefresh',
+                down: {
+                    callback: pulldownRefresh
+                },
+                up: {
+                    contentrefresh: '正在加载...',
+                    callback: pullupRefresh
+                }
+            }
+        });
+
+        if (mui.os.plus) {
+            mui.plusReady(function() {
+                setTimeout(function() {
+
+                    mui('#pullrefresh').pullRefresh().pulldownLoading();
+
+                }, 1000);
+
+            });
+        } else {
+            mui.ready(function() {
+
+                mui('#pullrefresh').pullRefresh().pulldownLoading();
+
+            });
+        }
+
+        function pulldownRefresh() {
+            page = 1;
+            console.log('pulldown 刷新');
+            init();
+        };
+
+        function pullupRefresh() {
+            page++;
+            console.log('pullup 加载更多');
+            init();
+        }
+
+        function init() {
+            mui.ajax(getBaseServerUrl() + '/sites/goodsList/findBuyList', {
+                type: 'get', //HTTP请求类型
+                headers: {
+                    "auth": localStorage.headParam
+                },
+                data: {
+                    page: page.toString(),
+                    row: '10',
+                    memId: localStorage.ckkno
+                },
+                success: function(jsonData) {
+
+                    vm.showloading = false;
+
+                    var data = jsonData.data;
+                    if (page == 1) {
+                        vm.dataArr = [];
+                        mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+                        mui('#pullrefresh').pullRefresh().refresh(true); //可以上拉取     enablePullupToRefresh
+                    } else {
+                        mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+                    }
+                    if (data.length == 0) {
+                        if (page == 1) {
+                            vm.flag = true;
+                            console.log('没有数据~');
+                        } else {
+                            vm.flag = false;
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+                            console.log('没有更多数据~');
+                        }
+                    } else {
+                        vm.flag = false;
+                        for (var i = 0, count = data.length; i < count; i++) {
+                            vm.dataArr.push(data[i]);
+                        }
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    vm.showloading = false;
+                    console.log(JSON.stringify(XMLHttpRequest));
+                }
+            });
+        }
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+
+</html>

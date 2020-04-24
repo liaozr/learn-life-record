@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  
+文字描述：
+
+通过 use 方法来加载入口模块，并接收一个回调函数， 当模块加载完成， 会调用回调函数，并传入对应的模块作为参数。
+
+从缓存或创建并加载 来获取到模块后，等待模块（包括模块依赖的模块）加载完成会调用回调函数。
+
+在图片虚线部分中，加载factory及分析出模块的依赖，按依赖关系递归执行 document.createElement(‘script’) 。
+
+</body>
+</html>

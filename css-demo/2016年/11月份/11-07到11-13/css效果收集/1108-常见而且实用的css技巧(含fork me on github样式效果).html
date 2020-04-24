@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+1、清除浮动
+
+浮动给我们的代码带来的麻烦，想必不需要多说，我们会用很多方式来避免这种麻烦，其中我觉得最方便也是兼容性最好的一种是….
+
+<style>
+    /*清除浮动*/
+    .clearfox {
+        zoom: 1;
+    }
+
+    .clearfox:after {
+        display: block;
+        content: '';
+        clear: both;
+    }
+
+</style>
+
+<!-- ------------------------------------------------------------------------------------------- -->
+
+4、制造文本的模糊效果
+
+当我们希望给文本制造一种模糊效果感觉的时候，可以这样做
+
+<style>
+    .aa {
+        color: transparent;
+        text-shadow: 0 0 2px rgba(0, 0, 0, .5);
+    }
+</style>
+<!-- --------------------------------------------------------------------------------- -->
+
+7、顶角贴纸效果
+
+有时候我们会有这样的需求，在一个列表展示页面，有一些列表项是新添加的、或者热度比较高的，
+
+
+就会要求在其上面添加一个贴纸效果的小条就像hexo默认博客的fork me on github那个效果一样
+
+贴纸效果
+
+接下来我们开始一步步完成最左边的这个效果
+
+<!-- html -->
+
+<div class="wrap">
+    <div class="ribbon">
+        <a href="#">Fork me on GitHub</a>
+    </div>
+</div>
+
+<!-- css -->
+<style>
+    /* 外层容器几本设置  */
+
+    .wrap {
+        width: 160px;
+        height: 160px;
+        overflow: hidden;
+        position: relative;
+        background-color: #f3f3f3;
+    }
+
+    .ribbon {
+        background-color: #a00;
+        overflow: hidden;
+        white-space: nowrap;
+        position: absolute;
+        /* shadom */
+        -webkit-box-shadow: 0 0 10px #888;
+        -moz-box-shadow: 0 0 10px #888;
+        box-shadow: 0 0 10px #888;
+        /* rotate */
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        /* position */
+        left: -50px;
+        top: 40px;
+    }
+
+    .ribbon a {
+        border: 1px solid #faa;
+        color: #fff;
+        display: block;
+        font: bold 81.25% 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        margin: 1px 0;
+        padding: 10px 50px;
+        text-align: center;
+        text-decoration: none;
+        /* shadow */
+        text-shadow: 0 0 5px #444;
+    }
+</style>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+</html>

@@ -1,0 +1,278 @@
+	body, p, input, h1, h2, h3, h4, h5, h6, ul, li, dl, dt, dd, form { margin: 0; padding: 0;
+	 list-style: none; vertical-align: middle; font-weight:normal; 
+	 box-sizing: border-box;}
+	html{
+		  font-size: 625%;
+	}
+	body {
+    height: 100%;
+    background-color: #F3F3F5;
+	}
+
+.home{
+	width: 100%;
+	max-width: 600px;
+	text-align: center;
+	margin: 0 auto;
+	background-color: #fff;
+	height: 100%;
+}
+/*nav*/
+
+@font-face {
+  font-family: 'iconfont';
+  src: url('//at.alicdn.com/t/font_1475594270_393225.eot'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_1475594270_393225.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_1475594270_393225.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/font_1475594270_393225.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_1475594270_393225.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+                    
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;}
+    .icon{font-size: .3rem; color: #f4413f;}
+    nav p {
+    font-size: .12rem;
+    color: #555B6B;
+    text-align: center;
+    margin-top: .05rem;
+    font-family: "微软雅黑";
+}
+nav {
+	position: relative;
+    top: 0px;
+    z-index: 99;
+    background-color: #fff;
+    width: 100%;
+    max-width: 600px;
+}
+.box{
+	padding-top: .1rem;
+    width:100%;
+    height:.7rem;
+    display:-moz-box;
+    display:-webkit-box;
+    display:box;
+}
+.box li{
+    -moz-box-flex:1;
+    -webkit-box-flex:1;
+    box-flex:1;
+    text-align: center;
+    font-size: .12rem;
+    position: relative;
+}
+.icon_on {
+    color: #fff;
+}
+.icon_on:before {
+	animation:myfirst .3s;
+    content: "";
+    position: absolute;
+    width: .4rem;
+    margin-left: -.05rem;
+    margin-top: -.05rem;
+    border-radius: .2rem;
+    left: %;
+    z-index: -1;
+    background-color: #f4413f;
+    height: .4rem;
+}
+@keyframes myfirst
+{
+30% {width: .4rem;  margin-left: -.05rem;}
+30% {width: 1rem;  margin-left: -.35rem;}
+100% {width: .4rem;  margin-left: -.05rem;}
+}
+/*产品开始*/
+.sp_list {
+    width: 100%;
+    display: block;
+    overflow: hidden;
+        padding-bottom: .8rem;
+}
+.list_box {
+    width: 100%;
+}
+.flex {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+.list_left h2 {
+    font-weight: lighter;
+    margin: .05rem 0 .1rem 0;
+    color: #555B6B;
+    font-size: .16rem;
+    font-family: "微软雅黑";
+}
+body .list_left p {
+    font-size: .11rem;
+    font-family: "微软雅黑";
+        margin-bottom: .05rem;
+}
+.list_p {
+    font-size: .18rem;
+    color: #555B6B;
+    padding: .05rem 0 .07rem 0;
+    text-align: right;
+}
+.right_go {
+    text-align: right;
+    margin-top: .1rem;
+}
+.sp_list li img{width: 100%;    float: left;}
+.right_go p {
+    min-width: .55rem;
+    height: .15rem;
+    font-size: .12rem;
+    color: #fff;
+    text-align: center;
+    line-height: .15rem;
+    background: #B5B5B7;
+    border-radius: .05rem;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .05rem;
+    margin-top: .06rem;
+    padding: .01rem .04rem;
+}
+.right_go .quan {
+    width: .28rem;
+    height: .28rem;
+}
+.right_go span {
+    vertical-align: middle;
+}
+.list_left {
+    text-align: left;
+    width: 50%;
+    padding-left: 15px;
+}
+.list_right {
+	text-align: right;
+    width: 50%;
+    padding-right: 15px;
+}
+ul#xs_product .box {
+    height: auto;
+    padding-bottom: .1rem;
+}
+.list_p span {
+    color: #BCBBC4;
+    font-size: .12rem;
+    text-decoration: line-through;
+}
+.list_p em {
+    font-size: .12rem;
+    font-style: normal;
+}
+ul#xs_product li {
+    background-color: #fff;
+}
+.list_fixed{
+    position: fixed!important;
+    top: .7rem;
+}
+
+.list_fixed a div{
+	overflow: hidden;
+}
+.list_fixed a div:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 67vw;
+    position: absolute;
+    background-color: #f3f3f5;
+    opacity: .5;
+    z-index: 999;
+    top: 0px;
+    left: 0px;
+}
+.list_left p {
+    color: #555B6B;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    font-size: .12rem;
+        width: 45vw;
+}
+i.iconfont.jia {
+    font-size: .12rem;
+}
+span.add_car {
+    font-size: .12rem;
+    font-weight: bold;
+    display: inline-block;
+    width: .2rem;
+    height: .2rem;
+    line-height: .2rem;
+    text-align: center;
+    background-color: #f4413f;
+    float: right;
+    color: #fff;
+    border-radius: .1rem;
+    margin-right: .03rem;
+}
+/*购物车开始*/
+.u-flyer{display: block;width: 20px;height: 20px;border-radius: 10px;position: fixed;z-index: 99;    border: 2px solid #f4413f;}
+
+.footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    max-width: 600px;
+    height: .5rem;
+    background-color: #e6e6e9;
+    margin: auto;
+    text-align: center;
+}
+div#end {
+    text-align: left;
+    line-height: .3rem;
+    margin-top: .15rem;
+    z-index: 99999;
+    position: fixed;
+    bottom: .15rem;
+    width: 100%;
+}
+div#end i {
+    display: block;
+    font-size: .3rem;
+    margin-left: 15px;
+    color: #f4413f;
+}
+button.pay {
+    text-align: right;
+    display: block;
+    display: block;
+    float: right;
+    height: .5rem;
+    width: 1rem;
+    text-align: center;
+    font-size: .1rem;
+    background-color: #f4413f;
+    font-family: "微软雅黑";
+    color: #fff;
+    border: none;
+}
+span.pay_money {
+    font-size: .3rem;
+    float: right;
+    font-style: normal;
+    line-height: 0.7rem;
+    padding-right: .1rem;
+    font-family: "微软雅黑";
+    color: #f4413f;
+}
+span.pay_money em {
+    font-style: normal;
+    font-size: .14rem;
+}
+/*购物车结束*/
+/*产品结束*/

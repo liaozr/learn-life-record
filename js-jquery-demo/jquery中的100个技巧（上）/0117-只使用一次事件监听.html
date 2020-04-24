@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    有时，我们只需要绑定只运行一次的事件处理程序。
+
+    那么one()方法是一个不错的选择，通过它你就可以高枕无忧了。
+
+    <button id="press">Press me!</ul>
+
+    <script>
+
+        var press = $('#press');
+
+        // There is a method that does exactly that, the one():
+        press.one('click',function(){
+            alert('This alert will pop up only once');
+        });
+
+    </script>
+
+</body>
+</html>

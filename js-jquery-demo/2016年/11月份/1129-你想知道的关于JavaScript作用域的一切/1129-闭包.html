@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+闭包
+
+闭包和词法作用域是紧密联系在一起的,关于闭包是如何工作的一个好例子就是当我们返回一个函数的引用的时候,这是一个更实际的用法. 在我们的作用域里,我们可以返回一些东西以便这些东西能够在父作用域里被访问和使用:
+
+<script>
+    var sayHello = function(name) {
+        var text = 'Hello, ' + name;
+        return function() {
+            console.log(text);
+        };
+    };
+</script>
+
+我们这里使用的闭包概念使我们在sayHello的作用域不能够被外部(公共的)作用域访问.
+
+单独运行这个函数不会有什么结果因为它只是返回了一个函数:
+
+sayHello('Todd'); // nothing happens, no errors, just silence...
+
+<!-- --------------------------------------------------------------------------------- -->
+
+这个函数返回了一个函数,那就意味着我们需要对它进行赋值,然后对它进行调用:
+
+<script>
+    var helloTodd = sayHello('Todd');
+    helloTodd(); // will call the closure and log 'Hello, Todd'
+</script>
+
+好吧,我撒谎了,你也可以直接调用它,你也许之前已经见到过像这样的函数,这种方式也是可以运行你的闭包:
+
+sayHello('Bob')(); // calls the returned function without assignment
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+AngularJS的$compile方法使用了上面的技术,你可以将当前作用的引用域传递给这个闭包:
+
+$compile(template)(scope);
+
+我们可以猜测他们关于这个方法的(简化)代码大概是下面这个样子:
+
+<script>
+    var $compile = function(template) {
+        // some magic stuff here
+        // scope is out of scope, though...
+        return function(scope) {
+            // access to `template` and `scope` to do magic with too
+        };
+    };
+</script>
+
+  当然一个函数不必有返回值也能够被称为一个闭包.
+
+<!-- ------------------------------------------------------------------------ -->
+
+  只要能够访问外部变量的一个即时的词法作用域就创建了一个闭包.
+
+<!-- ------------------------------------------------------------------------ -->
+
+</body>
+</html>

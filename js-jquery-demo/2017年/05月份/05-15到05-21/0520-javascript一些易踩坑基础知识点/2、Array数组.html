@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- --------------------------------------------------------------------------- -->
+
+    <script>
+
+        // 删除元素会删出空格， 但是不会改变数组的长度。
+        var array = [1, 2, 3, 4]
+        array.length
+        // 4
+
+        delete array[1]
+
+        array
+        [1, , 3, 4]
+        array.length
+        // 4
+
+        所以这里的删除不是很符合我们之前的删除， 正确姿势是用splice
+
+        var array = [1, 2, 3, 4, 56, 7, 8, 9]
+        array.splice(1, 3)
+
+        array
+        [1, 56, 7, 8, 9]
+
+        array.length
+        // 5
+
+    </script>
+
+    <!-- --------------------------------------------------------------------------- -->
+
+    
+
+</body>
+
+</html>

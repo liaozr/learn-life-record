@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+Object 属性可以使用两种方法来访问：
+
+1. 使用”.”(与C++ 和Java的类似)：
+person1.lastName = "Smith"
+
+2. 使用map：
+person1["lastName"] = "Smith"
+
+<!-- ----------------------------------------------------------------------------- -->
+
+JS 对象能够用于各种途径，以下是五种常见情况：
+
+<script>
+1. Record是Property slots集合，如：
+var myRecord = {firstName:"Tom", lastName:"Smith", age:26}
+
+2. map 如Hash map，数组，hash表；
+var numeral2number = {"one":"1", "two":"2", "three":"3"}
+
+3. Untyped 对象不需要实例化类，它可能包含property slot 和function slots:
+
+var person1 = {
+  lastName: "Smith",
+  firstName: "Tom",
+  getFullName: function () {
+    return this.firstName +" "+ this.lastName;
+  }
+};
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+</body>
+</html>

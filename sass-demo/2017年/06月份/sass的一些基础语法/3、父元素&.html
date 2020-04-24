@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+父元素&
+
+在Sass中，&表示父元素。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+<style>
+
+    a {
+        &:hover {
+            color: red;
+        }
+    }
+
+    /*输出为:*/
+    a:hover {
+        color: red;
+    }
+
+    /*当有多层嵌套样式时，&表示它所有祖先元素的拼接:*/
+    div {
+        a {
+            &:hover {
+                color: red;
+            }
+        }
+    }
+
+    /*输出为:*/
+    div a:hover {
+        color: red;
+    }
+
+    /*此外，&还可以作为选择器的一部分:*/
+    .main {
+        &-content {
+            color: red;
+        }
+    }
+
+    /*输出为：*/
+    .main-content {
+        color: red;
+    }
+    
+</style>
+
+</body>
+
+</html>

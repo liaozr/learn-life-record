@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <tr v-for="(user,index) in users">
+       <td v-text='user.name'></td>
+       <td v-text='user.age'></td>
+       <td v-text='user.tel'></td>
+       <td>
+         <button @click="edit_user(user)" class='delete_btn'>编辑</button>
+         <button @click='delete_user(index)' class='delete_btn'>删除</button>
+       </td>
+  </tr>
+  <script>
+        methods:{
+        			...mapActions(['delete_user' ]),
+        			addUser(){
+        				this.$store.dispatch('addUser');
+        				this.$router.push({path:'/useradd'})
+        			},
+        			edit_user(user){
+                      //  再用dispatch分发actions的时候，若是有参数传过去的话，
+                      // 记得在dispatch分发的时候，带上这个参数
+                      // 不然vuex里是拿不到这个参数的。
+                      this.$store.dispatch('edit_user',user);
+                      var user_id=user.id;
+                      this.$router.push({name:'useredit',params:{id:user_id}})
+        			},
+        			search() {
+        			}
+        		}
+  </script>
+<!-- ------------------------------------------------------------- -->
+  <script>
+      // 同样，也要在actions.js里也要带上这个参数才行的
+      export const edit_user  = ({ commit },user) => {
+      	commit(types.EDIT_USER,user)
+      }
+  </script>
+
+</body>
+</html>

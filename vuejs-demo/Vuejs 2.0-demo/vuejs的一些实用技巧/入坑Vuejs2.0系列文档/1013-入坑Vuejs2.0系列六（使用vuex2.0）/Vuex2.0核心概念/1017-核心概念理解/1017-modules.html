@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    MODULES 由于 Vuex 使用了单状态树，所以随着我们应用的规模逐渐增大， store 也越来越膨胀。为了应对这个问题，Vuex 允许我们将 store 分成多个 modules。每个 module 有着自己的 state, mutations, actions, getters, 甚至可以有嵌套（ nested ）的 modules。比如说：
+
+    <script type="text/javascript">
+        const moduleA = {
+            state: {...
+            },
+            mutations: {...
+            },
+            actions: {...
+            },
+            getters: {...
+            }
+        }
+        const moduleB = {
+            state: {...
+            },
+            mutations: {...
+            },
+            actions: {...
+            }
+        }
+        const store = new Vuex.Store({
+                modules: {
+                    a: moduleA,
+                    b: moduleB
+                }
+        })
+        // 注意，调用的时候，多个模块都在 state 对象中，而非 modules 中
+        store.state.a // -> moduleA's state
+        store.state.b // -> moduleB's state
+    </script>
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+
+    modules 中的各种 state ， local or root？ mutations 和 getters 中，接受的第一个参数是 modules 的本地 state
+
+    <script type="text/javascript">
+        const moduleA = {
+            state: {
+                count: 0
+            },
+            mutations: {
+                increment: (state) {
+                    // state is the local module state
+                    state.count++
+                }
+            },
+            getters: {
+                doubleCount(state) {
+                    return state.count * 2
+                }
+            }
+        }
+    </script>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+    相似地，在 actions 中，context.state 为本地 state，而 context.rootState 为根 state
+
+    <script type="text/javascript">
+
+        const moduleA = {
+            // ...
+            actions: {
+                incrementIfOdd({ state,  commit }) {
+                    if (state.count % 2 === 1) {
+                        commit('increment')
+                    }
+                }
+            }
+        }
+
+// ---------------------------------------------------------------------------------------
+
+      getters 的第三个参数才是 root state
+
+        const moduleA = {
+            // ...
+            getters: {
+                sumWithRootCount(state, getters, rootState) {
+                    return state.count + rootState.count
+                }
+            }
+        }
+    </script>
+
+    <!-- ------------------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

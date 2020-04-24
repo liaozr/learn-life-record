@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+
+  按理说 webpack 的模块化方案已经很好的将es6 模块化转换成 webpack 的模块化，但是其余的 es6 语法还需要做兼容性处理。
+
+  babel 专门用于处理 es6 转换 es5。当然这也包括 es6 的模块语法的转换。
+
+  其实两者的转换思路差不多，区别在于 webpack 的原生转换 可以多做一步静态分析，使用 tree-shaking 技术（下面会讲到）
+
+  babel 能提前将 es6 的 import 等模块关键字转换成 commonjs 的规范。
+
+  这样 webpack 就无需再做处理，直接使用 webpack 运行时定义的 __webpack_require__ 处理。
+
+  这里就解释了 问题5。
+
+  babel 在模块化的场景中充当了什么角色？以及 webpack ？哪个启到了关键作用？
+
+  那么 babel 是如何转换 es6 的模块语法呢？
+
+  <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+
+  导出模块
+
+  es6 的导出模块写法有
+
+  export default 123;
+  export const a = 123;
+
+  const b = 3;
+  const c = 4;
+  export { b, c };
+
+  babel 会将这些统统转换成 commonjs 的 exports。
+
+  exports.default = 123;
+  exports.a = 123;
+  exports.b = 3;
+  exports.c = 4;
+  exports.__esModule = true;
+
+  babel 转换 es6 的模块输出逻辑非常简单，即将所有输出都赋值给 exports，并带上一个标志 __esModule 表明这是个由 es6 转换来的 commonjs 输出。
+
+
+  babel将模块的导出转换为commonjs规范后，也会将引入 import 也转换为 commonjs 规范。
+
+  即采用 require 去引用模块，再加以一定的处理，符合es6的使用意图。
+
+  <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+
+  引入 default
+
+  对于最常见的
+
+  import a from './a.js';
+
+  在es6中 import a from './a.js' 的本意是想去引入一个 es6 模块中的 default 输出。
+
+  通过babel转换后得到 var a = require(./a.js) 得到的对象却是整个对象，肯定不是 es6 语句的本意，所以需要对 a 做些改变。
+
+  我们在导出提到，default 输出会赋值给导出对象的default属性。
+
+  exports.default = 123;
+
+  所以 babel 加了个 help  _interopRequireDefault 函数。
+
+  function _interopRequireDefault(obj) {
+      return obj && obj.__esModule
+          ? obj
+          : { 'default': obj };
+  }
+
+  var _a = require('assert');
+  var _a2 = _interopRequireDefault(_a);
+
+  var a = _a2['default'];
+  所以这里最后的 a 变量就是 require 的值的 default 属性。
+
+  如果原先就是commonjs规范的模块，那么就是那个模块的导出对象。
+
+  <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+
+
+  引入 * 通配符
+
+  我们使用 import * as a from './a.js' es6语法的本意是想将 es6 模块的所有命名输出以及defalut输出打包成一个对象赋值给a变量。
+
+  已知以 commonjs 规范导出：
+
+  exports.default = 123;
+  exports.a = 123;
+  exports.b = 3;
+
+  exports.__esModule = true;
+
+  那么对于 es6 转换来的输出通过 var a = require('./a.js') 导入这个对象就已经符合意图。
+
+  所以直接返回这个对象。
+
+  if (obj && obj.__esModule) {
+     return obj;
+  }
+
+  如果本来就是 commonjs 规范的模块，导出时没有default属性，需要添加一个default属性，并把整个模块对象再次赋值给default属性。
+
+  function _interopRequireWildcard(obj) {
+      if (obj && obj.__esModule) {
+          return obj;
+      }
+      else {
+          var newObj = {}; // (A)
+          if (obj != null) {
+              for (var key in obj) {
+                  if (Object.prototype.hasOwnProperty.call(obj, key))
+                      newObj[key] = obj[key];
+              }
+          }
+          newObj.default = obj;
+          return newObj;
+      }
+  }
+
+  import { a } from './a.js'
+
+  直接转换成 require('./a.js').a 即可。
+
+  <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+
+  总结
+
+  经过上面的转换分析，我们得知即使我们使用了 es6 的模块系统，如果借助 babel 的转换，es6 的模块系统最终还是会转换成 commonjs 的规范。
+
+  所以我们如果是使用 babel 转换 es6 模块，混合使用 es6 的模块和 commonjs 的规范是没有问题的，因为最终都会转换成 commonjs。
+
+  这里解释了问题3
+
+  为什么可以使用 es6 的 import 去引用 commonjs 规范定义的模块，或者反过来也可以又是为什么？
+
+  <!-- -------------------------------------------------------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

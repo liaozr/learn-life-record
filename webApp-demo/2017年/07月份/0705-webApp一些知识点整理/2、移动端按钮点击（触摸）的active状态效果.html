@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    虽然都有active的效果了，但是响应速度不一样，最快的还是js的方式。
+
+    <style type="text/css">
+        a {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        .btn-blue {
+            display: block;
+            height: 42px;
+            line-height: 42px;
+            text-align: center;
+            border-radius: 4px;
+            font-size: 18px;
+            color: #FFFFFF;
+            background-color: #4185F3;
+        }
+
+        .touch-active{
+            background-color: #357AE8;
+        }
+
+    </style>
+
+    </head>
+
+    <body>
+
+        <div id='button' class="btn-blue">按钮</div>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+        <script type="text/javascript">
+
+           function touchElement(className){
+               var Element = document.querySelector(className);
+               Element.ontouchstart = function() {
+                   this.classList.add('touch-active')
+               }
+               Element.ontouchend = function() {
+                   this.classList.remove('touch-active')
+               }
+           }
+           button.onclick=function(){
+              touchElement('.btn-blue')
+           }
+
+        </script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+    </body>
+
+</html>

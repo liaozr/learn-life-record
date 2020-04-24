@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    arrow functions （箭头函数） 函数的快捷写法。
+
+    不需要 function 关键字来创建函数，省略 return 关键字，继承当前上下文的 this 关键字
+
+    <script>
+
+        // ES5
+        var arr1 = [1, 2, 3];
+        var newArr1 = arr1.map(function(x) {
+            return x + 1;
+        });
+
+        // ES6
+        let arr2 = [1, 2, 3];
+        let newArr2 = arr2.map((x) => {
+            x + 1
+        });
+
+        let arr2 = [1, 2, 3];
+        let newArr2 = arr2.map(x => x + 1);
+
+        // ES6: 箭头函数
+        // 当我们使用箭头函数时，函数体内的this对象，就是定义时所在的对象
+        says(say) {
+            setTimeout(() => {
+                console.log(this.type + ' says ' + say);
+            }, 1000);
+        }
+
+    </script>
+
+    箭头函数小细节：
+    
+    当你的函数有且仅有一个参数的时候， 是可以省略掉括号的；
+    当你函数中有且仅有一个表达式的时候可以省略 {}
+
+    当你的函数有且仅有一个参数的时候， 是可以省略掉括号的；
+    当你函数中有且仅有一个表达式的时候可以省略 {}
+
+</body>
+
+</html>

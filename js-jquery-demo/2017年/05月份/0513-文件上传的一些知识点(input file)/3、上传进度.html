@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+
+上传进度
+
+因为是XMLHttpRequest Level 2, 
+
+所以很容易就可以支持对上传进度的监听。
+
+细心地小伙伴会发现在chrome的developer tools的console里new一个XHR对象，
+
+调用点运算符就可以看到智能提示出来一个onprogress事件监听器，那是不是我们只要绑定XHR对象的progress事件就可以了呢？
+
+很接近了，但是XHR对象的直属progress事件并不是用来监听上传资源的进度的。XHR对象还有一个属性upload, 它返回一个XMLHttpRequestUpload 对象，这个对象拥有下列下列方法：
+
+onloadstart
+
+onprogress
+
+onabort
+
+onerror
+
+onload
+
+ontimeout
+
+onloadend
+
+这些方法在XHR对象中都存在同名版本，区别是后者是用于加载资源时，而前者用于资源上传时。其中onprogress 事件回调方法可用于跟踪资源上传的进度，它的event参数对象包含两个重要的属性loaded和total。分别代表当前已上传的字节数（number of bytes）和文件的总字节数。比如我们可以这样计算进度百分比：
+
+<script>
+
+	xhr.upload.onprogress = function(event) {
+	    if (event.lengthComputable) {
+	        var percentComplete = (event.loaded / event.total) * 100;
+	        // 对进度进行处理
+	    }
+	}
+
+</script>
+
+其中事件的lengthComputable属性代表文件总大小是否可知。
+
+如果 lengthComputable 属性的值是 false，那么意味着总字节数是未知并且 total 的值为零。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+如果是现代浏览器，可以直接配合HTML5提供的
+
+<progress id="myProgress" value="50" max="100"></progress>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+
+</body>
+</html>

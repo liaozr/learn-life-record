@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+  函数申明和函数表达式之间最重要的区别是函数的名称标识符将会被绑定在何处
+
+  //1.申明
+  function foo() {} //可以直接调用foo()
+
+  //2.表达式
+  var bar = function barfunc() {} //不可以直接调用barfunc()
+
+  //3.自执行函数
+  (function func(){
+      ...
+  })() //func被隐藏
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+<script>
+
+    var bar = function barfunc() { console.log(111111111) } //不可以直接调用barfunc()
+
+    // barfunc() 这样子调用是会报错的
+
+    bar()
+
+</script>
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+    其实关键就是getDay() 函数返回值， 返回值是0(周日) 到6(周六) 之间的一个整数。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+    <script>
+
+        function compareTime(a, b) {
+
+            var arr = a.split("-"); //log [2016,04,06]
+            var start = new Date(arr[0], (arr[1] - 1), arr[2]);
+            var starts = start.getTime(); //输出时间戳进行对比
+
+            var arrs = b.split("-");
+            var end = new Date(arrs[0], (arrs[1] - 1), arrs[2]);
+            var ends = end.getTime();
+
+            var weekDay = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+
+            //getDay() 方法可返回表示星期的某一天的数字。 0 到 6 的 数字
+
+            console.log("开始时间是" + weekDay[start.getDay()] + "\r\n" + "结束时间是" + weekDay[end.getDay()]);
+
+            var now = new Date();
+            console.log("现在是" + weekDay[now.getDay()]);
+
+        }
+
+        compareTime('2017-05-23', '2017-05-24');
+// ---------------------------------------------------------------------------------
+
+        // 打印出的结果是：
+
+        // 开始时间是星期二
+        // 结束时间是星期三
+        // 现在是星期四   因为当前现在的日期是 2017-05-25
+
+    </script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

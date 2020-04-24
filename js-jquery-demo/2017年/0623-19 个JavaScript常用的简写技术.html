@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+  1.三元操作符
+
+  当想写if...else语句时，使用三元操作符来代替。
+
+  <script>
+
+      const x = 20;
+      let answer;
+      if (x > 10) {
+          answer = 'is greater';
+      } else {
+          answer = 'is lesser';
+      }
+
+      // 简写：
+      const answer = x > 10 ? 'is greater' : 'is lesser';
+
+      // 也可以嵌套if语句：
+      const big = x > 10 ? " greater 10" : x
+
+  </script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+9.箭头函数简写
+
+传统函数编写方法很容易让人理解和编写，但是当嵌套在另一个函数中，则这些优势就荡然无存。
+
+<script>
+
+    function sayHello(name) {
+        console.log('Hello', name);
+    }
+
+    setTimeout(function() {
+        console.log('Loaded')
+    }, 2000);
+
+    list.forEach(function(item) {
+        console.log(item);
+    });
+    简写：
+
+    sayHello = name => console.log('Hello', name);
+
+    setTimeout(() => console.log('Loaded'), 2000);
+
+    list.forEach(item => console.log(item));
+
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+经常使用return语句来返回函数最终结果，一个单独语句的箭头函数能隐式返回其值（函数必须省略{}为了省略return关键字）
+
+为返回多行语句（例如对象字面表达式），则需要使用()包围函数体。
+
+<script>
+
+    function calcCircumference(diameter) {
+        return Math.PI * diameter
+    }
+
+    var func = function func() {
+        return {
+            foo: 1
+        };
+    };
+
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+12.模板字符串
+
+传统的JavaScript语言，输出模板通常是这样写的。
+
+<script>
+
+    const welcome = 'You have logged in as ' + first + ' ' + last + '.'
+
+    const db = 'http://' + host + ':' + port + '/' + database;
+
+    // ES6可以使用反引号和$ {}
+    // 简写：
+
+    const welcome = `You have logged in as ${first} ${last}`;
+
+    const db = `http://${host}:${port}/${database}`;
+
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+13.解构赋值简写方法
+
+在web框架中，经常需要从组件和API之间来回传递数组或对象字面形式的数据，然后需要解构它
+
+<script>
+
+    const observable = require('mobx/observable');
+    const action = require('mobx/action');
+    const runInAction = require('mobx/runInAction');
+
+    const store = this.props.store;
+    const form = this.props.form;
+    const loading = this.props.loading;
+    const errors = this.props.errors;
+    const entity = this.props.entity;
+
+    // 简写：
+    import { observable, action, runInAction } from 'mobx';
+
+    const { store, form, loading, errors, entity } = this.props;
+
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+14.多行字符串简写
+
+需要输出多行字符串，需要使用+来拼接：
+
+<script>
+
+  const lorem = 'Lorem ipsum dolor sit amet, consectetur\n\t'
+     + 'adipisicing elit, sed do eiusmod tempor incididunt\n\t'
+     + 'ut labore et dolore magna aliqua. Ut enim ad minim\n\t'
+     + 'veniam, quis nostrud exercitation ullamco laboris\n\t'
+     + 'nisi ut aliquip ex ea commodo consequat. Duis aute\n\t'
+     + 'irure dolor in reprehenderit in voluptate velit esse.\n\t'
+
+  // 使用反引号，则可以达到简写作用：
+
+  const lorem = `Lorem ipsum dolor sit amet, consectetur
+     adipisicing elit, sed do eiusmod tempor incididunt
+     ut labore et dolore magna aliqua. Ut enim ad minim
+     veniam, quis nostrud exercitation ullamco laboris
+     nisi ut aliquip ex ea commodo consequat. Duis aute
+     irure dolor in reprehenderit in voluptate velit esse.`
+
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+15.扩展运算符简写
+
+扩展运算符有几种用例让JavaScript代码更加有效使用，可以用来代替某个数组函数。
+
+<script>
+
+    // joining arrays
+    const odd = [1, 3, 5];
+    const nums = [2, 4, 6].concat(odd);
+
+    // cloning arrays
+    const arr = [1, 2, 3, 4];
+    const arr2 = arr.slice()
+
+    // 简写：
+
+    // joining arrays
+    const odd = [1, 3, 5];
+    const nums = [2, 4, 6, ...odd];
+    console.log(nums); // [ 2, 4, 6, 1, 3, 5 ]
+
+    // cloning arrays
+    const arr = [1, 2, 3, 4];
+    const arr2 = [...arr];
+
+    // 传入数组作为参数
+    function f(x, y, z) {
+      return x + y + z;
+    }
+    // 直接传入数组当作上面函数的参数
+    f(...[1,2,3]) == 6
+
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+17.Array.find简写
+
+想从数组中查找某个值，则需要循环。在ES6中，find()函数能实现同样效果。
+
+<script>
+    const pets = [{
+            type: 'Dog',
+            name: 'Max'
+        },
+        {
+            type: 'Cat',
+            name: 'Karl'
+        },
+        {
+            type: 'Dog',
+            name: 'Tommy'
+        },
+    ]
+
+    function findDog(name) {
+        for (let i = 0; i < pets.length; ++i) {
+            if (pets[i].type === 'Dog' && pets[i].name === name) {
+                return pets[i];
+            }
+        }
+    }
+
+    // 简写：
+    pet = pets.find(pet => pet.type === 'Dog' && pet.name === 'Tommy');
+    console.log(pet); // { type: 'Dog', name: 'Tommy' }
+
+</script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+19.双重非位运算简写
+
+有一个有效用例用于双重非运算操作符。可以用来代替Math.floor()，
+其优势在于运行更快，可以阅读此文章了解更多位运算。
+
+  <script>
+
+      Math.floor(4.9) === 4 //true
+
+      // 简写
+      ~~4.9 === 4 //true
+
+  </script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+
+    JavaScript钩子函数
+
+    除了用CSS过渡的动画来实现vue的组件过渡，还可以用JavaScript的钩子函数来实现，
+
+    在钩子函数中直接操作DOM。
+
+    我们可以在属性中声明以下钩子：
+
+
+    <div id="app">
+        <button @click="show=!show">show</button>
+        <transition
+            v-on:before-enter="beforeEnter"
+            v-on:enter="enter"
+            v-on:after-enter="afterEnter"
+            v-on:enter-cancelled="enterCancelled"
+            v-on:before-leave="beforeLeave"
+            v-on:leave="leave"
+            v-on:after-leave="afterLeave"
+            v-on:leave-cancelled="leaveCancelled">
+              <p v-show="show">hello</p>
+        </transition>
+    </div>
+    <script>
+        new Vue({
+          el:"#app",
+          data:{
+            show:''
+          },
+          methods: {
+            // 过渡进入
+            // 设置过渡进入之前的组件状态
+            beforeEnter: function(el) {
+                // ...
+            },
+            // 设置过渡进入完成时的组件状态
+            enter: function(el, done) {
+                // ...
+                done()
+                console.log("done")
+            },
+            // 设置过渡进入完成之后的组件状态
+            afterEnter: function(el) {
+                // ...
+                console.log("afterEnter")
+            },
+            enterCancelled: function(el) {
+                // ...
+            },
+            // 过渡离开
+            // 设置过渡离开之前的组件状态
+            beforeLeave: function(el) {
+                // ...
+            },
+            // 设置过渡离开完成时地组件状态
+            leave: function(el, done) {
+                // ...
+                done()
+            },
+            // 设置过渡离开完成之后的组件状态
+            afterLeave: function(el) {
+                // ...
+            },
+            // leaveCancelled 只用于 v-show 中
+            leaveCancelled: function(el) {
+                // ...
+            }
+          }
+        })
+    </script>
+
+    上面的钩子函数中可以进行任何你想做的DOM操作。
+
+    小技巧：如果你只想设置组件过渡进入的效果而不想有组件过渡离开的效果，
+
+    这时你就可以用钩子函数，只设置beforeEnter、enter、afterEnter这几个钩子函数就可以了。
+
+    <!-- ------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

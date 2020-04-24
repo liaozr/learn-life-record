@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+列表处理相关方法
+
+<!-- ---------------------------------------------------------------------- -->
+
+修饰器方法
+
+所谓修饰器，就是会改变原来的数据，而不是返回一个新数据；
+
+<script type="text/javascript">
+
+
+push()     //在结尾增加一条或多条数据
+
+pop()      //删除最后一条数据
+
+shift()     //删除第一条数据，并返回这条数据
+
+unshift()    //在开始增加一条或多条数据，并返回数组长度
+
+splice()    //向/从数组中添加/删除项目，然后返回被删除的项目。
+
+sort()    //对数组的元素进行排序。
+
+reverse()    //颠倒数组中元素的顺序。
+
+</script>
+
+例如，如果你要在循环数组最后增加一条数据，那么可以
+
+example1.items.push({ message: 'Baz' })
+
+这样不仅数据会添加进去，视图也会随之改变。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+返回一个新的数组
+
+刚才讲了修饰器，那么相应的，有些js方法不修改原始数据，而是返回一个新的数组，它们是
+
+<script type="text/javascript">
+
+filter()     //返回条件为真的数据
+
+concat()    //连接两个或多个数组
+
+match()    //从已有的数组中返回选定的元素。
+
+// 使用的时候，因为是整体返回一个数组，所以要整体接收一下：
+example1.items = example1.items.filter(function (item) {
+  return item.message.match(/Foo/)
+})
+
+</script>
+
+你可能会觉得这样整体渲染会很消耗性能，但是实际上不会，Vue会自动重用那些没有改动过的数据，这也是vue为什么快的原因之一。
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+需要注意的地方
+
+由于javascript的某些限制，你不可以直接这样改动：
+
+<script type="text/javascript">
+
+    vm.items[indexOfItem] = newValue;    //直接通过索引修改数组元素
+
+    vm.items.length = newLength;    //直接修改数组的长度
+
+    这样改数据和视图都不会更新。
+
+    对于第一种情况，正确的方式是：
+
+    // Vue.set
+    Vue.set(example1.items, indexOfItem, newValue)
+    使用Vue内置的set方法，set方法是修改原数组；或者
+
+    // Array.prototype.splice
+    example1.items = example1.items.splice(indexOfItem, 1, newValue)
+    这里是找到某个元素然后用新值替换，理解起来没有set方法简单。splice是返回值，所以要接一下。
+
+    对于第二种情况，正确的方式是
+
+    example1.items = example1.items.splice(newLength)
+    比如newLength你写的是10，那么原来的数组就只保留最前面10个元素。
+
+</script>
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+显示过滤/排序后的数据
+
+这种情况其实很简单，有2种方法，一种是 计算属性，另一种是 方法：
+
+<li v-for="n in evenNumbers">{{ n }}</li>
+
+<script type="text/javascript">
+        data: {
+            numbers: [1, 2, 3, 4, 5]
+        },
+        computed: {
+            evenNumbers: function() {
+                return this.numbers.filter(function(number) {
+                    return number % 2 === 0
+                })
+            }
+        }
+</script>
+
+如果遇到计算属性无法使用的情况下，，比如说嵌套循环，（你现在可能还不能理解为什么嵌套或递归的时候为什么不能使用计算属性，之后你会知道的），这个时候可以用方法：
+
+<li v-for="n in even(numbers)">{{ n }}</li>
+
+<script type="text/javascript">
+
+        data: {
+            numbers: [1, 2, 3, 4, 5]
+        },
+        methods: {
+            even: function(numbers) {
+                return numbers.filter(function(number) {
+                    return number % 2 === 0
+                })
+            }
+        }
+</script>
+
+ <!-- ------------------------------------------------------------------------ -->
+
+
+  </body>
+</html>

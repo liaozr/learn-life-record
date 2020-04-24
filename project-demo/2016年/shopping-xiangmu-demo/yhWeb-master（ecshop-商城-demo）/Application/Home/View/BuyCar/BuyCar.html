@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Home/Css/style.css"/>
+    <script src="__PUBLIC__/jquery.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/Js/jquery-1.8.2.min.js"></script>
+    <!--[if IE 6]>
+    <script src="__PUBLIC__/Home/Js/iepng.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        EvPNG.fix('div, ul, img, li, input, a');
+    </script>
+    <![endif]-->
+
+
+    <!-- <script type="text/javascript" src="__PUBLIC__/Home/Js/menu.js"></script>-->
+
+    <script type="text/javascript" src="__PUBLIC__/Home/Js/n_nav.js"></script>
+
+    <script type="text/javascript" src="__PUBLIC__/Home/Js/num.js">
+        var jq = jQuery.noConflict();
+    </script>
+
+    <script type="text/javascript" src="__PUBLIC__/Home/Js/shade.js"></script>
+
+    <title>尤洪</title>
+</head>
+<body>
+<!--Begin Header Begin-->
+<include file="Index/header"/>
+<!--End Menu End-->
+<div class="i_bg">
+    <div class="content mar_20">
+        <img src="__PUBLIC__/Home/Images/img1.jpg"/>
+    </div>
+
+    <!--Begin 第一步：查看购物车 Begin -->
+    <div class="content mar_20">
+        <table border="0" class="car_tab" style="width:1200px; margin-bottom:50px;" cellspacing="0" cellpadding="0">
+            <tr>
+                <td class="car_th" width="490">商品名称</td>
+                <td class="car_th" width="140">属性</td>
+                <td class="car_th" width="150">购买数量</td>
+                <td class="car_th" width="50">单价</td>
+                <td class="car_th" width="130">小计</td>
+                <td class="car_th" width="140">返还积分</td>
+                <td class="car_th" width="150">操作</td>
+            </tr>
+            <foreach name="Think.session.cart.goods" item="li">
+
+
+                <tr>
+                    <td>
+                        <div class="c_s_img"><img src="__PUBLIC__/Uploads/{$li.picName}" width="73" height="73"/></div>
+                        {$li.goodsName}
+                    </td>
+                    <td align="center">{$li.property}</td>
+                    <td align="center">
+                        <div class="c_num">
+                            <input type="button" value="" onclick="cut({$li['price']},$(this),{$li['id']});" class="car_btn_1"/>
+                            <input type="text" value=" {$li.number}" name="" class="car_ipt"/>
+                            <input type="button" value="" onclick="add({$li['price']},$(this),{$li['id']});" class="car_btn_2"/>
+                        </div>
+                    </td>
+                    <td align="center" style="color:#ff4e00;">￥{$li.price}</td>
+                    <td align="center" style="color:#ff4e00;" id="all">￥{$li['number'] * $li['price']}</td>
+                    <td align="center">{$li['number']*26}R</td>
+                    <td align="center"><a onclick="ShowDiv('MyDiv','fade','{$li.id}')">删除</a>&nbsp; &nbsp;<a href="#">加入收藏</a></td>
+                </tr>
+            </foreach>
+            <tr valign="top" height="150">
+                <td colspan="6" align="right">
+                    <a href="__MODULE__/CategoryList/typeid/{$Think.session.typeId}"><img src="__PUBLIC__/Home/Images/buy1.gif"/></a>&nbsp; &nbsp; <a href="__URL__/BuyCar_Two"><img src="__PUBLIC__/Home/Images/buy2.gif"/></a>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <!--End 第一步：查看购物车 End-->
+
+
+    <!--Begin 弹出层-删除商品 Begin-->
+    <div id="fade" class="black_overlay"></div>
+    <div id="MyDiv" class="white_content">
+        <div class="white_d">
+            <div class="notice_t">
+                <span class="fr" style="margin-top:10px; cursor:pointer;" onclick="CloseDiv('MyDiv','fade')"><img src="__PUBLIC__/Home/Images/close.gif"/></span>
+            </div>
+            <div class="notice_c">
+
+                <table border="0" align="center" style="font-size:16px;" cellspacing="0" cellpadding="0">
+                    <tr valign="top">
+                        <td>您确定要把该商品移除购物车吗？</td>
+                    </tr>
+                    <tr height="50" valign="bottom">
+                        <td><a href="#" class="b_sure">确定</a><a href="javascript:CloseDiv('MyDiv','fade');" class="b_buy">取消</a></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <!--End 弹出层-删除商品 End-->
+
+
+    <!--Begin Footer Begin -->
+    <div class="b_btm_bg bg_color">
+        <div class="b_btm">
+            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="72"><img src="__PUBLIC__/Home/Images/b1.png" width="62" height="62"/></td>
+                    <td><h2>正品保障</h2>正品行货 放心购买</td>
+                </tr>
+            </table>
+            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="72"><img src="__PUBLIC__/Home/Images/b2.png" width="62" height="62"/></td>
+                    <td><h2>满38包邮</h2>满38包邮 免运费</td>
+                </tr>
+            </table>
+            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="72"><img src="__PUBLIC__/Home/Images/b3.png" width="62" height="62"/></td>
+                    <td><h2>天天低价</h2>天天低价 畅选无忧</td>
+                </tr>
+            </table>
+            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="72"><img src="__PUBLIC__/Home/Images/b4.png" width="62" height="62"/></td>
+                    <td><h2>准时送达</h2>收货时间由你做主</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="b_nav">
+        <dl>
+            <dt><a href="#">新手上路</a></dt>
+            <dd><a href="#">售后流程</a></dd>
+            <dd><a href="#">购物流程</a></dd>
+            <dd><a href="#">订购方式</a></dd>
+            <dd><a href="#">隐私声明</a></dd>
+            <dd><a href="#">推荐分享说明</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="#">配送与支付</a></dt>
+            <dd><a href="#">货到付款区域</a></dd>
+            <dd><a href="#">配送支付查询</a></dd>
+            <dd><a href="#">支付方式说明</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="#">会员中心</a></dt>
+            <dd><a href="#">资金管理</a></dd>
+            <dd><a href="#">我的收藏</a></dd>
+            <dd><a href="#">我的订单</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="#">服务保证</a></dt>
+            <dd><a href="#">退换货原则</a></dd>
+            <dd><a href="#">售后服务保证</a></dd>
+            <dd><a href="#">产品质量保证</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="#">联系我们</a></dt>
+            <dd><a href="#">网站故障报告</a></dd>
+            <dd><a href="#">购物咨询</a></dd>
+            <dd><a href="#">投诉与建议</a></dd>
+        </dl>
+        <div class="b_tel_bg">
+            <a href="#" class="b_sh1">新浪微博</a>
+            <a href="#" class="b_sh2">腾讯微博</a>
+            <p>
+                服务热线：<br/>
+                <span>400-123-4567</span>
+            </p>
+        </div>
+        <div class="b_er">
+            <div class="b_er_c"><img src="__PUBLIC__/Home/Images/er.gif" width="118" height="118"/></div>
+            <img src="__PUBLIC__/Home/Images/ss.png"/>
+        </div>
+    </div>
+    <div class="btmbg">
+        <div class="btm">
+            备案/许可证编号：豫ICP备12009302号-1-www.dingguagua.com Copyright © 2015-2018 尤洪商城网 All Rights Reserved. 复制必究 , Technical Support: Dgg Group <br/>
+            <img src="__PUBLIC__/Home/Images/b_1.gif" width="98" height="33"/><img src="__PUBLIC__/Home/Images/b_2.gif" width="98" height="33"/><img src="__PUBLIC__/Home/Images/b_3.gif" width="98" height="33"/><img src="__PUBLIC__/Home/Images/b_4.gif" width="98" height="33"/><img src="__PUBLIC__/Home/Images/b_5.gif" width="98" height="33"/><img src="__PUBLIC__/Home/Images/b_6.gif" width="98" height="33"/>
+        </div>
+    </div>
+    <!--End Footer End -->
+</div>
+
+</body>
+
+
+<!--[if IE 6]>
+<script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</html>
+<script>
+
+    function add(price, jia, id) {
+
+        var c = jia.parent().find(".car_ipt").val();
+        c = parseInt(c) + 1;
+        var allprice = c * price;
+        jia.parent().parent().parent().find('#all').html('￥' + allprice)
+
+        /*	$.post('add',{c:c},function(){
+
+         })*/
+        jia.parent().find(".car_ipt").val(c);
+        $.post('__URL__/cartUpdate', {number: c, id: id}, function (data) {
+            $('#cartmsg').html(data.msg)
+            $('#typenum').text(data.typenum)
+            $('.car_bg').html(data.content)
+        })
+    }
+
+    function cut(price, jian, id) {
+        var c = jian.parent().find(".car_ipt").val();
+        if (c == 1) {
+            c = 1;
+        } else {
+            c = parseInt(c) - 1;
+            var allprice = c * price;
+
+            jian.parent().parent().parent().find('#all').html('￥' + allprice)
+
+            jian.parent().find(".car_ipt").val(c);
+            $.post('__URL__/cartUpdate', {number: c, id: id}, function (data) {
+                $('#cartmsg').html(data.msg)
+                $('#typenum').text(data.typenum)
+
+                $('.car_bg').html(data.content)
+
+            })
+        }
+    }
+
+
+</script>

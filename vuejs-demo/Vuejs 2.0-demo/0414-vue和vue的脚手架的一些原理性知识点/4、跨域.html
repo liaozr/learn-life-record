@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ------------------------------------------------------------------------------------------------------------------ -->
+
+  因为webpack-dev-server启动了一个服务器，所以在开发时，前端去请求真正的后台接口，是存在跨域问题的。
+
+  webpack提供了跨域的解决方案，原理就是让服务器反向代理请求真正的接口
+
+  vue-cli配置跨域
+
+  proxyTable: {
+        '/api': {
+          target: 'http://localhost:8089/api/',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/api': ''
+          }
+        }
+  },
+
+  <!-- ------------------------------------------------------------------------------------------------------------------ -->
+
+  前端请求/api/xxxx时，webpack-dev-server启动的服务器会帮我们请求http://localhost:8089/api/xxxx，同时返回数据。
+
+  有些人就会有疑惑，那打包后的文件，是不是也能跨域。前面我们说了，线上部署就不是运行npm run dev，
+
+  所以，前端是不是跨域要看你怎么部署了。
+
+  如果你把打包后的dist文件和后端代码放在一起，那么根本就不存在跨域问题！
+
+  如果前端静态文件和后端不在一起，那么可以用Nginx做转发
+
+  server {
+          listen 80;
+          server_name 127.0.0.1;
+          location / {
+              root   /data/deered/dist; #前端打包后的dist文件位置
+              index  index.html;
+              try_files $uri $uri/ /index.html;
+          }
+          location /api {
+              proxy_pass http://127.0.0.1:8089 #后台地址
+          }
+   }
+   
+<!-- ------------------------------------------------------------------------------------------------------------------ -->
+
+
+
+</body>
+
+</html>

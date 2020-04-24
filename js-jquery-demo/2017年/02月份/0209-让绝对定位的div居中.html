@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    让绝对定位的div居中
+
+    <style>
+        div {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            margin: auto;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: pink;
+            /* 方便看效果 */
+        }
+    </style>
+
+    水平垂直居中一 确定容器的宽高 宽500 高 300 的层 设置层的外边距
+
+    <style>
+        div {
+            position: relative;
+            /* 相对定位或绝对定位均可 */
+            width: 500px;
+            height: 300px;
+            top: 50%;
+            left: 50%;
+            margin: -150px 0 0 -250px;
+            /* 外边距为自身宽高的一半 */
+            background-color: pink;
+            /* 方便看效果 */
+        }
+    </style>
+
+</body>
+
+</html>

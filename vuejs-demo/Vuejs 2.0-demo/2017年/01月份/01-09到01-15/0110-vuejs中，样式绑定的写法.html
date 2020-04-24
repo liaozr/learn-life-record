@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+    <div id="app">
+        <span :style="[stylea,styleb]">zrliao</span>
+
+        <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">
+           liusha
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+          el:"#app",
+          data:{
+            activeColor:"blue",
+            fontSize:18,
+            stylea:{
+              'font-size':'14px;'
+            },
+            styleb:{
+              'color':"red"
+            }
+          }
+        })
+    </script>
+</body>
+
+</html>

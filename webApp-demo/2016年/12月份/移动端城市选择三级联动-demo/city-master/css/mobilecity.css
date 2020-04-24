@@ -1,0 +1,141 @@
+html{
+    font-size:62.5%;
+}
+body {
+    font-family: "Helvetica neue",Helvetica,Tahoma,"lantinghei sc","Microsoft Yahei", sans-serif, Helvetica, Arial;
+    font-size:62.5%;
+    font-size:1.4rem;
+    color:#999;
+    overflow-x:hidden;
+    margin:0 auto;
+    position:relative;
+}
+
+
+/*mobilecity style start*/
+@font-face {
+    font-family: "iconfont";
+    src: url('../fonts/iconfont.eot'); /* IE9*/
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/iconfont.woff') format('woff'), /* chrome、firefox */
+    url('../fonts/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('../fonts/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+#city_area{
+    width:100%;
+    height:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:999;
+    font-size:14px;
+    display:none;
+    color:#222;
+}
+#city_area .selt_box{
+    width:100%;
+    height:100%;
+    position:relative;
+    overflow:hidden;
+}
+#city_area .cityhead{
+    width:100%;
+    height:100%;
+    background-color:#fff;
+    position:fixed;
+    top:0;
+    left:0;   
+}
+#cityarea{
+    z-index:4;
+    display:none;
+}
+#distarea{
+    z-index:8;
+    display:none;
+}
+#city_area .cityhead .ch_box{
+    width:100%;
+    height:40px;
+    line-height:40px;
+    position:absolute;
+    top:0;
+    left:0;
+    background:#eee;
+    z-index:9;
+}
+#city_area .cityhead .ch_box:after{
+    content:'';
+    position:absolute;
+    left:0;
+    bottom:0;
+    right:auto;
+    top:auto;
+    height:1px;
+    width:100%;
+    background-color:#bbb;
+    display:block;
+    z-index:2;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    backface-visibility:hidden;
+}
+#city_area .cityhead .ch_box .bck{
+    width:40px;
+    height:40px;
+    display:block;
+    text-align:center;
+    text-decoration:none;
+    color:#999;
+    cursor:pointer;
+}
+#city_area .cityhead .ch_box .bck i{
+    font-style:normal;
+    font-family:"iconfont";
+    font-size:18px;
+}
+.prv_box,.city_box,.dist_box{
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+    position:absolute;
+    top:40px;
+    box-sizing:border-box;
+    overflow-y:scroll;
+    left:0;
+}
+.prv_box dd,.city_box dd,.dist_box dd{
+    width:100%;
+    line-height:38px;
+    list-style:none;
+    padding:0 8px;
+    box-sizing:border-box;
+    margin:0;
+    position:relative;
+}
+.prv_box dd:after,.city_box dd:after,.dist_box dd:after{
+    content:'';
+    position:absolute;
+    left:0;
+    bottom:0;
+    right:auto;
+    top:auto;
+    height:1px;
+    width:100%;
+    background-color:#eee;
+    display:block;
+    z-index:2;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    backface-visibility:hidden;
+}
+.prv_box dd i,.city_box dd i,.dist_box dd i{
+    font-family:"iconfont";
+    font-size:15px;
+    font-style:normal;
+    float:right;
+    color:#bbb;
+}
+/*mobilecity style end*/

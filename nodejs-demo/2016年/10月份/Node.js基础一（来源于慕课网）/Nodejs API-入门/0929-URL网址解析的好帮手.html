@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<!-- URL网址解析 -->
+
+<!-- 
+
+url： 统一资源定位符，字母，数字，文字需编码
+uri： 统一资源标识符，字符串格式规范
+url是uri的子集 
+
+-->
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+<script>
+url.parse(urlString, bool,bool)
+//解析URL地址 
+//  参数：
+//  1，URL解析成对象 
+//  2，将qurey变成json对象
+//  3,正确解析不带协议(http)的url
+
+
+url.format(urlobj)//将url对象解析成字符串
+
+url.resolve(from,to)//将两段字符串合并成一个完整的url地址 参数1.超链接 2.路径
+
+protocol:协议
+slashes:是否含有协议的“//”
+host:IP地址或者域名或者主机名
+port:端口（默认8080不显示）
+hostname:主机名字
+hash:锚点值
+search:查询字符串参数
+query:给http的数据，同上
+pathname:访问的资源路径名
+path:访问的资源路径
+href:完整的url地址
+</script>	
+</body>
+</html>

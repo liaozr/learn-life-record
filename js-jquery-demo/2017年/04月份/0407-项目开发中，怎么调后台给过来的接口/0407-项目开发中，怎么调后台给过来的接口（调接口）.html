@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+   前言：
+
+   首先是要看 是否是 前后端分离的项目， 后端是不是只给接口数据的
+
+   是否存在着跨域
+
+   存在着跨域了，是否已解决了跨域问题，能直接在浏览器跑出数据，能在浏览器访问后台接口数据。
+   （这种直接在控制台则可看出接口数据）
+
+   是否是 Dcloud 开发app 方案的调试接口数据 （webview不存在跨域问题，就直接 调用后台给的接口地址即可。）
+  （这个的话，得连接着手机，在手机里面运行webview，项目跑起来了，然后再通过Hbuild编辑器的下面那一栏的控制器
+   可以查看后台给过来的接口数据，然后再把这些数据复制到  json在线解析器 可以清楚完整的看出后台给过来的接口数据有哪些）
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+<script>
+    function init() {
+        mui.ajax(getBaseServerUrl() + '/system/user/login', {
+            // 请求类型 可以从 后台给过来的接口地址上可以看出
+            type: 'get', //HTTP请求类型
+
+            // 接口参数 ，要发送到服务器上的data参数有哪些
+            // 第一个data就是发送给服务端的数据,success里面的data是服务器返回的数据
+            data: {
+                tenantId: 'humello',
+                userName: 'admin',
+                password: 'admin2016',
+                userType: 10,
+                esn: ''
+            },
+            success: function(jsonData) {
+                // 查看接口数据
+                // 第一个data就是发送给服务端的数据,success里面的data是服务器返回的数据
+                // 所以 这个jsonData就是服务器端返回的数据
+                console.log(JSON.stringify(jsonData));
+                if (jsonData.hasOwnProperty("empOrg")) {
+
+                    // localStorage 只能存储字符串
+                    localStorage.loginData = JSON.stringify(jsonData);
+                    mui.openWindow({
+                        url: "index.html",
+                        id: "webview_embed.html",
+                        createNew: false,
+                        show: {
+                            autoShow: true, //页面loaded事件发生后自动显示，默认为true
+                            aniShow: "fade-in", //页面显示动画，默认为”slide-in-right“；
+                            duration: 200 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+                        },
+                        waiting: {
+                            autoShow: true,
+                            title: '正在加载...',
+                        }
+                    });
+                } else {
+                    plus.nativeUI.alert(jsonData.errorMsg);
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus);
+            }
+        });
+    }
+
+    $("#login").on("tap", function() {
+        init();
+    });
+
+    // 一个公共方法 返回的数据是 服务器的地址 （便于方便调用 后台接口地址）
+    function getBaseServerUrl() {
+        return "http://192.168.1.50:900/eidpws";
+    }
+
+    // 一个公共方法 返回的数据是 服务器的地址 （便于方便调用 后台接口地址）
+    function getImgBaseServerUrl() {
+        return "http://192.168.1.50";
+    }
+</script>
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

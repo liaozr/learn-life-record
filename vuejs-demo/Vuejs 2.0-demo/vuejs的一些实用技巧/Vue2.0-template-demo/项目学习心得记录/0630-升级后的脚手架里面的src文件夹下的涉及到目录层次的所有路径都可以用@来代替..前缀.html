@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+  <script>
+
+// ----------------------------------------------------------------------------------
+
+    // 在配置路由的文件里。
+
+    // 导入组件到路由表的示例
+    // import Hello from '@/components/Hello'
+
+    // 导入各个组件
+    import axiosdata from '@/components/axiosdata'; // 导入 axiosdata.vue 组件
+
+// ----------------------------------------------------------------------------------
+
+    // 从api文件中导入所需模块
+
+    // import * as api_types from '../api/module1/api'
+    // import * as eidpws_types from '../api/module2/eidpws'
+
+    import * as api_types from '@/api/module1/api'
+    import * as eidpws_types from '@/api/module2/eidpws'
+
+// ----------------------------------------------------------------------------------
+
+    //  例如 ，页面组件 views 文件夹下的login文件夹下的login.vue模块 ，要引入api文件夹下的login.js文件
+
+    //  就可以直接这么用,直接在 views文件夹下的login文件夹下的login.vue文件里直接这样子import即可:
+
+    import * as login_types from '@/api/login'
+
+  </script>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+  如在 App.vue里面
+
+  <script>
+
+      import cHeader from '@/components/header/header'
+      import cFooter from '@/components/footer/footer'
+
+
+      // 用 import 的方式 引入 本地 的css 文件
+      // 这里 css的后缀 是不能够省略 的，因为自带的vue-cli 没有配置省略css的后缀
+
+      // 一般 js文件 跟 .vue文件 才建议 去省略
+
+      import index from '@/assets/css/index.css'
+
+      // 引入全局reset样式
+      import reset from '@/assets/css/reset.css'
+
+      // 引入 项目的公共样式
+      import common from '@/assets/css/common.scss'
+
+  </script>
+  
+<!-- ------------------------------------------------------------------------------------ -->
+
+
+
+</body>
+
+</html>

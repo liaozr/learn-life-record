@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 返回顶部的显示跟隐藏
+
+        $(window).scroll(function() {
+
+            // 一滚动就立马加载canvas图片
+            // canvasload("mainsection");
+            var pageH = $(document).height()
+            var scrollT = $(window).scrollTop(); //滚动条top
+            var winheight = $(window).height();
+            if (scrollT > winheight) {
+
+                if ($('#backtop').is(":hidden")) {
+                    $('#backtop').fadeIn();
+                }
+            }
+            else {
+              
+                if ($('#backtop').is(":visible")) {
+                    $('#backtop').fadeOut();
+                }
+            }
+        })
+    </script>
+
+    <script>
+        // 回到顶部
+        $("#backtop").click(function() {
+            $("html,body").animate({
+                scrollTop: 0
+            }, 500)
+        })
+    </script>
+</body>
+
+</html>

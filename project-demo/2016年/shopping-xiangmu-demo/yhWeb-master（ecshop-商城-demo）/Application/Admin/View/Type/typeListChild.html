@@ -1,0 +1,21 @@
+<table class="table table-bordered table-striped table-hover text-center">
+    <tr>
+        <th>编号</th>
+        <th>类名</th>
+        <th>父类ID</th>
+        <th>操作</th>
+    </tr>
+    <volist name="type" id="showType">
+        <tr>
+            <td id="showTypeId">{$showType.id}</td>
+            <td>{$showType.name}</td>
+            <td>{$showType.pid}</td>
+            <td>
+                <a href='__URL__/selectChild?id={$showType.id}' target='mainFrame' onFocus='this.blur()' class='showChild'>查看子类</a>
+                <span class='gray'>&nbsp;|&nbsp;</span><a href="__URL__/addType?id={$showType.id}" target='mainFrame' onFocus='this.blur()' class='add'>添加分类</a>
+                <span class='gray'>&nbsp;|&nbsp;</span><a href='#' target='mainFrame' onFocus='this.blur()' class='add'>删除</a>
+                <span class='gray'>&nbsp;|&nbsp;</span><a href='__URL__/typeUpdate/id/{$showType.id}' target='mainFrame' onFocus='this.blur()' class='add'>修改</a>
+            </td>
+        </tr>
+    </volist>
+</table>

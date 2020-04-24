@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>{{inTheater.title}}
+        <router-link tag="span" :to="{name:'movielist', query:{type:inTheater.type}}" class="more">      更多>
+        </router-link>
+		</h2>
+    <div class="card">
+        <router-link :to="{name: 'moviedetail', params: {id: item.id}}" class="item" v-for="item in inTheater.subjects">
+            <div class="cover">
+                <div class="wp">
+                    <img class="img-show" :src="item.images.medium" />
+                </div>
+            </div>
+            <div class="info">
+                <h3>{{item.title}}</h3>
+            </div>
+        </router-link>
+    </div>
+
+    路由配置那里的写法，下面可看出，query是不用像params那样加
+    path:'/moviedetail/:id' 这样子的，
+    而params的话，是需要在路由配置那里加上
+    path:'/moviedetail/:id' 这样子的
+
+    同时,query是后缀?再加上参数信息的，而，params则还是/（斜杠）后再带参数信息的
+         movie/list?type=in_theaters
+         moviedetail/25894431
+
+    <script>
+        {
+            path: '/movie/list',
+            component:movielist,
+            name: 'movielist'
+        },
+        {
+            path:'/moviedetail/:id',
+            component: moviedetail,
+            name: 'moviedetail'
+        }
+    </script>
+
+  <!-- --------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

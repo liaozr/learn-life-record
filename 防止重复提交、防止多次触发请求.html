@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.js"></script>
+</head>
+
+<body>
+
+    <div id='app'>
+
+      <div class="aa" @click='init'>触发请求</div>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                clickflag: false,
+            },
+            methods:{
+              init:function(){
+                init()
+              }
+            },
+            watch: {},
+            ready: function() {}
+        });
+
+        function init() {
+
+            if (vm.clickflag) {
+                return false;
+            }
+            vm.clickflag = true;
+
+            // 模拟 ajax请求
+            setTimeout(function(){
+              console.log("模拟ajax请求，接口请求成功")
+              vm.clickflag=false;
+            },2000)
+
+            mui.ajax(getBaseServerUrl() + '/system/user/login', {
+                type: 'get', //HTTP请求类型
+                //登录前鉴权 localStorage.auth
+                headers: {
+                    "auth": loginAuth
+                },
+                timeout: 30000, //超时时间设置为30秒；
+                data: {
+                    tenantId: 'homello',
+                    userName: vm.userName,
+                    password: vm.password,
+                    userType: 10,
+                    esn: '',
+                    clientId: AppCid
+                },
+                success: function(jsonData) {
+                    console.log("======" + JSON.stringify(jsonData))
+                    vm.clickflag = false;
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    vm.clickflag = false;
+                }
+            });
+
+        }
+    </script>
+</body>
+
+</html>

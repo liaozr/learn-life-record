@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- -------------------------------------------------------------------------------------------------- -->
+
+    <!-- 如果要传给子组件的参数是一个变量的话，prop在组件里  是要记得 加上 冒号的  :lists="discList"   -->
+    <!-- 如果要传给子组件的参数是一个变量的话，prop在组件里  是要记得 加上 冒号的  :lists="discList"   -->
+
+    <!--  因为这个 discList 是一个数组变量，并不是一个字符串，所以，这里 lists是 必须 得加上冒号，表示它是一个表达式来的，并不是单纯的字符串-->
+
+    <!--  因为这个 discList 是一个数组变量，并不是一个字符串，所以，这里 lists是 必须 得加上冒号，表示它是一个表达式来的，并不是单纯的字符串-->
+
+    而 loading组件这里 ，传的titile参数是 zrliao ,这个就是一个字符串，并不是一个变量，它就是一个字符串，所以这里的 title 是不用
+    加上冒号的，直接用 title 这样就行，并不用 加上冒号的。
+
+    <!-- -------------------------------------------------------------------------------------------------- -->
+
+-----------------------------------------------------------------------------------------------------------------
+
+    <!-- recommend.vue 组件 -->
+
+    <loading title='zrliao'></loading>
+
+-----------------------------------------------------------------------------------------------------------------
+
+    <!-- loading.vue组件 -->
+
+    <template>
+
+        <div class="loading">
+          <img width="24" height="24" src="./loading.gif">
+          <p class="desc">{{title}}</p>
+        </div>
+
+    </template>
+
+    <script type="text/ecmascript-6">
+        export default {
+          props: {
+            title: {
+              type: String,
+              default: '正在载入...'
+            }
+          }
+        }
+    </script>
+
+-----------------------------------------------------------------------------------------------------------------
+
+    <!-- -------------------------------------------------------------------------------------------------- -->
+
+    <scroll ref='scroll' class="recommend-content" :lists="discList">
+
+        <div class='chacao'>
+
+            <div v-if='recommends.length' class="slider-wrapper">
+                <slider>
+                    <div v-for="item in recommends" :key="item.id">
+                        <a :href="item.linkUrl"></a>
+                        <img :src="item.picUrl" alt="">
+                    </div>
+                </slider>
+            </div>
+
+            <div class="recommend-list">
+                <h1 class='list-title'>热门歌单推荐</h1>
+                <ul>
+                    <li v-for='item in discList' class='item' :key='item.id'>
+                        <div class="icon">
+                            <img width='60' height='60' :src="item.imgurl" alt="">
+                        </div>
+                        <div class="text">
+                            <h2 class="name">{{item.creator.name}}</h2>
+                            <p class='desc'>{{item.dissname}}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </scroll>
+
+    <script>
+        export default {
+             data() {
+               return {
+                 recommends:[],
+                 discList:[]
+               }
+             },
+             mounted(){
+
+                 console.log(this.$refs.scroll.test())     // 测试父子组件中的ref 与 children 属性的 通信
+                 console.log(this.$refs.scroll.probeType)  // 1
+
+             }
+         }
+    </script>
+
+<!-- -------------------------------------------------------------------------------------------------------- -->
+
+    <!-- scroll.vue scroll 组件 -->
+
+    <template>
+
+        <div ref='wrapper'>
+
+           <!-- 这里的slot 意味着插槽。 会将 recommend.vue 组件 里的 scroll组件 包着的
+
+               <div class='chacao'>
+                 ............
+
+               </div>
+
+                这段代码 会 替换 掉  这个 slot 标签的。
+
+           -->
+
+           <slot></slot>
+
+        </div>
+
+    </template>
+
+<script>
+
+    import BScroll from 'better-scroll'
+
+    export default{
+        data(){
+            return{
+
+            }
+        },
+        props:{
+            probeType:{
+                type:Number,
+                default:1
+            },
+            click:{
+                type:Boolean,
+                default:true
+            },
+            lists:{
+                type:Array,
+                default:[]
+            }
+        },
+        methods:{
+            initScroll(){
+                if(!this.$refs.wrapper){
+                   return
+                }else{
+                    this.scroll=new BScroll(this.$refs.wrapper,{
+                        probeType:this.probeType,
+                        click:this.click
+                    })
+                }
+            },
+            test(){
+                console.log("测试父子组件中的ref 与 children 属性的 通信")
+            },
+            refresh(){
+                this.scroll && this.scroll.refresh()
+            }
+        },
+        watch:{
+          lists(){
+             setTimeout(() =>{
+                 this.refresh()
+             },20)
+          }
+        },
+        mounted(){
+            setTimeout(() =>{
+                this.initScroll()
+            },20)
+        }
+    }
+</script>
+
+<!-- ------------------------------------------------------------------------------------------------------------ -->
+
+
+</body>
+
+</html>

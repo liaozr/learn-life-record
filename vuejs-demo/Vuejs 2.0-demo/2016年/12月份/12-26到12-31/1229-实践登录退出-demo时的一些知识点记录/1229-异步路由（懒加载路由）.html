@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+      const routes = [
+          {
+          	  path: '/', //首页
+              meta: { auth: true },
+              component: resolve => require(['./page/index'], resolve)
+          },
+          {
+              path: '/login', //登录
+              meta: { auth: true },
+              name:'login',
+              component: resolve => require(['./page/login'], resolve)
+          },
+          {
+              path: '/signout', //退出
+              name:'signout',
+              component: resolve => require(['./page/signout'], resolve)
+          },
+          {
+              path: '/home', //个人主页
+              name:'home',
+              component: resolve => require(['./page/home'], resolve)
+          },
+          {
+              path: '*', //其他页面，强制跳转到登录页面
+              redirect: '/login'
+          }
+      ]
+
+      const router = new VueRouter({
+      	  mode: 'history',
+          linkActiveClass: 'active',
+          //router-link的选中状态的class，也有一个默认的值
+          routes
+      })
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+  function fun(){}
+  //直接函数调用
+  1: fun();
+
+  //new操作符调用,唯一不同 这样调用函数会把函数体内this指向变成隐式生成的空对象的不是window的了
+
+  2: new fun();
+
+  //可以自己试一试玩玩
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+<script>
+
+    var names = "宋伟老师"
+
+    function fun() {
+       console.log(this.names)
+    };
+
+    fun()  // 宋伟老师
+
+    new fun(); // undefined
+
+</script>
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

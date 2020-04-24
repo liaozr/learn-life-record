@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+一、怎么让Chrome支持小于12px 的文字？
+
+这个我们在做移动端的时候，设计师图片上的文字假如是10px，我们实现在网页上之后。往往设计师回来找我们，这个字体能小一些吗？
+
+我设计的是10px？为啥是12px?其实我们都知道，谷歌Chrome最小字体是12px，不管你设置成8px还是10px，在浏览器中只会显示12px，那么如何解决这个坑爹的问题呢？
+
+我们的做法是：
+
+针对谷歌浏览器内核，加webkit前缀，用transform:scale()这个属性进行缩放！
+
+scale是css3的放大缩小属性。
+
+<style>
+    p span {
+        font-size: 10px;
+        -webkit-transform: scale(0.8);
+        transform：scale(0.8);
+        display: block;
+    }
+</style>
+
+<p><span>haorooms博客测试10px</span></p>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+</body>
+</html>

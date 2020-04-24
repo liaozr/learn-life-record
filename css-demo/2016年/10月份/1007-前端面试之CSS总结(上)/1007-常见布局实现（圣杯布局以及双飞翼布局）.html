@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+常见的三列布局之: 圣杯布局和双飞翼布局。
+
+圣杯布局和双飞翼布局
+
+两者都属于三列布局，是一种很常见的页面布局方式，三列一般分别是子列sub、主列main和附加列extra，其中子列一般是居左的导航，且宽度固定；主列是居中的主要内容，宽度自适应；附加列一般是广告等额外信息，居右且宽度固定。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+<!-- 圣杯布局 -->
+
+<div class="container">
+    <div class="main"></div>
+    <div class="sub"></div>
+    <div class="extra"></div>
+</div>
+<style>
+body {
+    min-width: 600px; /* 2*sub + extra */
+}
+.container {
+    padding-left: 210px;
+    padding-right: 190px;
+}
+.main {
+    float: left;
+    width: 100%;
+    height: 300px;
+    background-color: rgba(255, 0, 0, .5);
+}
+.sub {
+    position: relative;
+    left: -210px;
+    float: left;
+    width: 210px;
+    height: 300px;
+    margin-left: -100%;
+    background-color: rgba(0, 255, 0, .5);
+}
+.extra {
+    position: relative;
+    right: -190px;
+    float: left;
+    width: 190px;
+    height: 300px;
+    margin-left: -190px;
+    background-color: rgba(0, 0, 255, .5);
+}
+</style>
+
+<!-- --------------------------------------------------------------------------- -->
+
+<!-- 主要还是参考这个双飞翼布局为主 -->
+
+<!-- 双飞翼布局(淘宝使用的布局方式) -->
+<!-- 双飞翼布局(淘宝使用的布局方式) -->
+
+<div class="shuangfeiyi-layout">
+
+    <!-- 关键布局 -->
+	<div class="main-wrapper">
+	    <div class="mains"></div>
+	</div>
+	<div class="subs"></div>
+	<div class="extras"></div>
+
+</div>
+<style>
+    .shuangfeiyi-layout{
+    	margin-top:500px;
+    }
+
+    /*关键样式*/
+	.main-wrapper {
+	    float: left;
+	    width: 100%;
+
+	}
+	.mains {
+	    height: 300px;
+	    margin-left: 210px;
+	    margin-right: 190px;
+	    background-color: rgba(255, 0, 0, .5);
+	}
+    .subs {
+	    float: left;
+	    width: 210px;
+	    height: 300px;
+	    margin-left: -100%;
+	    background-color: rgba(0, 255, 0, .5);
+	}
+	.extras{
+	    float: left;
+	    width: 190px;
+	    height: 300px;
+	    margin-left: -190px;
+	    background-color: rgba(0, 0, 255, .5);
+	}
+</style>
+
+<!-- --------------------------------------------------------------------------- -->
+
+总结:
+
+俩种布局方式都是把主列放在文档流最前面，使主列优先加载。
+
+两种布局方式在实现上也有相同之处，都是让三列浮动，然后通过负外边距形成三列布局。
+
+两种布局方式的不同之处在于如何处理中间主列的位置：
+
+圣杯布局是利用父容器的左、右内边距定位
+
+双飞翼布局是把主列嵌套在div后利用主列的左、右外边距定位。
+
+<!-- --------------------------------------------------------------------------------------------- -->
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+JWT 的设计契合无状态原则：用户登录之后，服务器会返回一串 token 并保存在本地，在这之后的对服务器的访问都要带上这串 token，来获得访问服务器相关路由、
+
+服务及资源的权限。比如单点登录就比较多地使用了 JWT，
+
+因为它的体积小，并且简单处理（使用 HTTP 头带上 Bearer 属性 +token ）就可以支持跨域操作。
+
+<!-- ------------------------------------------------------------------------------------------ -->
+
+JWT 工作原理
+
+首先，某 client 使用自己的账号密码发送 post 请求 login，由于这是首次接触，服务器会校验账号与密码是否合法，
+
+如果一致，则根据密钥生成一个 token 并返回，client 收到这个 token 并保存在本地。
+
+在这之后，需要访问一个受保护的路由或资源时，只要附加上 token（通常使用 Header 的 Authorization 属性）
+
+发送到服务器，服务器就会检查这个 token 是否有效，并做出响应。
+
+<!-- ------------------------------------------------------------------------------------------ -->
+
+
+</body>
+
+</html>

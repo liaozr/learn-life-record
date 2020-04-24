@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src='vue.js'></script>
+</head>
+<body>
+
+<div id="app">
+    <input type="radio" id="one" value="One" v-model="dom">
+    <label for="one">One</label>
+    <br>
+    <input type="radio" id="two" value="Two" v-model="dom">
+    <label for="two">Two</label>
+    <br>
+    <span>dom: {{ dom }}</span>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            dom: ''
+        }
+    })
+</script>
+
+<!-- ------------------------------------------------------------------------- -->
+
+<!-- 当选中时，`picked` 为字符串 "a" -->
+<input type="radio" v-model="picked" value="a">
+
+<input type="radio" v-model="pick" v-bind:value="a">
+
+<!-- ------------------------------------------------------------------------ -->
+
+</body>
+</html>

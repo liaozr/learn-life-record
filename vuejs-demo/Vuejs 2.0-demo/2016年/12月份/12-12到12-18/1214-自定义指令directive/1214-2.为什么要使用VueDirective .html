@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+2.为什么要使用VueDirective
+
+有同学可能会问，我在Vue实例的方法中写DOM操作不可以吗？
+
+那为什么使用Vue Directive来封装DOM操作呢？
+
+这是因为，为了实现View和ViewModel的分离，我们必须封装DOM操作，View层负责页面上的显示，
+
+ViewModel层负责改变操作数据，由于Vue是数据驱动的，属于ViewModel层，
+
+那么其中就不应该出现View层上的DOM操作，
+
+而且，使用Vue Directive是和DOM元素的创建、销毁绑定的。
+
+Vue Directive的生命周期方法能让我们更优雅的去在合适的时机进行DOM的操作。
+
+而在ViewModel里则没有和DOM元素对应的方法。
+
+因为Vue Directive是属于View层面的，所以DOM操作应该被封装在Vue Directive里而不是出现在Vue实例中。
+
+ 
+</body>
+</html>

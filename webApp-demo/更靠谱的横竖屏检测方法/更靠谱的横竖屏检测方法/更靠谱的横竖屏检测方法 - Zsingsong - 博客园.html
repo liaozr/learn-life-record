@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://www.cnblogs.com/zhansingsong/p/5866692.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>更靠谱的横竖屏检测方法 - Zsingsong - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/bundle-green.css">
+<link id="mobile-style" media="only screen and (max-device-width: 980px)" type="text/css" rel="stylesheet" href="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/bundle-green-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/zhansingsong/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/zhansingsong/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/zhansingsong/wlwmanifest.xml">
+<script type="text/javascript" src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/encoder.js"></script><script src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'zhansingsong', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/blog-common.js" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<table align="center" width="90%" cellspacing="0" cellpadding="5" border="0" bgcolor="white" style="border-bottom: solid 1px #CCCCCC">
+    <tbody><tr>
+        <td colspan="2" class="banner" background="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/bg_banner.jpg">
+            
+<div id="header">
+	<span>
+		<a id="Header2_HeaderTitle" href="http://www.cnblogs.com/zhansingsong/">Zsingsong</a><br>
+		<div class="sub"></div>
+	</span>
+</div>
+        </td>
+    </tr>
+    
+        <tr>
+            <td style="padding-left: 10px" height="35">
+                
+<div id="menu_mylinks">
+<a id="blog_nav_sitehome" class="listitem" href="http://www.cnblogs.com/">博客园</a>
+<a id="blog_nav_myhome" class="listitem" href="http://www.cnblogs.com/zhansingsong/">首页</a> 
+<a id="blog_nav_newpost" class="listitem" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a> 
+<!--<a id="MyLinks2_NewArticleLink" class="listitem" href="/EnterMyBlog.aspx?NewArticle=1">新文章</a>-->
+<a id="blog_nav_contact" accesskey="9" class="listitem" rel="nofollow" href="https://msg.cnblogs.com/send/Zsingsong">联系</a>
+<a id="blog_nav_rss" class="listitem" href="http://www.cnblogs.com/zhansingsong/rss">订阅</a>
+<a id="blog_nav_rss_image" href="http://www.cnblogs.com/zhansingsong/rss"><img src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/xml.gif" alt="订阅"></a>
+<a id="blog_nav_admin" class="listitem" rel="nofollow" href="https://i.cnblogs.com/">管理</a>
+</div>
+
+            </td>
+            <td align="right" style="padding-right: 20px" width="30%">
+                <div id="blog_stats">
+随笔：3
+文章：0
+评论：2
+引用：0</div>
+            </td>
+        </tr>
+    
+</tbody></table>
+<table align="center" width="90%" cellspacing="0" cellpadding="0" border="0">
+    <tbody><tr>
+        <td valign="top" width="75%">
+            <table align="center" width="100%" height="100%" cellspacing="0" cellpadding="5" border="0" bgcolor="white" class="index">
+                <tbody><tr>
+                    <td class="banner" valign="top" id="main">
+                        
+<div id="post_detail">
+<div class="block">
+	<h1 class="block_title"><a id="cb_post_title_url" href="http://www.cnblogs.com/zhansingsong/p/5866692.html">更靠谱的横竖屏检测方法</a></h1>
+	<div class="post">
+		<div class="postcontent">
+			<div id="cnblogs_post_body"><p><span style="font-size: 16px;">前不久，做了一个H5项目，需要在横竖屏变化时，做一些处理。毫无疑问，需要使用<span style="color: #ff0000;"><strong>orientationchange</strong></span>来监听横竖屏的变化。</span></p>
+<p>&nbsp;<strong><span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 18px;">方案一：</span></strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #008000;">//</span><span style="color: #008000;"> 监听 orientation changes</span>
+window.addEventListener("orientationchange", <span style="color: #0000ff;">function</span><span style="color: #000000;">(event) {
+    </span><span style="color: #008000;">//</span><span style="color: #008000;"> 根据event.orientation|screen.orientation.angle等于0|180、90|-90度来判断横竖屏</span>
+}, <span style="color: #0000ff;">false</span>);</pre>
+</div>
+<p><span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 15px; color: #ff9900;">代码添加上后，就各种兼容性问题。这里兼容性问题出现在两个地方：</span></p>
+<ul>
+<li><span style="font-size: 15px;">orientationchange</span></li>
+<li id="__mceDel"><span style="font-size: 15px;"><em id="__mceDel"><em id="__mceDel">event.orientation|screen.orientation.angle</em></em></span></li>
+</ul>
+<p><span style="font-size: 15px;"><strong>如下是<span style="color: #ff0000;">orientationchange</span>事件的兼容性：</strong></span></p>
+<p><a href="http://www.quirksmode.org/dom/events/orientationchange.html" target="_blank"><iframe id="iframe_0.37295498145593897" src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/saved_resource.html" style="border: none; width: 1069px; height: 486px;" frameborder="0" scrolling="no"></iframe></a></p>
+<p><span style="font-size: 15px;"><strong>如下是<span style="color: #ff0000;">screen.orientation</span>的兼容性：</strong></span></p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Screen/orientation" target="_blank"><iframe id="iframe_0.8504262397898088" src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/saved_resource(1).html" style="border: none; width: 689px; height: 162px;" frameborder="0" scrolling="no"></iframe></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong><span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 18px;">&nbsp;方案二：</span></strong></p>
+<p><span style="font-family: 宋体; font-size: 15px;">上述方案不行，只能另行他法了。google一下，了解到可以通过<strong><span style="color: #ff0000;">resize</span></strong>配合<strong><span style="color: #ff0000;">(window.inner/outerWidth, window.inner/outerHeight)</span></strong>来实现：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>window.addEventListener("resize", <span style="color: #0000ff;">function</span><span style="color: #000000;">(event) {
+</span><span style="color: #0000ff;">var</span> orientation=(window.innerWidth &gt; window.innerHeight)? "landscape":"portrait"<span style="color: #000000;">;
+</span><span style="color: #0000ff;">if</span>(oritentation === 'portrait'<span style="color: #000000;">){
+</span><span style="color: #008000;">//</span><span style="color: #008000;"> do something ……</span>
+} <span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+</span><span style="color: #008000;">//</span><span style="color: #008000;"> do something else ……</span>
+<span style="color: #000000;">}
+}, </span><span style="color: #0000ff;">false</span>);</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 15px;"><strong><span style="font-family: &#39;Microsoft YaHei&#39;;">这种方案基本满足大部分项目的需求，但是还是有些不足之处：</span></strong></span></p>
+<ul>
+<li><span style="font-size: 15px;">只要<strong><span style="color: #ff0000;">window</span></strong>的<strong><span style="color: #ff0000;">size</span></strong>变化，就会不断触发触发<strong><span style="color: #ff0000;">resize</span></strong>事件。可以使用<strong><span style="color: #ff0000;">setTimeout</span></strong>来优化一下</span></li>
+<li><span style="font-size: 15px;">如果有多个地方需要监听横竖屏，就需要注册多个<strong><span style="color: #ff0000;">window.addEventListener("resize", function(event) {……})</span></strong>。能不能通过<strong>订阅与发布模式</strong>来改进一下，只注册一个<strong><span style="color: #ff0000;">resize</span></strong>负责监听横竖屏变化，只要横竖发生变化就发布通知订阅的对象。其他需要监听横竖屏的地方只需订阅一下即可。</span></li>
+</ul>
+<p><span style="font-size: 15px;"><strong>关键代码如下：</strong></span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>    <span style="color: #0000ff;">var</span> resizeCB = <span style="color: #0000ff;">function</span><span style="color: #000000;">(){
+      </span><span style="color: #0000ff;">if</span>(win.innerWidth &gt; win.innerHeight){<span style="color: #008000;">//</span><span style="color: #008000;">初始化判断</span>
+        meta.init = 'landscape'<span style="color: #000000;">;
+        meta.current </span>= 'landscape'<span style="color: #000000;">;
+      } </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+        meta.init </span>= 'portrait'<span style="color: #000000;">;
+        meta.current </span>= 'portrait'<span style="color: #000000;">;
+      }
+      </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">function</span><span style="color: #000000;">(){
+        </span><span style="color: #0000ff;">if</span>(win.innerWidth &gt;<span style="color: #000000;"> win.innerHeight){
+          </span><span style="color: #0000ff;">if</span>(meta.current !== 'landscape'<span style="color: #000000;">){
+            meta.current </span>= 'landscape'<span style="color: #000000;">;
+            event.trigger(</span>'__orientationChange__'<span style="color: #000000;">, meta);
+          }
+        } </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+          </span><span style="color: #0000ff;">if</span>(meta.current !== 'portrait'<span style="color: #000000;">){
+            meta.current </span>= 'portrait'<span style="color: #000000;">;
+            event.trigger(</span>'__orientationChange__'<span style="color: #000000;">, meta);
+          }
+        }
+      }
+    }();</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 16px;"><strong><a href="https://github.com/zhansingsong/orientationchange-fix/blob/master/other/pl_2.js" target="_blank">完整代码猛击这里</a></strong></span></p>
+<p>&nbsp;</p>
+<p><strong><span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 18px;">&nbsp;方案三：</span></strong></p>
+<p><span style="font-family: 宋体; font-size: 15px;">不过个人觉得通过<strong><span style="color: #ff0000;">window.innerWidth &gt; window.innerHeight</span></strong>来实现的是一种伪检测，有点不可靠。 可不可以通过浏览器来实现检测？如基于CSS3<strong><span style="color: #ff0000;">@media</span></strong>媒体查询来实现。</span></p>
+<p><strong>如下<span style="color: #ff0000;">@media</span>兼容性：</strong></p>
+<p><a href="http://caniuse.com/#feat=css-mediaqueries" target="_blank"><iframe id="iframe_0.7856312573424222" src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/saved_resource(2).html" style="border: none; width: 1267px; height: 570px;" frameborder="0" scrolling="no"></iframe></a><br><strong><span style="background-color: #ff6600;">如上上图所示，移动端浏览器都支持CSS3 media。</span></strong></p>
+<p><strong><span style="font-family: 黑体; font-size: 16px;">实现思路：</span></strong></p>
+<ul>
+<li><span style="font-size: 15px;">创建包含标识横竖屏状态的特定css样式</span></li>
+<li><span style="font-size: 15px;">通过JS向页面中注入CSS代码</span></li>
+<li><span style="font-size: 15px;">resize回调函数中获取横竖屏的状态</span></li>
+
+
+
+
+
+
+</ul>
+<p><span style="font-size: 15px;">这里我选择<span style="color: #ff0000;">&lt;html&gt;&lt;/html&gt;</span>的节点<span style="color: #ff0000;">font-family</span>作为检测样式属性。理由如下：</span></p>
+<ul>
+<li><span style="font-size: 15px;">选择<span style="color: #ff0000;">&lt;html&gt;&lt;/html&gt;</span>主要为了避免<span style="color: #ff0000;">reflow</span>和<span style="color: #ff0000;">repaint</span></span></li>
+<li><span style="font-size: 15px;">选择<span style="color: #ff0000;">font-family</span>样式，主要是因为<span style="color: #ff0000;">font-family</span>有如下特性：</span></li>
+<li style="margin-left: 30px;"><span style="font-size: 15px;">优先使用排在前面的字体。</span></li>
+<li style="margin-left: 30px;"><span style="font-size: 15px;">如果找不到该种字体，或者该种字体不包括所要渲染的文字，则使用下一种字体。</span></li>
+<li style="margin-left: 30px;"><span style="font-size: 15px;">如果所列出的字体，都无法满足需要，则让操作系统自行决定使用哪种字体。</span></li>
+
+
+
+
+
+
+</ul>
+<p><span style="font-size: 15px;">这样我们就可以指定特定标识来标识横竖屏的状态，不过需要将指定的标识放置在其他字体的前面，这样就不会引起hmtl字体的变化。</span></p>
+<p><span style="font-size: 15px;"><strong>关键代码如下：</strong></span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>    <span style="color: #008000;">//</span><span style="color: #008000;"> callback</span>
+    <span style="color: #0000ff;">var</span> resizeCB = <span style="color: #0000ff;">function</span><span style="color: #000000;">() {
+        </span><span style="color: #0000ff;">var</span> hstyle = win.getComputedStyle(html, <span style="color: #0000ff;">null</span><span style="color: #000000;">),
+            ffstr </span>= hstyle['font-family'<span style="color: #000000;">],
+            pstr </span>= "portrait, " +<span style="color: #000000;"> ffstr,
+            lstr </span>= "landscape, " +<span style="color: #000000;"> ffstr,
+            </span><span style="color: #008000;">//</span><span style="color: #008000;"> 拼接css</span>
+            cssstr = '@media (orientation: portrait) { .orientation{font-family:' + pstr + ';} } @media (orientation: landscape) {  .orientation{font-family:' + lstr + ';}}'<span style="color: #000000;">;
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 载入样式        </span>
+<span style="color: #000000;">        loadStyleString(cssstr);
+        </span><span style="color: #008000;">//</span><span style="color: #008000;"> 添加类</span>
+        html.className = 'orientation' +<span style="color: #000000;"> html.className;
+        </span><span style="color: #0000ff;">if</span> (hstyle['font-family'] === pstr) { <span style="color: #008000;">//</span><span style="color: #008000;">初始化判断</span>
+            meta.init = 'portrait'<span style="color: #000000;">;
+            meta.current </span>= 'portrait'<span style="color: #000000;">;
+        } </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+            meta.init </span>= 'landscape'<span style="color: #000000;">;
+            meta.current </span>= 'landscape'<span style="color: #000000;">;
+        }
+        </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">function</span><span style="color: #000000;">() {
+            </span><span style="color: #0000ff;">if</span> (hstyle['font-family'] ===<span style="color: #000000;"> pstr) {
+                </span><span style="color: #0000ff;">if</span> (meta.current !== 'portrait'<span style="color: #000000;">) {
+                    meta.current </span>= 'portrait'<span style="color: #000000;">;
+                    event.trigger(</span>'__orientationChange__'<span style="color: #000000;">, meta);
+                }
+            } </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+                </span><span style="color: #0000ff;">if</span> (meta.current !== 'landscape'<span style="color: #000000;">) {
+                    meta.current </span>= 'landscape'<span style="color: #000000;">;
+                    event.trigger(</span>'__orientationChange__'<span style="color: #000000;">, meta);
+                }
+            }
+        }
+    }();</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 16px;"><strong><a href="https://github.com/zhansingsong/orientationchange-fix/blob/master/other/pl_3.js" target="_blank">完整代码猛击这里</a></strong></span></p>
+<p><br><span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 16px;"><strong>测试效果</strong></span></p>
+<ul>
+<li><strong>&nbsp;portrait效果：</strong></li>
+
+
+
+
+
+
+</ul>
+<p><iframe id="iframe_0.5072126164734929" src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/saved_resource(3).html" style="border: none; width: 1096px; height: 884px;" frameborder="0" scrolling="no"></iframe></p>
+<ul>
+<li><strong>landscape效果：</strong></li>
+
+
+
+
+
+
+</ul>
+<p><iframe id="iframe_0.20382219800761225" src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/saved_resource(4).html" style="border: none; width: 957px; height: 759px;" frameborder="0" scrolling="no"></iframe></p>
+<p>&nbsp;</p>
+<p><strong><span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 18px;">方案四：</span></strong></p>
+<p><span style="font-size: 15px;">可以再改进一下，在支持<strong><span style="color: #ff0000;">orientationchange</span></strong>时，就使用原生的<strong><span style="color: #ff0000;">orientationchange</span></strong>，不支持则使用<span style="text-decoration: underline;"><strong>方案三</strong></span>。</span></p>
+<p><span style="font-size: 15px;"><strong>关键代码如下：</strong></span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008000;">//</span><span style="color: #008000;"> 是否支持orientationchange事件</span>
+<span style="color: #0000ff;">var</span> isOrientation = ('orientation' <span style="color: #0000ff;">in</span> window &amp;&amp; 'onorientationchange' <span style="color: #0000ff;">in</span><span style="color: #000000;"> window);
+</span><span style="color: #008000;">//</span><span style="color: #008000;"> callback</span>
+<span style="color: #0000ff;">var</span> orientationCB = <span style="color: #0000ff;">function</span><span style="color: #000000;">(e) {
+    </span><span style="color: #0000ff;">if</span> (win.orientation === 180 || win.orientation === 0<span style="color: #000000;">) {
+        meta.init </span>= 'portrait'<span style="color: #000000;">;
+        meta.current </span>= 'portrait'<span style="color: #000000;">;
+    }
+    </span><span style="color: #0000ff;">if</span> (win.orientation === 90 || win.orientation === -90<span style="color: #000000;">) {
+        meta.init </span>= 'landscape'<span style="color: #000000;">;
+        meta.current </span>= 'landscape'<span style="color: #000000;">;
+    }
+    </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">function</span><span style="color: #000000;">() {
+        </span><span style="color: #0000ff;">if</span> (win.orientation === 180 || win.orientation === 0<span style="color: #000000;">) {
+            meta.current </span>= 'portrait'<span style="color: #000000;">;
+        }
+        </span><span style="color: #0000ff;">if</span> (win.orientation === 90 || win.orientation === -90<span style="color: #000000;">) {
+            meta.current </span>= 'landscape'<span style="color: #000000;">;
+        }
+        event.trigger(eventType, meta);
+    }
+};
+</span><span style="color: #0000ff;">var</span> callback = isOrientation ? orientationCB() : (<span style="color: #0000ff;">function</span><span style="color: #000000;">() {
+    resizeCB();
+    </span><span style="color: #0000ff;">return</span> <span style="color: #0000ff;">function</span><span style="color: #000000;">() {
+        timer </span>&amp;&amp;<span style="color: #000000;"> win.clearTimeout(timer);
+        timer </span>= win.setTimeout(resizeCB, 300<span style="color: #000000;">);
+    }
+})();
+</span><span style="color: #008000;">//</span><span style="color: #008000;"> 监听</span>
+win.addEventListener(isOrientation ? eventType : 'resize', callback, <span style="color: #0000ff;">false</span>);</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 16px;"><strong><a href="https://github.com/zhansingsong/orientationchange-fix/blob/master/other/pl_orientation.js" target="_blank">完整代码猛击这里</a></strong></span></p>
+<p>&nbsp;</p>
+<p><span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 18px;"><strong>方案五：</strong></span></p>
+<p><span style="font-family: &#39;Microsoft YaHei&#39;; font-size: 15px;">目前，上述几种方案都是通过自定制的<span style="text-decoration: underline;"><strong>订阅与发布</strong></span>事件模式来实现的。这里可以基于浏览器的事件机制，来模拟<strong><span style="color: #ff0000;">orientationchange</span></strong>。即对<strong><span style="color: #ff0000;">orientationchange</span></strong>的不兼容进行修复。</span></p>
+<p><span style="font-size: 15px;"><strong>关键代码如下：</strong></span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">var</span> eventType = 'orientationchange'<span style="color: #000000;">;
+</span><span style="color: #008000;">//</span><span style="color: #008000;"> 触发原生orientationchange</span>
+<span style="color: #0000ff;">var</span> fire = <span style="color: #0000ff;">function</span><span style="color: #000000;">() {
+    </span><span style="color: #0000ff;">var</span><span style="color: #000000;"> e;
+    </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (document.createEvent) {
+        e </span>= document.createEvent('HTMLEvents'<span style="color: #000000;">);
+        e.initEvent(eventType, </span><span style="color: #0000ff;">true</span>, <span style="color: #0000ff;">false</span><span style="color: #000000;">);
+        win.dispatchEvent(e);
+    } </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+        e </span>=<span style="color: #000000;"> document.createEventObject();
+        e.eventType </span>=<span style="color: #000000;"> eventType;
+        </span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (win[eventType]) {
+            win[eventType]();
+        } </span><span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span> (win['on' +<span style="color: #000000;"> eventType]) {
+            win[</span>'on' +<span style="color: #000000;"> eventType]();
+        } </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+            win.fireEvent(eventType, e);
+        }
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 16px;"><strong><a href="https://github.com/zhansingsong/orientationchange-fix/blob/master/src/orientationchange-fix.js" target="_blank">完整代码猛击这里</a></strong></span></p>
+<p><span style="font-size: 15px;">通过上述5种方案，自己对移动端横竖屏检测有了更进一步的认识，有些东西只有自己亲身经历过才知道为什么要这么写，自己也把其中缘由记录在文章中，希望对大家有帮助。经过5种方案的演变得到了最终<span style="color: #ff0000;"><strong>orientationchange-fix</strong></span>，github地址：<a href="https://github.com/zhansingsong/orientationchange-fix" target="_blank">https://github.com/zhansingsong/orientationchange-fix</a></span></p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/zhansingsong/category/881643.html" target="_blank">H5</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/zhansingsong/tag/orientationchange/">orientationchange</a>, <a href="http://www.cnblogs.com/zhansingsong/tag/orientation%20detection/">orientation detection</a>, <a href="http://www.cnblogs.com/zhansingsong/tag/%E6%A8%AA%E7%AB%96%E5%B1%8F%E6%A3%80%E6%B5%8B/">横竖屏检测</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(5866692,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;4ab959d6-b005-e411-8d02-90b11c0b17d6&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/zhansingsong/" target="_blank"><img src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/sample_face.gif" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/zhansingsong/">Zsingsong</a><br>
+            <a href="http://home.cnblogs.com/u/zhansingsong/followees">关注 - 0</a><br>
+            <a href="http://home.cnblogs.com/u/zhansingsong/followers">粉丝 - 5</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;4ab959d6-b005-e411-8d02-90b11c0b17d6&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(5866692,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">10</span>
+    </div>
+    <div class="buryit" onclick="votePost(5866692,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/zhansingsong/p/5621713.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/zhansingsong/p/5621713.html" title="发布于2016-06-27 21:59">浮动【电梯】或【回到顶部】小插件：iElevator.js</a><br></div>
+</div>
+
+
+		</div>
+		<div class="itemdesc">
+			发表于 <span id="post-date">2016-09-12 22:40</span> <a href="http://www.cnblogs.com/zhansingsong/">Zsingsong</a> 阅读(<span id="post_view_count">537</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=5866692" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/zhansingsong/p/5866692.html#" onclick="AddToWz(5866692);return false;">收藏</a>
+		</div>
+	</div>
+	<div class="seperator">&nbsp;</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=238251,cb_entryId=5866692,cb_blogApp=currentBlogApp,cb_blogUserGuid='4ab959d6-b005-e411-8d02-90b11c0b17d6',cb_entryCreatedDate='2016/9/12 22:40:00';loadViewCount(cb_entryId);</script>
+	
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/zhansingsong/p/5866692.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/zhansingsong/p/5866692.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://group.cnblogs.com/topic/75389.html" target="_blank">【活动】优达学城正式发布“无人驾驶车工程师”课程</a><br><a href="http://www.rongcloud.cn/live" target="_blank">【推荐】移动直播百强八成都在用融云即时通讯云</a><br><a href="http://www.gcpowertools.com.cn/products/componentone_studio_enterprise.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=C1&amp;utm_campaign=community" target="_blank">【推荐】别再闷头写代码！找对工具，事半功倍，全能开发工具包用起来</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://gold.xitu.io/extension/?utm_source=cnblogs&amp;utm_medium=banner&amp;utm_content=juhe&amp;utm_campaign=q3_extension" target="_blank"><img width="300" height="250" src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/24442-20160902193613668-1123982956.png" alt=""></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/554601/" target="_blank">微软：Adobe Flash Player 取代Java成为最主要的攻击媒介</a><br> ·  <a href="http://news.cnblogs.com/n/554600/" target="_blank">微软在新加坡开设全新的透明中心及网络安全中心</a><br> ·  <a href="http://news.cnblogs.com/n/554599/" target="_blank">谷歌推出新Doodle纪念公历诞生434周年</a><br> ·  <a href="http://news.cnblogs.com/n/554598/" target="_blank">Adobe发布新版Photoshop和 Premiere Elements 15</a><br> ·  <a href="http://news.cnblogs.com/n/554597/" target="_blank">Mozilla三季度投入超30万美金给4个开源项目</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="https://www.jiguang.cn/devservice/?from=cnblogs01" target="_blank"><img width="468" height="60" src="./更靠谱的横竖屏检测方法 - Zsingsong - 博客园_files/24442-20160803181056012-1919505484.jpg" alt=""></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/553682/" target="_blank">陈皓：什么是工程师文化？</a><br> ·  <a href="http://kb.cnblogs.com/page/551422/" target="_blank">没那么难，谈CSS的设计模式</a><br> ·  <a href="http://kb.cnblogs.com/page/550625/" target="_blank">程序猿媳妇儿注意事项</a><br> ·  <a href="http://kb.cnblogs.com/page/540529/" target="_blank">可是姑娘，你为什么要编程呢？</a><br> ·  <a href="http://kb.cnblogs.com/page/549631/" target="_blank">知其所以然（以算法学习为例）</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+                    </div></td>
+                </tr>
+            </tbody></table>
+        </td>
+        <td valign="top" id="sidebar">
+            <table align="center" width="100%" height="1400" cellspacing="0" cellpadding="5" border="0" bgcolor="white">
+                <tbody><tr>
+                    <td class="banner" valign="top" style="padding-top: 0px">
+                        
+                            <table width="100%" height="200">
+                                <tbody><tr>
+                                    <td>
+                                        <div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/09/01&#39;);return false;">&lt;</a></td><td align="center">2016年10月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2016/11/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalWeekendDay" align="center">1</td></tr><tr><td class="CalWeekendDay" align="center">2</td><td align="center">3</td><td align="center">4</td><td class="CalTodayDay" align="center">5</td><td align="center">6</td><td align="center">7</td><td class="CalWeekendDay" align="center">8</td></tr><tr><td class="CalWeekendDay" align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td class="CalWeekendDay" align="center">15</td></tr><tr><td class="CalWeekendDay" align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td class="CalWeekendDay" align="center">22</td></tr><tr><td class="CalWeekendDay" align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td class="CalWeekendDay" align="center">29</td></tr><tr><td class="CalWeekendDay" align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                            
+<h1>公告</h1>
+<div align="center" style="margin-top:10px"><div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/zhansingsong/">Zsingsong</a><br>园龄：<a href="http://home.cnblogs.com/u/zhansingsong/" title="入园时间：2014-07-07">2年2个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/zhansingsong/followers/">5</a><br>关注：<a href="http://home.cnblogs.com/u/zhansingsong/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;4ab959d6-b005-e411-8d02-90b11c0b17d6&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script></div>
+                            <div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/zhansingsong/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/zhansingsong/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/zhansingsong/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/zhansingsong/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/zhansingsong/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<h3 class="catListTitle">我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/zhansingsong/tag/ielevator/">ielevator</a>(1)</li><li><a href="http://www.cnblogs.com/zhansingsong/tag/ishare.js/">ishare.js</a>(1)</li><li><a href="http://www.cnblogs.com/zhansingsong/tag/jquery%20plugin/">jquery plugin</a>(1)</li><li><a href="http://www.cnblogs.com/zhansingsong/tag/orientation%20detection/">orientation detection</a>(1)</li><li><a href="http://www.cnblogs.com/zhansingsong/tag/orientationchange/">orientationchange</a>(1)</li><li><a href="http://www.cnblogs.com/zhansingsong/tag/%E5%88%86%E4%BA%AB/">分享</a>(1)</li><li><a href="http://www.cnblogs.com/zhansingsong/tag/%E5%88%86%E4%BA%AB%E6%8F%92%E4%BB%B6/">分享插件</a>(1)</li><li><a href="http://www.cnblogs.com/zhansingsong/tag/%E6%B5%AE%E5%8A%A8%E7%94%B5%E6%A2%AF/">浮动电梯</a>(1)</li><li><a href="http://www.cnblogs.com/zhansingsong/tag/%E6%A8%AA%E7%AB%96%E5%B1%8F%E6%A3%80%E6%B5%8B/">横竖屏检测</a>(1)</li><li><a href="http://www.cnblogs.com/zhansingsong/tag/%E5%9B%9E%E5%88%B0%E9%A1%B6%E9%83%A8/">回到顶部</a>(1)</li><li><a href="http://www.cnblogs.com/zhansingsong/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+		<h1 class="listtitle">随笔分类</h1>
+		
+				<ul class="list" type="square">
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/zhansingsong/category/881643.html">H5(1)</a> </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_1" class="listitem" href="http://www.cnblogs.com/zhansingsong/category/845259.html">插件(2)</a> </li>
+			
+				</ul>
+			
+	
+		<h1 class="listtitle">随笔档案</h1>
+		
+				<ul class="list" type="square">
+			
+				<li class="listitem"><a id="CatList_LinkList_1_Link_0" class="listitem" href="http://www.cnblogs.com/zhansingsong/archive/2016/09.html">2016年9月 (1)</a> </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_1_Link_1" class="listitem" href="http://www.cnblogs.com/zhansingsong/archive/2016/06.html">2016年6月 (2)</a> </li>
+			
+				</ul>
+			
+	
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zhansingsong/p/5615325.html#3458543">1. Re:iShare.js分享插件</a></li>
+        <li class="recent_comment_body">很棒。</li>
+        <li class="recent_comment_author">--新生帝</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/zhansingsong/p/5615325.html#3458437">2. Re:iShare.js分享插件</a></li>
+        <li class="recent_comment_body">不错，收藏了</li>
+        <li class="recent_comment_author">--troy.cui</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/zhansingsong/p/5615325.html">1. iShare.js分享插件(678)</a></li><li><a href="http://www.cnblogs.com/zhansingsong/p/5866692.html">2. 更靠谱的横竖屏检测方法(537)</a></li><li><a href="http://www.cnblogs.com/zhansingsong/p/5621713.html">3. 浮动【电梯】或【回到顶部】小插件：iElevator.js(393)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/zhansingsong/p/5615325.html">1. iShare.js分享插件(2)</a></li></ul></div>
+</div></div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/zhansingsong/p/5866692.html">1. 更靠谱的横竖屏检测方法(10)</a></li><li><a href="http://www.cnblogs.com/zhansingsong/p/5615325.html">2. iShare.js分享插件(9)</a></li><li><a href="http://www.cnblogs.com/zhansingsong/p/5621713.html">3. 浮动【电梯】或【回到顶部】小插件：iElevator.js(5)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+                        
+                        <br>
+                        
+<div class="footer">
+	Powered by: <a href="http://www.cnblogs.com/">博客园</a><br>模板提供：<a href="http://blog.hjenglish.com/">沪江博客</a><br>
+	Copyright ©2016 Zsingsong
+</div>
+                    </td>
+                </tr>
+            </tbody></table>
+        </td>
+    </tr>
+</tbody></table>
+<br>
+
+
+
+
+</body></html>

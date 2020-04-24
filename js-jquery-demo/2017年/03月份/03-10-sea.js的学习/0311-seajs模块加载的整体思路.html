@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+1、从seajs.use方法入口，开始加载use到的模块。
+
+2、use到的模块这时mod缓存当中一定是不存在的。seajs创建一个新的mod,赋予一些初始的状态。
+
+3、执行mod.load方法
+
+4、一堆逻辑之后走到seajs.request方法，请求模块文件。模块加载完成之后，执行define方法。
+
+5、define方法分析提取模块的依赖模块，保存起来。缓存factory但不执行。
+
+6、模块的依赖模块再被加载，如果继续有依赖模块，则继续加载。直至所有被依赖的模块都加载完毕。
+
+7、所有的模块加载完毕之后，执行use方法的callback.
+
+8、模块内部逻辑从callback开始执行。require方法在这个过程当中才被执行。
+
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- Mobile Devices Support @begin -->
+     <meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1" / >
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+     <!-- Mobile Devices Support @end -->
+    <link href="css/reset.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/swiper-3.3.1.min.css">
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+
+
+    <script src="js/jquery-1.9.1.js" type="text/javascript"></script>
+    <script src="js/flexible.js" type="text/javascript"></script>
+    <script src="js/flexible_css.js" type="text/javascript"></script>
+    <script src='js/swiper-3.3.1.min.js' type="text/javascript"></script>
+    <script src='js/fastclick.js' type="text/javascript"></script>
+    <script src='js/mui.min.js' type="text/javascript"></script>
+
+</head>
+<body class='susong-zhinan anjian-chaxun'>   
+    <div class="mui-content kaiting">
+			 <form class="mui-input-group">
+			    <div class="mui-input-row">
+			        <label>案号</label>
+			    <input type="text" class="mui-input-clear" placeholder="请输入案号">
+			    </div>
+			    <div class="mui-input-row">
+			        <label>主审法官</label>
+			        <input type="text" class="mui-input-clear" placeholder="请填写主审法官名字">
+			    </div>
+			    <div class="mui-input-row">
+			        <label>书记员</label>
+			        <input type="text" class="mui-input-clear" placeholder="请填写书记员名字">
+			    </div>
+			    <div class="mui-button-row">
+			        <button type="button" class="mui-btn mui-btn-primary" >查询</button>
+			        <button type="button" class="mui-btn mui-btn-danger chongzhi" >重置</button>
+			    </div>
+			</form>
+
+			<div class="anjian-liebiao">
+				公告列表
+			</div>
+
+			 <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+		        <li class="mui-table-view-cell">
+		            <div class="mui-table">
+		                <div class="mui-table-cell mui-col-xs-10">
+		                    <h5 class="mui-ellipsis bushenglue">案号：（2015）深龙法民一初字第2702号</h5>
+		                    <h5>法庭用途：庭审</h5>
+		                    <h5>开庭地点：龙岗第一审判庭</h5>
+		                    <p class="mui-h6 mui-ellipsis dangshiren">开庭开始时间：2017-06-28 09:30:00</p>
+		                    <p class="mui-h6 mui-ellipsis dangshiren">开庭结束时间：2017-07-28 09:30:00</p>
+ 		                </div>
+		                <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+		                     <h5>开庭状态</h5><span class="mui-h5 more-chakan state-kaiting">未开庭</span> 
+		                </div>
+		            </div>
+		        </li>
+
+		        <li class="mui-table-view-cell">
+		            <div class="mui-table">
+		                <div class="mui-table-cell mui-col-xs-10">
+		                    <h5 class="mui-ellipsis bushenglue">案号：（2015）深龙法民一初字第2702号</h5>
+		                    <h5>法庭用途：庭审</h5>
+		                    <h5>开庭地点：龙岗第一审判庭</h5>
+		                    <p class="mui-h6 mui-ellipsis dangshiren">开庭开始时间：2017-06-28 09:30:00</p>
+		                    <p class="mui-h6 mui-ellipsis dangshiren">开庭结束时间：2017-07-28 09:30:00</p>
+ 		                </div>
+		                <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+		                     <h5>开庭状态</h5><span class="mui-h5 more-chakan state-kaiting">未开庭</span> 
+		                </div>
+		            </div>
+		        </li>
+
+		        <li class="mui-table-view-cell">
+		            <div class="mui-table">
+		                <div class="mui-table-cell mui-col-xs-10">
+		                    <h5 class="mui-ellipsis bushenglue">案号：（2015）深龙法民一初字第2702号</h5>
+		                    <h5>法庭用途：庭审</h5>
+		                    <h5>开庭地点：龙岗第一审判庭</h5>
+		                    <p class="mui-h6 mui-ellipsis dangshiren">开庭开始时间：2017-06-28 09:30:00</p>
+		                    <p class="mui-h6 mui-ellipsis dangshiren">开庭结束时间：2017-07-28 09:30:00</p>
+ 		                </div>
+		                <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+		                     <h5>开庭状态</h5><span class="mui-h5 more-chakan state-kaiting">未开庭</span> 
+		                </div>
+		            </div>
+		        </li>
+		    </ul>
+	</div>
+  <script type="text/javascript">
+      $(function(){
+          FastClick.attach(document.body);
+      })
+
+      mui.init({
+			swipeBack:true //启用右滑关闭功能
+	  });
+  </script>
+  <script>
+		var oldback = mui.back;
+		mui.back = function() {
+			plus.webview.currentWebview().opener().opener().evalJS("changeTit('智慧龙岗法院')");
+			plus.webview.currentWebview().close();
+		}
+  </script>
+  
+</body>
+</html>

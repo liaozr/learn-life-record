@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- ------------------------------------------------------------------------------- -->
+
+    v-if和v-for共存
+
+    如果v-if和v-for在同一个element上出现，则和angular类似，也有一个directive优先级的问题。
+
+    在vuejs中，v-for的优先级要高于v-if，也就是说先做v-for的loop,随后对每一个loop再应用v-if判断，
+
+    比如下面的代码：对loop后的每一个todo，只有在todo没有完成的情况下，我们才render这个todo!!
+
+    <li v-for="todo in todos" v-if="!todo.isComplete">
+        {{ todo }}
+    </li>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

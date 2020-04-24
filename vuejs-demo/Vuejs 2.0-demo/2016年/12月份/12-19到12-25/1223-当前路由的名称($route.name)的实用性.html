@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    是跟这个类似的其实：
+
+    <router-link v-if="$route.path !== '/time-entries/log-time'" to="/time-entries/log-time" class="btn btn-primary">
+        创建
+    </router-link>
+
+    <div v-if="$route.path === '/time-entries/log-time'">
+        <h3>创建</h3>
+    </div>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+ $route.name
+ 当前路由的名称，如果有的话。
+
+ <com-footer v-show="$route.name !== 'homeUserInfo' && $route.name !== 'myPet' && $route.name !== 'addPet'"></com-footer>
+
+ <script>
+
+ const routes = [
+     {
+     	  path: '/',
+     	  component: Index,
+     	  name:'all',
+     },
+     {
+   		  path: '/index',
+   		  name:'index',
+   		  component: Index
+     },
+     {
+     	  path: '/page1',
+     	  name:'page1',
+     	  component: Page1
+     },
+     {
+     	   path: '/home',
+     	   name:'home',
+     	   component: Home
+     },
+     {
+         path:'/HomeUserInfo/:uid',
+         name:'homeUserInfo',
+         component: HomeUserInfo
+     },
+     {
+         path:'/home/mypet',
+         name:'myPet',
+         component : MyPet
+     },
+     {
+        path:'/home/mypet/addpet',
+        name:'addPet',
+        component: AddPet
+     }
+ ]
+
+ </script>
+
+
+</body>
+
+</html>

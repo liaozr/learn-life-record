@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<!-- ============================================================================================================ -->
+
+其中，babel-runtime 会对 ES语法做一些转义。
+
+dependencies": {
+    "axios": "^0.16.2",
+    "babel-runtime": "^6.26.0",
+    "fastclick": "^1.0.6",
+    "jquery": "^3.2.1",
+    "mockjs": "^1.0.1-beta3",
+    "vue": "^2.4.1",
+    "vue-router": "^2.3.1",
+    "vuex": "^2.3.1"
+}
+
+<!-- ============================================================================================================ -->
+
+其中，babel-polyfill 是对 ES6 的 promise 进行一些转义。
+
+devDependencies": {
+  "babel-polyfill": "^6.23.0",
+}
+
+<!-- ============================================================================================================ -->
+
+<!-- main.js里面 -->
+import 'babel-polyfill'
+
+import fastclick from 'fastclick'
+fastclick.attach(document.body)
+
+<!-- ============================================================================================================ -->
+
+
+<body>
+
+</body>
+
+</html>

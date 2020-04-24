@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+</head>
+<style>
+    .aa,
+    .bb {
+        width: 50px;
+        height: 50px;
+    }
+</style>
+
+<body>
+    <div class="aa">测试div</div>
+    <div class="bb">这个是b div块</div>
+</body>
+<script>
+    $(function() {
+        (function() {
+            var a = 'abc';
+            // 此时的 变量a 是局部变量来的。
+            $(".aa").click(function() {
+                console.log(a + "块被点击了");
+            })
+        })();
+
+        (function() {
+            $(".bb").click(function() {
+                console.log('bb div块被点击了');
+                //  下面这行代码是会报错的
+                // 因为这样相当于被封装了，外部是访问不了这里面代码块的变量的
+                // 所以在这里 变量 a是没有被定义的。
+
+                // 这也就是相对的没有这么多的全局变量了
+                //  console.log(a+"块被点击了");
+            })
+        })();
+
+        // -------------------------------------------------------------------------
+
+        //抢购列表 右边线
+        (function(){
+            $('.qing-product-list li:nth-child(2n)').css('border-right','none');
+        })();
+
+        (function(){
+            $(".nav-swiper-slide a").click(function(){
+                $(this).addClass("active");
+                $(this).parent().siblings().find("a").removeClass("active");
+            });
+        })();
+    })
+</script>
+
+</html>

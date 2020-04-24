@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+</head>
+
+<body>
+    <!-- --------------------------------------------------------------------------------- -->
+
+    jQuery 数据 - jQuery.data() 方法 向元素附加数据，然后取回该数据：
+
+    <script>
+        $("#btn1").click(function() {
+            $("div").data("greeting", "Hello World");
+        });
+        $("#btn2").click(function() {
+            alert($("div").data("greeting"));
+        });
+    </script>
+    <!-- ----------------------------------------------------------------------------------- -->
+
+    举个栗子：
+
+    <div id="aaa" data-src='bbb'>
+
+    </div>
+    <style>
+        #aaa {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+        }
+    </style>
+    <script>
+        $(function() {
+            $("#aaa").click(function() {
+                console.log($(this).data('src')); // 会打印出 bbb
+            })
+        })
+    </script>
+    <!-- --------------------------------------------------------------------------------- -->
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  自定义路径别名
+
+  可能有些人注意到了，在 vue-cli 生成的模板中在导入组件时使用了这样的语法：
+
+  import Index from '@/components/Index'
+
+  这个 @ 是什么东西？后来改配置文件的时候发现这个是 webpack 的配置选项之一：路径别名。
+
+  我们也可以在基础配置文件中添加自己的路径别名，比如下面这个就把 ~ 设置为路径 src/components 的别名：
+
+  <script>
+
+      // build/webpack.base.js
+      {
+          resolve: {
+              extensions: ['.js', '.vue', '.json'],
+              alias: {
+                  'vue$': 'vue/dist/vue.esm.js',
+                  '@': resolve('src'),
+                  '~': resolve('src/components')
+              }
+          }
+      }　　
+      然后我们导入组件的时候就可以这样写：
+
+      // import YourComponent from 'YourComponent'
+      // import YourComponent from './YourComponent'
+      // import YourComponent from '../YourComponent'
+      // import YourComponent from '/src/components/YourComponent'
+      import YourComponent from '~/YourComponent'
+
+  </script>
+
+  既解决了路径过长的麻烦，又解决了相对路径的烦恼，方便很多吧！ヾ(ﾟ∀ﾟゞ)
+
+
+</body>
+
+</html>

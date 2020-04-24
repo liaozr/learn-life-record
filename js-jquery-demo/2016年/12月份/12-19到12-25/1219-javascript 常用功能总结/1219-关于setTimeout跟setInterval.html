@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+setInterval 的堆调用
+
+setTimeout 只会执行回调函数一次，
+
+不过 setInterval - 正如名字建议的 - 会每隔 X 毫秒执行函数一次。 但是却不鼓励使用这个函数。
+
+当回调函数的执行被阻塞时，setInterval 仍然会发布更多的回调指令。在很小的定时间隔情况下，这会导致回调函数被堆积起来。
+
+<script>
+    function foo() {
+        // 阻塞执行 1 秒
+    }
+    setInterval(foo, 100);
+</script>
+
+上面代码中，foo 会执行一次随后被阻塞了一秒钟。
+
+在 foo 被阻塞的时候，setInterval 仍然在组织将来对回调函数的调用。
+
+因此，当第一次 foo 函数调用结束时，已经有 10 次函数调用在等待执行。
+
+处理可能的阻塞调用
+
+最简单也是最容易控制的方案，是在回调函数内部使用 setTimeout 函数。
+
+<script>
+    var n=0;
+    function foo2() {
+        // 阻塞执行 1 秒
+        n++;
+        console.log('aaa')
+        if(n>=5){
+          console.log('end')
+          clearTimeout(time);
+        }
+        else{
+          var time=setTimeout(foo2, 2000);
+        }
+    }
+    foo2();
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+<script>
+    function foo3() {
+        // 阻塞执行 1 秒
+        console.log("类似于setInterval的效果，每一秒执行一次的")
+        setTimeout(foo3, 1000);
+    }
+    foo3();
+</script>
+
+这样不仅封装了 setTimeout 回调函数，而且阻止了调用指令的堆积，可以有更多的控制。
+
+foo 函数现在可以控制是否继续执行还是终止执行。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+绝对不要使用字符串作为 setTimeout 或者 setInterval 的第一个参数，
+
+这么写的代码明显质量很差。当需要向回调函数传递参数时，可以创建一个匿名函数，在函数内执行真实的回调函数。
+
+另外，应该避免使用 setInterval，因为它的定时执行不会被 JavaScript 阻塞。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+</body>
+</html>

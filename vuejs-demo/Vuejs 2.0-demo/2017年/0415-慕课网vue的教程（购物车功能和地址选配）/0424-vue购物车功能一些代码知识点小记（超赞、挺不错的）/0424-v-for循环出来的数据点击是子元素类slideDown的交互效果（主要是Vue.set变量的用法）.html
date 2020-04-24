@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.staticfile.org/jquery/3.2.1/jquery.js'></script>
+    <script src='https://cdn.staticfile.org/vue/2.2.6/vue.js'></script>
+
+    <style>
+        .g-content-kanban .pianqu-wanchenglv {
+            margin-top: 0rem;
+            padding-bottom: 0.533rem;
+        }
+
+        .g-content-kanban .pianqu-wanchenglv .tr {
+            height: 40px;
+            line-height: 0.8rem;
+            font-size: 0;
+            line-height: 40px;
+            background-color: yellow;
+            margin-bottom: 10px;
+        }
+
+        .g-content-kanban .pianqu-wanchenglv .tr.tr-child {
+            border-left: 3px solid #f9f9f9;
+            border-bottom: 1px solid #dddddd;
+            background-color: pink;
+        }
+
+        .g-content-kanban .pianqu-wanchenglv .tr.tr-child .td:first-child {
+            text-indent: 1.5em;
+        }
+
+        .g-content-kanban .pianqu-wanchenglv .tr .td {
+            height: 0.8rem;
+            line-height: 0.8rem;
+            display: inline-block;
+            font-size: 0.4rem;
+            width: 25%;
+            text-align: center;
+        }
+
+        .g-content-kanban .pianqu-wanchenglv .tr.th {
+            background-color: #f3f3f3;
+        }
+    </style>
+</head>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+变量不在data不能进行监控，可以有两种方式
+全局：Vue.set(item,"checked",true)
+局部：vm.$set(item,"checked",true)
+
+<!-- ------------------------------------------------------------------------------- -->
+
+变量不在data不能进行监控，可以有两种方式
+全局：Vue.set(item,"checked",true)
+局部：vm.$set(item,"checked",true)
+
+<!-- ------------------------------------------------------------------------------- -->
+
+<body>
+    <div class="g-content-kanban">
+        <div class="pianqu-wanchenglv">
+            <div v-for='(item,index) in items' class="tr-lay">
+
+                <!-- -------------------------------------------------------------------------------             -->
+                <!-- 使用的是 zepto的情况下 -->
+                <!-- <div class="tr tr-list" @tap.stop='slide(index,$event)'> -->
+                <div class="tr tr-list" @click='slide(index,item,$event)'>
+                    <div v-cloak class="td">
+                        <span v-cloak>{{item.pianqu}}</span>
+                    </div>
+                    <div v-cloak class="td">
+                        <span v-cloak>{{item.mubiao}}</span>
+                    </div>
+                    <div v-cloak class="td">
+                        <span v-cloak>{{item.yiwancheng}}</span>
+                    </div>
+                    <div v-cloak class="td">
+                        <span v-cloak>{{item.wanchenglv}}</span>
+                    </div>
+                </div>
+                <div v-show='itemindex == index && item.boolean' class="tr_child">
+                    <div v-for='childitem in item.child' class="tr tr-child">
+                        <div v-cloak class="td">
+                            <span v-cloak>{{childitem.pianqu}}</span>
+                        </div>
+                        <div v-cloak class="td">
+                            <span v-cloak>{{childitem.mubiao}}</span>
+                        </div>
+                        <div v-cloak class="td">
+                            <span v-cloak>{{childitem.yiwancheng}}</span>
+                        </div>
+                        <div v-cloak class="td">
+                            <span v-cloak>{{childitem.wanchenglv}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var kanbanVM = new Vue({
+            el: '.g-content-kanban',
+            data: {
+                itemindex: null,
+                lastIndex:null,
+                isActive: false,
+                items: [{
+                        pianqu: '南城1',
+                        mubiao: 60,
+                        yiwancheng: 30,
+                        wanchenglv: '50%',
+                        child: [{
+                                pianqu: '南城1',
+                                mubiao: 60,
+                                yiwancheng: 30,
+                                wanchenglv: '50%'
+                            },
+                            {
+                                pianqu: '南城1',
+                                mubiao: 60,
+                                yiwancheng: 30,
+                                wanchenglv: '50%'
+                            }
+                        ]
+                    },
+                    {
+                        pianqu: '南城2',
+                        mubiao: 60,
+                        yiwancheng: 30,
+                        wanchenglv: '50%',
+                        child: [{
+                                pianqu: '南城2',
+                                mubiao: 60,
+                                yiwancheng: 30,
+                                wanchenglv: '50%'
+                            },
+                            {
+                                pianqu: '南城2',
+                                mubiao: 60,
+                                yiwancheng: 30,
+                                wanchenglv: '50%'
+                            }
+                        ]
+                    }
+                ]
+            },
+            methods: {
+                slide(index,item,e) {
+                    this.itemindex = index;
+                    console.log(item);
+
+                    // 检测数据中是否存在某一属性，可以用此方法，
+                    // typeof item.checked =='undefined'
+                    if (typeof item.boolean == 'undefined') {
+
+                        //  Vue全局注册，往item这个对象里面注册一个boolean属性，属性为boolean,值为 true
+                        // 给每个循环的数据段，动态加入了一个字段，要把当前的数据段 item 传入到函数 selected(item)中，
+                        // 然后在这个函数内部就可以判断  typeof item.要加的字段名 == 'undefined' 为true 则没有，就 this.$set(item,'boolean',true)
+
+                        // 变量在一个对象里不存在时，vue不能监听该变量。
+                        // 需要用set为对象注册变量（vue.set() 是全局注册； this.$set() 是局部注册）
+
+                        // 用Vue.set或this.$set(项，key，value) 注册.这么做是因为项是循环渲染的，
+                        // 也没法在data里一开始声明出来
+
+                        // vue.set 添加全局变量
+
+                        // 变量不在data不能进行监控，可以有两种方式
+                        // 全局：Vue.set(item,"checked",true)
+                        // 局部：vm.$set(item,"checked",true)
+                  // ----------------------------------------------------------
+                        // 变量不在data不能进行监控，可以有两种方式
+                        // 全局：Vue.set(item,"checked",true)
+                        // 局部：vm.$set(item,"checked",true)
+
+                        // 当是第一次点击该里列表的时候，默认给  boolean 设置为true
+                        Vue.set(item, "boolean", true)
+                        // 设置lastIndex 等于index当前下标值
+                        this.lastIndex=index;
+                    }else{
+                     // 这里是第二次以上以后点击的，因为第一次执行后，已经给item 加上 boolean属性了
+                     // 所以else上面的那段代码 第二次点击以上是不会再执行的了
+
+                      // lastIndex是判断是不是点击当前的这个元素还是点击其他的元素
+                      if (this.itemindex !== this.lastIndex) {
+                          item.boolean = true;
+                          this.lastIndex = this.itemindex;
+                      } else {
+                          item.boolean = !item.boolean;
+                          this.lastIndex = null;
+                      }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

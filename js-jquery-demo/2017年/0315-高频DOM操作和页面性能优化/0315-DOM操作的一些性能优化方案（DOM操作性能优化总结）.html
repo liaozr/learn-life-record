@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+</head>
+
+<body>
+
+1、尽量控制DOM的显示或隐藏，而不是删除或添加：
+
+2、一次性操作DOM:将复制的DOM存储到数组中，将该数组append到对应的父节点下，而不是根据复制得到DOM的数量依次循环插入到父节点下。
+多做缓存:
+
+3、如果某个节点将在后续进行多次操作，可以将该节点利用变量存储起来，而不是每次进行操作时都去查找一遍该节点。
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+4、减少在循环内进行DOM操作，在循环外部进行DOM缓存
+
+<script>
+
+    //优化前代码
+    function Loop() {
+        console.time("loop1");
+        for (var count = 0; count < 15000; count++) {
+            document.getElementById('text').innerHTML += 'dom';
+        }
+        console.timeEnd("loop1");
+    }
+
+    //优化后代码
+    function Loop2() {
+        console.time("loop2");
+        var content = '';
+        for (var count = 0; count < 15000; count++) {
+            content += 'dom';
+        }
+        document.getElementById('text2').innerHTML += content;
+        console.timeEnd("loop2");
+    }
+
+</script>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+5、只控制DOM节点的显示或隐藏，而不是直接去改变DOM结构（ 参考vuejs的v-show等原理 ）
+
+<div class="staff-list" :class="list">
+   <ul class="staff-list-ul">
+       <li v-for="item in staffList" v-show="isShow($index)">
+           <div>{{{item.staff_name | addSpace}}} </div>
+           <div class="staff_phone">{{item.phone_no}} </div>
+       </li>
+   </ul>
+</div>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+6、操作DOM前，先把DOM节点删除或隐藏
+
+<ul class="list1">
+</ul>
+
+<script>
+    var list1 = $(".list1");
+    list1.hide();
+    for (var i = 0; i < 15000; i++) {
+        var item = document.createElement("li");
+        item.append(document.createTextNode('0'));
+        list1.append(item);
+    }
+    list1.show();
+</script>
+
+display属性值为none的元素不在渲染树中，因此对隐藏的元素操作不会引发其他元素的重排。
+
+如果要对一个元素进行多次DOM操作，可以先将其隐藏，操作完成后再显示。
+
+这样只在隐藏和显示时触发2次重排，而不会是在每次进行操作时都出发一次重排。
+
+<!-- -------------------------------------------------------------------------------- -->
+
+操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会触发重排。
+
+Demo如下：
+<script>
+
+    list.style.display = "none";
+    for (var i = 0; i < items.length; i++) {
+        var item = document.createElement("li");
+        // item.appendChild(document.createTextNode("Option" + i);
+        list.appendChild(item);
+    }
+    list.style.display = "";
+
+</script>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+7、一次性，修改样式属性。Demo如下：
+
+<script>
+    // 不好的做法
+    // 这种做法会触发多次重排
+    element.style.backgroundColor = "blue";
+    element.style.color = "red";
+    element.style.fontSize = "12em";
+
+    // 更好的做法是，把样式都放在一个class下
+    .newStyle {
+        background - color: blue;
+        color: red;
+        font-size: 12em;
+    }
+    element.className = "newStyle";
+
+</script>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+8、使用缓存，缓存临时节点。
+
+<script>
+    // 不好的做法
+    document.getElementById("myDiv").style.left = document.getElementById("myDiv").offsetLeft +
+    document.getElementById("myDiv").offsetWidth + "px";
+
+    // 更好的做法
+    var myDiv = document.getElementById("myDiv");
+    myDiv.style.left = myDiv.offsetLeft + myDiv.offsetWidth + "px";
+
+</script>
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

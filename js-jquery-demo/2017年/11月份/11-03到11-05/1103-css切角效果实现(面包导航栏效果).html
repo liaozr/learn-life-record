@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+
+<body>
+
+  <div class="banner"></div>
+
+  常规切角
+
+  我们已经知道，线性渐变可以做出条纹效果，那么我们是否也可以用线性渐变做出切角效果呢？答案是肯定的。
+
+  <style>
+
+    .banner {
+        width:  120px;
+        height: 40px;
+        margin-top: 100px;
+        background: #58a;
+        background: linear-gradient(45deg, transparent 15px, #58a 0) top left,
+                    linear-gradient(-135deg, transparent 15px, #58a 0) top right,
+                    linear-gradient(-45deg, transparent 15px, #58a 0) bottom right,
+                    linear-gradient(135deg, transparent 15px, #58a 0) bottom left;
+        background-size: 50% 50%;
+        background-repeat: no-repeat;
+    }
+
+
+  </style>
+
+  首先我们定义一个类名为banner的元素，设置其宽高，然后设置了四张背景图片，
+
+  宽高都为50%。分别位于top left、top right、bottom right、bottom left。设置其repeat方式为no-repeat。
+
+  好了重点来了，在每张背景图片中，我们设置了一个渐变背景，起始颜色transparent，gradient-line角度为135deg，渐变长度为15px，
+
+  其他的渐变色为.banner的背景色。由于条纹渐变，视觉上我们就看到了一个被切掉一角的元素。同时处理其他三个角，最后就得到了一个被切掉四个角的元素。
+
+
+</body>
+
+</html>

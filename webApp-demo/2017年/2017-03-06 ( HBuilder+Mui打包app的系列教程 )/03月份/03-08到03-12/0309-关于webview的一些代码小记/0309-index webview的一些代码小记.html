@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    这个是index页面的webview,相当于vuejs里面的那个App.vue页面，就是容器。
+
+    <script>
+        var subStyles = {
+            top: "44px",
+            bottom: "50px"
+        };
+
+        if (window.plus) {
+            plusReady()
+        } else {
+            document.addEventListener('plusready', plusReady, false);
+        }
+
+        function plusReady() {
+            plus.webview.create("section.html", "section", subStyles);
+            plus.webview.create("news.html", "news", subStyles);
+            plus.webview.create("us.html", "us", subStyles);
+            /*mui.openWindow({
+              url: "section.html",
+              id: "section",
+              createNew: false,
+              show: {
+                autoShow: true, //页面loaded事件发生后自动显示，默认为true
+                aniShow: "fade-in", //页面显示动画，默认为”slide-in-right“；
+                duration: 200 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+              },
+              waiting: {
+                autoShow: true,
+                title: '正在加载...',
+              }
+            });*/
+            plus.webview.getWebviewById("section").show("fade-in", 200);
+        }
+
+        var lastId = "section"
+
+        $(".dot").on("tap", function() {
+
+            $(".dot").removeClass("cur");
+
+            $(this).addClass("cur");
+            var id = $(this).data("id");
+            if (id === "section") {
+                $(".header").html("智慧龙岗法院");
+            } else if (id === "news") {
+                $(".header").html("新闻");
+            } else if (id === "us") {
+                $(".header").html("我的");
+            }
+
+            // plus.webview.getWebviewById(lastId).hide("fade-out");
+            plus.webview.getWebviewById(id).show("fade-in", 200);
+            lastId = id;
+
+            var arr = plus.webview.getWebviewById(id).opened();
+            for (var i = 0; i < arr.length; i++) {
+                arr[i].close();
+            }
+
+            // opened
+            // 获取在当前Webview窗口中创建的所有窗口
+            // Array[WebviewObject] wobj.opened();
+            // 说明：
+            // 返回从当前Webview中调用plus.webview.open或plus.webview.create创建的所有Webview窗口数组。
+
+            setTimeout(function() {
+                var array = plus.webview.all();
+                if (array) {
+                    for (var i = 0, len = array.length; i < len; i++) {
+                        console.log(array[i].getURL());
+                    }
+                }
+            }, 1000);
+
+        });
+
+        function changeTit(str) {
+            $(".header").html(str);
+        }
+
+    </script>
+    <!-- -------------------------------------------------------------------- -->
+
+</body>
+
+</html>

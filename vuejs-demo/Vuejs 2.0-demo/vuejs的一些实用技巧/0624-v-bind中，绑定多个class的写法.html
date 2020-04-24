@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.4/vue.min.js"></script>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+    <!-- <span class='line' :class="{'now-line':jiedianIndex == 3,'begin-line':jiedianIndex > 2,'weiwancheng-line':jiedianIndex <= 2}">
+    </span> -->
+
+    类似于上面那个的写法的。绑定多个class的写法 是用多个逗号隔开的 class 类名。
+
+    是用多个逗号隔开的class类名
+
+    <div id="app">
+
+        <div class="aa" :class="{'one':isone,'two':istwo,'three':isthree}">
+            测试div块
+        </div>
+        
+    </div>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                isone: true,
+                istwo: true,
+                isthree: true
+
+            }
+        })
+    </script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+    <style>
+        .aa.one {
+            color: red
+        }
+
+        .aa.two {
+            text-decoration: underline;
+        }
+
+        .aa.three {
+            font-size: 50px;
+        }
+    </style>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+
+
+
+</body>
+
+</html>

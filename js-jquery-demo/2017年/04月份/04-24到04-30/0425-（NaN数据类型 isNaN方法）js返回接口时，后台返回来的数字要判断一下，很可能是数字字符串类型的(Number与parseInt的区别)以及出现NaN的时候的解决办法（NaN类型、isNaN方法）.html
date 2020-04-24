@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+     后台返回来的数字很大可能上是这种形式的
+
+    <script>
+        var a = '11';
+        console.log(typeof a); // string 类型的
+
+        // 所以，我们再把 后台返回来的接口 数据  a，将它 由数字字符串类型
+        //
+        // 转为 number类型的。
+
+        console.log(typeof Number(a)) // number 类型
+
+        console.log(typeof parseInt(a)) // number 类型
+
+        var b=NaN;
+        console.log(typeof b)
+
+// --------------------------------------------------------------------------------
+        if( isNaN(b) ){
+          alert(111)   // 这个 111是会打印出来的。
+        }
+
+        // isNaN() 不是一个数字的时候，是返回true的。
+
+        var c=22;
+        if( !isNaN(c) ){
+          alert('这个是数字来的') // 这个是数字来的  是会打印出来的。
+        }
+// --------------------------------------------------------------------------------
+    </script>
+
+    parseInt将字符串(String)类型转为整数类型。
+
+    Number() 函数把对象(Object)的值转换为数字。
+
+    在这里可以看出parseInt得到的结果是整数或者NaN，而Number得到的是数字（整数，小数等）或者NaN；
+
+    <!-- ------------------------------------------------------------------------------ -->
+
+    isNaN
+
+    isNaN() 全局函数来判断一个值是否是 NaN 值。
+
+    isNaN() 不是一个数字的时候，是返回true的。
+
+    <!-- ------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

@@ -1,0 +1,546 @@
+
+/*头部样式代码*/
+.header {
+	height:1.25rem;
+	line-height: 1.25rem;
+	position: absolute;
+	left: 0;
+	top: 0;
+	right:0;
+	background-color: rgba(22, 155, 213, 1);
+	text-align: center;
+	font-size: 0.438rem;
+	color:white;
+	font-family: 'Arial Normal', 'Arial';
+}
+
+/*中间样式*/
+
+.g-content {
+	overflow-y: auto;
+	position: absolute;
+	left: 0;
+	right: 0;
+	/* 增加该属性，可以增加弹性*/
+	-webkit-overflow-scrolling: touch;
+}
+
+.g-content .banner{
+  height:4.219rem;
+  width:100%;
+}
+.g-content .banner img{
+	width:100%;
+}
+
+.g-content .m-list .bg-line{
+	width:100%;height:0.188rem;
+	background-color: rgba(242, 242, 242, 1);
+}
+.g-content .m-list .title{
+ height:0.938rem;
+ line-height: 0.938rem;
+ padding-left: 0.625rem;
+}
+.g-content .m-list .sort{
+	border-top:1px solid #ccc;
+	width:100%;
+	overflow: hidden;
+}
+.g-content .m-list .susong li{
+	width:25%;
+	height:2.5rem;
+	float:left;
+	display: inline-block;
+	border-right:1px solid #ccc;
+	box-sizing: border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-o-box-sizing:border-box;
+}
+.g-content .m-list .susong li:last-child{
+	border-right: none;
+}
+.g-content .m-list .susong li div{
+	height:2.5rem;
+	width:100%;
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	position: relative;	
+	color:#444;
+}
+.g-content .m-list .susong li a.active{
+  background-color: #eee;
+}
+
+.g-content .m-list .susong li div img{     
+     display: inline-block;
+     height:0.781rem;
+     width:0.859rem;
+     position: absolute;
+     top:40%;
+     left:50%;
+     margin-left: -0.344rem;
+     margin-top: -0.391rem;
+      
+}
+.g-content .m-list .susong li div span{
+	width:100%;
+	display: inline-block;
+	position: absolute;
+	left:0;
+	top:1.641rem;
+	text-align: center;
+}
+
+
+.g-content .m-list .sifa{
+	width:100%;
+}
+.g-content .m-list .sifa li{
+	height:1.125rem;
+	width:100%;
+	margin-bottom: 0.031rem;
+}
+ 
+
+.g-content .m-list .sifa .wen1{
+	background: url(../images/u96.png) no-repeat;
+	background-size:1.062rem 1.125rem;
+}
+.g-content .m-list .sifa .wen2{
+	background: url(../images/u94.png) no-repeat;
+	background-size:1.062rem 1.125rem;
+}
+.g-content .m-list .sifa .wen3{
+	background: url(../images/u92.png) no-repeat;
+	background-size:1.062rem 1.125rem;
+}
+
+.g-content .m-list .sifa .wen{
+  display: inline-block;
+  float:left;
+  background-color: rgba(22, 155, 213, 1);
+  height:1.125rem;
+  width:100%;
+  line-height: 1.125rem;
+  padding-left:1.484rem;
+  box-sizing: border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-o-box-sizing:border-box;
+	font-family: '微软雅黑 Regular', '微软雅黑';
+}
+.g-content .m-list .sifa a{
+	display: inline-block;
+	height:1.125rem;
+	color:white;
+
+}
+.g-content .m-list .wangfu{
+	border-top: 1px solid #ccc;
+}
+.g-content .m-list .wangfu a{
+	display: inline-block;float:left;
+	width:50%;
+	height:1.562rem;
+	border-right:1px solid #ccc;
+	line-height: 1.562rem;
+	text-align: center;
+	box-sizing: border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-o-box-sizing:border-box;
+	color:#444;
+}
+.g-content .m-list .wangfu a:nth-last{
+	border-right:none;
+}
+ .g-content .m-list .zixun a{
+ 	border-bottom: 1px solid #ccc;
+ }
+
+.g-content  .bg-line{
+	width:100%;height:0.188rem;
+	background-color: rgba(242, 242, 242, 1);
+}
+
+a:link{
+	text-decoration: none;
+}
+a:visited{
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: none;
+}
+a:actived{
+	text-decoration: none;
+}
+
+/*底部样式代码*/
+.footer {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+    right:0;
+	height: 1.406rem;
+	line-height: 1.406rem;
+	overflow: hidden;
+}
+.footer div{
+   width:33.333%;
+   float:left;
+   display: inline-block;
+   text-align: center;
+   position: relative;
+   color:#444;
+}
+.footer div img{
+     width:0.594rem;
+     height:0.594rem;
+     position: absolute;
+     top:30%;
+     left:50%;
+     margin-top: -0.297rem;
+     margin-left: -0.297rem;
+      
+}
+.footer div.cur{
+	color:#47B3FF;
+}
+
+.footer div span{
+    width: 100%;
+    text-align: center;
+    font-size: 0.375rem;
+    height: 0.46875rem;
+    margin-top: 0.391rem;
+    display: inline-block;
+}
+
+/*------------------------------------------------------------------------------------------------------------------*/
+/*内页 样式*/
+.susong-zhinan a.mui-action-back{
+	color:white;
+}
+.susong-zhinan .mui-bar{
+	 	background-color: rgba(22, 155, 213, 1); 	
+	 	height:1.25rem;
+}
+.susong-zhinan .mui-title{
+	color:white;
+	font-size: 0.438rem;
+	height:1.25rem;
+	line-height: 1.25rem;
+}
+
+.mui-slider .mui-slider-group .mui-slider-item{
+	height: calc(100vh - 1.25rem);
+	height: -webkit-calc(100vh - 1.25rem);
+	height: -moz-calc(100vh -  1.25rem);
+	height: -o-calc(100vh -  1.25rem);
+}
+.mui-bar-nav~.mui-content {
+    padding-top: 1.25rem;
+    padding-bottom: 1.5rem;    
+}
+.mui-segmented-control .mui-control-item{
+	line-height: 1.188rem;
+	height:1.188rem;
+	font-size: 0.438rem;
+}
+.mui-table-view-cell{
+	font-size: 0.375rem;
+}
+.mui-table-view-cell a{
+	font-size: 0.375rem;
+}
+.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {
+ 
+ border-bottom: none;
+}
+.mui-segmented-control.mui-scroll-wrapper .mui-control-item {  
+    padding: 0 0.625rem;
+    
+}
+/*内页底部tab*/
+.bottom-bar {
+	position: fixed;
+	z-index: 10;
+	right: 0;
+	left: 0;
+	height:1.25rem;
+	padding-right: 0.312rem;
+	padding-left: 0.312rem;
+	border-bottom: 0;
+	background-color: #f7f7f7;
+	-webkit-box-shadow: 0 0 1px rgba(0, 0, 0, .85);
+	box-shadow: 0 0 1px rgba(0, 0, 0, .85);
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+.bottom-bar-tab {
+	bottom: 0;
+	display: table;
+	width: 100%;
+	height:1.25rem;
+	padding: 0;
+	table-layout: fixed;
+	border-top: 0;
+	border-bottom: 0;
+	-webkit-touch-callout: none;
+}
+.bottom-bar-tab .bottom-tab-item.bottom-active {
+	color: #3192D2;
+	/*mui #007aff*/
+}
+.bottom-bar-tab .bottom-tab-item {
+	display: table-cell;
+	overflow: hidden;
+	width: 1%;
+	height: 1.375rem;
+	text-align: center;
+	vertical-align: middle;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: #929292;
+	text-decoration: none;
+}
+.bottom-bar-tab .bottom-tab-item a{
+	color:#444;
+}
+.bottom-icon {
+	top: 0.25rem;
+	position: relative;
+	width: 0.594rem;
+	height: 0.594rem;
+	padding-top: 0;
+	padding-bottom: 0;
+	background-position: center;
+	display: inline-block;
+	background-size: cover;
+}
+/*首页*/
+.footer .icon{
+	width: 0.594rem;
+    height: 0.594rem;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-top: -0.297rem;
+    margin-left: -0.297rem;
+}
+.icon-home {
+	background: url(../images/u140.png) no-repeat;
+	background-size:cover;
+}
+
+.cur .icon-home {
+	background: url(../images/u140active.png) no-repeat;
+	background-size:cover;
+}
+
+
+/*任务*/
+.cur .icon-task {
+	background: url(../images/u142active.png) no-repeat;
+	background-size:cover;
+}
+
+.icon-task {
+	background: url(../images/u142.png) no-repeat;
+	background-size:cover;
+}
+
+/*我的*/
+.icon-mine {
+	background: url(../images/u144.png) no-repeat;
+	background-size:cover;
+}
+
+.cur .icon-mine {
+	background: url(../images/u144active.png) no-repeat;
+	background-size:cover;
+}
+
+.bottom-tab-label {
+	font-size: 0.375rem;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-top: 0.062rem;
+}
+
+/*----------------------------------------------------------------------------------------------------*/
+
+/*新闻页面*/
+.news-layout .mui-bar-nav~.mui-content .mui-slider.mui-fullscreen{
+	top:1.375rem;
+}
+.news-layout .mui-segmented-control.mui-scroll-wrapper {
+    height: 1.188rem;
+}
+.news-layout .mui-segmented-control.mui-scroll-wrapper .mui-scroll {
+    height: 1.25rem;
+}
+
+/*----------------------------------------------------------------------------------------------------*/
+
+.anjian-chaxun  .mui-btn-blue, .mui-btn-primary, input[type=submit]{
+	border: 1px solid #f09008;
+    background-color: #f09008;
+}
+.anjian-chaxun button.chongzhi{
+	background-color: #e5e5e5;
+	border: 1px solid #e5e5e5;
+	color: #7e7e7e;
+}
+.anjian-chaxun .anjian-liebiao{
+	width: 100%;
+    height: 40px;
+    background: #70afed;
+    border-bottom: solid 1px #e7e7e7;
+    font: bold 14px/40px 宋体;
+    color: #fff;
+    text-align: center;
+}
+.anjian-chaxun .mui-col-xs-10 {
+    font-size: 14px;
+}
+.anjian-chaxun  .mui-ellipsis {
+    line-height: 28px;
+}
+.anjian-chaxun .dangshiren{
+	white-space: normal; 
+    text-overflow: clip; 
+}
+.anjian-chaxun .more-a{
+    border: solid 1px #70afed;
+    border-radius: 5px;
+    font: 12px/12px 宋体;
+    color: #70afed;
+    display: inline-block;
+    text-align: center;
+    width: 58px;
+    height: 26px;
+    line-height: 26px;
+    cursor: pointer;
+}
+.anjian-chaxun .more-chakan{
+  font-size: 12px;
+}
+
+.kaiting .bushenglue{
+	white-space: normal; 
+    text-overflow: clip;
+}
+.kaiting .mui-table-cell h5{
+	line-height: 0.75rem;
+}
+.kaiting .state-kaiting{
+    background: #ffa800;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    width:46px;
+    height:22px;
+    display: inline-block;
+}
+.kaiting .mui-table-cell{
+	font-size: 12px;
+}
+
+/*----------------------------------------------------------------------------------------------------*/
+
+/*裁判文书*/
+.mui-content a.caipan-wenshu{
+	width:100%;
+	height:auto;
+	display: inline-block;
+	overflow: hidden;
+}
+.mui-content a.caipan-wenshu img{
+	max-width:100%;
+	max-height:100%;
+}
+
+
+/*----------------------------------------------------------------------------------------------------*/
+
+/*lian登记*/
+.mui-content .rem-paw{
+	line-height: 40px;
+	padding-left: 15px;
+
+}
+.mui-content .rem-paw input{
+	vertical-align: middle;
+
+}
+.mui-content .rem-paw  label{
+	float:none;
+    padding:0;
+    padding-left: 5px;
+}
+.mui-content .rem-paw  .forget-paw{
+	float:right;
+	padding-right: 0.312rem;
+	color:#444;
+}
+.mui-content .denglu-zhuce{
+	text-align: left;
+	padding-left: 0.312rem;
+}
+.mui-content .denglu-zhuce a{
+	color: #1c7faa;
+    float: right;
+    line-height: 36px;
+    vertical-align: bottom;
+    padding-right: 10px;
+}
+
+/*----------------------------------------------------------------------------------------------------*/
+
+/*联系我们*/
+.lianxi_us .content{
+	padding:0.125rem;
+}
+.lianxi_us .content p{
+	line-height: 0.625rem;
+	margin-top: 0.156rem;
+	font-size: 0.375rem;
+}
+.lianxi_us .content p>strong{
+    font-family: Verdana;
+    color: rgb(51, 51, 51);
+}
+a{
+	text-decoration: none;
+}
+a:link{
+	text-decoration: none;
+}
+a:visited{
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: none;
+}
+a:active{
+	text-decoration: none;
+}
+/*----------------------------------------------------------------------------------------------------*/
+
+/*首页的一些icon*/
+.mui-icon {
+    font-size: 0.605rem;
+    color:#f09008;
+    margin-right: 0.156rem;
+}
+.mui-icon-extra{
+	font-size: 0.405rem;
+    color:#f09008;
+    margin-right: 0.156rem;
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <transition name='fade'>
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
+    </transition>
+
+    <style scoped>
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity .5s
+        }
+        .fade-enter, .fade-leave-active {
+            opacity: 0
+        }
+    </style>
+
+
+    <!-- ------------------------------------------------------------------------------- -->
+
+    <transition name='fade' type="animation">
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
+    </transition>
+
+    <style scoped>
+        .fade-enter-active,
+        .fade-leave-active {
+            animation: aa 0.5s;
+        }
+
+        .fade-enter,
+        .fade-leave {}
+
+        @keyframes aa {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes aa {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+    
+<!-- ------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

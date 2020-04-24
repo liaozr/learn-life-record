@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+box-shadow
+
+上面的例子大都是对css3新属性的了解和认识，这个实例则是有关于解决方案的例子。
+
+需求：我们要实现下面这个效果图（三个边框：黑色，绿色，红色）：
+
+先来看看它的语法：
+
+box-shadow: [x偏移] [y偏移] [阴影模糊宽度] [阴影宽度] [颜色]，并且还能添加多个阴影，使用逗号隔开。
+
+<div class="aa"></div>
+<style>
+    div.aa {
+        width: 100px;
+        height: 100px;
+        background-color: #ccc;
+        display: inline-block;
+        -webkit-box-shadow: 0 5px 5px 1px #DFDFDF;
+        box-shadow: 0 5px 5px 1px #DFDFDF;
+    }
+</style>
+
+</body>
+</html>

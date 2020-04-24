@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.6/vue.js"></script>
+
+</head>
+<body>
+
+watch方法每次只能监听一个data值的变化
+
+而计算属性可以同时监听多个data值的变化
+
+用计算属性可以简化watch中重复的代码
+
+vue实例上的观察watch还是很有用的，在进行执行异步操作或昂贵操作时，我们要用watch这个实例属性
+
+vue实例上的观察watch还是很有用的，在进行执行异步操作或昂贵操作时，我们要用watch这个实例属性
+
+<!--页面-->
+<div id="demo">{{ fullName }}</div>
+
+<script>
+    //watch写法
+    var vm = new Vue({
+        el: '#demo',
+        data: {
+            firstName: 'Foo',
+            lastName: 'Bar',
+            fullName: 'Foo Bar'
+        },
+        watch: {
+            firstName: function(val) {
+                this.fullName = val + ' ' + this.lastName
+            },
+            lastName: function(val) {
+                this.fullName = this.firstName + ' ' + val
+            }
+        }
+    })
+
+    // --------------------------------------------------------------------------
+
+    //计算属性的写法
+    //本质是你要获取全名
+    var vm = new Vue({
+        el: '#demo',
+        data: {
+            firstName: 'Foo',
+            lastName: 'Bar'
+        },
+        computed: {
+            fullName: function() {
+                return this.firstName + ' ' + this.lastName
+            }
+        }
+    })
+    // --------------------------------------------------------------------------
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://mockjs.com/dist/mock.js"></script>
+
+</head>
+
+<body>
+    <div id="picUpload">
+        <ul>
+            <!-- ---------------------------------------------------------------------- -->
+
+            <!-- 这段代码是后台读取上传后的图片的（前提是已发布保存），再显示在前端（刷新后图片依然显示） -->
+
+            <!-- <?php foreach ($arr_goods_effect as $i) { ?>
+
+            <li class="has-img">
+                <input type="hidden" name="goods_effect[]" value="<?=$i['image']?>">
+                <div class="img-box">
+                    <img src="<?=$i['thumb_image']?>">
+                </div>
+                <span class="del">+</span>
+            </li>
+
+            <?php } ?> -->
+
+            <!-- ---------------------------------------------------------------------- -->
+
+            <li class="add-img-btn">
+                <div class="img-box"><input class="addimg" type="file"><img src="images/add-img.png"></div>
+                <span class="del">+</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- ------------------------------------------------------------------------------- -->
+
+    <script>
+
+        Mock.mock('Event/wap/test', { /*地址任意*/
+            "image_name": '@name', //模拟名称
+            'image_path':"@url()",
+            'thumb_image':"@image()"
+         });
+
+        var imgMaxNum = 5;
+        if ($('#picUpload li').length >= imgMaxNum) {
+            $('.add-img-btn').hide();
+        } else {
+            $('.add-img-btn').show();
+        }
+        $('input.addimg').change(function() {
+            var formData = new FormData();
+            formData.append('file', $('.addimg')[0].files[0]);
+            $.ajax({
+                url: 'Event/wap/test',
+                type: 'POST',
+                cache: false,
+                data: formData,
+                processData: false,
+                contentType: false
+            }).done(function(res) {
+                var msg = eval('(' + res + ')');
+                console.log(msg);
+                var imgObj = '<li class="has-img"><input type="hidden" name="goods_effect[]" value=' + msg.image_name + '><div class="img-box"><img src="' + msg.image_path + msg.thumb_image + '"></div><span class="del">+</span></li>';
+                $(imgObj).insertBefore('#picUpload .add-img-btn');
+                console.log($('#picUpload li').length);
+                if ($('#picUpload li').length > imgMaxNum) {
+                    $('.add-img-btn').hide();
+                } else {
+                    $('.add-img-btn').show();
+                }
+            }).fail(function(res) {
+                // console.log(res);
+            });
+        });
+
+        $(document).on("click", '.del', function(e) {
+            $(this).parent().remove();
+            if ($('#picUpload li').length <= imgMaxNum) {
+                $('.add-img-btn').show();
+            }
+        });
+    </script>
+
+    <!-- ----------------------------------------------------------------------------- -->
+
+    <style>
+        #picUpload ul{padding-left:15px;}
+        #picUpload ul li{display: block; width: 74px; height:72px; float: left; margin: 0 8px 8px 0; position: relative; text-indent:0; border:1px solid #D0CCCC;}
+        #picUpload ul li.add-img-btn{display: block; position: relative;}
+        #picUpload ul li.add-img-btn .addimg{width: 74px; height: 72px !important; position: absolute; top: 0px; left:0px; z-index:999; opacity:0;}
+        #picUpload ul li .img-box{width: 74px; height: 72px; }
+        #picUpload ul li .img-box img{max-width:74px; max-height:72px; display: block;}
+        #picUpload ul li span.del{display: none; text-indent:0; font-size:24px; color: #fff; text-align: center; position: absolute; width:20px; cursor:pointer;
+            height:20px; line-height:15px; margin:0; padding:0; background: #FDC139; top: -5px; right:-5px; border-radius: 20px; transform: rotateZ(45deg);}
+        #picUpload ul li.has-img span.del{display: block;}
+    </style>
+
+    <!-- -------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

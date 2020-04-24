@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.staticfile.org/vue/2.2.6/vue.js'></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <span class='del' @click='changeMoney(-1)'>-</span>
+        <span class='num'>{{num}}</span>
+        <span class='add' @click='changeMoney(1)'>+</span>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                num: 1
+            },
+            methods: {
+                changeMoney(m) {
+                    if (m >= 1) {
+                        this.num++
+                    } else {
+                        if (this.num == 1) {
+                            this.num = 1;
+                        } else {
+                            this.num--;
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

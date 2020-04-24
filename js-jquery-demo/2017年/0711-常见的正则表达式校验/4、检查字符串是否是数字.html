@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        // 检查字符串是否是数字
+
+        function isNumber(str) {
+            var reg = /^\d+$/;
+            if (reg.test(str)) {
+                console.log(str + '是数字');
+                return true;
+            } else {
+                console.log(str + '不是数字');
+                return false;
+            }
+        }
+        
+    </script>
+</body>
+
+</html>

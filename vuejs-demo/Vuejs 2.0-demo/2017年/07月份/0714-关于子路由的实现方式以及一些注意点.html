@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+  要注意，以 / 开头的嵌套路径会被当作根路径。 这让你充分的使用嵌套组件而无须设置嵌套的路径。
+
+  你会发现，children 配置就是像 routes 配置一样的路由配置数组，所以呢，你可以嵌套多层路由。
+
+  此时，基于上面的配置，当你访问 /user/foo 时，User 的出口是不会渲染任何东西，
+
+  这是因为没有匹配到合适的子路由。如果你想要渲染点什么，可以提供一个 空的 子路由：
+
+<script>
+
+    const router = new VueRouter({
+        routes: [
+          {
+            path: '/user/:id', component: User,
+            children: [
+                // 当 /user/:id 匹配成功，
+                // UserHome 会被渲染在 User 的 <router-view> 中
+                {
+                  path: '',
+                  component: UserHome
+                },
+                // ...其他子路由
+            ]
+          }
+        ]
+    })
+
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+<script>
+      {
+         path:'/',
+         component:Index,
+         children:[
+                {
+                path: '',
+                component: article,
+                name:'article'
+                }
+         ]
+      },
+      {
+         path:'/index',
+         component:Index,
+         name:'index',
+         children:[
+                {
+                path: 'article',
+                component: article,
+                name:'article'
+                }
+          ]
+
+      }
+
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+<script>
+
+    {
+    	   path:'/home',
+    	   component:Home,
+    	   name:'home',
+    	   meta: {
+    		   	  title: '首页',
+    		      keepAlive: true, // 需要被缓存
+    		      navShow: true
+    	   },
+    	   children:[
+                {
+      	           	path:'child',
+      	           	component:homechild,
+      	           	name:"homechild",
+      	           	meta: {
+            			   	  title: '首页',
+            			      keepAlive: true, // 需要被缓存
+            			      navShow: true
+            				}
+                }
+    	   ]
+
+    }
+
+</script>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+如上可以看出，meta元信息是每个能匹配的路由 路径 都可以加上去的。
+
+.home组件里面 也是应该有个 router-view ，因为 router-view 是路由的出口，
+
+路由表配置的路由信息 ，想渲染到组件上 ，都是 通过  router-view
+
+这个出口 渲染 到页面上的 ， 所以home里面如果有子组件的话，则表明  home组件里面 也有
+
+<router-view></router-view> 这一对标签元素。
+
+一个组件的详细页 一般作为 路由页单独写的
+
+一个组件的详细页 一般作为 路由页单独写的
+
+<!-- -------------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

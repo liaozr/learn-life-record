@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Pragma" content="no-cache">
+		<title>首页</title>
+		<link rel="stylesheet" href="css/base-reset.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/public.css" />
+		<link rel="stylesheet" href="css/yhn.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/action.css" />
+		<script src="js/jquery-1.8.3.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/vue.min.js"></script>
+		<script src="js/jquery.banner.revolution.min.js"></script>
+    	<script src="js/banner.js"></script>
+	</head>
+	<style>
+		body{background:#f6f6f6;}
+	</style>
+	<body class="index">
+		<header class="navbar navbar-default" id="top" role="banner" style="margin-top:20px">
+			<div class="container">
+				<img class="logo left" src="img/logo.png" />
+				<div id="navbar" class="navbar-collapse collapse" style='padding-right:0'>
+					<ul class="nav navbar-nav">
+						<li class="active">
+							<a href="index.html">主页</a>
+						</li>
+						<li class="">
+							<a href="selectFun.html">自助评估</a>
+						</li>
+						<li class="">
+							<a href="projectApplication.html">项目申请</a>
+						</li>
+						<li class="">
+							<a href="together.html">合作条款</a>
+						</li>
+						<li class="">
+							<a href="aboutUs.html">关于我们</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" v-if="haslogin">
+						<li id="goCenter" class="headBox">
+							<img id="head" style="cursor: pointer;" src="img/cgx.jpg" alt="" />
+							<span id="userTips"></span>
+							<div class="downList" style="display:none;">
+								<strong></strong>
+								<div>
+									<ul>
+										<li>
+											<p id="unameTitle"></p>
+										</li>
+										<li id="makeCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-zoom-in"></span></span><strong class="down-title">创建公司</strong></li>
+										<li id="gomyCop" class="hov"><span class="dot2"><span class="glyphicon glyphicon-briefcase"></span></span><strong class="down-title">我管理的公司</strong></li>
+										<li id="assess" class="hov"><span class="dot2"><span class="glyphicon glyphicon-usd"></span></span><strong class="down-title">估价</strong></li>
+										<li id="mypaper" class="hov"><span class="dot2"><span class="glyphicon glyphicon-list-alt"></span></span><strong class="down-title">我的报价单</strong></li>
+										<li id="exit" class="hov"><span class="dot2"><span class="glyphicon glyphicon-off"></span></span><strong class="down-title">退出登录</strong></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" v-else>
+						<li>
+							<a href="login.html">登录</a>
+						</li>
+						<li>
+							<a href="register.html">注册</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+		<div class="fullwidthbanner-container">
+			<div class="fullwidthbanner">
+				<ul>
+					<li data-transition="3dcurtain-horizontal" data-slotamount="15" data-speed="300">
+						<img src="image/slides/slide1.jpg" />
+					</li>
+					<li data-transition="3dcurtain-vertical" data-slotamount="15" data-speed="300" data-link="#">
+						<img src="image/slides/slide2.jpg" alt="" />
+					</li>
+					<li data-transition="papercut" data-slotamount="15" data-speed="300" data-link="#">
+						<img src="image/slides/slide3.jpg" alt="" />
+					</li>
+					<li data-transition="turnoff" data-slotamount="15" data-speed="300">
+						<img src="image/slides/slide4.jpg" alt="" />
+					</li>
+				</ul>
+			</div>
+		</div>
+		<section class="Y-index-Box1">
+			<div class="w1170">
+				<h1>技术天使投资内容</h1>
+				<ul class="flex-container">
+					<li class="flex-item"><img src="img/index-web.png" alt="" /><div>web端</div></li>
+					<li class="flex-item"><img src="img/index-wx.png" alt="" /><div>微信公众号</div></li>
+					<li class="flex-item"><img src="img/index-ios.png" alt="" /><div>移动应用IOS</div></li>
+					<li class="flex-item"><img src="img/index-android.png" alt="" /><div>移动应用Android</div></li>
+					<li class="flex-item"><img src="img/index-website.png" alt="" /><div>网站和APP管理后台</div></li>
+					<li class="flex-item"><img src="img/index-server.png" alt="" /><div>产品的部署和维护</div></li>
+					<li class="flex-item"><img src="img/index-update.png" alt="" /><div>产品的更新和升级</div></li>
+				</ul>	
+			</div>
+		</section>
+		<section class="Y-index-Box2">
+			<div class="w1170">
+				<h1>技术天使的开发流程</h1>
+				<div class="picture">
+					<div class="item">
+						<img src="img/index-pic1.png" />
+						<span>业务梳理</span>
+					</div>
+					<div class="item" >
+						<img src="img/index-pic2.png" />
+						<span>产品定位</span>
+					</div>
+					<div class="item" >
+						<img src="img/index-pic3.png" />
+						<span>产品设计</span>
+					</div>
+					<div class="item">
+						<img src="img/index-pic4.png" />
+						<span>技术开发与实施</span>
+					</div>
+				</div>
+				<ul>
+					<li>
+						<ul>
+							<li>行业分析</li>
+							<li>用户群分析</li>
+							<li>竞争对手分析</li>
+							<li>品牌定位</li>
+							<li>现有业务分析</li>
+							<li>衍生业务分析</li>
+							<li>用户需求挖掘</li>
+						</ul>
+					</li>
+					<li >
+						<ul>
+							<li>产品概念设计</li>
+							<li>用户行为分析</li>
+							<li>流程分析</li>
+							<li>产品发展路径</li>
+							<li>运营可行性分析</li>
+							<li>技术可行性分析</li>
+						</ul>
+					</li>
+					<li >
+						<ul>
+							<li>思维导图设计</li>
+							<li>交互设计</li>
+							<li>动效设计</li>
+							<li>原型设计</li>
+							<li>PRD设计</li>
+							<li>视觉设计</li>
+							<li>技术方案设计</li>
+							<li>信息架构设计</li>
+						</ul>
+					</li>
+					<li >
+						<ul>
+							<li>技术开发文档</li>
+							<li>数据接口文档</li>
+							<li>项目管理文档</li>
+							<li>项目测试文档</li>
+							<li>PC端开发</li>
+							<li>WAP端开发</li>
+							<li>IOS/安卓开发</li>
+							<li>后台开发</li>
+							<li>服务器架构与部署</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</section>
+		<section class="Y-index-Box3">
+			<div class="w1170">
+				<h1>合作模式</h1>
+				<ul>
+					<li>
+						<img class="left rote360" src="img/group1.png" alt="" />
+						<div class="left">
+							<h2>技术入股</h4>
+							<p>创业团队提供相应的股份作为项目开发对价，合作期间所有开发产生的实际费用由悠米空间承担。</p>
+						</div>
+					</li>
+					<li>
+						<img class="left rote360" src="img/group2.png" alt="" />
+						<div class="left">
+							<h2>技术入股份+开发费用</h4>
+							<p>创业团队提供相应的股份+少量费用。</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</section>
+		<section class="Y-index-Box4">
+			<div class="w1170">
+				<h1>投资类型</h1>
+				<ul>
+					<li>
+						<div>
+							<img src="img/tree2.png" alt="" />
+							<h3>初期项目</h3>
+							<p>两人以上创业团队，产品发行想法或研发阶段，没有技术合作的项目。</p>
+							<button class="btn-primary y-index-btn">项目申请</button>
+						</div>
+					</li>
+					<li>
+						<div>
+							<img src="img/tree1.png" alt="" />
+							<h3>成熟项目</h3>
+							<p>有成功经验的连续创业者，产品优秀，团队靠谱或名企高管创业，缺乏技术团队的项目。</p>
+							<button class="btn-primary y-index-btn">项目申请</button>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</section>
+		<style>
+			.lawyer{width: 100%;height: 600px;background-color: #E9F1F4;padding-top: 40px;}
+			.lawyer h1{text-align: center;margin-bottom: 30px;}
+			.lawyer .content{width: 550px;height: 400px;margin: 0 auto;background-color: white;position: relative;border-radius: 5px;}
+			.lawyer .box1{box-sizing: border-box;width: 270px;height:215px;float: left;text-align: center;}
+			.lawyer .box1 img{margin-top: 40px;}
+			.lawyer .box2{box-sizing: border-box;width: 280px;height:215px;float: left;}
+			.lawyer .box2 .title{margin-top: 30px;font-size: 22px;}
+			.lawyer .box2 .txt{color: #aaa;margin-top: 10px;}
+			.lawyer .box2 .txt span{color: black;}
+			.lawyer .box3{box-sizing: border-box;float: left;width: 550px;height:175px;padding: 25px;border-top: 1px dashed #ccc;}
+			.lawyer .box3 .txt{color: #aaa;margin-top: 10px;}
+			.lawyer .box3 .txt .item1{width: 69px;float: left;}
+			.lawyer .box3 .txt .item2{width: 430px;float: left;color: black;}
+			.lawyer .box3 .txt span{color: black;}
+			.lawyer .gold{top: 0px;right: 40px;position: absolute;}
+		</style>
+		<section class="lawyer">
+			<h1 style="font-family: '微软雅黑';">法律顾问</h1>
+			<div class="content">
+				<div class="box1">
+					<img src="img/lawyerHead.png"/>
+				</div>
+				<div class="box2">
+					<div class="title">石勇</div>
+					<div class="txt">籍贯：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>湖北省汉川市</span></div>
+					<div class="txt">政治面貌：<span>党员</span></div>
+					<div class="txt">相关资质：<span>律师执业资格证</span></div>
+					<div class="txt">执业证号：<span>14201199110842985</span></div>
+				</div>
+				<div class="box3">
+					<div class="txt">职务:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>湖北今天律师事务所合伙人、党支部副书记</span></div>
+					<!--<div class="txt"><span>职业经历:&nbsp;&nbsp;</span><span>1992年12月取得武汉大学法学专科文凭，1999年取得湖北大学汉语言文学专业本科文凭。2003年9月取得中南财经政法大学民商法专业硕士研究生。从事职业律师30年。</span></div>-->
+					<div class="txt">
+						<div class="item1">职业经历:</div>
+					    <div class="item2">1992年12月取得武汉大学法学专科文凭，1999年取得湖北大学汉语言文学专业本科文凭。2003年9月取得中南财经政法大学民商法专业硕士研究生。从事职业律师30年。</div>
+					    <div style="clear: both;"></div>
+					</div>
+					<div class="txt">专业特长:&nbsp;&nbsp;<span>全科，民事和公司法务。</span></div>
+				</div>
+				<img class="gold" src="img/gold.png" />
+			</div>
+		</section>
+		<footer id="footer"></footer>
+	</body>
+	<script src="js/login.js"></script>
+	<script>
+	$("#footer").load("footer.html");
+		$(".y-index-btn").on('click', function() {
+			window.location.href = "projectApplication.html";
+		})
+	</script>
+
+</html>

@@ -1,0 +1,476 @@
+<!-- ----------------------------------------------------------------------------- --> 
+
+全文总结
+<!-- 
+
+vue-resource是一个非常轻量的用于处理HTTP请求的插件，它提供了两种方式来处理HTTP请求：
+
+使用Vue.http或this.$http
+
+使用Vue.resource或this.$resource
+
+这两种方式本质上没有什么区别，阅读vue-resource的源码，你可以发现第2种方式是基于第1种方式实现的。
+
+inteceptor可以在请求前和请求后附加一些行为，这意味着除了请求处理的过程，请求的其他环节都可以由我们来控制。
+ -->
+<!-- ------------------------------------------------------------------------- -->
+
+有用vue-cli脚手架工具的话
+
+<!-- 
+
+import Vue from 'vue'
+import App from './App'
+
+import VueRouter from 'vue-router' 
+import VueResource from 'vue-resource'
+ 
+
+ 
+import Home from './components/Home'
+import TimeEntries from './components/TimeEntries'
+import LogTime from './components/LogTime'
+ 
+
+//注册两个插件 
+Vue.use(VueResource) 
+Vue.use(VueRouter) 
+
+ -->
+
+<!-- ----------------------------------------------------------------------------- -->
+
+GET请求（$set可以设置data的某个属性值）
+
+<!-- 
+    $set可以设置data的某个属性值 
+-->
+<!-- 
+
+var demo = new Vue({
+    el: '#app',
+    data: {
+        gridColumns: ['customerId', 'companyName', 'contactName', 'phone'],
+        gridData: [],
+        apiUrl: 'http://211.149.193.19:8080/api/customers'
+    },
+    ready: function() {
+        this.getCustomers()
+    },
+    methods: {
+        getCustomers: function() {
+            this.$http.get(this.apiUrl)
+                .then((response) => {
+                    this.$set('gridData', response.data)
+                })
+                .catch(function(response) {
+                    console.log(response)
+                })
+        }
+    }
+}) 
+
+-->
+
+<!-- 
+这段程序的then方法只提供了successCallback，而省略了errorCallback。
+catch方法用于捕捉程序的异常，catch方法和errorCallback是不同的，errorCallback只在响应失败时调用，而catch则是在整个请求到响应过程中，只要程序出错了就会被调用。
+ -->
+
+
+<!-- 
+
+在then方法的回调函数内，你也可以直接使用this，this仍然是指向Vue实例的：
+
+getCustomers: function() {
+    this.$http.get(this.apiUrl)
+        .then((response) => {
+            this.$set('gridData', response.data)
+        })
+        .catch(function(response) {
+            console.log(response)
+        })
+}
+-->
+
+
+<!-- 
+
+export default{
+    data () {
+        return{
+             totalTime: 1,
+             images:[
+                 {  //这里的require是不用加上引号的
+                    img:require('./assets/images/aa.jpg')
+                 },
+                 {
+                    img:require('./assets/images/bb.jpg')
+                 },
+                 {
+                    img:require('./assets/images/cc.jpg')
+                 },
+
+             ]
+             
+        }
+    },
+    components:{
+        sidebar
+    },
+    ready() {
+        this.$http.get('http://localhost:8080/time')
+          .then(function(ret) {
+            this.totalTime = ret.data.time;
+          })
+          .then(function(err) {
+            console.log(err);
+          })
+    },
+    events: {
+      timeUpdate (timeEntry) {
+        console.log(timeEntry);
+        this.totalTime += parseFloat(timeEntry.totalTime)
+      },
+      deleteTime (timeEntry) {
+        this.totalTime -= parseFloat(timeEntry.totalTime)
+      }
+    }
+  } 
+
+-->
+
+<!-- -------------------------------------------------------------------------- -->
+
+JSONP请求
+
+<!--
+
+ getCustomers: function() {
+    this.$http.jsonp(this.apiUrl).then(function(response){
+        this.$set('gridData', response.data)
+    })
+}
+
+ -->
+<!-- --------------------------------------------------------------------------------------- -->
+
+ POST请求
+
+<!--  
+var demo = new Vue({
+    el: '#app',
+    data: {
+    
+        show: false,
+        gridColumns: [
+            {
+                name: 'customerId',
+                isKey: true
+            },
+            {
+                name: 'companyName'
+            }, 
+            {
+                name: 'contactName'
+            }, 
+            {
+                name: 'phone'
+            }
+        ],
+        gridData: [],
+        apiUrl: 'http://211.149.193.19:8080/api/customers',
+        item: {}
+    },
+    ready: function() {
+        this.getCustomers()
+    },
+    methods: {
+        closeDialog: function() {
+            this.show = false
+        },
+        getCustomers: function() {
+            var vm = this
+            vm.$http.get(vm.apiUrl)
+                .then((response) => {
+                    vm.$set('gridData', response.data)
+                })
+        },
+        createCustomer: function() {
+            var vm = this
+            vm.$http.post(vm.apiUrl, vm.item)
+                .then((response) => {
+                    vm.$set('item', {})
+                    vm.getCustomers()
+                })
+            this.show = false
+        }
+    }
+})
+
+ -->
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+PUT请求
+
+<!--
+
+ updateCustomer: function() {
+    var vm = this
+    vm.$http.put(this.apiUrl + '/' + vm.item.customerId, vm.item)
+        .then((response) => {
+            vm.getCustomers()
+        })
+} 
+
+-->
+<!-- --------------------------------------------------------------------------------------- -->
+
+
+Delete请求
+
+<!--
+
+deleteCustomer: function(customer){
+    var vm = this
+    vm.$http.delete(this.apiUrl + '/' + customer.customerId)
+        .then((response) => {
+            vm.getCustomers()
+        })
+} 
+
+-->
+<!-- --------------------------------------------------------------------------- -->
+
+用resource服务（vue-resource提供了另外一种方式访问HTTP——resource服务）
+全局访问：Vue.resource
+实例访问：this.$resource
+<!-- 
+vue-resource提供了另外一种方式访问HTTP——resource服务，resource服务包含以下几种默认的action：
+
+get: {method: 'GET'},
+save: {method: 'POST'},
+query: {method: 'GET'},
+update: {method: 'PUT'},
+remove: {method: 'DELETE'},
+delete: {method: 'DELETE'}
+resource对象也有两种访问方式：
+
+全局访问：Vue.resource
+实例访问：this.$resource
+resource可以结合URI Template一起使用，以下示例的apiUrl都设置为{/id}了：
+
+apiUrl: 'http://211.149.193.19:8080/api/customers{/id}' 
+
+-->
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+GET请求
+<!-- 使用get方法发送GET请求，下面这个请求没有指定{/id}。
+
+getCustomers: function() {
+
+    var resource = this.$resource(this.apiUrl)
+        vm = this
+
+    resource.get()
+        .then((response) => {
+            vm.$set('gridData', response.data)
+        })
+        .catch(function(response) {
+            console.log(response)
+        })
+} -->
+<!-- --------------------------------------------------------------------- -->
+
+POST请求
+<!-- 使用save方法发送POST请求，下面这个请求没有指定{/id}。
+
+createCustomer: function() {
+    var resource = this.$resource(this.apiUrl)
+        vm = this
+        
+    resource.save(vm.apiUrl, vm.item)
+        .then((response) => {
+            vm.$set('item', {})
+            vm.getCustomers()
+        })
+    this.show = false
+} -->
+<!-- ------------------------------------------------------------------------------- -->
+
+PUT请求
+<!-- 使用update方法发送PUT请求，下面这个请求指定了{/id}。
+
+updateCustomer: function() {
+    var resource = this.$resource(this.apiUrl)
+        vm = this
+        
+    resource.update({ id: vm.item.customerId}, vm.item)
+        .then((response) => {
+            vm.getCustomers()
+        })
+}
+{/id}相当于一个占位符，当传入实际的参数时该占位符会被替换。
+例如，{ id: vm.item.customerId}中的vm.item.customerId为12，那么发送的请求URL为：
+
+http://211.149.193.19:8080/api/customers/12 -->
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+DELETE请求
+<!-- 使用remove或delete方法发送DELETE请求，下面这个请求指定了{/id}。
+
+deleteCustomer: function(customer){
+    var resource = this.$resource(this.apiUrl)
+        vm = this
+        
+    resource.remove({ id: customer.customerId})
+        .then((response) => {
+            vm.getCustomers()
+        })
+} -->
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+使用inteceptor
+
+<!-- 拦截器可以在请求发送前和发送请求后做一些处理。
+
+基本用法
+Vue.http.interceptors.push((request, next) => {
+        // ...
+        // 请求发送前的处理逻辑
+        // ...
+    next((response) => {
+        // ...
+        // 请求发送后的处理逻辑
+        // ...
+        // 根据请求的状态，response参数会返回给successCallback或errorCallback
+        return response
+    })
+})
+在response返回给successCallback或errorCallback之前，你可以修改response中的内容，或做一些处理。
+例如，响应的状态码如果是404，你可以显示友好的404界面。
+
+如果不想使用Lambda函数写法，可以用平民写法：
+
+Vue.http.interceptors.push(function(request, next) {
+    // ...
+    // 请求发送前的处理逻辑
+    // ...
+    next(function(response) {
+        // ...
+        // 请求发送后的处理逻辑
+        // ...
+        // 根据请求的状态，response参数会返回给successCallback或errorCallback
+        return response
+    })
+}) -->
+
+<!-- -------------------------------------------------------------------------------------- -->
+
+
+inteceptor实例
+<!-- 
+之前的CURD示例有一处用户体验不太好，用户在使用一些功能的时候如果网络较慢，画面又没有给出反馈，用户是不知道他的操作是成功还是失败的，他也不知道是否该继续等待。
+
+通过inteceptor，我们可以为所有的请求处理加一个loading：请求发送前显示loading，接收响应后隐藏loading。
+
+具体步骤如下：
+
+1.添加一个loading组件
+
+<template id="loading-template">
+    <div class="loading-overlay">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+</template>
+2.将loading组件作为另外一个Vue实例的子组件
+
+var help = new Vue({
+    el: '#help',
+    data: {
+        showLoading: false
+    },
+    components: {
+        'loading': {
+            template: '#loading-template',
+        }
+    }
+})
+3.将该Vue实例挂载到某个HTML元素
+
+<div id="help">
+    <loading v-show="showLoading"></loading>
+</div>
+4.添加inteceptor
+
+Vue.http.interceptors.push((request, next) => {
+    loading.show = true
+    next((response) => {
+        loading.show = false
+        return response
+    });
+}); -->
+
+<!-- ------------------------------------------------------------------- -->
+
+inteceptor示例2
+<!-- 
+当用户在画面上停留时间太久时，画面数据可能已经不是最新的了，这时如果用户删除或修改某一条数据，如果这条数据已经被其他用户删除了，服务器会反馈一个404的错误，但由于我们的put和delete请求没有处理errorCallback，所以用户是不知道他的操作是成功还是失败了。
+
+你问我为什么不在每个请求里面处理errorCallback，这是因为我比较懒。这个问题，同样也可以通过inteceptor解决。
+
+1. 继续沿用上面的loading组件，在#help元素下加一个对话框
+
+<div id="help">
+    <loading v-show="showLoading" ></loading>
+    <modal-dialog :show="showDialog">
+        <header class="dialog-header" slot="header">
+            <h1 class="dialog-title">Server Error</h1>
+        </header>
+        <div class="dialog-body" slot="body">
+            <p class="error">Oops,server has got some errors, error code: {{errorCode}}.</p>
+        </div>
+    </modal-dialog>
+</div>
+
+2.给help实例的data选项添加两个属性
+
+var help = new Vue({
+        el: '#help',
+        data: {
+            showLoading: false,
+            showDialog: false,
+            errorCode: ''
+        },
+        components: {
+            'loading': {
+                template: '#loading-template',
+            }
+        }
+    })
+
+
+3.修改inteceptor
+Vue.http.interceptors.push((request, next) => {
+    help.showLoading = true
+    next((response) => {
+        if(!response.ok){
+            help.errorCode = response.status
+            help.showDialog = true
+        }
+        help.showLoading = false
+        return response
+    });
+}); -->
+
+<!-- ---------------------------------------------------------------------------------

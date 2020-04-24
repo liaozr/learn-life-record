@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        console.log('here we go')
+
+        new Promise( (resolve,reject) => {
+            setTimeout(() => {
+               reject('bye')
+            }, 2000)
+        }).then(value => {
+            console.log(value + ' world')
+        }).catch(error => {
+            console.log('Error :' + error)
+        })
+
+        // Uncaught Error: bye
+
+    </script>
+
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+
+
+  <!-- 推荐用这一种抛出错误 ，  throw catch 抛出错误的是会知道   报的错误 是在 哪里的-->
+  <!-- 推荐用这一种抛出错误 ，  throw catch 抛出错误的是会知道   报的错误 是在 哪里的-->
+  <!-- 推荐用这一种抛出错误 ，  throw catch 抛出错误的是会知道   报的错误 是在 哪里的-->
+
+    <script>
+    
+        console.log('here we go')
+
+        new Promise(resolve => {
+            setTimeout(() => {
+                throw new Error('bye')
+            }, 2000)
+        }).then(value => {
+            console.log(value + ' world')
+        }).catch(error => {
+            console.log('Error :' + error.message)
+        })
+
+        // Uncaught Error: bye
+    </script>
+
+    <!-- ----------------------------------------------------------------------------------------------     -->
+
+
+
+</body>
+
+</html>

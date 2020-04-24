@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+// -----------------------------------------------------------------------------------------------------------------
+
+        //  config.js
+        export const commonParams = {
+            g_tk: 1928093487,
+            inCharset: 'utf-8',
+            outCharset: 'utf-8',
+            notice: 0,
+            format: 'jsonp'
+        }
+
+        // 配置callback的名字
+        export const options = {
+            param: 'jsonpCallback'
+        }
+
+        // 配置一个常量
+        export const ERR_OK = 0
+
+// -----------------------------------------------------------------------------------------------------------------
+
+        // recommend.js里面 这样导入即可使用
+        import { commonParams, options } from 'assets/js/config'
+
+// -----------------------------------------------------------------------------------------------------------------
+
+
+    </script>
+</body>
+
+</html>

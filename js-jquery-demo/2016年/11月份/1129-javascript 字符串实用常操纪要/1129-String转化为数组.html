@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- ---------------------------------------------------------------------------- -->
+
+    String转化为数组
+
+    1, 转化为一维数组
+
+    场景是根据某子字符串转化，直接就用 split 就好；
+
+    如果转换规则不统一，那么请自求多福吧。
+
+    <script>
+        let Str = '陈寅恪,鲁迅,钱钟书,胡适,王国维,梁启超,吴宓,季羡林';
+        let hallAllOfFameArr = Str.split(',')
+        console.log(hallAllOfFameArr)
+        // ["陈寅恪", "鲁迅", "钱钟书", "胡适", "王国维", "梁启超", "吴宓", "季羡林"]
+    </script>
+
+    <!-- --------------------------------------------------------------------------------- -->
+
+    2, 转化为二维数组
+
+    <script>
+        String.prototype.removeBlankLines = function() {
+            return this.replace(/(\n[\s\t]*\r*\n)/g, '\n').replace(/^[\n\r\n\t]*|[\n\r\n\t]*$/g, '')
+        }
+        String.prototype.strTo2dArr = function(firstSplit, secondSplit) {
+            var contentStr = this.removeBlankLines(),
+                contentStrArr = contentStr.split(firstSplit),
+                resultArr = contentStrArr.map((element) => {
+                    return element.split(secondSplit)
+                })
+            return resultArr
+        }
+        var str = `
+渺渺钟声出远方,依依林影万鸦藏。
+一生负气成今日,四海无人对夕阳。
+破碎山河迎胜利,残馀岁月送凄凉。
+松门松菊何年梦,且认他乡作故乡。
+`;
+        console.log(str.strTo2dArr('\n', ','))
+    </script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

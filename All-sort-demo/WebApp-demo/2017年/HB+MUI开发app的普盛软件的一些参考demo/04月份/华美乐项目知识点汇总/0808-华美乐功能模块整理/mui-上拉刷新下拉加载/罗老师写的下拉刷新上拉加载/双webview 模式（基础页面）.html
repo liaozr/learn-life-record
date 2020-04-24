@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+
+使用双 webview 模式的下拉刷新，创建一个子 webview 添加列表；拖动时，拖动的是一个完整的 webview，
+
+避免了类似 DIV 拖动流畅度不好的问题，回弹动画使用原生动画；在 iOS 平台，H5 的动画已经比较流畅，
+
+故依然使用 H5 方案。两个平台实现虽有差异，但 mui 经过封装，可使用一套代码实现下拉刷新。
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+主页面内容比较简单，只需要创建子页面即可：
+
+<!--  第一个页面  的 页面结构  -->
+
+<body class="workTask">
+
+    <header class="mui-bar mui-bar-nav header" style="height:45px !important;line-height: 45px  !important;">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <span class="title">工地任务</span>
+        <span id="add" class="header-right mui-icon mui-icon-plus"></span>
+
+        <span @tap='createTask($event)' data-page='creat-task.html' class='jiahao'>+</span>
+        <!-- <span  id="add" class="header-right mui-icon mui-icon-plus">+</span> -->
+    </header>
+
+</body>
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+<script>
+
+// --------------------------------------------------------------------------------------------------------
+
+    mui.init({
+        gestureConfig: {
+            doubletap: true
+        },
+        subpages: [{
+            url: pullrefresh-subpage-url, //下拉刷新内容页面地址
+            id: pullrefresh-subpage-id, //内容页面标志
+            styles: {
+                top: '45px', //内容页面顶部位置,需根据实际页面布局计算，若使用标准mui导航，顶部默认为48px
+                bottom:'0px',
+            }
+        }]
+    });
+
+// --------------------------------------------------------------------------------------------------------
+
+    scrollTo( xpos , ypos [, duration] )
+    xpos
+    Type: Integer
+    要在窗口文档显示区左上角显示的文档的 x 坐标
+    ypos
+    Type: Integer
+    要在窗口文档显示区左上角显示的文档的 y 坐标
+    duration
+    Type: Integer
+    滚动时间周期，单位是毫秒
+    示例：在 hello mui 下拉刷新示例中，实现了双击标题栏，让列表快速回滚到顶部的功能；代码如下：
+
+    var contentWebview = null;
+    document.querySelector('header').addEventListener('doubletap', function() {
+        if (contentWebview == null) {
+            contentWebview = plus.webview.currentWebview().children()[0];
+        }
+        contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+    });
+
+// --------------------------------------------------------------------------------------------------------
+
+    //  重写 mui 的 安卓 返回事件
+    var oldBack = mui.back;
+    mui.back = function() {
+        plus.webview.getWebviewById("xiangmu/project-details.html").evalJS("init()");
+        plus.webview.currentWebview().close();
+    }
+
+// --------------------------------------------------------------------------------------------------------
+
+    // 这个是 ios 的 侧滑返回事件,ios独有的返回事件
+    mui.plusReady(function() {
+
+        mui.init({});
+        var ws = plus.webview.currentWebview();
+
+        //侧滑返回时禁止回弹
+        ws.addEventListener("popGesture", function(e) {
+            ws.setStyle({
+                'popGesture': 'close'
+            });
+            plus.webview.getWebviewById("xiangmu/project-details.html").evalJS("init()");
+        }, false);
+
+    })
+
+// --------------------------------------------------------------------------------------------------------
+
+</script>
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+
+
+</body>
+
+</html>

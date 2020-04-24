@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var doc = window.document;
+        var docEl = doc.documentElement;
+        var width = docEl.getBoundingClientRect().width;
+        var dpr = 1;
+        if (width > 540) {
+            width = 540 * dpr;
+        }
+        var rem = width / 10;
+        var fontSize = rem;
+        var bottomheight = parseInt(fontSize) * 1.562 + 'px';
+
+        // 控制 webview 的头部部分跟底部部分的 效果展现的代码段。
+        // bottomheight 是 rem布局的转换做法。，将 rem 转换成 px
+        var subStyles = {
+            top: "0px",
+            bottom: bottomheight
+        };
+    </script>
+</body>
+
+</html>

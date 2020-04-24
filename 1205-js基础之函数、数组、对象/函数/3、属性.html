@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------------------------------- -->
+
+  length
+
+  length 属性表示函数希望接收的命名参数的个数。如：
+
+  <script>
+
+      function sum(n1, n2) {
+          return n1 + n2
+      }
+      console.log(sum.length) // 2
+
+  </script>
+
+<!-- -------------------------------------------------------------------------------------------------------- -->
+
+  需要注意的是，length 统计的是函数命名参数的数量，不定参数的加入不会影响 length 属性的值。例如：
+
+  <script>
+
+      function sum(n1, n2, ...rest) {
+          return n1 + n2 + rest.reduce((prev, next) => prev + next)
+      }
+      console.log(sum.length) // 2
+
+  </script>
+
+  这里加入 不定参数 …rest 后，length 属性的值仍然是 2。
+
+<!-- -------------------------------------------------------------------------------------------------------- -->
+
+  name
+
+  name 属性返回函数实例的名称。例如：
+
+  <script>
+
+      function foo() {}
+      bar = function() {}
+
+      console.log(foo.name) // foo
+      console.log(bar.name) // bar
+
+  </script>
+
+  这段代码中，foo() 函数的 name 属性值为“foo”，对应着声明时的函数名称；匿名函数表达式 bar() 的 name 属性值是“bar”，
+
+  对应着被赋值为该匿名函数的变量的名称。
+
+
+  <!-- -------------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

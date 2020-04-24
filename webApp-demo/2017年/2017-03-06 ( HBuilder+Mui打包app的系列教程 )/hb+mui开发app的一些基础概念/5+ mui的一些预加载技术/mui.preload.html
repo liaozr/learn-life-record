@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        (function($, doc) {
+            $.init();
+            var account = doc.getElementById('account');
+            window.addEventListener('show', function() {
+                // var state = app.getState();
+                // account.innerText = state.account;
+            }, false);
+            $.plusReady(function() {
+                var settingPage = $.preload({
+                    "id": 'setting',
+                    "url": 'setting.html'
+                });
+                //设置
+                var settingButton = doc.getElementById('setting');
+                //settingButton.style.display = settings.autoLogin ? 'block' : 'none';
+                settingButton.addEventListener('tap', function(event) {
+                    $.openWindow({
+                        id: 'setting',
+                        show: {
+                            aniShow: 'pop-in'
+                        },
+                        styles: {
+                            popGesture: 'hide'
+                        },
+                        waiting: {
+                            autoShow: false
+                        }
+                    });
+                });
+                //--
+                $.oldBack = mui.back;
+                var backButtonPress = 0;
+                $.back = function(event) {
+                    backButtonPress++;
+                    if (backButtonPress > 1) {
+                        plus.runtime.quit();
+                    } else {
+                        plus.nativeUI.toast('再按一次退出应用');
+                    }
+                    setTimeout(function() {
+                        backButtonPress = 0;
+                    }, 1000);
+                    return false;
+                };
+            });
+        }(mui, document));
+    </script>
+
+    <!-- ---------------------------------------------------------------------------- -->
+
+    通过mui.preload方法预加载.
+
+    <script>
+        var page = mui.preload({
+            url: new-page-url,
+            id: new-page-id, //默认使用当前页面的url作为id
+            styles: {}, //窗口参数
+            extras: {} //自定义扩展参数
+        });
+    </script>
+
+    通过mui.preload()方法预加载，可立即返回对应webview的引用，
+
+    但一次仅能预加载一个页面；若需加载多个webview，则需多次调用mui.preload()方法；
+
+    <!-- ---------------------------------------------------------------------------- -->
+
+    <script>
+
+        (function($, doc) {
+
+            $.init({
+                statusBarBackground: '#f7f7f7'
+            });
+
+            $.plusReady(function() {
+                plus.screen.lockOrientation("portrait-primary");
+                var mainPage = $.preload({
+                    "id": 'main',
+                    "url": 'main.html'
+                });
+                var main_loaded_flag = false;
+                mainPage.addEventListener("loaded", function() {
+                    main_loaded_flag = true;
+                });
+            });
+
+        }(mui, document));
+
+    </script>
+    
+    <!-- ---------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

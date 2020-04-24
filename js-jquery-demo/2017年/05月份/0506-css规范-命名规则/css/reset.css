@@ -1,0 +1,146 @@
+ @charset "utf-8";
+/* reset */
+* {-webkit-tap-highlight-color:rgba(255,255,255,0);}
+html {font-size:16px;border:0 none;}
+body {margin:0 auto;padding:0;font-family:"Helvetica Neue",Helvetica,STHeiTi,sans-serif;}
+button,dd,dl,dt,form,h1,h2,h3,h4,h5,h6,hr,input,li,ol,p,textarea,td,th,ul {margin:0;padding:0}
+i,b,em,strong {font-weight:400;font-style:normal;}
+img {border:0 none;vertical-align:top;}
+li {list-style:none;}
+h1,h2,h3,h4,h5,h6 {font-weight:400;font-size:100%;}
+sub, sup {position:relative;line-height:0;vertical-align:baseline;font-size:75%;}
+sup {top:-0.5em;}
+sub {bottom:-0.25em;}
+button,input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer;-moz-appearance:button;}
+button::-moz-focus-inner,input::-moz-focus-inner {border:0;padding:0;}
+input,select,textarea,button{font-size:100%;outline:none;vertical-align:top;border-radius:0;-webkit-border-radius:0;}
+textarea {overflow:auto;resize:none;}
+table {border-collapse:collapse;border-spacing: 0;}
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; padding: 0; }
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { height: auto; }
+input[type="search"] { -webkit-appearance: textfield; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+fieldset { border: 1px solid #c0c0c0; margin: 0 2px; padding: 0.35em 0.625em 0.75em; }
+legend { border: 0; padding: 0; }
+textarea { overflow: auto; resize: vertical; }
+optgroup { font-weight: bold; }
+th {text-align:center;}
+a {text-decoration:none;}
+input::-ms-clear, input::-ms-reveal {display:none;}
+::-webkit-input-placeholder {color:#ccc;}
+:-moz-placeholder {color:#ccc;}
+::-moz-placeholder {color:#ccc;}
+:-ms-input-placeholder {color:#ccc;}
+
+
+/**公共样式*/
+html{color: #000;overflow-y: scroll;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;}
+html *{outline: none;-webkit-text-size-adjust:none;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+html,body{font-family: sans-serif;width: 100%;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{margin: 0;padding: 0;}
+input,select,textarea{font-size: 100%;}
+/* 去掉各 Table cell 的边距并让其边重合*/
+table{border-collapse: collapse;border-spacing: 0;}
+/* 去除默认边框*/
+fieldset,img{border: 0;}
+/* 去掉 firefox 下此元素的边框*/
+abbr,acronym{border: 0;font-variant: normal;}
+/* 一致的 del 样式*/
+del{text-decoration: line-through;}
+address,caption,cite,code,dfn,em,th,var{font-style: normal;font-weight: 500;}
+/* 去掉列表前的标识, li 会继承*/
+ol,ul{list-style: none;}
+/* 对齐是排版最重要的因素, 别让什么都居中*/
+caption,th{text-align: left;}
+/* 来自 yahoo, 让标题都自定义, 适应多个系统应用*/
+h1,h2,h3,h4,h5,h6{font-size: 100%;font-weight: 500;}
+q:before,q:after{content: '';}
+/* 统一上标和下标*/
+sub,sup{font-size: 75%;line-height: 0;position: relative;vertical-align: baseline;}
+sup{top: -0.5em;}
+sub{bottom: -0.25em;}
+/* 正常链接 未访问*//* 鼠标悬停*/
+a:hover{text-decoration: underline;}
+/* 默认不显示下划线，保持页面简洁*/
+ins,a,a:active,a:visited,a:link{text-decoration: none;}
+
+
+/* 2016-08-03加入的reset2*/
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
+audio, canvas, progress, video { display: inline-block; vertical-align: baseline; }
+audio:not([controls]) { display: none; height: 0; }
+[hidden], template { display: none; }
+svg:not(:root) { overflow: hidden; }
+a { background: transparent; text-decoration: none; -webkit-tap-highlight-color: transparent; color: #0088cc; }
+a:active { outline: 0; }
+a:active { color: #006699; }
+abbr[title] { border-bottom: 1px dotted; }
+b, strong { font-weight: bold; }
+dfn { font-style: italic; }
+mark { background: #ff0; color: #000; }
+small { font-size: 80%; }
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+img { border: 0; vertical-align: middle; }
+hr { -moz-box-sizing: content-box; box-sizing: content-box; height: 0; }
+pre { overflow: auto; white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
+code, kbd, pre, samp { font-family: monospace, monospace; font-size: 1em; }
+button, input, optgroup, select, textarea { color: inherit; font: inherit; margin: 0; }
+button { overflow: visible; }
+button, select { text-transform: none; }
+button, html input[type="button"], input[type="reset"], input[type="submit"] { -webkit-appearance: button; cursor: pointer; }
+button[disabled], html input[disabled] { cursor: default; }
+button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+input { line-height: normal; }
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; padding: 0; }
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { height: auto; }
+input[type="search"] { -webkit-appearance: textfield; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+fieldset { border: 1px solid #c0c0c0; margin: 0 2px; padding: 0.35em 0.625em 0.75em; }
+legend { border: 0; padding: 0; }
+textarea { overflow: auto; resize: vertical; }
+optgroup { font-weight: bold; }
+table { border-collapse: collapse; border-spacing: 0; }
+td, th { padding: 0; }
+html, button, input, select, textarea { font-family: "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif; }
+h1, h2, h3, h4, h5, h6, p, figure, form, blockquote { margin: 0; }
+ul, ol, li, dl, dd { margin: 0; padding: 0; }
+ul, ol { list-style: none outside none; }
+h1, h2, h3 { line-height: 2; font-weight: normal; }
+
+input::-moz-placeholder, textarea::-moz-placeholder { color: #cccccc; }
+input:-ms-input-placeholder, textarea:-ms-input-placeholder { color: #cccccc; }
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #cccccc; }
+input,button,select,textarea{outline:none}textarea{resize:none}
+
+a.disabled {background: #808080; cursor: not-allowed; pointer-events: auto;}
+a.disabled:hover, a.disabled:active {background:#808080;}
+
+/** 支付按钮 */
+.sure_pay {background: #ff5000 none repeat scroll 0 0;}
+.sure_pay.disabled {background: #808080; cursor: not-allowed; pointer-events: auto;}
+.sure_pay.disabled:hover, .sure_pay.disabled:active {background: #808080;}
+
+/* 字体自适应 */
+@media screen and (max-width:800px){html {font-size:20px;}}
+@media screen and (max-width:768px){html {font-size:19.2px;}}
+@media screen and (max-width:640px){html {font-size:16px;}}
+@media screen and (max-width:603px){html {font-size:15.075px;}}
+@media screen and (max-width:600px){html {font-size:15px;}}
+@media screen and (max-width:533px){html {font-size:13.325px;}}
+@media screen and (max-width:480px){html {font-size:12px;}}
+@media screen and (max-width:414px){html {font-size:10.35px}}
+@media screen and (max-width:400px){html {font-size:10px}}
+@media screen and (max-width:384px){html {font-size:9.6px;}}
+@media screen and (max-width:375px){html {font-size:9.375px;}}
+@media screen and (max-width:360px){html {font-size:9px;}}
+@media screen and (max-width:320px){html {font-size:8px;}}
+
+/* layout */
+.vertical_center0 {display:table;*position:relative!important;}
+.vertical_center0 .vertical_center1 {display:table-cell;vertical-align:middle;*position:absolute;*top:50%;}
+.vertical_center0 .vertical_center1 .vertical_center2 {*position:relative;*top:-50%;}
+
+/* 布局 */
+html {-webkit-overflow-scrolling:touch;overflow:auto;}

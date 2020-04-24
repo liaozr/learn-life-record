@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        {
+            data: {},
+            status: 200,
+            //从服务器返回的http状态文本
+            statusText: 'OK',
+            //响应头信息
+            headers: {},
+            //`config`是在请求的时候的一些配置信息
+            config: {}
+        }
+
+        // 你可以这样来获取响应信息
+        
+        axios.get('/user/12345')
+        then(function(res) {
+            console.log(res.data);
+            console.log(res.status);
+            console.log(res.statusText);
+            console.log(res.headers);
+            console.log(res.config);
+        })
+
+    </script>
+
+</body>
+
+</html>

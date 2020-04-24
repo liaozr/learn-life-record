@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        var p1 = Promise.resolve(123)
+        p1.then(null, null)
+            .then(fullfiled => {
+                console.log('onfullfiled', fullfiled)
+                return Promise.resolve(456)
+            })
+            .then(fullfiled => {
+                console.log('onfullfiled', fullfiled)
+                return {
+                    then: (resolve, reject) => {
+                        reject(789)
+                    }
+                }
+            })
+            .then(null, null)
+            .then(fullfiled => {
+                console.log('onfullfiled', fullfiled)
+            }, error => {
+                console.log('onerror', error)
+                return Promise.resolve(10) //将错误处理后，又进入了正常处理流
+            })
+            .then(fullfiled => {
+                console.log('onfullfiled', fullfiled)
+                return Promise.reject('duang duang duang error')
+            })
+            .catch(error => {
+                console.log('onCatch', error)
+            })
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------------------------- -->
+
+    打印出的结果是：
+
+    onfullfiled,123
+
+    onfullfiled,456
+
+    onerror,789
+    
+    onfullfiled,10
+
+    onCatch,duang duang duang error
+
+<!-- ------------------------------------------------------------------------------------------------------------- -->
+
+    总结 本文首先介绍了promise的三种状态及生成不同状态promise方法，然后介绍了promise的回调处理方法then,
+
+    分析了不同情况下then函数返回的promise状态。最后通过promise链，
+
+    将以上知识点进行串联。希望能够对大家有所帮助。由于作者的能力有限，也正在处于学习阶段，文中不免会有错误，欢迎读者指正。
+
+<!-- ------------------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

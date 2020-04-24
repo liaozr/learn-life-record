@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // arrayLike 是一个类数组对象，  arrayLike 是一个类数组对象
+        var arrayLike = {
+            '0': 'a',
+            '1': 'b',
+            '2': 'c',
+            length: 3
+        };
+
+        var arr = [].slice.call(arrayLike); // 这样 是将 一个类数组对象 转成一个 数组，此时的arr 是一个数组来的
+        console.log(arr)
+        // 打印出的数据为： ["a", "b", "c"]
+    </script>
+</body>
+
+</html>

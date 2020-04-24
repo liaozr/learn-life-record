@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- 我们使用app.json文件来对微信小程序进行全局配置，
+决定页面文件的路径、窗口表现、设置网络超时时间、设置多 tab 等。 -->
+
+<!-- 以下是一个包含了所有配置选项的简单配置app.json ： -->
+<script>
+	{
+	  "pages": [
+	    "page/index/index",
+	    "page/logs/index"
+	  ],
+	  "window": {
+	    "navigationBarTitleText": "Demo"
+	  },
+	  "tabBar": {
+	    "list": [{
+	      "pagePath": "page/index/index",
+	      "text": "首页"
+	    }, {
+	      "pagePath": "page/logs/logs",
+	      "text": "日志"
+	    }]
+	  },
+	  "networkTimeout": {
+	    "request": 10000,
+	    "downloadFile": 10000
+	  },
+	  "debug": true
+	}
+</script>
+
+<!-- app.json 配置项列表 -->
+
+<!--
+
+属性	          类型	    必填	    描述
+pages	          Array	     是	    设置页面路径
+window	          Object	 否	    设置默认页面的窗口表现
+tabBar	          Object	 否	    设置底部 tab 的表现
+networkTimeout	  Object	 否	    设置网络超时时间
+debug	          Boolean	 否	    设置是否开启 debug 模式 
+
+-->
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+<!-- pages -->
+
+<!-- 
+
+接受一个数组，每一项都是字符串，来指定小程序由哪些页面组成。每一项代表对应页面的【路径+文件名】信息，数组的第一项代表小程序的初始页面。小程序中新增/减少页面，都需要对 pages 数组进行修改。
+
+文件名不需要写文件后缀，因为框架会自动去寻找路径.json,.js,.wxml,.wxss的四个文件进行整合。
+
+ -->
+
+<!--
+
+ 如开发目录为：
+
+page/
+
+page/index/index.wxml
+
+page/index/index.js
+
+page/index/index.wxss
+
+page/logs/logs.wxml
+
+page/logs/logs.js
+
+app.js
+
+app.json
+
+app.wxss
+
+则，我们需要在 app.json 中写
+
+ -->
+
+<!-- 
+	{
+	  "pages":[
+	    "page/index/index"
+	    "page/logs/logs"
+	  ]
+	} 
+-->
+<!-- ------------------------------------------------------------------------------ -->
+
+<!-- window -->
+
+<!-- 用于设置小程序的状态栏、导航条、标题、窗口背景色。 -->
+
+<!-- 
+
+属性	                         类型	    默认值	            描述
+navigationBarBackgroundColor    HexColor	#000000	    导航栏背景颜色，如"#000000"
+navigationBarTextStyle	        String	    white	    导航栏标题颜色，仅支持 black/white
+navigationBarTitleText	        String		            导航栏标题文字内容
+backgroundColor	                HexColor	#ffffff	    窗口的背景色
+backgroundTextStyle	            String	    dark	    下拉背景字体、loading 图的样式，仅支持 dark/light
+
+
+ -->
+
+
+<!-- 注：HexColor（十六进制颜色值），如"#ff00ff" -->
+
+<!-- 如 app.json ： -->
+
+<script>
+
+	{
+	  "window":{
+	    "navigationBarBackgroundColor": "#ffffff",
+	    "navigationBarTextStyle": "black",
+	    "navigationBarTitleText": "微信接口功能演示",
+	    "backgroundColor": "#eeeeee",
+	    "backgroundTextStyle": "light"
+	  }
+	} 
+
+</script>
+
+<!-- 
+
+使用的Color为十六进制的颜色值,比如"#ffffff"
+
+注意:
+
+其中navigationBarTextStyle，导航栏的颜色仅支持black/white。
+
+而backgroundTextStyle，下拉背景的样式仅支持dark/light。
+
+
+使用的Color为十六进制的颜色值,比如"#ffffff"
+
+注意:
+
+其中navigationBarTextStyle，导航栏的颜色仅支持black/white。
+
+而backgroundTextStyle，下拉背景的样式仅支持dark/light。
+
+ -->
+
+<!-- --------------------------------------------------------------------------- -->
+
+<!-- tabBar -->
+
+<!-- 如果我们的小程序是一个多 tab 应用（客户端窗口的底部有tab栏可以切换页面），
+那么我们可以通过 tabBar 配置项指定 tab 栏的表现，
+以及 tab 切换时显示的对应页面。
+
+
+tabBar 是一个数组，只能配置最少2个、最多5个 tab，tab 按数组的顺序排序。
+
+ -->
+
+<!-- 属性说明： -->
+
+<!-- 
+
+属性	           类型     	必填	默认值	         描述
+color	           HexColor	     是		           tab 上的文字默认颜色
+selectedColor	   HexColor	     是		           tab 上的文字选中时的颜色
+backgroundColor	   HexColor	     是		           tab 的背景色
+borderStyle	       String	     否   	 black	   tabbar上边框的颜色， 仅支持 black/white
+list	           Array	     是		           tab 的列表，详见 list 属性说明，最少2个、最多5个 tab 
+
+
+-->
+
+
+<!-- 其中 list 接受一个数组，数组中的每个项都是一个对象，其属性值如下： -->
+
+<!-- 
+
+属性	             类型	 必填	         说明
+pagePath	        String	  是	页面路径，必须在 pages 中先定义
+text	            String	  是	tab 上按钮文字
+iconPath	        String	  是	图片路径，icon 大小限制为40kb
+selectedIconPath	String	  是	选中时的图片路径，icon 大小限制为40kb
+
+ -->
+ <script>
+
+
+	"tabBar":{
+	  "color":"#dddddd",
+	  "selectdColor":"#3cc51f",
+	  "borderStyle":"black",
+	  "backgroundColor":"#ffffff",
+	  "list":[
+		   {
+		    "pagePath":"pages/index/index",
+		    "iconPath":"image/wechat.png",
+		    "selectedIconPath":"image/wechatHL.png",
+		    "text":"主页"
+		   },
+		   {
+		  "pagePath":"pages/logs/logs",
+		  "iconPath":"image/wechat.png",
+		  "selectedIconPath":"image/wechatHL.png",
+		  "text":"日志"
+		   }
+	   ]
+	}
+
+	
+</script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+<!-- page.json -->
+
+<!-- 
+
+每一个小程序页面也可以使用.json文件来对本页面的窗口表现进行配置。
+页面的配置比app.json全局配置简单得多，只是设置 app.json 中的
+window 配置项的内容，页面中配置项会覆盖 app.json 的 window 中相同的配置项。
+
+ -->
+
+<!-- 页面的.json只能设置 window 相关的配置项，以决定本页面的窗口表现，所以无需写 window 这个键，如： -->
+
+<script>
+
+
+	{
+	  "navigationBarBackgroundColor": "#ffffff",
+	  "navigationBarTextStyle": "black",
+	  "navigationBarTitleText": "微信接口功能演示",
+	  "backgroundColor": "#eeeeee",
+	  "backgroundTextStyle": "light"
+	}
+
+
+</script>
+<!-- --------------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

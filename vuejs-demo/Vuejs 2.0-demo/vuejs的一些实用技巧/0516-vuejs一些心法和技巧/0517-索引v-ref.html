@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- --------------------------------------------------------------------------------------- -->
+
+    子组件索引v-ref
+
+    <div id="parent">
+        <user-profile v-ref:profile></user-profile>
+    </div>
+
+    <script>
+        var parent = new Vue({
+            el: '#parent'
+        })
+        // 访问子组件
+        var child = parent.$refs.profile
+    </script>
+    
+    <!-- --------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

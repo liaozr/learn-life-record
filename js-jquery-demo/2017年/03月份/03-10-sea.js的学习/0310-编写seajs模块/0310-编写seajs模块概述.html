@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+模块编写：
+
+SeaJS中使用define函数定义一个模块。
+factory可以接收三个参数：require, exports, module。
+
+require——模块加载函数，用于记载依赖模块。
+exports——接口点，将数据或方法定义在其上则将其暴露给外部调用。
+module——模块的元数据。
+
+exports 仅仅是 module.exports 的一个引用。
+
+在factory内部给exports重新赋值并不会改变module.exports的值。因此给exports赋值是无效的，不能用来更改模块接口。
+
+对 module.exports 的赋值需要同步执行，不能放在回调函数里。
+
+require 是一个方法，接受 模块标识 作为唯一参数
+
+使用模块系统内部的路径解析机制来解析并返回模块路径。该函数不会加载模块，只返回解析后的绝对路径。
+
+require书写约定
+
+正确拼写 模块 factory 构造方法的第一个参数 必须 命名为 require 。
+不要修改 不要重命名 require 函数，或在任何作用域中给 require 重新赋值。
+使用直接量 require 的参数值 必须 是字符串直接量。
+可以把require看成语法关键字就行。
+
+
+</body>
+</html>

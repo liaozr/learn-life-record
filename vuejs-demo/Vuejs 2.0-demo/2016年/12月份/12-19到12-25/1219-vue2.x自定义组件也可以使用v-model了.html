@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src='vue.js'></script>
+</head>
+<body>
+
+自定义组件使用 v-model
+
+我们知道，v-model是在表单类元素上进行双向绑定时使用的，比如：
+
+<template>
+    <input type="text" v-model="data">
+    {{ data }}
+</template>
+<script>
+    // export default {
+    //     data() {
+    //         return {
+    //             data: ''
+    //         }
+    //     }
+    // }
+</script>
+
+
+这时data就是双向绑定的，输入的内容会实时显示在页面上。
+
+在 Vue 1.x 中，自定义组件可以使用 props 的.sync双向绑定，比如：
+
+<my-component :data.sync="data"></my-component>
+
+<!-- -------------------------------------------------------------------------------- -->
+
+在 Vue 2.x 中，可以直接在自定义组件上使用 v-model了，比如：
+
+<div id="app">
+    <my-component v-model="msg"></my-component>
+</div>
+
+<script>
+    // 注册
+    Vue.component('my-component', {
+        template: '<div>A custom component!</div>'
+    })
+    new Vue({
+        el: "#app",
+        data: {
+            msg: '1234'
+        }
+    })
+</script>
+
+在组件my-component中，通过this.$emit('input')就可以改变data的值了。
+
+虽然 Vue 1.x 中无法这样使用，但是如果你的组件的模板外层是 input、select、textarea等支持绑定 v-model 特性的元素，也是可以使用的，比如 my-component 的代码是：
+
+
+<template>
+    <input type="text">
+</template>
+
+那也可以使用上面2.x的写法。
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+</html>

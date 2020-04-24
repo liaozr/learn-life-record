@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+
+box-shadow第一个长度表示水平方向投影，第二个为垂直方向投影，第三个为模糊半径。
+
+用上面的单侧投影（每边个一块）来达到目的。基本上就是把”单侧投影”中的技巧运用两次
+
+<div class="aa">
+
+</div>
+<div class="bb">
+
+</div>
+<style>
+    .aa {
+        width: 200px;
+        height: 100px;
+        background-color: #ccc;
+        box-shadow: 5px 0 5px -5px black,
+                   -5px 0 5px -5px black;
+    }
+    .bb {
+        width: 200px;
+        height: 100px;
+        background-color: #ccc;
+        margin-top: 20px;
+    }
+</style>
+
+
+
+</body>
+</html>

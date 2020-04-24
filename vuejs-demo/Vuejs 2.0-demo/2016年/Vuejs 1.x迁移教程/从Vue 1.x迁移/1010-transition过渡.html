@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+transition 参数 弃用
+
+Vue 的过渡系统有了彻底的改变，现在通过使用 <transition> 和 <transition-group> 来包裹元素实现过渡效果，而不再使用 transition 属性。详见 Transitions guide。
+
+<div id="demo">
+  <button v-on:click="show = !show">
+    Toggle
+  </button>
+
+  <transition name="fade">
+    <p v-if="show">hello</p>
+  </transition>
+  
+</div>
+
+<style>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
+</style>		
+
+<!-- ------------------------------------------------------------------------------- -->
+
+过渡的 stagger 参数 弃用
+
+如果希望在列表渲染中使用渐近过渡，可以通过设置元素的data-index （或类似属性）来控制时间。
+
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    问题描述： 我是这么创建一个对象的：
+
+    <script>
+        var myJSONObject = {
+            "ircEvent": "PRIVMSG",
+            "method": "newURI",
+            "regex": "^http://.*"
+        };
+
+        // 以new myJSONObject结束的移除属性regex的最好方法是什么？
+
+        var myJSONObject = {
+            "ircEvent": "PRIVMSG",
+            "method": "newURI"
+        };
+
+        // Best Answers：
+        delete myJSONObject.regex;
+        // or,
+        delete myJSONObject['regex'];
+        // or,
+        var prop = "regex";
+        delete myJSONObject[prop];
+        
+    </script>
+</body>
+
+</html>

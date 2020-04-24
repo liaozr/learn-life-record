@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>iphone-inline-video demo with playsinline</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="../dist/iphone-inline-video.browser.js"></script>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<h2>
+		Inline video on the iPhone
+		<span>
+			Made possible by
+			<a href="https://github.com/bfred-it/iphone-inline-video">iphone-inline-video</a>
+		</span>
+		<span id="behavior"></span>
+	</h2>
+
+	<div class="video-container">
+		<video playsinline src="https://rawgit.com/bower-media-samples/big-buck-bunny-480p-30s/master/video.mp4"></video>
+		<button class='play'>Play/pause</button>
+		<button class='fullscreen'>Fullscreen</button>
+		<p>Real <code>&lt;video&gt;</code> with audio</p>
+	</div>
+
+	<div class="video-container">
+		<video autoplay muted loop playsinline src="https://rawgit.com/bower-media-samples/big-buck-bunny-480p-30s/master/video.mp4"></video>
+		<button class='play'>Play/pause</button>
+		<button class='fullscreen'>Fullscreen</button>
+		<p>Autoplaying silent <code>&lt;video&gt;</code></p>
+	</div>
+
+	<div class="threejs-notice">
+		Also: <a href="threejs.html">use videos as WebGL textures<br>with Three.js on the iPhone</a>
+	</div>
+
+	<script src="index.js"></script>
+</body>
+</html>

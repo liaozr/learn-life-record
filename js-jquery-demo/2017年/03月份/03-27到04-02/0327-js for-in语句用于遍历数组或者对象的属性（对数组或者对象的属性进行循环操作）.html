@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    for...in 语句用于对数组或者对象的属性进行循环操作。
+
+    for ... in 循环中的代码每执行一次，就会对数组的元素或者对象的属性进行一次操作。
+
+    <script type="text/javascript">
+        var x
+        var mycars = new Array()
+        mycars[0] = "Saab"
+        mycars[1] = "Volvo"
+        mycars[2] = "BMW"
+
+        for (x in mycars) {
+            document.write(mycars[x] + "<br />")
+        }
+        
+    </script>
+</body>
+
+</html>

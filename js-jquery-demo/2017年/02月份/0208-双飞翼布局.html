@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+双飞翼布局(淘宝使用的布局方式)
+
+<body>
+    <div class="layout">
+        <div class="main">
+        </div>
+    </div>
+    <div class="tra"></div>
+    <div class="extra"></div>
+
+    <style>
+        .layout {
+            width: 100%;
+            float: left;
+        }
+
+        .main {
+            margin-left: 200px;
+            margin-right: 100px;
+            height: 300px;
+            background-color: red;
+        }
+
+        .tra {
+            float: left;
+            margin-left: -100%;
+            width: 200px;
+            height: 300px;
+            background-color: blue;
+        }
+
+        .extra {
+            float: left;
+            margin-left: -100px;
+            width: 100px;
+            height: 300px;
+            background-color: pink;
+        }
+    </style>
+
+
+<!-- --------------------------------------------------------------------------- -->
+
+<!-- 主要还是参考这个双飞翼布局为主 -->
+
+<!-- 双飞翼布局(淘宝使用的布局方式) -->
+<!-- 双飞翼布局(淘宝使用的布局方式) -->
+
+<div class="shuangfeiyi-layout">
+
+    <!-- 关键布局 -->
+	<div class="main-wrapper">
+	    <div class="mains"></div>
+	</div>
+	<div class="subs"></div>
+	<div class="extras"></div>
+
+</div>
+<style>
+    .shuangfeiyi-layout{
+    	margin-top:500px;
+    }
+
+    /*关键样式*/
+	.main-wrapper {
+	    float: left;
+	    width: 100%;
+	}
+	.mains {
+	    height: 300px;
+	    margin-left: 210px;
+	    margin-right: 190px;
+	    background-color: rgba(255, 0, 0, .5);
+	}
+    .subs {
+	    float: left;
+	    width: 210px;
+	    height: 300px;
+	    margin-left: -100%;
+	    background-color: rgba(0, 255, 0, .5);
+	}
+	.extras{
+	    float: left;
+	    width: 190px;
+	    height: 300px;
+	    margin-left: -190px;
+	    background-color: rgba(0, 0, 255, .5);
+	}
+</style>
+
+<!-- --------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

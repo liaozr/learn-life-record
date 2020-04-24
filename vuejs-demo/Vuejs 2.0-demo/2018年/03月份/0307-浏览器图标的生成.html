@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+  设置属于自己项目特定的图标
+
+  在项目的根目录下找到index.html然后在head里面加上下面的这句代码
+
+  <link rel="shortcut icon" type="image/x-icon" href="static/home.ico">
+
+  在这里要注意的是图标文件的位置，不能放到src里，这样的路径会让浏览器找不到。
+
+  网页把根域名作为相对路径的根目录了，然而我们文件的路径是相对于项目文件的根目录的
+
+  ，因此就找不到了。于是我们需要把静态文件放在static文件下。最后刷新一下界面图标就出来咯！！！
+
+</body>
+
+</html>

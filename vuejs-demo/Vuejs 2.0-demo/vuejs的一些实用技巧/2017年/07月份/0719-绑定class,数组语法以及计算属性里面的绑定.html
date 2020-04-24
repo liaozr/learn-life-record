@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+  计算属性改变class样式
+
+  如果要通过复杂的逻辑，现在又有一个demo场景，现在有一个按扭，必须把三个问题全选我才可以提交，
+
+  按钮色彩高亮，如果我们就是单单用javascript表达式来进行判断，行不通，那这时候选用computed最好
+
+  <template>
+
+       <div>
+
+          <ul>
+              <li v-for='(item,index) in message' @click='item.isred = !item.isred' :class='{ red : item.isred }'>{{item.name}}</li>
+          </ul>
+
+          <button :class='allchoose'>必须全选才可以提交</button>
+
+       </div>
+
+  </template>
+
+<script>
+    export default {
+        created() {
+            let data = [{
+                    name: '混无霹雳手帅不？'
+                },
+                {
+                    name: '混无霹雳手是老司机不？'
+                },
+                {
+                    name: '混无霹雳手分享的好不好？'
+                }
+            ]
+            for (let i of data) {
+                this.$set(i, "isred", false)
+            }
+            this.message = data
+        },
+        data() {
+            return {
+                message: []
+            }
+        },
+        computed: {
+            allchoose() {
+                for (let i of this.message) {
+                    if (i.isred == false) {
+                        return {
+                            yellow: false
+                        }
+                    }
+                }
+                return {
+                    yellow: true
+                }
+            }
+        }
+    }
+</script>
+
+
+<style>
+    .red {
+        background: red;
+    }
+
+    button {
+        background: gray;
+    }
+
+    .yellow {
+        background: yellow
+    }
+</style>
+
+在计算属性这个章中我讲过compunted主要用于维护返一个返回值，通过对每个对象里isred进行判断，一但任何一个isred有变动，computed都会从新计划，再进行返回，三个全选中则黄色高亮，如果任一一个没选则去除高亮，在computed维护的是一个返回对象
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+三元表达式写法，这个写法，这个写起来很爽，我们针对前面第一个列子我们再换一种方法式写看看如何在template里来进行语议话的写法
+
+<template>
+       <div>
+          <ul>
+              <li v-for='(item,index) in message' @click='item.isred = !item.isred' :class="[item.isred == true ? 'red' : 'green']">{{item.name}}</li>
+          </ul>
+       </div>
+  </template>
+
+<script>
+    export default {
+        created() {
+
+            let data = [{
+                    name: '混无霹雳手帅不？'
+                },
+                {
+                    name: '混无霹雳手是老司机不？'
+                },
+                {
+                    name: '混无霹雳手分享的好不好？'
+                }
+            ]
+
+            for (let i of data) {
+                this.$set(i, "isred", false)
+            }
+
+            this.message = data
+        },
+        data() {
+            return {
+                message: [],
+            }
+        }
+    }
+</script>
+
+
+<style>
+    .red {
+        background: red;
+    }
+
+    .size {
+        font-size: 40px;
+    }
+</style>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

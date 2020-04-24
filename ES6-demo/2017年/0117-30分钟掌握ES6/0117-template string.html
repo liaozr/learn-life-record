@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+这个东西也是非常有用，当我们要插入大段的html内容到文档中时，传统的写法非常麻烦，所以之前我们通常会引用一些模板工具库，比如mustache等等。
+
+大家可以先看下面一段代码：
+
+<script>
+    $("#result").append(
+        "There are <b>" + basket.count + "</b> " +
+        "items in your basket, " +
+        "<em>" + basket.onSale +
+        "</em> are on sale!"
+    );
+</script>
+
+我们要用一堆的'+'号来连接文本与变量，而使用ES6的新特性模板字符串``后，我们可以直接这么来写：
+
+<script>
+     $("#result").append(`
+      There are <b>${basket.count}</b> items
+       in your basket, <em>${basket.onSale}</em>
+      are on sale!
+    `);
+</script>
+
+用反引号（`）来标识起始，用${}来引用变量，而且所有的空格和缩进都会被保留在输出之中，是不是非常爽？！
+
+React Router从第1.0.3版开始也使用ES6语法了，比如这个例子：
+
+<Link to={`/taco/${taco.name}`}>{taco.name}</Link>
+React Router
+
+</body>
+</html>

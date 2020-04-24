@@ -1,0 +1,115 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>主要内容区main</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/Css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/Js/jquery1123.js"></script>
+    <script src="__PUBLIC__/Admin/Js/bootstrap.min.js"></script>
+    <include file="list"/>
+</head>
+<body>
+<!--main_top-->
+<table width="99%" border="0" cellspacing="0" cellpadding="0" id="searchmain">
+    <tr>
+        <td width="99%" align="left" valign="top">您的位置：分类管理</td>
+    </tr>
+    <tr>
+        <td align="left" valign="top">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" id="search">
+                <tr>
+                    <td width="90%" align="left" valign="middle">
+                        <form method="post" action="">
+                            <span>管理员：</span>
+                            <input type="text" name="text" value="" class="text-word">
+                            <input name="submit" type="submit" value="查询" class="text-but">
+                        </form>
+                    </td>
+                    <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="" target="mainFrame" onFocus="this.blur()" class="add">添加顶级分类</a></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" valign="top">
+            <div class="page-header">
+                <h1>{$header['name']}
+                    <small>有<span class="label label-default">{$header['childnum']}</span>个子类</small>
+                </h1>
+            </div>
+            <volist name="type" id="showType">
+                <table class="table table-bordered table-striped table-hover text-center" index="{$key}" style="display: none">
+                    <tr>
+                        <th>编号</th>
+                        <th>类名</th>
+                        <th>父类ID</th>
+                        <th>操作</th>
+                    </tr>
+                    <volist name="showType" id="showType">
+                        <tr>
+                            <td id="showTypeId">{$showType.id}</td>
+                            <td>{$showType.name}</td>
+                            <td>{$showType.pid}</td>
+                            <td>
+                                <a href='__URL__/selectChild?id={$showType.id}' target='mainFrame' onFocus='this.blur()' class='showChild'>查看子类</a>
+                                <span class='gray'>&nbsp;|&nbsp;</span><a href="__URL__/addType?id={$showType.id}" target='mainFrame' onFocus='this.blur()' class='add'>添加分类</a>
+                                <span class='gray'>&nbsp;|&nbsp;</span><a href='#' target='mainFrame' onFocus='this.blur()' class='add'>删除</a>
+                                <span class='gray'>&nbsp;|&nbsp;</span><a href='#' target='mainFrame' onFocus='this.blur()' class='add'>修改</a>
+                            </td>
+                        </tr>
+                    </volist>
+                </table>
+            </volist>
+        </td>
+    </tr>
+</table>
+<nav class="text-center">
+    <ul class="pagination pagination-lg">
+        <li>
+            <a href="#" aria-label="Previous" id="previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <for start="1" end="$allpage+1">
+            <li class="page"><a href="#">{$i}</a></li>
+        </for>
+        </volist>
+        <li>
+            <a href="#" aria-label="Next" id="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+</body>
+</html>
+<script>
+    $(function () {
+        $('.page:eq(0)').addClass('active')
+        $('.table:eq(0)').show()
+        $('.page').click(function () {
+            $('.page').removeClass('active')
+            $(this).addClass('active')
+            $('.table').hide()
+            $('.table').eq($(this).index() - 1).show()
+        })
+        $('#previous').click(function () {
+            if ($('.active').prev().hasClass('page')) {
+                var index = $('.active').prev().index()
+                $('.active').removeClass('active')
+                $('.page').eq(index - 1).addClass('active')
+                $('.table').hide()
+                $('.table').eq(index - 1).show()
+            }
+        })
+        $('#Next').click(function () {
+            if ($('.active').next().hasClass('page')) {
+                var index = $('.active').next().index()
+                $('.active').removeClass('active')
+                $('.page').eq(index - 1).addClass('active')
+                $('.table').hide()
+                $('.table').eq(index - 1).show()
+            }
+        })
+
+    })
+</script>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+Webview模块管理应用窗口界面，实现多窗口的逻辑控制管理操作。
+
+通过plus.webview可获取应用界面管理对象。
+
+方法：
+
+all: 获取所有Webview窗口
+close: 关闭Webview窗口
+create: 创建新的Webview窗口
+
+currentWebview: 获取当前窗口的WebviewObject对象
+getDisplayWebview: 获取屏幕所有可视的Webview窗口
+
+
+getWebviewById: 查找指定标识的WebviewObject窗口
+
+
+getLaunchWebview: 获取应用首页WebviewObject窗口对象
+
+
+getSecondWebview: 获取应用第二个首页WebviewObject窗口对象
+getTopWebview: 获取应用显示栈顶的WebviewObject窗口对象
+
+hide: 隐藏Webview窗口
+open: 创建并打开Webview窗口
+show: 显示Webview窗口
+
+
+startAnimation: Webview窗口组合动画
+defaultHardwareAccelerated: 获取Webview默认是否开启硬件加速
+
+<script>
+
+    var currentwebView = plus.webview.currentWebview(); // 获得当前的webview对象
+    alert(currentwebView.opener().getURL());           // 获得当前webview的打开者的url
+
+</script>
+
+
+</body>
+
+</html>

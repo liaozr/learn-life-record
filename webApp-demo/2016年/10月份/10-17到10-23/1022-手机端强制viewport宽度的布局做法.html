@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    手机端强制宽度的做法（固定viewport）设计稿多大
+
+    viewport就多大（如设计稿是640px.则viewport的大小就设置为640px），然后就直接px就行
+
+
+<!-- ---------------------------------------------------------------------------- -->
+
+    如果手机端设计图只有一套，不区分大小屏幕，强制设置浏览器viewport宽度，通过控制viewport宽度缩放页面兼容所有屏幕，
+
+    然后按照固定宽度布局，简单粗暴高效，
+
+    不过如果是嵌入到安卓app里面的页面，貌似有不兼容的，之前碰到过一次，后来改成媒体查询的方式布局
+
+    单纯手机端页面用这个方式再好不过了
+
+    作者：黄柳青
+    链接：https://www.zhihu.com/question/32198592/answer/115683229
+    来源：知乎
+
+<!-- ------------------------------------------------------------------------------------------------------------- -->
+
+
+固定宽度，viewport缩放 设计图、页面宽度、viewport width使用一个宽度，浏览器帮我们完成缩放。单位使用px即可。
+
+使用兼容代码：
+
+其中，下面的那个 640的宽度那些是你可以自己设置的，是根据自己的设计稿宽度去设置这个值的，倘若 你的设计稿宽度为750px.则将下面的那些640全部换成750即可。
+<script>
+
+    if (/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+        var version = parseFloat(RegExp.$1);
+        if (version > 2.3) {
+            var phoneScale = parseInt(window.screen.width) / 640;
+            if (/MZ-M571C/.test(navigator.userAgent)) {
+                document.write('<meta name="viewport" content="width=640, minimum-scale = 0.5, maximum-scale= 0.5">');
+            } else if (/M571C/.test(navigator.userAgent) && /LizhiFM/.test(navigator.userAgent)) {
+                document.write('<meta name="viewport" content="width=640, minimum-scale = 0.5, maximum-scale= 0.5">');
+            } else {
+                document.write('<meta name="viewport" content="width=640, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+            }
+        } else {
+            document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+        }
+    } else {
+        document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+    }
+    
+</script>
+
+<!-- ------------------------------------------------------------------------------------------------------------------------ -->
+
+  </body>
+</html>

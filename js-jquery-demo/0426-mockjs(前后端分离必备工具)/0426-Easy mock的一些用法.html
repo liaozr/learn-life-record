@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src='https://cdn.staticfile.org/vue/2.2.6/vue.js'></script>
+</head>
+
+<style>
+    div.layout {
+        margin-bottom: 30px;
+        background-color: pink;
+    }
+</style>
+
+<body>
+    <div id='app'>
+        <div class='layout' v-for='item in dataArr'>
+            <div>{{item.email}}</div>
+            <div>{{item.name}}</div>
+            <div>{{item.number}}</div>
+            <div>{{item.address}}</div>
+        </div>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                dataArr: [
+                ]
+            },
+            mounted() {
+                init()
+            }
+        })
+        //ajax请求
+        function init() {
+            $.ajax({
+                url: "https://www.easy-mock.com/mock/59006f18875d7232a38b1817/example/mock", //请求的url地址
+                dataType: "json", //返回格式为json
+                data: {}, //参数值
+                type: "get", //请求方式
+                success: function(jsonData) {
+                    //请求成功时处理
+                    vm.dataArr = jsonData.data.projects;
+                    console.log(jsonData);
+                },
+                error: function() {
+                    //请求出错处理
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

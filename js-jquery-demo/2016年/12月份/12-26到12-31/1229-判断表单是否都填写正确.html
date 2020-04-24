@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        $('#Submit').click(function() {
+            // $("#send_email_form").valid()
+            // 是判断send_email_form这个表单是否全部都填写正确
+            if ($("#send_email_form").valid()) {
+                //执行 submit()方法来提交表单
+                // 提交表单后会触发 validate这个插件的 submitHandler方法
+                // 提交表单后会触发 validate这个插件的 submitHandler方法
+                $('#send_email_form').submit();
+            } else {
+                document.getElementById('codeimage').src = '{$Think.const.SITE_URL}/captcha/makecode' + '?' + Math.random();
+            }
+        });
+    </script>
+</body>
+
+</html>

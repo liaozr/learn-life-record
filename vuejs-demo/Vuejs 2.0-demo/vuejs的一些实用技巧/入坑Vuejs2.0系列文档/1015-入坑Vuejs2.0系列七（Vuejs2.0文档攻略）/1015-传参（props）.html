@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src="vue.js">
+    </script>
+  </head>
+  <body>
+
+使用Props属性传参
+
+前面一节说了，组件之间，参数自上而下传递（父组件的数据通过参数接口传给子组件），而且你可以把组件抽象的理解为一个function，我们看看具体是怎么传参数的：
+
+<div id="example">
+    <my-component message='Hello World'></my-component>
+</div>
+
+<script type="text/javascript">
+    Vue.component('my-component', {
+        // 像function一样，声明组件的参数名称；
+        props: ['message'],
+        // 传进来以后，你可以在组件下的模板中使用这个数据
+        template: '<span>{{ message }}</span>'
+    })
+    var vm = new Vue({
+        el: '#example',
+        data:{
+          message:'hello zrliao'
+        }
+    })
+</script>
+
+
+
+这样将会渲染：
+
+<!-- <div id="example">
+    <span>Hello World</span>
+</div> -->
+
+<!-- --------------------------------------------------------------------- -->
+
+驼峰命名和短横线命名
+
+这个参数名称有个地方需要注意一下：
+
+<script type="text/javascript">
+    Vue.component('child', {
+        // camelCase in JavaScript
+        props: ['myMessage'],
+        template: '<span>{{ myMessage }}</span>'
+    })
+</script>
+
+你看上面的参数是用驼峰命名法； 但是在html 不能用驼峰命名，因为html的属性是区分大小写的。所以在html里应该这样写：
+
+<!-- kebab-case in HTML -->
+<child my-message="hello!"></child>
+用短横线命名，myMessage会自动转换成这种形式。
+
+<!-- ------------------------------------------------------------------------------------------- -->
+
+动态参数
+
+    <my_component message="hello!"></<my_component>
+
+    这样传值进去，我们传了个固定的字符串"hello!"进去；但如果我们想穿个变量进去呢？
+
+    <div id='examplenn'>
+        <input v-model="parentMsg">
+        <br>
+        <child v-bind:my-message="parentMsg"></child>
+    </div>
+    <template id="aa">
+        <span>{{ myMessage }}</span>
+    </template>
+
+    <script type="text/javascript">
+        Vue.component('child', {
+            props: ['myMessage'],
+            template: '#aa'
+        })
+        new Vue({
+            el: '#examplenn',
+            data: {
+                parentMsg: ''
+            }
+        })
+    </script>
+
+    注意v-bind:my-message="parentMsg",这样就把一个动态，响应式的对象传给了子组件。
+    结合前面学过的知识，我们进一步认识到v-bind有把死的变活的功效。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+  </body>
+</html>

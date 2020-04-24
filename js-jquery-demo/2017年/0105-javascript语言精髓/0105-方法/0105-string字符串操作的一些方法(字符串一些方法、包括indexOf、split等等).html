@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+string.chatAt(pos)
+
+charAt 方法返回在 string 中 pos 位置处的字符。
+
+如果 pos 小于0或大于等于字符串的长度 string.length，返回空字符串。
+
+<script>
+
+    var name = 'Curly';
+    var str = name.charAt(0);
+
+    console.log(str)// C
+
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+string.concat(string…)
+
+连接字符串，它很少被使用，因为+运算法更为方便
+
+<!-- ----------------------------------------------------------------------------- -->
+
+stirng.indexOf(searchString, position)
+
+该方法在 string 内查找另一个字符串searchString。
+
+如果它被找到，返回第一个字符的位置，否则返回-1。
+
+可选参数 position 可以指定从哪个位置开始查找。
+
+<script>
+    var text = 'Mississippi';
+
+    var p = text.indexOf('ss');
+    console.log(p) // p => 2
+
+    p = text.indexOf('ss', 3);
+    console.log(p) // p =>5
+
+    p = text.indexOf('ss', 6);
+    console.log(p) // p => -1
+
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+string.lastIndexOf(searchString, position)
+
+同 indexOf 类似，不过是从尾部开始查找
+
+<!-- ----------------------------------------------------------------------------- -->
+
+string.replace(searchValue, replaceValue)
+
+replace 方法对 string 进行查找和替换操作，并返回一个新的字符串。参数 searchValue 可以是一个字符串或一个正则表达式对象。
+
+如果它是字符串或者正则但是没有带有 g 标志，那么 searchValue 只会在第一次出现的地方被替换
+
+<script>
+
+    var result = 'mother_in_law'.replace('_', '-'); // mother-in_law
+    var result = 'mother_in_law'.replace(/_/, '-'); // mother-in_law
+
+    // 如果是正则带 g 标志。 会替换所有匹配
+    var result = 'mother_in_law'.replace(/_/g, '-');
+    console.log(result) // mother-in-law
+
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+string.slice(start, end)
+
+参考 Array.slice
+
+<!-- ------------------------------------------------------------------------------- -->
+
+string.split(separator, limit)
+
+split 方法把这个 string 分割成片段来创建一个字符串数组。
+
+可选参数 limit 可以限制被分割的片段数量。
+
+separator 参数可以是一个字符串或一个正则表达式
+separator 是空字符串
+
+<script>
+    var digits = '01234567';
+    var a = digits.split('', 5);
+    var c = digits.split('');
+    var b = digits.split(",")
+
+    console.log(a)  // ["0", "1", "2", "3", "4"]
+    console.log(b)  // ["01234567"]
+    console.log(c)  // ["0", "1", "2", "3", "4", "5", "6", "7"]
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+string.toLowerCase()
+把这个 string 中的所有字母转换为小写格式
+
+<script>
+    var str1 = 'ABcdsd';
+    console.log(str1.toLowerCase());  // abcdsd
+</script>
+
+<!-- ----------------------------------------------------------------------------- -->
+
+string.toUpperCase()
+把这个 string 中的所有字母转换为大写格式
+
+<script>
+    var str1 = 'ABcdsd';
+    console.log(str1.toUpperCase());  // ABCDSD
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

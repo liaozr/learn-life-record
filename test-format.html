@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Meta -->
+<meta charset="UTF-8" />
+<title>Vue.JS Grid</title>
+
+<!-- Styles -->
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link rel="stylesheet" href="styles/index.processed.css">
+
+<!-- Scripts -->
+<script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
+</head>
+<style>
+
+/**
+* index.scss
+* - Add any styles you want here!
+*/
+
+$background: #fff;
+
+* {
+box-sizing: border-box;
+}
+
+body {
+background: $background;
+}
+
+table {table-layout: fixed;}
+table td {border-bottom: 1px solid #999;}
+.tdHidden {
+visibility: hidden;
+}
+.table-fixed-left {
+border-right: 0;
+box-shadow: none;
+transition: box-shadow .3s ease;
+}
+.table-fixed-right {
+border-left: 0;
+box-shadow: none;
+transition: box-shadow .3s ease;
+}
+.table-fixed-left-scroll {
+box-shadow: 6px 0 6px -4px rgba(0,0,0,.2);
+}
+.table-fixed-right-scroll {
+box-shadow: -6px 0 6px -4px rgba(0,0,0,.2);
+}
+</style>
+
+<body>
+<div id="app">
+<div style="width: 500px; height: 200px; overflow: hidden; border: 1px solid #ccc; position: relative;" v-on="{ load: setTableShadow, resize: setTableShadow }">
+  <div style="height:100%; overflow-x: auto; position: relative; overflow-y: hidden;" ref="tableScroll" v-on:scroll="handleBodyScroll">
+      <table cellspacing="0" cellpadding="0" border="0" style="width: 653px;" ref="scrollHead">
+          <colgroup>
+            <col v-for="(column, index) in columns2" :width="column.width">
+          </colgroup>
+          <thead>
+              <tr>
+                <th v-for="(column, index) in columns2">
+                  {{ column.title || '' }}
+                </th>
+              </tr>
+          </thead>
+      </table>
+      <div style="overflow-y: auto; height: 177px; width: 800px; overflow-x: hidden;"  ref="tableContent" v-on:scroll="handleBodyScrollTop">
+          <table cellspacing="0" cellpadding="0" border="0" style="width: 653px;">
+              <colgroup>
+                <col v-for="(column, index) in columns2" :width="column.width">
+              </colgroup>
+              <tbody class="ivu-table-tbody">
+                  <tr v-for="entry in data4">
+                      <td v-for="(column, index) in columns2">
+                        <span v-if="entry[column.key]">{{entry[column.key]}}</span>
+                        <span v-else><button>编辑</button><button>复制</button></span>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+      <div style="width: 100px; position: absolute; top: 0; left: 0;  overflow-x: hidden; background: #fff;" :class="{'table-fixed-left-scroll': hasLeft}" class="table-fixed-left">
+          <table cellspacing="0" cellpadding="0" border="0" style="width: 653px;" >
+              <colgroup>
+                <col v-for="(column, index) in columns2" :width="column.width">
+              </colgroup>
+              <thead>
+                  <tr>
+                    <th v-for="(column, index) in columns2" :class="{'tdHidden': column.fixed!='left'}">
+                      {{ column.title || '' }}
+                    </th>
+                  </tr>
+              </thead>
+          </table>
+          <div style="height: 177px;overflow: hidden;" ref="fixedBody">
+            <table cellspacing="0" cellpadding="0" border="0" style="width: 653px;" >
+                <colgroup>
+                  <col v-for="(column, index) in columns2" :width="column.width" :class="{'tdHidden': column.fixed!='left'}">
+                </colgroup>
+                <tbody class="ivu-table-tbody">
+                    <tr v-for="entry in data4">
+                        <td v-for="(column, index) in columns2">
+                          <span v-if="entry[column.key]">{{entry[column.key]}}</span>
+                          <span v-else><button>编辑</button><button>复制</button></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+      </div>
+      <div style="width: 100px; position: absolute; right: 0; top: 0; background: #fff;" :class="{'table-fixed-right-scroll': hasRight}"  class="table-fixed-right">
+          <table cellspacing="0" cellpadding="0" border="0" style="width: 653px;">
+            <colgroup>
+              <col v-for="(column, index) in columns2" :width="column.width">
+            </colgroup>
+            <thead>
+                  <tr>
+                    <th v-for="(column, index) in columns2.concat().reverse()" :class="{'tdHidden': column.fixed!='right'}">
+                      {{ column.title || '' }}
+                    </th>
+                  </tr>
+              </thead>
+          </table>
+          <div style="height: 177px;overflow: hidden;" ref="fixedRightBody">
+            <table cellspacing="0" cellpadding="0" border="0" style="width: 653px;">
+                <colgroup>
+                  <col v-for="(column, index) in columns2.concat().reverse()" :width="column.width">
+                </colgroup>
+                <tbody class="ivu-table-tbody">
+                      <tr v-for="entry in data4">
+                          <td v-for="(column, index) in columns2.concat().reverse()" :class="{'tdHidden': column.fixed!='right'}">
+                            <span v-if="entry[column.key]">{{entry[column.key]}}</span>
+                            <span v-else><button>编辑</button><button>复制</button></span>
+                          </td>
+                      </tr>
+                </tbody>
+            </table>
+          </div>
+      </div>
+</div>
+</div>
+
+<script>
+
+/**
+* index.js
+* - All our useful JS goes here, awesome!
+*/
+
+
+// Init Vue!
+var app = new Vue({
+el: '#app',
+  data() {
+  return {
+    hasLeft: false,
+    hasRight: false,
+    scrollValue: 0,
+    columns2: [
+      {
+        title: '姓名',
+        key: 'name',
+        width: 100,
+        fixed: 'left',
+      },
+      {
+        title: '年龄',
+        key: 'age',
+        width: 100,
+      },
+      {
+        title: '省份',
+        key: 'province',
+        width: 100,
+      },
+      {
+        title: '市区',
+        key: 'city',
+        width: 200,
+      },
+      {
+        title: '地址',
+        key: 'address',
+        width: 200,
+      },
+      {
+        title: '邮编',
+        key: 'zip',
+        width: 100,
+      },
+      {
+        title: '操作',
+        key: 'action',
+        fixed: 'right',
+        width: 100,
+      },
+    ],
+    data4: [
+      {
+        province: 'Connecticut',
+        city: 'South Anastacio',
+        name: 'Oswaldo Considine',
+        zip: '62352',
+        age: 689,
+        address: '49967 Lloyd Ridge',
+      },
+      {
+        province: 'Ohio',
+        city: 'Lake Sydnee',
+        name: 'Kieran Thompson',
+        zip: '03930',
+        age: 234,
+        address: '674 Stanton Locks',
+      },
+      {
+        province: 'Montana',
+        city: 'South Alexzanderfort',
+        name: 'Lynn Willms',
+        zip: '32615-1991',
+        age: 595,
+        address: '40564 Alysha Mill',
+      },
+      {
+        province: 'Virginia',
+        city: 'Lynnmouth',
+        name: 'Gwendolyn Mohr Jr.',
+        zip: '15517',
+        age: 593,
+        address: '573 Hegmann Gardens',
+      },
+      {
+        province: 'Nevada',
+        city: 'Smithamtown',
+        name: 'Kobe Tillman',
+        zip: '49700',
+        age: 942,
+        address: '85408 Gustave Key',
+      },
+      {
+        province: 'Louisiana',
+        city: 'Durganberg',
+        name: 'Cletus Rempel',
+        zip: '41996',
+        age: 647,
+        address: '009 Wintheiser Extensions',
+      },
+      {
+        province: 'Pennsylvania',
+        city: 'South Mattfurt',
+        name: 'Stephany Erdman',
+        zip: '72236',
+        age: 266,
+        address: '2123 Rolfson Cliff',
+      },
+      {
+        province: 'Vermont',
+        city: 'South Nicolas',
+        name: 'Thad Stark',
+        zip: '53975-4801',
+        age: 920,
+        address: '102 Katelyn Lodge',
+      },
+      {
+        province: 'Oklahoma',
+        city: 'West Syble',
+        name: 'Shayne Block',
+        zip: '77066',
+        age: 199,
+        address: '61061 Terry Orchard',
+      },
+      {
+        province: 'Tennessee',
+        city: 'Austenborough',
+        name: 'Giovanna Yost',
+        zip: '55889-8053',
+        age: 605,
+        address: '0964 Reynolds Junction',
+      },
+      {
+        province: 'Hawaii',
+        city: 'Timmyborough',
+        name: 'Norene Will II',
+        zip: '63035-1193',
+        age: 74,
+        address: '812 Zachariah Extensions',
+      },
+      {
+        province: 'Wisconsin',
+        city: 'North Theresa',
+        name: 'Ila Ruecker',
+        zip: '92413-8438',
+        age: 935,
+        address: '84530 Corkery Plains',
+      },
+      {
+        province: 'Michigan',
+        city: 'East Akeemstad',
+        name: 'Gina Schaden I',
+        zip: '36035',
+        age: 393,
+        address: '24068 Karley Path',
+      },
+      {
+        province: 'Illinois',
+        city: 'Velmahaven',
+        name: 'Raoul Bailey',
+        zip: '84101-0326',
+        age: 871,
+        address: '02314 Tracy Tunnel',
+      },
+    ],
+  };
+},
+filters: {
+  capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  },
+},
+methods: {
+  sortBy(key) {
+    this.sortKey = key;
+    this.sortOrders[key] = this.sortOrders[key] * -1;
+  },
+  handleBodyScroll() {
+    this.scrollValue = this.$refs.tableScroll.scrollLeft;
+    this.hasRight = this.scrollValue - this.leftScroll < 0;
+    this.hasLeft = this.scrollValue > 0;
+  },
+  handleBodyScrollTop(event) {
+    this.$refs.fixedBody.scrollTop = event.target.scrollTop;
+    this.$refs.fixedRightBody.scrollTop = event.target.scrollTop;
+  },
+  setTableShadow() {
+    this.leftScroll = this.$refs.tableContent.clientWidth - this.$refs.tableScroll.clientWidth;
+    this.handleBodyScroll();
+  },
+},
+mounted() {
+  window.onresize = this.setTableShadow;
+  window.onload = this.setTableShadow;
+},
+})
+</script>
+</body>
+</html>

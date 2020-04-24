@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery.js'></script>
+</head>
+
+<body>
+    当调整浏览器窗口的大小时，发生 resize 事件。 resize() 方法触发 resize 事件，或规定当发生 resize 事件时运行的函数。
+
+    当浏览器窗口一发生改变，就会自动执行这个resize事件的，从而重新计算window的width跟height。
+
+  <!-- ---------------------------------------------------------------------------------------- -->
+
+    <script>
+        var wWidth = $(window).width();
+        var wHeight = $(window).height();
+        $(window).resize(function() {
+            wWidth = $(window).width();
+            wHeight = $(window).height();
+            console.log(wWidth);
+            //$('#menu').css('top',(wHeight-462)/2+30+'px');
+            $('.section1 .bg').css({
+                'top': (wHeight - 1080) / 2 + 'px',
+                'left': (wWidth - 1920) / 2 + 'px'
+            });
+            $('.swiper-container').css('width', wWidth);
+            $('.section8').css('width', wWidth);
+            $('.section').css('height', wHeight);
+
+            // var nowPage = parseInt($('#menu li.active').index()) + 1;
+            var nowPage = 1;
+            window.location.hash = "#page" + nowPage;
+        });
+    </script>
+</body>
+
+</html>

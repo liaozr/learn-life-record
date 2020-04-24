@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  JavaScrip可以采用构造器(constructor)生成一个新的对象,每个构造器都拥有一个prototype属性,
+
+  而每个通过此构造器生成的对象都有一个指向该构造器原型(prototype)的内部私有的链接(proto),
+
+  而这个prototype因为是个对象,它也拥有自己的原型,这么一级一级直到原型为null,这就构成了原型链
+  .原型链的工作原理：
+
+  <script>
+
+      function getProperty(obj, prop) {
+          if (obj.hasOwnProperty(prop)) //首先查找自身属性,如果有则直接返回
+              return obj[prop]
+          else if (obj.__proto__ !== null)
+              return getProperty(obj.__proto__, prop) //如何不是私有属性,就在原型链上一步步向上查找,直到找到,如果找不到就返回undefind
+          else
+              return undefined
+      }
+
+  </script>
+
+  如果跟着原型链一层层的寻找，所有对象都可以寻找到最顶层，Object.prototype, 即Object的构造函数的prototype属性，而Object.prototype对象指向的就是没有任何属性和方法的null对象。
+  <script>
+
+      Object.getPrototypeOf(Object.prototype)
+      // null
+
+  </script>
+
+  原型链表明了一个对象查找他的属性的过程：首先在对象本身上面找 -> 没找到再到对象的原型上找 ->还是找不到就到原型的原型上找 —>直到Object.prototype找不到 -> 返回undefined。（在这种查找中找到就立刻返回）。
+
+</body>
+
+</html>

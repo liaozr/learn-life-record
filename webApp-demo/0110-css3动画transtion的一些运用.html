@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+  transition
+
+  transition: [property] [duration] [timing-function] [delay];
+
+  1、不可自动触发，可以通过改变class，改变状态(:hover, :active, :checked等)触发
+
+  2、display的none与其他值的切换不行 ( display的none与其他值的切换不行 )， 通过delay设置也不行，除非通过回调函数或setTimeout先切换display，再设置动画样式改变。
+
+  <!-- ----------------------------------------------------------------------------------------------- -->
+
+有transform  translate的 translate最好就写成translate3d
+，如下面的这个写法，在手机上跑的话会没那么卡的。
+
+<style>
+    .aa {
+        -webkit-transform: translate3d(0, 60px, 0);
+        -ms-transform: translate3d(0, 60px, 0);
+        transform: translate3d(0, 60px, 0);
+    }
+</style>
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+<style>
+
+    .demo {
+        display: none;
+        width: 100px;
+        transition: width .3s;
+        /*在none和其他值之间切换，动画无效*/
+    }
+
+    .demo:hover {
+        display: block;
+        width: 200px;
+    }
+
+/*----------------------------------------------------------------------------------------------*/
+
+    .serach-lay .list .lists{
+      width:18%;
+      background-color: #ffffff !important;
+
+
+      border-bottom: 1px solid #f6f6f6;
+      transition: border 0.3s;
+    }
+    .serach-lay .list .lists.active{
+      border-bottom: 2px solid #eb6d00;
+      height:1.307rem;
+      color:#eb6d00;
+    }
+    
+/*----------------------------------------------------------------------------------------------*/
+
+</style>
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

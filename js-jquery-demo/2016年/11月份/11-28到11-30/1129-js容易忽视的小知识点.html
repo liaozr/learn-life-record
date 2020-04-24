@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+未声明的变量,直接使用会报错(typeof除外)
+
+用typeof操作符去检测未声明的变量也是undefined,与检测初始化的变量一样,所以我们最好对变量进行显示初始化,那么我
+
+们在使用typeof检测时候获得undefined就知道该变量没声明
+
+<script>
+    var name;
+    alert(name); //空
+    console.log(age); // 报错未定义,
+    console.log(typeof name); // string
+    console.log(typeof age); //undefined
+</script>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+typeof检测null会返回object，其实null指的是空对象指针,也是一种特殊的对象
+undefined是派生自null,所以两者相等
+
+<script>
+    var a = null;
+    console.log(typeof a); // object
+
+    console.log(null == undefined); //true
+
+</script>
+<!-- --------------------------------------------------------------------------------- -->
+
+任何涉及NAN的操作都会返回NAN
+NAN与任何数都不相等,包括本身
+
+<script>
+    console.log(NaN == NaN) //false
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+number() parseInt() parseFloat() 三者区别
+
+number()
+转型函数,可以转换任何数据类型
+如果是Boolean类型,true为1,false为0
+如果是数字,相当于传入传出
+如果是null(object),返回0
+如果是undefined,返回NAN
+
+parseInt()
+用于把字符串转为整数类型,侧重于检测该字符串是否是数值类型格式
+
+parseFloat()
+把字符串转为浮点类型
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+</html>

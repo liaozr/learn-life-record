@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+replace: false 弃用
+
+现在组件总是会替换掉他们被绑定的元素。
+
+为了模仿replace: false的行为，可以用一个和将要替换元素类似的元素将根组件包裹起来：
+
+<script>
+	new Vue({
+	  el: '#app',
+	  template: '<div id="app"> ... </div>'
+	})
+</script>
+
+
+或者使用渲染函数：
+
+<script>
+	new Vue({
+	  el: '#app',
+	  render: function (h) {
+	    h('div', {
+	      attrs: {
+	        id: 'app',
+	      }
+	    }, /* ... */)
+	  }
+	})
+</script>
+
+</body>
+</html>

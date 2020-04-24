@@ -1,0 +1,94 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>商品列表</title>
+    <link href="__PUBLIC__/Admin/Css/css.css" type="text/css" rel="stylesheet"/>
+    <link href="__PUBLIC__/Admin/Css/main.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/Css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/Js/jquery1123.js"></script>
+    <include file="list"/>
+</head>
+<body>
+<!--main_top-->
+<table width="99%" border="0" cellspacing="0" cellpadding="0" id="searchmain">
+    <tr>
+        <td width="99%" align="left" valign="top">您的位置：商品管理</td>
+    </tr>
+    <tr>
+        <td align="left" valign="top">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" id="search">
+                <tr>
+                    <td width="90%" align="left" valign="middle">
+                        <form method="post" action="__URL__/goodSearch">
+                            <span>商品：</span>
+                            <input type="text" name="keywords" class="text-word" style="color: black">
+                            <input type="hidden" name="state" value="{$Think.get.state}">
+                            <input type="submit" value="查询" class="text-but">
+                        </form>
+                    </td>
+                    <td width="10%" align="center" valign="middle" style="text-align:right; width:150px;"><a href="__URL__/addGoods" target="mainFrame" onFocus="this.blur()" class="add">新增商品</a></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" valign="top" id="ajaxpage" state="{$Think.get.state}">
+            <include file="goodsListChild"/>
+        </td>
+    </tr>
+</table>
+<nav class="text-center">
+    <ul class="pagination pagination-lg">
+        <li>
+            <a href="#" aria-label="Previous" id="previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <for start="1" end="$pagenum+1">
+            <li class="page"><a href="#">{$i}</a></li>
+        </for>
+        </volist>
+        <li>
+            <a href="#" aria-label="Next" id="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+</body>
+</html>
+<script>
+    $(function () {
+        $('.page:eq(0)').addClass('active')
+        $('.page').click(function () {
+            $('.page').each(function () {
+                $(this).removeClass('active')
+            })
+            $(this).addClass('active')
+            $.get('__URL__/ajaxPage', {page: $(this).text(), state: $("#ajaxpage").attr('state')}, function (data) {
+                $('#ajaxpage').html(data);
+            })
+        })
+        $('#previous').click(function () {
+            if ($('.active').prev().hasClass('page')) {
+                var index = $('.active').prev().index()
+                $('.active').removeClass('active')
+                $('.page').eq(index - 1).addClass('active')
+                $.get('__URL__/ajaxPage', {page: index, state: $("#ajaxpage").attr('state')}, function (data) {
+                    $('#ajaxpage').html(data);
+                })
+            }
+        })
+        $('#Next').click(function () {
+            if ($('.active').next().hasClass('page')) {
+                var index = $('.active').next().index()
+                $('.active').removeClass('active')
+                $('.page').eq(index - 1).addClass('active')
+                $.get('__URL__/ajaxPage', {page: index, state: $("#ajaxpage").attr('state')}, function (data) {
+                    $('#ajaxpage').html(data);
+                })
+            }
+        })
+
+    })
+</script>

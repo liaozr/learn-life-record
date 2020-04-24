@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+	 <style>
+    /* 必需
+    transition="expand"  vue.js 过渡的API
+    CSS 这边，自动对于
+    expand-transition
+    expand-enter
+    expand-leave
+    进行相应的处理。
+     */
+
+    .expand-transition {
+        transition: all 4.3s ease; /* 所有设定，4.3秒*/
+        height: 30px;
+        padding: 10px;
+        background-color: #eee; /* 背景 灰色 */
+        overflow: hidden;
+    }
+
+    /* .expand-enter 定义进入的开始状态 */
+
+    /* .expand-leave 定义离开的结束状态 */
+
+    .expand-enter,
+    .expand-leave {
+        height: 0;
+        padding: 0 10px;
+        opacity: 0; /* 透明度 */
+    }
+
+
+
+     .fade-transition {
+        opacity: 1;
+        height: 30px;
+        padding: 10px;
+        color: #ffffff;
+        background-color: #3636ff;
+        transition: opacity 1.25s ease-in-out;
+        -moz-transition: opacity 1.25s ease-in-out;
+        -webkit-transition: opacity 1.25s ease-in-out;
+    }
+
+    .fade-enter,
+    .fade-leave {
+        opacity: 0.1;
+    }
+
+    #menu ul {
+        float: right;
+        list-style: none;
+    }
+
+    #menu ul li {
+        float: left;
+        margin: 0px 10px 0px 0px;
+    }
+    </style>
+</head>
+<body>
+
+	<div id="example">
+        <div v-if="show" transition="expand">hello</div>
+        <!--按一下，触发 过度效果-->
+        <button @click="show=!show">show:{{show}}</button>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            show:true
+        },
+
+    })
+    </script>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+    <div id="example2">
+        <ul>
+            <li>
+            	<!--   动态绑定 transition  v-bind:transition  -->
+                <div v-if="show" :transition="transitionName">hello</div>
+            </li>
+            </li> {{$data|json}}</li>
+        </ul>
+        <ul id="menu">
+            <li>
+                <button @click="show=!show">显示  :{{show}} , 过渡效果 {{transitionName}}</button>
+            </li>
+            <li>
+                <button @click="transitionName_set_to('fade')">过渡效果 fade</button>
+            </li>
+            <li>
+                <button @click="transitionName_set_to('expand')">过渡效果 expand</button>
+        </ul>
+    </div>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example2',
+        data: {
+            show: true,
+            transitionName: 'expand'
+        },
+        methods: {
+            transitionName_set_to: function(to1) {
+                this.transitionName = to1;
+            }
+        }
+
+    })
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+
+<!--   在 vue  中，钩子 就是回调 的意思   -->
+
+
+    <h3>为了展示，所以动画效果，调比较慢，过渡有回调函数，此例使用 vuejs ，提供的过渡回调。
+    </h3>
+    <div id="example3">
+        <ul>
+            <li>
+                <div v-if="show" :transition="transitionName">hello</div>
+            </li>
+            <li>
+                <button @click="show=!show">show:{{show}} , 过渡效果 : {{transitionName}}</button>
+            </li>
+
+            <li>
+                <button @click="transitionName_set_to('expand')">过渡效果 expand</button>
+            </li> {{$data|json}}</li>
+        </ul>
+    </div>
+    <script>
+
+    // javascript 钩子 ，就是回调的意思
+    Vue.transition('expand', {
+
+        beforeEnter: function(el) {
+            el.textContent = '输入前 beforeEnter'
+        },
+        enter: function(el) {
+            el.textContent = '输入时 enter'
+        },
+        afterEnter: function(el) {
+            el.textContent = '输入后 afterEnter'
+        },
+        enterCancelled: function(el) {
+            // handle cancellation
+        },
+
+        beforeLeave: function(el) {
+            el.textContent = '离开前 beforeLeave'
+        },
+        leave: function(el) {
+            el.textContent = '离开时 leave'
+        },
+        afterLeave: function(el) {
+            el.textContent = '离开后 afterLeave'
+        },
+        leaveCancelled: function(el) {
+            // handle cancellation
+        }
+    })
+    var vm = new Vue({
+        el: '#example3',
+        data: {
+            show: true,
+            transitionName: 'expand'
+        },
+        methods: {
+            transitionName_set_to: function(to1) {
+                this.transitionName = to1;
+            }
+        }
+
+    })
+    </script>
+ <!-- ----------------------------------------------------------------------------------    -->
+
+ 
+</body>
+</html>

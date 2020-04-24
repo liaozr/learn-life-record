@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- -------------------------------------------------------------------------------------------------- -->
+
+
+    建议：除了首页的那个组件，一开始渲染的组件外，其余的其他组件 建议都应该 是懒加载 组件的形式
+
+    已提高渲染的速度。
+
+    建议：除了首页的那个组件，一开始渲染的组件外，其余的其他组件 建议都应该 是懒加载 组件的形式
+
+    已提高渲染的速度。
+
+    从而提高首屏渲染的速度
+    从而提高首屏渲染的速度
+
+    重定向路由，表示一开始的路由是渲染到 recommend组件
+
+    {
+      path:'/',
+      redirect:'/recommend'
+    }
+
+
+<!-- -------------------------------------------------------------------------------------------------- -->
+
+    <script>
+
+
+        // 之前自己的写法参考
+        // const homeDetail = resolve => require(['@v/home/homeDetail'], resolve)
+        // const homesan = resolve => require(['@v/home/homesan'], resolve)
+        // const recommend = resolve => require(['@v/recommend/recommend'], resolve)
+
+// -------------------------------------------------------------------------------------------------
+
+        // 懒加载组件的官网 最新推荐写法
+        const disc = () => import('@v/recommend/disc')
+
+        const Foo = () => import('./Foo.vue')
+
+// -------------------------------------------------------------------------------------------------
+
+
+    </script>
+
+<!-- -------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

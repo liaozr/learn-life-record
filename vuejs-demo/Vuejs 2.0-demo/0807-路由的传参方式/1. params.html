@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  params传递的数据可用于匹配动态路由字段。
+
+  如params的数据为 params: { abc: 'hello', txt: 'world' } 而动态路由路径为 path: '/05/:txt 那么
+
+  最终的路径就会是 /05/world。所以，动态路由其实就是一种params的传递方式。
+
+  注意：由于动态路由也是传递params的，所以在 this.$router.push() 方法中 path不能和params一起使用，
+
+  否则params将无效！
+
+  需要用name来指定页面。
+
+  之后动态路由会从params中找到动态路由同名的数据。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  路由传参中的 params 其实对应的是你路由定义时的匹配参数（参考 RESTful API的设计），而 query 才是 url 问号后面带的参数
+
+  2. 通过params传递
+
+  this.$router.replace({
+      name: 'Page05',
+      params: { abc: 'hello', txt: 'world' },
+      query: { name: 'query', type: 'object' }
+  })
+
+  通过name获取页面，传递params和query。
+
+  得到的URL为
+
+  http://localhost:8080/#/05/world?name=query&type=object
+
+  而获取到的参数为
+
+  {
+      ...
+      params: {
+          abc: "hello",
+          txt: "world"
+      }
+      ...
+  }
+
+  获取数据
+
+  template
+
+  <h2> {{ $route.params.txt }} </h2>
+
+  script
+
+  console.log(this.$route.params.txt)
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+ 路由间的传参方式：
+
+ 除了常规的 localStorage等等那些
+
+ 还可以 用路由间 的传参方式 以及 vuex
+
+ 用vuex的场景是 存在多个组件 要共享这个状态的时候，牵一发而动全身 的那种
+
+ 状态共享的时候，就可以把数据存储到 vuex里面去了。
+
+ 因为它是 单向数据流 来的，在一个组件里，数据改变了，这个数据 在其他 组件 里  也是会 跟着变的。
+
+
+ 下面主要来谈谈 路由间的传参 方式
+
+ <!--  把 item 值 传给 下个 组件 用  params:item  -->
+ <!--  如果 这两个组件 只是 展示类型的，不涉及 状态共享变化的话 -->
+
+ gotoDetails(item){
+    this.$router.push({
+       name:'homesan',
+       params:item
+    })
+ },
+ watch: {
+    '$route'(to, from) {
+        console.log(to);
+        console.log(from);
+     }
+ }
+ 
+<!-- -------------------------------------------------------------------------------------------- -->
+
+ homesan 组件里面
+
+ created(){
+    this.sitesRecord=this.$route.params.sitesRecord
+ }
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

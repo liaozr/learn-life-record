@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+进入个人信息页面，由于需要判断是否已登陆，此时由 router 进行一个拦截，具体代码如下
+
+<script type="text/javascript">
+
+   router.beforeEach(function (to,from,next) {
+       var userMsg = localStorage.getItem('userMsg')
+       if(to.path === '/home'){
+         if(!userMsg){
+           next({ path: '/login' })
+         }
+       }
+       next()
+   })
+
+</script>
+
+  </body>
+</html>

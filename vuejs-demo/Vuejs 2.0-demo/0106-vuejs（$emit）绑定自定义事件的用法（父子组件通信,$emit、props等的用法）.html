@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+    <div id="app">
+
+        <compa msg='this is msg from parent' @parincrease='par_increase' @click.native='parshijian'></compa> <br><br>
+
+        数据来自于子组件compa的count值:{{count}} <br>
+        来自于click.native的父组件的m值:{{m}}
+
+        <compb></compb>
+
+    </div>
+
+    <template id='childcompa'>
+        <div class="layout">
+            <div @click="increase">{{msg}}</div>
+            <span>{{childmsg}}</span><br>
+            子组件的count:{{ childcount }}
+        </div>
+    </template>
+
+
+    <template id='childcompb'>
+        <div class="layout">
+            {{ childmsg2 }}
+        </div>
+    </template>
+
+    父组件是使用 props 传递数据给子组件，
+    但如果子组件要把数据传递回去则使用自定义事件！
+
+    <!-- 父组件是使用 props 传递数据给子组件，
+    但如果子组件要把数据传递回去则使用自定义事件！ -->
+    <script>
+
+        // 注册行为必须在创建实例之前；
+        //  不然会报错的。
+        // component的template接口定义组件的html元素；
+        // 创建组件的data对象必须是函数
+        Vue.component('compb',{
+          template:'#childcompb',
+
+          // 创建组件的data对象必须是函数
+          data: function() {
+            return{
+               childmsg2:'这是第二个子组件compb里面的数据'
+            }
+          }
+        })
+        Vue.component('compa',{
+          template:'#childcompa',
+          data: function() {
+            return{
+               childmsg:'这是子组件comp里面的数据',
+               childcount:0
+            }
+          },
+          props:['msg'],
+          methods:{
+            increase(){
+              this.childcount +=1;
+
+              // 父组件是使用 props 传递数据给子组件，
+              // 但如果子组件要把数据传递回去则使用自定义事件！
+
+              this.$emit('parincrease',this.childcount);
+            }
+          }
+        })
+        new Vue({
+          el:'#app',
+          data:{
+             count:0,
+             m:0
+          },
+          methods:{
+            par_increase(childcount){
+              this.count=childcount;
+              console.log("this methods come from compa components")
+            },
+            parshijian(){
+              this.m +=2;
+              console.log("这是父组件的事件")
+            }
+          }
+        })
+    </script>
+
+    <style>
+      .layout{
+        margin-top: 30px;
+      }
+    </style>
+</body>
+
+</html>

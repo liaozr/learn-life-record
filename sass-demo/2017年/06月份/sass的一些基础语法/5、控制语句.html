@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+控制语句
+1、@if
+
+@if语句类似JavaScript中的if语句,当 @if 的表达式返回值不是 false 或者 null 时，条件成立，输出 {} 内的代码：
+
+<style>
+
+    div {
+        @if 3>2 {
+            color: red;
+        }
+        @if null {
+            color: black;
+        }
+    }
+
+    /*输出为： */
+    div {
+        color: red;
+    }
+
+</style>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+@if 声明后面可以跟多个 @else if 声明，或者一个 @else 声明。
+如果 @if 声明失败，Sass 将逐条执行 @else if 声明，如果全部失败，最后执行 @else 声明：
+
+<style>
+
+    div {
+        @if 1>2 {
+            color: red;
+        }
+        @else if 3>2 {
+            color: blue;
+        }
+        @else {
+            color: black;
+        }
+    }
+
+    /*输出为： */
+
+    div {
+        color: blue;
+    }
+
+</style>
+
+注: 控制语句也可以在最外层使用.
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

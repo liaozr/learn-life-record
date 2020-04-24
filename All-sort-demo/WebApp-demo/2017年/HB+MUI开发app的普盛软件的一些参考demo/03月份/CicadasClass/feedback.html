@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en" class="feedback">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="知了云课堂" />
+		<meta name="Description" content="知了云课堂" />
+		<title>知了云课堂</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link href="css/mui.picker.css" rel="stylesheet" />
+		<link href="css/mui.poppicker.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/common.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+	</head>
+	<style>
+		html,
+		body {
+			min-height: 100%;
+			background-color: #efeff4;
+		}
+		.add-table {
+			width: 100%;
+			background: #fff;
+			margin-bottom: 10px;
+		}
+		
+		.add-table tr {
+			line-height: 1.2rem;
+			border-bottom: 1px solid #ddd;
+			height: 1.2rem;
+		}
+		
+		.add-table tr>td {
+			font-size: .4rem;
+			padding-left: .4rem;
+			overflow: hidden;
+		}
+		
+		.add-table tr>td:nth-child(2) {
+			color: #333;
+			width: 70%
+		}
+		
+		.add-table tr>td:nth-child(3) {
+			color: #333;
+			width: 5%
+		}
+		
+		.add-table tr>td>img {
+			width: .2rem;
+			margin: .4rem
+		}
+		
+		.add-table tr>td>input {
+			border: none;
+			outline: none;
+			width: 100%;
+			margin: -0.1rem 0 0 0;
+			padding: 0;
+		}
+		
+		.add-table tr>td>textarea {
+			-webkit-appearance: none;
+			height: 2.7rem;
+			box-sizing: border-box;
+			width: 6.2rem;
+			padding: .2rem;
+			font-size: .4rem;
+			border: 1px solid #ddd;
+			margin: .2rem 0;
+		}
+		
+		.right {
+			float: right;
+			*display: inline;
+		}
+		.add-foot {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			height: 1.3333rem;
+			line-height: 1.3333rem;
+			background: #fff;
+			width: 100%;
+		}
+		
+		.add-foot>button {
+			text-align: center;
+			line-height: 1.3333rem;
+			font-size: .45rem;
+			color: #fff;
+			background: #3496F9;
+			width: 49.9%;
+			border: 1px solid #ddd;
+		}
+		
+		.add-foot>button:active {
+			text-align: center;
+			line-height: 1.3333rem;
+			font-size: .45rem;
+			color: #fff;
+			background: #1A75D1;
+			width: 49.9%;
+			border: 1px solid #ddd;
+		}
+		.ui-alert {
+				text-align: center;
+				padding: 20px 10px;
+				font-size: 16px;
+			}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 id="title" class="mui-title cc-title"><span>意见反馈</span></h1>
+			<div class="mui-pull-left">
+				<a id="back" class="mui-icon">
+					<img src="img/title_button_back.png" style="width:1em;height:1em;" />
+				</a>
+			</div>
+		</header>
+		<div class="mui-content" id="feedbackDiv">
+			<section>
+				<table class="add-table">
+					<tr>
+						<td>反馈标题</td>
+						<td><input v-model="feedback.title" type="text" id="feekback_title" placeholder="点击填写" value="{{feedback.title}}"/></td>
+					</tr>
+					<tr id='showPicker'>
+						<td>反馈类型</td>
+						<td id='cityResult3'>
+							<span id="showPickerVal" v-if="feedback.type==' '">请选择</span>
+							<span id="showPickerVal" v-else>{{feedback.typeName}}</span>
+							<img class="right" src="img/icon-right.png" alt="" />
+						</td>
+					</tr>
+					<tr >
+						<td>反馈内容</td>
+						<td><textarea v-model="feedback.content" id="content" placeholder="点击填写"></textarea></td>
+					</tr>
+				</table>
+			</section>
+			<div id='userResult' class="ui-alert"></div>
+			<footer class="add-foot" >
+				<button id="save" style="width:100%;">保存</button>
+			</footer>
+		</div>
+	</body>
+	<script src="js/zepto1.1.6.min.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script src="js/mui.picker.js"></script>
+	<script src="js/mui.poppicker.js"></script>
+	<script src="js/locStorage.js"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script src="js/url.js"></script>
+	<script src="js/common.js"></script>
+	<script type="text/javascript">
+			   var payTypeArr =[{
+						value: '',
+						text: '请选择'
+					}, 
+			   		{
+						value: '10',
+						text: 'Hbuilder'
+					}, {
+						value: '20',
+						text: 'HTML5+'
+					}, {
+						value: '30',
+						text: 'Native.js'
+					}, {
+						value: '40',
+						text: '5+SDK'
+					}, {
+						value: '50',
+						text: 'MUI'
+					}, {
+						value: '60',
+						text: 'APP教程'
+					}, {
+						value: '70',
+						text: '流应用'
+					}];
+				var vueData={
+					title:'测试',
+					type:'10',
+					typeName:'Hbuilder',
+					content:'测试测试'
+				};
+
+			    var VM = new Vue({
+					el: '#feedbackDiv',
+					data: {
+						feedback: vueData,
+					}
+				});
+		    (function($, doc) {
+				$.init();
+				$.ready(function() {
+					var userPicker = new $.PopPicker();
+					userPicker.setData(payTypeArr);
+					var showUserPickerButton = doc.getElementById('showPicker');
+					var showPickerVal = doc.getElementById('showPickerVal');
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							showPickerVal.innerText = items[0].text;
+							vueData.type=items[0].value;
+							vueData.typeName=items[0].text;
+							//VM.feedback.type=items[0].value;
+							
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+				});
+			})(mui, document);
+			
+			//保存个人信息修改
+			$("#save").on("tap", function() {
+				console.log(JSON.stringify(VM.emp));
+				if($("#feekback_title").val() == "") {
+					mui.toast("请您输入标题！");
+					return
+				};
+				if($("#showPickerVal").html() == "" || $("#showPickerVal").html() == "请选择") {
+					mui.toast("请您选择反馈类型！");
+					return
+				};
+				if($("#content").val() == "") {
+					mui.toast("请您输入内容！");
+					return
+				};
+				
+				alert(JSON.stringify(VM.feedback));
+				
+				var url = $.url.userSave;
+				var clientEmp;
+				console.log("修改个人信息：" + url);
+				clientEmp.id = VM.emp.empId;
+				clientEmp.empName = VM.emp.empName;
+				clientEmp.sex = VM.emp.sex;
+				clientEmp.workPhone = VM.emp.workPhone;
+				clientEmp.mobilePhone = VM.emp.mobilePhone;
+				clientEmp.email = VM.emp.email;
+				clientEmp.headPortrait = VM.emp.headPortrait;
+				$.marketApi.ajaxRequest({
+						type: "POST",
+						url: url,
+						data: JSON.stringify(clientEmp),
+						callback: function(data) {
+							console.log(JSON.stringify(data));
+							if(data.status){
+								mui.toast(data.msg);
+								mui.back();
+							}
+						},
+						errorCallback: function(xhr, errorType, error, msg) {
+							alert(msg);
+						}
+					});
+			});
+			
+			mui.back = function() {
+		    	mui.currentWebview.hide('pop-out');
+			}
+			$(".mui-pull-left").on('tap', function() {
+				mui.back();
+			});
+	</script>
+</html>

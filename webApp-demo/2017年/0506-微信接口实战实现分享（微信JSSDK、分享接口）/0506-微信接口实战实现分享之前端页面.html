@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="Zh-cn">
+
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="Keywords" content="" />
+    <meta name="renderer" content="webkit" />
+    <title>微信JSSDK测试</title>
+    <style type="text/css">
+        body {
+            font-family: 'microsoft yahei';
+            font-size: 14px;
+            color: #333;
+            background-color: #fff;
+        }
+
+        .container {
+            width: 6.4rem;
+            margin: 0px auto;
+        }
+    </style>
+    <script type="text/javascript">
+        (function() {
+            var doc = document.documentElement || document.body;
+            var _width = doc.offsetWidth;
+            _width = _width > 640 ? 640 : _width;
+            doc.style.fontSize = _width / 6.4 + 'px';
+        })();
+    </script>
+</head>
+
+<body>
+    <div class="container"></div>
+    <!--首先引入JSSDK-->
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <!--我们这里用jquery发起ajax请求，所以引入jquery-->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $.post('./get_jsapi_sign.php', {
+                share_url: window.location.href
+            }, function(data) {
+                if (data.code == 0) {
+                    //生成签名成功
+                    //配置接口权限
+                    configWxAPI(data.data);
+                    //调用相关分享接口
+                    shareWebPage(data.shareData);
+                } else {
+                    //生成签名失败
+                    alert('有错，请稍后尝试');
+                };
+            });
+        });
+        //配置权限
+        function configWxAPI(conf) {
+            wx.config({
+                debug: false, //开启调试模式，调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端
+                //打开，参数信息会通过log打出，仅在pc端时才会打印
+                appId: conf.appId, //必填，公众号的唯一标识
+                timestamp: conf.timestamp, //必填，生成签名的时间戳
+                nonceStr: conf.nonceStr, //必填，生成签名的随机串
+                signature: conf.signature, //必填，签名
+                jsApiList: [
+                    'checkJsApi',
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'onMenuShareQQ',
+                    'onMenuShareWeibo',
+                    'hideMenuItems',
+                    'showMenuItems',
+                    'hideAllNonBaseMenuItem',
+                    'showAllNonBaseMenuItem',
+                    'onRecordEnd',
+                    'openLocation',
+                    'getLocation',
+                    'hideOptionMenu',
+                    'showOptionMenu',
+                    'chooseImage',
+                    'uploadImage',
+                    'previewImage',
+                    'closeWindow',
+                    'scanQRCode',
+                    'chooseWXPay'
+                ] //必填，需要使用的JS接口列表，也就是配置你想使用的调用接口
+            });
+        };
+        //分享操作
+        function shareWebPage(conf) {
+            //因为我们需要调用相关接口，所以我们把所有操作放在，ready方法里面
+            wx.ready(function() {
+                //分享到朋友圈
+                wx.onMenuShareAppMessage({
+                    title: conf.share_app_title, //分享标题
+                    desc: conf.share_app_desc, //分享描述
+                    link: conf.share_app_url, //分享链接
+                    imgUrl: conf.share_app_imgurl, //分享图标
+                    type: 'link', //分享类型，music、video或link，不填默认为link
+                    dataUrl: '', //如果type是music或video，则要提供数据链接，默认为空
+                    success: function() {
+                        //分享成功之后执行的操作
+                    },
+                    cancel: function() {
+                        //用户取消分享后执行的回调函数
+                    }
+                });
+                //分享到qq
+                wx.onMenuShareQQ({
+                    title: conf.share_app_title, //分享标题
+                    desc: conf.share_app_desc, //分享描述
+                    link: conf.share_app_url, //分享链接
+                    imgUrl: conf.share_app_imgurl, //分享图标
+                    dataUrl: '', //如果type是music或video，则要提供数据链接，默认为空
+                    success: function() {
+                        //分享成功之后执行的操作
+                    },
+                    cancel: function() {
+                        //用户取消分享后执行的回调函数
+                    }
+                });
+            });
+            //分享到腾讯微博
+            wx.onMenuShareWeibo({
+                title: conf.share_app_title, //分享标题
+                desc: conf.share_app_desc, //分享描述
+                link: conf.share_app_url, //分享链接
+                imgUrl: conf.share_app_imgurl, //分享图标
+                dataUrl: '', //如果type是music或video，则要提供数据链接，默认为空
+                success: function() {
+                    //分享成功之后执行的操作
+                },
+                cancel: function() {
+                    //用户取消分享后执行的回调函数
+                }
+            });
+            //分享到腾讯微博
+            wx.onMenuShareTimeline({
+                title: conf.share_app_title, //分享标题
+                desc: conf.share_app_desc, //分享描述
+                link: conf.share_app_url, //分享链接
+                imgUrl: conf.share_app_imgurl, //分享图标
+                dataUrl: '', //如果type是music或video，则要提供数据链接，默认为空
+                success: function() {
+                    //分享成功之后执行的操作
+                },
+                cancel: function() {
+                    //用户取消分享后执行的回调函数
+                }
+            });
+        };
+        //隐藏相按钮
+        //由于权限验证是异步操作，
+        //所以我们隐藏操作需要放在wx.ready()里面
+        wx.ready(function() {
+            wx.hideMenuItems({
+                menuList: [
+                    'menuItem:share:appMessage', // 发送给朋友
+                    'menuItem:share:timeline', // 分享到朋友圈
+                    'menuItem:share:qq', // 分享到QQ
+                    'menuItem:share:weiboApp', //分享到微博
+                    'menuItem:share:QZone', //分享到qq空间
+                    'menuItem:copyUrl', //复制网页
+                    'menuItem:openWithQQBrowser', // 在QQ浏览器中打开
+                    'menuItem:openWithSafari', // 在Safari中打开
+                    'menuItem:onMenuShareQZone'
+                ] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+<!--
+	作者：1323424056@qq.com
+	时间：2015-12-26
+	描述：修改用户资料子页面
+	知识点：1、读取上一级传递过来的信息
+		  2、修改信息，并通过提交
+		  3、提交成功后，通过mui.fire()方法更新用户信息数据
+-->
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>修改用户资料子页面</title>
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>性别：</label>
+					<input readonly="readonly" id="usex" type="text">
+				</div>
+				<div class="mui-input-row">
+					<label>学校：</label>
+					<input class="mui-input-clear" id="uschool" type="text">
+				</div>
+				<div class="mui-input-row">
+					<label>地址：</label>
+					<input class="mui-input-clear" id="uaddress" type="text">
+				</div>
+				<div class="mui-button-row">
+					<!--这里一定要注意，之前忘记提了，form表单中的button一定要加type="button"，默认是submit
+					http://ask.dcloud.net.cn/docs#http://ask.dcloud.net.cn/article/122-->
+					<button class="mui-btn mui-btn-blue" id="update" type="button">确认修改</button>
+				</div>
+			</form>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				/*
+				 * 这里我们可以直接获取到父窗口，获取之前传递到父窗口的值
+				 * http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewObject.parent
+				 */
+				var parent = self.parent();
+				var result = parent.result;
+				if (result.usex == "1") {
+					document.getElementById("usex").value = "男";
+				} else {
+					document.getElementById("usex").value = "女";
+				}
+				document.getElementById("uschool").value = result.uschool;
+				document.getElementById("uaddress").value = result.uaddress;
+				// 性别一般是选择的，而不是手写；
+				document.getElementById("usex").addEventListener("tap", function() {
+					plus.nativeUI.actionSheet({
+							cancel: "取消",
+							buttons: [{
+								title: "男"
+							}, {
+								title: "女"
+							}]
+						},
+						function(e) {
+							if (e.index == 1) {
+								document.getElementById("usex").value = "男";
+							} else if (e.index == 2) {
+								document.getElementById("usex").value = "女";
+							}
+						}
+					);
+				});
+				// 确认修改
+				document.getElementById("update").addEventListener("tap", function() {
+					/*
+					 * 实际项目中，这里首先是要将数据提交到后台；
+					 * 这里只是做演示，就不写那么多了；
+					 */
+					var usex = document.getElementById("usex").value;
+					if (usex == "男") {
+						usex = "0";
+					} else {
+						usex = "1";
+					}
+					var uschool = document.getElementById("uschool").value;
+					var uaddress = document.getElementById("uaddress").value;
+					/*
+					 * 获取窗口对象，触发窗口对象的自定义事件，来替换数据；
+					 * http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.getWebviewById
+					 * http://dev.dcloud.net.cn/mui/event/#customevent
+					 */
+					var userInfo = plus.webview.getWebviewById("userInfo");
+					mui.fire(userInfo, "changeInfo", {
+						usex: usex,
+						uschool: uschool,
+						uaddress: uaddress
+					});
+					mui.back();
+				});
+			});
+		</script>
+	</body>
+
+</html>

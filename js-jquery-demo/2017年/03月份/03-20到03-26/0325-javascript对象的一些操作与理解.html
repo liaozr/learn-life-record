@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- ------------------------------------------------------------------------- -->
+
+	javascript  对象的深浅复制的其他实现方式
+
+	<script>
+
+	    var aa = {
+			text:1,
+			aaa:2
+		}
+
+		var bb = aa;
+
+        bb.text=2;
+
+        console.log(aa);
+        console.log(bb);
+
+        //Object {text: 2, aaa: 2} 
+        // Object {text: 2, aaa: 2}
+        
+        // -------------------------------------------------------------------
+
+		// 通过 JSON 对象提供的 stringify 和 parse 方法组合使用的方式实现。
+
+		// 勉强也算一句话解决了，问题在于性能不理想。
+
+		var a = {
+			text:1,
+			aaa:2
+		}
+
+		var b = JSON.parse( JSON.stringify(a) )
+
+        b.text=2;
+
+        console.log(a);
+        console.log(b);
+        // Object {text: 1, aaa: 2}
+       // Object {text: 2, aaa: 2}
+
+	</script>
+
+<!-- ------------------------------------------------------------------------- -->
+
+	 2. 如何判断一个元素是否在集合中
+
+	 <script>
+
+	    var selection='zrliao';
+
+	 	// 传统写法
+		var isSelected = function(row) {
+		  return (selection || []).indexOf(row) > -1;
+		}
+
+		console.log( isSelected('liao') )
+		//  true;
+
+		// ES7写法，简洁了许多
+		var row='zr';
+		isSelected = selection.includes(row)
+		console.log(isSelected)
+		// true
+	</script>
+
+<!-- ------------------------------------------------------------------------- -->
+
+4. 如何查询一个数组并返回元素的子集
+
+这里用到了数组的 filter 方法，此方法具有以下特点：
+
+需要传入一个回调函数作为参数，此函数应返回一个布尔值。
+
+filter 执行时会对数组中的每一个元素执行一遍回调函数。
+
+filter 的返回值为一个新数组，其成员为原数组中返回值为 true 的元素。
+
+<script>
+
+	var allUsers=[
+	    {
+	    	loged:true,
+	    	zrliao:1111
+	    },
+	    {
+	    	loged:false,
+	    	zrliao:2222
+	    },
+	    {
+	    	loged:false,
+	    	zrliao:3333
+	    }
+	]
+
+    var users = allUsers.filter((user) => user.loged === false)
+
+    console.log(users)
+    
+    // 打印出的结果为：
+    // Object
+	// loged:false
+	// zrliao:2222
+	 
+	// Object
+	// loged:false
+	// zrliao:3333
+	
+</script>
+
+<!-- ------------------------------------------------------------------------- -->
+
+</body>
+</html>

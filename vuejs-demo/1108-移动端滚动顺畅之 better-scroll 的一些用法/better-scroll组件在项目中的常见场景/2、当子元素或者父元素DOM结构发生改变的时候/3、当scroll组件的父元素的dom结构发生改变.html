@@ -1,0 +1,76 @@
+<template>
+
+     <div class="rank" ref="rank">
+
+        <scroll :lists="topList" ref='scroll' class="toplist">
+            <ul>
+                <li class="item" @click="selectItem(item)" v-for="item in topList" :key='item.id'>
+                    <div class="icon">
+                        <img src="" v-lazy="item.picUrl" width='100' height='100' alt="">
+                    </div>
+                    <ul class="songlist">
+                        <li class="song" v-for="(song,index) in item.songList" :key='song.id'>
+                            <span>{{index + 1}}</span>
+                            <span>{{song.songname}} - {{song.singername}}</span>
+                        </li>
+                        <span></span>
+                        <span></span>
+                    </ul>
+                </li>
+            </ul>
+            <div class="loading-container" v-show="!topList.length">
+                 <loading></loading>
+            </div>
+        </scroll>
+
+        <router-view></router-view>
+     </div>
+
+</template>
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+当scroll组件的父元素的dom结构发生改变也需要重新refresh
+
+当scroll组件的父元素的dom结构发生改变也需要重新refresh
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+<script type="text/ecmascript-6">
+
+  import {getTopList} from '@a/rank'
+  import{ERR_OK} from 'assets/js/config'
+
+  import scroll from '@c/scroll/scroll'
+  import loading from '@c/loading/loading'
+  import { playlistMixin } from 'assets/js/mixin'
+
+  export default {
+      mixins:[playlistMixin],
+      data(){
+          return{
+              topList:[]
+          }
+      },
+      components:{
+         scroll,
+         loading
+      },
+      methods:{
+        handlePlaylist(playlist){
+
+          const bottom = playlist.length > 0 ? '60px' : 0
+          this.$refs.rank.style.bottom =  bottom
+
+          // 重新调用scroll组件的refresh()方法
+          this.$refs.scroll.refresh()
+
+        },
+      },
+      created(){
+          this._getTopList()
+      }
+  }
+</script>
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->

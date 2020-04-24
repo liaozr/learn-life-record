@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src='vue.js'></script>
+</head>
+<body>
+
+
+<div id="app0">
+    <my-component></my-component>
+</div>
+
+<script>
+    Vue.component('my-component', {
+        template: '<div>my-first-component</div>'
+    })
+
+    var app = new Vue({
+        el: '#app0',
+        data: {}
+    })
+</script>
+
+解读：
+
+注册行为必须在创建实例之前；
+
+component的template接口定义组件的html元素；
+
+<!-- -------------------------------------------------------------------------------- -->
+
+局部注册组件
+
+<div id="app2">
+    <my-component></my-component>
+    <heading></heading>
+</div>
+<script>
+    Vue.component('my-component', {
+        template: '<div>my-first-component233</div>'
+    })
+    var Child = {
+        template: '<h3>Hello World23333333</h3>'
+    }
+    var app = new Vue({
+        el: '#app2',
+        components: {
+            'heading': Child
+        }
+    })
+</script>
+
+解读：
+
+可以定义一个子组件，在实例的components接口中将子组件挂载到父组件上，
+
+子组件只在父组件的作用域下有效；
+特殊DOM模板将会限制组件的渲染
+
+<!-- ------------------------------------------------------------------------------- -->
+
+像这些包含固定样式的元素 <ul>， <ol>， <table>， <select>，
+自定义组件中使用这些受限制的元素时会导致渲染失败；
+通的方案是使用特殊的 is属性：
+
+ <table>
+      <tr is="my-component">
+ </table>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+创建组件的data对象必须是函数
+
+  <counter></counter>
+  <counter></counter>
+  <counter></counter>
+
+<script>
+    Vue.component('counter', {
+        template: '<button @click="count+=1">{{count}}</button>',
+        data: function() {
+            return {
+                count: 0
+            }
+        }
+    })
+</script>
+
+解读：
+
+在组件当中定义的数据count必须以函数的形式返回；
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+</html>

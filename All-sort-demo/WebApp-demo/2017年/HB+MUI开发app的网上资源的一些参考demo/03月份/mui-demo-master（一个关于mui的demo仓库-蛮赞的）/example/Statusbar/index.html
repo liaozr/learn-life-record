@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>沉浸式</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+        <link rel="stylesheet" href="css/mui.min.css">
+        <style>
+			.mui-bar-nav{
+    			background-color: #00B2EE;
+    			background: -webkit-linear-gradient(top,rgba(215,75,40,1),rgba(215,75,40,0.8));
+    			color: #FFF;
+    		}
+			.mui-title{
+    			color:#fff;
+    		}
+        </style>
+    </head>
+
+    <body>
+        <header class="mui-bar mui-bar-nav">
+            <h1 class="mui-title">沉浸式</h1>
+        </header>
+        <div class="mui-content">
+           	沉浸式
+        </div>
+        <script src="js/mui.min.js"></script>
+        <script>
+            mui.init();
+
+            mui.plusReady(function() {
+            	var topoffset = '45px';
+            	// 兼容immersed状态栏模式
+            	if(plus.navigator.isImmersedStatusbar()){
+			    	var immersed = 0;
+					var ms = (/Html5Plus\/.+\s\(.*(Immersed\/(\d+\.?\d*).*)\)/gi).exec(navigator.userAgent);
+					// 当前环境为沉浸式状态栏模式
+					if(ms&&ms.length>=3){
+					    immersed = parseFloat(ms[2]);// 获取状态栏的高度
+					}
+					topoffset = (immersed + 45)+'px';
+					/*调整高度*/
+			    	document.querySelector(".mui-bar-nav").style.paddingTop = immersed+'px';
+			     	document.querySelector(".mui-bar-nav").style.height = topoffset; 
+			     	document.querySelector(".mui-content").style.marginTop = topoffset; 
+			    }
+            });
+        </script>
+    </body>
+</html>

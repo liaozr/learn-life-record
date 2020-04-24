@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="a">
+
+        </div>
+    </div>
+
+    <script>
+
+        new Vue({
+            el: '#app',
+            data: {
+            },
+            mounted(){
+
+                var ret = []
+                var zhida = {
+                    text:1,
+                    value:"liaozhongren"
+                }
+                var bb={
+                  type:'singer'
+                }
+
+                // 把 对象 zhida 跟  对象 bb 合并 为一个 对象，并把这个对象 push到数组 ret 中
+                ret.push({...zhida,...bb})
+
+                // ret.push({...data.zhida,...{type:TYPE_SINGER}})
+
+                console.log(ret)
+
+                // 打印出的数据是一个数组：
+                // [
+                //   {
+                //     text:1,
+                //     value:"liaozhongren",
+                //     type:'singer'
+                //
+                //   }
+                // ]
+
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>

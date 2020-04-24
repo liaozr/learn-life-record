@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+    <style>
+        .list {
+            width: 33.333%;
+            height: 3.333rem;
+            display: inline-block;
+            float: left;
+            text-align: center;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -ms-box-sizing: border-box;
+            -o-box-sizing: border-box;
+            border-right: 1px solid #e1e1e1;
+            border-top: 1px solid #e1e1e1;
+            background-color: #ffffff;
+            background-position: 50% 30%;
+            background-size: 0.907rem 0.907rem;
+        }
+
+        /*直接 这样 加 active伪类也就起效果的了，就不用说
+        要 touchstart touchend 这样用脚本写才会起作用的。
+        直接 加active伪类即可。*/
+        .list:active {
+            background-color: #eee;
+        }
+    </style>
+
+    <div class="list">1111</div>
+    <div class="list">2222</div>
+    <div class="list">3333</div>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+    直接 这样 加 active伪类也就起效果的了，就不用说
+    要 touchstart touchend 这样用脚本写才会起作用的。
+    直接 加active伪类即可。
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+    <!-- 这个是之前的写法： -->
+    <!-- 这个是之前的写法： -->
+    <!-- 这个是之前的写法： -->
+
+    <!-- <script>
+        $(".item-lists .list").on("touchstart", function() {
+            $(this).addClass("cur")
+        });
+        $(".item-lists .list").on("touchend", function() {
+            $(this).removeClass("cur")
+        })
+    </script> -->
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

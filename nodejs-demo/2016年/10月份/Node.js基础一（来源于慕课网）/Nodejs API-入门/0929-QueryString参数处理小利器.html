@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+序列化：querystring.stringify()
+
+反序列化：querystring.parse()
+
+转义：querystring.escape()
+
+反转义：querystring.unescape()
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+<script>
+querystring.stringify(obj,sign1,sign2)
+//将对象转化成url中query部分的形式 
+// 参数：
+// 1.要转化的对象
+// 2.链接符（默认&）
+// 3.键与值之间的符号（默认=）
+
+querystring.parse(string,sign1,sign2,sign3)
+//将query字符串转化成对象（反序列华） 参数：1.query字符串  2.链接符（默认&）3.键与值之间的符号（默认=）4.参数的个数（默认最多1000个，0就没有限制）
+
+querystring.escape(string) //文字转译
+
+querystring.unescape(string) //反转译
+
+</script>
+
+</body>
+</html>

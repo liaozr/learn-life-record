@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+<!-------------------------------------------------------------------------------------->
+
+vuejs compile和mount过程
+
+当vuejs app启动时，首先入口程序根据#el来找到本应用对应的html片段，
+
+该片段作为root的template，开始启动编译链接过程。每找到一个componennt，
+
+就开始walk through该组件的template，继续compile,直到编译完成。
+
+<!-------------------------------------------------------------------------------------->
+
+在vuejs2.0中由于没有了compiled钩子，我们可以理解created事件就是按照上面的timing来完成的。
+
+如果对应有v-for，则开始启动loop过程，就像普通的js代码一样，
+
+先把第一次Loop的数据传给对应组件开始编译，直到所有的loop都完成了，
+
+这时compile过程可以认为是完全完成了。mount过程则和compile完全相反，
+
+
+由compile形成的dom node map反序逐级mount。也就是说先子组件后父组件直到root组件被mounted.
+
+<!-------------------------------------------------------------------------------------->
+
+
+</body>
+</html>

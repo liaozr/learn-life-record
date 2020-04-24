@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+  路由保护是一个 watcher ，监视路由的变化并执行一些操作，
+
+  在路由转换到下一个路由之前，或在路由已经转换之后。
+
+  路由保护可以用来一些路由免受未认证的用户的访问。
+
+  Vue router 有全局的路由保护，每条路由保护，以及组件保护。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+  Vue router 提供的全局路由保护有两种，分别是：beforeEach 和 afterEach 。
+
+  顾名思义，在新路由转换之前执行 “beforeEach” , 而转换之后执行 “afterEach” 保护。
+
+  <!-- --------------------------------------------------------------------------------- -->
+
+  单独每条路由保护可以作为回调添加到要保护的特定路由的路由对象中，而 “in-component” 保护在处理这些路由的组件中定义。
+
+  为了本教程的目的，我们使用 “beforeEach” 全局路由保护。
+
+  <!-- --------------------------------------------------------------------------------- -->
+
+  打开 main.js 文件，并且在 routes 常量之后，添加以下内容：
+
+  <script>
+    //main.js
+    // 防止路由保护
+    router.beforeEach((to, from, next) => {
+        // 检查路径用户是否即将进入我们的 param 路径
+        if (to.path == '/param') {
+            // 检查用户是否已经设置
+            if (localStorage.getItem('user') == undefined) {
+                // username 提示
+                var user = prompt('please enter your username');
+                // password 提示
+                var pass = prompt('please enter your password');
+                // 检查给定的用户名和密码是否等于我们的预设信息
+                if (user == 'username' && pass == 'password') {
+                    // 设置 user
+                    localStorage.setItem('user', user);
+                    // 进入路由
+                    next();
+                } else {
+                    // 警报用户名错误
+                    alert('Wrong username and password, you do not have permission to access that route');
+                    // return, 不进入路由
+                    return;
+                }
+
+            }
+
+        }
+
+        next()
+    })
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+  router.beforeEach 函数被调用，它需要由 Vue router 传递三个参数给它。
+
+  to 参数是指要访问的路径的对象，而 from 参数是指先前路径的对象。
+
+  检查 to.path 是否为 /param，这是要保护的路由的路径。
+
+  如果to.path 和要保护的路径一致，检查 “localStorage” 数据中保存的用户详细信息，查看是否定义。
+
+  如果 “localStorage” 数据没有定义，提示输入用户名和密码，并创建 “localStorage” 数据。
+
+  如果 “localStorage” 数据被定义，该函数继续，路由对用户可见。
+
+  注意：next 函数必须调用，以便路由可以将用户处理到下一个页面。
+
+  如果没有调用该函数，一个空白页可能会出现。
+  
+  在本教程中， username 和 password 的原始字符串用于验证详细信息。
+
+  但是，还可以做更多的事情，例如通过服务器请求认证用户。
+
+  <!-- --------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

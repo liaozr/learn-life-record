@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+2.8 事件监听器
+
+2.8.1 内联监听器
+
+可以为事件监听器传递参数，
+
+如果需要传递事件event对象，则写成$event的形式
+
+<button v-on:click="warn('Form cannot be submitted yet.', $event)">Submit</button>
+
+...
+methods:{warn:function (message, event) {... ...}}
+...
+
+<!-- -------------------------------------------------------------------------------- -->
+
+2.8.3 事件修饰符
+
+Vue提供的事件修饰符将常见的事件设置（比如阻止元素默认事件，或阻止事件冒泡）
+
+旨在让我们的Methods更加关注数据逻辑。
+
+通过由点(.)表示的指令后缀来调用修饰符。
+
+<a v-on:click.stop="doThis"></a>
+
+常见的事件修修饰符有以下几个：
+
+<script>
+        .stop // 阻止事件冒泡
+        .prevent // 阻止元素默认事件
+        .capture // 使用事件捕获模式监听事件
+        .self //只当事件在该元素本身（而不是子元素）触发时触发回调
+</script>
+
+事件修饰符可以串联使用：
+<a v-on:click.stop.prevent="doThat"></a>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+2.8.4 按键修饰符
+
+修饰符中还有一种按键修饰符，其值是键盘按键的keycode或者预先定义好的keycode别名，例如：
+
+<input v-on:keyup.13="submit">
+
+<input v-on:keyup.enter = "submit">
+
+当按下回车键时，执行submit。
+
+下面是全部的按键别名：
+
+enter
+tab
+delete (捕获 “删除” 和 “退格” 键)
+esc
+space
+up
+down
+left
+right
+
+我们也可以为按键自定义别名：
+
+<script>
+    // 此时我们就可以通过使用@keyup.f1代替@keyup.112了
+    Vue.config.keyCodes.f1 = 112
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+2.9 表单控件绑定
+
+你可以用 v-model 指令在表单控件元素上创建双向数据绑定，但其本质上不过是语法糖。
+
+最基本的例子：
+
+<TextArea v-model="message" placeholder="edit me">
+
+ <!-- ------------------------------------------------------------------------------ -->
+
+</body>
+</html>

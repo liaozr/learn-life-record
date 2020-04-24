@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="aa"></div>
+
+    <script>
+
+        aa.className = 'name222';
+
+        // 为dom元素aa添加一个class类 为foo
+        aa.classList.add('foo')
+
+        // 为dom元素aa移除一个class类为name222
+        aa.classList.remove('name222')
+
+        // 判断是否有class为foo
+        if( aa.classList.contains('foo') ){
+          console.log("包含有类为foo");
+        }
+
+
+        // 浏览器解析为：
+        // <div id="aa" class="name222"></div>
+        // <div id="aa" class="name222"></div>
+
+        //  浩楠做的 五角星 点击 评价的
+        $(".y-starBox>ul>li").on("tap", function() {
+            var index = $(this).index();
+            $(".y-starBox>ul>li").removeClass("active");
+            for (var i = 0; i <= index; i++) {
+                $(".y-starBox>ul>li")[i].className = "active";
+            }
+        });
+    </script>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+    修改class和属性
+
+    修改元素的class像下面的代码这样简单：
+
+    myElement.classList.add('foo')
+    myElement.classList.remove('bar')
+    myElement.classList.toggle('baz')
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

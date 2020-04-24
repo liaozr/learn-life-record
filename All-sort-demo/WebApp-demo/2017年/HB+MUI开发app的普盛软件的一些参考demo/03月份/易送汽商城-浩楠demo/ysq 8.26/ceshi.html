@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="js/zepto1.1.6.min.js"></script>
+	<script src="js/vue.min.js"></script>
+	<style>
+		div {
+			width: 200px;
+			height: 200px;
+			border: 1px solid red;
+		}
+	</style>
+
+	<body id="scope">
+		<div>{{sss[0].barCode}}</div>
+		<div>{{sss[0].branch}}</div>
+		<div></div>
+		<div></div>
+	</body>
+	<script>
+		/*$.ajax({
+					type: "get",
+					url: "http://192.168.1.30:8080/eidpws/client/customer/gasBottles",
+					data: {
+						bottlesType: "01",
+						franchiseId: "FRCH1608030007"
+					},
+					success: function(data) {
+						console.log(data);
+					},
+
+				});*/
+
+		/*new Vue({
+			el: '#app',
+			data: xxx[0],
+		})*/
+
+		var vm=new Vue({
+					el: '#scope',
+					data:{sss:''},
+					ready: function() {
+						$.ajax({
+							type: "get",
+							url: "http://192.168.1.30:8080/eidpws/client/customer/gasBottles",
+							data: {
+								bottlesType: "01",
+								franchiseId: "FRCH1608030007"
+							},
+							success: function(data) {
+								console.log(data[0]);
+								vm.sss=data;
+							},
+
+						});
+					}
+
+		});
+		
+		
+		/*$.ajax({
+							type: "get",
+							url: "http://192.168.1.30:8080/eidpws/client/customer/gasBottles",
+							data: {
+								bottlesType: "01",
+								franchiseId: "FRCH1608030007"
+							},
+							success: function(data) {
+								console.log(data);
+								vm.data=data;
+							},
+
+						});*/
+	</script>
+
+</html>

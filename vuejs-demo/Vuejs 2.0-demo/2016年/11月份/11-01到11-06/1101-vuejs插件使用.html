@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+接下来我们介绍下在基于webpack的vue项目中我们是如何使用插件的，主要有两种情况：
+
+（一）全局使用
+
+（1）在index.html引入：这样的方式不推荐使用，因为存在先后加载顺序的问题，有些插件不支持这一方式。
+
+（2）通过webpack配置文件引入：主要通过plugin配置项的webpack.ProvidePlugin()方法实现，不过只适合支持CommonJs规范并提供一个全局变量的插件，如jQuery中的$。
+
+（3）通过import + Vue.use()引入：这种方式需要在全局.vue文件中import需要加载的插件，然后通过Vue.use('插件变量名')来实现，不过此方法只支持遵循Vue.js插件编写规范的插件使用，如vue-resourece。
+
+<!-- ------------------------------------------------------------------------------------------- -->
+
+（二）单文件使用
+
+（1）通过import直接引入：这种方式可以在需要调用插件的.vue文件中使用，不过需要注意和实例的创建顺序问题，或者也可以通过require引入。
+
+（2）import + components注册：此方式为Vue组件的使用方式，可以在一个组件中注册并使用一个子组件。
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+</body>
+</html>

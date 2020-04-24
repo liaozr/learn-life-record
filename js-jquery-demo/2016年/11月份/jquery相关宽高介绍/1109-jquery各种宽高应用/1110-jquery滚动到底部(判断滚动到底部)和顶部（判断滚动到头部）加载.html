@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='jquery3.js'></script>
+</head>
+
+<body>
+    <div style='height:3000px;width:100%'></div>
+
+    <script>
+        $(function() {
+            $(window).scroll(function() {
+                var ks_area = $(window).height();
+
+                // wholeHeight为文档的高度
+                var wholeHeight = $(document).height();
+                var scrollTop = $(window).scrollTop();
+                if (ks_area + scrollTop >= wholeHeight) {
+                    alert("已经滚动到底部了");
+
+                }
+                if (scrollTop == 0) {
+                    alert('已经滚动到头部了');
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

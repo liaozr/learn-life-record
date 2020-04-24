@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        default 函数默认参数
+
+        // ES5 给函数定义参数默认值
+        function foo(num) {
+            num = num || 200;
+            return num;
+        }
+
+        // ES6
+        function foo(num = 200) {
+            return num;
+        }
+
+    </script>
+
+</body>
+
+</html>

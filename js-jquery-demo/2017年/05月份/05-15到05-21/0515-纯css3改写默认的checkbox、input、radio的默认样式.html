@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+大致的原理都是使用html原生的标签元素标签checkbox或者input，在后面加上label标签，
+
+将一些原有的元素隐藏，然后再用css设置你想要样式，行为方面都是根据原生属性来判断，不需要使用js。
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+首先来看一个checkbox，实现这个动画其实很简单，
+
+只运用css就可以实现。实现的原理是绑定checkout和label,用label控制是否checked。
+
+点击label的时候改变checkbox的属性
+
+先将checkbox隐藏，然后label为一个只有border的框框，使用after和befor伪元素来实现对号的两部分。
+
+先将after和before设置宽度为width0.4，height为0，设置不同的旋转角度，让befor和after合起来刚好是一个对号。
+
+然后用css动画设置使其height达到width0.7和width*0.35并控制动画使其连贯播放
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+input
+
+input的优化源于在掘金上看到的一篇文章，效果着实小清新，于是就使用拿来主义，写了一个简易版的demo，效果如下，
+
+运用的是flex布局还有伪元素placeholder来实现的。
+
+input效果
+
+输入框清除默认样式
+当输入框获得焦点时，输入框原本的文字向上移，并且下方蓝色的线宽度由0变为100
+如果没有输入内容，还变为未输入的状态
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+<div class="input-container">
+    <input type="input" id="input" placeholder="请输入内容">
+    <label for="input">请输入内容</label>
+    <div class="bottom-line"></div>
+</div>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+css代码
+
+全部的动画效果都只使用了css，但是使用的一些新特性浏览器兼容性还没有那么好，兼容到ie10.布局使用的是flex，
+
+动画效果用的是用的transform。运用伪类placeholder判断是否输入了文字，
+
+如果输入了文字下方的line宽度变为100%；label中的文字上移并且变小
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+<style>
+    .input-container {
+        width:500px;
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: reverse;
+        -ms-flex-flow: column-reverse;
+        flex-flow: column-reverse;
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+        align-items: flex-start;
+        margin: 100px auto
+    }
+
+    .input-container input {
+        -webkit-box-ordinal-group: 11;
+        order: 10;
+        -ms-flex-order: 10;
+        outline: none;
+        border: none;
+        width: 100%;
+        padding: 10px 0;
+        font-size: 20px;
+        border-bottom: 1px solid  #3f4f5b;
+        text-indent: 10px;
+    }
+
+    .input-container input::-moz-placeholder {
+        opacity: 0;
+    }
+
+    .input-container input::-webkit-input-placeholder {
+        opacity: 0;
+    }
+
+    .input-container input:-ms-input-placeholder {
+        opacity: 0;
+    }
+
+    .input-container input,
+    .input-container label {
+        transition: all 0.3s;
+    }
+
+    .input-container label {
+        -webkit-box-ordinal-group: 101;
+        -ms-flex-order: 100;
+        order: 100;
+        color: #3f4f5b;
+        -webkit-transform-origin: left bottom;
+        transform-origin: left bottom;
+        -webkit-transform: translate(10px, 40px);
+        transform: translate(0px, 40px);
+    }
+
+    .input-container .bottom-line {
+        order: 2;
+        width: 0;
+        height: 2px;
+        background: rgb(101, 141, 181);
+        transition: all 0.3s;
+    }
+
+    .input-container input:focus {
+        border-bottom-color: #fff;
+    }
+
+    .input-container input:focus~div,
+    .input-container input:not(:placeholder-shown)~div {
+        width: 100%
+    }
+
+    .input-container input:focus+label,
+    .input-container input:not(:placeholder-shown)+label {
+        color: rgb(82, 97, 108);
+        -webkit-transform: translate(10px) scale(0.9);
+        transform: translate(10px) scale(0.9)
+    }
+</style>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <!-- ---------------------------------------------------------------------------------- -->
+
+  5、单例模式
+
+  描述同一个事物（同一个对象）的属性和方法放在一个内存空间下，起到分组的作用，这样不同事物之间的属性名相同，相互也不会发生冲突，
+
+  我们把这种分组编写代码的模式叫做“单例模式”；
+
+  <script>
+
+      var obj = {
+          name: '张三',
+          age: '18',
+          writeJs: function() {
+              console.log('my is ' + this.name + ' can write js');
+          }
+
+      }
+
+      obj.writeJs();
+      
+  </script>
+
+  注：obj又叫做“命名空间”，单例模式项目开发经常使用，我们可以使用单例模式进行模块化开发；
+
+  <!-- ---------------------------------------------------------------------------------- -->
+
+  6、工厂模式
+
+  单例模式虽然能解决分组作用，但是不能实现批量生产，属于手工作业模式；
+
+  工厂模式->“函数的封装”，“低耦合高内聚”：减少页面中的冗余代码，提高代码的重复利用
+
+  <script>
+
+      function createJs(name, age) {
+          var obj = {};
+          obj.name = name;
+          obj.age = age;
+          obj.writeJs = function() {
+              console.log('my is ' + this.name + ' can write js');
+          }
+          return obj;
+      }
+
+      var zhangsan = createJs('张三2', '18');
+
+      zhangsan.writeJs();
+
+  </script>
+
+  <!-- ---------------------------------------------------------------------------------- -->
+
+</body>
+</html>

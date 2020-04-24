@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+    <script>
+    
+        // 构建路由表信息
+        const routes = [
+            {
+               path:'/recommend',
+               component:recommend,
+               name:'recommend',
+               children:[
+                 {
+                  path:'disc/:id' ,
+                  component:disc,
+                  name:'disc'
+                 }
+               ]
+            }
+        ]
+
+    </script>
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+    组件 recommend 上
+
+   <router-view></router-view>
+
+   <script>
+
+       methods:{
+           selectItem(item){
+
+               this.$router.push({
+
+                  // name:'disc',
+
+                  // 也可以用path值的
+                  path:`/recommend/disc/${item.dissid}`,
+
+                  // 如果要展示路径的话，就用path的关系，否则不用展示路径的话，直接用name即可
+                  // path:`/recommend/disc/${item.dissid}`,
+
+                  // 这里 params是可以传参数到组件上的，当想利用params来传参数到组件上的时候，
+                  // 建议 组件的编程时导航 用name值去替换path值估计好点
+
+                  // 但是在测试的发现，只能用 path 传递 的方式
+                  // 这样在子组件中，才能用 this.$route.params.id,获取到params里面的值
+
+                  // 所以，到时候，要用到 params 来实现组件传值的话，就两种模式都试下吧。
+
+                  params:{
+                    id:item.id
+                  }
+
+               })
+
+           }
+       }
+
+   </script>
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+经常有群友在群里问, 用 vue-cli  build 后, 把文件放到服务器, 访问后, 各种静态文件 404
+
+这里以vue-cli的 webpack 完整版做下说明
+
+用vue-cli生成项目后, 在config/index.js文件里能看到一些配置, 有关于目录的主要是以下 3 个:
+
+assetsRoot: path.resolve(__dirname, '../dist'),
+assetsSubDirectory: 'static',
+assetsPublicPath: '/',
+
+<!-- --------------------------------------------------------------------------------- -->
+
+assetsRoot
+
+就是你build后文件生成在哪个文件夹, 上面的配置就是在项目根目录的 dist 文件夹下
+
+<!-- --------------------------------------------------------------------------------- -->
+
+assetsSubDirectory
+
+这个是静态文件的前置文件夹
+
+在build/utils.js文件里, 可以找到一个函数:
+
+exports.assetsPath = function (_path) {
+
+  var assetsSubDirectory = process.env.NODE_ENV === 'production'
+    ? config.build.assetsSubDirectory
+    : config.dev.assetsSubDirectory
+  return path.posix.join(assetsSubDirectory, _path)
+
+}
+
+在build/webpack.prod.conf.js文件里, 可以找到
+
+filename: utils.assetsPath('js/[name].[chunkhash].js'),
+chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
+
+上面的两个路径, 经过assetsPath函数后, 最终生成路径static/js/[name].[chunkhash].js,
+
+意思就是最后 webpack 会把生成的 js 文件放在dist/static/js/文件夹下,
+
+图片,样式配置原理一样, 所以assetsSubDirectory的作用就是上面路径中的static
+
+<!-- --------------------------------------------------------------------------------- -->
+
+assetsPublicPath
+
+这个静态资源的引用前缀, 默认的是 /
+
+<!-- --------------------------------------------------------------------------------- -->
+
+按照上面的配置, 当你把 dist 文件夹下的文件放到服务器,
+
+能用 http://www.xxx.com/static/js/xxx.js路径访问到时, 那么 assetsPublicPath就不需要修改了
+
+<!-- --------------------------------------------------------------------------------- -->
+
+需要用 http://www.xxx.com/aaa/bbb/static/js/xxx.js路径访问到时, 那么 assetsPublicPath就得改成/aaa/bbb/,
+
+然后重新 build 一次, 上传到服务器
+
+<!-- --------------------------------------------------------------------------------- -->
+
+当你把静态文件传到 cdn, 需要用
+
+http://stacic.yyy.com/aaa/bbb/static/js/xxx.js路径访问到时,
+
+那么 assetsPublicPath就得改成 http://stacic.yyy.com/aaa/bbb/, 然后重新 build 一次, 上传到服务器
+
+<!-- --------------------------------------------------------------------------------- -->
+
+</body>
+</html>

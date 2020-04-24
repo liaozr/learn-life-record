@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        var axios = require('axios')  // 在 dev-server这个脚本文件 加上 这段代码，表示引用 axios
+
+        // var app = express()        // 这段代码是 dev-server 这个脚本文件原有的代码
+                                      // 在这段代码的后面添加下面那些代码
+
+        // ------------------------------------------------------------------------------------------------
+
+        // 后端接口代理，做法是跟配置proxy是一样的
+
+        var apiRoutes = express.Router()
+
+        apiRoutes.get('/getDiscList', function(req, res) {
+            var url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'
+            axios.get(url, {
+                headers: {
+                    referer: 'https://c.y.qq.com/',
+                    host: 'c.y.qq.com'
+                },
+                params: req.query
+            }).then((response) => {
+                res.json(response.data)
+            }).catch((e) => {
+                console.log(e)
+            })
+        })
+
+        // ------------------------------------------------------------------------------------------------
+
+        apiRoutes.get('/getMovie', function(req, res) {
+            var url = 'http://api.douban.com/v2/movie/coming_soon'
+            axios.get(url, {
+                headers: {
+                    referer: 'http://api.douban.com'
+                },
+                params: req.query
+            }).then((response) => {
+                res.json(response.data)
+            }).catch((e) => {
+                console.log(e)
+            })
+        })
+        
+        app.use('/api', apiRoutes)
+
+        // ------------------------------------------------------------------------------------------------
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://cdn.staticfile.org/vue/1.0.28/vue.js'></script>
+
+</head>
+
+<body>
+    <div class="jindu-c">
+
+        <div class="up" v-bind:style="{width: weijiesuanall + '%' }">
+            <span class="wen" v-bind:style="{left: leftup + '%' }">
+ 			     			未结算合同总数：<span v-cloak class='wen-weijiesuan'>{{weijiesuan_num}}</span>
+            </span>
+        </div>
+
+        <div class="up down" v-bind:style="{left:weijiesuanb + '%',width: qiandanall + '%' }">
+            <span class="wen" v-bind:style="{left: downleftup + '%' }">
+ 			     			当年签单总数：<span v-cloak class='wen-weijiesuan'>{{qiandan_num}}</span>
+            </span>
+
+            <br>所有的总数和：{{all_num}}
+        </div>
+    </div>
+
+    <script>
+        var kanbanVM = new Vue({
+            el: 'body',
+            data: {
+                weijiesuan: 100,
+                daijiesuan: 400,
+                yijiesuan: 200
+            },
+            computed: {
+                weijiesuan_num: function() {
+                    var weijiesuan_num = this.weijiesuan + this.daijiesuan;
+                    return weijiesuan_num
+                },
+                qiandan_num: function() {
+                    var qiandan_num = this.yijiesuan + this.daijiesuan;
+                    return qiandan_num
+                },
+                all_num:function(){
+                  var all_num=this.weijiesuan_num + this.qiandan_num;
+                  return all_num
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

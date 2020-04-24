@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+<!-- -------------------------------------------------------------------- -->
+
+关于vue的mounted钩子函数：使用mounted并不能保证vue实例已经插入文档
+
+所以还应该在钩子函数中包含
+
+Vue.nextTick / vm.$nextTick
+
+<script>
+
+	var vm=new Vue({
+		el:'#app',
+		data:{
+          time:1
+		}
+		methods:{
+
+		},
+		 mounted: function() {
+	        this.$nextTick(function() {
+	           // 保证this.$el已经插入文档
+
+	           // 这样子使用 vm.time就不会报错了。
+
+	        })
+	    }
+	})
+
+</script>
+
+<!-- -------------------------------------------------------------------- -->
+
+
+</body>
+</html>

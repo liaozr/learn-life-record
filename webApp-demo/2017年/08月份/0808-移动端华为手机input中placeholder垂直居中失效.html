@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  input给定宽高，给了line-heigh，
+
+  在浏览器查看效果正常，placeholder内容以及光标显示都是垂直居中的，
+
+  iOS显示正常，
+
+  Android华为手机上placeholder以及光标都失效，都没有垂直居中，
+
+  最后给input设置样式，
+  line-heigh:normal;
+
+  查看华为手机恢复正常。
+
+  最后自己做了个试验，给定input宽高后，不写line-heigh，placeholder也会自动垂直居中，
+
+  在华为手机中好像必须给定line-heigh：normal；属性才会生效。
+
+  这样即可：
+  <style>
+
+      /* 建议 都加上 这两个属性*/ 
+      input {
+          line-height: normal;
+          padding-left: 15px;
+      }
+
+  </style>
+
+
+
+</body>
+
+</html>

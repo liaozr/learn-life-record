@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    定义全局变量和函数是一种代码很粗糙的行为，更好的方式是通过使用匿名函数使你的代码独立于块之中。 看下面的例子：
+
+    <script>
+        // Isolating a block of code:
+
+        (function($) {
+
+            // Declare a variable. It will only be visible in this block.
+            var c = 1;
+
+            // Define a simple plugin
+
+            $.fn.count = function() {
+
+                // Increment and log the counter
+                log(c++);
+
+                return this;
+            };
+
+        })(jQuery);
+
+        // The c variable is only visible for the plugin and will keep
+        // its value between invocations:
+
+        $(document).count();
+
+        $('body').count().count();
+
+        $('body').count().count();
+        
+    </script>
+
+</body>
+
+</html>

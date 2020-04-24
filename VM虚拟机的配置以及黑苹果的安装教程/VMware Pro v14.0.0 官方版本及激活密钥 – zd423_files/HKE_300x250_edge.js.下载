@@ -1,0 +1,195 @@
+/**
+ * Adobe Edge: symbol definitions
+ */
+(function($, Edge, compId){
+//images folder
+var im='images/';
+
+var fonts = {};
+
+
+var resources = [
+];
+var symbols = {
+"stage": {
+   version: "2.0.1",
+   minimumCompatibleVersion: "2.0.0",
+   build: "2.0.1.268",
+   baseState: "Base State",
+   initialState: "Base State",
+   gpuAccelerate: false,
+   resizeInstances: false,
+   content: {
+         dom: [
+         {
+            id:'bg',
+            type:'image',
+            rect:['0px','0px','523px','250px','auto','auto'],
+            fill:["rgba(0,0,0,0)",im+"bg.jpg",'0px','0px']
+         },
+         {
+            id:'hl',
+            display:'none',
+            type:'image',
+            rect:['16px','86px','88px','94px','auto','auto'],
+            fill:["rgba(0,0,0,0)",im+"hl.png",'0px','0px']
+         },
+         {
+            id:'k',
+            display:'none',
+            type:'image',
+            rect:['18px','182px','87px','16px','auto','auto'],
+            fill:["rgba(0,0,0,0)",im+"k.png",'0px','0px']
+         },
+         {
+            id:'p',
+            display:'none',
+            type:'image',
+            rect:['99px','71px','187px','121px','auto','auto'],
+            fill:["rgba(0,0,0,0)",im+"p.png",'0px','0px']
+         },
+         {
+            id:'pl',
+            display:'none',
+            type:'image',
+            rect:['99px','71px','187px','121px','auto','auto'],
+            fill:["rgba(0,0,0,0)",im+"pl.png",'0px','0px']
+         },
+         {
+            id:'r4',
+            display:'none',
+            type:'image',
+            rect:['15px','209px','128px','15px','auto','auto'],
+            fill:["rgba(0,0,0,0)",im+"r4.png",'0px','0px']
+         },
+         {
+            id:'b',
+            type:'image',
+            rect:['66px','177px','234px','72px','auto','auto'],
+            fill:["rgba(0,0,0,0)",im+"b.png",'0px','0px']
+         },
+         {
+            id:'t',
+            type:'image',
+            rect:['18px','17px','149px','37px','auto','auto'],
+            fill:["rgba(0,0,0,0)",im+"t.png",'0px','0px']
+         },
+         {
+            id:'Border',
+            type:'rect',
+            rect:['0px','0px','298px','248px','auto','auto'],
+            fill:["rgba(192,192,192,0.00)"],
+            stroke:[1,"rgba(153,153,153,1.00)","solid"]
+         }],
+         symbolInstances: [
+
+         ]
+      },
+   states: {
+      "Base State": {
+         "${_pl}": [
+            ["style", "top", '66px'],
+            ["style", "opacity", '0'],
+            ["style", "left", '99px'],
+            ["style", "display", 'none']
+         ],
+         "${_Border}": [
+            ["style", "top", '0px'],
+            ["color", "background-color", 'rgba(192,192,192,0.00)'],
+            ["style", "border-width", '1px'],
+            ["style", "border-style", 'solid'],
+            ["style", "height", '248px'],
+            ["color", "border-color", 'rgba(153,153,153,1.00)'],
+            ["style", "left", '0px'],
+            ["style", "width", '298px']
+         ],
+         "${_hl}": [
+            ["style", "top", '81px'],
+            ["transform", "scaleY", '0.01'],
+            ["style", "display", 'none'],
+            ["style", "left", '16px'],
+            ["transform", "scaleX", '0.01']
+         ],
+         "${_b}": [
+            ["style", "left", '66px'],
+            ["style", "top", '177px']
+         ],
+         "${_r4}": [
+            ["style", "top", '223px'],
+            ["style", "height", '13px'],
+            ["style", "display", 'none'],
+            ["style", "opacity", '0'],
+            ["style", "left", '13px'],
+            ["style", "width", '200px']
+         ],
+         "${_bg}": [
+            ["style", "top", '0px'],
+            ["style", "opacity", '0'],
+            ["style", "left", '-224px']
+         ],
+         "${_Stage}": [
+            ["color", "background-color", 'rgba(255,255,255,1)'],
+            ["style", "overflow", 'hidden'],
+            ["style", "height", '250px'],
+            ["style", "width", '300px']
+         ],
+         "${_p}": [
+            ["style", "top", '66px'],
+            ["transform", "scaleY", '0.01'],
+            ["style", "display", 'none'],
+            ["style", "left", '99px'],
+            ["transform", "scaleX", '0.01']
+         ],
+         "${_t}": [
+            ["style", "left", '18px'],
+            ["style", "top", '17px']
+         ],
+         "${_k}": [
+            ["style", "top", '202px'],
+            ["style", "opacity", '0'],
+            ["style", "left", '18px'],
+            ["style", "display", 'none']
+         ]
+      }
+   },
+   timelines: {
+      "Default Timeline": {
+         fromState: "Base State",
+         toState: "",
+         duration: 6000,
+         autoPlay: true,
+         timeline: [
+            { id: "eid75", tween: [ "style", "${_r4}", "display", 'none', { fromValue: 'none'}], position: 0, duration: 0 },
+            { id: "eid74", tween: [ "style", "${_r4}", "display", 'block', { fromValue: 'none'}], position: 5740, duration: 0 },
+            { id: "eid717", tween: [ "style", "${_k}", "top", '177px', { fromValue: '202px'}], position: 3000, duration: 1000, easing: "easeOutQuart" },
+            { id: "eid724", tween: [ "style", "${_bg}", "opacity", '1', { fromValue: '0'}], position: 0, duration: 1000 },
+            { id: "eid709", tween: [ "style", "${_hl}", "display", 'block', { fromValue: 'none'}], position: 1000, duration: 0 },
+            { id: "eid73", tween: [ "style", "${_r4}", "top", '207px', { fromValue: '223px'}], position: 5740, duration: 260, easing: "easeOutQuad" },
+            { id: "eid714", tween: [ "transform", "${_p}", "scaleX", '1', { fromValue: '0.01'}], position: 2000, duration: 1500, easing: "easeOutElastic" },
+            { id: "eid715", tween: [ "style", "${_k}", "display", 'block', { fromValue: 'none'}], position: 3000, duration: 0, easing: "easeOutElastic" },
+            { id: "eid713", tween: [ "transform", "${_p}", "scaleY", '1', { fromValue: '0.01'}], position: 2000, duration: 1500, easing: "easeOutElastic" },
+            { id: "eid718", tween: [ "style", "${_pl}", "display", 'block', { fromValue: 'none'}], position: 4000, duration: 0, easing: "easeOutQuart" },
+            { id: "eid719", tween: [ "style", "${_pl}", "display", 'none', { fromValue: 'block'}], position: 5750, duration: 0, easing: "easeOutQuart" },
+            { id: "eid72", tween: [ "style", "${_r4}", "opacity", '1', { fromValue: '0'}], position: 5740, duration: 260, easing: "easeOutQuad" },
+            { id: "eid710", tween: [ "transform", "${_hl}", "scaleY", '1', { fromValue: '0.01'}], position: 1000, duration: 1500, easing: "easeOutElastic" },
+            { id: "eid720", tween: [ "style", "${_pl}", "opacity", '0.8', { fromValue: '0'}], position: 4000, duration: 250, easing: "easeInQuart" },
+            { id: "eid721", tween: [ "style", "${_pl}", "opacity", '0', { fromValue: '0.8'}], position: 4250, duration: 1500, easing: "easeOutQuart" },
+            { id: "eid723", tween: [ "style", "${_bg}", "left", '0px', { fromValue: '-224px'}], position: 0, duration: 6000 },
+            { id: "eid716", tween: [ "style", "${_k}", "opacity", '1', { fromValue: '0'}], position: 3000, duration: 1000, easing: "easeOutQuart" },
+            { id: "eid712", tween: [ "style", "${_p}", "display", 'block', { fromValue: 'none'}], position: 2000, duration: 0 },
+            { id: "eid711", tween: [ "transform", "${_hl}", "scaleX", '1', { fromValue: '0.01'}], position: 1000, duration: 1500, easing: "easeOutElastic" }         ]
+      }
+   }
+}
+};
+
+
+Edge.registerCompositionDefn(compId, symbols, fonts, resources);
+
+/**
+ * Adobe Edge DOM Ready Event Handler
+ */
+$(window).ready(function() {
+     Edge.launchComposition(compId);
+});
+})(jQuery, AdobeEdge, "EDGE-1231310928");

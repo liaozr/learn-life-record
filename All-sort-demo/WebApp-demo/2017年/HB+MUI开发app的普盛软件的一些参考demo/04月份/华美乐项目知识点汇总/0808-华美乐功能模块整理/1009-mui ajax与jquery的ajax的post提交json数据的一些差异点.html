@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+// ----------------------------------------------------------------------------------------------------------------------
+
+        function init() {
+            // 获取通知列表
+
+
+            // 这个是 jquery的 ajax 模式
+            // jquery的ajax模式用了 contentType: "application/json",表示 传递json 格式的数据的时候，
+            // post提交的时候，它的data参数必须是 data: JSON.stringify(canshu), 这样 字符串化处理过的。
+
+            var canshu = {
+                empId: localStorage.empId
+            }
+
+            $.ajax({
+                url: getBaseServerUrl() + '/app/inform/getInformList',
+                dataType: 'json',
+                contentType: "application/json",
+                data: JSON.stringify(canshu),
+                headers: {
+                    "auth": localStorage.headParam
+                },
+                type: 'post',
+                success: function(jsonData) {
+
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+            });
+
+// ----------------------------------------------------------------------------------------------------------------------
+
+            // 这个是 mui 的ajax 模式，mui 的ajax 模式 在处理   contentType: "application/json", 传递json格式数据的时候，
+            // post提交数据的时候，是不用对data参数做任何处理的，不同于jquery 的 ajax模式，跟 axios 的处理 数据的格式 是一样的
+            // 这是因为 mui 的ajax 跟 axios  都是封装过后的， 所以才不用。
+
+            mui.ajax({
+                url: getBaseServerUrl() + '/app/inform/getInformList',
+                dataType: 'json',
+                contentType: "application/json",
+                data: {
+                    empId: localStorage.empId
+                },
+                headers: {
+                    "auth": localStorage.headParam
+                },
+                type: 'post',
+                success: function(jsonData) {
+
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                }
+            });
+
+        }
+// ----------------------------------------------------------------------------------------------------------------------
+    </script>
+</body>
+
+</html>

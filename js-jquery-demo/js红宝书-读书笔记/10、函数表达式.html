@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+函数表达式
+
+由于有声明提升的存在，定义函数不要放在条件表达式中
+
+<script>
+    if (condition) {
+        function sayHi() {
+            console.log('Hi');
+        }
+    } else {
+        function sayHi() {
+            console.log('Yo');
+        }
+    }
+</script>
+
+<!-- --------------------------------------------------------------------------------- -->
+
+在ECMAScript中属于无效语法，在不同浏览器中修正的做法并不一致。
+
+推荐的写法，如下：
+
+<script>
+    var sayHi;
+
+    if (condition) {
+        sayHi = function() {
+            console.log('Hi');
+        }
+    } else {
+        sayHi = function() {
+            console.log('Yo');
+        }
+    }
+</script>
+
+这种函数表达式不存在声明提升，所以OK。
+
+<!-- --------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>

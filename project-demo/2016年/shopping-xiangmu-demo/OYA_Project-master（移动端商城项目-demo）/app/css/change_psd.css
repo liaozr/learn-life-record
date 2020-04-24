@@ -1,0 +1,64 @@
+.layout-center {
+  margin-top: 48px;
+  width: 100%;
+  height: auto;
+  background-color: white;
+}
+
+.layout-center p {
+  padding: 10px;
+  display: flex;
+}
+
+.layout-center input {
+  height: 32px;
+  min-width: 10px;
+  border: 1px solid #d5d5d5;
+  transition: all 0.3s;
+  padding-left: 3px;
+}
+
+.layout-center input:focus {
+  border: 1px solid #1ab394;
+  box-shadow: 0 0 3px #1ab394;
+}
+
+.layout-center .phoneNum input:first-child {
+  flex: 1;
+}
+
+.layout-center .phoneNum input:last-child {
+  flex: 3;
+  cursor: not-allowed;
+}
+
+.layout-center .megInfo input:first-child {
+  flex: 3;
+}
+
+.layout-center .megInfo input:last-child {
+  flex: 2;
+  background: #8e488e;
+  color: white;
+  height: 34px;
+  border: 0;
+}
+
+.layout-center .inputPsd input {
+  flex: 1;
+}
+
+.layout-center .checkPsd input {
+  flex: 1;
+}
+
+.layout-center #sub {
+  flex: 1;
+  background: #8e488e;
+  color: white;
+  border-radius: 5px;
+}
+
+.layout-center #sub:focus {
+  border: none;
+}

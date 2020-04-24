@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.min.js"></script>
+
+</head>
+
+<body>
+  
+<!-- ------------------------------------------------------------------------------------- -->
+
+ 如何绑定html元素属性要么为一个值，要么就没有?
+
+ <!-- ------------------------------------------------------------------------------------- -->
+
+ <!-- <a :href="shouldhavehref ? 'http://xx.com/yy' : null"> -->
+
+ 上面的代码中判断shouldhavehref data值，如果该值为真则在a元素上存在href="http://xx.com/yy"，如果该值为假，则返回null，从而a元素上就不存在href属性!
+
+ 心法：只要expression的值为null，就会被清除掉!
+
+ <!-- ------------------------------------------------------------------------------------- -->
+
+<div id="app">
+    <a :href="shouldhavehref ? 'http://xx.com/yy' : null">1212</a>
+
+    <!-- shouldhavehref 为false 的话，会被解析成下面这样子的 -->
+    <!-- <a>1212</a> -->
+
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            shouldhavehref:false
+        },
+        created:function(){
+
+        }
+    })
+</script>
+
+<!-- ------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

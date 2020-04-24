@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="易送气" />
+		<meta name="Description" content="易送气" />
+		<title>我的积分</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/yhn.css" />
+	</head>
+
+	<body class="y-points">
+		<div id="loadpage">
+			<img src="img/loading2.gif" alt="" />
+		</div>
+		<div class="clear"></div>
+		<!--头部-->
+		<header class="y-mytop">
+			<h1>我的积分</h1>
+			<div class="return-box">
+				<img src="img/icon-return.png" alt="" />
+				<span>返回</span>
+			</div>
+		</header>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper under-top" style="top:1.25rem;">
+			<div class="mui-scroll">
+				<!--用户状态栏-->
+				<div class="userHead under-top" style="height:2.7rem;">
+					<h2>可用积分</h2>
+					<h3><span id="jf" style="font-size:.8rem">9999999</span></h3>
+				</div>
+
+				<ul class="jf-title">
+					<li class="left jf-title-li active">全部积分</li>
+					<li class="left jf-title-li">积分收入</li>
+					<li class="left jf-title-li">积分支出</li>
+					<li class="left jf-title-li">积分冻结</li>
+				</ul>
+
+				<section class="jf-box">
+					<h1 class="y-h140">
+				<img class="left" src="img/jf-mqg.png" alt="" />
+				<div class="left">
+					<h2><span>12kg直阀瓶</span><strong>7-20</strong></h1>
+					<h3><strong>购物送积分</strong><span>84</span></h2>
+				</div>
+			</h1>
+			<h1 class="y-h140">
+				<img class="left" src="img/jf-pl.png" alt="" />
+				<div class="left">
+					<h2><span>评论</span><strong>7-20</strong></h1>
+					<h3><strong>评论送积分</strong><span>84</span></h2>
+				</div>
+			</h1>
+			<h1 class="y-h140">
+				<img class="left" src="img/jf-mqg.png" alt="" />
+				<div class="left">
+					<h2><span>12kg直阀瓶</span><strong>7-20</strong></h1>
+					<h3><strong>购物送积分</strong><span>84</span></h2>
+				</div>
+			</h1>
+			<h1 class="y-h140">
+				<img class="left" src="img/jf-pl.png" alt="" />
+				<div class="left">
+					<h2><span>评论</span><strong>7-20</strong></h1>
+					<h3><strong>评论送积分</strong><span>84</span></h2>
+				</div>
+			</h1>
+			<h1 class="y-h140">
+				<img class="left" src="img/jf-mqg.png" alt="" />
+				<div class="left">
+					<h2><span>12kg直阀瓶</span><strong>7-20</strong></h1>
+					<h3><strong>购物送积分</strong><span>84</span></h2>
+				</div>
+			</h1>
+			<h1 class="y-h140">
+				<img class="left" src="img/jf-pl.png" alt="" />
+				<div class="left">
+					<h2><span>评论</span><strong>7-20</strong></h1>
+					<h3><strong>评论送积分</strong><span>84</span></h2>
+				</div>
+			</h1>
+			<h1 class="y-h140">
+				<img class="left" src="img/jf-mqg.png" alt="" />
+				<div class="left">
+					<h2><span>12kg直阀瓶</span><strong>7-20</strong></h1>
+					<h3><strong>购物送积分</strong><span>84</span></h2>
+				</div>
+			</h1>
+			<h1 class="y-h140">
+				<img class="left" src="img/jf-pl.png" alt="" />
+				<div class="left">
+					<h2><span>评论</span><strong>7-20</strong></h1>
+					<h3><strong>评论送积分</strong><span>84</span></h2>
+				</div>
+			</h1>
+			<h1 class="y-h140">
+				<img class="left" src="img/jf-mqg.png" alt="" />
+				<div class="left">
+					<h2><span>12kg直阀瓶</span><strong>7-20</strong></h1>
+					<h3><strong>购物送积分</strong><span>84</span></h2>
+				</div>
+			</h1>
+			<h1 class="y-h140">
+				<img class="left" src="img/jf-pl.png" alt="" />
+				<div class="left">
+					<h2><span>评论</span><strong>7-20</strong></h1>
+					<h3><strong>评论送积分</strong><span>84</span></h2>
+				</div>
+			</h1>
+		</section>
+			</div>
+		</div>
+	</body>
+	<script src="js/zepto1.1.6.min.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/global.js"></script>
+	<script>
+		$(document).ready(function(){
+			$(".jf-title-li").on("tap1",function(){
+				$(".jf-title-li").removeClass("active");
+				$(this).addClass("active");
+			});
+		});
+		//页面加载完毕删除遮罩层
+		window.onload=function(){
+			$("#loadpage").css("display","none");
+		}
+		
+		var ua = navigator.userAgent.toLowerCase();	
+				if(ua.match(/MicroMessenger/i)=="micromessenger") {  
+       				$(".y-mytop").css("display","none");
+					$(".under-top").css("top",0);
+   				 }
+		//////////////////下拉刷新//////////////////////////////
+		mui.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: {
+					callback: pulldownRefresh
+				},
+			}
+		});
+		/**
+		 * 下拉刷新具体业务实现
+		 */
+		function pulldownRefresh() {
+			setTimeout(function() {
+				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+				//do something
+			}, 1500);
+		}
+		////////////////////页面跳转/////////////////////
+		//返回
+		$(".return-box").on("tap1",function(){
+			window.history.go(-1);
+		});
+		
+		//数据交互
+		/////vue实例化///
+		/*var vm = new Vue({
+			el: '#scope',
+			data: {
+				//瓶类信息对象 
+				sss: '',
+				//传递对象，view-model双向绑定,同时可作为最终提交数据对象
+				postData: {
+					franchiseId: "FRCH1608030007",
+					openId: "o7ej-t02ke9fVN4jh3l_W0RcoBoM",
+					memberId: "402881ec56a084470156a0e1b2100001",
+					memberName: "",
+					mobileNo: "",
+					certificateType: "",
+					certificateNo: "",
+					province: "广东省",
+					city: "深圳市",
+					county: "福田区",
+					address: "",
+					bottleTypeId: "",
+				},
+			},
+			ready: function() {
+				//实例化后 请求瓶类信息对象
+				$.ajax({
+					type: "get",
+					url: getBaseServerUrl() + "/client/customer/gasBottles",
+					data: {
+						bottlesType: "01",
+						franchiseId: "FRCH1608030007"
+					},
+					success: function(data) {
+						vm.sss = data;
+					},
+
+				});
+			}
+
+		});*/
+		
+		function getVal() {
+			$.ajax({
+				type: "get",
+				url: getBaseServerUrl() + "/client/customer/myPoints",
+				data: {
+					"memberId": "4028b881568dbee701568dc0fb390001",
+					"openId": " o7ej-t02ke9fVN4jh3l_W0RcoBoM",
+					"franchiseId": "FRCH1608030007",
+				},
+				success: function(data) {
+					console.log(data);
+				},
+
+			});
+		};
+		
+		getVal();
+	</script>
+</html>

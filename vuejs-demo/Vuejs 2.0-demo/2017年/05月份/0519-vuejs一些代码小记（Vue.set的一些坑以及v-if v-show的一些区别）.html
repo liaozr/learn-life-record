@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------     -->
+
+    <div v-for='(index,item) in photoList'>
+        <div>
+            <!-- <img  v-show="item.flag" :src="item.wuliuUrl | formatURL " class="upploadImg2" /> -->
+            <img v-show="item.flag" src="{{ item.wuliuUrl}}" class="upploadImg2" />
+
+    <!-- ------------------------------------------------------------------------------------- -->
+            <!-- <img v-if="item.flag" src="{{ item.wuliuUrl}}" class="upploadImg2" /> -->
+
+            <!-- 这里发现 其实 用      <img v-show="item.flag" 跟 用 <img v-if="item.flag"
+            还是有很大区别的，用的时候发现，如果img用v-if的展示展现消失的话，倘若这个img元素
+            若是有绑定事件的话，会发现用v-if后，第二次是不会触发事件的，因为 v-if的效果相当于是移除了该元素
+            而v-show的效果是 display:none的效果，元素并没有从页面中移除的，所以它依然能被事件触发到。
+
+            所以，在用 v-show v-if的时候，要记得这点  v-if v-show之间的区别的重要性，不然这点很有可能会是一个坑来的
+
+            一般是不经常切换的动作以及没有事件要触发的元素显示隐藏可以采用v-if，但是有很大可能上会经常显示隐藏的元素
+            还是用 v-show好点，切换的代价没有那么大，而且还会伴随着事件的触发。
+
+            -->
+
+    <!-- ------------------------------------------------------------------------------------- -->
+
+            <img v-else class='upploadImg' src="../images/addphoto.png" alt="" />
+            <input type="file" class="uploadphoto" name="uploadfile" accept="image/*" style="display: none;" />
+
+        </div>
+        <p>{{item.photoPosition}}</p>
+
+        <!-- 下面注释掉的span标签是用于关闭图片的 -->
+        <span v-show="item.flag" @click='close(index,item)'></span>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: 'body',
+            data: {
+                songhuodan: '',
+                dataArr: {
+
+                },
+                photoList: [],
+
+            },
+            methods: {
+                save: function(e) {
+
+                    this.dataArr.photoList = this.photoList;
+                    init(this.dataArr);
+                    openNew(e.target.getAttribute('data-page'));
+                },
+                close: function(index, item) {
+                    item.imgurl = '';
+                    item.photoUrl = '';
+                    item.wuliuUrl = '';
+                    item.flag = false;
+                }
+            },
+            ready: function() {
+                this.dataArr = JSON.parse(localStorage.songhuomsg);
+
+
+                this.photoList = this.dataArr.photoList;
+
+                var arr = this.photoList;
+
+                var length = this.photoList.length;
+
+                var photoList = this.dataArr.photoList;
+// ----------------------------------------------------------------------------------------
+                // 原有的data下的数组photoList下，没有的属性倘若是以下面
+                // 那段被注释了的方式来创建的话，在合并到数组里面的话，
+                // 这样创建的刚这个数组下的每个变量是有这些属性，如photourl，
+                // imgurl flag等这些属性，但是这些属性呢如果是一开始vue的data里面没有的，
+                // 是新创建的话以下面这种形式创建出来的，是不会动态响应的
+                // <img v-show="item.flag" src="{{ item.wuliuUrl}}" class="upploadImg2" />
+                // <img v-else class='upploadImg' src="../images/addphoto.png" alt="" />
+                // 即上面这段html代码中的 item.flag是不会动态响应的，即
+                // <img v-show="item.flag" src="{{ item.wuliuUrl}}" class="upploadImg2" />
+                // 这段代码是不会出来的，不会动态响应的。
+                //
+                // 解决办法就是 用Vue.set来创建 vue data里面没有的变量属性。这样新创建出来的
+                // 变量属性才是会动态响应的。
+                //
+                // 如下面两段 if语句代码，表明的是先判断每个对象里面 是否有
+                // flag 跟 imgurl 这两个属性，如果没有的话
+                // 就用 Vue.set来创建这个变量属性，并给它赋一个初始值。
+                // 这样，这些后创建的变量属性，就可以动态响应了
+                //
+                // if (typeof this.photoList[i].flag == 'undefined') {
+                //     Vue.set(this.photoList[i], "flag", false)
+                // }
+                // if (typeof this.photoList[i].imgurl == 'undefined') {
+                //     Vue.set(this.photoList[i], "imgurl", '')
+                // }
+                //
+                // 所以，也就可以直接在页面上动态响应了。
+                // 不然，在实践中发现，对象其实已经有有这个值了，但是不会动态响应，也就是说
+                // 下面的两段img代码效果不会起作用。
+                // <img v-show="item.flag" src="{{ item.wuliuUrl}}" class="upploadImg2" />
+                // <img v-else class='upploadImg' src="../images/addphoto.png" alt="" />
+// ----------------------------------------------------------------------------------------
+                // var msg={
+                //    "photoOptionId":'',    //拍照选项编号
+                //    "photoOption":'',      //拍照选项名称
+                //    "photoUrl":'' ,        //给后台的照片路径
+                //    'imgurl':'',           //前台展示的照片路径
+                //    'wuliuUrl':'',
+                //    'flag':false
+                // }
+// ----------------------------------------------------------------------------------------
+
+                var msg = {
+                    "photoOptionId": '', //拍照选项编号
+                    "photoOption": '' //拍照选项名称
+                }
+
+                for (var i = 0; i < length; i++) {
+
+                    msg.photoOptionId = this.photoList[i].tplId;
+                    msg.photoOption = this.photoList[i].photoStandard;
+                    this.photoList[i] = $.extend(true, this.photoList[i], msg);
+
+                    if (typeof this.photoList[i].flag == 'undefined') {
+                        Vue.set(this.photoList[i], "flag", false)
+                    }
+                    if (typeof this.photoList[i].imgurl == 'undefined') {
+
+                        Vue.set(this.photoList[i], "imgurl", '')
+                    }
+                    if (typeof this.photoList[i].photoUrl == 'undefined') {
+
+                        Vue.set(this.photoList[i], "photoUrl", '')
+                    }
+                    if (typeof this.photoList[i].wuliuUrl == 'undefined') {
+
+                        Vue.set(this.photoList[i], "wuliuUrl", '')
+                    }
+                }
+
+                this.photoList = this.dataArr.photoList;
+
+                console.log(this.photoList)
+            }
+        })
+    </script>
+
+<!-- ------------------------------------------------------------------------------------     -->
+
+</body>
+
+</html>

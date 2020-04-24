@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="text"></div>
+
+    <script>
+        function time(y, m) {
+
+            var tempTime = new Date(y, m, 0);
+
+            var time = new Date();
+
+            var saturday = new Array();
+
+            var sunday = new Array();
+
+
+            for (var i = 1; i <= tempTime.getDate(); i++) {
+
+                time.setFullYear(y, m - 1, i);
+                var day = time.getDay();
+                if (day == 6) {
+                    saturday.push(i);
+                } else if (day == 0) {
+                    sunday.push(i);
+                }
+            }
+
+            var text = y + "年" + m + "月份" + "<br />"
+
+                +
+                "周六：" + saturday.toString() + "<br />"
+
+                +
+                "周日：" + sunday.toString();
+
+
+
+            document.getElementById("text").innerHTML = text;
+
+        }
+
+
+        time(2018, 5);
+
+    </script>
+
+</body>
+
+</html>

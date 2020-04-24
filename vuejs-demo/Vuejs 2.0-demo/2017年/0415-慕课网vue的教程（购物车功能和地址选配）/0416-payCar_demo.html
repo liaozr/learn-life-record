@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+	<style>
+		table {
+			border-collapse: collapse;
+			border-spacing: 0;
+			width: 100%;
+			background-color: #ffffff;
+		}
+
+		tr {
+			height: auto;
+			border: 1px solid #ccc;
+			font-size: 18px;
+		}
+
+		td {
+			border: 1px solid #ccc;
+			text-align: center;
+		}
+
+		td input {
+			width: 100%;
+		}
+
+		.tr-num {
+			text-indent: 0em;
+		}
+
+		.tr-num span {
+			disply: inline-block;
+			min-width: 50px;
+			height: 30px;
+			float: left;
+		}
+
+		.left {
+			float: left;
+			position: relative;
+		}
+
+		.left input {
+			opacity: 0;
+		}
+
+		.left span.checkbox {
+			position: absolute;
+			left: 0%;
+			top: -36%;
+			background: url(icon-select.png) no-repeat;
+			width: 30px;
+			height: 30px;
+			background-size: 30px 30px;
+		}
+
+		.left span.checkbox.checked {
+			position: absolute;
+			left: 0%;
+			top: -36%;
+			background: url(icon-yuanquan.png) no-repeat;
+			width: 30px;
+			height: 30px;
+			background-size: 30px 30px;
+		}
+
+		.left span.checkbox_quxiao {
+			position: absolute;
+			left: 39%;
+			top: -36%;
+			background: url(icon-select.png) no-repeat;
+			width: 30px;
+			height: 30px;
+			background-size: 30px 30px;
+		}
+
+		.left span.checkbox_quxiao.checked {
+			position: absolute;
+			left: 0%;
+			top: -36%;
+			background: url(icon-yuanquan.png) no-repeat;
+			width: 30px;
+			height: 30px;
+			background-size: 30px 30px;
+		}
+
+		.right {
+			float: right;
+			margin-right: 20px;
+		}
+
+		input.checked {}
+
+		td input[type='checkbox'] {
+			opacity: 0;
+		}
+
+		td {
+			position: relative;
+			vertical-align: middle;
+		}
+
+		td .checkbox {
+			position: absolute;
+			width: 30px;
+			height: 30px;
+			display: inline-block;
+			background: url(icon-select.png) no-repeat;
+			background-size: 30px 30px;
+			left: 18%;
+			top: 25%;
+			vertical-align: middle;
+		}
+
+		td .checkbox.checked {
+			position: absolute;
+			width: 30px;
+			height: 30px;
+			display: inline-block;
+			background: url(icon-select1.png) no-repeat;
+			background-size: 30px 30px;
+			left: 18%;
+			top: 25%;
+		}
+	</style>
+</head>
+
+<body class='layout'>
+
+	<div id="app">
+		<table>
+			<thead>
+				<tr>
+					<th>商品信息</th>
+					<th>商品金额</th>
+					<th>商品数量</th>
+					<th>总金额</th>
+					<th>编辑</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for='(item,index) in items'>
+					<td>
+						<input type="checkbox" name="chose" :id="'pro_name'+index">
+
+						<!--
+								v:bind class 是添加class的作用，并不会覆盖 之前原先有的class值
+								:class 绑定class的写法 ，外面是双引号，双引号里面必须是对象 或者 是数组形式的写法。
+					  -->
+
+						<span class='checkbox' :class="{'checked':item.checked}" @click='selected(item,index)'></span>
+						<img src="" alt="">
+						<label :for="'pro_name'+index">{{item.name}}</label>
+					</td>
+					<td>{{item.price}}元</td>
+					<td class='tr-num'>
+						<span class='del' @click='changeMoney(item,-1)'>-</span>
+						<span class='num'>{{item.num}}</span>
+						<span class='add' @click='changeMoney(item,1)'>+</span>
+					</td>
+					<td>{{item.price * item.num}}元</td>
+					<td @click="deleteProduct(item,index)">删除</td>
+				</tr>
+				<tr>
+					<div class="left">
+						<input type="checkbox" name="quanxuanList" id="quanxuan">
+						<span class='checkbox' ref='quanxuan' @click='quanxuan($event)'></span>
+						<label for="quanxuan">全选</label>
+					</div>
+					<div class='right'>all count:{{totalMoney}} &nbsp; &nbsp;
+						<div @click='goToPay'>结账</div>
+					</div>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		var arrNum = [];
+		var flag = false;
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				items: [{
+						name: '速度三',
+						price: 19,
+						num: 1
+					},
+					{
+						name: '速度四',
+						price: 11,
+						num: 1
+					},
+					{
+						name: '速度五',
+						price: 20,
+						num: 1
+					}
+				],
+			},
+			//  商品总价格的计算 用计算属性去做是最好的，也是最方便的。
+			//  因为商品总价格是要看选中的，而凡是选中的商品，都有一个共性，就是
+			//  item.checked是为true的   而凡是选中的商品，都有一个共性，就是
+			//  item.checked是为true的，
+			//  所以我们只需 forEach遍历 this.items这个数组
+			//  因为 当商品选中的时候，执行 Vue.set(item, "checked", true)，
+			//  相当于 选中的商品（item）拥有 四个属性 分别是（name price num checked） 这四个属性值的。
+			//  所以只需要判断 item.checked 是否存在，是否值为true,则可以表明 该商品是否在选中状态的。
+
+			//  所以只需要判断 item.checked 是否存在，是否值为true,则可以表明 该商品是否在选中状态的。
+			computed: {
+				totalMoney: function() {
+					var results = 0;
+					this.items.forEach(function(item) {
+						if (item.checked) { // 如果是选中状态
+							// 如果是选中状态 则将总价钱 一一 相加，得到 所有的价钱总数
+							results += item.price * item.num
+						}
+					})
+					return results
+				}
+			},
+			methods: {
+				changeMoney(item, m) {
+					if (m >= 1) {
+						item.num++
+					} else {
+						if (item.num == 1) {
+							item.num = 1;
+						} else {
+							item.num--;
+						}
+					}
+				},
+				// 结账
+				goToPay() {
+					if (this.totalMoney == 0) {
+						alert('请先购买商品再结账')
+					}
+				},
+				deleteProduct(item, index) {
+					// splice从某个位置删除一个
+					this.items.splice(index, 1);
+				},
+				selected(item, index) {
+
+					// 检测数据中是否存在某一属性，可以用此方法，
+					// typeof item.checked =='undefined'
+
+					if (typeof item.checked == 'undefined') {
+						//  Vue全局注册，往item这个对象里面注册一个checked属性，属性为checked,值为 true
+
+						// 给每个循环的数据段，动态加入了一个字段，要把当前的数据段 item 传入到函数 selected(item)中，
+						// 然后在这个函数内部就可以判断  typeof item.要加的字段名 == 'undefined' 为true 则没有，就 this.$set(item,'cheacked',true)
+
+						// 变量在一个对象里不存在时，vue不能监听该变量。
+						// 需要用set为对象注册变量（vue.set() 是全局注册； this.$set() 是局部注册）
+
+						// 勾选应用：项有了新的属性，该属性不在后端接口中。作为一个框架变量。
+						// 用Vue.set或this.$set(项，key，value) 注册.这么做是因为项是循环渲染的，
+						// 也没法在data里一开始声明出来（全选就可以）
+
+						// vue.set 添加全局变量
+						Vue.set(item, "checked", true)
+						arrNum.push(index);
+					} else {
+						item.checked = !item.checked;
+						if (item.checked) {
+							arrNum.push(index);
+						} else {
+							if (flag == true) {
+								// 防止先点击了一些input框 再点击全选按钮，
+								// 所以先把 arrNum 这个数组得清空，再把所有字段push到这个数组里面
+								arrNum = [];
+								for (var i = 0; i < this.items.length; i++) {
+									arrNum.push(i);
+								}
+								flag = false;
+							}
+							for (var i = 0; i < arrNum.length; i++) {
+								if (index == arrNum[i]) {
+									arrNum.splice(i, 1);
+								}
+							}
+						}
+					}
+					// 数组去重
+					var arrnum = quchong(arrNum);
+					if (arrnum.length == this.items.length) {
+						// e.target.classList.add("checked");
+						this.$refs.quanxuan.classList.add('checked')
+					} else {
+						this.$refs.quanxuan.classList.remove('checked')
+					}
+				},
+				// 实现全选按钮的逻辑
+				quanxuan(e) {
+
+					// 原生js怎么判断 是否含有某个class值
+					if (e.target.className.indexOf('ed') > -1) {
+						e.target.classList.remove("checked");
+
+						// 取消全选的时候，要记得把数组清空掉
+						arrNum = [];
+
+						var length = this.items.length;
+						var arr = this.items;
+						for (var i = 0; i < length; i++) {
+							Vue.set(arr[i], "checked", false)
+						}
+						flag = false;
+					} else {
+						e.target.classList.add("checked");
+						var length = this.items.length;
+						var arr = this.items;
+
+						for (var i = 0; i < length; i++) {
+							// 也是要先判断 是不是含有 checked属性
+							if (typeof arr[i].checked == 'undefined') {
+								// vue.set 添加全局变量
+								Vue.set(arr[i], "checked", true)
+							} else {
+								Vue.set(arr[i], "checked", true)
+							}
+						}
+						flag = true;
+					}
+				}
+			}
+		})
+
+		function quchong(arr) {
+			for (var i = 0; i < arr.length; i++) {
+				for (var j = i + 1; j < arr.length; j++) {
+					if (arr[i] === arr[j]) {
+						arr.splice(j, 1);
+					}
+					//如果前一个值与后一个值相等，那么就去掉后一个值，splice()可以修改原数组
+				}
+			}
+			console.log(arr)
+			return arr;
+		}
+	</script>
+</body>
+
+</html>

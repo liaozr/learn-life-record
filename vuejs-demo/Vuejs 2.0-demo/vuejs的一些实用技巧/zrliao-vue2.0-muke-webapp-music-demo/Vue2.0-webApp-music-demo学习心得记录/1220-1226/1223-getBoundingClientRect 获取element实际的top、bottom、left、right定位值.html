@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+        // 点击播放进度条，实现歌曲播放进度的变化
+        progressClick(e) {
+
+            // e.offsetX 得到的是当前点击播放进度条的当前偏移量
+            // offsetX 设置或者是得到鼠标相对于目标事件的父元素的内边界在x坐标上的位置
+
+            // 当我们这里点击  progressBtn的时候，e.offsetX 获取不对
+            // 所以，不能直接使用 e.offsetX
+            // this._offset(e.offsetX)
+
+            // getBoundingClientRect 获取element实际的top、bottom、left、right定位值
+            const rect = this.$refs.progressBar.getBoundingClientRect()
+
+            // 偏移量
+
+            // pageX() 属性是鼠标指针的位置，相对于文档的左边缘。
+            
+            const offsetWidth = e.pageX - rect.left
+
+            this._offset(offsetWidth)
+
+            this._triggerPercent()
+        }
+
+    </script>
+
+</body>
+
+</html>

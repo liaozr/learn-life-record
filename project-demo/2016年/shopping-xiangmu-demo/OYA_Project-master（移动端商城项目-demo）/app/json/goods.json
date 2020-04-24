@@ -1,0 +1,439 @@
+[
+    {
+	"id":"10001",
+	"url":"../img/18.jpg",
+	"show":[
+			{"imgurl":"../img/18.jpg"},
+			{"imgurl":"../img/18.jpg"},
+			{"imgurl":"../img/18.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"100",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"1"
+	},
+	{
+	"id":"10002",
+	"url":"../img/22.jpg",
+	"show":[
+			{"imgurl":"../img/22.jpg"},
+			{"imgurl":"../img/22.jpg"},
+			{"imgurl":"../img/22.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"1"
+	},{
+	"id":"10003",
+	"url":"../img/54.jpg",
+	"show":[
+			{"imgurl":"../img/54.jpg"},
+			{"imgurl":"../img/54.jpg"},
+			{"imgurl":"../img/54.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"1"
+	},
+	{
+	"id":"10004",
+	"url":"../img/55.jpg",
+	"show":[
+			{"imgurl":"../img/55.jpg"},
+			{"imgurl":"../img/55.jpg"},
+			{"imgurl":"../img/55.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"1"
+	},
+	{
+	"id":"10005",
+	"url":"../img/56.jpg",
+	"show":[
+			{"imgurl":"../img/56.jpg"},
+			{"imgurl":"../img/56.jpg"},
+			{"imgurl":"../img/56.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"1"
+	},{
+	"id":"10006",
+	"url":"../img/57.jpg",
+	"show":[
+			{"imgurl":"../img/57.jpg"},
+			{"imgurl":"../img/57.jpg"},
+			{"imgurl":"../img/57.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"1"
+	},
+	{
+	"id":"10007",
+	"url":"../img/58.jpg",
+	"show":[
+			{"imgurl":"../img/58.jpg"},
+			{"imgurl":"../img/58.jpg"},
+			{"imgurl":"../img/58.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"1"
+	},
+	{
+	"id":"10008",
+	"url":"../img/57.jpg",
+	"show":[
+			{"imgurl":"../img/57.jpg"},
+			{"imgurl":"../img/58.jpg"},
+			{"imgurl":"../img/59.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"1"
+	},
+	{
+	"id":"10009",
+	"url":"../img/58.jpg",
+	"show":[
+			{"imgurl":"../img/57.jpg"},
+			{"imgurl":"../img/58.jpg"},
+			{"imgurl":"../img/59.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"1"
+	},
+	{
+	"id":"10010",
+	"url":"../img/56.jpg",
+	"show":[
+			{"imgurl":"../img/57.jpg"},
+			{"imgurl":"../img/58.jpg"},
+			{"imgurl":"../img/59.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"1"
+	},
+	{
+	"id":"10011",
+	"url":"../img/57.jpg",
+	"show":[
+			{"imgurl":"../img/57.jpg"},
+			{"imgurl":"../img/58.jpg"},
+			{"imgurl":"../img/59.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"1"
+	},{
+	"id":"10012",
+	"url":"../img/58.jpg",
+	"show":[
+			{"imgurl":"../img/57.jpg"},
+			{"imgurl":"../img/58.jpg"},
+			{"imgurl":"../img/59.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"1"
+	},
+	{
+	"id":"100013",
+	"url":"../img/56.jpg",
+	"show":[
+			{"imgurl":"../img/57.jpg"},
+			{"imgurl":"../img/58.jpg"},
+			{"imgurl":"../img/59.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"1"
+	},
+	{
+	"id":"10014",
+	"url":"../img/57.jpg",
+	"show":[
+			{"imgurl":"../img/57.jpg"},
+			{"imgurl":"../img/58.jpg"},
+			{"imgurl":"../img/59.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"1"
+	},{
+	"id":"10015",
+	"url":"../img/58.jpg",
+	"show":[
+			{"imgurl":"../img/57.jpg"},
+			{"imgurl":"../img/58.jpg"},
+			{"imgurl":"../img/59.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"1"
+	},
+	{
+	"id":"10016",
+	"url":"../img/56.jpg",
+	"show":[
+			{"imgurl":"../img/57.jpg"},
+			{"imgurl":"../img/58.jpg"},
+			{"imgurl":"../img/59.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"2"
+	},
+	{
+	"id":"10017",
+	"url":"../img/57.jpg",
+	"show":[
+			{"imgurl":"../img/57.jpg"},
+			{"imgurl":"../img/58.jpg"},
+			{"imgurl":"../img/59.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"2"
+	},
+	{
+	"id":"10018",
+	"url":"../img/58.jpg",
+	"show":[
+			{"imgurl":"../img/57.jpg"},
+			{"imgurl":"../img/58.jpg"},
+			{"imgurl":"../img/59.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"2"
+	},
+	{
+	"id":"10019",
+	"url":"../img/58.jpg",
+	"show":[
+			{"imgurl":"../img/57.jpg"},
+			{"imgurl":"../img/58.jpg"},
+			{"imgurl":"../img/59.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"2"
+	},
+	{
+	"id":"10020",
+	"url":"../img/58.jpg",
+	"show":[
+			{"imgurl":"../img/57.jpg"},
+			{"imgurl":"../img/58.jpg"},
+			{"imgurl":"../img/59.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"2"
+	},
+	{
+	"id":"10021",
+	"url":"../img/58.jpg",
+	"show":[
+			{"imgurl":"../img/57.jpg"},
+			{"imgurl":"../img/58.jpg"},
+			{"imgurl":"../img/59.jpg"}
+			],
+	"types":"dress",
+	"name":"斯文印花黑灰色短衬连衣裙",
+	"brandname":"诱惑衣柜",
+	"productname":"女款黑色条纹上衣阔腿裤套装",
+	"born":"中国",
+	"texture":"上衣:粘纤77% 聚酯纤维18.5% 氨纶4.5% 裤子:聚酯纤维100%",
+	"wash":"最高洗涤温度40°C不可漂白 平摊晾干 熨斗底部最高温度110°C常规干洗",
+	"price":"120",
+	"off":"0.6",
+	"star":"5",
+	"comentcount":"10002",
+	"pageNo":"2"
+	}
+]

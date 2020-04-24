@@ -1,0 +1,272 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<meta name="Keywords" content="知了云课堂" />
+		<meta name="Description" content="知了云课堂" />
+		<title>知了云课堂</title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<script type="text/javascript" src="js/flexible.debug.js"></script>
+		<script type="text/javascript" src="js/flexible_css.debug.js"></script>
+	</head>
+	<style>
+			html,body {
+				min-height: 100%;
+				background-color: #efeff4;
+			}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 id="title" class="mui-title"><span class="cc-title">知了</span></h1>
+			<div id="info" class="mui-pull-right">
+				<a class="mui-icon ">
+					<img src="img/notice_normal.png" style="width:1em;height:1em;"/>
+				</a>
+			</div>
+		</header>
+		<nav class="bottom-bar bottom-bar-tab">
+			<div class="bottom-tab-item bottom-active mui-hidden" data-index="0">
+				<span class="bottom-icon icon-home"></span>
+				<span class="bottom-tab-label">首页</span>
+			</div>
+			<div class="bottom-tab-item mui-hidden" data-index="1">
+				<span class="bottom-icon icon-task"></span>
+				<span class="bottom-tab-label">任务</span>
+			</div>
+			<div class="bottom-tab-item mui-hidden" data-index="2">
+				<div class="bottom-icon icon-mine"></div>
+				<span class="bottom-tab-label">我的</span>
+			</div>
+		</nav>
+	</body>
+	<script src="js/zepto1.1.6.min.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script src="js/locStorage.js"></script>
+	<!--Sea.js 前端模块化开发框架-->
+	<script type="text/javascript" src="js/sea.js"></script>
+	<script type="text/javascript">
+		seajs.config({});
+		//加载多个模块，在加载完成时，执行回调
+		var sqlObj = null;
+		seajs.use("db", function(sql) {
+			sqlObj = sql;
+			//创建数据库
+			seajs.use("$");
+			sqlObj.createDataBase($.locStorage.dbName, "1.0", "数据库", 2 * 1024 * 1024);
+			sqlObj.findMenuByLevel(1,findMenuByLevelResult);
+			
+		});
+		var subpages = [];
+		//查询1级别菜单
+		function findMenuByLevelResult(data){
+			console.log(data.length+"一级菜单")
+			var tabs = document.querySelectorAll(".bottom-tab-item");
+			
+				
+				var MENU_ICON,MENU_ID;
+				for (var i=0;i<data.length;i++) {
+					MENU_ICON = data[i].menuIcon;
+					MENU_ID = data[i].id;
+					if(MENU_ICON == 'ICON_HOME'){
+						localStorage.setItem($.locStorage.homeId,MENU_ID);
+						subpages.push("home.html");
+						tabs[0].classList.remove("mui-hidden");
+					}else if(MENU_ICON == 'ICON_TASK'){
+						localStorage.setItem($.locStorage.taskId,MENU_ID);
+						subpages.push("task.html");
+						tabs[1].classList.remove("mui-hidden");
+					}else if(MENU_ICON == 'ICON_MINE'){
+						localStorage.setItem($.locStorage.mineId,MENU_ID);
+						subpages.push("mine.html");
+						tabs[2].classList.remove("mui-hidden");
+					}
+				}
+				//console.log(subpages);
+				abc();
+			
+		}
+		
+		mui.init();
+	function abc(){
+		mui.plusReady(function() {
+			/**
+			 * 当前窗口对象，即父窗口；
+			 * http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.currentWebview
+			 */
+			console.log(subpages+"1111111111111111");
+			var self = plus.webview.currentWebview();
+			// 子窗口地址数组
+			
+			// 子窗口样式
+			var subStyles = {
+				top: "44px",
+				bottom: "50px"
+			};
+			// 子窗口数量
+			var subLen = subpages.length;
+			// 子窗口对象数组
+			var subWvs = [];
+			// 标题栏
+			var title = document.querySelector(".cc-title");
+			// 底部选项
+			var tabs = document.querySelectorAll(".bottom-tab-item");
+			// 底部文字
+			var labels = document.querySelectorAll(".bottom-tab-label");
+			// 当前页面索引，初始化为0；
+			var activeIndex = 0;
+			// 目标页面索引，初始化为当前页面索引；
+			var targetIndex = activeIndex;
+			// 创建子页面
+			for(var i = 0; i < subLen; i++) {
+				/**
+				 * 创建窗口对象，并将索引做为额外的参数传递；
+				 * http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.create
+				 */
+				var subWv = plus.webview.create(subpages[i], cutWebviewId(subpages[i]), subStyles, {
+					index: i
+				});
+				// 窗口对象添加至数组
+				subWvs.push(subWv);
+				console.log(subWvs+"22222222222222");
+				if(i > 0) {
+					/**
+					 * 隐藏非第一页的窗口对象
+					 * http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewObject.hide
+					 */
+					subWv.hide("none");
+				}
+				/**
+				 * 向父窗口添加子窗口
+				 * http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewObject.append
+				 */
+				self.append(subWv);
+			}
+			// 底部选项卡点击切换事件
+			for(var j = 0, jlen = tabs.length; j < jlen; j++) {
+				tabs[j].addEventListener("tap", function() {
+					// 获取当前结点的索引
+					targetIndex = this.getAttribute("data-index");
+					// 转换为number类型
+					targetIndex = parseInt(targetIndex, 10);
+					if(targetIndex == activeIndex) {
+						return;
+					}
+					// 切换页面
+					switchPage("tap", activeIndex, targetIndex);
+				});
+			}
+			// 子页面滑动切换事件
+			window.addEventListener("swipe_event", function(event) {
+				// 获取方向以及索引
+				var direction = event.detail.direction;
+				activeIndex = event.detail.index;
+				if(direction == "left") {
+					// 如果是最后一个页面，则不做左滑切换；
+					if(activeIndex == subLen - 1) {
+						console.log("最右边一页了");
+						return;
+					}
+					// 目标页面的索引为后面一位
+					targetIndex = activeIndex + 1;
+				} else {
+					// 如果是第一个页面，则不做右滑切换；
+					if(activeIndex == 0) {
+						console.log("最左边一页了");
+						return;
+					}
+					// 目标页面的索引为前面一位
+					targetIndex = activeIndex - 1;
+				}
+				// 切换页面
+				switchPage("switch", activeIndex, targetIndex);
+			});
+
+			/**
+			 * 切换页面
+			 * @param {String} _event 事件类型
+			 * @param {Number} _active 当前页面索引
+			 * @param {Number} _target 目标页面索引
+			 */
+			function switchPage(_event, _active, _target) {
+				/**
+				 * 目标页面展示
+				 * http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewObject.show
+				 * fade-in 从透明到不透明逐渐显示效果
+				 *
+				 */
+				var a=_target;
+				console.log(subWvs[_target]);
+				subWvs[_target].show("fade-in");
+				// 顶部文字替换
+				title.innerText = labels[_target].innerText;
+				// 如果是滑动事件，则手动切换高亮选项；
+				//if(_event == "switch") {
+				tabs[_active].classList.remove("bottom-active");
+				tabs[_target].classList.add("bottom-active");
+				//}
+				// 之前展示的页面隐藏
+				subWvs[_active].hide("none");
+				// 更新当前页索引
+				activeIndex = _target;
+			}
+		});
+	}
+		$("#info").on('tap', function() {
+			//do something
+			mui.openWindow({
+				url: 'notice.html',
+				id: 'notice'
+			});
+		});
+
+		/* 
+			document.getElementById('info').addEventListener('tap', function() {
+				  //打开页面
+				  mui.openWindow({
+				    url: 'notice.html', 
+				    id:'notice'
+				  });
+			});
+		*/
+
+		/**
+		 * 截取url地址，获取窗口的id；
+		 * @param {String} url html文件的路径
+		 * @param {String} wvId webviewObject的id
+		 */
+		function cutWebviewId(url) {
+			var startIndex = url.lastIndexOf("/");
+			var endIndex = url.lastIndexOf(".html");
+			var wvId = url.substring(startIndex + 1, endIndex);
+			return wvId;
+		}
+		
+
+		/* Native.js 注册广播接收器
+		var receiver;
+		var main = plus.android.runtimeMainActivity();
+		recevier = plus.android.implements('io.dcloud.feature.internal.reflect.BroadcastReceiver', {
+			onReceive: function(context, intent) {
+				var action = intent.getAction();
+				if(action == "ACTION_BAR_SCAN") {
+					var str = intent.getStringExtra("EXTRA_SCAN_DATA");
+					console.log(str)
+				}
+			}
+		});
+
+		var IntentFilter = plus.android.importClass('android.content.IntentFilter');
+		var filter = new IntentFilter("ACTION_BAR_SCAN");
+		main.registerReceiver(recevier, filter);
+		*/
+		
+	</script>
+
+</html>

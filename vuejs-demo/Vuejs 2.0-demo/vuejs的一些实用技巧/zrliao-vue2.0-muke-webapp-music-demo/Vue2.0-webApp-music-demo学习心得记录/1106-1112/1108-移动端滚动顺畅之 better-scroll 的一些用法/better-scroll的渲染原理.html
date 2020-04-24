@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+   better-scroll滚动条件：父容器的高度要被固定，子容器的高度要能撑开父容器的高度，这样它才能滚动。
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+  better-scroll的渲染原理：
+
+  初始化的时机,调refresh的时机，那个时机的scroll父元素的高度以及子元素的高度的差去计算，算到可以滚动的位置。
+
+  所以再调用refresh的时候要保证dom是已经被渲染好的了，若 是 scroll 滚动的 数据或者dom 是有变化的场景的，一定要让 better-scroll 重新 refresh
+
+  <!-- -------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

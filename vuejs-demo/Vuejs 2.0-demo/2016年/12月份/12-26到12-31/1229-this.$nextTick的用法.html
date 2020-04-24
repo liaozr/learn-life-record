@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+
+<body>
+
+    this.$nextTick的用法 nextTick就是dom更新后的回调 在下次 DOM 更新循环结束之后执行延迟回调。
+
+    在修改数据之后立即使用这个方法，获取更新后的 DOM。
+
+    <script>
+        //   修改数据
+        //   vm.msg = 'Hello'
+        //   DOM 还没有更新
+
+        //   Vue.nextTick(function() {
+        //     DOM 更新了
+        //   })
+    </script>
+
+    <div id="app">
+        <div id="bb" @click='startPlay'>
+            <div ref='aa' v-show='videoIsShow'>这个是后期更新的数据{{cc}}</div>
+        </div>
+    </div>
+    <style>
+        #bb {
+            width: 30px;
+            height: 30px;
+            background-color: red;
+        }
+    </style>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                videoIsShow: false,
+                cc: ''
+            },
+            methods: {
+                startPlay: function() {
+                    this.videoIsShow = true
+                    this.cc = 'zrliao'
+                    console.log(this.$refs.aa.innerText)
+                     // 上面跟下面获取到打印出的值是不一样的，从控制台上就可以看出数据来的了。
+                    // 获取更新后的 DOM
+                    this.$nextTick(function() {
+                        console.log(this.$refs.aa.innerText)
+                    })
+                }
+            }
+        })
+    </script>
+
+<!-- ---------------------------------------------------------------------------- -->
+
+    使用$nextTick主要是因为Vue的dom更新是一个异步队列。
+
+    举个例子，如果你更新了一个数据，而该数据又在dom中展示：
+
+    <p>{{ data }}</p>
+
+    那么你在更新数据之后，想通过ref取到这个p标签再innerText取data，会发现不是你刚刚更新的数据。
+
+    因为异步队列还没有被执行。如果你用setTimeout(..., 0)来执行这个操作，就可以成功。
+
+    $nextTick内部还执行了一些别的事情，但是上面展示的setTimeout也是$nextTick的fallback，所以本质作用是类似的。
+
+    所以总的来说，这是Vue内部使用的一个方法，页面加载完成（不知道你的定义是什么）这种整体事件，
+
+    和$nextTick是没什么关系的。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+    也就是说，nextTick应该被用在某些计算属性或者watch再或者某个按钮click事件绑定的methods当中。
+
+    这时，nextTick才能保证你的数据更新完成之后再执行你绑定的函数.
+
+    也就是说，nextTick应该被用在某些计算属性或者watch再或者某个按钮click事件绑定的methods当中。
+
+    这时，nextTick才能保证你的数据更新完成之后再执行你绑定的函数.
+
+<!-- ------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<!-- ---------------------------------------------------------------- -->
+<script>
+
+// 元素查找
+
+// Node
+document.getElementById(id) // document.getElementById('test')
+document.querySelector(selectors) // document.querySelector('#test div')
+
+// 获取文档中 class="example" 的第一个 <p> 元素:
+document.querySelector("p.example");
+document.querySelectorAll(selectors) // document.querySelectorAll('#test div')
+
+// querySelector()	    返回符合选择器的第一个元素
+// querySelectorAll()	返回符合选择器的元素集合
+
+document.doctype
+document.documentElement
+document.head
+document.title
+document.body
+ 
+// NodeList
+document.getElementsByClassName(names) // document.getElementsByClassName('test')
+document.getElementsByName(name) // document.getElementsByName('demo')
+document.getElementsByTagName(name) // document.getElementsByTagName('div')
+document.getElementsByTagNameNS(namespace, name) // document.getElementsByTagNameNS('http://www.w3.org/1999/xhtml', 'div')
+document.querySelectorAll(selectors) // document.querySelectorAll('#test div')
+document.links
+document.scripts
+document.images
+document.embeds
+document.forms
+</script>
+
+<!-- -------------------------------------------------------------------------------------------------- -->
+
+<script>
+
+// 节点操作
+
+// 创建
+var el = document.createElement(name);
+ 
+// 复制
+el.cloneNode(true); // 默认为false(克隆节点及其后代), true(克隆节点及其属性，以及后代)
+ 
+// 向节点添加最后一个子节点
+parent.appendChild(el);
+ 
+// 在指定子节点之前插入新的子节点
+parent.insertBefore(el, parent.childNodes[0]);
+ 
+// insertAdjacentHTML方法
+el.insertAdjacentHTML(where, htmlString);
+el.insertAdjacentHTML('beforeBegin', htmlString); // 在该元素前插入
+el.insertAdjacentHTML('afterBegin', htmlString); // 在该元素第一个子元素前插入
+el.insertAdjacentHTML('beforeEnd', htmlString); // 在该元素最后一个子元素后面插入
+el.insertAdjacentHTML('afterEnd', htmlString); // 在该元素后插入
+ 
+// 父元素
+el.parentNode
+ 
+// 删除节点
+el.parentNode.removeChild(el);
+</script>
+
+<!-- --------------------------------------------------------------------------- -->
+
+<script>
+// 属性操作
+
+// 获取属性值
+el.getAttribute('alt');
+ 
+// 设置属性值
+el.setAttribute('alt', '图片描述');
+</script>
+<!-- -------------------------------------------------------------- -->
+
+<script>
+// 内容操作
+
+// 获取元素内容
+el.innerHTML
+// 设置元素内容
+el.innerHTML = string
+
+// 获取元素内容(包含元素自身)
+el.outerHTML
+
+// 设置元素内容(包含元素自身)
+el.outerHTML = string
+ 
+// 获取文本内容
+// ie8
+el.innerText
+// ie9+
+el.textContent
+// 设置文本内容
+// ie8
+el.innerText = string
+// ie9+
+el.textContent = string
+</script>
+<!-- --------------------------------------------------------- -->
+
+<script>
+// 事件
+
+// 绑定事件
+// ie9+
+el.addEventListener(eventName, handler , Booleans); // Booleans默认false(事件在冒泡阶段执行),true(事件在捕获阶段执行)
+// ie8
+el.attachEvent('on' + eventName, function(){
+  handler.call(el);
+});
+ 
+// 移除事件
+// ie9+
+el.removeEventListener(eventName, handler); 
+// ie8
+el.detachEvent('on' + eventName, handler);
+ 
+// 事件触发
+if (document.createEvent) {
+  // ie9+
+  var event = document.createEvent('HTMLEvents');
+  event.initEvent('change', true, false);
+  el.dispatchEvent(event);
+} else {
+  // ie8
+  el.fireEvent('onchange');
+}
+ 
+// event对象
+var event = window.event||event;
+ 
+// 事件的目标节点
+var target = event.target || event.srcElement;
+ 
+// 事件代理
+ul.addEventListener('click', function(event) {
+  if (event.target.tagName.toLowerCase() === 'li') {
+    console.log(event.target.innerHTML)
+  }
+});
+</script>
+<!-- ----------------------------------------------------------------------- -->
+<script>
+// 去除空格
+
+// ie8
+string.replace(/^\s+|\s+$/g, '');
+// ie9+
+string.trim();
+</script>
+<!-- --------------------------------------------------------------------- -->
+<script>
+// JSON处理
+
+JSON.parse(string);
+JSON.String(Object)
+</script>
+<!-- --------------------------------------------------- -->
+
+</body>
+</html>

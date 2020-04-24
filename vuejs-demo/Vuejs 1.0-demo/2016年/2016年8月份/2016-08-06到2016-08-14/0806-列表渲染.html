@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src='vue.js'></script>
+</head>
+<body>
+    <ul id="example-1">
+        <!--   v-for 循环一个数组   -->
+        <li v-for="item in items">
+            {{ item.message }}
+        </li>
+    </ul>
+    <script>
+    var example1 = new Vue({
+        el: '#example-1',
+        data: {
+            items: [
+                {
+                    message: 'Foo'
+                },
+                {
+                    message: 'Bar'
+                }
+            ]
+        }
+    })
+    </script>
+ <!-- --------------------------------------------------------------------------    -->
+
+ <!--你可以为索引指定一个别名（如果 v-for 用于一个对象，则可以为对象的键指定一个别名）-->
+    <div id="example-12">
+        <div v-for="(index, item) in items">
+            {{ index }} {{ item.message }}
+        </div>
+        <hr>
+        <!--从 1.0.17 开始可以使用 of 分隔符，更接近 JavaScript 遍历器语法：-->
+        <div v-for="item of items">
+            {{ $index }} {{ item.message }}
+        </div>
+    </div>
+    <script>
+    var example1 = new Vue({
+        el: '#example-12',
+        data: {
+            items: [
+                {
+                    message: 'Foo'
+                },
+                {
+                    message: 'Bar'
+                }
+            ]
+        }
+    })
+    </script>
+<!-- ------------------------------------------------------------------- -->
+
+  <!--
+    类似于 template v-if，也可以将 v-for
+    用在 <template> 标签上，以渲染一个包含多个元素的块。例如：
+    -->
+    <div id="example-13">
+        <ul>
+            <!--  template是 vuejs的模版标签	 -->
+            <template v-for="item in items">
+                <li>{{ item.msg }}</li>
+                <li class="divider"></li>
+            </template>
+        </ul>
+    </div>
+    <script>
+    var example1 = new Vue({
+        el: '#example-13',
+        data: {
+            items: [
+            {
+                msg: 'Foo'
+            }, {
+                msg: 'Bar'
+            }
+            ]
+        }
+    })
+    </script>
+ <!-- -----------------------------------------------------    -->
+
+<!--
+    Vue.js 包装了被观察数组的变异方法，故它们能触发视图更新。被包装的方法有：
+    -->
+    <div id="example-14">
+        <ul>
+            <template v-for="item in items">
+                <li>{{ item.msg }}</li>Í
+            </template>
+        </ul>
+        <div class="blue">
+            <!-- 这里代表的是过滤器的意思，将 data里面的数据 以json格式 输出 -->
+            {{$data | json }}
+        </div>
+        <pre>
+        Vue.js 包装了被观察数组的变异方法，故它们能触发视图更新。被包装的方法有：
+          push()
+            向数组的末尾添加一个或更多元素，并返回新的长度。
+            example1.items.push({msg:'台湾小凡'})
+          pop()
+            用于删除并返回数组的最后一个元素。
+            example1.items.pop()
+          shift()
+            删除并返回数组的第一个元素
+            example1.items.shift()
+          unshift()
+            向数组的开头添加一个或更多元素，并返回新的长度。
+            example1.items.unshift({msg:'台湾小凡'})
+          splice()
+            从某个已有的数组返回选定的元素
+            example1.items.splice()
+          sort()
+            对数组的元素进行排序
+            example1.items.sort()
+          reverse
+            颠倒数组中元素的顺序。
+            example1.items.reverse()
+
+          你可以打开浏览器的控制台，用这些方法修改上例的 items 数组。
+          例如：example1.items.push({ message: 'Baz' })。
+        </pre>
+    </div>
+    <script>
+    var example1 = new Vue({
+        el: '#example-14',
+        data: {
+            items: [{
+                    msg: 'Foo'
+                }, {
+                    msg: 'Bar'
+                }, {
+                    msg: 'George'
+                }, {
+                    msg: 'John'
+                }, {
+                    msg: 'Thomas'
+                }, {
+                    msg: 'James'
+                }, {
+                    msg: 'Adrew'
+                }, {
+                    msg: 'Martin'
+                }
+            ]
+        }
+    })
+    </script>
+ <!-- -------------------------------------------------------------------------------------------    -->
+
+<div id="example-15">
+        <ul>
+            <template v-for="item in items">
+                <li>{{$index}}.{{ item.msg }}</li>
+            </template>
+        </ul>
+        <button v-on:click="f1">执行 f1 filter /Foo/ </button>
+        <button v-on:click="f2">执行 f2 concat arr </button>
+        <button v-on:click="f3">执行 f3 splice(2,3) </button>
+        <div class="blue">
+            {{$data | json }}
+        </div>
+
+        <pre>
+        变异方法，如名字所示，修改了原始数组。相比之下，也有非变异方法，如 filter(), concat() 和 slice()，不会修改原始数组而是返回一个新数组。
+        在使用非变异方法时，可以直接用新数组替换旧数组：
+        可能你觉得这将导致 Vue.js 弃用已有 DOM 并重新渲染整个列表——幸运的是并非如此。
+        Vue.js 实现了一些启发算法，以最大化复用 DOM 元素，
+        因而用另一个数组替换数组是一个非常高效的操作。
+        </pre>
+    </div>
+    <script>
+    var example1 = new Vue({
+        el: '#example-15',
+        data: {
+            items: [{
+                msg: 'Foo'
+            }, {
+                msg: 'Bar'
+            }, {
+                msg: 'George'
+            }, {
+                msg: 'John'
+            }, {
+                msg: 'Thomas'
+            }, {
+                msg: 'James'
+            }, {
+                msg: 'Adrew'
+            }, {
+                msg: 'Martin'
+            }],
+            arr: [{
+                msg: '台湾小凡'
+            }, {
+                msg: '感谢'
+            }, {
+                msg: '群友'
+            }]
+        },
+        methods: {
+            // f1方法是将 含有Foo的就过滤出来。
+            f1: function() {
+                example1.items = example1.items.filter(function(item) {
+                    return item.msg.match(/Foo/)
+                })
+            },
+            // concat 是数组合并，将数组arr合并到数组items去。
+            f2: function() {
+                example1.items = example1.items.concat(this.arr[0])
+                example1.items = example1.items.concat(this.arr[1])
+                example1.items = example1.items.concat(this.arr[2])
+            },
+
+            // splice()
+            // 从某个已有的数组返回选定的元素
+            // example1.items.splice()
+            // splice(2,3)，表示从第二个开始，选择3个
+            f3:function (){
+                example1.items = example1.items.splice(2,3)
+            }
+        }
+
+    })
+    </script>
+<!-- ---------------------------------------------------------------------------------------     -->
+
+    <div id="example-16">
+        <ul>
+            <template v-for="item in items" track-by="_uid">
+                <li>{{$index}}.{{ item._uid }}</li>
+            </template>
+        </ul>
+
+        <div class="blue">
+            {{$data | json }}
+        </div>
+        <pre>
+
+有时需要用全新对象（例如通过 API 调用创建的对象）替换数组。
+因为 v-for 默认通过数据对象的特征来决定对已有作用域和 DOM 元素的复用程度，这可能导致重新渲染整个列表。
+但是，如果每个对象都有一个唯一 ID 的属性，
+便可以使用 track-by 特性给 Vue.js 一个提示，Vue.js 因而能尽可能地复用已有实例。
+
+如果 Vue.js 遇到一个包含 _uid: '88f869d' 的新对象
+它知道它可以复用这个已有对象的作用域与 DOM 元素。
+
+台湾小凡：简单讲，就是 v-for 遍历 model 时，vue.js ，会建立索引键，这个键要求是不重复，不然会出错
+track-by="_uid", 使用者指定 索引键，是那个部份
+        </pre>
+    </div>
+    <script>
+    var example1 = new Vue({
+        el: '#example-16',
+        data: {
+            items: [{
+                _uid: '88f869d',
+
+            }, {
+                _uid: '7496c10',
+            }]
+        }
+    })
+    </script>
+
+<!-- ----------------------------------------------------------------- -->
+
+ <div id="example-17">
+        <ul>
+            <template v-for="item in items" track-by="$index">
+                <li>{{$index}}.{{ item._uid }}</li>
+            </template>
+        </ul>
+
+        <div class="blue">
+            {{$data | json }}
+        </div>
+        <pre>
+
+如果没有唯一的键供追踪，可以使用 track-by="$index"，它强制让 v-for 进入原位更新模式：片断不会被移动，而是简单地以对应索引的新值刷新。
+这种模式也能处理数据数组中重复的值。
+
+这让数据替换非常高效，但是也会付出一定的代价。因为这时 DOM 节点不再映射数组元素顺序的改变，不能同步临时状态
+（比如 <  input> 元素的值）
+以及组件的私有状态。因此，
+如果 v-for 块包含 <  input> 元素或子组件，
+要小心使用 track-by="$index"
+
+注：台湾小凡，
+  一、当我们的model 的键值，是不重复时，可以用 model 的键值当 track-by
+  二、使用 v-for 时我们会对组件产生很多的业务操作
+      vue.js，会依 不重值的键值，作组件更换第一优先的复用参考，以加速组件的更换。
+  三、如果你的 model ，不保证是否有重复值时，可以用 track-by="$index"
+        </pre>
+    </div>
+    <script>
+    var example1 = new Vue({
+        el: '#example-17',
+        data: {
+            items: [{
+                _uid: '88f869d',
+
+            }, {
+                _uid: '7496c10',
+            }]
+        }
+    })
+    </script>
+<!-- ---------------------------------------------------------------------------------------- -->
+
+ <div id="example-18">
+        <ul>
+            <template v-for="item in items">
+                <li>
+                    {{$index}}.{{ item.msg }}
+
+                    <button v-on:click="f5(item)">vm.items.splice(index, 1)</button>
+
+                    <button v-on:click="f6(item)">vm.remove</button>
+                </li>
+            </template>
+        </ul>
+        <ul>
+            <!--
+             因为 JavaScript 的限制，Vue.js 不能检测到下面数组变化：
+        直接用索引设置元素，如 vm.items[0] = {}；
+        修改数据的长度，如 vm.items.length = 0。
+         -->
+            <li>
+                <button v-on:click="f1">vm.items[0] = {} 失效</button>
+            </li>
+            <li>
+                <button v-on:click="f2">vm.items.$set(0, { childMsg: 'Changed!'}) </button>
+            </li>
+            <li>
+                <button v-on:click="f3">vm.items.length = 0 失效</button>
+            </li>
+            <li>
+                <button v-on:click="f4">vm.items={}</button>
+            </li>
+        </ul>
+        <div class="blue">
+            {{$data | json }}
+        </div>
+        <pre>
+        因为 JavaScript 的限制，Vue.js 不能检测到下面数组变化：
+        直接用索引设置元素，如 vm.items[0] = {}；
+        修改数据的长度，如 vm.items.length = 0。
+        </pre>
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#example-18',
+        data: {
+            items: [{
+                msg: 'Foo'
+            }, {
+                msg: 'Bar'
+            }, {
+                msg: 'George'
+            }]
+        },
+        methods: {
+            f1: function() {
+                vm.items[0] = {}; // 失效
+            },
+            // vuejs 为了扩展观察数组，为它添加了一个$set()方法
+            //与 vm.items[0]=....相同，但是能触发到视图的更新
+            f2: function() {
+                vm.items.$set(0, {
+                    childMsg: 'Changed!'
+                })
+            },
+            f3: function() {
+                vm.items.length = 0; // 失效
+            },
+
+            //将itmes数组变为空值
+            f4: function() {
+                vm.items = {}
+            },
+
+            f5: function(item) {
+                var index = this.items.indexOf(item) //Search an array for the item
+                if (index !== -1) {
+                    this.items.splice(index, 1) //Selects a part of an array, and returns the new array
+                }
+            },
+            // 除了 $set()， vue.js也为观察数组添加了
+            // $remove()方法，用于从目标数组中查找并删除元素，在内部它调用splice()
+            f6: function(item) {
+                this.items.$remove(item)
+            }
+        }
+
+    })
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------ -->
+
+ <div id="example-19">
+        <ul id="repeat-object" class="demo">
+
+            <!-- object 这里也是一个物件 -->
+            <!-- 也可以用  v-for 来遍历对象，除了$index之外，作用域内还可以访问另外一个特殊变量$key -->
+            <li v-for="value in object">
+                <!-- 除了$index之外，作用域内还可以访问另外一个特殊变量$key  -->
+                <!--  {{ $key }}代表着的是键值   -->
+                <!--  {{ value }}这个就是键值的属性值    -->
+                {{ $key }} : {{ value }}
+            </li>
+        </ul>
+
+    </div>
+    <script>
+    var vm = new Vue({
+        el: '#repeat-object',
+        data: {
+            object: {
+                FirstName: 'John',
+                LastName: 'Doe',
+                Age: 30
+            }
+        }
+    })
+    </script>
+<!-- --------------------------------------------------------------------------- -->
+
+<div id="example-20">
+        <ul id="repeat-object2" class="demo">
+            <!--  这里也可以不用键值,  而可以用一个别名 -->
+            <div v-for="(key, val) in object">
+                {{ key }} {{ val }}
+            </div>
+        </ul>
+
+</div>
+
+<script>
+var vm = new Vue({
+    el: '#repeat-object2',
+    data: {
+        object: {
+            FirstName: 'John',
+            LastName: 'Doe',
+            Age: 30
+        }
+    }
+})
+</script>
+
+<!-- --------------------------------------------------------------------------------------- -->
+
+ <div id="example-21">
+        <div>
+            <!-- v-for 也可以接收一个整数，此时它将重复模版数次   这个是快速指令-->
+            <span v-for="n in 10">{{ n }} </span>
+        </div>
+ </div>
+    <script>
+    var vm = new Vue({
+        el: '#example-21',
+
+    })
+    </script>
+
+<!-- -------------------------------------------------------------------------------------------- -->
+
+ <div id="example-22">
+        <ul>
+        <!-- 计算属性 与列表渲染-->
+        <!--  想显示过滤/排序过的数组，同时不实际修改或重置原始数据 -->
+        <!-- 
+        有两个办法：
+        1、创建一个计算属性，返回过滤/排序过的数组；(例如这里的案例就是这样的)
+        2、使用内置的过滤器，filterBy 和 orderBy
+        -->
+            <template v-for="item in filter1">
+                <li>{{ item}}</li>
+            </template>
+        </ul>
+    </div>
+    <script>
+    Vue.config.debug = true;
+    var example1 = new Vue({
+        el: '#example-22',
+        data: {
+            items: [{
+                msg: 'Foo'
+            }, {
+                msg: 'Bar'
+            }, {
+                msg: 'George'
+            }, {
+                msg: 'John'
+            }, {
+                msg: 'Thomas'
+            }, {
+                msg: 'James'
+            }, {
+                msg: 'Adrew'
+            }, {
+                msg: 'Martin'
+            }]
+        },
+        computed: {  //通过计算属性 把数据过滤出来
+
+            filter1: function() {
+                /*
+                 * itmes 字串长度大于等于5，形成列表
+                 */
+                self = this;
+                var arr=[];
+                for (var i = 0, l = self.items.length; i < l; i++) {
+                    //console.log(self.items[i].msg);
+                    var str_len = self.items[i].msg.length;
+                    //.log(str_len);
+                    if (str_len >=5){
+                        arr.push(self.items[i].msg);
+                    }
+                }
+                //console.log('arr:'+ arr);
+                return arr;  //返回 arr数据
+            }
+        }
+    })
+    </script>
+
+<!-- ------------------------------------------------------------------------------------------------------------------     -->
+
+ <div id="filter-by-example">
+    <!--  想显示过滤/排序过的数组，同时不实际修改或重置原始数据 -->
+    <!-- 有两个办法：
+    1、创建一个计算属性，返回过滤/排序过的数组；
+    2、使用内置的过滤器，filterBy 和 orderBy
+     -->
+        <input v-model="name">
+        <ul>
+        <!--
+           <li v-for="user in users | filterBy name in 'name'  | orderBy 'name' -1">
+        -->
+        
+            <!--   filterBy name in 'name' 表明的是字符匹配，匹配从 input框输入的字符串      -->
+            <!--   orderBy 'name' 是排序 name值   -->
+            <!--    orderBy 'name' -1     这样子是为倒序 的顺序来排列  name值   -->
+
+            <li v-for="user in users | filterBy name in 'name'  | orderBy 'name' ">
+                {{ user.name }}
+            </li>
+        </ul>
+    </div>
+    <script>
+    Vue.config.debug = true;
+    new Vue({
+        el: '#filter-by-example',
+        data: {
+            name: '',
+            users: [
+                {
+                    name: 'Bruce'
+                },
+                {
+                    name: 'Chuck'
+                },
+                {
+                    name: 'Jackie'
+                }
+            ]
+        }
+    })
+    </script>
+</body>
+</html>

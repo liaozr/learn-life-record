@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://blog.nnnv.cn/index.php/archives/65 -->
+<html class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="zh-CN" prefix="og: http://ogp.me/ns#"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>移动设备web开发插件iScroll的使用详解 - 青水之山博客</title>
+
+		<link rel="profile" href="http://gmpg.org/xfn/11">
+		<link rel="pingback" href="http://blog.nnnv.cn/xmlrpc.php">
+
+		
+<!-- This site is optimized with the Yoast SEO plugin v3.0.7 - https://yoast.com/wordpress/plugins/seo/ -->
+<link rel="canonical" href="./移动设备web开发插件iScroll的使用详解 - 青水之山博客_files/移动设备web开发插件iScroll的使用详解 - 青水之山博客.html">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动设备web开发插件iScroll的使用详解 - 青水之山博客">
+<meta property="og:description" content="iScroll是一款用于移动设备web开发的一款插件。像缩放、下拉刷新、滑动切换…查阅全文 ›">
+<meta property="og:url" content="http://blog.nnnv.cn/index.php/archives/65">
+<meta property="og:site_name" content="青水之山博客">
+<meta property="article:section" content="html5开发">
+<meta property="article:published_time" content="2012-07-23T22:37:04+00:00">
+<meta property="article:modified_time" content="2013-01-31T23:07:20+00:00">
+<meta property="og:updated_time" content="2013-01-31T23:07:20+00:00">
+<meta property="og:image" content="http://www.nb88.net/Public/Uploads/20120301085419_28788.png">
+<meta property="og:image" content="http://www.nb88.net/Public/Uploads/20120301085727_68832.png">
+<meta property="og:image" content="http://www.nb88.net/Public/Uploads/20120301090532_60648.png">
+<meta property="og:image" content="http://www.nb88.net/Public/Uploads/20120301090956_19649.png">
+<!-- / Yoast SEO plugin. -->
+
+<link rel="alternate" type="application/rss+xml" title="青水之山博客 » Feed" href="http://blog.nnnv.cn/index.php/feed">
+<link rel="alternate" type="application/rss+xml" title="青水之山博客 » 评论Feed" href="http://blog.nnnv.cn/index.php/comments/feed">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/blog.nnnv.cn\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.4.4"}};
+			!function(a,b,c){function d(a){var c,d,e,f=b.createElement("canvas"),g=f.getContext&&f.getContext("2d"),h=String.fromCharCode;return g&&g.fillText?(g.textBaseline="top",g.font="600 32px Arial","flag"===a?(g.fillText(h(55356,56806,55356,56826),0,0),f.toDataURL().length>3e3):"diversity"===a?(g.fillText(h(55356,57221),0,0),c=g.getImageData(16,16,1,1).data,g.fillText(h(55356,57221,55356,57343),0,0),c=g.getImageData(16,16,1,1).data,e=c[0]+","+c[1]+","+c[2]+","+c[3],d!==e):("simple"===a?g.fillText(h(55357,56835),0,0):g.fillText(h(55356,57135),0,0),0!==g.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g;c.supports={simple:d("simple"),flag:d("flag"),unicode8:d("unicode8"),diversity:d("diversity")},c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.simple&&c.supports.flag&&c.supports.unicode8&&c.supports.diversity||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./移动设备web开发插件iScroll的使用详解 - 青水之山博客_files/wp-emoji-release.min.js" type="text/javascript"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="wp-syntax-css-css" href="./移动设备web开发插件iScroll的使用详解 - 青水之山博客_files/wp-syntax.css" type="text/css" media="all">
+<link rel="stylesheet" id="responsive-style-css" href="./移动设备web开发插件iScroll的使用详解 - 青水之山博客_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="responsive-media-queries-css" href="./移动设备web开发插件iScroll的使用详解 - 青水之山博客_files/responsive.css" type="text/css" media="all">
+<script type="text/javascript" src="./移动设备web开发插件iScroll的使用详解 - 青水之山博客_files/jquery.js"></script>
+<script type="text/javascript" src="./移动设备web开发插件iScroll的使用详解 - 青水之山博客_files/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="./移动设备web开发插件iScroll的使用详解 - 青水之山博客_files/responsive-modernizr.min.js"></script>
+<link rel="https://api.w.org/" href="http://blog.nnnv.cn/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.nnnv.cn/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.nnnv.cn/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 4.4.4">
+<link rel="shortlink" href="http://blog.nnnv.cn/?p=65">
+<link rel="alternate" type="application/json+oembed" href="http://blog.nnnv.cn/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fblog.nnnv.cn%2Findex.php%2Farchives%2F65">
+<link rel="alternate" type="text/xml+oembed" href="http://blog.nnnv.cn/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fblog.nnnv.cn%2Findex.php%2Farchives%2F65&amp;format=xml">
+<!-- We need this for debugging -->
+<!-- Responsive 1.9.7.7 -->
+
+<style type="text/css">
+.a-stats {
+	width: auto;
+}
+.a-stats a {
+	background: #7CA821;
+	background-image:-moz-linear-gradient(0% 100% 90deg,#5F8E14,#7CA821);
+	background-image:-webkit-gradient(linear,0% 0,0% 100%,from(#7CA821),to(#5F8E14));
+	border: 1px solid #5F8E14;
+	border-radius:3px;
+	color: #CFEA93;
+	cursor: pointer;
+	display: block;
+	font-weight: normal;
+	height: 100%;
+	-moz-border-radius:3px;
+	padding: 7px 0 8px;
+	text-align: center;
+	text-decoration: none;
+	-webkit-border-radius:3px;
+	width: 100%;
+}
+.a-stats a:hover {
+	text-decoration: none;
+	background-image:-moz-linear-gradient(0% 100% 90deg,#6F9C1B,#659417);
+	background-image:-webkit-gradient(linear,0% 0,0% 100%,from(#659417),to(#6F9C1B));
+}
+.a-stats .count {
+	color: #FFF;
+	display: block;
+	font-size: 15px;
+	line-height: 16px;
+	padding: 0 13px;
+	white-space: nowrap;
+}
+</style>
+
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+	<style id="fit-vids-style">.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style></head>
+
+<body class="single single-post postid-65 single-format-standard">
+
+<div id="container" class="hfeed">
+
+	<div class="skip-container cf">
+		<a class="skip-link screen-reader-text focusable" href="http://blog.nnnv.cn/index.php/archives/65#content">↓ Skip to Main Content</a>
+	</div><!-- .skip-container -->
+	<div id="header">
+
+		
+		<ul id="menu-top%e5%af%bc%e8%88%aa" class="top-menu"><li id="menu-item-496" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-496"><a href="http://blog.nnnv.cn/wp-login.php?action=register">注册</a></li>
+<li id="menu-item-497" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-497"><a href="http://blog.nnnv.cn/wp-login.php">登录</a></li>
+</ul>
+		
+		
+			<div id="logo">
+				<a href="http://blog.nnnv.cn/"><img src="./移动设备web开发插件iScroll的使用详解 - 青水之山博客_files/default-logo.png" width="300" height="100" alt="青水之山博客"></a>
+			</div><!-- end of #logo -->
+
+		
+		
+				<div class="main-nav"><div id="responsive_current_menu_item">移动设备web开发插件iScroll的使用详解</div><ul id="menu-nav%e5%af%bc%e8%88%aa" class="menu"><li id="menu-item-37" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-37"><a href="http://blog.nnnv.cn/">首页</a></li>
+<li id="menu-item-448" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-448"><a title="dd" href="http://blog.nnnv.cn/index.php/archives/category/c">C#</a></li>
+<li id="menu-item-447" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-447"><a href="http://blog.nnnv.cn/index.php/archives/category/asp-net">asp.net</a></li>
+<li id="menu-item-266" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-266"><a href="http://blog.nnnv.cn/index.php/archives/category/macsoft">Mac软件</a></li>
+<li id="menu-item-259" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-259"><a href="http://blog.nnnv.cn/index.php/archives/category/iosapp">IOS开发</a></li>
+<li id="menu-item-668" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-668"><a href="http://blog.nnnv.cn/index.php/archives/category/swift">Swift</a></li>
+<li id="menu-item-249" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-249"><a title="html5标题属性" href="http://blog.nnnv.cn/index.php/archives/category/html5">html5开发</a></li>
+<li id="menu-item-245" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-245"><a href="http://blog.nnnv.cn/index.php/archives/category/developmenttools">攻城具</a></li>
+<li id="menu-item-248" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-248"><a href="http://blog.nnnv.cn/index.php/archives/category/it">挨踢攻城狮</a></li>
+<li id="menu-item-503" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-503"><a href="http://blog.nnnv.cn/index.php/archives/category/production">作品</a></li>
+<li id="menu-item-598" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-598"><a href="http://blog.nnnv.cn/index.php/archives/category/intellegence">智能硬件</a></li>
+</ul><a id="responsive_menu_button"></a></div>
+		<ul id="menu-%e6%ac%a1%e7%ba%a7nav%e5%af%bc%e8%88%aa" class="sub-header-menu"><li id="menu-item-673" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-673"><a href="http://blog.nnnv.cn/index.php/products">产品|PRODUCTS</a></li>
+<li id="menu-item-674" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-674"><a href="http://blog.nnnv.cn/index.php/about">关于|ABOUT</a></li>
+<li id="menu-item-675" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-675"><a href="http://blog.nnnv.cn/index.php/down">下载|DOWN</a></li>
+</ul>
+		
+	</div><!-- end of #header -->
+
+	<div id="wrapper" class="clearfix">
+
+<div id="content" class="grid col-620">
+
+	
+	
+		
+						<div id="post-65" class="post-65 post type-post status-publish format-standard hentry category-html5 category-iscroll">
+				
+				
+	<h1 class="entry-title post-title">移动设备web开发插件iScroll的使用详解</h1>
+
+<div class="post-meta">
+	<span class="meta-prep meta-prep-author posted">发表于 </span><a href="./移动设备web开发插件iScroll的使用详解 - 青水之山博客_files/移动设备web开发插件iScroll的使用详解 - 青水之山博客.html" title="移动设备web开发插件iScroll的使用详解" rel="bookmark"><time class="timestamp updated" datetime="2012-07-23T22:37:04+00:00">2012/07/23</time></a><span class="byline"> 作者 </span><span class="author vcard"><a class="url fn n" href="http://blog.nnnv.cn/index.php/archives/author/panwenshan" title="查看 青水之山 的所有文章">青水之山</a></span>
+	</div><!-- end of .post-meta -->
+
+				<div class="post-entry">
+					<p>iScroll是一款用于移动设备web开发的一款插件。像缩放、下拉刷新、滑动切换等移动应用上常见的一些效果都可以轻松实现。</p>
+<p>iScroll的最新版本是2011.07.03发布的4.1.7版。最新版比以往更顺畅，添加了更多的自定义事件，提供了更高级的可编程性。</p>
+<h3>使用方法：</h3>
+<p>DOM结构应尽量保持简洁，避免过多的嵌套。滚动区域为第一个子元素。html代码：</p>
+<div>
+<div id="highlighter_805816">
+<div><a href="http://www.nb88.net/Index/p/id/406/#">?</a></div>
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+<div>7</div>
+</td>
+<td>
+<div>
+<div><code>&lt;</code><code>div</code> <code>id</code><code>=</code><code>"wrapper"</code><code>&gt;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>&lt;</code><code>ul</code><code>&gt;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>&lt;</code><code>li</code><code>&gt;&lt;/</code><code>li</code><code>&gt;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>...</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>...</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>&lt;/</code><code>ul</code><code>&gt;</code></div>
+<div><code>&lt;/</code><code>div</code><code>&gt;</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>上面的DOM结构中，ul将是滚动的区域。如果想同时滚动多个区域就要用一个容器把需要滚动的区域包起来。</p>
+<div>
+<div id="highlighter_56606">
+<div><a href="http://www.nb88.net/Index/p/id/406/#">?</a></div>
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+<div>7</div>
+<div>8</div>
+<div>9</div>
+<div>10</div>
+<div>11</div>
+<div>12</div>
+<div>13</div>
+<div>14</div>
+</td>
+<td>
+<div>
+<div><code>&lt;</code><code>div</code> <code>id</code><code>=</code><code>"wrapper"</code><code>&gt;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>&lt;</code><code>div</code> <code>id</code><code>=</code><code>"scroller"</code><code>&gt;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>&lt;</code><code>ul</code><code>&gt;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>&lt;</code><code>li</code><code>&gt;&lt;/</code><code>li</code><code>&gt;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>...</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>...</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>&lt;/</code><code>ul</code><code>&gt;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>&lt;</code><code>ul</code><code>&gt;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>&lt;</code><code>li</code><code>&gt;&lt;/</code><code>li</code><code>&gt;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>...</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>...</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>&lt;/</code><code>ul</code><code>&gt;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>&lt;/</code><code>div</code><code>&gt;</code></div>
+<div><code>&lt;/</code><code>div</code><code>&gt;</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>上面的DOM结构中，两个UL会同时滚动。</p>
+<p>插件的调用需要在页面完全加载之后。你可以通过以下3种方法来实现。</p>
+<ul>
+<li>设置onDOMContentLoaded事件</li>
+<li>设置onLoad事件</li>
+<li>把调用代码放到页面的最后。</li>
+</ul>
+<h3>使用onDOMContentLoaded事件实现滚动</h3>
+<p>如果滚动区域的长宽是固定的，就可以通过onDOMContentLoaded事件来实现滚动。</p>
+<div>
+<div id="highlighter_312639">
+<div><a href="http://www.nb88.net/Index/p/id/406/#">?</a></div>
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+<div>7</div>
+<div>8</div>
+</td>
+<td>
+<div>
+<div><code>&lt;script type=</code><code>"application/javascript"</code> <code>src=</code><code>"/Admin/News/edit/id/iscroll.js"</code><code>&gt;&lt;/script&gt;</code></div>
+<div><code>&lt;script type=</code><code>"text/javascript"</code><code>&gt;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>var</code> <code>myScroll;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>function</code> <code>loaded() {</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>myScroll = </code><code>new</code> <code>iScroll(</code><code>'wrapper'</code><code>);</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>}</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>document.addEventListener(</code><code>'DOMContentLoaded'</code><code>, loaded, </code><code>false</code><code>);</code></div>
+<div><code>&lt;/script&gt;</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>注意：变量myScroll是全局的，可以在任何时候调用插件。</p>
+<h3>使用onLoad事件实现滚动</h3>
+<p>因为DOMContentLoaded事件是载入DOM结构后就会被调用，所以在图片等元素未载入前可能无法确定滚动区域的长宽，此时可以使用onLoad事件来实现。</p>
+<div>
+<div id="highlighter_448292">
+<div><a href="http://www.nb88.net/Index/p/id/406/#">?</a></div>
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+<div>7</div>
+<div>8</div>
+<div>9</div>
+<div>10</div>
+</td>
+<td>
+<div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>&lt;script type=</code><code>"application/javascript"</code> <code>src=</code><code>"/Admin/News/edit/id/iscroll.js"</code><code>&gt;&lt;/script&gt;</code></div>
+<div><code>&lt;script type=</code><code>"text/javascript"</code><code>&gt;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>var</code> <code>myScroll;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>function</code> <code>loaded() {</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>setTimeout(</code><code>function</code> <code>() {</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>myScroll = </code><code>new</code> <code>iScroll(</code><code>'wrapper'</code><code>);</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>}, 100);</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>}</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>window.addEventListener(</code><code>'load'</code><code>, loaded, </code><code>false</code><code>);</code></div>
+<div><code>&lt;/script&gt;</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>如上代码，在页面加载完100毫秒后调用插件。如果这个时间后还有元素未完全载入导致无法计算滚动区域长宽，可能会导致错误。但这是目前最好的方法了。</p>
+<h3>把调用的代码放到最后</h3>
+<div>
+<div id="highlighter_263728">
+<div><a href="http://www.nb88.net/Index/p/id/406/#">?</a></div>
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+<div>7</div>
+<div>8</div>
+<div>9</div>
+<div>10</div>
+</td>
+<td>
+<div>
+<div><code>&lt;</code><code>div</code> <code>id</code><code>=</code><code>"wrapper"</code><code>&gt;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>&lt;</code><code>ul</code><code>&gt;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>&lt;</code><code>li</code><code>&gt;&lt;/</code><code>li</code><code>&gt;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>...</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>...</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>&lt;/</code><code>ul</code><code>&gt;</code></div>
+<div><code>&lt;/</code><code>div</code><code>&gt;</code></div>
+<div><code>&lt;</code><code>script</code> <code>type</code><code>=</code><code>"text/javascript"</code><code>&gt;</code></div>
+<div><code>var myScroll = new iScroll('wrapper');</code></div>
+<div><code>&lt;/</code><code>script</code><code>&gt;</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>很多javascript大师推荐用这种方法来实现一些需要先加载DOM的特效。因此，在此也可以使用这个方法。但插件开发者似乎并不推荐。因为有可能会出现执行javascript之前没有完全载入页面元素，比如图片。</p>
+<h3>ISCROLL参数设置</h3>
+<p>在实例化的时候可以通过传递第二个参数来设置一些效果。</p>
+<div>
+<div id="highlighter_717976">
+<div><a href="http://www.nb88.net/Index/p/id/406/#">?</a></div>
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div>1</div>
+<div>2</div>
+<div>3</div>
+</td>
+<td>
+<div>
+<div><code>&lt;script type=</code><code>"text/javascript"</code><code>&gt;</code></div>
+<div><code>var</code> <code>myScroll = </code><code>new</code> <code>iScroll(</code><code>'wrapper'</code><code>, { hScrollbar: </code><code>false</code><code>, vScrollbar: </code><code>false</code> <code>});</code></div>
+<div><code>&lt;/script&gt;</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>第2个参数是以对象的形式传递的。如上代码中为效果为隐藏滚动条。参数如下：</p>
+<ul>
+<li><strong>hScroll</strong>：无论内容是否超出显示区域，都禁用水平方向的滚动条。默认情况下是水平和垂直方向同时出现的。</li>
+<li><strong>vScroll</strong>：禁用垂直方向的滚动条。</li>
+<li><strong>hScrollbar</strong>：隐藏水平方向的滚动条。</li>
+<li><strong>vScrollbar</strong>：隐藏垂直方向的滚动条。</li>
+<li><strong>fixedScrollbar</strong>：在IOS中拖动滚动条的时候可能会使内容（或滚动条，）缩小，设置该参数为true可防止该现象。同样适用于Android。Android默认为true，IOS默认为FALSE。</li>
+<li><strong>hideScrollbar</strong>：在用户没有操作的时候是否隐藏滚动条。默认为false</li>
+<li><strong>fadeScrollbar</strong>：设置滚动条的谈入谈出效果。在hideScrollbar为true的时候有效</li>
+<li><strong>bounce</strong>：设置滚动条边界的时候是否有反弹效果，默认为true。</li>
+<li><strong>momentum</strong>：设置是否开始惯性，关闭此效果可节省资源</li>
+<li><strong>lockDirection</strong>：保持只在两个方向上或滚动（上/下或左/右），在翻屏的时候可使用。不过我在Android上测试的时候似乎没效果，不知道是我测试方法错了还是怎么回事。</li>
+</ul>
+<p>&nbsp;</p>
+<h2>各种效果的实现</h2>
+<h3>滚动刷新</h3>
+<p><img title="web开发技术" src="http://www.nb88.net/Public/Uploads/20120301085419_28788.png" alt="web开发技术" border="0"><br>
+<a href="http://cubiq.org/dropbox/iscroll4/examples/pull-to-refresh/">‘Pull to refresh’ demo</a></p>
+<p>这个效果已经应用在Twitter app上和许多苹果应用上使用。</p>
+<p>最新版中，作者把滚动刷新和代码复制的功能写成了一个外部插件，可查看<a href="http://cubiq.org/dropbox/iscroll4/examples/pull-to-refresh/">DEMO</a>看它是如何工作的。</p>
+<p>只需要定义一个pullDownAction()函数，通过ajax来调取数据，然后用refresh方法刷新DOM。请注意增加1秒的延迟来模拟网络阻塞。</p>
+<p>&nbsp;</p>
+<h3>放大/缩小</h3>
+<p><img title="web开发技术" src="http://www.nb88.net/Public/Uploads/20120301085727_68832.png" alt="web开发技术" border="0"><br>
+<a href="http://cubiq.org/dropbox/iscroll4/examples/zoom/">‘Zoom’ example</a></p>
+<p>通过这个插件，还可以实现滚动区域两指缩放的效果。也可以通过双击来实现缩放。</p>
+<p>在第二个参数加添加zoom参数为true就可以实现，通过对zoomMax参数还可以控制缩放的倍数，最大值为4倍</p>
+<div>var myScroll = new iScroll(‘wrapper’, { zoom: true,zoomMax:4});</div>
+<p>这个效果是通过硬件加速或使用webkit内核的<strong>&nbsp;-webkit-transform:translate3d(0,0,0)</strong>的动画CSS3属性来实现。</p>
+<p>注意：硬件加速需要消耗大量的资源，有可能会使系统崩溃。</p>
+<p>&nbsp;</p>
+<h3>SNAP和SNAP元素</h3>
+<p><img title="web开发技术" src="http://www.nb88.net/Public/Uploads/20120301090532_60648.png" alt="web开发技术" border="0"><br>
+<a href="http://cubiq.org/dropbox/iscroll4/examples/carousel/">‘Carousel’ demo</a></p>
+<p>SNAP功能是判断元素是否滑动到指定位置。通过这个效果可以制作花哨的跑马灯效果。</p>
+<p>插件会自动分析滚动区域内相同标签或相同大小的元素做为捕捉对象，也可以通过参数指定捕捉的对象</p>
+<div>
+<div id="highlighter_235802">
+<div><a href="http://www.nb88.net/Index/p/id/406/#">?</a></div>
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+</td>
+<td>
+<div>
+<div><code>var</code> <code>myScroll = </code><code>new</code> <code>iScroll(</code><code>'wrapper'</code><code>, {</code></div>
+<div><code>snap: </code><code>true</code><code>,</code></div>
+<div><code>momentum: </code><code>false</code><code>,</code></div>
+<div><code>hScrollbar: </code><code>false</code><code>,</code></div>
+<div><code>vScrollbar: </code><code>false</code> <code>});</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>可以通过设置snap参数为指定标签来设定捕捉对象。比如捕捉li标签。</p>
+<div>
+<div id="highlighter_656082">
+<div><a href="http://www.nb88.net/Index/p/id/406/#">?</a></div>
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+</td>
+<td>
+<div>
+<div><code>var</code> <code>myScroll = </code><code>new</code> <code>iScroll(</code><code>'wrapper'</code><code>, {</code></div>
+<div><code>snap: </code><code>'li'</code><code>,</code></div>
+<div><code>momentum: </code><code>false</code><code>,</code></div>
+<div><code>hScrollbar: </code><code>false</code><code>,</code></div>
+<div><code>vScrollbar: </code><code>false</code> <code>});</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>在snap属性的值为指定标签的时候，插件会通过<strong>&nbsp;scroller.querySelectorAll(snap_string)</strong>的方法来获取对象。所以要注意不要写成”$scroller li”，这是错误的。只要写’li’。</p>
+<p>&nbsp;</p>
+<h3>自定义滚动条</h3>
+<p><img title="web开发技术" src="http://www.nb88.net/Public/Uploads/20120301090956_19649.png" alt="web开发技术" border="0"><br>
+<a href="http://cubiq.org/dropbox/iscroll4/examples/custom-scrollbar/">‘Custom scrollbars’ demo</a></p>
+<p>iScroll插件允许你自定义滚动条的样式。可以通过css定义一个class，并通过scrollbarClass属性把class的名称传递给iScroll就可以了。</p>
+<div>myScroll = new iScroll(‘wrapper’, { scrollbarClass: ‘myScrollbar’ })</div>
+<p>滚动条的DOM结构是一个class名为myScrollBarV的外容器和一个指标组成。可以通过改变这两个元素的样式来自定义滚动条。</p>
+<div>
+<div id="highlighter_527614">
+<div><a href="http://www.nb88.net/Index/p/id/406/#">?</a></div>
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div>1</div>
+<div>2</div>
+<div>3</div>
+</td>
+<td>
+<div>
+<div><code>&lt;</code><code>div</code> <code>class</code><code>=</code><code>"myScrollBarV"</code><code>&gt;</code></div>
+<div><code>&lt;</code><code>div</code><code>&gt;&lt;/</code><code>div</code><code>&gt;</code></div>
+<div><code>&lt;/</code><code>div</code><code>&gt;</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div>
+<div id="highlighter_947966">
+<div><a href="http://www.nb88.net/Index/p/id/406/#">?</a></div>
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+<div>7</div>
+<div>8</div>
+<div>9</div>
+<div>10</div>
+<div>11</div>
+<div>12</div>
+<div>13</div>
+<div>14</div>
+<div>15</div>
+<div>16</div>
+<div>17</div>
+</td>
+<td>
+<div>
+<div><code>.myScrollbarV {</code></div>
+<div><code>position</code><code>:</code><code>absolute</code><code>;</code></div>
+<div><code>z-index</code><code>:</code><code>100</code><code>;</code></div>
+<div><code>width</code><code>:</code><code>8px</code><code>;</code><code>bottom</code><code>:</code><code>7px</code><code>;</code><code>top</code><code>:</code><code>2px</code><code>;</code><code>right</code><code>:</code><code>1px</code></div>
+<div><code>}</code></div>
+<div></div>
+<div><code>.myScrollbarV &gt; div {</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>position</code><code>:</code><code>absolute</code><code>;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>z-index</code><code>:</code><code>100</code><code>;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>width</code><code>:</code><code>100%</code><code>;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>background</code><code>:-webkit-gradient(linear, </code><code>0</code> <code>0</code><code>, </code><code>100%</code> <code>0</code><code>, from(</code><code>#f00</code><code>), to(</code><code>#900</code><code>));</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>border</code><code>:</code><code>1px</code> <code>solid</code> <code>#800</code><code>;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>-webkit-background-</code><code>clip</code><code>:padding-box;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>-webkit-box-sizing:border-box;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>-webkit-border-radius:</code><code>4px</code><code>;</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>-webkit-box-shadow:</code><code>inset</code> <code>1px</code> <code>1px</code> <code>0</code> <code>rgba(</code><code>255</code><code>,</code><code>255</code><code>,</code><code>255</code><code>,</code><code>0.5</code><code>);</code></div>
+<div><code>}</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<h2>内部方法</h2>
+<p>iScroll还提供了一些公共方法。比如说refresh。在改变滚动区域里内容的时候都必须调用refresh方法。因为iScroll是通过实例化一个全局变量来实现的，所以使用者可在任何情况下调用这些方法。</p>
+<p>调用方法： myScroll.name_of_the_function(参数)</p>
+<h3>refresh方法</h3>
+<p>iScroll需要知道滚动区域的大小和滚动条才能正常工作。在实例化的时候iScroll会自动计算一次。但如果滚动区域里的内容发生变化后，需要告诉iScroll内容发生了变化。</p>
+<p>每次改变元素的高度/宽度或以任何方式修改（如： appendChild或innerHTML的）HTML结构时，浏览器会重新渲染页面。javascript就需要重新分析新的DOM结构和新的属性，有时候，这个不是即时的。</p>
+<p>为了确保javascript分析新的页面，可以实例化一个新的iScroll。</p>
+<div>
+<div id="highlighter_562206">
+<div><a href="http://www.nb88.net/Index/p/id/406/#">?</a></div>
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+</td>
+<td>
+<div>
+<div><code>ajax(</code><code>'page.php'</code><code>, onCompletion);</code></div>
+<div><code>function</code> <code>onCompletion () {</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>setTimeout(</code><code>function</code> <code>() {</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code>myScroll.refresh();</code></div>
+<div><code>&nbsp;&nbsp;&nbsp;&nbsp;</code><code>}, 0);</code></div>
+<div><code>};</code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<h3>JAVASCRIPT SCROLLING</h3>
+<p>iScroll还提供了scrollTo, scrollToElement和scrollToPage三个方法让你能够通过javascript来控制滚动效果。</p>
+<p><strong>scrollTo(x, y, time, relative)</strong>：在指定的time时间内让内容滚动条x/y的位置。如myScroll.scrollTo(0, -100, 200) 在200毫秒内Y轴向下滚动100像素。<strong>&nbsp;myScroll.scrollTo(0, 10, 200, true)</strong>可以实现相对当前位置在200毫秒内Y轴向上滚动10像素的效果。</p>
+<p><strong>scrollToElement(element, time)</strong>：在指定的时间内滚动到指定的元素。如myScroll.scrollToElement(‘li:nth-child(10)’, 100) 在100毫秒内滚动到第10个li元素的位置。第1个参数可以用CSS3中的选择器来筛选元素。</p>
+<p><strong>snapToPage(pageX, pageY, time)</strong>：在200毫秒内从第1页滚动到第2页（0代表第1页，1代表第2页）。这个使用SNAP功能的时候可以调用这个函数。</p>
+<h3>注销iScroll</h3>
+<p>通过调用destroy()函数下注销iScroll来释放内存。</p>
+<div>myScroll.destroy(); myScroll = null;</div>
+<h3>LITE版iScroll</h3>
+<p>如果你只希望在移动设备中使用iScroll，请使用<strong>iscroll-lite.js</strong></p>
+<p>LITE版是一个精简版，它支持移动设备（没有桌面兼容性）滚动。所占的资源更少。</p>
+<h3>iScroll的发展方向</h3>
+<ul>
+<li>表单域的支持</li>
+<li>缩放的优化</li>
+<li>更好的桌面浏览器的兼容性</li>
+<li>onScrol事件的优化</li>
+<li>加个哈希值的变化</li>
+<li>DOM改变后自动刷新</li>
+</ul>
+<p>译自：<a href="http://cubiq.org/iscroll-4">http://cubiq.org/iscroll-4</a></p>
+
+					
+									</div><!-- end of .post-entry -->
+
+				<div class="navigation">
+					<div class="previous">‹ <a href="http://blog.nnnv.cn/index.php/archives/63" rel="prev">Phonegap + HTML5 开发经验小结</a></div>
+					<div class="next"><a href="http://blog.nnnv.cn/index.php/archives/67" rel="next">HTML5 Cheat Sheet – Tags</a> ›</div>
+				</div><!-- end of .navigation -->
+
+				
+
+	<div class="post-data">
+		文章分类 <a href="http://blog.nnnv.cn/index.php/archives/category/html5">html5开发</a>, <a href="http://blog.nnnv.cn/index.php/archives/category/iscroll">iScroll</a>			</div><!-- end of .post-data -->
+
+
+<div class="post-edit"></div>
+							</div><!-- end of #post-65 -->
+			
+						
+
+
+
+			
+		
+</div><!-- end of #content -->
+
+
+	<div id="widgets" class="grid col-300 fit">
+		
+		<div id="tag_cloud-2" class="widget-wrapper widget_tag_cloud"><div class="widget-title"><h3>标签云</h3></div><div class="tagcloud"><a href="http://blog.nnnv.cn/index.php/archives/tag/0591-87722039" class="tag-link-57" title="1个话题" style="font-size: 8pt;">0591-87722039</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/87722039" class="tag-link-58" title="1个话题" style="font-size: 8pt;">87722039</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/87722039%e4%b8%ba%e8%af%88%e9%aa%97%e7%94%b5%e8%af%9d" class="tag-link-59" title="1个话题" style="font-size: 8pt;">87722039为诈骗电话</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/app" class="tag-link-8" title="1个话题" style="font-size: 8pt;">app</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/asp-net" class="tag-link-162" title="3个话题" style="font-size: 16.75pt;">asp.net</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/asp-net%e6%97%b6%e9%97%b4%e6%88%aa" class="tag-link-77" title="2个话题" style="font-size: 13.25pt;">asp.net时间截</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/c-2" class="tag-link-69" title="3个话题" style="font-size: 16.75pt;">c#</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/css3" class="tag-link-154" title="3个话题" style="font-size: 16.75pt;">css3</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/easyui" class="tag-link-22" title="1个话题" style="font-size: 8pt;">EasyUI</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/ext4-0" class="tag-link-33" title="1个话题" style="font-size: 8pt;">ext4.0</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/fortran" class="tag-link-160" title="1个话题" style="font-size: 8pt;">fortran</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/html5%e4%bd%93%e9%aa%8c" class="tag-link-31" title="1个话题" style="font-size: 8pt;">html5体验</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/html5" class="tag-link-153" title="4个话题" style="font-size: 19.666666666667pt;">html5开发</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/hybrid-app" class="tag-link-47" title="1个话题" style="font-size: 8pt;">Hybrid App</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/iis" class="tag-link-161" title="1个话题" style="font-size: 8pt;">iis</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/ios" class="tag-link-7" title="3个话题" style="font-size: 16.75pt;">ios</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/ios%e5%bc%80%e5%8f%91" class="tag-link-39" title="5个话题" style="font-size: 22pt;">ios开发</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/jquery" class="tag-link-155" title="2个话题" style="font-size: 13.25pt;">jquery</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/jqueryeasyui" class="tag-link-23" title="1个话题" style="font-size: 8pt;">jQueryEasyUI</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/jquery-ui-sortable" class="tag-link-61" title="1个话题" style="font-size: 8pt;">jquery UI Sortable</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/mac" class="tag-link-40" title="2个话题" style="font-size: 13.25pt;">MAC</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/mac-%e8%bd%af%e4%bb%b6" class="tag-link-41" title="2个话题" style="font-size: 13.25pt;">Mac 软件</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/native-app" class="tag-link-48" title="1个话题" style="font-size: 8pt;">Native App</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/openvms" class="tag-link-158" title="1个话题" style="font-size: 8pt;">openvms</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/oracle" class="tag-link-36" title="2个话题" style="font-size: 13.25pt;">oracle</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/personalalpha" class="tag-link-38" title="1个话题" style="font-size: 8pt;">PersonalAlpha</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/php" class="tag-link-157" title="1个话题" style="font-size: 8pt;">php</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/php-for-mac-mamp" class="tag-link-43" title="1个话题" style="font-size: 8pt;">php for mac MAMP</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/php%e5%bc%80%e5%8f%91%e7%8e%af%e5%a2%83" class="tag-link-42" title="1个话题" style="font-size: 8pt;">php开发环境</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/sql" class="tag-link-159" title="1个话题" style="font-size: 8pt;">sql</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/sql-server" class="tag-link-44" title="1个话题" style="font-size: 8pt;">sql server</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/sublime-text-2" class="tag-link-20" title="1个话题" style="font-size: 8pt;">Sublime Text 2</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/vs2012%e5%bf%ab%e6%8d%b7%e9%94%ae" class="tag-link-60" title="1个话题" style="font-size: 8pt;">vs2012快捷键</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/webapp" class="tag-link-46" title="1个话题" style="font-size: 8pt;">WebAPP</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/windows-7-iis" class="tag-link-54" title="1个话题" style="font-size: 8pt;">Windows 7 IIS</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/zeptojs" class="tag-link-10" title="1个话题" style="font-size: 8pt;">zeptojs</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/%e5%85%bc%e5%ae%b9%e6%80%a7%e7%bb%8f%e6%b5%8e" class="tag-link-29" title="1个话题" style="font-size: 8pt;">兼容性经济</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/%e5%93%8d%e5%ba%94%e5%bc%8f%e8%ae%be%e8%ae%a1" class="tag-link-28" title="1个话题" style="font-size: 8pt;">响应式设计</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/%e5%bc%80%e5%8f%91%e5%b7%a5%e5%85%b7" class="tag-link-9" title="1个话题" style="font-size: 8pt;">开发工具</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/%e5%bc%80%e5%8f%91%e8%80%85" class="tag-link-25" title="1个话题" style="font-size: 8pt;">开发者</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/%e6%b5%8f%e8%a7%88%e5%99%a8%e5%86%85%e6%a0%b8" class="tag-link-45" title="1个话题" style="font-size: 8pt;">浏览器内核</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/%e7%a7%bb%e5%8a%a8%e7%bb%88%e7%ab%af%e7%94%a8%e6%88%b7%ef%bc%8cipad%ef%bc%8ciphone" class="tag-link-21" title="1个话题" style="font-size: 8pt;">移动终端用户，ipad，iphone</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/%e8%99%9a%e6%8b%9f%e6%9c%ba" class="tag-link-37" title="1个话题" style="font-size: 8pt;">虚拟机</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/%e9%94%99%e8%af%af-500-21" class="tag-link-53" title="1个话题" style="font-size: 8pt;">错误 500.21</a>
+<a href="http://blog.nnnv.cn/index.php/archives/tag/%e9%94%99%e8%af%af-500-21-%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95" class="tag-link-55" title="1个话题" style="font-size: 8pt;">错误 500.21 解决方法</a></div>
+</div><div id="search-2" class="widget-wrapper widget_search"><form method="get" id="searchform" action="http://blog.nnnv.cn/">
+	<label class="screen-reader-text" for="s">Search for:</label>
+	<input type="text" class="field" name="s" id="s" placeholder="搜索...">
+	<input type="submit" class="submit" name="submit" id="searchsubmit" value="搜">
+</form></div>		<div id="recent-posts-2" class="widget-wrapper widget_recent_entries">		<div class="widget-title"><h3>近期文章</h3></div>		<ul>
+					<li>
+				<a href="http://blog.nnnv.cn/index.php/archives/713">微信40125错误解决方法</a>
+						</li>
+					<li>
+				<a href="http://blog.nnnv.cn/index.php/archives/706">二维码名片扫一扫创建</a>
+						</li>
+					<li>
+				<a href="http://blog.nnnv.cn/index.php/archives/699">asp.net mvc 注册验证邮箱或者手机正则表达式</a>
+						</li>
+					<li>
+				<a href="http://blog.nnnv.cn/index.php/archives/683">Web开发者的10个最好的云开发环境</a>
+						</li>
+					<li>
+				<a href="http://blog.nnnv.cn/index.php/archives/681">自动适应手机屏幕宽度的方法viewport</a>
+						</li>
+					<li>
+				<a href="http://blog.nnnv.cn/index.php/archives/663">The Swift Programming Language.epub+EPUBReader</a>
+						</li>
+					<li>
+				<a href="http://blog.nnnv.cn/index.php/archives/654">js 实现字符串横竖转换,在每个字符后添加一个字符</a>
+						</li>
+					<li>
+				<a href="http://blog.nnnv.cn/index.php/archives/651">oracle 判定select结果为空。并当为空时给与想要的初值。SQL语句</a>
+						</li>
+					<li>
+				<a href="http://blog.nnnv.cn/index.php/archives/649">TCP/IP，Http，Socket，XMPP的区别</a>
+						</li>
+					<li>
+				<a href="http://blog.nnnv.cn/index.php/archives/639">xui VS zepto VS jquery 性能对比图</a>
+						</li>
+				</ul>
+		</div>		<div id="categories-2" class="widget-wrapper widget_categories"><div class="widget-title"><h3>分类目录</h3></div>		<ul>
+	<li class="cat-item cat-item-16"><a href="http://blog.nnnv.cn/index.php/archives/category/android" title="Android开发">Android开发</a>
+</li>
+	<li class="cat-item cat-item-114"><a href="http://blog.nnnv.cn/index.php/archives/category/angularjs">AngularJS</a>
+</li>
+	<li class="cat-item cat-item-67"><a href="http://blog.nnnv.cn/index.php/archives/category/asp-net">asp.net</a>
+</li>
+	<li class="cat-item cat-item-149"><a href="http://blog.nnnv.cn/index.php/archives/category/asp-net-mvc">asp.net mvc</a>
+</li>
+	<li class="cat-item cat-item-27"><a href="http://blog.nnnv.cn/index.php/archives/category/backbone" title="Backbone.js">Backbonejs</a>
+</li>
+	<li class="cat-item cat-item-26"><a href="http://blog.nnnv.cn/index.php/archives/category/bootstrap">Bootstrap</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://blog.nnnv.cn/index.php/archives/category/c">C#</a>
+</li>
+	<li class="cat-item cat-item-93"><a href="http://blog.nnnv.cn/index.php/archives/category/production/soft" title="软件开发">C# 开发</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://blog.nnnv.cn/index.php/archives/category/css3">css3</a>
+</li>
+	<li class="cat-item cat-item-32"><a href="http://blog.nnnv.cn/index.php/archives/category/ext">EXT</a>
+</li>
+	<li class="cat-item cat-item-49"><a href="http://blog.nnnv.cn/index.php/archives/category/fortran">fortran</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://blog.nnnv.cn/index.php/archives/category/html5">html5开发</a>
+</li>
+	<li class="cat-item cat-item-122"><a href="http://blog.nnnv.cn/index.php/archives/category/http">Http</a>
+</li>
+	<li class="cat-item cat-item-116"><a href="http://blog.nnnv.cn/index.php/archives/category/hybirdapp">HybirdApp</a>
+</li>
+	<li class="cat-item cat-item-52"><a href="http://blog.nnnv.cn/index.php/archives/category/iis">iis</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="http://blog.nnnv.cn/index.php/archives/category/iosapp">IOS开发</a>
+</li>
+	<li class="cat-item cat-item-19"><a href="http://blog.nnnv.cn/index.php/archives/category/iscroll">iScroll</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://blog.nnnv.cn/index.php/archives/category/javascript">javascript</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://blog.nnnv.cn/index.php/archives/category/jquery">jquery</a>
+</li>
+	<li class="cat-item cat-item-12"><a href="http://blog.nnnv.cn/index.php/archives/category/json">json</a>
+</li>
+	<li class="cat-item cat-item-14"><a href="http://blog.nnnv.cn/index.php/archives/category/macsoft">Mac软件</a>
+</li>
+	<li class="cat-item cat-item-51"><a href="http://blog.nnnv.cn/index.php/archives/category/net">net</a>
+</li>
+	<li class="cat-item cat-item-34"><a href="http://blog.nnnv.cn/index.php/archives/category/openvms">openvms</a>
+</li>
+	<li class="cat-item cat-item-15"><a href="http://blog.nnnv.cn/index.php/archives/category/phonegap">PhoneGap</a>
+</li>
+	<li class="cat-item cat-item-24"><a href="http://blog.nnnv.cn/index.php/archives/category/php">php</a>
+</li>
+	<li class="cat-item cat-item-123"><a href="http://blog.nnnv.cn/index.php/archives/category/socket">Socket</a>
+</li>
+	<li class="cat-item cat-item-35"><a href="http://blog.nnnv.cn/index.php/archives/category/sql">sql</a>
+</li>
+	<li class="cat-item cat-item-131"><a href="http://blog.nnnv.cn/index.php/archives/category/swift">Swift</a>
+</li>
+	<li class="cat-item cat-item-121"><a href="http://blog.nnnv.cn/index.php/archives/category/tcpip">TCP/IP</a>
+</li>
+	<li class="cat-item cat-item-91"><a href="http://blog.nnnv.cn/index.php/archives/category/production/ui">UI设计</a>
+</li>
+	<li class="cat-item cat-item-124"><a href="http://blog.nnnv.cn/index.php/archives/category/xmpp">XMPP</a>
+</li>
+	<li class="cat-item cat-item-117"><a href="http://blog.nnnv.cn/index.php/archives/category/xuijs">xuijs</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://blog.nnnv.cn/index.php/archives/category/zeptojs-2">Zeptojs</a>
+</li>
+	<li class="cat-item cat-item-170"><a href="http://blog.nnnv.cn/index.php/archives/category/%e4%ba%8c%e7%bb%b4%e7%a0%81">二维码</a>
+</li>
+	<li class="cat-item cat-item-90"><a href="http://blog.nnnv.cn/index.php/archives/category/production" title="博主作品">作品</a>
+</li>
+	<li class="cat-item cat-item-92"><a href="http://blog.nnnv.cn/index.php/archives/category/production/%e5%89%8d%e7%ab%af%e5%bc%80%e5%8f%91" title="前端开发">前端开发</a>
+</li>
+	<li class="cat-item cat-item-176"><a href="http://blog.nnnv.cn/index.php/archives/category/%e5%be%ae%e4%bf%a1%e5%bc%80%e5%8f%91">微信开发</a>
+</li>
+	<li class="cat-item cat-item-98"><a href="http://blog.nnnv.cn/index.php/archives/category/vlife">微生活</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="http://blog.nnnv.cn/index.php/archives/category/it">挨踢攻城狮</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://blog.nnnv.cn/index.php/archives/category/developmenttools" title="Development tools
+开发工具，好软件推荐使用">攻城具</a>
+</li>
+	<li class="cat-item cat-item-50"><a href="http://blog.nnnv.cn/index.php/archives/category/%e6%95%b0%e6%8d%ae%e5%ba%93">数据库</a>
+</li>
+	<li class="cat-item cat-item-107"><a href="http://blog.nnnv.cn/index.php/archives/category/intellegence">智能硬件</a>
+</li>
+	<li class="cat-item cat-item-97"><a href="http://blog.nnnv.cn/index.php/archives/category/%e8%a1%8c%e4%b8%9a%e8%b5%84%e8%ae%af">行业资讯</a>
+</li>
+	<li class="cat-item cat-item-56"><a href="http://blog.nnnv.cn/index.php/archives/category/%e8%af%88%e9%aa%97%e7%94%b5%e8%af%9d">诈骗电话</a>
+</li>
+		</ul>
+</div><div id="linkcat-2" class="widget-wrapper widget_links"><div class="widget-title"><h3>链接表</h3></div>
+	<ul class="xoxo blogroll">
+<li><a href="http://www.cnblogs.com/" target="_blank">博客园</a></li>
+<li><a href="http://www.wzguan.com/" target="_blank">智简微总管</a></li>
+<li><a href="http://uedc.163.com/" target="_blank">网易UEDC</a></li>
+<li><a href="http://wsd.tencent.com/">腾讯WSD</a></li>
+<li><a href="http://www.aliued.cn/">阿里ued</a></li>
+
+	</ul>
+</div>
+<div id="meta-2" class="widget-wrapper widget_meta"><div class="widget-title"><h3>功能</h3></div>			<ul>
+			<li><a rel="nofollow" href="http://blog.nnnv.cn/wp-login.php?action=register">注册</a></li>			<li><a rel="nofollow" href="http://blog.nnnv.cn/wp-login.php">登录</a></li>
+			<li><a href="http://blog.nnnv.cn/index.php/feed">文章<abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://blog.nnnv.cn/index.php/comments/feed">评论<abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="https://cn.wordpress.org/" title="基于WordPress，一个优美、先进的个人信息发布平台。">WordPress.org</a></li>			</ul>
+			</div><div id="akismet_widget-2" class="widget-wrapper widget_akismet_widget"><div class="widget-title"><h3>已屏蔽的垃圾评论</h3></div>
+	<div class="a-stats">
+		<a href="http://akismet.com/" target="_blank" title=""><strong class="count">0 spam</strong> blocked by <strong>Akismet</strong></a>
+	</div>
+
+</div>
+			</div><!-- end of #widgets -->
+</div><!-- end of #wrapper -->
+</div><!-- end of #container -->
+
+<div id="footer" class="clearfix">
+	
+	<div id="footer-wrapper">
+
+		
+		<div class="grid col-940">
+
+			<div class="grid col-540">
+				<ul id="menu-foot%e5%af%bc%e8%88%aa" class="footer-menu"><li id="menu-item-559" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-559"><a href="http://blog.nnnv.cn/index.php/archives/category/thoughts">感想|thoughts</a></li>
+<li id="menu-item-498" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-498"><a href="http://blog.nnnv.cn/index.php/products">作品|PRODUCTS</a></li>
+<li id="menu-item-500" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-500"><a href="http://blog.nnnv.cn/index.php/down">下载|DOWN</a></li>
+<li id="menu-item-499" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-499"><a href="http://blog.nnnv.cn/index.php/about">关于|ABOUT</a></li>
+</ul>			</div><!-- end of col-540 -->
+
+			<div class="grid col-380 fit">
+				<ul class="social-icons"></ul><!-- .social-icons -->			</div><!-- end of col-380 fit -->
+
+		</div><!-- end of col-940 -->
+		
+		<div class="grid col-300 copyright">
+			© 2016<a href="http://blog.nnnv.cn/" title="青水之山博客">
+				青水之山博客			</a>
+		</div><!-- end of .copyright -->
+
+		<div class="grid col-300 scroll-top"><a href="http://blog.nnnv.cn/index.php/archives/65#scroll-top" title="回到顶部">↑</a></div>
+
+		<div class="grid col-300 fit powered">
+			<a href="http://cyberchimps.com/responsive-theme/" title="Responsive Theme">
+				Responsive Theme</a>
+			采用 <a href="http://wordpress.org/" title="WordPress">
+				WordPress</a>
+		</div><!-- end .powered -->
+
+	</div><!-- end #footer-wrapper -->
+
+	</div><!-- end #footer -->
+
+<!-- Custom Scripts -->
+<script type="text/javascript" src="./移动设备web开发插件iScroll的使用详解 - 青水之山博客_files/stats" charset="UTF-8"></script>
+<script type="text/javascript" src="./移动设备web开发插件iScroll的使用详解 - 青水之山博客_files/responsive-scripts.min.js"></script>
+<script type="text/javascript" src="./移动设备web开发插件iScroll的使用详解 - 青水之山博客_files/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="./移动设备web开发插件iScroll的使用详解 - 青水之山博客_files/wp-embed.min.js"></script>
+
+</body></html>

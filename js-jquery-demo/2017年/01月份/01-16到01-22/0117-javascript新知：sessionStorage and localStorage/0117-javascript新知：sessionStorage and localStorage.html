@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+对象sessionStorage是一次会话内的存储，它主要用于在一次会话内的多个页面内共享数据。
+
+如下案例使用了vue.js,你需要了解vue.js。此案例会有两个文件：
+
+a.html b.html
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+安装并启动http server
+
+npm i http-server -g
+http-server
+
+<!-- ----------------------------------------------------------------------------- -->
+
+访问localhost:8080/a.html ,我们点击按钮设置sessionStorage.count之后，导航到b页面，会发现显示的值是a页面内设置的值。这说明在同一个会话内的页面间是可以通过sessionStorage来共享数据的。
+
+
+如果打开一个新的页面，在访问b，显示的值就不能和a页面设置的相同，这是因为新开的页面和原来的a页面的会话并不一致。如果需要在这样的情况下也可以访问，那么需要把sessionStorage改为localStorage。
+
+你不妨试试。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

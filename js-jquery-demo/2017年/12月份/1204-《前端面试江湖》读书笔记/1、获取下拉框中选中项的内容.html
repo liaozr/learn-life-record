@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ------------------------------------------------------------------------------------------------------------------ -->
+
+  <select id='select' name="type" onchange="selectChange()">
+        <option value="0">请选择主类别</option>
+        <option value="1">类别1</option>
+        <option value="2">类别2</option>
+  </select>
+
+  <script>
+
+      function selectChange() {
+
+        var myselect=document.getElementById('select')
+
+        let index = myselect.selectedIndex
+
+        console.log(index)
+
+        // 拿到选中项options的value：
+        console.log( myselect.options[index].value );
+
+        // 拿到选中项options的text：
+        console.log(   myselect.options[index].text);
+
+      }
+      
+  </script>
+
+<!-- ------------------------------------------------------------------------------------------------------------------ -->
+
+</body>
+
+</html>

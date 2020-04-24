@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!--   头部 header  部分  -->
+    <div class="mui-bar mui-bar-nav header" :class="{'xiangmuheader':xiangmuflag}">
+
+        <a class="mui-icon mui-icon-bars mui-pull-left mui-plus-visible" :class="{'mui-icon-xiangmu' :xiangmuflag}"></a>
+        <span v-show='!xiangmuflag' id="topContent">消息</span>
+
+        <span class='xiangmuduyou' v-show='xiangmuflag' style="display:none;">
+               <input v-el:search debounce="500" class='search' type="text" name="search" id="search" placeholder="电话/地址/业主名称" v-model='search_value' @input='searchsousuo($event)'>
+               <!-- </form> -->
+               <span id='scan' class="saomiao" :class="{'shuaixuannot':headrightflag}"></span>
+        <span v-show='!headrightflag' @click='shuaixuan' class="shuaixuan" style="display:none;"></span>
+        </span>
+    </div>
+
+    <!--  底部 footer 部分  -->
+    <nav class="bottom-bar bottom-bar-tab">
+        <div class="bottom-tab-item bottom-active mui-hidden" data-index="0" data-id="news.html">
+            <span class="bottom-icon icon-xiaoxi"></span>
+            <span class="bottom-tab-label">消息</span>
+        </div>
+        <div data-mulu='xiangmu' class="bottom-tab-item  mui-hidden" data-index="1" data-id="xiangmu.html">
+            <span class="bottom-icon icon-xiangmu"></span>
+            <span class="bottom-tab-label">工地</span>
+        </div>
+        <div data-mulu='kanbu' class="bottom-tab-item  mui-hidden" data-index="2" data-id="xiangmu-kanban.html">
+            <span class="bottom-icon icon-xiangmukanban"></span>
+            <span class="bottom-tab-label">工地看板</span>
+        </div>
+        <div class="bottom-tab-item  mui-hidden" data-index="3" data-id="sale.html">
+            <span class="bottom-icon icon-xiaoshou"></span>
+            <span class="bottom-tab-label">销售</span>
+        </div>
+        <div class="bottom-tab-item  mui-hidden" data-index="4" data-id="oa_index.html">
+            <span class="bottom-icon icon-oa"></span>
+            <span class="bottom-tab-label">OA</span>
+        </div>
+    </nav>
+
+    <script src="js/zepto1.1.6.min.js" type="text/javascript"></script>
+    <script src='js/mui.min.js'></script>
+    <script type="text/javascript" src="js/public.js"></script>
+    <script type="text/javascript" src="js/global.js"></script>
+    <script type="text/javascript" src="js/vue.min.js"></script>
+    <script src="js/locStorage.js"></script>
+    <!--Sea.js 前端模块化开发框架-->
+    <script src="js/sea.js"></script>
+
+
+    <script>
+
+        var vm = new Vue({
+            el: 'body',
+            data: {
+                zhezhaoflag: false,
+                xiangmuflag: false,
+                search_value: '',
+                headrightflag: true
+            },
+            ready: function() {
+                localStorage.xmsearch_value = ''
+            },
+            methods: {
+                searchsousuo: function(e) {
+
+                    var skeyword = e.target.value;
+
+                    var skeyword = trim(skeyword);
+                    if ($.trim(skeyword) != "") {
+
+                        localStorage.xmsearch_value = skeyword;
+                        localStorage.removeItem('search_shuzhi');
+                        plus.webview.getWebviewById("xiangmu.html").evalJS("shuaixuanjiekou()");
+                    } else {
+                        this.search_value = '';
+                        localStorage.xmsearch_value = '';
+
+                        localStorage.search_shuzhi = 1;
+                        // localStorage.removeItem("xmsearch_value");
+                        // plus.webview.getWebviewById("xiangmu.html").evalJS("shuaixuanjiekou()");
+                        plus.webview.getWebviewById("xiangmu.html").evalJS("mcounter()");
+
+                    }
+
+                },
+                shuaixuan: function() {
+                    openNew("./xiangmu/xm-jigou-shuaixuan.html");
+                }
+            }
+        })
+        
+    </script>
+
+</body>
+
+</html>

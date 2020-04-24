@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="col-sm-1">
+        <button class="btn btn-xs btn-danger delete-button" @click="deletePlan(index)">
+                          X
+        </button>
+    </div>
+
+    <!-- ------------------------------------------------------------------------ -->
+
+    <script>
+        import {
+            mapGetters,
+            mapActions
+        } from 'vuex'
+
+        export default {
+            data() {
+                return {
+
+                }
+            },
+            computed: {
+                ...mapGetters(['plans'])
+            },
+            methods: {
+                ...mapActions(['deletePlan']),
+
+            }
+        }
+
+
+        // ---------------------------------------------------------
+
+        // actions.js
+        export const deletePlan = ({ commit },index) => {
+        	commit(types.DELETEPLAN,index)
+        }
+
+        // ---------------------------------------------------------
+
+        // muations.js
+        [types.DELETEPLAN](state,index)
+        {
+              // 拿到当前要删除的这个计划的总时间
+              var deltime=state.plans[index].totaltime;
+
+              // 从store里的state状态里的所有的总时间减去 当前要删除的这个计划的总时间
+              state.totaltimeAll= state.totaltimeAll-deltime;
+
+              // 从store仓库里把state状态里的 plans这个数组删除掉第 index 个数据
+              // 就是删除掉当前要删除的这个数据。
+              state.plans.splice(index,1);
+         }
+
+
+    </script>
+</body>
+
+</html>

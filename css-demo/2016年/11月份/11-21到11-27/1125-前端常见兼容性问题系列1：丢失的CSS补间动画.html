@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+结论
+
+因此，**不管是用keyframes，还是用 transition实现动画，
+
+动画过程中几个状态的translate的表示单位不一致的时候，
+
+在小米2S的UC浏览器中都会出现补间动画丢失的问题。
+
+解决的方案就是统一动画过程中各个状态的translate的表示单位。
+
+**这应该也是动画的应有之意，只是写代码的时候并没有刻意去留意。
+
+相信肯定还会有更多的机器上能复现此问题。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+<style>
+    .animation-element3 {
+        position: fixed;
+        -webkit-transform: translate(12rem);
+        transform: translate(12rem);
+        right: 0;
+        top: 40rem;
+        padding: 1rem;
+        width: 10rem;
+        background-color: #0fd5ff;
+        border-radius: 2rem;
+        color: #fff;
+        -webkit-animation: opacity-transition3 ease 2s 1s;
+        animation: opacity-transition3 ease 2s 1s;
+    }
+
+    @-webkit-keyframes opacity-transition3 {
+        0% {
+            -webkit-transform: translate(12rem);
+            transform: translate(12rem);
+        }
+        20% {
+            -webkit-transform: translate(-1rem);
+            transform: translate(-1rem);
+        }
+        80% {
+            -webkit-transform: translate(-1rem);
+            transform: translate(-1rem);
+        }
+        100% {
+            -webkit-transform: translate(12rem);
+            transform: translate(12rem);
+        }
+    }
+</style>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+ <!-- 下面那样子写是会出现bug的。 -->
+
+ <!-- 原因是单位不一致 -->
+
+<div class="animation-element4">hi, bugs!</div>
+<script>
+    var $el4 = document.querySelector('.animation-element4');
+    setTimeout(function() {
+        $el4.className += ' animation-test';
+    }, 2000);
+
+    $el4.addEventListener('webkitTransitionEnd', function() {
+        $el4.className = 'animation-element4';
+    })
+</script>
+
+<style>
+    .animation-element4 {
+        position: fixed;
+        -webkit-transform: translate(100%);
+        transform: translate(100%);
+        right: 0;
+        top: 60rem;
+        padding: 1rem;
+        width: 10rem;
+        background-color: #0fd5ff;
+        border-radius: 2rem;
+        color: #fff;
+        -webkit-transition: -webkit-transform ease 2s;
+        transition: transform ease 2s;
+    }
+
+    .animation-element4.animation-test {
+        -webkit-transform: translate(-10rem);
+        transform: translate(-10rem);
+    }
+</style>
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+</body>
+</html>

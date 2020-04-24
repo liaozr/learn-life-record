@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+isNaN
+
+检查一个值是否为NaN
+
+<script>
+
+    Number.isNaN(NaN) //true
+    Number.isNaN(15) //false
+
+</script>
+
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+assign用于对象的合并，复制到目标对象。
+
+<script>
+
+        var _name={name:'守候'},sex={sex:'男'},city={'city':'广州'}
+
+        Object.assign(_name,sex,city)//{name: "守候", sex: "男", city: "广州"}
+
+        var info1={name:'守',sex:'男'},info2={name:'候',city:'广州'}
+
+        Object.assign(info1,info2)
+
+        //{name: "候", sex: "男", city: "广州"}克隆原来这样对象，这样克隆对象，修改了info1或者info3，不会影响info3或者info1，但是Object.assign并不是深拷贝。详细的可以参考我之前的文章--对象深浅拷贝var info1={name:'守',sex:'男'}
+
+        var info3=Object.assign(info1,{})//{name:'守',sex:'男'}
+
+</script>
+
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+keys
+
+根据对象自身可遍历的键名进行遍历，返回一个数组
+
+<script>
+
+    var info={name: "守候", sex: "男", city: "广州"}
+
+    Object.keys(info)//["name", "sex", "city"]
+
+</script>
+
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+数组from
+
+from用于将两类对象转为真正的数组：
+
+类似数组的对象和可遍历的对象Array.from('守候')//["守", "候"]
+
+<script>
+
+    //常见的使用方式还有-将Dom集合和arguments转成真正的数组
+    let oLi = document.querySelectorAll('li');
+
+    Array.from(oLi).forEach(function(item) {
+        console.log(item);
+    });
+
+    // arguments对象
+    function fn() {
+        let args = Array.from(arguments);
+    }
+
+    //顺便说下Set
+    let newSet = new Set(['a', 'b', 'a', 'c'])
+
+    Array.from(newSet) // ['a', 'b','c']
+
+    //ES6 新增的数据结构--Set。它类似于数组，但是成员的值都是唯一的，不重复的。
+    //相信大家很容易想到怎么用了，比如数组去重，用Set实现就简单多了。
+    removeRepeatArray(arr) {
+        //return [Array.from(arr)]
+        return [...new Set(arr)]
+    }
+
+</script>
+
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+find
+
+find方法，用于找出第一个符合条件的数组成员。如果没找到符合条件的成员就返回underfind
+
+findIndex方法，用于找出第一个符合条件的数组成员的索引。//第一个大于2的成员的索引
+
+includes方法，用于某个数组是否包含给定的值，返回一个布尔值。如果没找到符合条件的成员就返回underfind
+
+<script>
+
+    [1, 2, 3].includes(2) //true
+
+</script>
+
+<script>
+
+    //第一个大于2的成员
+
+    [1, 2, 3, 4].find((n) => n > 2)  // 3
+
+    [1, 2, 3, 4].findIndex((n) => n > 2) // 2
+
+    [1, 2, 3].includes(5) //false
+
+    [1, 2, NaN].includes(NaN) //true
+
+</script>
+
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

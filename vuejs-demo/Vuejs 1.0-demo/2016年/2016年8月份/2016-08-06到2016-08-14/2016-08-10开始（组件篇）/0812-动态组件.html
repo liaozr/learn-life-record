@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+</head>
+<body>
+
+	<!--  :is='currentView' 这个就是动态组件，通过动态改变 currentView的值，从而动态改变组件  -->
+	<component :is="currentView">
+        <!-- component changes when vm.currentview changes! -->
+    </component>
+    <template id='aaa'>
+            <div class='c1'>
+            <input v-model="a">{{a}}
+            <button @click="m('home')">home</button>
+            <button @click="m('posts')">posts</button>
+            <button @click="m('archive')">archive</button>
+            <button @click="m(str1)">{{str1}}</button>
+            </div>
+    </template>	
+    <script>
+    Vue.component('c1', {
+        template: '#aaa',
+        props: ['str1'],
+        methods: {
+            m: function(str1) {
+                this.$dispatch('parent-events1', str1)
+            }
+        },
+        data: function() {
+            return {
+                a: 1
+            }
+        }
+
+    });
+
+    new Vue({
+        el: 'body',
+        data: {
+            currentView: 'home'
+        },
+        components: {
+            home: {   // 一开始是 默认这个  home 组件的。
+            	// 这个str1是给子组件 c1 用的。，子组件 c1 用 props 来定义接收.
+            	// 然后子组件里 就可以直接来使用  str1这个变量了。
+                template: 'component is home <c1 str1="home"></c1>'
+            },
+            posts: {
+                template: 'component is posts <c1 str1="posts"></c1>'
+            },
+            archive: {
+                template: 'component is archive <c1 str1="archive"></c1>'
+            }
+        },
+        events: {
+            'parent-events1': function(str1) {
+                this.currentView = str1;
+            }
+        }
+    })
+    </script>
+<!-- ----------------------------------------------------------------------    -->
+    
+
+<!-- 如果把切换出去的组件保留在内存中，可以保留它的状态避免重新渲染 ，为此可以添加  keep-alive 参数-->
+
+	<br>
+    <h3>组件的data 会被缓存</h3>
+
+    <!--    加了个keep-alive 参数可以缓存  组件中的data 数据。    -->
+
+    <component :is="currentView" keep-alive>
+
+    <!-- component changes when vm.currentview changes! -->
+    </component>
+    <script>
+    Vue.component('c1', {
+        template: `
+            <input v-model="a">{{a}}
+            <button @click="m('home')">home</button>
+            <button @click="m('posts')">posts</button>
+            <button @click="m('archive')">archive</button>
+            <button @click="m(str1)">{{str1}}</button>
+        `,
+        props: ['str1'],
+        methods: {
+            m: function(str1) {
+                this.$dispatch('parent-events1', str1)
+            }
+        },
+        data: function() {
+            return {
+                a: 1
+            }
+        }
+
+    });
+
+    new Vue({
+        el: 'body',
+        data: {
+            currentView: 'home'
+        },
+        components: {
+            home: {
+                template: 'component is home <c1 str1="home"></c1>'
+            },
+            posts: {
+                template: 'component is posts <c1 str1="posts"></c1>'
+            },
+            archive: {
+                template: 'component is archive <c1 str1="archive"></c1>'
+            }
+        },
+        events: {
+            'parent-events1': function(str1) {
+                this.currentView = str1;
+            }
+        }
+    })
+    </script>
+
+<!-- -----------------------------------------------------------------------------------     -->
+
+
+    <br>
+    <h3>注意 activate 钩子只作用于动态组件
+    切换或静态组件初始化渲染的过程中
+    不作用于使用实例方法手工插入的过程中。</h3>
+    <div id="app">
+        <component :is="currentView" keep-alive></component>
+    </div>
+
+    <!--     注意 activate 钩子只作用于动态组件
+    切换或静态组件初始化渲染的过程中
+    不作用于使用实例方法手工插入的过程中 -->
+
+    <template id='bb'>
+    	<div>
+            <input v-model="a">{{a}}
+            <button @click="m('home')">home</button>
+            <button @click="m('posts')">posts</button>
+            <button @click="m('archive')">archive</button>
+            <button @click="m(str1)">{{str1}}</button>
+        </div>
+    </template>	
+    <script>
+    Vue.component('c1', {
+        template:'#bb',
+        props: ['str1'],
+        methods: {
+            m: function(str1) {
+                this.$dispatch('parent-events1', str1)
+            }
+        },
+        data: function() {
+            return {
+                a: 1
+            }
+        }
+
+    });
+
+
+
+    new Vue({
+        el: '#app',
+        data: {
+            currentView: 'home'
+        },
+        components: {
+            home: {
+                template: '<div>component is home <c1 str1="home"></c1></div>',
+                // activate it works  activate回调
+                activate: function(done) {
+                    console.log('home activate called');
+                    setTimeout(function() {
+                        console.log('home activate done');
+                        done();
+                    }, 2000);
+                },
+            },
+            posts: {
+                template: '<div>component is posts <c1 str1="posts"></c1></div>',
+                // activate it works   activate回调
+                activate: function(done) {
+                    console.log('posts activate called');
+                    setTimeout(function() {
+                        console.log('posts activate done');
+                        done();
+                    }, 3000);
+                },
+            },
+            archive: {
+                template: '<div>component is archive <c1 str1="archive"></c1></div>',
+                // activate it works   activate回调
+                activate: function(done) {
+                    console.log('archive activate called');
+                    setTimeout(function() {
+                        console.log('archive activate done');
+                        done();
+                    }, 1000);
+                },
+            }
+        },
+        events: {
+            'parent-events1': function(str1) {
+                this.currentView = str1;
+            }
+        }
+    })
+    </script>
+
+
+<!-- ----------------------------------------------------------------------------- -->
+
+
+<!--   组件动态切换的过渡   -->
+<style>
+        .fade-transition {
+            transition: opacity .3s ease;
+        }
+        .fade-enter, .fade-leave {
+            opacity: 0;
+        }
+</style>
+
+
+    <br>
+    <h3>组件动态切换的过渡 </h3>
+
+	<!-- transition-mode 特性用于指定两个动态组件之间如何过渡。
+
+	在默认情况下，进入与离开平滑地过渡。这个特性可以指定另外两种模式：
+
+	in-out：新组件先过渡进入，等它的过渡完成之后当前组件过渡出去。
+
+	out-in：当前组件先过渡出去，等它的过渡完成之后新组件过渡进入。 -->
+
+    <component :is="currentView" keep-alive transition="fade" transition-mode="out-in">
+    </component>
+
+    <template id='bbb'>
+    	<div>
+            <input v-model="a">{{a}}
+            <button @click="m('home')">home</button>
+            <button @click="m('posts')">posts</button>
+            <button @click="m('archive')">archive</button>
+            <button @click="m(str1)">{{str1}}</button>
+        </div>
+    </template>	
+    <script>
+    Vue.component('c1', {
+        template:'#bbb',
+        props: ['str1'],
+        methods: {
+            m: function(str1) {
+                this.$dispatch('parent-events1', str1)
+            }
+        },
+        data: function() {
+            return {
+                a: 1
+            }
+        }
+
+    });
+
+
+
+    new Vue({
+        el: 'body',
+        data: {
+            currentView: 'home'
+        },
+        components: {
+            home: {
+                template: '<div>component is home <c1 str1="home"></c1></div>',
+                // activate it works
+                activate: function(done) {
+                    console.log('home activate called');
+                    setTimeout(function() {
+                        console.log('home activate done');
+                        done();
+                    }, 2000);
+                },
+            },
+            posts: {
+                template: '<div>component is posts <c1 str1="posts"></c1></div>',
+                // activate it works
+                activate: function(done) {
+                    console.log('posts activate called');
+                    setTimeout(function() {
+                        console.log('posts activate done');
+                        done();
+                    }, 2000);
+                },
+            },
+            archive: {
+                template: '<div>component is archive <c1 str1="archive"></c1></div>',
+                // activate it works
+                activate: function(done) {
+                    console.log('archive activate called');
+                    setTimeout(function() {
+                        console.log('archive activate done');
+                        done();
+                    }, 2000);
+                },
+            }
+        },
+        events: {
+            'parent-events1': function(str1) {
+                this.currentView = str1;
+            }
+        }
+    })
+    </script>
+
+</body>
+</html>

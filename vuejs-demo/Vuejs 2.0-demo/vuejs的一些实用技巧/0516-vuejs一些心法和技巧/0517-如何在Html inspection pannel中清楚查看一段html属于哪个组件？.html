@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  <!-- --------------------------------------------------------------------------------------- -->
+
+  如何在Html inspection pannel中清楚查看一段html属于哪个组件？
+
+  在组件式开发模式下，我们的页面就是一堆component组件按照逻辑关系堆砌出来的，很多时候我们发现找到对应的html片段属于哪个组件的模版定义的不是一件容易的事情，
+
+  如何处理这种棘手的问题使得开发更容易和有趣？
+
+  我总结下来一个简单有效的方法是：在组件的root node下增加一行html注释：
+
+  <!-- yourcomponent-name -->， 这样在html inspection界面就一眼看出是什么组件了，
+
+  对应你想修改的话，打开那个组件.vue文件修改即可。
+  
+  <!-- --------------------------------------------------------------------------------------- -->
+
+</body>
+
+</html>

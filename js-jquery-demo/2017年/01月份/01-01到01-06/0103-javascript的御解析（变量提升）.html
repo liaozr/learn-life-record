@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+5.1 不管条件是否成立，都要把带var的进行提前的声明
+
+<script>
+    if (!('num' in window)) {
+        var num = 12;
+    }
+    console.log(num); // undefined
+</script>
+
+JavaScript进行预解析的时候，会忽略所有if条件，因为在ES6之前并没有块级作用域的概念。
+
+本例中会先将num预解析，而预解析会将该变量添加到window中，作为window的一个属性。
+
+那么 'num' in window 就返回true，取反之后为false，这时代码执行不会进入if块里面，
+
+num也就没有被赋值，最后console.log(num)输出为undefined。
+
+<!-- ----------------------------------------------------------------------------- -->
+
+5.4 return下的代码依然会进行预解析
+
+<script>
+    function fn() {
+        console.log(num); // -> undefined
+        return function() {
+
+        };
+        var num = 100;
+    }
+    fn();
+</script>
+
+函数体中return下面的代码，虽然不再执行了，但是需要进行预解析，return中的代码，都是我们的返回值，所以不进行预解析。
+
+<!-- ------------------------------------------------------------------------------- -->
+
+5.5 名字已经声明过了，不需要重新的声明，但是需要重新的赋值
+
+<script>
+    var fn = 13;
+
+    function fn() {
+        console.log('ok');
+    }
+    fn(); // Uncaught TypeError: fn is not a function
+</script>
+
+下面5个原则很重要：
+
+1)函数声明会置顶
+2)变量声明也会置顶
+3)函数声明比变量声明更置顶：(函数在变量上面)
+4)变量和赋值语句一起书写，在js引擎解析时，会将其拆成声明和赋值2部分，声明置顶，赋值保留在原来位置
+5)声明过的变量不会重复声明
+
+知道以上的规则,上面的代码等同于 :
+
+<script>
+    var fn = function() {　
+        console.log('ok');
+    }
+    var fn;
+    fn = 13;
+    fn();
+</script>
+
+相当于给fn重新赋值了,所以会报错.
+
+<!-- ------------------------------------------------------------------------------ -->
+
+比较经典的题目：
+<!--
+<script>
+    fn();
+    function fn() {
+        console.log(1);
+    }
+    fn();
+    var fn = 10;
+    fn();
+    function fn() {
+        console.log(2);
+    }
+    fn();
+</script>
+
+-->
+
+上面那段被注释了的代码实际上的执行顺序是下面这段代码这样子的
+
+<script>
+    var fn=function(){
+        console.log(1);
+    }
+    var fn=function(){
+        console.log(2);
+    }
+    var fn  //声明过的变量不会重复声明
+    fn(); // -> 2
+
+    fn(); // -> 2
+    fn = 10; // -> fn = 10
+    fn(); // -> 10()  Uncaught TypeError: fn is not a function
+
+    fn();
+</script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+</body>
+</html>

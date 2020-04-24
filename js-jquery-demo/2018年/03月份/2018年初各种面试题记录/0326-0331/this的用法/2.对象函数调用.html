@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+  <script>
+
+      window.b = 2222
+
+      let obj = {
+          a: 111,
+          fn: function() {
+              alert(this.a); //111
+              alert(this.b); //underfind
+          }
+      }
+
+  </script>
+
+  obj.fn();很明显，第一次就是输出obj.a，就是111。
+
+  而第二次，obj没有b这个属性，所以输出underfind，因为this指向obj。
+
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+  但是下面这个情况得注意
+
+  <script>
+
+      let obj1 = {
+          a: 222
+      };
+
+      let obj2 = {
+          a: 111,
+          fn: function() {
+              alert(this.a);
+          }
+      }
+
+      obj1.fn = obj2.fn;
+
+      obj1.fn(); //222这个相信也不难理解，虽然obj1.fn是从obj2.fn赋值而来，但是调用函数的是obj1，所以this指向obj1。
+
+  </script>
+
+<!-- ---------------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

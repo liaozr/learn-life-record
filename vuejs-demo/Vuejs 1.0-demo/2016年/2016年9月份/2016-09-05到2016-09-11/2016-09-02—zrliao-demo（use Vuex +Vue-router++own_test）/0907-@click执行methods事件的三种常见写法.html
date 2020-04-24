@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='vue.js'></script>
+</head>
+<body>
+	<button id='aa' @click='aa'></button>
+
+
+	<script>
+       new Vue({
+       	el:'#aa',
+       	methods:{
+       		aa:()=>{
+       			console.log(this.$el)
+       		}
+       	}
+       })
+	</script>
+</body>
+</html>

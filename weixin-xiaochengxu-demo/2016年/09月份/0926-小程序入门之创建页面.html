@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<!-- -------------------------------------------------------------------------------------------- -->
+
+ <!-- 创建页面 -->
+
+<!-- 
+
+在这个教程里，我们有两个页面，index 页面和 logs 页面，
+即欢迎页和小程序启动日志的展示页，他们都在 pages 目录下。
+
+微信小程序中的每一个页面的【路径+页面名】都需要写在 app.json 的 pages 中，
+且 pages 中的第一个页面是小程序的首页。
+
+
+每一个小程序页面是由同路径下同名的四个不同后缀文件的组成，
+如：index.js、index.wxml、index.wxss、index.json。
+.js 后缀的文件是脚本文件，
+.json 后缀的文件是配置文件，
+.wxss 后缀的是样式表文件，
+.wxml 后缀的文件是页面结构文件。 
+
+-->
+<!-- ----------------------------------------------------------------------------- -->
+
+<!-- index.wxml是页面的结构文件： -->
+
+<!--index.wxml-->
+
+<view class="container">
+
+  <view  bindtap="bindViewTap" class="userinfo">
+
+    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+
+  </view>
+
+  <view class="usermotto">
+
+    <text class="user-motto">{{motto}}</text>
+
+  </view>
+
+</view>
+
+<!-- 本例中使用了 <view/>、<image/>、<text/>来搭建页面结构，绑定数据和交互处理函数。 -->
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+<!-- 
+	index.js 是页面的脚本文件，在这个文件中我们可以监听并处理页面的生命周期函数、获取小程序实例，声明并处理数据，响应页面交互事件等。
+ -->
+<script>
+//index.js
+
+//获取应用实例
+
+var app = getApp()
+
+Page({
+
+  data: {
+
+    motto: 'Hello World',
+
+    userInfo: {}
+
+  },
+
+  //事件处理函数
+
+  bindViewTap: function() {
+
+    wx.navigateTo({
+
+      url: '../logs/logs'
+
+    })
+
+  },
+
+  onLoad: function () {
+
+    console.log('onLoad')
+
+    var that = this
+
+    //调用应用实例的方法获取全局数据
+
+    app.getUserInfo(function(userInfo){
+
+      //更新数据
+
+      that.setData({
+
+        userInfo:userInfo
+
+      })
+
+    })
+
+  }
+
+})
+</script>
+<!-- ---------------------------------------------------------------------------------- -->
+
+<!-- 
+
+index.wxss是页面的样式表：
+
+/**index.wxss**/ 
+
+-->
+<style>
+
+.userinfo {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+}
+
+.userinfo-avatar {
+
+  width: 128rpx;
+
+  height: 128rpx;
+
+  margin: 20rpx;
+
+  border-radius: 50%;
+
+}
+
+.userinfo-nickname {
+
+  color: #aaa;
+
+}
+
+.usermotto {
+
+  margin-top: 200px;
+
+}
+</style>
+
+<!-- 
+
+页面的样式表是非必要的。当有页面样式表时，
+页面的样式表中的样式规则会层叠覆盖 app.wxss 中的样式规则。
+如果不指定页面的样式表，也可以在页面的结构文件中直接使用 app.wxss 中指定的样式规则。
+
+ -->
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+<!-- index.json是页面的配置文件： -->
+
+<!-- 
+	页面的配置文件是非必要的。当有页面的配置文件时，配置项在该页面会覆盖 app.json 的 window 中相同的配置项。如果没有指定的页面配置文件，则在该页面直接使用 app.json 中的默认配置。
+ -->
+
+ <!-- ----------------------------------------------------------------------------------- -->
+ 
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+<body>
+<!-- ----------------------------------------------------------------------------	 -->
+
+安装与配置各种依赖
+
+# 全局安装 vue-cli
+$ npm install --global vue-cli
+
+# 创建一个基于 webpack 模板的新项目
+$	vue init webpack my-project
+
+# 安装依赖，走你
+$ cd my-project
+
+（npm install 过程时若是有报错的话建议 升级一下npm的版本）
+ 升级npm 命令：npm update -g
+
+$ npm install	（cnpm install）
+$ npm run dev
+
+-------------------------------------------------------------------------------
+
+安装 ( vue-router vue-resource vuex ):
+
+npm install vue-router vue-resource --save
+
+npm install vuex --save
+
+
+然后可以看项目里面package.json这个文件里面刚才安装的那些 插件、依赖 的各个版本号
+
+举个例子：
+"dependencies": {
+	"vue": "^2.0.1",
+	"vue-resource": "^1.0.3",
+	"vue-router": "^2.0.0",
+	"vuex": "^2.0.0"
+}
+<!-- ----------------------------------------------------------------------- -->
+
+如果是要升级vue的话：
+
+Migration to vue 2.0 需要升级的包列表 （ 截止到 2016-10-13 需要update的版本 ）（！需参考当前日期的最新版本的）
+
+cnpm i vue@2.0.2 --save
+
+cnpm i vue-router@2.0.0 --save
+
+cnpm i vuex@2.0.0 --save
+
+cnpm i vue-loader@9.4.0 --save-dev
+
+cnpm i vuex-router-sync@3.0.0 --save (可选安装)
+<!-- vuex-router-sync 2.1.1 是给vue1用的 -->
+
+<!-- ------------------------------------------------------------------------- -->
+
+ 项目文件 package.json 基本上要安装的一些依赖参考：
+
+"dependencies": {
+  "babel-runtime": "^6.11.6",
+  "node-sass": "^3.8.0",
+  "sass-loader": "^4.0.2",
+  "vue": "^2.0.1",
+  "vue-resource": "^1.0.3",
+  "vue-router": "^2.0.0",
+  "vuex": "^2.0.0"
+}
+
+<!-- ------------------------------------------------------------------------- -->
+
+片段实例
+
+一个div，一个文本节点	如下会被看成一个文本节点，所以会报错的
+<template>
+		<div v-text='aa'></div>
+		first router change
+</template>
+
+好吧，那以后template最外面还是习惯用一个main div包着好一点 ,这样就不会造成片段实例了。
+
+<template>
+	<div class="main">
+			<div v-text='aa'></div>
+			first router change
+	</div>
+</template>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+来看看 <router-link></router-link> 的写法
+
+倘若有加上 tag='li'等标记的，那么router-link里面就记得要加上a标签了（推荐）
+
+<router-link tag='li' to="/details">
+     <a>go to the details</a>
+</router-link>
+
+----------------------------------------------------------
+ 没有tag标记的，可以在router-link 里面直接写链接跳转的文字相关。
+<router-link to= "/" >
+   	come from home
+</router-link>
+
+<!-- --------------------------------------------------------------------- -->
+
+在做迁移的时候，因为写错这个render: h =>(App) 写成 render: h =>(app)
+
+所以报了个错 render function is not defined 的错误。
+
+new Vue({
+ store,
+ router,
+ render: h => h(App)
+}).$mount("#app")
+
+<!-- -------------------------------------------------------------------------- -->
+
+
+
+</body>
+</html>

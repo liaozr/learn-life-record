@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+<!------------------------------------------------------------------------------------------------->
+
+在控制台中报类似警告: Attribute "id" is ignored on component 
+
+because the component is a fragment instance, 这个就是组件是片段实例的问题, 
+
+通常来讲, 组件里的template不要有多个顶级元素
+    
+<template>
+    <div>hello</div>
+    <div>world</div>
+</template>
+
+<!------------------------------------------------------------------------------------------------->
+
+上面代码是极不推荐的, 应该改成下面格式:
+
+<template>
+    <div>
+        <div>hello</div>
+        <div>world</div>
+    </div>
+</template>
+
+注意: 在 vue2 中已经不允许组件里有多个顶级元素
+
+<!------------------------------------------------------------------------------------------------->
+
+
+</body>
+</html>

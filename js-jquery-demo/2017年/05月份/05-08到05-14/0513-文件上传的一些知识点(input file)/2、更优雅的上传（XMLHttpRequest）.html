@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+<!-- --------------------------------------------------------------------- -->
+
+——XMLHttpRequest
+
+对，就是这个你很熟悉的家伙。如果你开发的产品支持的浏览器是现代浏览器，那么恭喜你，文件上传就是这么easy！特别强调强调现代浏览器是因为我们接下来讨论的XMLHttpRequest指的是XMLHttpRequest Level 2。
+
+那什么是Level 1？为什么不行？因为它有如下限制：
+
+仅支持文本数据传输, 无法传输二进制数据.
+
+传输数据时, 没有进度信息提示, 只能提示是否完成.
+
+受浏览器 同源策略 限制, 只能请求同域资源.
+
+没有超时机制, 不方便掌控ajax请求节奏.
+
+<!-- --------------------------------------------------------------------- -->
+
+而XMLHttpRequest Level 2针对这些缺陷做出了改进：
+
+支持二进制数据, 可以上传文件, 可以使用FormData对象管理表单.
+
+提供进度提示, 可通过 xhr.upload.onprogress 事件回调方法获取传输进度.
+ 
+依然受 同源策略 限制, 这个安全机制不会变. 
+
+XHR2新提供 Access-Control-Allow-Origin 等headers, 
+
+设置为 * 时表示允许任何域名请求, 从而实现跨域CORS访问(有关CORS详细介绍请耐心往下读).
+
+可以设置timeout 及 ontimeout, 方便设置超时时长和超时后续处理.
+
+关于XMLHttpRequest的细节就不在这里赘述了，有兴趣可以移步这篇博客。
+
+目前, 主流浏览器基本上都支持XHR2, 除了IE系列需要IE10及更高版本. 因此IE10以下是不支持XHR2的.
+
+上面提到的FormData就是我们最常用的一种方式。
+
+通过在脚本里新建FormData对象，把File对象设置到表单项中，然后利用XMLHttpRequest异步上传到服务器：
+
+<script>
+
+	var xhr = new XMLHttpRequest();
+	var formData = new FormData();
+	var fileInput = document.getElementById("myFile");
+	var file = fileInput.files[0];
+	formdata.append('myFile', file);
+
+	xhr.open("POST", "/upload.php");
+
+	xhr.onload = function(){
+	    if(this.status === 200){
+	        //对请求成功的处理
+	    }
+	}
+
+	xhr.send(formData);
+	xhr = null;
+
+</script>
+
+<!-- --------------------------------------------------------------------- -->
+
+
+
+</body>
+</html>

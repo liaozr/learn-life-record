@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+由于整个项目list组件很多地方公用，并且‘我的收藏’，‘搜索结果页面’，‘我的圈子’，
+
+仅仅只是从  /search/own 到 /search/star
+
+此时，原来的组件实例会被复用，意味着组件的生命周期钩子不会再被调用
+
+解决方法：  复用组件时，想对路由参数的变化作出响应的话，可以简单地 watch（监测变化）  对象
+
+ export default {
+   watch: {
+     '$route' (to, from) {
+       // 对路由变化作出响应...
+     }
+   }
+ }
+
+  </body>
+</html>

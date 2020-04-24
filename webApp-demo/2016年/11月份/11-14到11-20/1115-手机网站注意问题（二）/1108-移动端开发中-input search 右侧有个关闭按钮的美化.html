@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+有些机型的搜索input控件会自带close按钮（一个伪元素），而通常为了兼容所有浏览器，
+
+我们会自己实现一个，此时去掉原生close按钮的方法为
+
+<style>
+    #Search::-webkit-search-cancel-button {
+        display: none;
+    }
+</style>
+
+<!-- ------------------------------------------------------------------------------ -->
+
+如果想使用原生close按钮，又想使其符合设计风格，可以对这个伪元素的样式进行修改。
+
+<!-- ------------------------------------------------------------------------------ -->
+
+input [type=search] 搜索框右侧小图标如何美化？
+
+美化效果如下图：
+
+enter image description here
+http://www.haorooms.com/uploads/images/searchmh.png
+
+右侧默认的比较难看的按钮，美化成右侧效果。
+
+<input type="search" name="" id="">
+
+<style>
+
+    input[type="search"]::-webkit-search-cancel-button {
+        -webkit-appearance: none;
+        height: 15px;
+        width: 15px;
+        border-radius: 8px;
+        background: url("images/close.jpg") no-repeat 0 0;
+        background-size: 15px 15px;
+    }
+
+</style>
+
+用到的是伪元素::-webkit-search-cancel-button
+
+<!-- -------------------------------------------------------------------------------- -->
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+  通过一个名称来标识一个路由显得更方便一些
+
+  /user/userId/123
+
+  <router-link :to="{ name: 'user', params: { userId: 123 } }">User</router-link>
+  <router-link :to="{ name: 'user', params: { userId: 123 } }">User</router-link>
+
+  <script>
+
+     this.$router.push({  name: 'user', params: { userId: 123 } })
+
+  </script>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+  <!-- 使用 v-bind 的 JS 表达式'home' -->
+  <router-link v-bind:to="'home'">Home</router-link>
+
+  <!-- 不写 v-bind 也可以，就像绑定别的属性一样 -->
+  <router-link :to="'home'">Home</router-link>
+
+  <!-- 同上 -->
+  <router-link :to="{ path: 'home' }">Home</router-link>
+
+  <!-- 命名的路由 -->
+  <router-link :to="{ name: 'user', params: { userId: 123 } }">User</router-link>
+
+  <!-- 带查询参数，下面的结果为 /register?plan=private -->
+  <router-link :to="{ path: 'register', query: { plan: 'private' } }">Register</router-link>
+
+  <!-- ------------------------------------------------------------------------------- -->
+
+  replace
+
+  设置 replace 属性的话，当点击时，会调用 router.replace() 而不是 router.push()，于是导航后不会留下 history 记录。
+
+  <router-link :to="{ path: '/abc' }" replace></router-link>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+</body>
+
+</html>

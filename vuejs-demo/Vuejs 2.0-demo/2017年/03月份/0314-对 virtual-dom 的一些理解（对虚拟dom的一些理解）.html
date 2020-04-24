@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+2. 基本概念
+
+VNode
+
+VNode 虚拟节点，它可以代表一个真实的 dom 节点。
+通过 createElement 方法能将 VNode 渲染成 dom 节点。
+
+VText
+
+VText 虚拟文本节点，代表了一个真实的文本节点。内容中若有 HTML 会被转义。
+
+Hooks
+
+Hooks 钩子方法，如给节点注册 ev-click 等事件。
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+3. render - 创建虚拟节点
+
+4. createElement - 创建 dom 节点
+
+5、当有状态更新后，会 render 出一个新的 VNode 。
+virtual-dom 则通过 diff 方法比较出其中的差异，生成一个 patch 对象。
+
+6. patch - 将 patch 更新 dom 节点
+
+7. reorder - 重新排序
+diff 阶段中有个当时被一笔带过的 reorder 方法
+。这里打算单独谈一谈。在 virtual-dom 的过程中，这个方法起到了很重要的作用。
+
+reorder 的过程粗略分为四个阶段，分别称之为 「 准备阶段 」，
+「 key 类型顺序还原阶段 」，
+「 新增 key 添加阶段 」，
+「 新旧顺序转换阶段 」。
+
+<!-- ----------------------------------------------------------------------------------- -->
+
+
+
+
+
+
+</body>
+</html>
