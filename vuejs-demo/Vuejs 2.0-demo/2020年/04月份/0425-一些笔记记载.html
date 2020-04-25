@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+
+    <a
+      v-for="(item, index) in records.slice(4 * (n - 1), 4 * n)"
+      :key="index"
+      :href="item.address"
+      :style="{'background-image': `url(${ getPath(item) })`}"
+      target="_blank"
+      />
+
+    style的行业样式写法
+
+    style的行业样式写法
+
+
+    <script type="text/javascript">
+        beforedestroy () {
+            //清除定时器
+            if (this.taskInterval) {
+              clearInterval(this.taskInterval);
+            }
+            //移除旧频道
+            if (this.socketMark && this.socketInit) {
+              _Socket.removeChannel(this.socketMark);
+            }
+        }
+    </script>
+
+  </body>
+</html>
