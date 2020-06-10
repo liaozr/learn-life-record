@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    cookie的domain参数及修改host文件
+
+    1. 在任何域名下，cookie的domain参数都只能指定为当前域名/上级域名，此外都是无效的。
+
+       如：在lab.cbz.net下，指定domain为cbz.ne是可行的。
+
+    2. 在domain的参数前，是否存在符号“.”是完全相同的。
+
+       如：domain=cbz.net和domain=.cbz.com是完全相同的。
+
+    3. 脚本只可访问domain参数设置为当前域名或上级域名/上级的上级的cookie，以及当前域名下设置的没有domain参数的
+
+       cookie。
+
+    4. 如果不指定domain，则cookie无法在其他任何域名下被访问，即使是子域名。
+
+
+    5. 指定domain与不指定domain的cookie是不相同的，即使下面的情况所产生的cookie也是不同的：
+
+       1：在cbz.net下，设置无domain参数的cookie。
+
+       2：在cbz.net下，设置domain=cbz.net的cookie。
+
+
+      1和2所生成的cookie是完全不同的。
+
+------------------------------------------------------分割线-------------------------------------------------------------------------
+
+    修改host文件：C:\Windows\System32\drivers\etc
+
+
+  </body>
+</html>

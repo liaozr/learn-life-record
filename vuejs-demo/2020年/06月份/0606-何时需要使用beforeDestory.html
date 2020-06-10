@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+
+    解除自定义事件
+
+    清除定时器
+
+    解绑自定义的dom事件  如 window.scroll等
+
+    <script type="text/javascript">
+
+        beforedestroy () {
+            //清除定时器
+            if (this.taskInterval) {
+              clearInterval(this.taskInterval);
+            }
+            //移除旧频道
+            if (this.socketMark && this.socketInit) {
+              _Socket.removeChannel(this.socketMark);
+            }
+        }
+
+    </script>
+
+  </body>
+</html>

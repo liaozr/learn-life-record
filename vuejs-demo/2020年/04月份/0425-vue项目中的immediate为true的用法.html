@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+
+
+    <script type="text/javascript">
+           watch : {
+              market: {
+                immediate: true,
+                handler (newVal, oldVal) {
+                  this.init();
+                  this.showRiskWarn =  this.marketGroup.innovationZone && this.marketGroup.innovationZone.has(this.market);
+                }
+              }
+            }
+    </script>
+
+      immediate:true
+
+      代表如果在 wacth 里声明了之后，就会立即先去执行里面的handler方法，
+
+      如果为 false就跟我们以前的效果一样，不会在绑定的时候就执行。
+
+  </body>
+</html>
