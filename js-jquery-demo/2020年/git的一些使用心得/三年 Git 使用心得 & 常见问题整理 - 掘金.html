@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<!-- saved from url=(0092)https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-19 -->
+<html lang="zh-Hans"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover"><meta name="google-site-verification" content="cCHsgG9ktuCTgWgYfqCJql8AeR4gAne4DTZqztPoirE"><meta name="google-site-verification" content="nPvn9R5NJLsZKTv5VKIbn0OmkRcJ4PC6KdDoTX3n5Mw"><meta name="apple-itunes-app" content="app-id=987739104"><meta name="baidu-site-verification" content="qiK2a1kcFc"><meta name="360-site-verification" content="4c3c7d57d59f0e1a308462fbc7fd7e51"><meta name="sogou_site_verification" content="c49WUDZczQ"><style>body {
+        font-size: 16px;
+        line-height: 2;
+      }
+      a, button, input {
+        margin: 1rem 1.5rem;
+      }
+      img {
+        width: 0;
+        height: 0;
+      }
+      #juejin {
+        overflow-x: hidden;
+      }</style><meta data-vue-meta="true" data-vmid="keywords" name="keywords" content="JavaScript,React.js"><meta data-vue-meta="true" data-vmid="description" name="description" content="Git 流程图 Workspace：工作区 Index / Stage：暂存区 Repository：仓库区（或本地仓库） Remote：远程仓库 配置 Git # 配置全局用户 $ git config --global user.name &quot;用户名"><title data-vue-meta="true">三年 Git 使用心得 &amp; 常见问题整理 - 掘金</title><link rel="apple-touch-icon" sizes="180x180" href="https://b-gold-cdn.xitu.io/favicons/v2/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://b-gold-cdn.xitu.io/favicons/v2/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://b-gold-cdn.xitu.io/favicons/v2/favicon-16x16.png"><link rel="manifest" href="https://b-gold-cdn.xitu.io/favicons/v2/manifest.json"><link rel="mask-icon" href="https://b-gold-cdn.xitu.io/favicons/v2/safari-pinned-tab.svg" color="#5bbad5"><link rel="shortcut icon" href="https://b-gold-cdn.xitu.io/favicons/v2/favicon.ico"><meta name="msapplication-config" content="https://b-gold-cdn.xitu.io/favicons/v2/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="search" title="掘金" href="https://b-gold-cdn.xitu.io/conf/search.xml" type="application/opensearchdescription+xml"><link rel="stylesheet" href="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/ionicons.min.css"><link rel="stylesheet" href="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/iconfont.css"><link href="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/0.ca43282eb976179da109.css" rel="stylesheet"><script async="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/hm.js.下载"></script><script async="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/analytics.js.下载"></script><script type="text/javascript" async="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/vds.js.下载"></script><script type="text/javascript" async="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/collect-v.3.2.14.js.下载"></script><script charset="utf-8" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/4.4811a1c86fde15d0b829.js.下载"></script></head><body><div id="juejin" data-v-2a21baac=""><div class="global-component-box" data-v-2a21baac=""><!----><div data-v-ba54b7e8="" data-v-2a21baac="" class="alert-list alert-list"></div><div data-v-78376140="" data-v-2a21baac="" class="suspension-panel suspension-panel"><button data-v-78376140="" title="回到顶部" class="btn to-top-btn" style="display: none;"><i data-v-78376140="" class="ion-android-arrow-dropup"></i></button><button data-v-78376140="" title="建议反馈" class="btn meiqia-btn" style=""><i data-v-78376140="" class="ion-chatbubble-working"></i></button></div><!----><!----><div class="emoji-barrage" data-v-c9c21dda="" data-v-2a21baac=""><!----></div><div class="book-new-user-award-popup" style="display:none;" data-v-1127fe6e="" data-v-2a21baac=""><div class="content-box" style="display:;" data-v-1127fe6e=""><div class="close ion-close-round" data-v-1127fe6e=""></div><div class="header" data-v-1127fe6e=""><div class="icon" data-v-1127fe6e=""><img src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/icon.a87e5ae.svg" data-v-1127fe6e=""></div><div class="txt" data-v-1127fe6e="">新人专享好礼</div></div><div class="desc" data-v-1127fe6e="">凡未购买过小册的用户，均可领取三张 5 折新人专享券，购买小册时自动使用专享券，最高可节省 45 元。</div><div class="tickets" data-v-1127fe6e=""><div class="ticket" data-v-1127fe6e=""><div class="ticket__inner" data-v-1127fe6e=""><div class="enjoy" data-v-1127fe6e=""><span class="new-title" data-v-1127fe6e="">小册新人 5 折券</span></div><div class="sale" data-v-1127fe6e="">最高可省 15 元</div></div></div><div class="ticket" data-v-1127fe6e=""><div class="ticket__inner" data-v-1127fe6e=""><div class="enjoy" data-v-1127fe6e=""><span class="new-title" data-v-1127fe6e="">小册新人 5 折券</span></div><div class="sale" data-v-1127fe6e="">最高可省 15 元</div></div></div><div class="ticket" data-v-1127fe6e=""><div class="ticket__inner" data-v-1127fe6e=""><div class="enjoy" data-v-1127fe6e=""><span class="new-title" data-v-1127fe6e="">小册新人 5 折券</span></div><div class="sale" data-v-1127fe6e="">最高可省 15 元</div></div></div></div><div class="remark" data-v-1127fe6e="">注：专享券的使用期限在领券的七天内。</div><div class="submit-btn" data-v-1127fe6e="">一键领取</div></div><div class="model success" style="display:none;" data-v-1127fe6e=""><div class="heading" data-v-1127fe6e="">领取成功</div><div class="content-text" data-v-1127fe6e="">购买小册时自动使用专享券</div><div class="btn-success-footer" data-v-1127fe6e=""><div class="btn-ok" data-v-1127fe6e="">知道了</div><div class="btn-ok btn-link" data-v-1127fe6e="">前往小册首页</div></div></div><div class="model fail" style="display:none;" data-v-1127fe6e=""><div class="heading" data-v-1127fe6e="">领取失败</div><div class="content-text" data-v-1127fe6e="">本活动仅适用于小册新用户</div><div class="btn-ok" data-v-1127fe6e="">知道了</div></div></div><!----><!----><div class="bind-phone-number-modal-box" data-v-76bf06d9="" data-v-2a21baac=""><div st:block="bindPhoneNumberModal" class="modal-mask" style="display:none;" data-v-76bf06d9=""></div><form class="bind-phone-number-form" style="display:none;" data-v-76bf06d9=""><i title="关闭" class="close-btn ion-close-round" data-v-76bf06d9=""></i><h1 class="title" data-v-76bf06d9="">提示</h1><h2 class="hint" data-v-76bf06d9="">根据我国<a href="http://www.cac.gov.cn/2017-08/25/c_1121541842.htm" target="_blank" style="color:#007fff">《互联网跟帖评论服务管理规定》</a>，您需要绑定手机号后才可在掘金社区内发布内容。</h2><div class="input-group" data-v-76bf06d9=""><div class="input-box" data-v-76bf06d9=""><input maxlength="64" placeholder="请输入要绑定的手机号码" value="" class="input" data-v-76bf06d9=""></div><!----><!----></div><button st:name="bindBtn" class="btn" data-v-76bf06d9="">绑定手机</button></form></div></div><!----><div data-v-0f848c07="" data-v-50ff96fb="" data-v-2a21baac="" class="view-container"><div data-v-0f848c07="" class="main-header-box"><header data-v-89995ec0="" data-v-0f848c07="" class="main-header main-header unauthorized"><div data-v-89995ec0="" class="container"><a data-v-89995ec0="" href="https://juejin.im/" class="logo"><img data-v-89995ec0="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/logo.a7995ad.svg" alt="掘金" class="logo-img"><img data-v-89995ec0="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/simplify-logo.3e3c253.svg" alt="掘金" class="mobile"></a><nav data-v-89995ec0="" role="navigation" class="main-nav"><ul data-v-89995ec0="" class="nav-list"><li data-v-89995ec0="" class="main-nav-list"><div data-v-89995ec0="" class="phone-show-menu"><span data-v-89995ec0="">首页</span><div data-v-89995ec0="" class="icon ion-arrow-down-b"></div></div><ul data-v-89995ec0="" class="phone-hide"><li data-v-89995ec0="" class="nav-item link-item route-active"><a data-v-89995ec0="" href="https://juejin.im/">首页</a></li><li data-v-89995ec0="" class="nav-item link-item activities"><a data-v-89995ec0="" href="https://juejin.im/pins">沸点</a></li><li data-v-89995ec0="" class="nav-item link-item"><a data-v-89995ec0="" href="https://juejin.im/topics">话题</a></li><li data-v-89995ec0="" class="nav-item link-item book"><a data-v-89995ec0="" href="https://juejin.im/books">小册</a></li><li data-v-89995ec0="" class="nav-item link-item"><a data-v-89995ec0="" href="https://juejin.im/events/all">活动</a></li></ul></li><li data-v-89995ec0="" class="nav-item search"><form data-v-89995ec0="" role="search" class="search-form"><input data-v-89995ec0="" type="search" maxlength="32" placeholder="搜索掘金" class="search-input"><img data-v-89995ec0="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/juejin-search-icon.6f8ba1b.svg" alt="搜索" class="search-icon"></form></li><!----><!----><!----><li data-v-89995ec0="" class="nav-item submit"><img data-v-89995ec0="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/submit-icon.53f4253.svg" class="icon"><span data-v-89995ec0="">写文章</span><!----></li><li data-v-89995ec0="" class="nav-item auth"><span data-v-89995ec0="" class="login">登录</span><span data-v-89995ec0="" class="register">注册</span></li></ul></nav></div></header></div><main data-v-0f848c07="" class="container main-container"><div data-v-50ff96fb="" data-v-0f848c07="" class="view column-view"><div data-v-50ff96fb="" data-v-0f848c07="" class="main-area article-area shadow"><article data-v-50ff96fb="" itemscope="itemscope" itemtype="http://schema.org/Article" class="article" data-v-0f848c07=""><meta itemprop="url" content="https://juejin.im/post/5ee649ff51882542ea2b5108"><meta itemprop="headline" content="三年 Git 使用心得 &amp; 常见问题整理"><meta itemprop="keywords" content="JavaScript,React.js"><meta itemprop="datePublished" content="2020-06-14T16:56:15.735Z"><meta itemprop="image" content="https://b-gold-cdn.xitu.io/icon/icon-128.png"><div itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><meta itemprop="name" content="秋天不落叶"><meta itemprop="url" content="https://juejin.im/user/594f84ca8d6d81005703d38d"></div><div itemprop="publisher" itemscope="itemscope" itemtype="http://schema.org/Organization"><meta itemprop="name" content="掘金"><div itemprop="logo" itemscope="itemscope" itemtype="https://schema.org/ImageObject"><meta itemprop="url" content="https://b-gold-cdn.xitu.io/icon/icon-white-180.png"><meta itemprop="width" content="180"><meta itemprop="height" content="180"></div></div><div data-v-50ff96fb="" class="author-info-block"><a data-v-50ff96fb="" href="https://juejin.im/user/594f84ca8d6d81005703d38d" target="_blank" rel="" class="avatar-link"><div data-v-261e638e="" data-v-b49070bc="" data-v-50ff96fb="" data-src="https://user-gold-cdn.xitu.io/2019/8/30/16ce13608b997e6e?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1" class="lazy avatar avatar loaded" style="background-image: url(&quot;https://user-gold-cdn.xitu.io/2019/8/30/16ce13608b997e6e?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1&quot;);"></div></a><div data-v-50ff96fb="" class="author-info-box"><a data-v-1a54813b="" data-v-50ff96fb="" href="https://juejin.im/user/594f84ca8d6d81005703d38d" target="_blank" rel="" class="username username ellipsis">秋天不落叶<a data-v-3a430c94="" data-v-1a54813b="" href="https://juejin.im/book/5c90640c5188252d7941f5bb/section/5c9065385188252da6320022" target="_blank" rel="" class="rank"><img data-v-3a430c94="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/lv-4.2c3fafd.svg" alt="lv-4"></a></a><div data-v-50ff96fb="" class="meta-box"><time data-v-50ff96fb="" datetime="2020-06-14T16:56:15.735Z" title="Mon Jun 15 2020 00:56:15 GMT+0800 (中国标准时间)" class="time">2020年06月15日</time><span data-v-50ff96fb="" class="views-count">阅读 6574</span><!----></div></div><button data-v-d05fee10="" data-v-50ff96fb="" class="follow-button follow">关注</button></div><!----><h1 data-v-50ff96fb="" class="article-title">三年 Git 使用心得 &amp; 常见问题整理</h1><div data-v-50ff96fb="" data-id="5ee656ad51882542f871f29b" itemprop="articleBody" class="article-content"><p><a name="IJ3Jm"></a></p>
+<h2 class="heading" data-id="heading-0">Git 流程图</h2>
+<p></p><figure><img class="lazyload inited loaded" data-src="https://user-gold-cdn.xitu.io/2020/6/15/172b390eab77fcbd?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" data-width="1172" data-height="340" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/172b390eab77fcbd"><figcaption></figcaption></figure><p></p>
+<ul>
+<li><code>Workspace</code>：工作区</li>
+<li><code>Index / Stage</code>：暂存区</li>
+<li><code>Repository</code>：仓库区（或本地仓库）</li>
+<li><code>Remote</code>：远程仓库</li>
+</ul>
+<p><a name="9GXvp"></a></p>
+<h2 class="heading" data-id="heading-1">配置 Git</h2>
+<pre><code class="hljs git copyable" lang="git"># 配置全局用户
+$ git config --global user.name "用户名" 
+$ git config --global user.email "git账号"
+# 配置别名
+$ git config --global alias.co checkout
+$ git config --global alias.ss status
+$ git config --global alias.cm commit
+$ git config --global alias.br branch
+$ git config --global alias.rg reflog
+# 这里只是美化 log 的输出，实际使用时可以在 git lg 后面加命令参数，如： git lg -10 显示最近10条提交
+$ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit"
+# 删除全局配置
+$ git config --global --unset alias.xxx
+$ git config --global --unset user.xxx
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="EMjtV"></a></p>
+<h2 class="heading" data-id="heading-2">查看 Git 信息</h2>
+<pre><code class="hljs git copyable" lang="git"># 查看系统配置
+$ git config --list
+# 查看用户配置
+$ cat ~/.gitconfig 
+# 查看当前项目的 git 配置
+$ cat .git/config
+# 查看暂存区的文件
+$ git ls-files
+# 查看本地 git 命令历史
+$ git reflog
+# 查看所有 git 命令
+$ git --help -a 
+# 查看当前 HEAD 指向
+$ cat .git/HEAD
+
+# git 中 D 向下翻一行  F 向下翻页  B 向上翻页  Q 退出
+# 查看提交历史
+$ git log --oneline  
+          --grep="关键字"
+          --graph 
+          --all      
+          --author "username"     
+          --reverse 
+          -num
+          -p
+          --before=  1  day/1  week/1  "2019-06-06" 
+          --after= "2019-06-06"
+          --stat 
+          --abbrev-commit 
+          --pretty=format:"xxx"
+          
+# oneline -&gt; 将日志记录一行一行的显示
+# grep="关键字" -&gt; 查找日志记录中(commit提交时的注释)与关键字有关的记录
+# graph -&gt; 记录图形化显示 ！！！    
+# all -&gt; 将所有记录都详细的显示出来
+# author "username" -&gt; 查找这个作者提交的记录
+# reverse -&gt; commit 提交记录顺序翻转      
+# before -&gt; 查找规定的时间(如:1天/1周)之前的记录   
+# num -&gt; git log -10 显示最近10次提交 ！！！    
+# stat -&gt; 显示每次更新的文件修改统计信息，会列出具体文件列表 ！！！
+# abbrev-commit -&gt; 仅显示 SHA-1 的前几个字符，而非所有的 40 个字符 ！！！
+# pretty=format:"xxx" -&gt;  可以定制要显示的记录格式 ！！！
+# p -&gt; 显示每次提交所引入的差异（按 补丁 的格式输出）！！！
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="oyoDo"></a></p>
+<h3 class="heading" data-id="heading-3">git reflog</h3>
+<ul>
+<li><strong>显示的是一个 <code>HEAD</code> 指向发生改变的时间列表</strong>。在你切换分支、用 <code>git commit</code> 进行提交、以及用 <code>git reset</code> 撤销 commit 时，<code>HEAD</code> 指向会改变，但当你进行 <code>git checkout -- &lt;filename&gt;</code> 撤销或者 <code>git stash</code>  存储文件等操作时，<code>HEAD</code> 并不会改变，这些修改从来没有被提交过，因此 <code>reflog</code> 也无法帮助我们恢复它们。</li>
+<li><code>git reflog</code> 不会永远保持，Git 会定期清理那些 “用不到的” 对象，不要指望几个月前的提交还一直在那里。</li>
+</ul>
+<p><a name="Wgx8I"></a></p>
+<h3 class="heading" data-id="heading-4">git log 点线图</h3>
+<ul>
+<li><strong>git 中一条分支就是一个指针，新建一条分支就是基于当前指针新建一个指针</strong></li>
+<li><strong>切换至某个分支 ，就是将 HEAD 指向某条分支（指针）</strong></li>
+<li><strong>切换至某个 commit ，就是将 HEAD 指向某个 commit</strong></li>
+</ul>
+<p>符号解释：</p>
+<pre><code class="hljs git copyable" lang="git">*	表示一个 commit
+|	表示分支前进
+/	表示分叉
+\	表示合入
+|/	表示新分支
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="SdsXe"></a></p>
+<h2 class="heading" data-id="heading-5">Git 常用命令</h2>
+<pre><code class="hljs git copyable" lang="git"># 查看工作区和暂存区的状态
+$ git status 
+# 将工作区的文件提交到暂存区
+$ git add .  
+# 提交到本地仓库
+$ git commit -m "本次提交说明"
+# add和commit的合并，便捷写法（未追踪的文件无法直接提交到暂存区/本地仓库）
+$ git commit -am "本次提交说明"  
+# 将本地分支和远程分支进行关联
+$ git push -u origin branchName 
+# 将本地仓库的文件推送到远程分支
+$ git push
+# 拉取远程分支的代码
+$ git pull origin branchName 
+# 合并分支
+$ git merge branchName 
+# 查看本地拥有哪些分支
+$ git branch
+# 查看所有分支（包括远程分支和本地分支）
+$ git branch -a 
+# 切换分支
+$ git checkout branchName 
+# 临时将工作区文件的修改保存至堆栈中
+$ git stash
+# 将之前保存至堆栈中的文件取出来
+$ git stash pop
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="jLFwJ"></a></p>
+<h2 class="heading" data-id="heading-6">Git 常用命令详解</h2>
+<p><a name="65Sau"></a></p>
+<h3 class="heading" data-id="heading-7">add</h3>
+<p>将工作区的文件添加到暂存区</p>
+<pre><code class="hljs git copyable" lang="git"># 添加指定文件到暂存区（追踪新增的指定文件）
+$ git add [file1] [file2] ...
+# 添加指定目录到暂存区，包括子目录
+$ git add [dir]
+# 添加当前目录的所有文件到暂存区（追踪所有新增的文件）
+$ git add .
+# 删除工作区/暂存区的文件
+$ git rm [file1] [file2] ...
+# 停止追踪指定文件，但该文件会保留在工作区
+$ git rm --cached [file]
+# 改名工作区/暂存区的文件
+$ git mv [file-original] [file-renamed]
+
+# Git 2.0 以下版本
+#只作用于文件的新增和修改
+$ git add .  
+#只作用于文件的修改和删除
+$ gti add -u
+#作用于文件的增删改
+$ git add -A 
+
+# Git 2.0 版本
+$ git add . 等价于 $ git add -A 
+<span class="copy-code-btn">复制代码</span></code></pre><ul>
+<li><strong><code>git add .</code></strong> ：<strong>操作的对象是“当前目录”所有文件变更</strong>，"."  表示当前目录。会监控工作区的状态树，使用它会把工作区的<strong>所有变化提交</strong>到暂存区，包括文件内容修改（<code>modified</code>）以及新文件（<code>new</code>），但<strong>不包括被删除的文件</strong>。</li>
+<li><strong><code>git add -u</code></strong> ：<strong>操作的对象是整个工作区已经跟踪的文件变更，无论当前位于哪个目录下</strong>。仅监控<strong>已经被 add 的文件</strong>（即 <strong><code>tracked file</code></strong>），它会将被修改的文件（包括文件删除）提交到暂存区。<code>git add -u</code> 不会提交新文件（<strong><code>untracked file</code></strong>）。（<strong><code>git add --update</code></strong> 的缩写）</li>
+<li><strong><code>git add -A</code></strong> ：<strong>操作的对象是“整个工作区”所有文件的变更，无论当前位于哪个目录下</strong>。是上面两个功能的合集（<code>git add --all</code> 的缩写）。</li>
+</ul>
+<p><a name="CYiSD"></a></p>
+<h3 class="heading" data-id="heading-8">status</h3>
+<pre><code class="hljs git copyable" lang="git"># 查看工作区和暂存区的状态
+$ git status 
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="wUJNF"></a></p>
+<h3 class="heading" data-id="heading-9">commit</h3>
+<pre><code class="hljs git copyable" lang="git"># 将暂存区的文件提交到本地仓库并添加提交说明
+$ git commit -m "本次提交的说明"   
+
+# add 和 commit 的合并，便捷写法
+# 和 git add -u 命令一样，未跟踪的文件是无法提交上去的
+$ git commit -am "本次提交的说明"  
+
+# 跳过验证继续提交
+$ git commit --no-verify
+$ git commit -n
+
+# 编辑器会弹出上一次提交的信息，可以在这里修改提交信息
+$ git commit --amend
+# 修复提交，同时修改提交信息
+$ git commit --amend -m "本次提交的说明"
+# 加入 --no-edit 标记会修复提交但不修改提交信息，编辑器不会弹出上一次提交的信息
+$ git commit --amend --no-edit
+<span class="copy-code-btn">复制代码</span></code></pre><ul>
+<li><code>git commit --amend</code> 既可以修改上次提交的文件内容，也可以修改上次提交的说明。会用一个新的 <code>commit</code> 更新并替换最近一次提交的 <code>commit</code> 。如果暂存区有内容，这个新的 <code>commit</code> 会把任何修改内容和上一个 <code>commit</code> 的内容结合起来。如果暂存区没有内容，那么这个操作就只会把上次的 <code>commit</code> 消息重写一遍。<strong>永远不要修复一个已经推送到公共仓库中的提交，会拒绝推送到仓库</strong></li>
+</ul>
+<p><a name="d2uvu"></a></p>
+<h3 class="heading" data-id="heading-10">push &amp; pull</h3>
+<ul>
+<li>分支推送顺序的写法是 <strong>&lt;来源地&gt;:&lt;目的地&gt;</strong></li>
+</ul>
+<pre><code class="hljs git copyable" lang="git"># 将本地仓库的文件推送到远程分支
+# 如果远程仓库没有这个分支，会新建一个同名的远程分支
+# 如果省略远程分支名，则表示两者同名
+$ git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;
+$ git push origin branchname  
+
+# 如果省略本地分支名，则表示删除指定的远程分支
+# 因为这等同于推送一个空的本地分支到远程分支。
+$ git push origin :master
+# 等同于
+$ git push origin --delete master
+
+# 建立当前分支和远程分支的追踪关系
+$ git push -u origin master
+# 如果当前分支与远程分支之间存在追踪关系
+# 则可以省略分支和 -u 
+$ git push
+
+# 不管是否存在对应的远程分支，将本地的所有分支都推送到远程主机
+$ git push --all origin
+
+# 拉取所有远程分支到本地镜像仓库中
+$ git pull
+# 拉取并合并项目其他人员的一个分支 
+$ git pull origin branchname  
+# 等同于 fetch + merge
+$ git fetch origin branchName
+$ git merge origin/branchName
+
+# 如果远程主机的版本比本地版本更新，推送时 Git 会报错，要求先在本地做 git pull 合并差异，
+# 然后再推送到远程主机。这时，如果你一定要推送，可以使用 –-force 选项 
+# （尽量避免使用）
+$ git push --force origin | git push -f origin
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="eiY6J"></a></p>
+<h3 class="heading" data-id="heading-11">branch</h3>
+<pre><code class="hljs git copyable" lang="git"># 查看本地分支
+$ git branch | git branch -l 
+# 查看远程分支
+$ git branch -r 
+# 查看所有分支（本地分支+远程分支）
+$ git branch -a 
+# 查看所有分支并带上最新的提交信息
+$ git branch -av 
+# 查看本地分支对应的远程分支
+$ git branch -vv 
+
+# 新建分支
+# 在别的分支下新建一个分支，新分支会复制当前分支的内容
+# 注意：如果当前分支有修改，但是没有提交到仓库，此时修改的内容是不会被复制到新分支的
+$ git branch branchname 
+# 切换分支(切换分支时，本地工作区，仓库都会相应切换到对应分支的内容)
+$ git checkout branchname 
+# 创建一个 aaa 分支，并切换到该分支 （新建分支和切换分支的简写）
+$ git checkout -b aaa 
+# 可以看做是基于 master 分支创建一个 aaa 分支，并切换到该分支
+$ git checkout -b aaa master
+
+# 新建一条空分支（详情请看问题列表）
+$ git checkout --orphan emptyBranchName
+$ git rm -rf . 
+
+# 删除本地分支,会阻止删除包含未合并更改的分支
+$ git brnach -d branchname 
+# 强制删除一个本地分支，即使包含未合并更改的分支
+$ git branch -D branchname  
+# 删除远程分支
+# 推送一个空分支到远程分支，其实就相当于删除远程分支
+$ git push origin  :远程分支名
+# 或者
+$ git push origin --delete 远程分支名 
+
+# 修改当前分支名
+$ git branch -m branchname 
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="bhwLV"></a></p>
+<h3 class="heading" data-id="heading-12">merge 三种常用合并方法</h3>
+<pre><code class="hljs git copyable" lang="git"># 默认 fast-forward ，HEAD 指针直接指向被合并的分支
+$ git merge 
+
+# 禁止快进式合并
+$ git merge --no-ff 
+
+$ git merge --squash 
+<span class="copy-code-btn">复制代码</span></code></pre><p></p><figure><img class="lazyload inited loaded" data-src="https://user-gold-cdn.xitu.io/2020/6/15/172b390eac6f9586?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" data-width="800" data-height="422" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/172b390eac6f9586"><figcaption></figcaption></figure><p></p>
+<ul>
+<li><code>fast-forward</code>：会在当前分支的提交历史中添加进被合并分支的提交历史（<strong>得先理解什么时候会发生快速合并，并不是每次 merge 都会发生快速合并</strong>）；</li>
+<li><code>--no-ff</code>：<strong>会生成一个新的提交</strong>，让当前分支的提交历史不会那么乱；</li>
+<li><code>--squash</code>：<strong>不会生成新的提交</strong>，会将被合并分支多次提交的内容直接存到工作区和暂存区，由开发者手动去提交，这样当前分支最终只会多出一条提交记录，不会掺杂被合并分支的提交历史</li>
+</ul>
+<p><a name="KrBhR"></a></p>
+<h3 class="heading" data-id="heading-13">rebase</h3>
+<p><a target="_blank" href="https://www.liaoxuefeng.com/wiki/896043488029600/1216289527823648" rel="nofollow noopener noreferrer">www.liaoxuefeng.com/wiki/896043…</a></p>
+<p><a target="_blank" href="https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%8F%98%E5%9F%BA" rel="nofollow noopener noreferrer">git-scm.com/book/zh/v2/…</a></p>
+<p><a target="_blank" href="https://www.jianshu.com/p/4a8f4af4e803" rel="nofollow noopener noreferrer">www.jianshu.com/p/4a8f4af4e…</a></p>
+<p><a target="_blank" href="https://juejin.im/post/5a54386af265da3e3b7a6317#heading-9" rel="">juejin.im/post/5a5438…</a></p>
+<p><a name="k0e8q"></a></p>
+<h3 class="heading" data-id="heading-14">stash</h3>
+<ul>
+<li>能够将所有未提交的修改保存至堆栈中，用于后续恢复当前工作区内容</li>
+<li>如果文件没有提交到<strong>暂存区（使用 git add . 追踪新的文件）</strong>，使用该命令会提示 <code>No local changes to save</code> ，无法将修改保存到堆栈中</li>
+</ul>
+<p><strong>使用场景：</strong> 当你接到一个修复紧急 bug 的任务时候，一般都是先创建一个新的 bug 分支来修复它，然后合并，最后删除。但是，如果当前你正在开发功能中，短时间还无法完成，无法直接提交到仓库，这时候可以先把当前工作区的内容 <code>git stash</code> 一下，然后去修复 bug，修复后，再 <code>git stash pop</code>，恢复之前的工作内容。</p>
+<pre><code class="hljs git copyable" lang="git"># 将所有未提交的修改（提交到暂存区）保存至堆栈中
+$ git stash 
+# 给本次存储加个备注，以防时间久了忘了
+$ git stash save "存储"
+# 存储未追踪的文件
+$ git stash -u
+
+# 查看存储记录
+$ git stash list
+
+在 Windows 上和 PowerShell 中，需要加双引号
+# 恢复后，stash 记录并不删除
+$ git stash apply "stash@{index}"
+# 恢复的同时把 stash 记录也删了
+$ git stash pop "stash@{index}"
+# 删除 stash 记录
+$ git stash drop "stash@{index}"
+# 删除所有存储的进度
+$ git stash clear
+# 查看当前记录中修改了哪些文件
+$ git stash show "stash@{index}"
+# 查看当前记录中修改了哪些文件的内容
+$ git stash show -p "stash@{index}" 
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="8AsQg"></a></p>
+<h3 class="heading" data-id="heading-15">diff</h3>
+<pre><code class="hljs git copyable" lang="git"># 查看工作区和暂存区单个文件的对比
+$ git diff filename 
+# 查看工作区和暂存区所有文件的对比
+$ git diff 
+# 查看工作区和暂存区所有文件的对比，并显示出所有有差异的文件列表
+$ git diff --stat   
+# 注意：
+# 1.你修改了某个文件，但是没有提交到暂存区，这时候会有对比的内容
+# 一旦提交到暂存区，就不会有对比的内容(因为暂存区已经更新)
+# 2.如果你新建了一个文件，但是没有提交到暂存区，这时候 diff 是没有结果的	
+
+# 查看暂存区与上次提交到本地仓库的快照（即最新提交到本地仓库的快照）的对比
+$ git diff --cached/--staged
+# 查看工作区与上次提交到本地仓库的快照（即最新提交到本地仓库的快照）的对比
+$ git diff branchname
+# 查看工作区与 HEAD 指向（默认当前分支最新的提交）的对比
+$ git diff HEAD   
+
+# 查看两个本地分支中某一个文件的对比
+$ git diff branchname..branchname filename 
+# 查看两个本地分支所有的对比
+$ git diff branchname..branchname 
+# 查看远程分支和本地分支的对比
+$ git diff origin/branchname..branchname 
+# 查看远程分支和远程分支的对比
+$ git diff origin/branchname..origin/branchname 
+
+# 查看两个 commit 的对比
+$ git diff commit1..commit2  
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="JTMp0"></a></p>
+<h3 class="heading" data-id="heading-16">remote</h3>
+<pre><code class="hljs git copyable" lang="git"># 查看所有远程主机
+$ git remote
+# 查看关联的远程仓库的详细信息
+$ git remote -v 
+# 删除远程仓库的 “关联”
+$ git remote rm projectname 
+# 设置远程仓库的 “关联”
+$ git remote set-url origin &lt;newurl&gt;
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="Dp9EQ"></a></p>
+<h3 class="heading" data-id="heading-17">tag</h3>
+<p>常用于发布版本</p>
+<p><a target="_blank" href="https://www.liaoxuefeng.com/wiki/896043488029600/902335212905824" rel="nofollow noopener noreferrer">www.liaoxuefeng.com/wiki/896043…</a></p>
+<pre><code class="hljs git copyable" lang="git"># 默认在 HEAD 上创建一个标签 
+$ git tag v1.0
+# 指定一个 commit id 创建一个标签 
+$ git tag v0.9 f52c633
+# 创建带有说明的标签，用 -a 指定标签名，-m 指定说明文字
+$ git tag -a v0.1 -m "version 0.1 released" 
+
+# 查看所有标签
+# 注意：标签不是按时间顺序列出，而是按字母排序的。
+$ git tag
+
+# 查看单个标签具体信息
+$ git show &lt;tagname&gt;
+
+# 推送一个本地标签
+$ git push origin &lt;tagname&gt;
+# 推送全部未推送过的本地标签
+$ git push origin --tags
+
+# 删除本地标签
+# 因为创建的标签都只存储在本地，不会自动推送到远程。
+# 所以，打错的标签可以在本地安全删除。
+$ git tag -d v0.1
+# 删除一个远程标签（先删除本地 tag ，然后再删除远程 tag）
+$ git push origin :refs/tags/&lt;tagname&gt;
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="8ZT3T"></a></p>
+<h3 class="heading" data-id="heading-18">删除文件</h3>
+<pre><code class="hljs git copyable" lang="git"># 删除暂存区和工作区的文件
+$ git rm filename  
+# 只删除暂存区的文件，不会删除工作区的文件
+$ git rm --cached filename 
+<span class="copy-code-btn">复制代码</span></code></pre><p>如果在配置 .gitignore 文件之前就把某个文件上传到远程仓库了，这时候想把远程仓库中的该文件删除，此时你配置 .gitignore 文件也没有用，因为该文件已经被追踪了，但又不想在本地删除该文件后再重新提交到远程仓库，这时候可以使用 <code>git rm --cached filename</code> 命令取消该文件的追踪，这样下次提交的时候，git 就不会再提交这个文件，从而远程仓库的该文件也会被删除</p>
+<p><a name="Hvotm"></a></p>
+<h3 class="heading" data-id="heading-19">版本切换 &amp; 重设 &amp; 撤销</h3>
+<ul>
+<li><strong>checkout 可以撤销工作区的文件，reset 可以撤销工作区/暂存区的文件</strong></li>
+<li><strong>reset 和 checkout 可以作用于 commit 或者文件，revert 只能作用于 commit</strong></li>
+</ul>
+<p><a name="xYqoC"></a></p>
+<h4 class="heading" data-id="heading-20">checkout 详解</h4>
+<pre><code class="hljs git copyable" lang="git"># 恢复暂存区的指定文件到工作区
+$ git checkout &lt;filename&gt;
+# 恢复暂存区的所有文件到工作区
+$ git checkout .
+
+# 回滚到最近的一次提交
+# 如果修改某些文件后，没有提交到暂存区，此时的回滚是回滚到上一次提交
+# 如果是已经将修改的文件提交到仓库了，这时再用这个命令回滚无效
+# 因为回滚到的是之前自己修改后提交的版本
+$ git checkout HEAD 
+$ git checkout HEAD -- filename
+# 回滚到最近一次提交的上一个版本
+$ git checkout HEAD^ 
+# 回滚到最近一次提交的上2个版本
+$ git checkout HEAD^^ 
+
+# 切换分支，在这里也可以看做是回到项目「当前」状态的方式
+$ git checkout &lt;当前你正在使用的分支&gt;
+# 切换到某个指定的 commit 版本
+$ git checkout &lt;commit_id&gt;
+# 切换指定 tag 
+$ git checkout &lt;tag&gt;
+<span class="copy-code-btn">复制代码</span></code></pre><ul>
+<li><strong>在开发的正常阶段，<code>HEAD</code> 一般指向 master 或是其他的本地分支，但当你使用 <code>git checkout &lt;commit id&gt;</code> 切换到指定的某一次提交的时候，<code>HEAD</code> 就不再指向一个分支了——它直接指向一个提交，HEAD 就会处于 detached 状态（游离状态）</strong>。</li>
+<li>切换到某一次提交后，你可以查看文件，编译项目，运行测试，甚至编辑文件而不需要考虑是否会影响项目的当前状态，你所做的一切都不会被保存到主栈的仓库中。当你想要回到主线继续开发时，使用 <code>git checkout branchName</code> 回到项目初始的状态（<strong>这时候会提示你是否需要新建一条分支用于保留刚才的修改</strong>）。</li>
+<li><strong>哪怕你切换到了某一版本的提交，并且对它做了修改后，不小心提交到了暂存区，只要你切换回分支的时候，依然会回到项目的初始状态。（<strong><strong>注意：你所做的修改，如果 commit 了，会被保存到那个版本中。切换完分支后，会提示你是否要新建一个分支来保存刚才修改的内容。如果你刚才解决了一个 bug ，这时候可以新建一个临时分支，然后你本地自己的开发主分支去合并它，合并完后删除临时分支</strong></strong>）。</strong></li>
+<li><strong>一般我都是用 checkout 回退版本，查看历史代码，测试 bug 在哪</strong></li>
+</ul>
+<p></p><figure><img alt="image.png" class="lazyload inited" data-src="https://user-gold-cdn.xitu.io/2020/6/15/172b390eb07d551f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" data-width="542" data-height="270" src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;542&quot; height=&quot;270&quot;&gt;&lt;/svg&gt;"><figcaption></figcaption></figure>
+<figure><img alt="image.png" class="lazyload inited" data-src="https://user-gold-cdn.xitu.io/2020/6/15/172b390eb88c396b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" data-width="603" data-height="677" src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;603&quot; height=&quot;677&quot;&gt;&lt;/svg&gt;"><figcaption></figcaption></figure>
+<figure><img alt="image.png" class="lazyload inited" data-src="https://user-gold-cdn.xitu.io/2020/6/15/172b390eaf8b660f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" data-width="593" data-height="502" src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;593&quot; height=&quot;502&quot;&gt;&lt;/svg&gt;"><figcaption></figcaption></figure><p></p>
+<p><a name="Jb5nK"></a></p>
+<h4 class="heading" data-id="heading-21">reset 详解</h4>
+<p><code>git reset [--hard|soft|mixed|merge|keep] [&lt;commit&gt;或HEAD]</code>：将当前的分支重设(<code>reset</code>)到指定的 <code>&lt;commit&gt;</code> 或者 <code>HEAD</code> (默认，如果不显示指定 <code>&lt;commit&gt;</code>，默认是 <code>HEAD</code> ，即最新的一次提交)，并且根据 <code>[mode]</code> 有可能更新索引和工作目录。<code>mode</code> 的取值可以是 <code>hard</code>、<code>soft</code>、<code>mixed</code>、<code>merged</code>、<code>keep</code> 。</p>
+<pre><code class="hljs git copyable" lang="git"># 从暂存区撤销特定文件，但不改变工作区。它会取消这个文件的暂存，而不覆盖任何更改
+$ git reset &lt;fileName&gt;
+# 重置暂存区最近的一次提交，但工作区的文件不变
+$ git reset 
+# 等价于 
+$ git reset HEAD （默认）
+# 重置暂存区与工作区，回退到最近一次提交的版本内容
+$ git reset --hard 
+# 重置暂存区与工作区，回退到最近一次提交的上一个版本
+$ git reset --hard HEAD^ 
+
+# 将当前分支的指针指向为指定 commit（该提交之后的提交都会被移除），同时重置暂存区，但工作区不变
+$ git reset &lt;commit&gt;
+# 等价于 
+$ git reset --mixed  &lt;commit&gt;
+
+# 将当前分支的指针指向为指定 commit（该提交之后的提交都会被移除），但保持暂存区和工作区不变
+$ git reset --soft  &lt;commit&gt;
+# 将当前分支的指针指向为指定 commit（该提交之后的提交都会被移除），同时重置暂存区、工作区
+$ git reset --hard  &lt;commit&gt;
+<span class="copy-code-btn">复制代码</span></code></pre><ul>
+<li><code>git reset</code> 有很多种用法。它可以被用来移除提交快照，尽管它通常被用来撤销暂存区和工作区的修改。不管是哪种情况，它应该只被用于本地修改——你永远不应该重设和其他开发者共享的快照。</li>
+<li><strong>当你用 reset 回滚到了某个版本后，那么在下一次 git 提交时，之前该版本后面的版本会被作为垃圾删掉。</strong></li>
+<li><strong>当我们回退到一个旧版本后，此时再用 git log 查看提交记录，会发现之前的新版本记录没有了。如果第二天，你又想恢复到新版本怎么办？找不到新版本的 commit_id 怎么办？</strong></li>
+</ul>
+<p><strong>我们可以用 <code>git reflog</code> 查看历史命令，这样就可以看到之前新版本的 commit_id ，然后 <code>git reset --hard commit_id</code> 就可以回到之前的新版本代码</strong></p>
+<ul>
+<li>虽然可以用 git reflog 查看本地历史，然后回复到之前的新版本代码，但是在别的电脑上是无法获取你的历史命令的，所以这种方法不安全。万一你的电脑突然坏了，这时候就无法回到未来的版本。</li>
+</ul>
+<p><a name="JdS4v"></a></p>
+<h4 class="heading" data-id="heading-22">revert 详解</h4>
+<pre><code class="hljs git copyable" lang="git"># 生成一个撤销最近的一次提交的新提交
+$ git revert HEAD 
+# 生成一个撤销最近一次提交的上一次提交的新提交
+$ git revert HEAD^ 
+# 生成一个撤销最近一次提交的上两次提交的新提交
+$ git revert HEAD^^ 
+# 生成一个撤销最近一次提交的上n次提交的新提交
+$ git revert HEAD~num 
+
+# 生成一个撤销指定提交版本的新提交
+$ git revert &lt;commit_id&gt;
+# 生成一个撤销指定提交版本的新提交，执行时不打开默认编辑器，直接使用 Git 自动生成的提交信息
+$ git revert &lt;commit_id&gt; --no-edit
+<span class="copy-code-btn">复制代码</span></code></pre><p><code>git revert</code>命令用来<strong>撤销某个已经提交的快照（和 reset 重置到某个指定版本不一样）</strong>。它是在提交记录最后面加上一个撤销了更改的新提交，而不是从项目历史中移除这个提交，这避免了 Git 丢失项目历史。</p>
+<p><strong>撤销（revert）应该用在你想要在项目历史中移除某个提交的时候</strong>。比如说，你在追踪一个 bug，然后你发现它是由一个提交造成的，这时候撤销就很有用。</p>
+<p><strong>撤销（revert）被设计为撤销公共提交的安全方式，重设（reset）被设计为重设本地更改。</strong></p>
+<p>因为两个命令的目的不同，它们的实现也不一样：重设完全地移除了一堆更改，而撤销保留了原来的更改，用一个新的提交来实现撤销。<strong>千万不要用 <code>git reset</code> 回退已经被推送到公共仓库上的 提交，它只适用于回退本地修改（从未提交到公共仓库中）。如果你需要修复一个公共提交，最好使用 git revert</strong>。</p>
+<p>发布一个提交之后，你必须假设其他开发者会依赖于它。移除一个其他团队成员在上面继续开发的提交在协作时会引发严重的问题。当他们试着和你的仓库同步时，他们会发现项目历史的一部分突然消失了。一旦你在重设之后又增加了新的提交，Git 会认为你的本地历史已经和 origin/master 分叉了，同步你的仓库时的合并提交(merge commit)会使你的同事困惑。</p>
+<p><a name="Hm4HE"></a></p>
+<h3 class="heading" data-id="heading-23"><a target="_blank" href="http://www.ruanyifeng.com/blog/2020/04/git-cherry-pick.html" rel="nofollow noopener noreferrer">cherry-pick</a></h3>
+<p><strong>将指定的提交 commit 应用于当前分支</strong>（可以用于恢复不小心撤销（revert/reset）的提交）</p>
+<pre><code class="hljs git copyable" lang="git">$ git cherry-pick &lt;commit_id&gt;
+$ git cherry-pick &lt;commit_id&gt; &lt;commit_id&gt;
+$ git cherry-pick &lt;commit_id&gt;^..&lt;commit_id&gt;
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="UFxAu"></a></p>
+<h3 class="heading" data-id="heading-24"><a target="_blank" href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97" rel="nofollow noopener noreferrer">git submodule 子模块</a></h3>
+<p>有种情况我们经常会遇到：某个工作中的项目需要包含并使用另一个项目。也许是第三方库，或者你独立开发的，用于多个父项目的库。 现在问题来了：你想要把它们当做两个独立的项目，同时又想在一个项目中使用另一个。如果将另外一个项目中的代码复制到自己的项目中，那么你做的任何自定义修改都会使合并上游的改动变得困难。<strong>Git 通过子模块来解决这个问题，允许你将一个 Git 仓库作为另一个 Git 仓库的子目录。 它能让你将另一个仓库克隆到自己的项目中，同时还保持提交的独立。</strong></p>
+<pre><code class="hljs git copyable" lang="git"># 在主项目中添加子项目，URL 为子模块的路径，path 为该子模块存储的目录路径
+git submodule add [URL] [Path]
+
+# 克隆含有子项目的主项目
+git clone [URL]
+# 当你在克隆这样的项目时，默认会包含该子项目的目录，但该目录中还没有任何文件
+# 初始化本地配置文件
+git submodule init
+# 从当前项目中抓取所有数据并检出父项目中列出的合适的提交
+git submodule update
+# 等价于 git submodule init &amp;&amp; git submodule update
+git submodule update --init
+
+# 自动初始化并更新仓库中的每一个子模块， 包括可能存在的嵌套子模块
+git clone --recurse-submodules [URL]
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="YVyjI"></a></p>
+<h2 class="heading" data-id="heading-25">新建一个 Git 项目的两种方式</h2>
+<p><a name="43bL0"></a></p>
+<h3 class="heading" data-id="heading-26">1.本地新建好 Git 项目，然后关联远程仓库</h3>
+<pre><code class="hljs git copyable" lang="git"># 初始化一个Git仓库
+$ git init 
+# 关联远程仓库
+$ git remote add &lt;name&gt; &lt;git-repo-url&gt;  
+# 例如
+$ git remote add origin https://github.com/xxxxxx
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="KPXlD"></a></p>
+<h3 class="heading" data-id="heading-27">2.clone 远程仓库</h3>
+<pre><code class="hljs git copyable" lang="git"># 新建好远程仓库，然后 clone 到本地
+$ git clone &lt;git-repo-url&gt;
+
+# 将远程仓库下载到（当前 git bash 启动位置下面的）指定文件中，如果没有会自动生成
+$ git clone &lt;git-repo-url&gt; &lt;project-name&gt;
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="nZ5sE"></a></p>
+<h2 class="heading" data-id="heading-28">Git 分支管理规范</h2>
+<p><a target="_blank" href="https://blog.csdn.net/LitongZero/article/details/106188138" rel="nofollow noopener noreferrer">blog.csdn.net/LitongZero/…</a></p>
+<p><a target="_blank" href="https://juejin.im/post/5b4328bbf265da0fa21a6820" rel="">juejin.im/post/5b4328…</a></p>
+<ul>
+<li>实际开发的时候，一人一条分支（<strong>个人见解：除非是大项目，参与的开发人员很多时，可以采用 feature 分支，否则一般的项目中，一个开发者一条分支够用了</strong>）。除此之外还要有一条 develop 开发分支，一条 test 测试分支，一条 release 预发布分支。
+<ul>
+<li><strong>develop</strong>：<strong>开发分支</strong>，开发人员每天都需要拉取/提交最新代码的分支；</li>
+<li><strong>test</strong>：<strong>测试分支</strong>，开发人员开发完并自测通过后，发布到测试环境的分支；</li>
+<li><strong>release</strong>：<strong>预发布分支</strong>，测试环境测试通过后，将测试分支的代码发布到预发环境的分支（<strong>这个得看公司支不支持预发环境，没有的话就可以不采用这条分支</strong>）；</li>
+<li><strong>master</strong>：<strong>线上分支</strong>，预发环境测试通过后，运营/测试会将此分支代码发布到线上环境；</li>
+</ul>
+</li>
+<li><strong>大致流程：</strong>
+<ul>
+<li>开发人员每天都需要拉取/提交最新的代码到 <strong>develop 分支</strong>；</li>
+<li>开发人员开发完毕，开始 <strong>集成测试</strong>，测试无误后提交到 <strong>test 分支</strong>并发布到测试环境，交由测试人员测试；</li>
+<li>测试环境通过后，发布到 <strong>release 分支</strong> 上，进行预发环境测试；</li>
+<li>预发环境通过后，发布到 <strong>master 分支</strong>上并打上标签（tag）；</li>
+<li>如果线上分支出了 bug ，这时候相关开发者应该基于预发布分支（<strong>没有预发环境，就使用 master 分支</strong>），新建一个 <strong>bug 分支</strong>用来临时解决 bug ，处理完后申请合并到 预发布 分支。这样做的好处就是：不会影响正在开发中的功能。</li>
+</ul>
+</li>
+</ul>
+<p><strong>预发布环境的作用：</strong> 预发布环境是正式发布前最后一次测试。因为在少数情况下即使预发布通过了，都不能保证正式生产环境可以100%不出问题；预发布环境的配置，数据库等都是跟线上一样；有些公司的预发布环境数据库是连接线上环境，有些公司预发布环境是单独的数据库；如果不设预发布环境，如果开发合并代码有问题，会直接将问题发布到线上，增加维护的成本。</p>
+<p><a name="Ihy05"></a></p>
+<h2 class="heading" data-id="heading-29">Git 钩子</h2>
+<ul>
+<li>Git 基本已经成为项目开发中默认的版本管理软件，在使用 Git 的项目中，我们可以为项目设置 Git Hooks 来帮我们在提交代码的各个阶段做一些代码检查等工作</li>
+<li>钩子（Hooks） 都被存储在 Git 目录下的 hooks 子目录中。 也就是绝大部分项目中的 .git/hook 目录</li>
+<li><a target="_blank" href="https://git-scm.com/book/zh/v2/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-Git-%E9%92%A9%E5%AD%90" rel="nofollow noopener noreferrer">钩子</a>分为两大类，客户端的和服务器端的
+<ul>
+<li>客户端钩子主要被提交和合并这样的操作所调用</li>
+<li>而服务器端钩子作用于接收被推送的提交这样的联网操作，这里主要介绍客户端钩子</li>
+</ul>
+</li>
+</ul>
+<p><a name="86z1T"></a></p>
+<h3 class="heading" data-id="heading-30">4.1 pre-commit</h3>
+<ul>
+<li><code>pre-commit</code> 就是在代码提交之前做些东西，比如代码打包，代码检测，称之为钩子（hook）</li>
+<li>在 commit 之前执行一个函数（callback）。这个函数成功执行完之后，再继续 commit，但是失败之后就阻止 commit</li>
+<li>在 .git-&gt;hooks-&gt;下面有个 pre-commit.sample* ，这个里面就是默认的函数(脚本)样本</li>
+</ul>
+<p><a name="8f8bw"></a></p>
+<h3 class="heading" data-id="heading-31">4.2 安装 pre-commit</h3>
+<pre><code class="hljs git copyable" lang="git">npm install pre-commit --save-dev
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="mIbY5"></a></p>
+<h3 class="heading" data-id="heading-32">4.3 配置脚本</h3>
+<p><strong>如果没有在 <code>.git-&gt;hooks</code> 目录下生成 <code>pre-commit</code> 文件的话，则要手工创建 <code>node ./node_modules/pre-commit/install.js</code></strong></p>
+<pre><code class="hljs json copyable" lang="json">"scripts": {
+    "build": "tsc",
+    "eslint": "eslint src --ext .ts",
+    "eslint:fix": "eslint src --ext .ts --fix"
+  },
+ //在提交代码之前，先执行 scripts 中的 eslint 命令 
+  "pre-commit": [
+    "eslint"
+  ]
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="5lFJy"></a></p>
+<h3 class="heading" data-id="heading-33">4.4 跳过 pre-commit 继续提交代码</h3>
+<pre><code class="hljs shell copyable" lang="shell"><span class="hljs-meta">#</span><span class="bash"> 跳过验证</span>
+<span class="hljs-meta">$</span><span class="bash"> git commit --no-verify</span>
+<span class="hljs-meta">$</span><span class="bash"> git commit -n</span>
+<span class="copy-code-btn">复制代码</span></code></pre><p>更多钩子：<a target="_blank" href="https://git-scm.com/book/zh/v2/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-Git-%E9%92%A9%E5%AD%90" rel="nofollow noopener noreferrer">git-scm.com/book/zh/v2/…</a></p>
+<p><a name="OAaG2"></a></p>
+<h2 class="heading" data-id="heading-34">常见问题</h2>
+<p><a name="issap"></a></p>
+<h3 class="heading" data-id="heading-35">1、拉取别人的远程分支合并后，git 会存取这个拉取的记录，如果你不小心删了别人的上传的文件，这时候想要再拉取别人的分支是没用的，会显示 already-up</h3>
+<p>这时候可以回滚代码，重新拉取。</p>
+<p><a name="GgtFG"></a></p>
+<h3 class="heading" data-id="heading-36">2、以前有过这样的经历：前后端、客户端的代码都存放在一个 git 仓库中，在根目录下各自新建项目目录。那么可以直接在自己的项目目录下使用 git 提交代码并且在各自的项目目录下配置 .gitignore 文件，不用在根目录下配置 .gitignore 文件，这样就互不影响了</h3>
+<p><a name="TNLqk"></a></p>
+<h3 class="heading" data-id="heading-37">3、fatal：refusing to merge unrelated histories 拒绝合并不相关的历史</h3>
+<p>在 git 2.9.2 之后，不可以合并没有相同结点的分支（分支之间自仓库建立后，从来没有过互相拉取合并）。如果需要合并两个不同结点的分支，如下：</p>
+<pre><code class="hljs git copyable" lang="git">$ git pull origin branchName --allow-unrelated-histories
+$ git merge branchName --allow-unrelated-histories
+<span class="copy-code-btn">复制代码</span></code></pre><p>这个功能是可以让大家不要把仓库上传错了，如果会加上这个代码，那么就是自己确定了上传。旧版本的 Git 很容易就把代码传错了，现在可以看到，如果上传的不是之前的，那么就需要加代码上传。
+正常情况下，都是先建立仓库，然后切多个分支，分支先去拉取合并主分支的内容，然后再各自开发，
+如果建立仓库后，各个分支没有区拉取主分支的代码，之后各个分支之间想要合并时就会报错。</p>
+<p><a name="KvCHm"></a></p>
+<h3 class="heading" data-id="heading-38">4、合并分支时出现问题，想要解除合并状态</h3>
+<pre><code class="hljs git copyable" lang="git">error: merge is not possible because you have unmerged files.
+hint: Fix them up in the work tree, and then use 'git add/rm &lt;file&gt;'
+hint: as appropriate to mark resolution and make a commit.
+fatal: Exiting because of an unresolved conflict.
+<span class="copy-code-btn">复制代码</span></code></pre><p>当远程分支和本地分支发生冲突后，git 保持合并状态，你如果没有去解决完所有的冲突，那么 git 会一直保持这个状态，你就无法再提交代码。只有先解除合并状态后，才能继续提交。执行命令前最好先备份一下，有可能本地做的修改会被远程分支覆盖掉。</p>
+<pre><code class="hljs git copyable" lang="git"># 解除合并状态
+$ git merge --abort 
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="sTpuY"></a></p>
+<h3 class="heading" data-id="heading-39">5、不小心把某些文件上传到远程 git 仓库/想要删除远程仓库中的文件</h3>
+<pre><code class="hljs git copyable" lang="git"># 删除暂存区和工作区的文件
+$ git rm filename  
+# 只删除暂存区的文件，不会删除工作区的文件
+$ git rm --cached filename 
+<span class="copy-code-btn">复制代码</span></code></pre><p>如果在配置 .gitignore 文件之前就把某个文件上传到远程仓库了，这时候想把远程仓库中的该文件删除，此时你配置 .gitignore 文件也没有用，因为该文件已经被追踪了，但又不想在本地删除该文件后再重新提交到远程仓库，这时候可以使用 <code>git rm --cached filename</code> 命令取消该文件的追踪，这样下次提交的时候，git 就不会再提交这个文件，从而远程仓库的该文件也会被删除</p>
+<p><a name="qPw54"></a></p>
+<h3 class="heading" data-id="heading-40">6、将本地新建的项目上传到新建的远程仓库上</h3>
+<p>之前没有进行过关联，即没有通过 clone 远程项目到本地再开始做项目，而是先本地新建了一个项目，然后想传到远程仓库上。</p>
+<pre><code class="hljs git copyable" lang="git"># 将本地仓库和远程仓库关联起来
+$ git remote add origin 远程仓库地址
+# 将本地的 master 分支推送到 origin 主机，同时指定 origin 为默认主机
+$ git push -u origin master
+# 上面的命名执行后，下次再从本地库上传内容的时候只需下面这样就可以了
+$ git push
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="NDVXt"></a></p>
+<h3 class="heading" data-id="heading-41">7、HEAD 指针既可以指向分支（默认指向当前分支），也可以指向快照，当指向的是快照时，这个时候指针的状态称之为游离状态（detached）</h3>
+<p><a name="7vo4G"></a></p>
+<h3 class="heading" data-id="heading-42">8、创建与合并分支的原理</h3>
+<p><a target="_blank" href="https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424" rel="nofollow noopener noreferrer">www.liaoxuefeng.com/wiki/896043…</a></p>
+<p><a name="qy0eP"></a></p>
+<h3 class="heading" data-id="heading-43">9、每次 git push 都要输入用户名、密码</h3>
+<ul>
+<li>step 1：生成公钥</li>
+</ul>
+<pre><code class="hljs git copyable" lang="git">ssh-keygen -t rsa -C "xxxxx@xxxxx.com"  
+# Generating public/private rsa key pair...
+# 三次回车即可生成 ssh key
+<span class="copy-code-btn">复制代码</span></code></pre><ul>
+<li>step 2：查看已生成的公钥</li>
+</ul>
+<pre><code class="hljs git copyable" lang="git">cat ~/.ssh/id_rsa.pub
+<span class="copy-code-btn">复制代码</span></code></pre><ul>
+<li>step3：复制已生成的公钥添加到 git 服务器</li>
+</ul>
+<p></p><figure><img alt="image.png" class="lazyload inited" data-src="https://user-gold-cdn.xitu.io/2020/6/15/172b390eb430e450?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" data-width="1106" data-height="705" src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;1106&quot; height=&quot;705&quot;&gt;&lt;/svg&gt;"><figcaption></figcaption></figure><p></p>
+<p>测试 ssh 是否能够连接成功</p>
+<pre><code class="hljs git copyable" lang="git">$ ssh -T git@github.com
+<span class="copy-code-btn">复制代码</span></code></pre><ul>
+<li>step4：使用 ssh 协议 clone 远程仓库 或者 如果已经用 https 协议 clone 到本地了，那么就重新设置远程仓库</li>
+</ul>
+<p></p><figure><img alt="image.png" class="lazyload inited" data-src="https://user-gold-cdn.xitu.io/2020/6/15/172b390ed81631d9?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" data-width="513" data-height="245" src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;513&quot; height=&quot;245&quot;&gt;&lt;/svg&gt;"><figcaption></figcaption></figure><p></p>
+<p><strong>使用 ssh 协议</strong></p>
+<pre><code class="hljs git copyable" lang="git">$ git remote set-url origin git@xxx.com:xxx/xxx.git
+<span class="copy-code-btn">复制代码</span></code></pre><ul>
+<li>step5：创建文件存储用户名和密码</li>
+</ul>
+<p>一般为 C:\users\Administrator，也可以是你自己创建的系统用户名目录，文件名为 .git-credentials。由于在 Windows 中不允许直接创建以 "." 开头的文件，所以用命令行创建该文件。</p>
+<pre><code class="hljs git copyable" lang="git">$ touch .git-credentials
+$ echo "http://{username}:{password}@github.com" &gt;&gt; ~/.git-credentials 
+$ git config --global credential.helper store
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="tNYuG"></a></p>
+<h3 class="heading" data-id="heading-44">10、git 不允许提交空文件夹</h3>
+<p>可以在当前目录下，添加一个 .gitkeep 文件</p>
+<p><a name="9DtiN"></a></p>
+<h3 class="heading" data-id="heading-45">11、有时候复制过来的文件，使用 <code>git add .</code> 无法进行文件追踪，可以使用 <code>git add -A</code> ，这也就是每次提交前都要 <code>git status</code> 的原因</h3>
+<p><a name="JqiF5"></a></p>
+<h3 class="heading" data-id="heading-46">12、<a target="_blank" href="https://github.com/jawil/notes/issues/2#" rel="nofollow noopener noreferrer">同一台电脑配置多个 git 账号</a></h3>
+<p><a target="_blank" href="https://github.com/jawil/notes/issues/2" rel="nofollow noopener noreferrer">github.com/jawil/notes…</a></p>
+<p><a name="7sAzU"></a></p>
+<h3 class="heading" data-id="heading-47">13、Another git process seems to be running in this repository, e.g.</h3>
+<p></p><figure><img alt="image.png" class="lazyload inited" data-src="https://user-gold-cdn.xitu.io/2020/6/15/172b390ee0a4869d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" data-width="724" data-height="118" src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;724&quot; height=&quot;118&quot;&gt;&lt;/svg&gt;"><figcaption></figcaption></figure><p></p>
+<p>原因在于 Git 在使用过程中遭遇了奔溃，部分被上锁资源没有被释放导致的。</p>
+<p><strong>解决方案：</strong> 进入项目文件夹下的 .git 文件中（显示隐藏文件夹或 <code>rm .git/index.lock</code>）删除 index.lock 文件即可。</p>
+<p><a name="o3WMI"></a></p>
+<h3 class="heading" data-id="heading-48">14、git commit -am "xxx" 有时候会失效，无法提交所有的修改</h3>
+<p><code>git commit -am "xxx"</code> 只会将被 <strong>tracked</strong> 的文件添加到暂存区并提交，而将文件添加到 git 管理是要使用 git add 命令，将新的文件 <strong>tracked</strong> 。（新建了文件之后，idea 会提示你是否需要加到 git 管理中。选择记住后，之后 idea 默认都会把新建的文件 <strong>tracked</strong> 化）</p>
+<p><a name="L3XmN"></a></p>
+<h3 class="heading" data-id="heading-49">15、git merge --no-ff 的作用</h3>
+<ul>
+<li><strong>禁止快进式（fast-forward）合并，会生成一个新的提交</strong></li>
+</ul>
+<p></p><figure><img alt="image.png" class="lazyload inited" data-src="https://user-gold-cdn.xitu.io/2020/6/15/172b390ee3af4b10?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" data-width="628" data-height="821" src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;628&quot; height=&quot;821&quot;&gt;&lt;/svg&gt;"><figcaption></figcaption></figure><p></p>
+<p>从合并后的代码来看，结果都是一样的，区别就在于 <code>--no-ff</code> 会让 git 生成一个新的提交对象。为什么要这样？通常我们把 master 作为主分支，上面存放的都是比较稳定的代码，提交频率也很低，而 feature 是用来开发特性的，上面会存在许多零碎的提交，快进式合并会把 feature 的提交历史混入到 master 中，搅乱 master 的提交历史。所以如果你根本不在意提交历史，也不爱管 master 干不干净，那么 <code>--no-ff</code> 其实没什么用。</p>
+<p><a target="_blank" href="https://segmentfault.com/q/1010000002477106" rel="nofollow noopener noreferrer">segmentfault.com/q/101000000…</a></p>
+<p><a name="dnYmI"></a></p>
+<h3 class="heading" data-id="heading-50">16、git merge 与 git rebase 的区别</h3>
+<p><a target="_blank" href="https://juejin.im/post/5a54386af265da3e3b7a6317#heading-9" rel="">juejin.im/post/5a5438…</a></p>
+<p><a target="_blank" href="https://blog.csdn.net/liuxiaoheng1992/article/details/79108233" rel="nofollow noopener noreferrer">blog.csdn.net/liuxiaoheng…</a></p>
+<p><a target="_blank" href="https://segmentfault.com/a/1190000012897637?utm_source=tag-newest#articleHeader0" rel="nofollow noopener noreferrer">segmentfault.com/a/119000001…</a></p>
+<p><a target="_blank" href="https://segmentfault.com/a/1190000018580144?utm_source=tag-newest" rel="nofollow noopener noreferrer">segmentfault.com/a/119000001…</a></p>
+<p><a name="0yibs"></a></p>
+<h3 class="heading" data-id="heading-51">17、git log 无法正常显示中文</h3>
+<pre><code class="hljs git copyable" lang="git"># 试试
+$ git -c core.pager=more log
+# 如果可以显示中文的话，把 pager 设置为 more
+$ git config --global core.pager more
+<span class="copy-code-btn">复制代码</span></code></pre><p><a target="_blank" href="https://www.zhihu.com/question/57162172" rel="nofollow noopener noreferrer">www.zhihu.com/question/57…</a></p>
+<p><a target="_blank" href="https://www.playpi.org/2019031901.html" rel="nofollow noopener noreferrer">www.playpi.org/2019031901.…</a></p>
+<p><a name="EgzLu"></a></p>
+<h3 class="heading" data-id="heading-52">18、git merge -m "xxx" 的时候可以附加信息</h3>
+<ul>
+<li>默认是 Merge branch branchName</li>
+</ul>
+<p><strong></strong></p><figure><strong><img alt="image.png" class="lazyload inited" data-src="https://user-gold-cdn.xitu.io/2020/6/15/172b390eea9b862d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" data-width="580" data-height="389" src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;580&quot; height=&quot;389&quot;&gt;&lt;/svg&gt;"><figcaption></figcaption></strong></figure><p></p>
+<p><a name="hhyzg"></a></p>
+<h3 class="heading" data-id="heading-53">19、git pull 会拉取所有远程分支的代码到本地镜像仓库中</h3>
+<p>想要 merge 别人的分支时：</p>
+<ul>
+<li>如果你的本地仓库中已经有了他人的分支（直接切换到他人分支，就会在本地生成一条他人的分支），就可以使用 merge branchname；</li>
+<li>如果你的本地仓库没有他人的分支，那么就得使用 merge origin/branchname 来合并</li>
+</ul>
+<p></p><figure><img alt="image.png" class="lazyload inited" data-src="https://user-gold-cdn.xitu.io/2020/6/15/172b390ef7034f68?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" data-width="397" data-height="242" src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;397&quot; height=&quot;242&quot;&gt;&lt;/svg&gt;"><figcaption></figcaption></figure><p></p>
+<p><a name="gdOqE"></a></p>
+<h3 class="heading" data-id="heading-54">20、git branch -r/-a/-l 查看的都是本地镜像仓库中的分支，如果本地镜像仓库没有拉取远程仓库的代码，此时别人新推了一个分支到远程仓库，你这时候是查看不到这条新推的分支的</h3>
+<p><a name="rm3jv"></a></p>
+<h3 class="heading" data-id="heading-55">21、git stash 存储未追踪的文件</h3>
+<ul>
+<li>如果我们新建了文件，但是没有用 <code>git add .</code> 追踪文件，那么 <code>git stash</code> 是无法存储的</li>
+</ul>
+<pre><code class="hljs git copyable" lang="git">$ git stash -u
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="g3kA5"></a></p>
+<h3 class="heading" data-id="heading-56">22、如何在 github 上 pr 项目</h3>
+<p><a target="_blank" href="https://segmentfault.com/a/1190000020354906?utm_source=tag-newest" rel="nofollow noopener noreferrer">segmentfault.com/a/119000002…</a></p>
+<p><a name="2KlI1"></a></p>
+<h3 class="heading" data-id="heading-57">23、git push 无法提交代码</h3>
+<p><strong>可能出现的报错：</strong></p>
+<ul>
+<li>
+<p><strong>remote:</strong> Permission to xxxxx.git denied to xxx. fatal: unable to access '<a target="_blank" href="https://github.com/" rel="nofollow noopener noreferrer">github.com/</a> xxxxx.git/': The requested URL returned error: 403</p>
+</li>
+<li>
+<p><strong>remote:</strong> You do not have permission to push to the repository via HTTPS</p>
+<p><strong>fatal:</strong> Authentication failed for '<a target="_blank" href="https://gitee.com/xxx.git/" rel="nofollow noopener noreferrer">gitee.com/xxx.git/</a>'</p>
+</li>
+</ul>
+<pre><code class="hljs git copyable" lang="git"># 查看当前项目的 git 配置
+$ cat .git/config
+<span class="copy-code-btn">复制代码</span></code></pre><ul>
+<li>查看本地项目的 .git/config 设置的仓库 url 地址和 github 使用的链接地址是否一致。<code>git push</code> 的数据协议有两种方式：<code>ssh</code> 和 <code>https</code>。如果不一致就需要切换 <code>url</code> 地址。</li>
+</ul>
+<p></p><figure><img alt="image.png" class="lazyload inited" data-src="https://user-gold-cdn.xitu.io/2020/6/15/172b390ef31ba3ce?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" data-width="442" data-height="207" src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;442&quot; height=&quot;207&quot;&gt;&lt;/svg&gt;"><figcaption></figcaption></figure><p></p>
+<p><a name="TA5MD"></a></p>
+<h3 class="heading" data-id="heading-58">24、git 输错用户名和密码，后续的 git 操作一直报错</h3>
+<pre><code class="hljs shell copyable" lang="shell">remote: Coding 提示: Authentication failed.
+remote: 认证失败，请确认您输入了正确的账号密码。
+fatal: Authentication failed for 'https://e.coding.net/xxx.git/'
+<span class="copy-code-btn">复制代码</span></code></pre><p>在控制面板里找到凭据管理器，选中 Windows 凭据，找到 git 的凭据，点击编辑，输入所用 github 的正确用户名和密码。</p>
+<p></p><figure><img alt="image.png" class="lazyload inited" data-src="https://user-gold-cdn.xitu.io/2020/6/15/172b390f088ae32f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" data-width="1123" data-height="633" src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;1123&quot; height=&quot;633&quot;&gt;&lt;/svg&gt;"><figcaption></figcaption></figure><p></p>
+<p><a name="Lmf4V"></a></p>
+<h3 class="heading" data-id="heading-59">25、lint-staged 失败</h3>
+<p></p><figure><img alt="image.png" class="lazyload inited" data-src="https://user-gold-cdn.xitu.io/2020/6/15/172b390f151c0f30?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" data-width="1014" data-height="305" src="data:image/svg+xml;utf8,&lt;?xml version=&quot;1.0&quot;?&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot; width=&quot;1014&quot; height=&quot;305&quot;&gt;&lt;/svg&gt;"><figcaption></figcaption></figure><p></p>
+<p>可能你的项目名路径中包含了中文名，需要替换成英文名</p>
+<p><a name="oYqJP"></a></p>
+<h3 class="heading" data-id="heading-60">26、查看 git 安装目录</h3>
+<ul>
+<li><strong>Mac：</strong> 在命令行中输入 <code>which git</code>，就会显示 git 的安装位置了</li>
+<li><strong>Windows：</strong> 打开cmd，输入 <code>where git</code>，就会显示 git 的安装路径了</li>
+</ul>
+<p><a name="n4C14"></a></p>
+<h3 class="heading" data-id="heading-61">27、<a target="_blank" href="https://www.cnblogs.com/hezhiyao/p/9418468.html" rel="nofollow noopener noreferrer">Git中用vim打开、修改、保存文件</a></h3>
+<p><a name="AtQSJ"></a></p>
+<h3 class="heading" data-id="heading-62">28、<a target="_blank" href="https://jingyan.baidu.com/article/a3a3f8111d9ffb8da2eb8aff.html" rel="nofollow noopener noreferrer">windows10 无法编辑 vimrc</a></h3>
+<p><a name="RTQaH"></a></p>
+<h3 class="heading" data-id="heading-63">29、<a target="_blank" href="https://www.cnblogs.com/MisterZZL/p/10783097.html" rel="nofollow noopener noreferrer">Windows下Git Bash中VIM打开文件中文乱码</a></h3>
+<p><a name="4gxnJ"></a></p>
+<h3 class="heading" data-id="heading-64">30、如何修改旧的 commit 的 message/如何将多个 commit 合成一个 commit/如何将多个间隔的 commit 合成一个 commit/</h3>
+<pre><code class="hljs git copyable" lang="git">git rebase -i
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="im8gB"></a></p>
+<h3 class="heading" data-id="heading-65">31、如果两个人都对某个文件进行了修改，一个是重命名文件，一个是修改文件内容，那么会起冲突吗？git 很智能，会自动合并这些修改</h3>
+<p>如果两个人都对同一个文件重命名，此时会起冲突，git 不会自动处理，需要开发者自身去解决冲突</p>
+<p><a name="AEtJW"></a></p>
+<h3 class="heading" data-id="heading-66">32、git revert 失败：error: Commit faulty merge is a merge but no -m option was given、error: option `mainline' expects a number greater than zero</h3>
+<p><a target="_blank" href="https://segmentfault.com/a/1190000015792394?utm_source=tag-newest#item-3" rel="nofollow noopener noreferrer">segmentfault.com/a/119000001…</a></p>
+<p><a target="_blank" href="https://www.jianshu.com/p/3719dae37a92" rel="nofollow noopener noreferrer">www.jianshu.com/p/3719dae37…</a></p>
+<pre><code class="hljs git copyable" lang="git">git revert -m 1 
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="G6NXW"></a></p>
+<h3 class="heading" data-id="heading-67">33、<a target="_blank" href="https://www.jianshu.com/p/a18487d987ac" rel="nofollow noopener noreferrer">git 创建一个空的分支</a></h3>
+<p>在 Git 中创建分支，是必须有一个父节点的，也就是说必须在已有的分支上来创建新的分支，如果工程已经进行了一段时间，这个时候是无法创建空分支的。但是有时候就是需要创建一个空白的分支。</p>
+<pre><code class="hljs git copyable" lang="git">$ git checkout --orphan emptyBranchName
+<span class="copy-code-btn">复制代码</span></code></pre><p>该命令会生成一个叫 <code>emptybranch</code> 的分支，该分支会包含父分支的所有文件。但新的分支不会指向任何以前的提交，就是它没有历史，如果你提交当前内容，那么这次提交就是这个分支的首次提交。</p>
+<p>想要空分支，所以需要把当前内容全部删除，用 git 命令</p>
+<pre><code class="hljs git copyable" lang="git">$ git rm -rf . // 注意：最后的‘.’不能少。
+<span class="copy-code-btn">复制代码</span></code></pre><p><a name="Y18ax"></a></p>
+<h3 class="heading" data-id="heading-68">34、如何清空一个分支的所有提交</h3>
+<p>先删除该分支，然后再新建一个空的分支（分支名就是删除的分支名）~~</p>
+<h2 class="heading" data-id="heading-69">推荐阅读</h2>
+<p><strong><a target="_blank" href="https://juejin.im/post/5df648836fb9a016526eba01" rel="">你真的了解 React 生命周期吗</a></strong></p>
+<p><strong><a target="_blank" href="https://juejin.im/post/5dbbdbd5f265da4d4b5fe57d" rel="">React Hooks 详解 【近 1W 字】+ 项目实战</a></strong></p>
+<p><strong><a target="_blank" href="https://juejin.im/post/5def0816f265da33aa6aa7fe" rel="">React SSR 详解【近 1W 字】+ 2个项目实战</a></strong></p>
+<p><strong><a target="_blank" href="https://juejin.im/post/5e055d9ef265da33997a42cc" rel="">傻傻分不清之 Cookie、Session、Token、JWT</a></strong></p>
+<p><strong><a target="_blank" href="https://juejin.im/post/5e33fcd06fb9a02fc767c427" rel="">TS 常见问题整理（60多个，持续更新ing）</a></strong></p>
+<p><a name="SPCFK"></a></p>
+<h2 class="heading" data-id="heading-70">参考</h2>
+<p><a target="_blank" href="https://git-scm.com/book/zh/v2" rel="nofollow noopener noreferrer"><strong>Git Book</strong></a></p>
+<p><a target="_blank" href="https://gitee.com/progit/index.html" rel="nofollow noopener noreferrer"><strong>Pro Git（中文版）</strong></a></p>
+<p><a target="_blank" href="https://github.com/geeeeeeeeek/git-recipes/wiki" rel="nofollow noopener noreferrer"><strong>git-recipes</strong></a></p>
+<p><a target="_blank" href="https://juejin.im/post/5a54386af265da3e3b7a6317" rel=""><strong>如何优雅地使用 Git</strong></a></p>
+<p><a target="_blank" href="https://juejin.im/post/5c1c5d305188256a272aa0ec" rel=""><strong>如何在大型项目中使用Git子模块开发</strong></a></p>
+<p><strong>Github API 调用 (v3）</strong></p>
+<p><a target="_blank" href="https://www.jianshu.com/p/a0c7d0482415" rel="nofollow noopener noreferrer">www.jianshu.com/p/a0c7d0482…</a></p>
+<p><a target="_blank" href="https://developer.github.com/v3/guides/getting-started/" rel="nofollow noopener noreferrer">developer.github.com/v3/guides/g…</a></p>
+</div></article><div data-v-50ff96fb="" data-v-0f848c07="" class="tag-list-box"><div data-v-50ff96fb="" data-v-0f848c07="" class="tag-list-title">关注下面的标签，发现更多相似文章</div><div data-v-50ff96fb="" data-v-0f848c07="" st:block="tagList" class="tag-list"><a data-v-50ff96fb="" href="https://juejin.im/tag/JavaScript" target="_blank" rel="" st:name="tag" class="item" data-v-0f848c07=""><div data-v-261e638e="" data-v-a98f170a="" data-v-50ff96fb="" data-src="https://lc-gold-cdn.xitu.io/5d70fd6af940df373834.png?imageView2/2/w/42/h/42/q/85/format/webp/interlace/1" class="lazy thumb tag-icon loaded" style="background-image: url(&quot;https://lc-gold-cdn.xitu.io/5d70fd6af940df373834.png?imageView2/2/w/42/h/42/q/85/format/webp/interlace/1&quot;); background-size: contain;"></div><div data-v-50ff96fb="" class="tag-title">JavaScript</div></a><a data-v-50ff96fb="" href="https://juejin.im/tag/React.js" target="_blank" rel="" st:name="tag" class="item" data-v-0f848c07=""><div data-v-261e638e="" data-v-a98f170a="" data-v-50ff96fb="" data-src="https://lc-gold-cdn.xitu.io/f655215074250f10f8d4.png?imageView2/2/w/42/h/42/q/85/format/webp/interlace/1" class="lazy thumb tag-icon loaded" style="background-image: url(&quot;https://lc-gold-cdn.xitu.io/f655215074250f10f8d4.png?imageView2/2/w/42/h/42/q/85/format/webp/interlace/1&quot;); background-size: contain;"></div><div data-v-50ff96fb="" class="tag-title">React.js</div></a></div></div><a data-v-50ff96fb="" href="https://juejin.im/user/594f84ca8d6d81005703d38d" target="_blank" rel="" data-v-0f848c07=""><div data-v-50ff96fb="" class="footer-author-block"><div data-v-95a5e9b8="" data-v-50ff96fb="" itemscope="itemscope" itemtype="http://schema.org/Person" class="author"><meta itemprop="url" content="https://juejin.im/user/594f84ca8d6d81005703d38d"><meta itemprop="image" content="https://user-gold-cdn.xitu.io/2019/8/30/16ce13608b997e6e?w=1350&amp;h=2700&amp;f=jpeg&amp;s=710413"><meta itemprop="name" content="秋天不落叶"><meta itemprop="jobTitle" content="React 重度爱好者"><!----><div data-v-95a5e9b8="" class="author-info-block"><a data-v-95a5e9b8="" href="https://juejin.im/user/594f84ca8d6d81005703d38d" target="_blank" rel="" class="avatar-link"><div data-v-261e638e="" data-v-b49070bc="" data-v-95a5e9b8="" data-src="https://user-gold-cdn.xitu.io/2019/8/30/16ce13608b997e6e?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1" class="lazy avatar avatar loaded" style="background-image: url(&quot;https://user-gold-cdn.xitu.io/2019/8/30/16ce13608b997e6e?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1&quot;);"></div></a><div data-v-95a5e9b8="" class="author-info-box"><div data-v-95a5e9b8="" class="profile-box"><a data-v-1a54813b="" data-v-95a5e9b8="" href="https://juejin.im/user/594f84ca8d6d81005703d38d" target="_blank" rel="" class="username username ellipsis">秋天不落叶<a data-v-3a430c94="" data-v-1a54813b="" href="https://juejin.im/book/5c90640c5188252d7941f5bb/section/5c9065385188252da6320022" target="_blank" rel="" class="rank"><img data-v-3a430c94="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/lv-4.2c3fafd.svg" alt="lv-4"></a></a><span data-v-95a5e9b8="" class="position ellipsis">React 重度爱好者</span></div><div data-v-95a5e9b8="" class="meta-box"><a data-v-95a5e9b8="" href="https://juejin.im/user/594f84ca8d6d81005703d38d/posts" target="_blank" rel="" class="posts"><span data-v-95a5e9b8="" class="count post-count">发布了 10 篇专栏 · </span></a><span data-v-95a5e9b8="" class="count">获得点赞 4,153 · </span><span data-v-95a5e9b8="" class="count">获得阅读 151,028</span></div></div><button data-v-d05fee10="" data-v-95a5e9b8="" class="follow-button follow">关注</button></div></div></div></a><div data-v-50ff96fb="" data-v-0f848c07="" st:block="banner" class="article-banner"><a data-v-50ff96fb="" data-v-0f848c07="" st:name="link" st:state="https://juejin.im/extension/?utm_source=juejin.im&amp;utm_medium=post&amp;utm_campaign=extension_promotion" class="banner-title" href="https://juejin.im/extension/?utm_source=juejin.im&amp;utm_medium=post&amp;utm_campaign=extension_promotion" target="_blank">安装掘金浏览器插件</a><div data-v-50ff96fb="" data-v-0f848c07="" class="banner-content">打开新标签页发现好内容，掘金、GitHub、Dribbble、ProductHunt 等站点内容轻松获取。快来安装掘金浏览器插件获取高质量内容吧！</div></div><!----><!----><div data-v-43803909="" data-v-50ff96fb="" class="comment-list-box" id="comment-box" data-v-0f848c07="" manual="true"><div data-v-43803909="" class="title">评论</div><div data-v-bc5a7668="" data-v-43803909="" class="comment-form comment-form"><div data-v-bc5a7668="" class="avatar-box"><div data-v-261e638e="" data-v-b49070bc="" data-v-bc5a7668="" data-src="https://b-gold-cdn.xitu.io/v3/static/img/default-avatar.e30559a.svg" class="lazy avatar avatar" style="background-image: none;"></div></div><div data-v-bc5a7668="" class="form-box"><div data-v-bc5a7668="" class="input-box"><div data-v-e4402004="" data-v-bc5a7668="" class="auth-card"><!----><div data-v-bc5a7668="" data-v-e4402004="" contenteditable="true" spellcheck="false" placeholder="输入评论..." class="rich-input empty"><br data-v-bc5a7668="" data-v-e4402004=""></div></div><!----></div><!----></div><input data-v-bc5a7668="" type="file" class="hidden"></div><div data-v-7c7d1c40="" data-v-43803909="" class="comment-list comment-list"><div data-v-ddb41540="" data-v-7c7d1c40="" class="image-viewer-box"><!----></div><div data-v-7c7d1c40="" class="item"><div data-v-6aebcf4a="" data-v-7c7d1c40="" class="comment comment"><div data-v-2bc7e294="" data-v-6aebcf4a="" st:block="userPopover" st:state="5b8f2e055188256fd3485ffe" class="user-popover-box popover"><!----><a data-v-6aebcf4a="" href="https://juejin.im/user/5b8f2e055188256fd3485ffe" target="_blank" rel="" class="user-link" data-v-2bc7e294=""><div data-v-261e638e="" data-v-b49070bc="" data-v-6aebcf4a="" data-src="https://user-gold-cdn.xitu.io/2018/9/5/165a74dca0044cfb?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1" class="lazy avatar avatar" style="background-image: none;"></div></a></div><div data-v-6aebcf4a="" class="content-box comment-divider-line"><div data-v-6aebcf4a="" class="meta-box"><div data-v-2bc7e294="" data-v-6aebcf4a="" st:block="userPopover" st:state="5b8f2e055188256fd3485ffe" class="user-popover-box"><!----><a data-v-1a54813b="" data-v-6aebcf4a="" href="https://juejin.im/user/5b8f2e055188256fd3485ffe" target="_blank" rel="" class="username username ellipsis" data-v-2bc7e294="">陈迪迦<!----></a></div><div data-v-6aebcf4a="" class="position">前端茶师 @ GZ</div></div><div data-v-6aebcf4a="" class="content">想问下作者平时都是命令行的方式来使用 Git 吗？使用图形化的工具会不会效率更高呢？</div><div data-v-6aebcf4a="" class="limit-ctl-box"><!----><!----></div><!----><div data-v-6aebcf4a="" class="reply-stat"><time data-v-6aebcf4a="" datetime="2020-06-15T08:18:02.300Z" title="Mon Jun 15 2020 16:18:02 GMT+0800 (中国标准时间)" class="time">6小时前</time><div data-v-6aebcf4a="" class="delete"> &nbsp;·&nbsp;删除</div><div data-v-6aebcf4a="" class="action-box"><div data-v-6aebcf4a="" class="like-action action"><svg data-v-6aebcf4a="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon like-icon"><g data-v-6aebcf4a="" fill="none" fill-rule="evenodd"><path data-v-6aebcf4a="" d="M0 0h20v20H0z"></path> <path data-v-6aebcf4a="" stroke="#8A93A0" stroke-linejoin="round" d="M4.58 8.25V17h-1.4C2.53 17 2 16.382 2 15.624V9.735c0-.79.552-1.485 1.18-1.485h1.4zM11.322 2c1.011.019 1.614.833 1.823 1.235.382.735.392 1.946.13 2.724-.236.704-.785 1.629-.785 1.629h4.11c.434 0 .838.206 1.107.563.273.365.363.84.24 1.272l-1.86 6.513A1.425 1.425 0 0 1 14.724 17H6.645V7.898C8.502 7.51 9.643 4.59 9.852 3.249A1.47 1.47 0 0 1 11.322 2z"></path></g></svg><!----></div><div data-v-6aebcf4a="" class="comment-action action"><svg data-v-6aebcf4a="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon comment-icon"><g data-v-6aebcf4a="" fill="none" fill-rule="evenodd"><path data-v-6aebcf4a="" d="M0 0h20v20H0z"></path> <path data-v-6aebcf4a="" stroke="#8A93A0" stroke-linejoin="round" d="M10 17c-4.142 0-7.5-2.91-7.5-6.5S5.858 4 10 4c4.142 0 7.5 2.91 7.5 6.5 0 1.416-.522 2.726-1.41 3.794-.129.156.41 3.206.41 3.206l-3.265-1.134c-.998.369-2.077.634-3.235.634z"></path></g></svg> <span data-v-6aebcf4a="" class="action-title">回复</span></div></div></div><!----><div data-v-18f279d9="" data-v-6aebcf4a="" class="sub-comment-list sub-comment-list"><div data-v-18f279d9="" class="item"><div data-v-0a600e85="" data-v-18f279d9="" class="sub-comment sub-comment"><div data-v-0a600e85="" class="sub-comment-content-row"><div data-v-0a600e85="" class="sub-comment-content-box"><div data-v-2bc7e294="" data-v-0a600e85="" st:block="userPopover" st:state="594f84ca8d6d81005703d38d" class="user-popover-box popover"><!----><a data-v-0a600e85="" href="https://juejin.im/user/594f84ca8d6d81005703d38d" target="_blank" rel="" class="username" data-v-2bc7e294=""><div data-v-261e638e="" data-v-b49070bc="" data-v-0a600e85="" data-src="https://user-gold-cdn.xitu.io/2019/8/30/16ce13608b997e6e?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1" class="lazy avatar avatar" style="background-image: none;"></div></a></div><div data-v-0a600e85="" class="user-content-box"><div data-v-0a600e85="" class="profie"><div data-v-2bc7e294="" data-v-0a600e85="" st:block="userPopover" st:state="594f84ca8d6d81005703d38d" class="user-popover-box"><!----><a data-v-1a54813b="" data-v-0a600e85="" href="https://juejin.im/user/594f84ca8d6d81005703d38d" target="_blank" rel="" class="username" data-v-2bc7e294="">秋天不落叶<a data-v-3a430c94="" data-v-1a54813b="" href="https://juejin.im/book/5c90640c5188252d7941f5bb/section/5c9065385188252da6320022" target="_blank" rel="" class="rank"><img data-v-3a430c94="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/lv-4.2c3fafd.svg" alt="lv-4"></a><span data-v-0a600e85="" class="author-badge-text">(作者)</span></a></div><div data-v-0a600e85="" class="position">React 重度爱好者</div></div><div data-v-0a600e85="" class="content-box"><span data-v-0a600e85=""> 回复 </span><div data-v-2bc7e294="" data-v-0a600e85="" st:block="userPopover" st:state="5b8f2e055188256fd3485ffe" class="user-popover-box"><!----><a data-v-1a54813b="" data-v-0a600e85="" href="https://juejin.im/user/5b8f2e055188256fd3485ffe" target="_blank" rel="" class="username username be-replied" data-v-2bc7e294="">陈迪迦<!----></a></div><!----><span data-v-0a600e85="">: </span><span data-v-0a600e85="" class="content">使用图形化的工具会简单高效点，尤其是查看 git log 和切换版本这些功能。不过以前被工具坑过几次后有了阴影，所以日常提交什么的都是用 git 命令行，查看 log 和切换版本都是借助 webstorm 的插件，会比较方便</span></div><!----><!----><div data-v-0a600e85="" class="limit-all-box"><!----></div><div data-v-0a600e85="" class="sub-comment-stat-box"><time data-v-0a600e85="" datetime="2020-06-15T08:27:29.703Z" title="Mon Jun 15 2020 16:27:29 GMT+0800 (中国标准时间)" class="time">6小时前</time><div data-v-0a600e85="" class="delete"> &nbsp;·&nbsp;删除</div><div data-v-0a600e85="" class="sub-comment-action-box"><div data-v-0a600e85="" class="like-action action"><svg data-v-0a600e85="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon like-icon"><g data-v-0a600e85="" fill="none" fill-rule="evenodd"><path data-v-0a600e85="" d="M0 0h20v20H0z"></path> <path data-v-0a600e85="" stroke="#8A93A0" stroke-linejoin="round" d="M4.58 8.25V17h-1.4C2.53 17 2 16.382 2 15.624V9.735c0-.79.552-1.485 1.18-1.485h1.4zM11.322 2c1.011.019 1.614.833 1.823 1.235.382.735.392 1.946.13 2.724-.236.704-.785 1.629-.785 1.629h4.11c.434 0 .838.206 1.107.563.273.365.363.84.24 1.272l-1.86 6.513A1.425 1.425 0 0 1 14.724 17H6.645V7.898C8.502 7.51 9.643 4.59 9.852 3.249A1.47 1.47 0 0 1 11.322 2z"></path></g></svg><!----></div><div data-v-0a600e85="" class="comment-action action"><svg data-v-0a600e85="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon comment-icon"><g data-v-0a600e85="" fill="none" fill-rule="evenodd"><path data-v-0a600e85="" d="M0 0h20v20H0z"></path> <path data-v-0a600e85="" stroke="#8A93A0" stroke-linejoin="round" d="M10 17c-4.142 0-7.5-2.91-7.5-6.5S5.858 4 10 4c4.142 0 7.5 2.91 7.5 6.5 0 1.416-.522 2.726-1.41 3.794-.129.156.41 3.206.41 3.206l-3.265-1.134c-.998.369-2.077.634-3.235.634z"></path></g></svg> <span data-v-0a600e85="">回复</span></div></div></div><!----></div></div></div><!----></div></div><!----></div></div><!----></div></div><div data-v-7c7d1c40="" class="item"><div data-v-6aebcf4a="" data-v-7c7d1c40="" class="comment comment"><div data-v-2bc7e294="" data-v-6aebcf4a="" st:block="userPopover" st:state="5962fe1d6fb9a06bac5b9899" class="user-popover-box popover"><!----><a data-v-6aebcf4a="" href="https://juejin.im/user/5962fe1d6fb9a06bac5b9899" target="_blank" rel="" class="user-link" data-v-2bc7e294=""><div data-v-261e638e="" data-v-b49070bc="" data-v-6aebcf4a="" data-src="https://user-gold-cdn.xitu.io/2018/4/26/162ff7495bb02026?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1" class="lazy avatar avatar" style="background-image: none;"></div></a></div><div data-v-6aebcf4a="" class="content-box comment-divider-line"><div data-v-6aebcf4a="" class="meta-box"><div data-v-2bc7e294="" data-v-6aebcf4a="" st:block="userPopover" st:state="5962fe1d6fb9a06bac5b9899" class="user-popover-box"><!----><a data-v-1a54813b="" data-v-6aebcf4a="" href="https://juejin.im/user/5962fe1d6fb9a06bac5b9899" target="_blank" rel="" class="username username ellipsis" data-v-2bc7e294="">SHERlocked93<a data-v-3a430c94="" data-v-1a54813b="" href="https://juejin.im/book/5c90640c5188252d7941f5bb/section/5c9065385188252da6320022" target="_blank" rel="" class="rank"><img data-v-3a430c94="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/lv-5.f8d5198.svg" alt="lv-5"></a></a></div><div data-v-6aebcf4a="" class="position">「前端下午茶」公众号</div></div><div data-v-6aebcf4a="" class="content">你好，本文可以授权公众号「前端下午茶」转载么，原文链接将标注为本网页的链接～</div><div data-v-6aebcf4a="" class="limit-ctl-box"><!----><!----></div><!----><div data-v-6aebcf4a="" class="reply-stat"><time data-v-6aebcf4a="" datetime="2020-06-15T08:02:48.096Z" title="Mon Jun 15 2020 16:02:48 GMT+0800 (中国标准时间)" class="time">6小时前</time><div data-v-6aebcf4a="" class="delete"> &nbsp;·&nbsp;删除</div><div data-v-6aebcf4a="" class="action-box"><div data-v-6aebcf4a="" class="like-action action"><svg data-v-6aebcf4a="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon like-icon"><g data-v-6aebcf4a="" fill="none" fill-rule="evenodd"><path data-v-6aebcf4a="" d="M0 0h20v20H0z"></path> <path data-v-6aebcf4a="" stroke="#8A93A0" stroke-linejoin="round" d="M4.58 8.25V17h-1.4C2.53 17 2 16.382 2 15.624V9.735c0-.79.552-1.485 1.18-1.485h1.4zM11.322 2c1.011.019 1.614.833 1.823 1.235.382.735.392 1.946.13 2.724-.236.704-.785 1.629-.785 1.629h4.11c.434 0 .838.206 1.107.563.273.365.363.84.24 1.272l-1.86 6.513A1.425 1.425 0 0 1 14.724 17H6.645V7.898C8.502 7.51 9.643 4.59 9.852 3.249A1.47 1.47 0 0 1 11.322 2z"></path></g></svg><!----></div><div data-v-6aebcf4a="" class="comment-action action"><svg data-v-6aebcf4a="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon comment-icon"><g data-v-6aebcf4a="" fill="none" fill-rule="evenodd"><path data-v-6aebcf4a="" d="M0 0h20v20H0z"></path> <path data-v-6aebcf4a="" stroke="#8A93A0" stroke-linejoin="round" d="M10 17c-4.142 0-7.5-2.91-7.5-6.5S5.858 4 10 4c4.142 0 7.5 2.91 7.5 6.5 0 1.416-.522 2.726-1.41 3.794-.129.156.41 3.206.41 3.206l-3.265-1.134c-.998.369-2.077.634-3.235.634z"></path></g></svg> <span data-v-6aebcf4a="" class="action-title">回复</span></div></div></div><!----><div data-v-18f279d9="" data-v-6aebcf4a="" class="sub-comment-list sub-comment-list"><div data-v-18f279d9="" class="item"><div data-v-0a600e85="" data-v-18f279d9="" class="sub-comment sub-comment"><div data-v-0a600e85="" class="sub-comment-content-row"><div data-v-0a600e85="" class="sub-comment-content-box"><div data-v-2bc7e294="" data-v-0a600e85="" st:block="userPopover" st:state="594f84ca8d6d81005703d38d" class="user-popover-box popover"><!----><a data-v-0a600e85="" href="https://juejin.im/user/594f84ca8d6d81005703d38d" target="_blank" rel="" class="username" data-v-2bc7e294=""><div data-v-261e638e="" data-v-b49070bc="" data-v-0a600e85="" data-src="https://user-gold-cdn.xitu.io/2019/8/30/16ce13608b997e6e?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1" class="lazy avatar avatar" style="background-image: none;"></div></a></div><div data-v-0a600e85="" class="user-content-box"><div data-v-0a600e85="" class="profie"><div data-v-2bc7e294="" data-v-0a600e85="" st:block="userPopover" st:state="594f84ca8d6d81005703d38d" class="user-popover-box"><!----><a data-v-1a54813b="" data-v-0a600e85="" href="https://juejin.im/user/594f84ca8d6d81005703d38d" target="_blank" rel="" class="username" data-v-2bc7e294="">秋天不落叶<a data-v-3a430c94="" data-v-1a54813b="" href="https://juejin.im/book/5c90640c5188252d7941f5bb/section/5c9065385188252da6320022" target="_blank" rel="" class="rank"><img data-v-3a430c94="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/lv-4.2c3fafd.svg" alt="lv-4"></a><span data-v-0a600e85="" class="author-badge-text">(作者)</span></a></div><div data-v-0a600e85="" class="position">React 重度爱好者</div></div><div data-v-0a600e85="" class="content-box"><span data-v-0a600e85=""> 回复 </span><div data-v-2bc7e294="" data-v-0a600e85="" st:block="userPopover" st:state="5962fe1d6fb9a06bac5b9899" class="user-popover-box"><!----><a data-v-1a54813b="" data-v-0a600e85="" href="https://juejin.im/user/5962fe1d6fb9a06bac5b9899" target="_blank" rel="" class="username username be-replied" data-v-2bc7e294="">SHERlocked93<a data-v-3a430c94="" data-v-1a54813b="" href="https://juejin.im/book/5c90640c5188252d7941f5bb/section/5c9065385188252da6320022" target="_blank" rel="" class="rank"><img data-v-3a430c94="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/lv-5.f8d5198.svg" alt="lv-5"></a></a></div><!----><span data-v-0a600e85="">: </span><span data-v-0a600e85="" class="content">可以的</span></div><!----><!----><div data-v-0a600e85="" class="limit-all-box"><!----></div><div data-v-0a600e85="" class="sub-comment-stat-box"><time data-v-0a600e85="" datetime="2020-06-15T08:16:41.393Z" title="Mon Jun 15 2020 16:16:41 GMT+0800 (中国标准时间)" class="time">6小时前</time><div data-v-0a600e85="" class="delete"> &nbsp;·&nbsp;删除</div><div data-v-0a600e85="" class="sub-comment-action-box"><div data-v-0a600e85="" class="like-action action"><svg data-v-0a600e85="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon like-icon"><g data-v-0a600e85="" fill="none" fill-rule="evenodd"><path data-v-0a600e85="" d="M0 0h20v20H0z"></path> <path data-v-0a600e85="" stroke="#8A93A0" stroke-linejoin="round" d="M4.58 8.25V17h-1.4C2.53 17 2 16.382 2 15.624V9.735c0-.79.552-1.485 1.18-1.485h1.4zM11.322 2c1.011.019 1.614.833 1.823 1.235.382.735.392 1.946.13 2.724-.236.704-.785 1.629-.785 1.629h4.11c.434 0 .838.206 1.107.563.273.365.363.84.24 1.272l-1.86 6.513A1.425 1.425 0 0 1 14.724 17H6.645V7.898C8.502 7.51 9.643 4.59 9.852 3.249A1.47 1.47 0 0 1 11.322 2z"></path></g></svg><!----></div><div data-v-0a600e85="" class="comment-action action"><svg data-v-0a600e85="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon comment-icon"><g data-v-0a600e85="" fill="none" fill-rule="evenodd"><path data-v-0a600e85="" d="M0 0h20v20H0z"></path> <path data-v-0a600e85="" stroke="#8A93A0" stroke-linejoin="round" d="M10 17c-4.142 0-7.5-2.91-7.5-6.5S5.858 4 10 4c4.142 0 7.5 2.91 7.5 6.5 0 1.416-.522 2.726-1.41 3.794-.129.156.41 3.206.41 3.206l-3.265-1.134c-.998.369-2.077.634-3.235.634z"></path></g></svg> <span data-v-0a600e85="">回复</span></div></div></div><!----></div></div></div><!----></div></div><!----></div></div><!----></div></div><div data-v-7c7d1c40="" class="item"><div data-v-6aebcf4a="" data-v-7c7d1c40="" class="comment comment"><div data-v-2bc7e294="" data-v-6aebcf4a="" st:block="userPopover" st:state="5b7c46bbf265da433e794a3d" class="user-popover-box popover"><!----><a data-v-6aebcf4a="" href="https://juejin.im/user/5b7c46bbf265da433e794a3d" target="_blank" rel="" class="user-link" data-v-2bc7e294=""><div data-v-261e638e="" data-v-b49070bc="" data-v-6aebcf4a="" data-src="https://mirror-gold-cdn.xitu.io/168e093861c5fd0c1dc?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1" class="lazy avatar avatar" style="background-image: none;"></div></a></div><div data-v-6aebcf4a="" class="content-box comment-divider-line"><div data-v-6aebcf4a="" class="meta-box"><div data-v-2bc7e294="" data-v-6aebcf4a="" st:block="userPopover" st:state="5b7c46bbf265da433e794a3d" class="user-popover-box"><!----><a data-v-1a54813b="" data-v-6aebcf4a="" href="https://juejin.im/user/5b7c46bbf265da433e794a3d" target="_blank" rel="" class="username username ellipsis" data-v-2bc7e294="">莎奇玛<!----></a></div><div data-v-6aebcf4a="" class="position">前端开发</div></div><div data-v-6aebcf4a="" class="content">Mark！感谢作者的整理，看了之后感觉自己的git用的太low了。点赞点赞<img class="emoji" draggable="false" alt="👍" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/1f44d.svg"><img class="emoji" draggable="false" alt="👍" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/1f44d.svg"><img class="emoji" draggable="false" alt="👍" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/1f44d.svg">。</div><div data-v-6aebcf4a="" class="limit-ctl-box"><!----><!----></div><!----><div data-v-6aebcf4a="" class="reply-stat"><time data-v-6aebcf4a="" datetime="2020-06-15T07:18:51.847Z" title="Mon Jun 15 2020 15:18:51 GMT+0800 (中国标准时间)" class="time">7小时前</time><div data-v-6aebcf4a="" class="delete"> &nbsp;·&nbsp;删除</div><div data-v-6aebcf4a="" class="action-box"><div data-v-6aebcf4a="" class="like-action action"><svg data-v-6aebcf4a="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon like-icon"><g data-v-6aebcf4a="" fill="none" fill-rule="evenodd"><path data-v-6aebcf4a="" d="M0 0h20v20H0z"></path> <path data-v-6aebcf4a="" stroke="#8A93A0" stroke-linejoin="round" d="M4.58 8.25V17h-1.4C2.53 17 2 16.382 2 15.624V9.735c0-.79.552-1.485 1.18-1.485h1.4zM11.322 2c1.011.019 1.614.833 1.823 1.235.382.735.392 1.946.13 2.724-.236.704-.785 1.629-.785 1.629h4.11c.434 0 .838.206 1.107.563.273.365.363.84.24 1.272l-1.86 6.513A1.425 1.425 0 0 1 14.724 17H6.645V7.898C8.502 7.51 9.643 4.59 9.852 3.249A1.47 1.47 0 0 1 11.322 2z"></path></g></svg><!----></div><div data-v-6aebcf4a="" class="comment-action action"><svg data-v-6aebcf4a="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon comment-icon"><g data-v-6aebcf4a="" fill="none" fill-rule="evenodd"><path data-v-6aebcf4a="" d="M0 0h20v20H0z"></path> <path data-v-6aebcf4a="" stroke="#8A93A0" stroke-linejoin="round" d="M10 17c-4.142 0-7.5-2.91-7.5-6.5S5.858 4 10 4c4.142 0 7.5 2.91 7.5 6.5 0 1.416-.522 2.726-1.41 3.794-.129.156.41 3.206.41 3.206l-3.265-1.134c-.998.369-2.077.634-3.235.634z"></path></g></svg> <span data-v-6aebcf4a="" class="action-title">回复</span></div></div></div><!----><div data-v-18f279d9="" data-v-6aebcf4a="" class="sub-comment-list sub-comment-list"><div data-v-18f279d9="" class="item"><div data-v-0a600e85="" data-v-18f279d9="" class="sub-comment sub-comment"><div data-v-0a600e85="" class="sub-comment-content-row"><div data-v-0a600e85="" class="sub-comment-content-box"><div data-v-2bc7e294="" data-v-0a600e85="" st:block="userPopover" st:state="594f84ca8d6d81005703d38d" class="user-popover-box popover"><!----><a data-v-0a600e85="" href="https://juejin.im/user/594f84ca8d6d81005703d38d" target="_blank" rel="" class="username" data-v-2bc7e294=""><div data-v-261e638e="" data-v-b49070bc="" data-v-0a600e85="" data-src="https://user-gold-cdn.xitu.io/2019/8/30/16ce13608b997e6e?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1" class="lazy avatar avatar" style="background-image: none;"></div></a></div><div data-v-0a600e85="" class="user-content-box"><div data-v-0a600e85="" class="profie"><div data-v-2bc7e294="" data-v-0a600e85="" st:block="userPopover" st:state="594f84ca8d6d81005703d38d" class="user-popover-box"><!----><a data-v-1a54813b="" data-v-0a600e85="" href="https://juejin.im/user/594f84ca8d6d81005703d38d" target="_blank" rel="" class="username" data-v-2bc7e294="">秋天不落叶<a data-v-3a430c94="" data-v-1a54813b="" href="https://juejin.im/book/5c90640c5188252d7941f5bb/section/5c9065385188252da6320022" target="_blank" rel="" class="rank"><img data-v-3a430c94="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/lv-4.2c3fafd.svg" alt="lv-4"></a><span data-v-0a600e85="" class="author-badge-text">(作者)</span></a></div><div data-v-0a600e85="" class="position">React 重度爱好者</div></div><div data-v-0a600e85="" class="content-box"><span data-v-0a600e85=""> 回复 </span><div data-v-2bc7e294="" data-v-0a600e85="" st:block="userPopover" st:state="5b7c46bbf265da433e794a3d" class="user-popover-box"><!----><a data-v-1a54813b="" data-v-0a600e85="" href="https://juejin.im/user/5b7c46bbf265da433e794a3d" target="_blank" rel="" class="username username be-replied" data-v-2bc7e294="">莎奇玛<!----></a></div><!----><span data-v-0a600e85="">: </span><span data-v-0a600e85="" class="content"><img class="emoji" draggable="false" alt="😃" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/1f603.svg"><img class="emoji" draggable="false" alt="😃" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/1f603.svg"><img class="emoji" draggable="false" alt="😃" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/1f603.svg"></span></div><!----><!----><div data-v-0a600e85="" class="limit-all-box"><!----></div><div data-v-0a600e85="" class="sub-comment-stat-box"><time data-v-0a600e85="" datetime="2020-06-15T08:17:03.421Z" title="Mon Jun 15 2020 16:17:03 GMT+0800 (中国标准时间)" class="time">6小时前</time><div data-v-0a600e85="" class="delete"> &nbsp;·&nbsp;删除</div><div data-v-0a600e85="" class="sub-comment-action-box"><div data-v-0a600e85="" class="like-action action"><svg data-v-0a600e85="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon like-icon"><g data-v-0a600e85="" fill="none" fill-rule="evenodd"><path data-v-0a600e85="" d="M0 0h20v20H0z"></path> <path data-v-0a600e85="" stroke="#8A93A0" stroke-linejoin="round" d="M4.58 8.25V17h-1.4C2.53 17 2 16.382 2 15.624V9.735c0-.79.552-1.485 1.18-1.485h1.4zM11.322 2c1.011.019 1.614.833 1.823 1.235.382.735.392 1.946.13 2.724-.236.704-.785 1.629-.785 1.629h4.11c.434 0 .838.206 1.107.563.273.365.363.84.24 1.272l-1.86 6.513A1.425 1.425 0 0 1 14.724 17H6.645V7.898C8.502 7.51 9.643 4.59 9.852 3.249A1.47 1.47 0 0 1 11.322 2z"></path></g></svg><!----></div><div data-v-0a600e85="" class="comment-action action"><svg data-v-0a600e85="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon comment-icon"><g data-v-0a600e85="" fill="none" fill-rule="evenodd"><path data-v-0a600e85="" d="M0 0h20v20H0z"></path> <path data-v-0a600e85="" stroke="#8A93A0" stroke-linejoin="round" d="M10 17c-4.142 0-7.5-2.91-7.5-6.5S5.858 4 10 4c4.142 0 7.5 2.91 7.5 6.5 0 1.416-.522 2.726-1.41 3.794-.129.156.41 3.206.41 3.206l-3.265-1.134c-.998.369-2.077.634-3.235.634z"></path></g></svg> <span data-v-0a600e85="">回复</span></div></div></div><!----></div></div></div><!----></div></div><!----></div></div><!----></div></div><div data-v-7c7d1c40="" class="item"><div data-v-6aebcf4a="" data-v-7c7d1c40="" class="comment comment"><div data-v-2bc7e294="" data-v-6aebcf4a="" st:block="userPopover" st:state="5d200f3a5188255d7439ab0f" class="user-popover-box popover"><!----><a data-v-6aebcf4a="" href="https://juejin.im/user/5d200f3a5188255d7439ab0f" target="_blank" rel="" class="user-link" data-v-2bc7e294=""><div data-v-261e638e="" data-v-b49070bc="" data-v-6aebcf4a="" data-src="https://mirror-gold-cdn.xitu.io/16bc53b8716a1776d6d?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1" class="lazy avatar avatar" style="background-image: none;"></div></a></div><div data-v-6aebcf4a="" class="content-box comment-divider-line"><div data-v-6aebcf4a="" class="meta-box"><div data-v-2bc7e294="" data-v-6aebcf4a="" st:block="userPopover" st:state="5d200f3a5188255d7439ab0f" class="user-popover-box"><!----><a data-v-1a54813b="" data-v-6aebcf4a="" href="https://juejin.im/user/5d200f3a5188255d7439ab0f" target="_blank" rel="" class="username username ellipsis" data-v-2bc7e294="">EMT<!----></a></div><div data-v-6aebcf4a="" class="position"></div></div><div data-v-6aebcf4a="" class="content">Mark</div><div data-v-6aebcf4a="" class="limit-ctl-box"><!----><!----></div><!----><div data-v-6aebcf4a="" class="reply-stat"><time data-v-6aebcf4a="" datetime="2020-06-15T05:43:19.317Z" title="Mon Jun 15 2020 13:43:19 GMT+0800 (中国标准时间)" class="time">8小时前</time><div data-v-6aebcf4a="" class="delete"> &nbsp;·&nbsp;删除</div><div data-v-6aebcf4a="" class="action-box"><div data-v-6aebcf4a="" class="like-action action"><svg data-v-6aebcf4a="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon like-icon"><g data-v-6aebcf4a="" fill="none" fill-rule="evenodd"><path data-v-6aebcf4a="" d="M0 0h20v20H0z"></path> <path data-v-6aebcf4a="" stroke="#8A93A0" stroke-linejoin="round" d="M4.58 8.25V17h-1.4C2.53 17 2 16.382 2 15.624V9.735c0-.79.552-1.485 1.18-1.485h1.4zM11.322 2c1.011.019 1.614.833 1.823 1.235.382.735.392 1.946.13 2.724-.236.704-.785 1.629-.785 1.629h4.11c.434 0 .838.206 1.107.563.273.365.363.84.24 1.272l-1.86 6.513A1.425 1.425 0 0 1 14.724 17H6.645V7.898C8.502 7.51 9.643 4.59 9.852 3.249A1.47 1.47 0 0 1 11.322 2z"></path></g></svg><!----></div><div data-v-6aebcf4a="" class="comment-action action"><svg data-v-6aebcf4a="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon comment-icon"><g data-v-6aebcf4a="" fill="none" fill-rule="evenodd"><path data-v-6aebcf4a="" d="M0 0h20v20H0z"></path> <path data-v-6aebcf4a="" stroke="#8A93A0" stroke-linejoin="round" d="M10 17c-4.142 0-7.5-2.91-7.5-6.5S5.858 4 10 4c4.142 0 7.5 2.91 7.5 6.5 0 1.416-.522 2.726-1.41 3.794-.129.156.41 3.206.41 3.206l-3.265-1.134c-.998.369-2.077.634-3.235.634z"></path></g></svg> <span data-v-6aebcf4a="" class="action-title">回复</span></div></div></div><!----><div data-v-18f279d9="" data-v-6aebcf4a="" class="sub-comment-list sub-comment-list"><!----></div></div><!----></div></div><div data-v-7c7d1c40="" class="item"><div data-v-6aebcf4a="" data-v-7c7d1c40="" class="comment comment"><div data-v-2bc7e294="" data-v-6aebcf4a="" st:block="userPopover" st:state="5c35502ae51d45522160d7dd" class="user-popover-box popover"><!----><a data-v-6aebcf4a="" href="https://juejin.im/user/5c35502ae51d45522160d7dd" target="_blank" rel="" class="user-link" data-v-2bc7e294=""><div data-v-261e638e="" data-v-b49070bc="" data-v-6aebcf4a="" data-src="https://user-gold-cdn.xitu.io/2019/8/31/16ce534a47c05005?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1" class="lazy avatar avatar" style="background-image: none;"></div></a></div><div data-v-6aebcf4a="" class="content-box comment-divider-line"><div data-v-6aebcf4a="" class="meta-box"><div data-v-2bc7e294="" data-v-6aebcf4a="" st:block="userPopover" st:state="5c35502ae51d45522160d7dd" class="user-popover-box"><!----><a data-v-1a54813b="" data-v-6aebcf4a="" href="https://juejin.im/user/5c35502ae51d45522160d7dd" target="_blank" rel="" class="username username ellipsis" data-v-2bc7e294="">子弈<a data-v-3a430c94="" data-v-1a54813b="" href="https://juejin.im/book/5c90640c5188252d7941f5bb/section/5c9065385188252da6320022" target="_blank" rel="" class="rank"><img data-v-3a430c94="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/lv-4.2c3fafd.svg" alt="lv-4"></a></a></div><div data-v-6aebcf4a="" class="position">前端 @ Alibaba</div></div><div data-v-6aebcf4a="" class="content">Mark </div><div data-v-6aebcf4a="" class="limit-ctl-box"><!----><!----></div><!----><div data-v-6aebcf4a="" class="reply-stat"><time data-v-6aebcf4a="" datetime="2020-06-15T04:21:56.451Z" title="Mon Jun 15 2020 12:21:56 GMT+0800 (中国标准时间)" class="time">10小时前</time><div data-v-6aebcf4a="" class="delete"> &nbsp;·&nbsp;删除</div><div data-v-6aebcf4a="" class="action-box"><div data-v-6aebcf4a="" class="like-action action"><svg data-v-6aebcf4a="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon like-icon"><g data-v-6aebcf4a="" fill="none" fill-rule="evenodd"><path data-v-6aebcf4a="" d="M0 0h20v20H0z"></path> <path data-v-6aebcf4a="" stroke="#8A93A0" stroke-linejoin="round" d="M4.58 8.25V17h-1.4C2.53 17 2 16.382 2 15.624V9.735c0-.79.552-1.485 1.18-1.485h1.4zM11.322 2c1.011.019 1.614.833 1.823 1.235.382.735.392 1.946.13 2.724-.236.704-.785 1.629-.785 1.629h4.11c.434 0 .838.206 1.107.563.273.365.363.84.24 1.272l-1.86 6.513A1.425 1.425 0 0 1 14.724 17H6.645V7.898C8.502 7.51 9.643 4.59 9.852 3.249A1.47 1.47 0 0 1 11.322 2z"></path></g></svg><!----></div><div data-v-6aebcf4a="" class="comment-action action"><svg data-v-6aebcf4a="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon comment-icon"><g data-v-6aebcf4a="" fill="none" fill-rule="evenodd"><path data-v-6aebcf4a="" d="M0 0h20v20H0z"></path> <path data-v-6aebcf4a="" stroke="#8A93A0" stroke-linejoin="round" d="M10 17c-4.142 0-7.5-2.91-7.5-6.5S5.858 4 10 4c4.142 0 7.5 2.91 7.5 6.5 0 1.416-.522 2.726-1.41 3.794-.129.156.41 3.206.41 3.206l-3.265-1.134c-.998.369-2.077.634-3.235.634z"></path></g></svg> <span data-v-6aebcf4a="" class="action-title">回复</span></div></div></div><!----><div data-v-18f279d9="" data-v-6aebcf4a="" class="sub-comment-list sub-comment-list"><div data-v-18f279d9="" class="item"><div data-v-0a600e85="" data-v-18f279d9="" class="sub-comment sub-comment"><div data-v-0a600e85="" class="sub-comment-content-row"><div data-v-0a600e85="" class="sub-comment-content-box"><div data-v-2bc7e294="" data-v-0a600e85="" st:block="userPopover" st:state="594f84ca8d6d81005703d38d" class="user-popover-box popover"><!----><a data-v-0a600e85="" href="https://juejin.im/user/594f84ca8d6d81005703d38d" target="_blank" rel="" class="username" data-v-2bc7e294=""><div data-v-261e638e="" data-v-b49070bc="" data-v-0a600e85="" data-src="https://user-gold-cdn.xitu.io/2019/8/30/16ce13608b997e6e?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1" class="lazy avatar avatar" style="background-image: none;"></div></a></div><div data-v-0a600e85="" class="user-content-box"><div data-v-0a600e85="" class="profie"><div data-v-2bc7e294="" data-v-0a600e85="" st:block="userPopover" st:state="594f84ca8d6d81005703d38d" class="user-popover-box"><!----><a data-v-1a54813b="" data-v-0a600e85="" href="https://juejin.im/user/594f84ca8d6d81005703d38d" target="_blank" rel="" class="username" data-v-2bc7e294="">秋天不落叶<a data-v-3a430c94="" data-v-1a54813b="" href="https://juejin.im/book/5c90640c5188252d7941f5bb/section/5c9065385188252da6320022" target="_blank" rel="" class="rank"><img data-v-3a430c94="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/lv-4.2c3fafd.svg" alt="lv-4"></a><span data-v-0a600e85="" class="author-badge-text">(作者)</span></a></div><div data-v-0a600e85="" class="position">React 重度爱好者</div></div><div data-v-0a600e85="" class="content-box"><span data-v-0a600e85=""> 回复 </span><div data-v-2bc7e294="" data-v-0a600e85="" st:block="userPopover" st:state="5c35502ae51d45522160d7dd" class="user-popover-box"><!----><a data-v-1a54813b="" data-v-0a600e85="" href="https://juejin.im/user/5c35502ae51d45522160d7dd" target="_blank" rel="" class="username username be-replied" data-v-2bc7e294="">子弈<a data-v-3a430c94="" data-v-1a54813b="" href="https://juejin.im/book/5c90640c5188252d7941f5bb/section/5c9065385188252da6320022" target="_blank" rel="" class="rank"><img data-v-3a430c94="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/lv-4.2c3fafd.svg" alt="lv-4"></a></a></div><!----><span data-v-0a600e85="">: </span><span data-v-0a600e85="" class="content"><img class="emoji" draggable="false" alt="😄" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/1f604.svg"><img class="emoji" draggable="false" alt="😄" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/1f604.svg"><img class="emoji" draggable="false" alt="😄" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/1f604.svg"></span></div><!----><!----><div data-v-0a600e85="" class="limit-all-box"><!----></div><div data-v-0a600e85="" class="sub-comment-stat-box"><time data-v-0a600e85="" datetime="2020-06-15T04:27:23.848Z" title="Mon Jun 15 2020 12:27:23 GMT+0800 (中国标准时间)" class="time">10小时前</time><div data-v-0a600e85="" class="delete"> &nbsp;·&nbsp;删除</div><div data-v-0a600e85="" class="sub-comment-action-box"><div data-v-0a600e85="" class="like-action action"><svg data-v-0a600e85="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon like-icon"><g data-v-0a600e85="" fill="none" fill-rule="evenodd"><path data-v-0a600e85="" d="M0 0h20v20H0z"></path> <path data-v-0a600e85="" stroke="#8A93A0" stroke-linejoin="round" d="M4.58 8.25V17h-1.4C2.53 17 2 16.382 2 15.624V9.735c0-.79.552-1.485 1.18-1.485h1.4zM11.322 2c1.011.019 1.614.833 1.823 1.235.382.735.392 1.946.13 2.724-.236.704-.785 1.629-.785 1.629h4.11c.434 0 .838.206 1.107.563.273.365.363.84.24 1.272l-1.86 6.513A1.425 1.425 0 0 1 14.724 17H6.645V7.898C8.502 7.51 9.643 4.59 9.852 3.249A1.47 1.47 0 0 1 11.322 2z"></path></g></svg><!----></div><div data-v-0a600e85="" class="comment-action action"><svg data-v-0a600e85="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon comment-icon"><g data-v-0a600e85="" fill="none" fill-rule="evenodd"><path data-v-0a600e85="" d="M0 0h20v20H0z"></path> <path data-v-0a600e85="" stroke="#8A93A0" stroke-linejoin="round" d="M10 17c-4.142 0-7.5-2.91-7.5-6.5S5.858 4 10 4c4.142 0 7.5 2.91 7.5 6.5 0 1.416-.522 2.726-1.41 3.794-.129.156.41 3.206.41 3.206l-3.265-1.134c-.998.369-2.077.634-3.235.634z"></path></g></svg> <span data-v-0a600e85="">回复</span></div></div></div><!----></div></div></div><!----></div></div><!----></div></div><!----></div></div><div data-v-7c7d1c40="" class="item"><div data-v-6aebcf4a="" data-v-7c7d1c40="" class="comment comment"><div data-v-2bc7e294="" data-v-6aebcf4a="" st:block="userPopover" st:state="5c904b86f265da60ea145755" class="user-popover-box popover"><!----><a data-v-6aebcf4a="" href="https://juejin.im/user/5c904b86f265da60ea145755" target="_blank" rel="" class="user-link" data-v-2bc7e294=""><div data-v-261e638e="" data-v-b49070bc="" data-v-6aebcf4a="" data-src="https://user-gold-cdn.xitu.io/2019/3/31/169d218fb75d61a1?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1" class="lazy avatar avatar" style="background-image: none;"></div></a></div><div data-v-6aebcf4a="" class="content-box comment-divider-line"><div data-v-6aebcf4a="" class="meta-box"><div data-v-2bc7e294="" data-v-6aebcf4a="" st:block="userPopover" st:state="5c904b86f265da60ea145755" class="user-popover-box"><!----><a data-v-1a54813b="" data-v-6aebcf4a="" href="https://juejin.im/user/5c904b86f265da60ea145755" target="_blank" rel="" class="username username ellipsis" data-v-2bc7e294="">黑叔<a data-v-3a430c94="" data-v-1a54813b="" href="https://juejin.im/book/5c90640c5188252d7941f5bb/section/5c9065385188252da6320022" target="_blank" rel="" class="rank"><img data-v-3a430c94="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/lv-3.e108c68.svg" alt="lv-3"></a></a></div><div data-v-6aebcf4a="" class="position">公众号“程序员黑叔” @ 资深切图渣男</div></div><div data-v-6aebcf4a="" class="content">666</div><div data-v-6aebcf4a="" class="limit-ctl-box"><!----><!----></div><!----><div data-v-6aebcf4a="" class="reply-stat"><time data-v-6aebcf4a="" datetime="2020-06-15T04:10:17.642Z" title="Mon Jun 15 2020 12:10:17 GMT+0800 (中国标准时间)" class="time">10小时前</time><div data-v-6aebcf4a="" class="delete"> &nbsp;·&nbsp;删除</div><div data-v-6aebcf4a="" class="action-box"><div data-v-6aebcf4a="" class="like-action action"><svg data-v-6aebcf4a="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon like-icon"><g data-v-6aebcf4a="" fill="none" fill-rule="evenodd"><path data-v-6aebcf4a="" d="M0 0h20v20H0z"></path> <path data-v-6aebcf4a="" stroke="#8A93A0" stroke-linejoin="round" d="M4.58 8.25V17h-1.4C2.53 17 2 16.382 2 15.624V9.735c0-.79.552-1.485 1.18-1.485h1.4zM11.322 2c1.011.019 1.614.833 1.823 1.235.382.735.392 1.946.13 2.724-.236.704-.785 1.629-.785 1.629h4.11c.434 0 .838.206 1.107.563.273.365.363.84.24 1.272l-1.86 6.513A1.425 1.425 0 0 1 14.724 17H6.645V7.898C8.502 7.51 9.643 4.59 9.852 3.249A1.47 1.47 0 0 1 11.322 2z"></path></g></svg><!----></div><div data-v-6aebcf4a="" class="comment-action action"><svg data-v-6aebcf4a="" aria-hidden="true" width="16" height="16" viewBox="0 0 20 20" class="icon comment-icon"><g data-v-6aebcf4a="" fill="none" fill-rule="evenodd"><path data-v-6aebcf4a="" d="M0 0h20v20H0z"></path> <path data-v-6aebcf4a="" stroke="#8A93A0" stroke-linejoin="round" d="M10 17c-4.142 0-7.5-2.91-7.5-6.5S5.858 4 10 4c4.142 0 7.5 2.91 7.5 6.5 0 1.416-.522 2.726-1.41 3.794-.129.156.41 3.206.41 3.206l-3.265-1.134c-.998.369-2.077.634-3.235.634z"></path></g></svg> <span data-v-6aebcf4a="" class="action-title">回复</span></div></div></div><!----><div data-v-18f279d9="" data-v-6aebcf4a="" class="sub-comment-list sub-comment-list"><!----></div></div><!----></div></div></div><div data-v-43803909="" class="fetch-more-comment">查看更多 &gt;</div></div></div><!----><div data-v-50ff96fb="" data-v-0f848c07="" st:block="recommended" class="main-area recommended-area shadow"><div data-v-50ff96fb="" data-v-0f848c07="" class="recommended-entry-list-title">相关推荐</div><!----><ul data-v-3ce073b0="" data-v-50ff96fb="" st:block="entryList" class="entry-list recommended-entry-list" data-v-0f848c07=""><!----><li data-v-3ce073b0="" data-growing-container="true" data-growing-title="entryList" class="item"><div data-v-392c77a2="" data-v-3ce073b0="" class="entry-box"><div data-v-6d34c71c="" data-v-392c77a2="" st:block="entry" st:state="5ee6e462e51d45788e17fe9a|1" class="entry"><a data-v-6d34c71c="" href="https://juejin.im/post/5ee6d9026fb9a047e60815f1" target="_blank" rel="" st:name="link" class="entry-link"><div data-v-6d34c71c="" class="content-box"><div data-v-6d34c71c="" class="info-box"><div data-v-6d34c71c="" class="info-row meta-row"><ul data-v-6d34c71c="" class="meta-list"><!----><!----><li data-v-6d34c71c="" class="item post">专栏</li><li data-v-6d34c71c="" class="item username clickable"><div data-v-2bc7e294="" data-v-6d34c71c="" st:block="userPopover" st:state="5b13f11d5188257da1245183" class="user-popover-box"><!----><a data-v-6d34c71c="" href="https://juejin.im/user/5b13f11d5188257da1245183" target="_blank" rel="" st:name="user" st:state="5b13f11d5188257da1245183" data-v-2bc7e294="">晨曦时梦见兮</a></div></li><li data-v-6d34c71c="" class="item">11小时前</li><li data-v-6d34c71c="" class="item tag"><a data-v-6d34c71c="" href="https://juejin.im/tag/JavaScript" target="_blank" rel="" st:name="tag" st:state="55964d83e4b08a686cc6b353" class="tag">JavaScript</a><a data-v-6d34c71c="" href="https://juejin.im/tag/%E9%9D%A2%E8%AF%95" target="_blank" rel="" st:name="tag" st:state="55979fe6e4b08a686ce562fe" class="tag">面试</a></li><!----></ul></div><div data-v-6d34c71c="" class="info-row title-row"><!----><!----><a data-v-6d34c71c="" href="https://juejin.im/post/5ee6d9026fb9a047e60815f1" target="_blank" rel="" st:name="title" class="title">前端电商 sku 的全排列算法很难吗？学会这个套路，彻底掌握排列组合。</a></div><div data-v-6d34c71c="" class="info-row action-row"><ul data-v-6d34c71c="" class="action-list"><li data-v-6d34c71c="" st:name="likeBtn" class="item like clickable"><a data-v-6d34c71c="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/zan.e9d7698.svg" class="icon"><span data-v-6d34c71c="" class="count">99</span></a></li><li data-v-6d34c71c="" st:name="commentBtn" class="item comment clickable"><a data-v-6d34c71c="" href="https://juejin.im/post/5ee6d9026fb9a047e60815f1#comment" target="_blank" rel="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/comment.4d5744f.svg" class="icon"><span data-v-6d34c71c="" class="count">34</span></a></li><li data-v-6d34c71c="" st:name="shareBtn" title="分享" class="item share clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/share.1d55e69.svg" class="icon"><div data-v-6d34c71c="" class="share-panel"><div data-v-6d34c71c="" st:name="shareItem" st:state="weibo" class="share-item weibo"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/weibo.8e2f5d6.svg" class="icon">微博</div><div data-v-6d34c71c="" st:name="shareItem" st:state="wechat" class="share-item wechat"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/wechat.844402c.svg" class="icon">微信扫一扫<div data-v-6d34c71c="" class="qr-code-box"><img data-v-6d34c71c="" src="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension" class="qr-code"></div></div></div></li><li data-v-6d34c71c="" title="收藏" st:name="collectBtn" class="item collect clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/collect.02e2979.svg" class="icon"><!----></li><!----></ul></div></div><!----></div></a></div></div></li><li data-v-3ce073b0="" data-growing-container="true" data-growing-title="entryList" class="item"><div data-v-392c77a2="" data-v-3ce073b0="" class="entry-box"><div data-v-6d34c71c="" data-v-392c77a2="" st:block="entry" st:state="5ee656ad51882542f871f29b|2" class="entry"><a data-v-6d34c71c="" href="https://juejin.im/post/5ee649ff51882542ea2b5108" target="_blank" rel="" st:name="link" class="entry-link"><div data-v-6d34c71c="" class="content-box"><div data-v-6d34c71c="" class="info-box"><div data-v-6d34c71c="" class="info-row meta-row"><ul data-v-6d34c71c="" class="meta-list"><!----><!----><li data-v-6d34c71c="" class="item post">专栏</li><li data-v-6d34c71c="" class="item username clickable"><div data-v-2bc7e294="" data-v-6d34c71c="" st:block="userPopover" st:state="594f84ca8d6d81005703d38d" class="user-popover-box"><!----><a data-v-6d34c71c="" href="https://juejin.im/user/594f84ca8d6d81005703d38d" target="_blank" rel="" st:name="user" st:state="594f84ca8d6d81005703d38d" data-v-2bc7e294="">秋天不落叶</a></div></li><li data-v-6d34c71c="" class="item">21小时前</li><li data-v-6d34c71c="" class="item tag"><a data-v-6d34c71c="" href="https://juejin.im/tag/JavaScript" target="_blank" rel="" st:name="tag" st:state="55964d83e4b08a686cc6b353" class="tag">JavaScript</a><a data-v-6d34c71c="" href="https://juejin.im/tag/React.js" target="_blank" rel="" st:name="tag" st:state="555e99ffe4b00c57d99556aa" class="tag">React.js</a></li><!----></ul></div><div data-v-6d34c71c="" class="info-row title-row"><!----><!----><a data-v-6d34c71c="" href="https://juejin.im/post/5ee649ff51882542ea2b5108" target="_blank" rel="" st:name="title" class="title">三年 Git 使用心得 &amp; 常见问题整理</a></div><div data-v-6d34c71c="" class="info-row action-row"><ul data-v-6d34c71c="" class="action-list"><li data-v-6d34c71c="" st:name="likeBtn" class="item like clickable"><a data-v-6d34c71c="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/zan.e9d7698.svg" class="icon"><span data-v-6d34c71c="" class="count">306</span></a></li><li data-v-6d34c71c="" st:name="commentBtn" class="item comment clickable"><a data-v-6d34c71c="" href="https://juejin.im/post/5ee649ff51882542ea2b5108#comment" target="_blank" rel="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/comment.4d5744f.svg" class="icon"><span data-v-6d34c71c="" class="count">29</span></a></li><li data-v-6d34c71c="" st:name="shareBtn" title="分享" class="item share clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/share.1d55e69.svg" class="icon"><div data-v-6d34c71c="" class="share-panel"><div data-v-6d34c71c="" st:name="shareItem" st:state="weibo" class="share-item weibo"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/weibo.8e2f5d6.svg" class="icon">微博</div><div data-v-6d34c71c="" st:name="shareItem" st:state="wechat" class="share-item wechat"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/wechat.844402c.svg" class="icon">微信扫一扫<div data-v-6d34c71c="" class="qr-code-box"><img data-v-6d34c71c="" src="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension" class="qr-code"></div></div></div></li><li data-v-6d34c71c="" title="收藏" st:name="collectBtn" class="item collect clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/collect.02e2979.svg" class="icon"><!----></li><!----></ul></div></div><!----></div></a></div></div></li><li data-v-3ce073b0="" data-growing-container="true" data-growing-title="entryList" class="item"><div data-v-392c77a2="" data-v-3ce073b0="" class="entry-box"><div data-v-6d34c71c="" data-v-392c77a2="" st:block="entry" st:state="5ee6c2ed6fb9a047d37121ef|3" class="entry"><a data-v-6d34c71c="" href="https://juejin.im/post/5edf576ff265da76de5ceec6" target="_blank" rel="" st:name="link" class="entry-link"><div data-v-6d34c71c="" class="content-box"><div data-v-6d34c71c="" class="info-box"><div data-v-6d34c71c="" class="info-row meta-row"><ul data-v-6d34c71c="" class="meta-list"><!----><!----><li data-v-6d34c71c="" class="item post">专栏</li><li data-v-6d34c71c="" class="item username clickable"><div data-v-2bc7e294="" data-v-6d34c71c="" st:block="userPopover" st:state="596d953ff265da6c2915c513" class="user-popover-box"><!----><a data-v-6d34c71c="" href="https://juejin.im/user/596d953ff265da6c2915c513" target="_blank" rel="" st:name="user" st:state="596d953ff265da6c2915c513" data-v-2bc7e294="">守候i</a></div></li><li data-v-6d34c71c="" class="item">13小时前</li><li data-v-6d34c71c="" class="item tag"><a data-v-6d34c71c="" href="https://juejin.im/tag/Vue.js" target="_blank" rel="" st:name="tag" st:state="555e9a98e4b00c57d9955f68" class="tag">Vue.js</a><a data-v-6d34c71c="" href="https://juejin.im/tag/JavaScript" target="_blank" rel="" st:name="tag" st:state="55964d83e4b08a686cc6b353" class="tag">JavaScript</a></li><!----></ul></div><div data-v-6d34c71c="" class="info-row title-row"><!----><!----><a data-v-6d34c71c="" href="https://juejin.im/post/5edf576ff265da76de5ceec6" target="_blank" rel="" st:name="title" class="title">[初探] proxy 的优势与使用场景</a></div><div data-v-6d34c71c="" class="info-row action-row"><ul data-v-6d34c71c="" class="action-list"><li data-v-6d34c71c="" st:name="likeBtn" class="item like clickable"><a data-v-6d34c71c="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/zan.e9d7698.svg" class="icon"><span data-v-6d34c71c="" class="count">69</span></a></li><li data-v-6d34c71c="" st:name="commentBtn" class="item comment clickable"><a data-v-6d34c71c="" href="https://juejin.im/post/5edf576ff265da76de5ceec6#comment" target="_blank" rel="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/comment.4d5744f.svg" class="icon"><span data-v-6d34c71c="" class="count">14</span></a></li><li data-v-6d34c71c="" st:name="shareBtn" title="分享" class="item share clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/share.1d55e69.svg" class="icon"><div data-v-6d34c71c="" class="share-panel"><div data-v-6d34c71c="" st:name="shareItem" st:state="weibo" class="share-item weibo"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/weibo.8e2f5d6.svg" class="icon">微博</div><div data-v-6d34c71c="" st:name="shareItem" st:state="wechat" class="share-item wechat"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/wechat.844402c.svg" class="icon">微信扫一扫<div data-v-6d34c71c="" class="qr-code-box"><img data-v-6d34c71c="" src="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension" class="qr-code"></div></div></div></li><li data-v-6d34c71c="" title="收藏" st:name="collectBtn" class="item collect clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/collect.02e2979.svg" class="icon"><!----></li><!----></ul></div></div><!----></div></a></div></div></li><!----><li data-v-3ce073b0="" data-growing-container="true" data-growing-title="entryList" class="item"><div data-v-392c77a2="" data-v-3ce073b0="" class="entry-box"><div data-v-6d34c71c="" data-v-392c77a2="" st:block="entry" st:state="5ee6e8b86fb9a047f558da5f|4" class="entry"><a data-v-6d34c71c="" href="https://juejin.im/post/5ee6e7c4f265da76e46e6bb7" target="_blank" rel="" st:name="link" class="entry-link"><div data-v-6d34c71c="" class="content-box"><div data-v-6d34c71c="" class="info-box"><div data-v-6d34c71c="" class="info-row meta-row"><ul data-v-6d34c71c="" class="meta-list"><!----><!----><li data-v-6d34c71c="" class="item post">专栏</li><li data-v-6d34c71c="" class="item username clickable"><div data-v-2bc7e294="" data-v-6d34c71c="" st:block="userPopover" st:state="5cb45e8af265da036345428c" class="user-popover-box"><!----><a data-v-6d34c71c="" href="https://juejin.im/user/5cb45e8af265da036345428c" target="_blank" rel="" st:name="user" st:state="5cb45e8af265da036345428c" data-v-2bc7e294="">二十七刻</a></div></li><li data-v-6d34c71c="" class="item">11小时前</li><li data-v-6d34c71c="" class="item tag"><a data-v-6d34c71c="" href="https://juejin.im/tag/JavaScript" target="_blank" rel="" st:name="tag" st:state="55964d83e4b08a686cc6b353" class="tag">JavaScript</a></li><!----></ul></div><div data-v-6d34c71c="" class="info-row title-row"><!----><!----><a data-v-6d34c71c="" href="https://juejin.im/post/5ee6e7c4f265da76e46e6bb7" target="_blank" rel="" st:name="title" class="title">为了性能选择for循环遍历？</a></div><div data-v-6d34c71c="" class="info-row action-row"><ul data-v-6d34c71c="" class="action-list"><li data-v-6d34c71c="" st:name="likeBtn" class="item like clickable"><a data-v-6d34c71c="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/zan.e9d7698.svg" class="icon"><span data-v-6d34c71c="" class="count">28</span></a></li><li data-v-6d34c71c="" st:name="commentBtn" class="item comment clickable"><a data-v-6d34c71c="" href="https://juejin.im/post/5ee6e7c4f265da76e46e6bb7#comment" target="_blank" rel="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/comment.4d5744f.svg" class="icon"><span data-v-6d34c71c="" class="count">6</span></a></li><li data-v-6d34c71c="" st:name="shareBtn" title="分享" class="item share clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/share.1d55e69.svg" class="icon"><div data-v-6d34c71c="" class="share-panel"><div data-v-6d34c71c="" st:name="shareItem" st:state="weibo" class="share-item weibo"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/weibo.8e2f5d6.svg" class="icon">微博</div><div data-v-6d34c71c="" st:name="shareItem" st:state="wechat" class="share-item wechat"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/wechat.844402c.svg" class="icon">微信扫一扫<div data-v-6d34c71c="" class="qr-code-box"><img data-v-6d34c71c="" src="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension" class="qr-code"></div></div></div></li><li data-v-6d34c71c="" title="收藏" st:name="collectBtn" class="item collect clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/collect.02e2979.svg" class="icon"><!----></li><!----></ul></div></div><!----></div></a></div></div></li><li data-v-3ce073b0="" data-growing-container="true" data-growing-title="entryList" class="item"><div data-v-392c77a2="" data-v-3ce073b0="" class="entry-box"><div data-v-6d34c71c="" data-v-392c77a2="" st:block="entry" st:state="5ee6e63051882542f938a9b8|5" class="entry"><a data-v-6d34c71c="" href="https://juejin.im/post/5ee6e5b5e51d455fbc52b677" target="_blank" rel="" st:name="link" class="entry-link"><div data-v-6d34c71c="" class="content-box"><div data-v-6d34c71c="" class="info-box"><div data-v-6d34c71c="" class="info-row meta-row"><ul data-v-6d34c71c="" class="meta-list"><!----><!----><li data-v-6d34c71c="" class="item post">专栏</li><li data-v-6d34c71c="" class="item username clickable"><div data-v-2bc7e294="" data-v-6d34c71c="" st:block="userPopover" st:state="576b433bd342d30057aaa1e9" class="user-popover-box"><!----><a data-v-6d34c71c="" href="https://juejin.im/user/576b433bd342d30057aaa1e9" target="_blank" rel="" st:name="user" st:state="576b433bd342d30057aaa1e9" data-v-2bc7e294="">陈大鱼头</a></div></li><li data-v-6d34c71c="" class="item">11小时前</li><li data-v-6d34c71c="" class="item tag"><a data-v-6d34c71c="" href="https://juejin.im/tag/HTML" target="_blank" rel="" st:name="tag" st:state="555eadbbe4b00c57d99623cc" class="tag">HTML</a><a data-v-6d34c71c="" href="https://juejin.im/tag/JavaScript" target="_blank" rel="" st:name="tag" st:state="55964d83e4b08a686cc6b353" class="tag">JavaScript</a></li><!----></ul></div><div data-v-6d34c71c="" class="info-row title-row"><!----><!----><a data-v-6d34c71c="" href="https://juejin.im/post/5ee6e5b5e51d455fbc52b677" target="_blank" rel="" st:name="title" class="title">那个炒鸡有趣的H5标签 —— &lt;dataList&gt;</a></div><div data-v-6d34c71c="" class="info-row action-row"><ul data-v-6d34c71c="" class="action-list"><li data-v-6d34c71c="" st:name="likeBtn" class="item like clickable"><a data-v-6d34c71c="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/zan.e9d7698.svg" class="icon"><span data-v-6d34c71c="" class="count">27</span></a></li><li data-v-6d34c71c="" st:name="commentBtn" class="item comment clickable"><a data-v-6d34c71c="" href="https://juejin.im/post/5ee6e5b5e51d455fbc52b677#comment" target="_blank" rel="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/comment.4d5744f.svg" class="icon"><span data-v-6d34c71c="" class="count">10</span></a></li><li data-v-6d34c71c="" st:name="shareBtn" title="分享" class="item share clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/share.1d55e69.svg" class="icon"><div data-v-6d34c71c="" class="share-panel"><div data-v-6d34c71c="" st:name="shareItem" st:state="weibo" class="share-item weibo"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/weibo.8e2f5d6.svg" class="icon">微博</div><div data-v-6d34c71c="" st:name="shareItem" st:state="wechat" class="share-item wechat"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/wechat.844402c.svg" class="icon">微信扫一扫<div data-v-6d34c71c="" class="qr-code-box"><img data-v-6d34c71c="" src="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension" class="qr-code"></div></div></div></li><li data-v-6d34c71c="" title="收藏" st:name="collectBtn" class="item collect clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/collect.02e2979.svg" class="icon"><!----></li><!----></ul></div></div><div data-v-261e638e="" data-v-a98f170a="" data-v-6d34c71c="" data-src="https://user-gold-cdn.xitu.io/2020/6/15/172b5f316bdb0c23?imageView2/1/w/120/h/120/q/85/format/webp/interlace/1" class="lazy thumb thumb" style="background-image: none; background-size: cover;"></div></div></a></div></div></li><!----><!----><li data-v-3ce073b0="" data-growing-container="true" data-growing-title="entryList" class="item"><div data-v-392c77a2="" data-v-3ce073b0="" class="entry-box"><div data-v-6d34c71c="" data-v-392c77a2="" st:block="entry" st:state="5ee17ef551882542eb3ef4db|4" class="entry"><a data-v-6d34c71c="" href="https://juejin.im/post/5ee0cf335188254ec9505381" target="_blank" rel="" st:name="link" class="entry-link"><div data-v-6d34c71c="" class="content-box"><div data-v-6d34c71c="" class="info-box"><div data-v-6d34c71c="" class="info-row meta-row"><ul data-v-6d34c71c="" class="meta-list"><!----><!----><li data-v-6d34c71c="" class="item post">专栏</li><li data-v-6d34c71c="" class="item username clickable"><div data-v-2bc7e294="" data-v-6d34c71c="" st:block="userPopover" st:state="5b60485451882508603d06cd" class="user-popover-box"><!----><a data-v-6d34c71c="" href="https://juejin.im/user/5b60485451882508603d06cd" target="_blank" rel="" st:name="user" st:state="5b60485451882508603d06cd" data-v-2bc7e294="">hh_phoebe</a></div></li><li data-v-6d34c71c="" class="item">4天前</li><li data-v-6d34c71c="" class="item tag"><a data-v-6d34c71c="" href="https://juejin.im/tag/JavaScript" target="_blank" rel="" st:name="tag" st:state="55964d83e4b08a686cc6b353" class="tag">JavaScript</a></li><!----></ul></div><div data-v-6d34c71c="" class="info-row title-row"><!----><!----><a data-v-6d34c71c="" href="https://juejin.im/post/5ee0cf335188254ec9505381" target="_blank" rel="" st:name="title" class="title">css篇--100道近两万字帮你巩固css知识点</a></div><div data-v-6d34c71c="" class="info-row action-row"><ul data-v-6d34c71c="" class="action-list"><li data-v-6d34c71c="" st:name="likeBtn" class="item like clickable"><a data-v-6d34c71c="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/zan.e9d7698.svg" class="icon"><span data-v-6d34c71c="" class="count">756</span></a></li><li data-v-6d34c71c="" st:name="commentBtn" class="item comment clickable"><a data-v-6d34c71c="" href="https://juejin.im/post/5ee0cf335188254ec9505381#comment" target="_blank" rel="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/comment.4d5744f.svg" class="icon"><span data-v-6d34c71c="" class="count">94</span></a></li><li data-v-6d34c71c="" st:name="shareBtn" title="分享" class="item share clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/share.1d55e69.svg" class="icon"><div data-v-6d34c71c="" class="share-panel"><div data-v-6d34c71c="" st:name="shareItem" st:state="weibo" class="share-item weibo"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/weibo.8e2f5d6.svg" class="icon">微博</div><div data-v-6d34c71c="" st:name="shareItem" st:state="wechat" class="share-item wechat"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/wechat.844402c.svg" class="icon">微信扫一扫<div data-v-6d34c71c="" class="qr-code-box"><img data-v-6d34c71c="" src="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension" class="qr-code"></div></div></div></li><li data-v-6d34c71c="" title="收藏" st:name="collectBtn" class="item collect clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/collect.02e2979.svg" class="icon"><!----></li><!----></ul></div></div><!----></div></a></div></div></li><li data-v-3ce073b0="" data-growing-container="true" data-growing-title="entryList" class="item"><div data-v-392c77a2="" data-v-3ce073b0="" class="entry-box"><div data-v-6d34c71c="" data-v-392c77a2="" st:block="entry" st:state="5ee03a51e51d45789974f833|5" class="entry"><a data-v-6d34c71c="" href="https://juejin.im/post/5ee03947e51d457889262921" target="_blank" rel="" st:name="link" class="entry-link"><div data-v-6d34c71c="" class="content-box"><div data-v-6d34c71c="" class="info-box"><div data-v-6d34c71c="" class="info-row meta-row"><ul data-v-6d34c71c="" class="meta-list"><!----><!----><li data-v-6d34c71c="" class="item post">专栏</li><li data-v-6d34c71c="" class="item username clickable"><div data-v-2bc7e294="" data-v-6d34c71c="" st:block="userPopover" st:state="57c5258d5bbb5000634b124a" class="user-popover-box"><!----><a data-v-6d34c71c="" href="https://juejin.im/user/57c5258d5bbb5000634b124a" target="_blank" rel="" st:name="user" st:state="57c5258d5bbb5000634b124a" data-v-2bc7e294="">Erdong</a></div></li><li data-v-6d34c71c="" class="item">5天前</li><li data-v-6d34c71c="" class="item tag"><a data-v-6d34c71c="" href="https://juejin.im/tag/JavaScript" target="_blank" rel="" st:name="tag" st:state="55964d83e4b08a686cc6b353" class="tag">JavaScript</a></li><!----></ul></div><div data-v-6d34c71c="" class="info-row title-row"><!----><!----><a data-v-6d34c71c="" href="https://juejin.im/post/5ee03947e51d457889262921" target="_blank" rel="" st:name="title" class="title">这些前端基础题你能答对几道？(测试你的基础掌握,附答案解析)</a></div><div data-v-6d34c71c="" class="info-row action-row"><ul data-v-6d34c71c="" class="action-list"><li data-v-6d34c71c="" st:name="likeBtn" class="item like clickable"><a data-v-6d34c71c="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/zan.e9d7698.svg" class="icon"><span data-v-6d34c71c="" class="count">762</span></a></li><li data-v-6d34c71c="" st:name="commentBtn" class="item comment clickable"><a data-v-6d34c71c="" href="https://juejin.im/post/5ee03947e51d457889262921#comment" target="_blank" rel="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/comment.4d5744f.svg" class="icon"><span data-v-6d34c71c="" class="count">117</span></a></li><li data-v-6d34c71c="" st:name="shareBtn" title="分享" class="item share clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/share.1d55e69.svg" class="icon"><div data-v-6d34c71c="" class="share-panel"><div data-v-6d34c71c="" st:name="shareItem" st:state="weibo" class="share-item weibo"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/weibo.8e2f5d6.svg" class="icon">微博</div><div data-v-6d34c71c="" st:name="shareItem" st:state="wechat" class="share-item wechat"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/wechat.844402c.svg" class="icon">微信扫一扫<div data-v-6d34c71c="" class="qr-code-box"><img data-v-6d34c71c="" src="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension" class="qr-code"></div></div></div></li><li data-v-6d34c71c="" title="收藏" st:name="collectBtn" class="item collect clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/collect.02e2979.svg" class="icon"><!----></li><!----></ul></div></div><!----></div></a></div></div></li><li data-v-3ce073b0="" data-growing-container="true" data-growing-title="entryList" class="item"><div data-v-392c77a2="" data-v-3ce073b0="" class="entry-box"><div data-v-6d34c71c="" data-v-392c77a2="" st:block="entry" st:state="5ee6b943f265da771066ecd8|6" class="entry"><a data-v-6d34c71c="" href="https://juejin.im/post/5ee63b7d51882542fc6265ad" target="_blank" rel="" st:name="link" class="entry-link"><div data-v-6d34c71c="" class="content-box"><div data-v-6d34c71c="" class="info-box"><div data-v-6d34c71c="" class="info-row meta-row"><ul data-v-6d34c71c="" class="meta-list"><!----><!----><li data-v-6d34c71c="" class="item post">专栏</li><li data-v-6d34c71c="" class="item username clickable"><div data-v-2bc7e294="" data-v-6d34c71c="" st:block="userPopover" st:state="57974dc55bbb500063f522fd" class="user-popover-box"><!----><a data-v-6d34c71c="" href="https://juejin.im/user/57974dc55bbb500063f522fd" target="_blank" rel="" st:name="user" st:state="57974dc55bbb500063f522fd" data-v-2bc7e294="">若川</a></div></li><li data-v-6d34c71c="" class="item">12小时前</li><li data-v-6d34c71c="" class="item tag"><a data-v-6d34c71c="" href="https://juejin.im/tag/JavaScript" target="_blank" rel="" st:name="tag" st:state="55964d83e4b08a686cc6b353" class="tag">JavaScript</a><a data-v-6d34c71c="" href="https://juejin.im/tag/Redux" target="_blank" rel="" st:name="tag" st:state="5804cc908ac24700580d763a" class="tag">Redux</a></li><!----></ul></div><div data-v-6d34c71c="" class="info-row title-row"><!----><!----><a data-v-6d34c71c="" href="https://juejin.im/post/5ee63b7d51882542fc6265ad" target="_blank" rel="" st:name="title" class="title">学习 redux 源码整体架构，深入理解 redux 及其中间件原理</a></div><div data-v-6d34c71c="" class="info-row action-row"><ul data-v-6d34c71c="" class="action-list"><li data-v-6d34c71c="" st:name="likeBtn" class="item like clickable"><a data-v-6d34c71c="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/zan.e9d7698.svg" class="icon"><span data-v-6d34c71c="" class="count">23</span></a></li><li data-v-6d34c71c="" st:name="commentBtn" class="item comment clickable"><a data-v-6d34c71c="" href="https://juejin.im/post/5ee63b7d51882542fc6265ad#comment" target="_blank" rel="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/comment.4d5744f.svg" class="icon"><span data-v-6d34c71c="" class="count">7</span></a></li><li data-v-6d34c71c="" st:name="shareBtn" title="分享" class="item share clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/share.1d55e69.svg" class="icon"><div data-v-6d34c71c="" class="share-panel"><div data-v-6d34c71c="" st:name="shareItem" st:state="weibo" class="share-item weibo"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/weibo.8e2f5d6.svg" class="icon">微博</div><div data-v-6d34c71c="" st:name="shareItem" st:state="wechat" class="share-item wechat"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/wechat.844402c.svg" class="icon">微信扫一扫<div data-v-6d34c71c="" class="qr-code-box"><img data-v-6d34c71c="" src="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension" class="qr-code"></div></div></div></li><li data-v-6d34c71c="" title="收藏" st:name="collectBtn" class="item collect clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/collect.02e2979.svg" class="icon"><!----></li><!----></ul></div></div><div data-v-261e638e="" data-v-a98f170a="" data-v-6d34c71c="" data-src="https://user-gold-cdn.xitu.io/2020/6/15/172b546bc9783293?imageView2/1/w/120/h/120/q/85/format/webp/interlace/1" class="lazy thumb thumb" style="background-image: none; background-size: cover;"></div></div></a></div></div></li><li data-v-3ce073b0="" data-growing-container="true" data-growing-title="entryList" class="item"><div data-v-392c77a2="" data-v-3ce073b0="" class="entry-box"><div data-v-6d34c71c="" data-v-392c77a2="" st:block="entry" st:state="5ee4baf96fb9a047cb282fe8|7" class="entry"><a data-v-6d34c71c="" href="https://juejin.im/post/5eda2a0ef265da76fa4b6c03" target="_blank" rel="" st:name="link" class="entry-link"><div data-v-6d34c71c="" class="content-box"><div data-v-6d34c71c="" class="info-box"><div data-v-6d34c71c="" class="info-row meta-row"><ul data-v-6d34c71c="" class="meta-list"><!----><!----><li data-v-6d34c71c="" class="item post">专栏</li><li data-v-6d34c71c="" class="item username clickable"><div data-v-2bc7e294="" data-v-6d34c71c="" st:block="userPopover" st:state="5b8e0616e51d4538e567d2c1" class="user-popover-box"><!----><a data-v-6d34c71c="" href="https://juejin.im/user/5b8e0616e51d4538e567d2c1" target="_blank" rel="" st:name="user" st:state="5b8e0616e51d4538e567d2c1" data-v-2bc7e294="">幻魂</a></div></li><li data-v-6d34c71c="" class="item">8小时前</li><li data-v-6d34c71c="" class="item tag"><a data-v-6d34c71c="" href="https://juejin.im/tag/React.js" target="_blank" rel="" st:name="tag" st:state="555e99ffe4b00c57d99556aa" class="tag">React.js</a><a data-v-6d34c71c="" href="https://juejin.im/tag/JavaScript" target="_blank" rel="" st:name="tag" st:state="55964d83e4b08a686cc6b353" class="tag">JavaScript</a></li><!----></ul></div><div data-v-6d34c71c="" class="info-row title-row"><!----><!----><a data-v-6d34c71c="" href="https://juejin.im/post/5eda2a0ef265da76fa4b6c03" target="_blank" rel="" st:name="title" class="title">细聊Concent &amp; Recoil , 探索react数据流的新开发模式</a></div><div data-v-6d34c71c="" class="info-row action-row"><ul data-v-6d34c71c="" class="action-list"><li data-v-6d34c71c="" st:name="likeBtn" class="item like clickable"><a data-v-6d34c71c="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/zan.e9d7698.svg" class="icon"><span data-v-6d34c71c="" class="count">4</span></a></li><li data-v-6d34c71c="" st:name="commentBtn" class="item comment clickable"><a data-v-6d34c71c="" href="https://juejin.im/post/5eda2a0ef265da76fa4b6c03#comment" target="_blank" rel="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/comment.4d5744f.svg" class="icon"><span data-v-6d34c71c="" class="count">2</span></a></li><li data-v-6d34c71c="" st:name="shareBtn" title="分享" class="item share clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/share.1d55e69.svg" class="icon"><div data-v-6d34c71c="" class="share-panel"><div data-v-6d34c71c="" st:name="shareItem" st:state="weibo" class="share-item weibo"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/weibo.8e2f5d6.svg" class="icon">微博</div><div data-v-6d34c71c="" st:name="shareItem" st:state="wechat" class="share-item wechat"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/wechat.844402c.svg" class="icon">微信扫一扫<div data-v-6d34c71c="" class="qr-code-box"><img data-v-6d34c71c="" src="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension" class="qr-code"></div></div></div></li><li data-v-6d34c71c="" title="收藏" st:name="collectBtn" class="item collect clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/collect.02e2979.svg" class="icon"><!----></li><!----></ul></div></div><div data-v-261e638e="" data-v-a98f170a="" data-v-6d34c71c="" data-src="https://user-gold-cdn.xitu.io/2020/6/14/172b03d0666578a2?imageView2/1/w/120/h/120/q/85/format/webp/interlace/1" class="lazy thumb thumb" style="background-image: none; background-size: cover;"></div></div></a></div></div></li><li data-v-3ce073b0="" data-growing-container="true" data-growing-title="entryList" class="item"><div data-v-392c77a2="" data-v-3ce073b0="" class="entry-box"><div data-v-6d34c71c="" data-v-392c77a2="" st:block="entry" st:state="5ee1742a6fb9a047952fab37|8" class="entry"><a data-v-6d34c71c="" href="https://juejin.im/post/5ee1712351882543385d664a" target="_blank" rel="" st:name="link" class="entry-link"><div data-v-6d34c71c="" class="content-box"><div data-v-6d34c71c="" class="info-box"><div data-v-6d34c71c="" class="info-row meta-row"><ul data-v-6d34c71c="" class="meta-list"><!----><!----><li data-v-6d34c71c="" class="item post">专栏</li><li data-v-6d34c71c="" class="item username clickable"><div data-v-2bc7e294="" data-v-6d34c71c="" st:block="userPopover" st:state="58cc0d9b44d9040069fab44f" class="user-popover-box"><!----><a data-v-6d34c71c="" href="https://juejin.im/user/58cc0d9b44d9040069fab44f" target="_blank" rel="" st:name="user" st:state="58cc0d9b44d9040069fab44f" data-v-2bc7e294="">阿宝哥</a></div></li><li data-v-6d34c71c="" class="item">4天前</li><li data-v-6d34c71c="" class="item tag"><a data-v-6d34c71c="" href="https://juejin.im/tag/JavaScript" target="_blank" rel="" st:name="tag" st:state="55964d83e4b08a686cc6b353" class="tag">JavaScript</a><a data-v-6d34c71c="" href="https://juejin.im/tag/TypeScript" target="_blank" rel="" st:name="tag" st:state="55e7d5a360b2d687f60ae13a" class="tag">TypeScript</a></li><!----></ul></div><div data-v-6d34c71c="" class="info-row title-row"><!----><!----><a data-v-6d34c71c="" href="https://juejin.im/post/5ee1712351882543385d664a" target="_blank" rel="" st:name="title" class="title">让人眼前一亮的 10 大 TS 项目</a></div><div data-v-6d34c71c="" class="info-row action-row"><ul data-v-6d34c71c="" class="action-list"><li data-v-6d34c71c="" st:name="likeBtn" class="item like clickable"><a data-v-6d34c71c="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/zan.e9d7698.svg" class="icon"><span data-v-6d34c71c="" class="count">589</span></a></li><li data-v-6d34c71c="" st:name="commentBtn" class="item comment clickable"><a data-v-6d34c71c="" href="https://juejin.im/post/5ee1712351882543385d664a#comment" target="_blank" rel="" class="title-box"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/comment.4d5744f.svg" class="icon"><span data-v-6d34c71c="" class="count">36</span></a></li><li data-v-6d34c71c="" st:name="shareBtn" title="分享" class="item share clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/share.1d55e69.svg" class="icon"><div data-v-6d34c71c="" class="share-panel"><div data-v-6d34c71c="" st:name="shareItem" st:state="weibo" class="share-item weibo"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/weibo.8e2f5d6.svg" class="icon">微博</div><div data-v-6d34c71c="" st:name="shareItem" st:state="wechat" class="share-item wechat"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/wechat.844402c.svg" class="icon">微信扫一扫<div data-v-6d34c71c="" class="qr-code-box"><img data-v-6d34c71c="" src="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension" class="qr-code"></div></div></div></li><li data-v-6d34c71c="" title="收藏" st:name="collectBtn" class="item collect clickable hover"><img data-v-6d34c71c="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/collect.02e2979.svg" class="icon"><!----></li><!----></ul></div></div><div data-v-261e638e="" data-v-a98f170a="" data-v-6d34c71c="" data-src="https://user-gold-cdn.xitu.io/2020/6/11/172a0a2a14942049?imageView2/1/w/120/h/120/q/85/format/webp/interlace/1" class="lazy thumb thumb" style="background-image: none; background-size: cover;"></div></div></a></div></div></li><li data-v-3ce073b0="" class="item"><!----></li><!----></ul></div><div data-v-2184ead4="" data-v-50ff96fb="" st:block="sidebar" class="sidebar sidebar top" data-v-0f848c07=""><div data-v-352419ce="" data-v-234391ba="" data-v-2184ead4="" class="sidebar-block author-block shadow"><div data-v-352419ce="" class="block-title">关于作者</div><div data-v-352419ce="" class="block-body"><a data-v-234391ba="" href="https://juejin.im/user/594f84ca8d6d81005703d38d" target="_blank" rel="" class="user-item item" data-v-352419ce=""><div data-v-261e638e="" data-v-b49070bc="" data-v-234391ba="" data-src="https://user-gold-cdn.xitu.io/2019/8/30/16ce13608b997e6e?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1" class="lazy avatar avatar loaded" style="background-image: url(&quot;https://user-gold-cdn.xitu.io/2019/8/30/16ce13608b997e6e?imageView2/1/w/100/h/100/q/85/format/webp/interlace/1&quot;);"></div><div data-v-234391ba="" class="info-box"><a data-v-1a54813b="" data-v-234391ba="" href="https://juejin.im/user/594f84ca8d6d81005703d38d" target="_blank" rel="" class="username">秋天不落叶<a data-v-3a430c94="" data-v-1a54813b="" href="https://juejin.im/book/5c90640c5188252d7941f5bb/section/5c9065385188252da6320022" target="_blank" rel="" class="rank"><img data-v-3a430c94="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/lv-4.2c3fafd.svg" alt="lv-4"></a></a><div data-v-234391ba="" title="React 重度爱好者" class="position">React 重度爱好者</div></div></a><div data-v-234391ba="" data-v-352419ce="" class="stat-item item"><svg data-v-234391ba="" data-v-352419ce="" xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 25 26" class="zan"><g data-v-234391ba="" data-v-352419ce="" fill="none" fill-rule="evenodd" transform="translate(0 .57)"><ellipse data-v-234391ba="" data-v-352419ce="" cx="12.5" cy="12.57" fill="#E1EFFF" rx="12.5" ry="12.57"></ellipse> <path data-v-234391ba="" data-v-352419ce="" fill="#7BB9FF" d="M8.596 11.238V19H7.033C6.463 19 6 18.465 6 17.807v-5.282c0-.685.483-1.287 1.033-1.287h1.563zm4.275-4.156A1.284 1.284 0 0 1 14.156 6c.885.016 1.412.722 1.595 1.07.334.638.343 1.687.114 2.361-.207.61-.687 1.412-.687 1.412h3.596c.38 0 .733.178.969.488.239.317.318.728.21 1.102l-1.628 5.645a1.245 1.245 0 0 1-1.192.922h-7.068v-7.889c1.624-.336 2.623-2.866 2.806-4.029z"></path></g></svg> <span data-v-234391ba="" data-v-352419ce="" class="content">获得点赞<span data-v-234391ba="" data-v-352419ce="" class="count">4,153</span></span></div><div data-v-234391ba="" data-v-352419ce="" class="stat-item item"><svg data-v-234391ba="" data-v-352419ce="" width="25" height="25" viewBox="0 0 25 25" class="icon stat-view-icon"><g data-v-234391ba="" data-v-352419ce="" fill="none" fill-rule="evenodd"><circle data-v-234391ba="" data-v-352419ce="" cx="12.5" cy="12.5" r="12.5" fill="#E1EFFF"></circle> <path data-v-234391ba="" data-v-352419ce="" fill="#7BB9FF" d="M4 12.5S6.917 7 12.75 7s8.75 5.5 8.75 5.5-2.917 5.5-8.75 5.5S4 12.5 4 12.5zm8.75 2.292c1.208 0 2.188-1.026 2.188-2.292 0-1.266-.98-2.292-2.188-2.292-1.208 0-2.188 1.026-2.188 2.292 0 1.266.98 2.292 2.188 2.292z"></path></g></svg> <span data-v-234391ba="" data-v-352419ce="" class="content">文章被阅读<span data-v-234391ba="" data-v-352419ce="" class="count">151,028</span></span></div><!----></div></div><ul data-v-2184ead4="" class="sidebar-bd-entry"><li data-v-2184ead4=""><a data-v-518b39c4="" data-v-2184ead4="" href="http://www.huodongxing.com/go/tl10" target="_blank" class="sidebar-entry shadow" style="background-image: url(&quot;https://user-gold-cdn.xitu.io/159134466547847460bb267e1957a8d5d179a38ab9f88.jpg&quot;);"></a></li><li data-v-2184ead4=""><a data-v-518b39c4="" data-v-2184ead4="" href="https://2020.tlc.ivweb.io/" target="_blank" class="sidebar-entry shadow" style="background-image: url(&quot;https://user-gold-cdn.xitu.io/159098045372884128961ff2c559334a5136ec25e29fa.jpg&quot;);"></a></li></ul><div data-v-6632cf8f="" data-v-bf6401d0="" data-v-2184ead4="" class="index-book-collect" place="post" category="5562b415e4b00c57d9b94ac8"><div data-v-6632cf8f="" class="header"><div data-v-6632cf8f="" class="title">掘金小册</div><div data-v-6632cf8f="" class="controllers"><div data-v-6632cf8f="" class="arrow icon ion-chevron-left"></div><div data-v-6632cf8f="" class="arrow icon ion-chevron-right"></div></div></div><div data-v-6632cf8f="" class="slide-book transition--next"><div data-v-29edf5b4="" data-v-6632cf8f="" class="slide-book-list item"><a data-v-29edf5b4="" href="https://juejin.im/book/5a157c155188254a701eb3c1" class="item"><div data-v-29edf5b4="" class="poster"><div data-v-261e638e="" data-v-a98f170a="" data-v-29edf5b4="" data-src="https://user-gold-cdn.xitu.io/2017/12/18/160691fc2995dbf9?imageView2/1/w/104/h/144/q/95/format/webp/interlace/1" class="lazy thumb poster-img loaded" style="background-image: url(&quot;https://user-gold-cdn.xitu.io/2017/12/18/160691fc2995dbf9?imageView2/1/w/104/h/144/q/95/format/webp/interlace/1&quot;); background-size: cover;"></div></div><div data-v-29edf5b4="" class="content-text"><div data-v-29edf5b4="" class="title">基于 Python 实现微信公众号爬虫</div><div data-v-29edf5b4="" class="price"><div data-v-29edf5b4="" class="new">新人价 ￥9.95</div><div data-v-29edf5b4="" class="delete">￥19.9</div></div></div></a><a data-v-29edf5b4="" href="https://juejin.im/book/59f954546fb9a04525776d7c" class="item"><div data-v-29edf5b4="" class="poster"><div data-v-261e638e="" data-v-a98f170a="" data-v-29edf5b4="" data-src="https://user-gold-cdn.xitu.io/2017/11/20/15fd79417e955d9a?imageView2/1/w/104/h/144/q/95/format/webp/interlace/1" class="lazy thumb poster-img loaded" style="background-image: url(&quot;https://user-gold-cdn.xitu.io/2017/11/20/15fd79417e955d9a?imageView2/1/w/104/h/144/q/95/format/webp/interlace/1&quot;); background-size: cover;"></div></div><div data-v-29edf5b4="" class="content-text"><div data-v-29edf5b4="" class="title">数字货币与区块链原理</div><div data-v-29edf5b4="" class="price"><div data-v-29edf5b4="" class="new">新人价 ￥14.95</div><div data-v-29edf5b4="" class="delete">￥29.9</div></div></div></a></div></div><div data-v-6632cf8f="" class="book-newuser"><div data-v-6632cf8f="" class="newuser-title"><span data-v-6632cf8f="">新人专享好礼</span></div><div data-v-6632cf8f="" class="giftbag"><img data-v-6632cf8f="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/45.b99ea03.svg"><div data-v-6632cf8f="" class="content-text"><div data-v-6632cf8f="" class="title">送你<span data-v-6632cf8f="" class="highlight">45元</span>买小册</div><div data-v-6632cf8f="" class="btn-box"><div data-v-6632cf8f="" class="btn-giftbag">立即领取</div></div></div></div></div></div><!----><!----><div data-v-352419ce="" data-v-6930df48="" data-v-2184ead4="" class="sidebar-block related-entry-sidebar-block shadow" st:block="relatedEntrySidebarBlock"><div data-v-352419ce="" class="block-title">相关文章</div><div data-v-352419ce="" class="block-body"><div data-v-6930df48="" data-v-352419ce="" class="entry-list"><a data-v-6930df48="" href="https://juejin.im/post/5dbbdbd5f265da4d4b5fe57d" target="_blank" rel="" st:name="link" class="item" data-v-352419ce=""><div data-v-6930df48="" class="entry-title">React Hooks 详解 【近 1W 字】+ 项目实战</div><div data-v-6930df48="" class="entry-meta-box"><div data-v-6930df48="" class="entry-meta"><img data-v-6930df48="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/zan.e9d7698.svg" class="icon"><span data-v-6930df48="" class="count">1193</span></div><div data-v-6930df48="" class="entry-meta"><img data-v-6930df48="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/comment.a7c8341.svg" class="icon"><span data-v-6930df48="" class="count">71</span></div></div></a><a data-v-6930df48="" href="https://juejin.im/post/5e055d9ef265da33997a42cc" target="_blank" rel="" st:name="link" class="item" data-v-352419ce=""><div data-v-6930df48="" class="entry-title">傻傻分不清之 Cookie、Session、Token、JWT</div><div data-v-6930df48="" class="entry-meta-box"><div data-v-6930df48="" class="entry-meta"><img data-v-6930df48="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/zan.e9d7698.svg" class="icon"><span data-v-6930df48="" class="count">1290</span></div><div data-v-6930df48="" class="entry-meta"><img data-v-6930df48="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/comment.a7c8341.svg" class="icon"><span data-v-6930df48="" class="count">99</span></div></div></a><a data-v-6930df48="" href="https://juejin.im/post/5e33fcd06fb9a02fc767c427" target="_blank" rel="" st:name="link" class="item" data-v-352419ce=""><div data-v-6930df48="" class="entry-title">TS 常见问题整理（60多个，持续更新ing）</div><div data-v-6930df48="" class="entry-meta-box"><div data-v-6930df48="" class="entry-meta"><img data-v-6930df48="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/zan.e9d7698.svg" class="icon"><span data-v-6930df48="" class="count">407</span></div><div data-v-6930df48="" class="entry-meta"><img data-v-6930df48="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/comment.a7c8341.svg" class="icon"><span data-v-6930df48="" class="count">32</span></div></div></a><a data-v-6930df48="" href="https://juejin.im/post/5df648836fb9a016526eba01" target="_blank" rel="" st:name="link" class="item" data-v-352419ce=""><div data-v-6930df48="" class="entry-title">你真的了解 React 生命周期吗</div><div data-v-6930df48="" class="entry-meta-box"><div data-v-6930df48="" class="entry-meta"><img data-v-6930df48="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/zan.e9d7698.svg" class="icon"><span data-v-6930df48="" class="count">323</span></div><div data-v-6930df48="" class="entry-meta"><img data-v-6930df48="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/comment.a7c8341.svg" class="icon"><span data-v-6930df48="" class="count">29</span></div></div></a><a data-v-6930df48="" href="https://juejin.im/post/5def0816f265da33aa6aa7fe" target="_blank" rel="" st:name="link" class="item" data-v-352419ce=""><div data-v-6930df48="" class="entry-title">React SSR 详解【近 1W 字】+ 2个项目实战</div><div data-v-6930df48="" class="entry-meta-box"><div data-v-6930df48="" class="entry-meta"><img data-v-6930df48="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/zan.e9d7698.svg" class="icon"><span data-v-6930df48="" class="count">319</span></div><div data-v-6930df48="" class="entry-meta"><img data-v-6930df48="" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/comment.a7c8341.svg" class="icon"><span data-v-6930df48="" class="count">17</span></div></div></a></div></div></div><div data-v-2184ead4="" class="sticky-block-box"><div data-v-352419ce="" data-v-2afe7226="" data-v-2184ead4="" class="sidebar-block catalog-block pure"><nav data-v-5094e7bc="" data-v-2afe7226="" class="article-catalog" data-v-352419ce="" style=""><div data-v-5094e7bc="" class="catalog-title">目录</div><div data-v-5094e7bc="" class="catalog-body"><ul data-v-5094e7bc="" class="catalog-list" style="margin-top: 0px;"><li data-v-5094e7bc="" class="item d1"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-0" title="Git 流程图">Git 流程图</a><!----></li><li data-v-5094e7bc="" class="item d1 active"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-1" title="配置 Git">配置 Git</a><!----></li><li data-v-5094e7bc="" class="item d1"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-2" title="查看 Git 信息">查看 Git 信息</a><ul class="sub-list"><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-3" title="git reflog">git reflog</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-4" title="git log 点线图">git log 点线图</a><!----></li></ul></li><li data-v-5094e7bc="" class="item d1"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-5" title="Git 常用命令">Git 常用命令</a><!----></li><li data-v-5094e7bc="" class="item d1"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-6" title="Git 常用命令详解">Git 常用命令详解</a><ul class="sub-list"><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-7" title="add">add</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-8" title="status">status</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-9" title="commit">commit</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-10" title="push &amp; pull">push &amp; pull</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-11" title="branch">branch</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-12" title="merge 三种常用合并方法">merge 三种常用合并方法</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-13" title="rebase">rebase</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-14" title="stash">stash</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-15" title="diff">diff</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-16" title="remote">remote</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-17" title="tag">tag</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-18" title="删除文件">删除文件</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-19" title="版本切换 &amp; 重设 &amp; 撤销">版本切换 &amp; 重设 &amp; 撤销</a><ul class="sub-list"><li class="item d3"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-20" title="checkout 详解">checkout 详解</a><!----></li><li class="item d3"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-21" title="reset 详解">reset 详解</a><!----></li><li class="item d3"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-22" title="revert 详解">revert 详解</a><!----></li></ul></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-23" title="cherry-pick">cherry-pick</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-24" title="git submodule 子模块">git submodule 子模块</a><!----></li></ul></li><li data-v-5094e7bc="" class="item d1"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-25" title="新建一个 Git 项目的两种方式">新建一个 Git 项目的两种方式</a><ul class="sub-list"><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-26" title="1.本地新建好 Git 项目，然后关联远程仓库">1.本地新建好 Git 项目，然后关联远程仓库</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-27" title="2.clone 远程仓库">2.clone 远程仓库</a><!----></li></ul></li><li data-v-5094e7bc="" class="item d1"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-28" title="Git 分支管理规范">Git 分支管理规范</a><!----></li><li data-v-5094e7bc="" class="item d1"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-29" title="Git 钩子">Git 钩子</a><ul class="sub-list"><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-30" title="4.1 pre-commit">4.1 pre-commit</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-31" title="4.2 安装 pre-commit">4.2 安装 pre-commit</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-32" title="4.3 配置脚本">4.3 配置脚本</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-33" title="4.4 跳过 pre-commit 继续提交代码">4.4 跳过 pre-commit 继续提交代码</a><!----></li></ul></li><li data-v-5094e7bc="" class="item d1"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-34" title="常见问题">常见问题</a><ul class="sub-list"><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-35" title="1、拉取别人的远程分支合并后，git 会存取这个拉取的记录，如果你不小心删了别人的上传的文件，这时候想要再拉取别人的分支是没用的，会显示 already-up">1、拉取别人的远程分支合并后，git 会存取这个拉取的记录，如果你不小心删了别人的上传的文件，这时候想要再拉取别人的分支是没用的，会显示 already-up</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-36" title="2、以前有过这样的经历：前后端、客户端的代码都存放在一个 git 仓库中，在根目录下各自新建项目目录。那么可以直接在自己的项目目录下使用 git 提交代码并且在各自的项目目录下配置 .gitignore 文件，不用在根目录下配置 .gitignore 文件，这样就互不影响了">2、以前有过这样的经历：前后端、客户端的代码都存放在一个 git 仓库中，在根目录下各自新建项目目录。那么可以直接在自己的项目目录下使用 git 提交代码并且在各自的项目目录下配置 .gitignore 文件，不用在根目录下配置 .gitignore 文件，这样就互不影响了</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-37" title="3、fatal：refusing to merge unrelated histories 拒绝合并不相关的历史">3、fatal：refusing to merge unrelated histories 拒绝合并不相关的历史</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-38" title="4、合并分支时出现问题，想要解除合并状态">4、合并分支时出现问题，想要解除合并状态</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-39" title="5、不小心把某些文件上传到远程 git 仓库/想要删除远程仓库中的文件">5、不小心把某些文件上传到远程 git 仓库/想要删除远程仓库中的文件</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-40" title="6、将本地新建的项目上传到新建的远程仓库上">6、将本地新建的项目上传到新建的远程仓库上</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-41" title="7、HEAD 指针既可以指向分支（默认指向当前分支），也可以指向快照，当指向的是快照时，这个时候指针的状态称之为游离状态（detached）">7、HEAD 指针既可以指向分支（默认指向当前分支），也可以指向快照，当指向的是快照时，这个时候指针的状态称之为游离状态（detached）</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-42" title="8、创建与合并分支的原理">8、创建与合并分支的原理</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-43" title="9、每次 git push 都要输入用户名、密码">9、每次 git push 都要输入用户名、密码</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-44" title="10、git 不允许提交空文件夹">10、git 不允许提交空文件夹</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-45" title="11、有时候复制过来的文件，使用 git add . 无法进行文件追踪，可以使用 git add -A ，这也就是每次提交前都要 git status 的原因">11、有时候复制过来的文件，使用 git add . 无法进行文件追踪，可以使用 git add -A ，这也就是每次提交前都要 git status 的原因</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-46" title="12、同一台电脑配置多个 git 账号">12、同一台电脑配置多个 git 账号</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-47" title="13、Another git process seems to be running in this repository, e.g.">13、Another git process seems to be running in this repository, e.g.</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-48" title="14、git commit -am &quot;xxx&quot; 有时候会失效，无法提交所有的修改">14、git commit -am "xxx" 有时候会失效，无法提交所有的修改</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-49" title="15、git merge --no-ff 的作用">15、git merge --no-ff 的作用</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-50" title="16、git merge 与 git rebase 的区别">16、git merge 与 git rebase 的区别</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-51" title="17、git log 无法正常显示中文">17、git log 无法正常显示中文</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-52" title="18、git merge -m &quot;xxx&quot; 的时候可以附加信息">18、git merge -m "xxx" 的时候可以附加信息</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-53" title="19、git pull 会拉取所有远程分支的代码到本地镜像仓库中">19、git pull 会拉取所有远程分支的代码到本地镜像仓库中</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-54" title="20、git branch -r/-a/-l 查看的都是本地镜像仓库中的分支，如果本地镜像仓库没有拉取远程仓库的代码，此时别人新推了一个分支到远程仓库，你这时候是查看不到这条新推的分支的">20、git branch -r/-a/-l 查看的都是本地镜像仓库中的分支，如果本地镜像仓库没有拉取远程仓库的代码，此时别人新推了一个分支到远程仓库，你这时候是查看不到这条新推的分支的</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-55" title="21、git stash 存储未追踪的文件">21、git stash 存储未追踪的文件</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-56" title="22、如何在 github 上 pr 项目">22、如何在 github 上 pr 项目</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-57" title="23、git push 无法提交代码">23、git push 无法提交代码</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-58" title="24、git 输错用户名和密码，后续的 git 操作一直报错">24、git 输错用户名和密码，后续的 git 操作一直报错</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-59" title="25、lint-staged 失败">25、lint-staged 失败</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-60" title="26、查看 git 安装目录">26、查看 git 安装目录</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-61" title="27、Git中用vim打开、修改、保存文件">27、Git中用vim打开、修改、保存文件</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-62" title="28、windows10 无法编辑 vimrc">28、windows10 无法编辑 vimrc</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-63" title="29、Windows下Git Bash中VIM打开文件中文乱码">29、Windows下Git Bash中VIM打开文件中文乱码</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-64" title="30、如何修改旧的 commit 的 message/如何将多个 commit 合成一个 commit/如何将多个间隔的 commit 合成一个 commit/">30、如何修改旧的 commit 的 message/如何将多个 commit 合成一个 commit/如何将多个间隔的 commit 合成一个 commit/</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-65" title="31、如果两个人都对某个文件进行了修改，一个是重命名文件，一个是修改文件内容，那么会起冲突吗？git 很智能，会自动合并这些修改">31、如果两个人都对某个文件进行了修改，一个是重命名文件，一个是修改文件内容，那么会起冲突吗？git 很智能，会自动合并这些修改</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-66" title="32、git revert 失败：error: Commit faulty merge is a merge but no -m option was given、error: option `mainline&#39; expects a number greater than zero">32、git revert 失败：error: Commit faulty merge is a merge but no -m option was given、error: option `mainline' expects a number greater than zero</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-67" title="33、git 创建一个空的分支">33、git 创建一个空的分支</a><!----></li><li class="item d2"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-68" title="34、如何清空一个分支的所有提交">34、如何清空一个分支的所有提交</a><!----></li></ul></li><li data-v-5094e7bc="" class="item d1"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-69" title="推荐阅读">推荐阅读</a><!----></li><li data-v-5094e7bc="" class="item d1"><a href="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension#heading-70" title="参考">参考</a><!----></li></ul></div></nav></div></div></div><div data-v-77aa2e39="" data-v-50ff96fb="" class="article-suspended-panel article-suspended-panel" data-v-0f848c07=""><div data-v-77aa2e39="" badge="302" class="like-btn panel-btn like-adjust with-badge"></div><div data-v-77aa2e39="" badge="29" class="comment-btn panel-btn comment-adjust with-badge"></div><div data-v-77aa2e39="" class="collect-btn panel-btn"><!----></div><div data-v-77aa2e39="" class="share-title">分享</div><div data-v-77aa2e39="" class="weibo-btn share-btn panel-btn"></div><div data-v-77aa2e39="" class="qq-btn share-btn panel-btn"></div><div data-v-77aa2e39="" class="wechat-btn share-btn panel-btn"><img data-v-77aa2e39="" src="https://juejin.im/post/5ee649ff51882542ea2b5108?utm_source=gold_browser_extension" class="wechat-qr-code-img shadow" style="display: none;"></div></div><div data-v-ddb41540="" data-v-50ff96fb="" class="image-viewer-box" data-v-0f848c07=""><!----></div><!----></div></main></div><!----></div>
+      
+      
+      
+      <script type="text/javascript" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/runtime.cdc821c8220e297137a0.js.下载"></script><script type="text/javascript" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/0.76f0edba643f9ca4fdec.js.下载"></script><script type="text/javascript" src="./三年 Git 使用心得 &amp; 常见问题整理 - 掘金_files/1.33e55539d1cddee86add.js.下载"></script>
+    </body></html>
