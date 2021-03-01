@@ -1,0 +1,81 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页
+		{
+			"path": "pages/index/index",
+			"style": {
+				"app-plus":{
+					// 导航栏配置
+					"titleNView":{	
+						// 搜索框配置
+						"searchInput":{
+							"align":"center",
+							"backgroundColor":"#f5f4f2",
+							"borderRadius":"4px",
+					        "disabled":true,
+							"placeholder":"搜索帖子",
+							"placeholderColor":"#6d6c67"					
+						},							
+						"button":[								
+							{
+							  "color":"#333333",
+							  "colorPressed":"#fd597c",
+					          "float":"right",
+							  "fontSize":"20px"									  
+							}
+						]
+					}
+				}
+			}
+		}
+	    ,{
+            "path" : "pages/news/news/news",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/msgs/msgs",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my/my",
+            "style" : {}
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "社区交友",
+		"navigationBarBackgroundColor": "#ffffff", //导航栏状态栏的颜色
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar":{ // 配置底部导航栏
+		"color":"#323232",
+		"selectedColor":"#ED6384",
+		"backgroundColor":"#FFFFFF",
+		"borderStyle":"black",
+		"list":[
+			{
+			  "pagePath":"pages/index/index",
+			  "text":"首页",
+			  "iconPath":"./static/tabBar/home.png",
+			  "selectedIconPath":"static/tabBar/homeed.png"
+			},
+			{
+			  "pagePath":"pages/news/news/news",
+			  "text":"动态",
+			  "iconPath":"./static/tabBar/my.png",
+			  "selectedIconPath":"static/tabBar/myed.png"
+			},
+			{
+			  "pagePath":"pages/msgs/msgs",
+			  "text":"消息",
+			  "iconPath":"./static/tabBar/home.png",
+			  "selectedIconPath":"static/tabBar/homeed.png"
+			},
+			{
+			  "pagePath":"pages/my/my",
+			  "text":"我的",
+			  "iconPath":"./static/tabBar/my.png",
+			  "selectedIconPath":"static/tabBar/myed.png"
+			}
+		]
+	}
+}

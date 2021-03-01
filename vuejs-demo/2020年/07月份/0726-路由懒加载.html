@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		路由器按需加载
+				
+		对于路由的懒加载，如果还不会的话，那么就真该好好的重新去学习一下了。
+		
+		路由懒加载的方式有两种，一种是require 另一种是 import 。
+		
+		当路由按需加载后，那么Vue服务在第一次加载时的压力就能够相应的小一些，
+		
+		不会出现 超长白屏P0问题 。下面是两种路由懒加载的写法：
+		
+		
+		// require法
+		component: resolve=>(require(['@/components/HelloWorld'],resolve))
+
+		// import
+		component: () => import('@/components/HelloWorld')
+		
+
+	</body>
+</html>
