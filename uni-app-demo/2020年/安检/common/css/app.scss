@@ -1,0 +1,110 @@
+.app-text-badge {
+	background-image: linear-gradient(0deg, #02B360 0%, #7BE8B5 100%);
+	border-radius: 3upx;
+	margin-right: 16upx;
+	height: 28upx;
+	width: 6upx;
+}
+
+.app-left-text1 {
+	font-size: 30upx;
+	color: #000000;
+	font-weight: bold;
+}
+
+.app-left-text2 {
+	font-size: 30upx;
+	color: #000000;
+}
+
+.app-right-text1 {
+	font-size: 30upx;
+	color: #000000;
+	flex: 1;
+	text-align: right;
+}
+
+.app-item {
+	display: flex;
+	padding: 28upx 40upx;
+	align-items: center;
+}
+
+.app-item-active {
+	background: #eee;
+}
+
+.app-save-btn {
+	background: #02B360;
+	color: white;
+	border-radius: 12upx;
+	font-size: 32upx;
+	width: 84%;
+	left: 8%;
+	line-height: 90upx;
+	bottom: 40upx;
+	position: fixed;
+}
+
+.app-btn-active {
+	opacity: 0.7;
+}
+
+.uni-icon-arrowdown,.uni-icon-arrowright {
+	margin-left: 20upx;
+	font-size: 40upx !important;
+}
+
+.divider1 {
+	border-bottom: 20upx solid #F8F8F8;
+}
+
+.divider2 {
+	border-bottom: 1upx solid #DDDDDD;
+}
+
+.divider3 {
+	border-bottom: 1upx solid #ECEEF5 ;
+}
+
+.flex {
+	display: flex;
+}
+
+.flex1 {
+	flex: 1;
+}
+
+.red {
+	color: red !important;
+}
+
+.green {
+	color: #02B360 !important;
+}
+
+.blod {
+	font-weight: bold !important;
+}
+
+text{
+	font-size: 30upx;
+}
+
+page{
+	height: 100%;
+}
+
+.app-page{
+	height: 100%;
+	display: flex;
+	overflow: hidden;
+	flex-direction: column;
+}
+
+.abs-center{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}

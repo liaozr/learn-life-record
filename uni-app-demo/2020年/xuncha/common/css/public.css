@@ -1,0 +1,32 @@
+ 
+ .photolist{
+  		  margin-top:20upx;
+  		  font-size:0;
+		  border-bottom:1px solid #ECEEF5;
+		  padding-bottom: 20upx;
+  }
+ .photolist .list{
+  		 display: inline-block;
+		 height:120upx;
+		 padding-top:20upx;
+  		 width:15%;
+  		 margin-left:2%;
+  		 margin-bottom: 10upx;
+		 position: relative;
+		 padding-left:10upx !important;
+		 padding-right:10upx !important;
+  }
+   .photolist image{
+	   width:120upx;
+	   height:120upx;
+	   display: inline-block;
+   }
+  .photolist .uni-icon-closeempty{
+	  position: absolute;
+	  right:-20upx;
+	  top:0upx;
+  }
+/*  .bitian{
+	  background:'url(../../static/images/icon-bitian.png) no-repeat right center';
+	  background-size:60upx 60upx;
+  } */

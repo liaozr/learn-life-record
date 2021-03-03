@@ -1,0 +1,2 @@
+<import src="./zhenggaiHecha.vue.wxml" />
+    <template is="06d8eb90" data="{{ ...$root['0'], $root }}"/>

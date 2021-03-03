@@ -1,0 +1,117 @@
+
+.content.data-v-7a4f97f4{
+ 	 margin-top:20rpx;
+}
+.tabhead.data-v-7a4f97f4{
+ 	 font-size:0;
+ 	 border-bottom:2rpx solid #ECEEF5;
+}
+.tabhead .list.data-v-7a4f97f4{
+ 	 width:50%;
+ 	 display: inline-block;
+ 	 height:80rpx;
+ 	 line-height: 80rpx;
+ 	 text-align: center;
+}
+.tabhead .list .tab.data-v-7a4f97f4{
+ 	 text-align: center;
+ 	 width:100rpx;
+ 	 height:100%;
+ 	 font-size:32rpx;
+ 	 margin:auto;
+ 	 color:#8B8B8B;
+}
+.tabhead .list .tab.active.data-v-7a4f97f4{
+ 	 color:#02B360;
+ 	 border-bottom:4rpx solid #02B360;
+}
+.myTasks .search.data-v-7a4f97f4{
+ 	 margin-top:30rpx;
+ 	 padding-bottom: 20rpx;
+}
+.myTasks .search .input.data-v-7a4f97f4{
+ 	 width:80%;
+ 	 heiht:60rpx;
+     border-radius:16rpx;
+ 	 margin:auto;
+ 	 padding-left:40rpx;
+ 	 background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAABGdBTUEAALGPC/xhBQAAA2dJREFUSA21ljtMVEEUhtm7QLJslsgqDWChIYbYaKExJhgSLMQCBRrpDC66BaFYHq0mFja8kgULeTRSQWKFj1BJIMYCjdpRaoGaQHxgyC4ky/KdyZ2b2bt7l+UmTjI5Z86c8/9zzszcuYGyIm1sbOx0NpvtorcFAoFGZAPue+i/kZ/pK6FQaKGvr+9nEZicqUDOyB4kk8mG/f39xxDcxWQV8tE2yPfwe15eXv4okUj80HYvmUc4Pj7eeXBwMA9I2CvIw76FvWd4ePiVx7wy56x+dHQ0AdkLk4wMlvG8V1lZea66ujpcVVUVqaioaMIep781wGsZL4EhVfFsToZ2ZkKmbARvBIPBXsr0zjOaCfb5OjEz9DPiR1wGvZNMlwrFKXB7zzZwVGWUlUcikc54PP63UJDbRlansL0k/oo9t8VimwYGBn65fVVJ7QOiyTaOQyaAQ0ND25S8nYV+swlqM5nMEzeZjANy9Nm3r+iKnNPWfFQZJbBQI9ObZPla5iBPkWUdWH9MXwuHLgyKDKdlv2QCSqZvEO9FBzdEIndEN5sQtmkD+oLW/UoW7WCAd82NY+HQqI2UYE3rfqUL44IbRzKUz5Vq4XD4u9b9Sg6PgwF21I0je7enjTs7O+qa6LEfyYkviiEldU6RZVn1fkjMGLIyMbbNOdElw0+GscXQfamcTBNDXpScJoQr2sLqurXuV7owVt04FqdqkbKqfcS5dWRkpNXtVOqYi9+B7yXxB3M3Go0uumMtLrq8YfN6AseZqampk3pcqpycnKxjwU8N/9lYLPbPGCtVSlpGlg8R8p7JF+JsKpWSZ0Y+yCU1IUun0/IO1kkAi97keghmXlOEdpY9OGZtj6vIdUhv5EW4DDxrtyFbx3xRT7HoD/39/XnZyXzOnYFAHs85AoI6GCnv4SJXZo0TuMkDbFGBehbXgl83/bLh66jMzw4ODj4wklBzOYRi4dC0I+botTIutQG8ie9HFnBLxxQiVSXVDiLlpWZPm1Cf0dNiK9YA3SX7JHt2now60GWxqkHey/M3jXQScxTtZMqJiYkTPKRyN5vpskfq2wjAFkRfGK/W1NQsmKdRwNnXGcofY141M9OihDrguLIo6XHBSvX3IJ3O28NSAY/yo4xZfqLu6z2VMTFyff5vk0w5+dN0taeHI7N3AZ5qET8AAAAASUVORK5CYII=) no-repeat 2% center;
+ 	 background-size: 28rpx 28rpx;
+ 	 background-color: #F7F7F7;
+ 	 display: inline-block;
+ 	 font-size:28rpx;
+ 	 display: block;
+ 	 padding-top:10rpx;
+ 	 padding-bottom:10rpx;
+}
+.myTasks .search .shuaixuan.data-v-7a4f97f4{
+ 	 display: inline-block;
+ 	 margin-left:30rpx;
+ 	 width:100rpx;
+ 	 background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABGdBTUEAALGPC/xhBQAAAmdJREFUSA3tVj1IQlEU7j1D2yqCaIgcG7PNoCAI2tuLgjYDF7WhpqCm1EGwaCsK2ppaGsyghiax0a0iaIhoiDClfH2fnldPu898GQjhBd8595zvfOfcn3NRi0aju4ZhzHe0YGiatqcj+RJy51qQP8fcGhPHYrGRUql0CbWLc1RG/Zb6H44hJPQL36uu6/5QKHRVLoBGHEUAgKQAsh6Pxx8MBgsyb0okEglPoVDgonwkQvIAkm+XdX44wuHwFlZ+VJl1+IrFYkz0poVwlZMzh5mcxLqV3eVyLQJwTRvPJx6Pz1j9v9HJQS7Gkps5rDyfR2AacR/8uA/nmHfi94SgUezOjel3InGsXuCzKKAH8g1bP4HV8yg+R9UO0EoAkq4KohfBh+l0msU4GoxhrCTn6ldrk5PwWwE0AriJgBPqGGOZTGa9ojb+lZgxRpCLnKpoZQEIMNxu9xzkPYOwimWc5bSKQGUjljH0kUO4DBVWWQCBaMEHkMxCLUFquBf7yWRyQEVitRFDLGMkdpZcVoxVty2AoEgkcgqxQR2E/fl8/gDSNoY+wfQzBmNDOCozxdeWzMR6vd416OwKFjGFLlkxfbWSPmLEfi6xtbCq+bc2rPLKBC/ZIF6yLKZ9ONN3yEm05oUVi5Ybx/wMBbggH/GS+rD1d1aMSv9xBxhEIvTwAnVJsEO9ZuyIj0/tQiPJGd9QAQSijY6x+hR1jO6K+PoiOR8b3voUsV+e+lrDBQjNqx0dEpttZotRxTotQMXRlK1dQHsH/tUOvKAdnvHLO2kLx3807MjxNA/b+erZ/9UR1Fuora+9Ay3fgQ/Yr/wMvZd2bAAAAABJRU5ErkJggg==) no-repeat right center;
+ 	 background-size:32rpx 30rpx;
+ 	 font-size:28rpx;
+ 	 vertical-align: top;
+}
+.myTasks .itemlist.data-v-7a4f97f4{
+ 	 background-color: #F7F7F7;
+ 	 height:100%;
+ 	 padding:20rpx;
+}
+.myTasks .itemlist .list.data-v-7a4f97f4{
+ 	 /* width:95%; */
+ 	 /* margin:20upx auto; */
+ 	 display: block;
+ 	 height:300rpx;
+ 	 border-radius: 16rpx;
+ 	 background-color:white;
+ 	 padding:30rpx;
+      margin-bottom:20rpx;
+}
+.myTasks .itemlist .list .title.data-v-7a4f97f4{
+ 	 margin-bottom: 30rpx;
+}
+.myTasks .itemlist .list .title .line.data-v-7a4f97f4{
+ 	 width:4rpx;
+ 	 height:30rpx;
+ 	 background:#02B360;
+ 	 display: inline-block;
+ 	 vertical-align:middle;
+}
+.myTasks .itemlist .list .title .biaoti.data-v-7a4f97f4{
+ 	 font-size:32rpx;
+ 	 display: inline-block;
+ 	 color:#000;
+ 	 margin-left:20rpx;
+}
+.myTasks .itemlist .list .title .tag.data-v-7a4f97f4{
+       width:130rpx;
+ 	  height:50rpx;
+ 	  line-height:50rpx;
+ 	  background: #02B360;
+ 	  border-radius: 10rpx;
+ 	  float:right;
+ 	  font-size:28rpx;
+ 	  text-align: center;
+ 	  color:white;
+}
+.myTasks .itemlist .list .tr.data-v-7a4f97f4{
+ 	 line-height: 60rpx;
+ 	 margin-bottom: 10rpx;
+ 	 font-size:0;
+}
+.myTasks .itemlist .list .tr .th.data-v-7a4f97f4{
+ 	 font-size:30rpx;
+ 	 color:#8B8B8B;
+ 	 display: inline;
+}
+.myTasks .itemlist .list .tr .td.data-v-7a4f97f4{
+  	 font-size:30rpx;
+  	 color:#000;
+  	 display: inline;
+}
+.myTasks .itemlist .list.data-v-7a4f97f4{
+height:auto;
+}
+
+ 

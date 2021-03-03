@@ -1,0 +1,2 @@
+<import src="./zhandianMsg.vue.wxml" />
+    <template is="3204d5c0" data="{{ ...$root['0'], $root }}"/>

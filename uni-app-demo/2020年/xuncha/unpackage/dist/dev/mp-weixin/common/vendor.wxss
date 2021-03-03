@@ -1,0 +1,217 @@
+
+.content.data-v-0084044c{	
+	 width:678rpx;
+	 height:100%;
+	 margin:0rpx auto;
+}
+.contentlayout.data-v-0084044c{
+ 	position: absolute;
+ 	bottom:100rpx;
+ 	top:20rpx;
+ 	width:678rpx;
+	margin:auto;
+ 	overflow-y:auto;
+}
+.content .list.data-v-0084044c{
+	 width:100%;
+	 height:176rpx;
+	 margin-bottom: 40rpx;
+	 position: relative;
+	 /* background:url(../../static/images/icon-xuncha.png) no-repeat center center; */
+}
+.content .list .wenzi.data-v-0084044c{
+	position:absolute;		 
+	width:370rpx;
+	height:110rpx;
+	top:34rpx;
+	left:40rpx;
+}
+.content .list .logo.data-v-0084044c{
+	 width:100%;
+	 height:100%;
+}
+.footer .list.data-v-0084044c{
+	 font-size:28rpx;
+	 display:inline-block;
+	 width:50%;
+	 -webkit-box-sizing: border-box;
+	         box-sizing: border-box;
+	 text-align: center;
+	 vertical-align: middle;
+	 position: relative;
+	 height:100%;
+	 margin-bottom:0rpx;
+}
+.footer.data-v-0084044c{
+ 		 position: absolute;
+ 		 bottom:0;
+ 		 left:0;
+ 		 right:0;
+ 		 height:100rpx;
+}
+.footer .list .shouye.data-v-0084044c{
+	 width:40rpx;
+	 height:38rpx;
+	 position:absolute;
+	 top:8%;
+	 left:50%;
+}
+.footer .list .us.data-v-0084044c{
+ 		 width:38rpx;
+ 		 height:40rpx;
+ 		 position:absolute;
+ 		 top:8%;
+ 		 left:50%;
+}
+.footer .list .wenzi.data-v-0084044c{
+ 		 position: absolute;
+ 		 left:42%;
+ 		 top:50%;
+ 		 width:100rpx;
+}
+.lvse.data-v-0084044c{
+	 color:#098942;
+}
+ /* .content .list{
+	width:48%;
+	height:176rpx;
+	margin-bottom:40rpx;
+	position:relative;
+	display:inline-block;
+	margin-left:1%;
+	margin-right:1%;
+} */
+
+
+
+.content.data-v-3e612e18{	
+ 		 /* width:678upx; */
+		 width:100%;
+ 		 height:100%;
+ 		 margin:0rpx auto;
+}
+.contentlayout.data-v-3e612e18{
+ 	 	position: absolute;
+ 	 	bottom:100rpx;
+ 	 	top:50rpx;
+ 	 	/* width:678upx; */
+		width:100%;
+		left:0;
+		right:0px;
+ 		margin:auto;
+ 	 	overflow-y:auto;
+}
+.contentlayout .userinfo.data-v-3e612e18{
+		 height:160rpx;
+		 vertical-align: middle;
+}
+.contentlayout .userwen.data-v-3e612e18{
+	 		 font-size:44rpx;
+			 color:#000;
+	 		 vertical-align: middle;
+			 margin-left:40rpx;
+}
+.contentlayout .userinfo .iconuser.data-v-3e612e18{
+		 width:160rpx;
+		 height:160rpx;
+		 border-radius: 80rpx;
+		 vertical-align: middle;
+		 margin-left:50rpx;
+}
+.contentlayout .itemlist.data-v-3e612e18{
+		 font-size:0;
+		 width:100%;
+		 margin-top:50rpx;
+}
+.contentlayout .itemlist .list.data-v-3e612e18{
+		 width:33.33%;
+		 display: inline-block;
+		 -webkit-box-sizing: border-box;
+		         box-sizing: border-box;
+		 font-size:28rpx;
+		 text-align: center;
+}
+.contentlayout .items.data-v-3e612e18{
+		 margin-top:30rpx;
+}
+.contentlayout .items .list.data-v-3e612e18{
+		 width:100%;
+		 height:90rpx;
+		 line-height: 90rpx;
+		 border-top: 1px solid #ECEEF5;
+		 font-size:30rpx;
+		 color:#000;
+		 text-indent:40rpx;
+}
+.contentlayout .items .list.data-v-3e612e18:last-child{
+		 border-bottom: 1px solid #ECEEF5;
+}
+.contentlayout .items .zhishiku.data-v-3e612e18{
+		 width:34rpx;
+		 height:28rpx;
+		 vertical-align: middle;
+		 margin-right:20rpx;
+}
+.contentlayout .items .xiaoxizhongxin.data-v-3e612e18{
+	 		 width:36rpx;
+	 		 height:30rpx;
+	 		 vertical-align: middle;
+	 		 margin-right:20rpx;
+}
+.contentlayout .items .xiugaimima.data-v-3e612e18{
+	 		 width:32rpx;
+	 		 height:38rpx;
+	 		 vertical-align: middle;
+	 		 margin-right:20rpx;
+}
+.lvziti.data-v-3e612e18{
+		 font-size:32rpx;
+		 color:#02B360;
+		 display: block;
+		 margin-bottom: 10rpx;
+}
+.footer.data-v-3e612e18{
+		 position: absolute;
+		 bottom:0;
+		 left:0;
+		 right:0;
+		 height:100rpx;
+}
+.footer .list.data-v-3e612e18{
+ 		 font-size:28rpx;
+ 		 display:inline-block;
+ 		 width:50%;
+ 		 -webkit-box-sizing: border-box;
+ 		         box-sizing: border-box;
+ 		 text-align: center;
+ 		 vertical-align: middle;
+ 		 position: relative;
+		 height:100%;
+		 margin-bottom:0rpx;
+}
+.footer .list .shouye.data-v-3e612e18{
+ 		 width:40rpx;
+ 		 height:38rpx;
+ 		 position:absolute;
+ 		 top:8%;
+ 		 left:50%;
+}
+.footer .list .us.data-v-3e612e18{
+ 	 		 width:38rpx;
+ 	 		 height:40rpx;
+ 	 		 position:absolute;
+ 	 		 top:8%;
+ 	 		 left:50%;
+}
+.footer .list .wenzi.data-v-3e612e18{
+ 		 position: absolute;
+ 		 left:42%;
+ 		 top:50%;
+ 		 width:100rpx;
+}
+.lvse.data-v-3e612e18{
+	 	 color:#098942;
+}
+	 
+ 	 
+ 

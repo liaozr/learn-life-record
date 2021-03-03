@@ -1,0 +1,33 @@
+{
+  "description": "项目配置文件。",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": true,
+    "minified": false,
+    "postcss": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "",
+  "appid": "wxdf8bbb1768dc54a4",
+  "projectname": "uniApp-demo",
+  "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "current": -1,
+      "list": []
+    },
+    "miniprogram": {
+      "current": -1,
+      "list": []
+    }
+  }
+}

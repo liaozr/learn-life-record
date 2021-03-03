@@ -1,0 +1,106 @@
+
+.content.data-v-11fb2b40{
+ 	 margin-top:20rpx;
+}
+.tabhead.data-v-11fb2b40{
+   	 font-size:0;
+   	 border-bottom:1rpx solid #ECEEF5;
+}
+.tabhead .list.data-v-11fb2b40{
+   	 width:50%;
+   	 display: inline-block;
+   	 height:80rpx;
+   	 line-height: 80rpx;
+   	 text-align: center;
+}
+.tabhead .list .tab.data-v-11fb2b40{
+   	 text-align: center;
+   	 width:130rpx;
+   	 height:100%;
+   	 font-size:32rpx;
+   	 margin:auto;
+   	 color:#8B8B8B;
+}
+.tabhead .list .tab.active.data-v-11fb2b40{
+   	 color:#02B360;
+   	 border-bottom:4rpx solid #02B360;
+}
+.zhengdianDetails .itemlist.data-v-11fb2b40{ 
+ 	 height:100%;
+ 	 width:100%;
+}
+.zhengdianDetails .itemlist .list.data-v-11fb2b40{
+ 	  height:100rpx;
+	  line-height: 100rpx;
+	  border-bottom:1rpx solid #ECEEF5;
+	  padding-right:40rpx;
+	  padding-left:40rpx;
+}
+.zhengdianDetails .itemlist .list .title.data-v-11fb2b40{
+	  font-size: 30rpx;
+	  color:#000;
+}
+.zhengdianDetails .righttitle.data-v-11fb2b40{
+	  text-align: right;
+	  float:right;
+}
+.myTasks .itemlist.data-v-11fb2b40{
+  	 background-color: #F7F7F7;
+  	 height:100%;
+  	 padding:20rpx;
+	 width:auto !important;
+}
+.myTasks .itemlist .list.data-v-11fb2b40{
+  	 /* width:95%; */
+  	 /* margin:20upx auto; */
+  	 display: block;
+  	 height:160rpx;
+  	 border-radius: 16rpx;
+  	 background-color:white;
+  	 padding:30rpx;
+     margin-bottom:20rpx;
+}
+.myTasks .itemlist .list .title.data-v-11fb2b40{
+  	 margin-bottom: 0rpx;
+}
+.myTasks .itemlist .list .title .line.data-v-11fb2b40{
+  	 width:4rpx;
+  	 height:30rpx;
+  	 background:#02B360;
+  	 display: inline-block;
+  	 vertical-align:middle;
+}
+.myTasks .itemlist .list .title .biaoti.data-v-11fb2b40{
+  	 font-size:32rpx;
+  	 display: inline-block;
+  	 color:#000;
+  	 margin-left:20rpx;
+}
+.myTasks .itemlist .list .title .tag.data-v-11fb2b40{
+       width:130rpx;
+  	  height:50rpx;
+  	  line-height:50rpx;
+  	  background: #02B360;
+  	  border-radius: 10rpx;
+  	  float:right;
+  	  font-size:28rpx;
+  	  text-align: center;
+  	  color:white;
+}
+.myTasks .itemlist .list .tr.data-v-11fb2b40{
+  	 line-height: 60rpx;
+  	 margin-bottom: 10rpx;
+  	 font-size:0;
+}
+.myTasks .itemlist .list .tr .th.data-v-11fb2b40{
+  	 font-size:30rpx;
+  	 color:#8B8B8B;
+  	 display: inline-block;
+}
+.myTasks .itemlist .list .tr .td.data-v-11fb2b40{
+  	 font-size:30rpx;
+  	 color:#000;
+  	 display: inline-block;
+}
+   
+ 

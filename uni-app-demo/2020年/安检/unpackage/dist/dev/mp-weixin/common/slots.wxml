@@ -1,0 +1,6 @@
+<import src="/pages/home/home.vue.wxml" />
+<import src="/pages/mine/mine.vue.wxml" />
+<import src="/components/imgbox.vue.wxml" />
+<import src="/components/search-view.vue.wxml" />
+<import src="/components/mpvue-echarts/src/echarts.vue.wxml" />
+

@@ -1,0 +1,39 @@
+{
+  "pages": [
+    "pages/main/main",
+    "pages/index/index",
+    "pages/login/login",
+    "pages/yinhuanDuban/yinhuanDuban",
+    "pages/tongji/index",
+    "pages/myTasks/myTasks",
+    "pages/us/us",
+    "pages/qiyezhishiKu/qiyezhishiKu",
+    "pages/tongzhiGonggao/tongzhiGonggao",
+    "pages/xiugaiMima/xiugaiMima",
+    "pages/zhandianXuncha/zhandianXuncha",
+    "pages/zhandianMsg/zhandianMsg",
+    "pages/zhandianzhenggaiDetail/zhandianzhenggaiDetail",
+    "pages/zhandianhechaShangbao/zhandianhechaShangbao",
+    "pages/zhandianZhenggaihecha/zhandianZhenggaihecha",
+    "pages/jianchaDetails/jianchaDetails",
+    "pages/zhandianDetails/zhandianDetails",
+    "pages/zhenggaiHecha/zhenggaiHecha",
+    "pages/zhandianxuanze/zhandianxuanze",
+    "pages/yinhuanHechashangbao/yinhuanHechashangbao",
+    "pages/hechaShangbao/hechaShangbao",
+    "pages/shuaixuan/shuaixuan"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "usingComponents": {},
+  "permission": {
+    "scope.userLocation": {
+      "desc": "需要位置接口"
+    }
+  }
+}

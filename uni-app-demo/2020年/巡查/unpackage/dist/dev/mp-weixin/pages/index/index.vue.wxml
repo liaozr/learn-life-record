@@ -1,0 +1,1 @@
+<template name="fee9f4c8"><view class="_view fee9f4c8 content"><image class="_image fee9f4c8 logo" src="../../static/logo.png"></image><view class="_view fee9f4c8"><text class="_text fee9f4c8 title">{{title}}</text></view></view></template>

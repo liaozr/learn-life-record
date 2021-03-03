@@ -1,0 +1,507 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*每个页面公共css */
+.app-text-badge {
+	background-image: -webkit-gradient(linear, left bottom, left top, from(#02B360), to(#7BE8B5));
+	background-image: -o-linear-gradient(bottom, #02B360 0%, #7BE8B5 100%);
+	background-image: linear-gradient(0deg, #02B360 0%, #7BE8B5 100%);
+	border-radius: 3rpx;
+	margin-right: 16rpx;
+	height: 28rpx;
+	width: 6rpx;
+}
+.app-left-text1 {
+	font-size: 30rpx;
+	color: #000000;
+	font-weight: bold;
+}
+.app-left-text2 {
+	font-size: 30rpx;
+	color: #000000;
+}
+.app-right-text1 {
+	font-size: 30rpx;
+	color: #000000;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	    -ms-flex: 1;
+	        flex: 1;
+	text-align: right;
+}
+.app-item {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	padding: 28rpx 40rpx;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+}
+.app-item-active {
+	background: #eee;
+}
+.app-save-btn {
+	background: #02B360;
+	color: white;
+	border-radius: 12rpx;
+	font-size: 32rpx;
+	width: 84%;
+	left: 8%;
+	line-height: 90rpx;
+	bottom: 40rpx;
+	position: fixed;
+}
+.app-btn-active {
+	opacity: 0.7;
+}
+.uni-icon-arrowdown,.uni-icon-arrowright {
+	margin-left: 20rpx;
+	font-size: 40rpx !important;
+}
+.divider1 {
+	border-bottom: 20rpx solid #F8F8F8;
+}
+.divider2 {
+	border-bottom: 1rpx solid #DDDDDD;
+}
+.divider3 {
+	border-bottom: 1rpx solid #ECEEF5;
+}
+.flex {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+.flex1 {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	    -ms-flex: 1;
+	        flex: 1;
+}
+.red {
+	color: red !important;
+}
+.green {
+	color: #02B360 !important;
+}
+.blod {
+	font-weight: bold !important;
+}
+text{
+	font-size: 30rpx;
+}
+page{
+	height: 100%;
+}
+.app-page{
+	height: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	overflow: hidden;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+}
+.abs-center{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	    -ms-transform: translate(-50%,-50%);
+	        transform: translate(-50%,-50%);
+}
+@font-face {
+	font-family: uniicons;
+	font-weight: normal;
+	font-style: normal;
+	src: url('https://img-cdn-qiniu.dcloud.net.cn/fonts/uni.ttf?t=1536565627510') format('truetype');
+}
+.uni-icon {
+	font-family: uniicons;
+	font-size: 48rpx;
+	font-weight: normal;
+	font-style: normal;
+	line-height: 1;
+	color: #C0C0C0;
+	display: inline-block;
+	text-decoration: none;
+	-webkit-font-smoothing: antialiased;
+}
+.uni-icon.uni-active {
+	color: #007aff;
+}
+.uni-icon-contact:before {
+	content: '\E100';
+}
+.uni-icon-person:before {
+	content: '\E101';
+}
+.uni-icon-personadd:before {
+	content: '\E102';
+}
+.uni-icon-contact-filled:before {
+	content: '\E130';
+}
+.uni-icon-person-filled:before {
+	content: '\E131';
+}
+.uni-icon-personadd-filled:before {
+	content: '\E132';
+}
+.uni-icon-phone:before {
+	content: '\E200';
+}
+.uni-icon-email:before {
+	content: '\E201';
+}
+.uni-icon-chatbubble:before {
+	content: '\E202';
+}
+.uni-icon-chatboxes:before {
+	content: '\E203';
+}
+.uni-icon-phone-filled:before {
+	content: '\E230';
+}
+.uni-icon-email-filled:before {
+	content: '\E231';
+}
+.uni-icon-chatbubble-filled:before {
+	content: '\E232';
+}
+.uni-icon-chatboxes-filled:before {
+	content: '\E233';
+}
+.uni-icon-weibo:before {
+	content: '\E260';
+}
+.uni-icon-weixin:before {
+	content: '\E261';
+}
+.uni-icon-pengyouquan:before {
+	content: '\E262';
+}
+.uni-icon-chat:before {
+	content: '\E263';
+}
+.uni-icon-qq:before {
+	content: '\E264';
+}
+.uni-icon-videocam:before {
+	content: '\E300';
+}
+.uni-icon-camera:before {
+	content: '\E301';
+}
+.uni-icon-mic:before {
+	content: '\E302';
+}
+.uni-icon-location:before {
+	content: '\E303';
+}
+.uni-icon-mic-filled:before,
+.uni-icon-speech:before {
+	content: '\E332';
+}
+.uni-icon-location-filled:before {
+	content: '\E333';
+}
+.uni-icon-micoff:before {
+	content: '\E360';
+}
+.uni-icon-image:before {
+	content: '\E363';
+}
+.uni-icon-map:before {
+	content: '\E364';
+}
+.uni-icon-compose:before {
+	content: '\E400';
+}
+.uni-icon-trash:before {
+	content: '\E401';
+}
+.uni-icon-upload:before {
+	content: '\E402';
+}
+.uni-icon-download:before {
+	content: '\E403';
+}
+.uni-icon-close:before {
+	content: '\E404';
+}
+.uni-icon-redo:before {
+	content: '\E405';
+}
+.uni-icon-undo:before {
+	content: '\E406';
+}
+.uni-icon-refresh:before {
+	content: '\E407';
+}
+.uni-icon-star:before {
+	content: '\E408';
+}
+.uni-icon-plus:before {
+	content: '\E409';
+}
+.uni-icon-minus:before {
+	content: '\E410';
+}
+.uni-icon-circle:before,
+.uni-icon-checkbox:before {
+	content: '\E411';
+}
+.uni-icon-close-filled:before,
+.uni-icon-clear:before {
+	content: '\E434';
+}
+.uni-icon-refresh-filled:before {
+	content: '\E437';
+}
+.uni-icon-star-filled:before {
+	content: '\E438';
+}
+.uni-icon-plus-filled:before {
+	content: '\E439';
+}
+.uni-icon-minus-filled:before {
+	content: '\E440';
+}
+.uni-icon-circle-filled:before {
+	content: '\E441';
+}
+.uni-icon-checkbox-filled:before {
+	content: '\E442';
+}
+.uni-icon-closeempty:before {
+	content: '\E460';
+}
+.uni-icon-refreshempty:before {
+	content: '\E461';
+}
+.uni-icon-reload:before {
+	content: '\E462';
+}
+.uni-icon-starhalf:before {
+	content: '\E463';
+}
+.uni-icon-spinner:before {
+	content: '\E464';
+}
+.uni-icon-spinner-cycle:before {
+	content: '\E465';
+}
+.uni-icon-search:before {
+	content: '\E466';
+}
+.uni-icon-plusempty:before {
+	content: '\E468';
+}
+.uni-icon-forward:before {
+	content: '\E470';
+}
+.uni-icon-back:before,
+.uni-icon-left-nav:before {
+	content: '\E471';
+}
+.uni-icon-checkmarkempty:before {
+	content: '\E472';
+}
+.uni-icon-home:before {
+	content: '\E500';
+}
+.uni-icon-navigate:before {
+	content: '\E501';
+}
+.uni-icon-gear:before {
+	content: '\E502';
+}
+.uni-icon-paperplane:before {
+	content: '\E503';
+}
+.uni-icon-info:before {
+	content: '\E504';
+}
+.uni-icon-help:before {
+	content: '\E505';
+}
+.uni-icon-locked:before {
+	content: '\E506';
+}
+.uni-icon-more:before {
+	content: '\E507';
+}
+.uni-icon-flag:before {
+	content: '\E508';
+}
+.uni-icon-home-filled:before {
+	content: '\E530';
+}
+.uni-icon-gear-filled:before {
+	content: '\E532';
+}
+.uni-icon-info-filled:before {
+	content: '\E534';
+}
+.uni-icon-help-filled:before {
+	content: '\E535';
+}
+.uni-icon-more-filled:before {
+	content: '\E537';
+}
+.uni-icon-settings:before {
+	content: '\E560';
+}
+.uni-icon-list:before {
+	content: '\E562';
+}
+.uni-icon-bars:before {
+	content: '\E563';
+}
+.uni-icon-loop:before {
+	content: '\E565';
+}
+.uni-icon-paperclip:before {
+	content: '\E567';
+}
+.uni-icon-eye:before {
+	content: '\E568';
+}
+.uni-icon-arrowup:before {
+	content: '\E580';
+}
+.uni-icon-arrowdown:before {
+	content: '\E581';
+}
+.uni-icon-arrowleft:before {
+	content: '\E582';
+}
+.uni-icon-arrowright:before {
+	content: '\E583';
+}
+.uni-icon-arrowthinup:before {
+	content: '\E584';
+}
+.uni-icon-arrowthindown:before {
+	content: '\E585';
+}
+.uni-icon-arrowthinleft:before {
+	content: '\E586';
+}
+.uni-icon-arrowthinright:before {
+	content: '\E587';
+}
+.uni-icon-pulldown:before {
+	content: '\E588';
+}
+.uni-icon-scan:before {
+	content: "\E612";
+}
+
+
+.uni-badge,.uni-badge-default {
+	font-family: 'Helvetica Neue',Helvetica,sans-serif;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	font-size: 12px;
+	line-height: 1;
+	display: inline-block;
+	padding: 3px 6px;
+	color: #333;
+	border-radius: 100px;
+}
+.uni-badge.uni-badge-inverted {
+	padding: 0 5px 0 0;
+	color: #929292;
+	background-color: transparent
+}
+.uni-badge-primary {
+	color: #fff;
+	background-color: #007aff
+}
+.uni-badge-blue.uni-badge-inverted,
+.uni-badge-primary.uni-badge-inverted {
+	color: #007aff;
+	background-color: transparent
+}
+.uni-badge-green,
+.uni-badge-success {
+	color: #fff;
+	background-color: #4cd964;
+}
+.uni-badge-green.uni-badge-inverted,
+.uni-badge-success.uni-badge-inverted {
+	color: #4cd964;
+	background-color: transparent
+}
+.uni-badge-warning,
+.uni-badge-yellow {
+	color: #fff;
+	background-color: #f0ad4e
+}
+.uni-badge-warning.uni-badge-inverted,
+.uni-badge-yellow.uni-badge-inverted {
+	color: #f0ad4e;
+	background-color: transparent
+}
+.uni-badge-danger,
+.uni-badge-red {
+	color: #fff;
+	background-color: #dd524d
+}
+.uni-badge-danger.uni-badge-inverted,
+.uni-badge-red.uni-badge-inverted {
+	color: #dd524d;
+	background-color: transparent
+}
+.uni-badge-purple,
+.uni-badge-royal {
+	color: #fff;
+	background-color: #8a6de9
+}
+.uni-badge-purple.uni-badge-inverted,
+.uni-badge-royal.uni-badge-inverted {
+	color: #8a6de9;
+	background-color: transparent
+}
+

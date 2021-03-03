@@ -1,0 +1,14 @@
+
+.item.data-v-ebd50c58 {
+ 		display: -webkit-box;
+ 		display: -webkit-flex;
+ 		display: -ms-flexbox;
+ 		display: flex;
+ 		padding: 28rpx 0rpx 28rpx 20rpx;
+ 		margin: 0 40rpx 0 40rpx;
+ 		font-size: 30rpx;
+}
+.item.data-v-ebd50c58:last-child{
+		border-bottom: none;
+}
+ 

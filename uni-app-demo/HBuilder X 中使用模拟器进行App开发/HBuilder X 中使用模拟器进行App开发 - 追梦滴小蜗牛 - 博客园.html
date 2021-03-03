@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)https://www.cnblogs.com/oukele/p/9967291.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="origin">
+    <meta property="og:description" content="第一步：下载HBuilder X（建议下载开发版） 第二步：下载个模拟器，我这里使用的是（MuMu模拟器） 第三步:在HBuilder X 中新建一个项目 然后，打开模拟器 如果 HBuilder x">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="https://common.cnblogs.com/favicon.ico?v=20200522" type="image/x-icon">
+    
+    <link rel="stylesheet" href="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/blog-common.min.css">
+    <link id="MainCss" rel="stylesheet" href="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/bundle-codinglife.min.css">
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/bundle-codinglife-mobile.min.css">
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/oukele/rss">
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/oukele/rsd.xml">
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/oukele/wlwmanifest.xml">
+    <script async="" src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/analytics.js.下载"></script><script>
+        var currentBlogId = 446377;
+        var currentBlogApp = 'oukele';
+        var cb_enable_mathjax = true;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'CodingLife';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2018-11-16 08:47';
+        </script>
+    <script src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+    <script src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/blog-common.min.js.下载"></script>
+    <script type="text/x-mathjax-config;executed=true">
+        MathJax.Hub.Config({
+        tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']], processClass: 'math', processEscapes: true },
+        TeX: {
+        equationNumbers: { autoNumber: ['AMS'], useLabelIds: true },
+        extensions: ['extpfeil.js', 'mediawiki-texvc.js'],
+        Macros: {bm: "\\boldsymbol"}
+        },
+        'HTML-CSS': { linebreaks: { automatic: true } },
+        SVG: { linebreaks: { automatic: true } }
+        });
+    </script>
+    <script src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/MathJax.js.下载"></script>
+    
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><script src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/pubads_impl_2020082701.js.下载" async=""></script><link rel="preload" href="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/f.txt" as="script"><script type="text/javascript" src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/f.txt"></script><link rel="prefetch" href="https://0bcf73fcd5235883616e4c69d4bcadaf.safeframe.googlesyndication.com/safeframe/1-0-37/html/container.html"><link rel="prefetch" href="https://tpc.googlesyndication.com/safeframe/1-0-37/html/container.html"></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/oukele/"><img id="blogLogo" src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/logo.gif" alt="返回主页"></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/oukele/">追梦者丶</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/oukele/">
+首页</a>
+</li>
+<li>
+
+
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E8%BF%BD%E6%A2%A6%E6%BB%B4%E5%B0%8F%E8%9C%97%E7%89%9B">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/oukele/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+223&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+35</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class="postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/oukele/p/9967291.html">
+    <span>HBuilder X 中使用模拟器进行App开发</span>
+    
+
+
+</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body">
+    <p>第一步：下载HBuilder X（建议下载开发版）</p>
+<p><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/1443576-20181116081056554-387673698.png" alt=""></p>
+<p>第二步：下载个模拟器，我这里使用的是（MuMu模拟器）</p>
+<p><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/1443576-20181116081216571-612982742.png" alt=""></p>
+<p>&nbsp;</p>
+<p>第三步:在HBuilder X 中新建一个项目</p>
+<p>　　<img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/1443576-20181116081932983-980409159.gif" alt=""></p>
+<p>然后，打开模拟器</p>
+<p><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/1443576-20181116082127737-640137962.png" alt=""></p>
+<p>&nbsp;</p>
+<p>如果 HBuilder x 未检测到 模拟器，那就需要adb命令</p>
+<p><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/1443576-20181116082343095-197700652.gif" alt=""></p>
+<p>adb命令的使用:</p>
+<p>&nbsp;1、找到HBuilder X 的目录&nbsp;</p>
+<p>&nbsp;2、找到HBuilder X 带的adb程序，将此程序在的路径复制，放到Path中（环境变量）</p>
+<p><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/1443576-20181116082734398-334998121.png" alt=""></p>
+<p>&nbsp;</p>
+<p>配置环境变量：</p>
+<p><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/1443576-20181116083054373-581953498.png" alt=""></p>
+<p>&nbsp;</p>
+<p>&nbsp;<img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/1443576-20181116083111136-1692062235.png" alt=""></p>
+<p><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/1443576-20181116083133365-275926468.png" alt=""></p>
+<p><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/1443576-20181116083159162-562578762.png" alt=""></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>3、运行cmd</p>
+<p><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/1443576-20181116082949576-843662572.png" alt=""></p>
+<p>4、查看 adb 的版本（测试是否能使用）</p>
+<p><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/1443576-20181116083259867-1491138716.png" alt=""></p>
+<p>&nbsp;5、使用 adb命令 查看 连接的设备( adb devices )</p>
+<p><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/1443576-20181116083407093-1180794274.png" alt=""></p>
+<p>（List of devices attached 设备列表）</p>
+<p>&nbsp;6、使用adb命令 让模拟器连接上电脑 ( adb connect&nbsp; )</p>
+<p><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/1443576-20181116084053899-676828827.png" alt=""></p>
+<p>MuMu模拟器的端口好像是7555，其他模拟器的话，可以自行百度</p>
+<p>7、查看连接的设备</p>
+<p><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/1443576-20181116084211166-411031794.png" alt=""></p>
+<p>&nbsp;</p>
+<p>到这步，HBuilder x 就可以检测到模拟器了</p>
+<p>要是嫌上面的连接命名太麻烦（真的很麻烦），还可以这样</p>
+<p><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/1443576-20190612105115356-882070162.gif" alt=""></p>
+<p>&nbsp;</p>
+<p><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/1443576-20181116084647367-12768320.gif" alt=""></p>
+<p>然后开始你的开发吧。</p>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block"><div id="BlogPostCategory">
+    分类: 
+            <a href="https://www.cnblogs.com/oukele/category/1779212.html" target="_blank">软件、插件安装</a>,             <a href="https://www.cnblogs.com/oukele/category/1531793.html" target="_blank">Vue</a></div>
+<div id="EntryTag">
+    标签: 
+            <a href="https://www.cnblogs.com/oukele/tag/%E8%BD%AF%E4%BB%B6%E3%80%81%E6%8F%92%E4%BB%B6%E7%9A%84%E5%AE%89%E8%A3%85/">软件、插件的安装</a>,             <a href="https://www.cnblogs.com/oukele/tag/Vue/">Vue</a></div>
+
+    <div id="blog_post_info">
+<div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(9967291,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+        <a id="green_channel_follow" onclick="follow(&#39;4c7de46e-dcf2-4e09-51d5-08d5eae6feaf&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/oukele/" target="_blank"><img src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/20181023103747.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/oukele/">追梦滴小蜗牛</a><br>
+            <a href="https://home.cnblogs.com/u/oukele/followees/">关注 - 8</a><br>
+            <a href="https://home.cnblogs.com/u/oukele/followers/">粉丝 - 34</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;4c7de46e-dcf2-4e09-51d5-08d5eae6feaf&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(9967291,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">3</span>
+    </div>
+    <div class="buryit" onclick="votePost(9967291,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+    <div class="clear"></div>
+    <div id="post_next_prev">
+
+    <a href="https://www.cnblogs.com/oukele/p/9943014.html" class="p_n_p_prefix">« </a> 上一篇：    <a href="https://www.cnblogs.com/oukele/p/9943014.html" title="发布于 2018-11-11 19:02">使用ajax上传图片，并且使用canvas实现出上传进度效果</a>
+    <br>
+    <a href="https://www.cnblogs.com/oukele/p/9981972.html" class="p_n_p_prefix">» </a> 下一篇：    <a href="https://www.cnblogs.com/oukele/p/9981972.html" title="发布于 2018-11-19 11:03">自定义Vue组件</a>
+
+</div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2018-11-16 08:47</span>&nbsp;
+<a href="https://www.cnblogs.com/oukele/">追梦滴小蜗牛</a>&nbsp;
+阅读(<span id="post_view_count">24450</span>)&nbsp;
+评论(<span id="post_comment_count">4</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=9967291" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(9967291);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/highlight.min.js.下载"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 446377, cb_blogApp = 'oukele', cb_blogUserGuid = '4c7de46e-dcf2-4e09-51d5-08d5eae6feaf';
+    var cb_entryId = 9967291, cb_entryCreatedDate = '2018-11-16 08:47', cb_postType = 1;
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder">
+
+<div id="comment_pager_top">
+    
+</div>
+
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems">
+    <div class="feedbackNoItems"></div>
+</div>
+    <div class="feedbackItem">
+        <div class="feedbackListSubtitle">
+            <div class="feedbackManage">
+                &nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+            </div>
+            
+<a href="https://www.cnblogs.com/oukele/p/9967291.html#4229233" class="layer">#1楼</a>
+<a name="4229233" id="comment_anchor_4229233"></a>
+ 
+<span class="comment_date">2019-04-12 11:01</span>
+
+ 
+        <a id="a_comment_author_4229233" href="https://www.cnblogs.com/edward-life/" target="_blank">六耳石猴</a>
+
+        </div>
+        <div class="feedbackCon">
+            
+<div id="comment_body_4229233" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    大哥步骤都跟你一样,连接也成功了,就是最后HbuilderX还是检测不到模拟器怎么回事
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4229233, &#39;Digg&#39;, this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(4229233, &#39;Bury&#39;, this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        <span id="comment_4229233_avatar" style="display:none">
+            https://pic.cnblogs.com/face/1576248/20181230202903.png
+        </span>
+
+        </div>
+    </div>
+    <div class="feedbackItem">
+        <div class="feedbackListSubtitle">
+            <div class="feedbackManage">
+                &nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+            </div>
+            
+<a href="https://www.cnblogs.com/oukele/p/9967291.html#4229235" class="layer">#2楼</a>
+<a name="4229235" id="comment_anchor_4229235"></a>
+ 
+<span class="comment_date">2019-04-12 11:04</span>
+
+ 
+        <a id="a_comment_author_4229235" href="https://www.cnblogs.com/edward-life/" target="_blank">六耳石猴</a>
+
+        </div>
+        <div class="feedbackCon">
+            
+<div id="comment_body_4229235" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    解决了,要重启
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4229235, &#39;Digg&#39;, this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(4229235, &#39;Bury&#39;, this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        <span id="comment_4229235_avatar" style="display:none">
+            https://pic.cnblogs.com/face/1576248/20181230202903.png
+        </span>
+
+        </div>
+    </div>
+    <div class="feedbackItem">
+        <div class="feedbackListSubtitle">
+            <div class="feedbackManage">
+                &nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+            </div>
+            
+<a href="https://www.cnblogs.com/oukele/p/9967291.html#4229238" class="layer">#3楼</a>
+<a name="4229238" id="comment_anchor_4229238"></a>
+[<span class="louzhu">楼主</span>] 
+<span class="comment_date">2019-04-12 11:06</span>
+
+ 
+        <a id="a_comment_author_4229238" href="https://www.cnblogs.com/oukele/" target="_blank">追梦滴小蜗牛</a>
+
+        </div>
+        <div class="feedbackCon">
+            
+<div id="comment_body_4229238" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    <a href="https://www.cnblogs.com/oukele/p/9967291.html#4229233" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,4229233);">@</a>
+六耳石猴<br>重启一下，或者 点击运行的时候没检测到模拟器，点击到别处，再点运行多试几次，检测到模拟器了
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4229238, &#39;Digg&#39;, this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(4229238, &#39;Bury&#39;, this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        <span id="comment_4229238_avatar" style="display:none">
+            https://pic.cnblogs.com/face/1443576/20181023103747.png
+        </span>
+
+        </div>
+    </div>
+    <div class="feedbackItem">
+        <div class="feedbackListSubtitle">
+            <div class="feedbackManage">
+                &nbsp;&nbsp;
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+            </div>
+            
+<a href="https://www.cnblogs.com/oukele/p/9967291.html#4275967" class="layer">#4楼</a>
+<a name="4275967" id="comment_anchor_4275967"></a>
+    <span id="comment-maxId" style="display: none">4275967</span>
+    <span id="comment-maxDate" style="display: none">2019/6/10 上午9:56:18</span>
+ 
+<span class="comment_date">2019-06-10 09:56</span>
+
+ 
+        <a id="a_comment_author_4275967" href="https://www.cnblogs.com/yandeli/" target="_blank">有一盏路灯</a>
+
+        </div>
+        <div class="feedbackCon">
+            
+<div id="comment_body_4275967" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    感谢分享
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4275967, &#39;Digg&#39;, this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(4275967, &#39;Bury&#39;, this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        <span id="comment_4275967_avatar" style="display:none">
+            https://pic.cnblogs.com/face/1228537/20181229161215.png
+        </span>
+
+        </div>
+    </div>
+
+<div id="comment_pager_bottom">
+    
+</div>
+
+
+</div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/oukele/p/9967291.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/oukele/p/9967291.html#top">返回顶部</a></div>
+    <div id="comment_form_container" style="visibility: visible;"><div class="login_tips">
+    注册用户登录后才能发表评论，请 
+    <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a>
+     或 
+    <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，
+    <a href="https://www.cnblogs.com/">访问</a> 网站首页。
+</div></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-ucancode&#39;)">【推荐】超50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://tianchi.aliyun.com/specials/promotion/supercoder" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-阿里云 在线编程&#39;)">【推荐】1200件T恤+6万奖金，阿里云编程大赛报名开启</a><br><a href="https://brands.cnblogs.com/agora" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-声网专区&#39;)">【推荐】未知数的距离，毫秒间的传递，声网与你实时互动</a><br><a href="https://brands.cnblogs.com/huawei" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-华为专区&#39;)">【推荐】了不起的开发者，挡不住的华为，园子里的品牌专区</a><br><a href="https://www.sheca.com/assets/wwx/page1.html?site=bokeyuan" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-上海CA-SSL证书&#39;)">【推荐】SSL证书一站式服务，上海CA权威认证</a><br><a href="https://developer.aliyun.com/article/761395?utm_content=g_1000133217" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-阿里云开发者社区&#39;)">【推荐】开放下载 | 多场景多实战《阿里云AIoT造物秘籍》，值得收藏！</a><br></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1592365906576-0" style="width: 300px; height: 250px;" data-google-query-id="CNTDqoGeyesCFYcqKgod6tUAqg"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C1_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" style="border: 0px; vertical-align: bottom;" data-google-container-id="1" data-load-complete="true" src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/saved_resource.html"></iframe></div></div>
+    </div>
+    <div id="under_post_news"><div class="recomm-block"><b>相关博文：</b><br>·  <a title="androidstudio（安卓开发）如何使用外部模拟器（mumu模拟器）调试运行程序" href="https://www.cnblogs.com/xuexidememeda/p/9516086.html" target="_blank" onclick="clickRecomItmem(9516086)">androidstudio（安卓开发）如何使用外部模拟器（mumu模拟器）调试运行程序</a><br>·  <a title="Mac电脑使用Android Studio进行真机调试" href="https://www.cnblogs.com/developer-wang/p/6719555.html" target="_blank" onclick="clickRecomItmem(6719555)">Mac电脑使用Android Studio进行真机调试</a><br>·  <a title="使用天天模拟器开发Android应用" href="https://www.cnblogs.com/yilongm/p/5026021.html" target="_blank" onclick="clickRecomItmem(5026021)">使用天天模拟器开发Android应用</a><br>·  <a title="App性能测试工具使用说明-MobilePerformance" href="https://www.cnblogs.com/fighter007/p/8436872.html" target="_blank" onclick="clickRecomItmem(8436872)">App性能测试工具使用说明-MobilePerformance</a><br>·  <a title="[android]用adb操作android模拟器" href="https://www.cnblogs.com/orchid/archive/2012/05/21/2511469.html" target="_blank" onclick="clickRecomItmem(2511469)">[android]用adb操作android模拟器</a><br>»  <a target="_blank" href="https://recomm.cnblogs.com/blogpost/9967291">更多推荐...</a></div></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1592366332455-0" style="width: 468px; height: 60px;" data-google-query-id="CNXDqoGeyesCFYcqKgod6tUAqg"><div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" style="border: 0px; vertical-align: bottom;" data-google-container-id="2" data-load-complete="true" src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/saved_resource(1).html"></iframe></div></div>
+    </div>
+    <div id="under_post_kb">
+<div class="itnews c_ad_block">
+    <b>最新 IT 新闻</b>:
+    <br>
+ ·          <a href="https://news.cnblogs.com/n/671873/" target="_blank">全球首发 华为云鲲鹏云手机上线公测：每台手机每月只要99元</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/671871/" target="_blank">和佐仓绫音一起练拳？试试《Fink Home Fit》这款NS居家武术健身游戏</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/671870/" target="_blank">网易员工抢昵称：千余人排队登录系统 富贵二狗等已被申请</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/671869/" target="_blank">联想个人云存储A1上手：容量大不限速 这才是最具性价比的网盘</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/671868/" target="_blank">地球上的水来自哪里？科学家给出新答案</a>
+        <br>
+    » <a href="https://news.cnblogs.com/" title="IT 新闻" target="_blank">更多新闻...</a>
+</div></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverT2();
+        deliverC1C2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem"><!--done-->
+<h3 class="catListTitle">公告</h3>
+
+<div id="blog-news">
+    
+    <div id="profile_block">
+        昵称：
+        <a href="https://home.cnblogs.com/u/oukele/">
+            追梦滴小蜗牛
+        </a>
+        <br>
+        园龄：
+        <a href="https://home.cnblogs.com/u/oukele/" title="入园时间：2018-07-17">
+            2年1个月
+        </a>
+        <br>
+        粉丝：
+        <a href="https://home.cnblogs.com/u/oukele/followers/">
+            34
+        </a>
+        <br>
+        关注：
+        <a href="https://home.cnblogs.com/u/oukele/followees/">
+            8
+        </a>
+        <div id="p_b_follow">
+<a href="javascript:void(0)" onclick="follow(&#39;4c7de46e-dcf2-4e09-51d5-08d5eae6feaf&#39;)">+加关注</a></div>
+        <script>getFollowStatus('4c7de46e-dcf2-4e09-51d5-08d5eae6feaf');</script>
+    </div>
+</div>
+
+</div>
+
+<div id="sidebar_ad" style="display: block;"><div id="cnblogs_c3">
+    <div id="div-gpt-ad-1598349888178-0" style="width: 300px; height: 250px;" data-google-query-id="CNbDqoGeyesCFYcqKgod6tUAqg">
+        
+    <div id="google_ads_iframe_/1090369/C3_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C3_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C3_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" style="border: 0px; vertical-align: bottom;" data-google-container-id="3" data-load-complete="true" src="./HBuilder X 中使用模拟器进行App开发 - 追梦滴小蜗牛 - 博客园_files/saved_resource(2).html"></iframe></div></div>
+</div></div>
+			<div id="blog-calendar" style="">
+
+<table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar" border="0">
+    <tbody>
+        <tr>
+            <td colspan="7">
+                <table class="CalTitle" cellspacing="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td class="CalNextPrev">
+                                <a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2020/08/02&#39;); return false;">&lt;</a>
+                            </td>
+                            <td align="center">2020年9月</td>
+                            <td align="right" class="CalNextPrev">
+                                <a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2020/10/02&#39;); return false;">&gt;</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    <tr>
+        <th class="CalDayHeader" align="center" abbr="日" scope="col">日</th>
+        <th class="CalDayHeader" align="center" abbr="一" scope="col">一</th>
+        <th class="CalDayHeader" align="center" abbr="二" scope="col">二</th>
+        <th class="CalDayHeader" align="center" abbr="三" scope="col">三</th>
+        <th class="CalDayHeader" align="center" abbr="四" scope="col">四</th>
+        <th class="CalDayHeader" align="center" abbr="五" scope="col">五</th>
+        <th class="CalDayHeader" align="center" abbr="六" scope="col">六</th>
+    </tr>
+            <tr>
+                            <td class="CalOtherMonthDay" align="center">30</td>
+                            <td class="CalOtherMonthDay" align="center">31</td>
+                        <td class="" align="center">
+                            1
+                        </td>
+                        <td class="CalTodayDay" align="center">
+                            2
+                        </td>
+                        <td class="" align="center">
+                            3
+                        </td>
+                        <td class="" align="center">
+                            4
+                        </td>
+                    <td class="CalWeekendDay" align="center">
+                        5
+                    </td>
+            </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            6
+                        </td>
+                            <td class="" align="center">
+                                7
+                            </td>
+                            <td class="" align="center">
+                                8
+                            </td>
+                            <td class="" align="center">
+                                9
+                            </td>
+                            <td class="" align="center">
+                                10
+                            </td>
+                            <td class="" align="center">
+                                11
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            12
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            13
+                        </td>
+                            <td class="" align="center">
+                                14
+                            </td>
+                            <td class="" align="center">
+                                15
+                            </td>
+                            <td class="" align="center">
+                                16
+                            </td>
+                            <td class="" align="center">
+                                17
+                            </td>
+                            <td class="" align="center">
+                                18
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            19
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            20
+                        </td>
+                            <td class="" align="center">
+                                21
+                            </td>
+                            <td class="" align="center">
+                                22
+                            </td>
+                            <td class="" align="center">
+                                23
+                            </td>
+                            <td class="" align="center">
+                                24
+                            </td>
+                            <td class="" align="center">
+                                25
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            26
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            27
+                        </td>
+                            <td class="" align="center">
+                                28
+                            </td>
+                            <td class="" align="center">
+                                29
+                            </td>
+                            <td class="" align="center">
+                                30
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                1
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                2
+                            </td>
+                        <td class="CalOtherMonthDay" align="center">
+                            3
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalOtherMonthDay" align="center">
+                            4
+                        </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                5
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                6
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                7
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                8
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                9
+                            </td>
+                        <td class="CalOtherMonthDay" align="center">
+                            10
+                        </td>
+                </tr>
+    </tbody>
+</table></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn">
+<!-- 搜索 -->
+<div id="sidebar_search" class="sidebar-block">
+    <div id="sidebar_search" class="mySearch">
+        <h3 class="catListTitle">搜索</h3>
+        <div id="sidebar_search_box">
+            <div id="widget_my_zzk" class="div_my_zzk">
+                <input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk">
+            </div>
+            <div id="widget_my_google" class="div_my_zzk">
+                <input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 常用链接 -->
+<div id="sidebar_shortcut" class="sidebar-block">
+    <div class="catListLink">
+<h3 class="catListTitle">
+常用链接
+</h3>
+<ul>
+    
+<li><a href="https://www.cnblogs.com/oukele/p/" title="我的博客的随笔列表">我的随笔</a></li>
+<li><a href="https://www.cnblogs.com/oukele/MyComments.html" title="我的发表过的评论列表">我的评论</a></li>
+<li><a href="https://www.cnblogs.com/oukele/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li>
+<li><a href="https://www.cnblogs.com/oukele/RecentComments.html" title="我的博客的评论列表">最新评论</a></li>
+<li><a href="https://www.cnblogs.com/oukele/tag/" title="我的博客的标签列表">我的标签</a></li>
+
+</ul>
+</div>
+
+
+</div>
+
+<!-- 最新随笔 -->
+
+
+
+<!-- 我的标签 -->
+<div id="sidebar_toptags" class="sidebar-block">
+    <div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+
+        <li>
+            <a href="https://www.cnblogs.com/oukele/tag/Java/">Java</a>(59)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/oukele/tag/%E8%BD%AF%E4%BB%B6%E3%80%81%E6%8F%92%E4%BB%B6%E7%9A%84%E5%AE%89%E8%A3%85/">软件、插件的安装</a>(39)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/oukele/tag/%E6%95%B4%E5%90%88%E6%A1%88%E4%BE%8B/">整合案例</a>(29)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/oukele/tag/MySQL/">MySQL</a>(26)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/oukele/tag/JavaScript/">JavaScript</a>(23)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/oukele/tag/Spring%20MVC/">Spring MVC</a>(17)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/oukele/tag/Spring/">Spring</a>(14)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/oukele/tag/Spring%20Boot/">Spring Boot</a>(14)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/oukele/tag/Vue/">Vue</a>(14)
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/oukele/tag/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>(10)
+        </li>
+    <li>
+        <a href="https://www.cnblogs.com/oukele/tag/">更多</a>
+    </li>
+
+</ul>
+</div>
+
+
+</div>
+
+<!-- 积分与排名 -->
+<div id="sidebar_scorerank" class="sidebar-block">
+    <div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	
+249493
+	</li>
+	<li class="liRank">
+		排名 -	
+2020
+	</li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<!-- 随笔分类、随笔档案、文章分类、新闻分类、相册、链接 -->
+<div id="sidebar_categories">
+    
+        <div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+            <h3 class="catListTitle">
+                
+随笔分类
+<span style="font-size:11px;font-weight:normal">(289)</span>
+
+
+            </h3>
+
+
+            <ul>
+
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1347618.html" rel="" target="">
+    ES6 语法(1)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1779211.html" rel="" target="">
+    Hibernate(4)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1356901.html" rel="" target="">
+    Iview(9)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1351232.html" rel="" target="">
+    Java(58)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1360134.html" rel="" target="">
+    JavaScript(23)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1414258.html" rel="" target="">
+    Linux(7)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1435532.html" rel="" target="">
+    MUI(4)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1530846.html" rel="" target="">
+    MyBatis(7)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1413708.html" rel="" target="">
+    MySQL(26)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1382866.html" rel="" target="">
+    Nginx(1)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1556479.html" rel="" target="">
+    NodeJs(3)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1369206.html" rel="" target="">
+    Redis(8)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1365164.html" rel="" target="">
+    Spring(15)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1372943.html" rel="" target="">
+    Spring Boot(15)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1530844.html" rel="" target="">
+    Spring MVC(15)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1531793.html" rel="" target="">
+    Vue(14)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1779212.html" rel="" target="">
+    软件、插件安装(39)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1357584.html" rel="" target="">
+    设计模式(10)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/oukele/category/1779213.html" rel="" target="">
+    整合案例(30)
+</a>
+ 
+
+                        </li>
+
+            </ul>
+
+
+        </div>
+
+</div>
+
+<!-- 最新评论 -->
+<div id="sidebar_recentcomments" class="sidebar-block">
+    <div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div class="RecentCommentBlock">
+        <ul>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/oukele/p/9590965.html">1. Re:MariaDB安装与使用</a></li>
+                    <li class="recent_comment_body"><p>没智能提示吗</p>
+</li>
+                    <li class="recent_comment_author">--realyrare</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/oukele/p/10996974.html">2. Re:Java生成压缩文件（zip、rar 格式）</a></li>
+                    <li class="recent_comment_body">.... // 标记要打包的条目 out.putNextEntry(new ZipEntry(dir)); ... 第一个压缩文件的方法，这里dir ，应该改为 file.getName()...</li>
+                    <li class="recent_comment_author">--子昱dian</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/oukele/p/10137958.html">3. Re:Spring使用@AspectJ开发AOP（零配置文件）</a></li>
+                    <li class="recent_comment_body">配置类中激活代理的配置@EnableAspectJAutoProxy还不行，在我这里要写成： @EnableAspectJAutoProxy(proxyTargetClass = true) 否则会报...</li>
+                    <li class="recent_comment_author">--dierye</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/oukele/p/9590965.html">4. Re:MariaDB安装与使用</a></li>
+                    <li class="recent_comment_body"><p>厉害</p>
+</li>
+                    <li class="recent_comment_author">--real-tkzc</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/oukele/p/10001344.html">5. Re:vue  - router + iView 的使用（简单例子）</a></li>
+                    <li class="recent_comment_body"><p>牛逼呀兄弟！</p>
+</li>
+                    <li class="recent_comment_author">--可可西里(lemon)</li>
+        </ul>
+    </div>
+</div>
+
+
+</div>
+
+
+
+<!-- 阅读排行榜 -->
+<div id="sidebar_topviewedposts" class="sidebar-block">
+    <div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock">
+        <ul style="word-break:break-all">
+                    <li>
+                        <a href="https://www.cnblogs.com/oukele/p/9987287.html">
+                            1. 使用Vue自定义组件时，报did you register the component correctly? For recursive components, make sure to provide the "name" option.（未注册组件）的原因之一(42839)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/oukele/p/9590965.html">
+                            2. MariaDB安装与使用(37082)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/oukele/p/11443659.html">
+                            3. 使用 EasyExcel  读取Excel（两种方式）(25735)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/oukele/p/9540293.html">
+                            4. SQLite3的安装与使用(25169)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/oukele/p/9967291.html">
+                            5. HBuilder X 中使用模拟器进行App开发(24450)
+                        </a>
+                    </li>
+        </ul>
+    </div>
+</div>
+
+
+</div>
+
+<!-- 评论排行榜 -->
+<div id="sidebar_topcommentedposts" class="sidebar-block">
+    <div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock">
+        <ul style="word-break:break-all">
+                    <li>
+                        <a href="https://www.cnblogs.com/oukele/p/10014213.html">
+                            1. IView 给Submenu增加click事件失效解决方案(7)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/oukele/p/10684639.html">
+                            2. MySQL 游标的使用(4)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/oukele/p/9967291.html">
+                            3. HBuilder X 中使用模拟器进行App开发(4)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/oukele/p/9590965.html">
+                            4. MariaDB安装与使用(3)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/oukele/p/10226938.html">
+                            5. 使用idea 搭建一个 SpringBoot + Mybatis + logback  的maven 项目(2)
+                        </a>
+                    </li>
+        </ul>
+    </div>
+</div>
+
+
+</div>
+
+<!-- 推荐排行榜 -->
+<div id="sidebar_topdiggedposts" class="sidebar-block">
+    
+<div id="topdigg_posts_wrap">
+    <div class="catListView">
+        <h3 class="catListTitle">推荐排行榜</h3>
+        <div id="TopDiggPostsBlock">
+            <ul style="word-break: break-all">
+                        <li>
+                            <a href="https://www.cnblogs.com/oukele/p/9590965.html">
+                                1. MariaDB安装与使用(5)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/oukele/p/9967291.html">
+                                2. HBuilder X 中使用模拟器进行App开发(3)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/oukele/p/9540293.html">
+                                3. SQLite3的安装与使用(3)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/oukele/p/9464912.html">
+                                4. 简单了解HTTP协议的基本知识，请求流程、请求方法等(1)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/oukele/p/9493353.html">
+                                5. IDEA 使用LiveEdit插件(1)
+                            </a>
+                        </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright © 2020 追梦滴小蜗牛
+<br><span id="poweredby">Powered by .NET Core on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+
+
+</body></html>

@@ -1,0 +1,24 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/main/main",
+    "pages/home/home",
+    "pages/mine/mine",
+    "pages/ju_ming_an_jian_deng_ji/index",
+    "pages/ju_ming_an_jian_zheng_gai/index",
+    "pages/xian_chang_zheng_gai_qing_kuang/index",
+    "pages/qi_ye_zhi_shi_ku/index",
+    "pages/an_jian_lie_biao/index",
+    "pages/tong_zhi_gong_gao/index",
+    "pages/tong_zhi_gong_gao/filter",
+    "pages/tong_ji/index"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "usingComponents": {}
+}

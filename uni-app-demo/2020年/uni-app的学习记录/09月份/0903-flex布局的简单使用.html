@@ -1,0 +1,55 @@
+<html>
+
+  <view class="box">
+        <view class="boxitem">1</view>
+        <view class="boxitem">2</view>
+        <view class="boxitem">3</view>
+  </view>
+
+</html>
+
+<style>
+
+  .box{
+		height:200upx;
+		width:500upx;
+		bordere:1upx solid #ccc;
+		background-color: pink;
+
+		display:flex;
+
+		/* flex-direction: column; */ /* 布局是水平方向,还是竖直方向 */
+
+		justify-content: center; /* 水平方向的布局 */
+
+		align-items:center;/* 竖直方向的布局 */
+
+		/* flex-wrap:nowrap; *//* 超出了会换行 */
+		
+	}
+	.boxitem{
+		background-color: #008000;
+		color:#fff;
+		height:100upx;
+		width:300upx;
+		font-size:30upx;
+		text-align:center;
+		line-height:30upx;
+
+		display:flex;
+
+		flex:1;/* 平均平分宽度 */
+
+		justify-content: center; /* 水平方向的布局 */
+
+		align-items:center;
+
+	}
+	.boxitem:nth-child(1){
+        
+		background-color: red;
+
+		flex-shrink: 0;/* flex布局情况下不会被压缩，以设定中的高宽尺寸为标准*/
+	}
+
+</style>
