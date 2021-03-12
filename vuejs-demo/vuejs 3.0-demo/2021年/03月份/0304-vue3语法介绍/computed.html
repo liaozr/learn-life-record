@@ -1,0 +1,41 @@
+<html>
+
+    例子场景：结合 vue-router 根据当前路劲为count赋值, 也扩展下vue-router的用法
+    
+
+    <template>
+        <div>
+            <p>{{count}}</p>
+            <p>{{count1}}</p>
+        </div>
+    </template>
+
+    <script>
+            import { reactive, toRefs, computed } from 'vue'
+            import { useRoute } from 'vue-router'
+            ...
+            setup(props, ctx) {
+
+                const route = useRoute()
+
+                const state = reactive({ 
+                    // 计算属性 写法1
+                    count: computed(() => {
+                       return route.path
+                    })
+                })
+
+                // 计算属性 写法2
+                const count1 = computed(() => {
+                    return route.path
+                })
+
+                return {
+                    ...toRefs(state),
+                    // 计算属性不需要通过 toRefs 结构， 因为他就是一个具体的值就是响应式的
+                    count1
+                }
+            }
+    </script>
+
+</html>

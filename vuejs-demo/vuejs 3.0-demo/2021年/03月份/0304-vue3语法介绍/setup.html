@@ -1,0 +1,30 @@
+<html>
+   
+   vue3 组件入口为 setup(){} 函数作为入口， 默认只执行一次；
+   
+   执行顺序在 beforeCreate 之后 created 之前；
+
+   <script>
+       
+        // 使用props和this
+        setup (props, ctx) {
+        // props 组件间传递的参数； 
+        // ctx 组件的实例的执行上下文（可以理解为 vue2 this） 
+            /* 可执行 下面等操作：例 ctx.$emit() 
+            attrs: Object
+            emit: ƒ ()
+            listeners: Object
+            parent: VueComponent
+            refs: Object
+            root: Vue 
+            */
+        // 注意 steup 中没有this了， 拿不到this
+        }
+   </script>
+
+   
+
+
+
+
+</html>

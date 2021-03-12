@@ -1,0 +1,118 @@
+<html>
+    ------------------------------------------------------------------------------------------------------------
+    根实例初始化
+
+    在2.x中通过 new Vue()的方法来初始化：
+
+    <script>
+        import App from './App.vue'
+        
+        new Vue({
+            store,
+            render:h = >h(app)
+        }).$mount('#app')
+
+    </script>
+    
+    在 3.x中Vue不再是一个构造函数，通过createApp方法初始化：
+
+    <script>
+        
+        import App from './App.vue'
+        createApp(App).use(store).mount('#app')
+
+    </script>
+
+------------------------------------------------------------------------------------------------------------
+
+   全局API调用方式改变
+
+   在Vue2.x中，大部分全局API都是通过Vue.xxx或者Vue.abc()方式调用，例如：
+    
+   import Vue from 'vue'
+   Vue.mixin()
+   Vue.use()
+   
+   而在Vue3中，这些方式将会改变，取而代之的是如下：
+
+   <script>
+        import { createApp } from 'vue'
+        const app = createApp({})
+        app.mixin()
+        app.use()
+   </script>
+
+   同时，可以只引入一些需要的API，不需要的不用引入，
+   这样也符合Three Shaking的要求
+
+   <script>
+       import { nextTick ,reactive,onMounted } from 'vue'
+       nextTick( () => {
+
+       })
+       onMounted( () =>{
+
+       })
+   </script>
+
+   由于Vue3中全局API都会通过app.xxx的方法调用，
+   所以之前通过Vue.prototype.xxx绑定的全局方法和变量
+   将无法使用，可以采用如下方式来代替：
+   
+   <script>
+       //在main.js中：
+       app.config.globalProperties.http =  function () {}
+       
+       //在vue组件中：
+       this.http()
+
+   </script>
+
+   ------------------------------------------------------------------------------------------------------------
+   
+   新的异步组件创建方式
+
+   在Vue3中，提供了defineAsyncComponent()方法创建异步组件，
+   
+   同时可以返回一个Promise对象来自己控制加载完成时机，
+   
+   如下：
+
+   <script>
+       import { defineAsyncComponent } from 'vue'
+       const asyncPageWithOptions = defineAsyncComponent({
+           loader:() =>import ('./NextPage.vue'),
+           delay:200,
+           timeout:3000,
+           error:ErrorComponent,
+           loading:LoadingComponent
+       })
+       const asyncComponent = defineAsyncComponent(
+           () =>
+           new promise ( (resolve,reject) =>{
+              //...
+           })
+       )
+   </script>
+   
+------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

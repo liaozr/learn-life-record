@@ -1,0 +1,148 @@
+<html>
+
+    watchEffect 与 watch 有什么不同：
+
+    watchEffect 不需要指定监听的属性，他会自动的收集依赖， 
+    只要我们回调中引用到了 响应式的属性， 那么当这些属性变更的时候，这个回调都会执行
+
+    watch 只能监听指定的属性
+    watch 可以获取到新值与旧值，而 watchEffect 不行
+    
+    watchEffect 在组件初始化的时候就会执行一次用以收集依赖（与computed同理），
+    后续收集的依赖发生变化，这个回调才会再次执行
+
+
+    <script>
+
+        // watch 用法 监听单个属性
+
+        <template>
+            <div>
+                <p>{{count}}</p>
+            </div>
+        </template>
+
+        import {reactive, toRefs, watch} from 'vue'
+        import {useRoute} from 'vue-router'
+        ...
+        setup(props, ctx) {
+
+            const route = useRoute()
+            const state = reactive({ 
+                count: 0,
+            })
+
+            // 监听路由路劲, immediate 是否立即执行一次
+
+            watch(() => route.path, (newValue) => {
+                state.count = newValue
+            }, { immediate: true })
+            
+            return {
+                ...toRefs(state),
+            }
+        }
+------------------------------------------------------------------------------------------------------
+        
+        // watch 用法 监听ref数据源
+
+        <template>
+            <div>
+                <p>{{count}}</p>
+            </div>
+        </template>
+
+        import { reactive, toRefs, ref, watch } from 'vue'
+        ...
+        setup(props, ctx) {
+            // 定义数据源
+            let count = ref(0);
+            // 指定要监视的数据源
+            watch(count, (count, prevCount) => {
+                console.log(count, prevCount)
+            })
+            setInterval(() => {
+                count.value += 2
+            }, 2000)
+            console.log(count.value)
+
+            return {
+                count
+            }
+        }
+
+------------------------------------------------------------------------------------------------------
+        
+        // watch 用法 监听多个属性
+
+        <template>
+            <div>
+                <p>{{count}}</p>
+            </div>
+        </template>
+        import {reactive, toRefs, watch} from 'vue'
+        ...
+        setup(props, ctx) {
+            const state = reactive({ 
+                name: 'vue',
+                age: 3
+            })
+            watch(
+                // 监听name、 age
+                [() => state.name, () => state.age],
+                // 如果属性改变、则执行以下回调
+                ([newName, newAge], [oldname, oldAge]) => {
+                console.log(oldname, oldname)
+                console.log(oldAge, oldAge)
+                },
+                { lazy: true} // 在 watch 被创建的时候，不执行回调函数中的代码
+            )
+            setTimeout(() => {
+                state.name = 'react'
+                state.age += 1
+            }, 3000)
+            return {
+                ...toRefs(state),
+            }
+        }
+
+------------------------------------------------------------------------------------------------------
+        
+        // watchEffect 用法
+        <template>
+            <div>
+                <p>{{count}}</p>
+            </div>
+        </template>
+
+        import {reactive, toRefs, ref, watchEffect} from 'vue'
+        import {useRoute} from 'vue-router'
+        ...
+        setup(props, ctx) {
+            const route = useRoute()
+            const state = reactive({ 
+                count: 0,
+            })
+            // 当 route.path 变化时就会执行打印， 有点类似 react-hook 的 useEffect 第二个参数效果
+            watchEffect(() => {
+                count = route.path
+                console.log(route.path)
+            })
+            // watchEffect、 watch 都可以主动停止监听
+            const stop = watchEffect(() => { 
+                count = route.path
+                console.log(route.path)
+            })
+            // 在某个时机下 执行 stop() 停止watchEffect监听
+            if (...) { stop() }
+            return {
+                ...toRefs(state),
+            }
+        }
+
+    </script>
+
+
+
+
+</html>

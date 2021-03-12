@@ -1,0 +1,389 @@
+<html>
+ ---------------------------------------------------------------------------------------------------------
+ 
+ vue2中使用的是Options API; vue3中的是Composition API 简称纯函数式API
+
+---------------------------------------------------------------------------------------------------------
+
+ Composition API
+
+ 在Vue2.x中，组件的主要逻辑是通过一些配置项来编写，包括一些内置的生命周期方法或者组件方法，例如下面的代码：
+ 
+ <script>
+     
+     export default {
+         name:'test',
+         components:{},
+         props:{},
+         data (){  
+           return{}
+         },
+         created(){},
+         mounted(){},
+         watch:{},
+         methods:{}
+     }
+ </script>
+
+  这中基于配置的组件写法成为Options API（配置式API），
+  
+  Vue3的一大核心特性是引入了Composition API（组合式API）,
+  
+  这使得组件的大部分内容都可以通过setup()方法进行配置，
+  
+  同时Composition API在Vue2.x也可以使用，需要通过安装@vue/composition-api来使用，代码如下：
+
+  npm install @vue/composition-api
+
+  import VueCompositionApi from '@vue/composition-api';
+
+  Vue.use(VueCompositionApi);
+
+  下面就列举一些使用Composition API的例子：
+
+---------------------------------------------------------------------------------------------------------
+
+ref或者reactive代替data中的变量:
+
+在Vue2.x中通过组件data的方法来定义一些当前组件的数据：
+
+<script>
+
+  data(){
+      return{
+        name:'test',
+        list:[],
+      }
+  }
+</script>
+
+在Vue3中 通过 ref 或者 reactive 创建响应式对象：
+
+<script>
+  import { ref,reactive } from 'vue'
+  
+  setup(){
+
+     const name = ref('test')
+
+     const state = reactive({
+          list: []
+     })
+    return{
+      name,
+      state
+    }
+  }
+</script>
+
+ref 将给定的值创建一个响应式的数据对象并赋值初始值（int或者string）
+
+reactive可以直接定义复杂响应式对象。
+
+---------------------------------------------------------------------------------------------------------
+
+methods中定义的方法也可以写在setup()中:
+
+在Vue2.x中methods来定义一些当前组件内部方法：
+
+<script>
+
+  methods:{
+      fetchData(){
+
+      }
+  }
+</script>
+
+ 在Vue3中直接在setup方法中定义并return：
+
+ <script>
+  setup(){
+
+    const fetchData = ()=>{
+       console.log("fetchData") 
+    } 
+    return{
+      fetchData
+    }
+  }
+</script>
+
+---------------------------------------------------------------------------------------------------------
+
+setup()中使用props和this:
+
+在Vue2.x中，组件的方法中可以通过this获取到当前组件的实例，并执行data变量的修改，方法的调用，组件的通信等等，
+
+但是在Vue3中，setup()在 beforeCreate 和 created时机 就已调用，无法使用和Vue2.x一样的this，
+
+但是可以通过接收setup(props,ctx)的方法，获取到当前组件的实例和props：
+
+ <script>
+     
+     export default {
+         name:'test',
+         props:{
+            name:String,
+         },
+         setup(props,ctx){
+             console.log(props.name)
+             ctx.emit('event');
+          }
+     }
+ </script>
+
+ 注意 ctx 和 2.x中this并不完全一样，而是选择性地暴露了一些property，主要有[attrs,emit,slots]。
+
+---------------------------------------------------------------------------------------------------------
+ 
+ watch来监听对象改变
+
+ Vue2.x中，可以采用watch来监听一个对象属性是否有改动：
+
+ <script>
+    data(){
+        return{
+            name:'test'
+        }
+    },
+    watch:{
+      name(val){
+        console.log(val)
+      }
+    }
+</script>
+
+ Vue3中，在 setup()中，可以使用watch来监听：
+ 
+ <script>
+      
+      import { watch } from 'vue'
+      
+      setup(){
+         let state = reactive({
+             name:'a'
+         })
+         watch (
+              () =>state.name,
+              (val,oldVal) => {
+                 console.log(val)  
+              }
+         )
+         state.name = 'b'
+         return {
+             state
+         }  
+      }
+
+ </script>
+
+
+  在Vue3中，如果 watch 的 是一个数组array对象，那么如果调用array.push()方法添加一条数据，
+  
+  并不会触发watch方法，必须重新给array赋值：
+
+  <script>
+      import { watch } from 'vue'
+      
+      setup(){
+         let state = reactive({
+             list:[]
+         })
+         watch (
+              () =>state.list,
+              (val,oldVal) => {
+                 console.log(val)  
+              }
+         )
+         state.list.push(1)  // 不会触发watch
+         state.list = [1]    // 会触发watch
+
+         return {
+             state
+         }  
+      }
+
+  </script>
+
+---------------------------------------------------------------------------------------------------------
+  
+  computed计算属性：
+
+  Vue2.x中：
+
+  computed:{
+    storeData(){
+        return this.$store.state.storeData
+    }
+  }
+
+  Vue3中
+  <script>
+      import { computed } from 'vue' 
+      setup(){
+        const storeData = computed(() =>store.state.storeData)
+        return {
+            storeData
+        }
+      }
+
+  </script>
+
+-----------------------------------------------------------------------------------------------------------
+
+  Fragments
+
+  在Vue2.x中， <template>中的内容必须由一个最外层的父元素包裹
+
+  而在Vue3中，使用更加简单，可以直接省略最外层的元素，写法如下：
+
+ <template>
+    <header>
+    ...
+    </header>
+    <main>
+    ...
+    </main>
+    <footer>
+    ...
+    </footer>
+ </template>
+ 
+ ----------------------------------------------------------------------------------------------------------------
+
+ 在Vue3中添加了一个新的 <teleport>组件。
+
+ 要使用 <teleport>，首先要在页面上添加一个元素，我们要将模态内容移动到该页面。代码如下：
+ 
+ <script>
+     app.component('modal-button',{
+       template:`
+         <button @click="modalOpen = true">
+            open full screen modal!(with teleport !)
+         </button>
+         <teleport to = '#endofbody'>
+             <div v-if="modalOpen" class="modal">
+                ...
+             </div>
+          </teleport>            
+       `,
+       data(){
+         return{
+            modalOpen:false   
+         }  
+       }  
+     })
+ </script>
+
+ <body>
+
+ <div id="app">
+    <h3>width vue 3 teleport</h3> 
+ </div>
+
+ <div id="endofbody"></div> 
+
+ </body>
+
+ 其#endofbody表示此部分内容将会添加到页面底部。
+
+----------------------------------------------------------------------------------------------------------------
+
+<Suspense>是一个特殊的组件，它将呈现回退内容，而不是对于的组件，直到满足条件为止，
+    
+ 这种情况通常是组件setup功能中发生的异步操作或者是异步组件中使用。
+ 
+ 例如这里有一个场景，父组件展示的内容包含异步的子组件，异步的子组件需要一定的时间才可以加载并展示，
+ 
+ 这时就需要一个组件处理一些占位逻辑或者加载异常逻辑，要用到 Suspense
+ 
+ <Suspense>
+     <template>
+        <Suspended-component />
+     </template>
+     <template #fallback>
+          loading...
+     </template>
+ </Suspense>         
+
+ 上面代码中，假设 <Suspended-component>是一个异步组件，直到它完全加载并渲染前都会显示占位内容：Loading，
+
+ 这就是 <Suspense>的简单用法，该特性和Fragment以及 <teleport>一样
+
+----------------------------------------------------------------------------------------------------------------
+
+Vue3中移除的一些API和方法
+
+移除 $on,$off 和 $once方法
+
+在Vue2.x中可以通过EventBus的方法来实现组件通信：
+
+<script>
+    var EventBus = new Vue()
+    Vue.prototype.$EventBus = EventBus
+
+    this.$EventBus.$on()
+    this.$EventBus.$emit()
+
+</script>
+
+这种用法在Vue3中就不行了，在Vue3中移除了 $on,$off等方法（参考rfc），而是推荐使用mitt方案来代替：
+
+<script>
+
+    import mitt from 'mitt'
+
+    const emitter = mitt()
+
+    emitter.on('foo',e => console.log('foo',e ))
+    
+    emitter.emit('foo',{ a:'b'})
+
+</script>
+
+移除filters
+
+在Vue3中，移除了组件的filters项，可以使用methods的或者computed来进行替代：
+
+<template>
+    <p> {{ accountBalance | currencyUSD }}
+</template>
+
+<script>
+    export default{
+        filters:{
+            currencyUSD(value){
+              return "$" + value
+            }
+        }
+    }
+</script>
+
+替换为：
+
+<template>
+
+    <p> {{ accountInUSD }} </p>
+
+</template>
+
+<script>
+    export default{
+       props:{
+           accountBalance:{
+              type:Number,
+              required:true
+           }
+       },
+       computed:{
+          accountInUSD(){
+            return '$' + this.accountBalance  
+          }  
+       }    
+    }
+</script>
+
+----------------------------------------------------------------------------------------------------------------
+
+</html>

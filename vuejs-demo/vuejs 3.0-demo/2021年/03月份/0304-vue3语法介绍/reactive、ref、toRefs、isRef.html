@@ -1,0 +1,101 @@
+<html>
+    
+    创建响应式对象 reactive、ref、toRefs 用法 对应 vue2 中的 data
+
+    推荐写法3
+
+    <script>
+
+        // 写法一：响应式数据一多， return 要很多次； 使用数据的时候要通过state拿到
+        
+        <template>
+            <div>
+                <p>{{state.count}}</p>
+            </div>
+        </template>
+
+        import { reactive } from 'vue'
+        ...
+        setup(props, ctx) {
+            const state = reactive({ 
+                count: 0
+            })
+            return { state }
+        }
+
+---------------------------------------------------------------------------------------------
+       
+       // 写法二
+
+       <template>
+          <div>
+             <p>{{count}}</p>
+          </div>
+      </template>
+
+        import { reactive } from 'vue'
+        ...
+        setup(props, ctx) {
+            const state = reactive({ 
+                count: 0
+            })
+            return {
+                count: state.count
+            }
+        }
+
+---------------------------------------------------------------------------------------------
+       
+       // 写法三：推荐 通过 toRefs 代理对象, 再通过解构的方式取值
+
+       <template>
+            <div>
+                <p>{{count}}</p>
+            </div>
+       </template>
+
+        import { reactive, toRefs } from 'vue'
+        ...
+        setup(props, ctx) {
+
+            const state = reactive({ 
+                count: 0
+            })
+
+            return {
+                ...toRefs(state)
+            }
+        }
+
+---------------------------------------------------------------------------------------------
+       // 写法四：通过 ref() 函数包装, 返回值是一个对象，对象上只包含一个 value 属性, 就是要的属性值
+       <template>
+            <div>
+                <p>{{count}}</p>
+                <p>{{count1}}</p>
+            </div>
+       </template>
+
+        import { reactive, toRefs, ref } from 'vue'
+        ...
+        setup(props, ctx) {
+            // 父组件传递count属性
+            // 写法1
+            const count = ref(props.count)
+            console.log(count.value) // 对应props.count的值
+
+            // 写法2 
+            const state = reactive({ 
+                count1: ref(props.count)
+            })
+            
+            return {
+                count,
+                ...toRefs(state)
+            }
+        }
+
+    </script>
+
+
+</html>

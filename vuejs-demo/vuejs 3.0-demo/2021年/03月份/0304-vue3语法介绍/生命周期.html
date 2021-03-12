@@ -1,0 +1,29 @@
+<html>
+
+    我记得早期是说 vue3 中是移除掉了 beforeCreate、created两个生命周期； 
+    
+    但是实践的时候我发现还是可以写的； 因为vue2、 vue3 写法目前相兼容；
+
+    <script>
+
+        created () { console.log('created') }
+
+        setup (props, ctx) {
+
+            console.log('setup')
+            // mounted 新写法 记住一句话 所有的方式都是以函数的形式呈现
+            onMounted(() => {})
+
+        }
+
+        mounted () { console.log('mounted') }
+
+       // 执行顺序 setup created mounted
+
+    </script>
+    
+    虽然兼容但尽量不要这样写；向前看齐嘛； 强烈推荐全部都放在steup函数中
+
+
+
+</html>
