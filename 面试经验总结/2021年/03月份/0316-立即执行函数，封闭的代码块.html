@@ -1,0 +1,23 @@
+<html>
+    <script>
+
+         var bbb = 30;
+
+         (function(){
+            var ccc = 20;
+            console.log(bbb)
+            
+         })()
+         
+         console.log(ccc)
+         
+         // 输出的是  30   ccc is not defined 
+    </script>
+
+    注意，经测试，立即执行函数的前面，定义的变量不能缺少分号 ;  好像是会报错的。
+
+    bbb 为全局变量，是在全局上共享的一个变量
+
+    ccc 为局部变量，外部代码是不能用的
+     
+</html>

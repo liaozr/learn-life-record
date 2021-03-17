@@ -1,0 +1,30 @@
+<html>
+    <script>
+
+        // WebSocket 对象作为一个构造函数，用于新建 WebSocket 实例。
+        var ws = new WebSocket("wss://echo.websocket.org");
+        // 执行上面语句之后，客户端就会与服务器进行连接。
+
+
+        // 实例对象的onopen属性，用于指定连接成功后的回调函数。
+        ws.onopen = function(evt) { 
+            console.log("Connection open ...");
+
+            ws.send("Hello WebSockets!");
+            // 实例对象的send()方法用于向服务器发送数据。
+            
+        };
+
+        // 实例对象的onmessage属性，用于指定收到服务器数据后的回调函数
+        ws.onmessage = function(evt) {
+            console.log( "Received Message: " + evt.data);
+            ws.close();
+        };
+        
+        // 实例对象的onclose属性，用于指定连接关闭后的回调函数。
+        ws.onclose = function(evt) {
+           console.log("Connection closed.");
+        }; 
+
+    </script>
+</html>

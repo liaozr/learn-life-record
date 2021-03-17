@@ -1,0 +1,300 @@
+<html>
+
+-------------------------------------------------------------------------------------------------------  
+   
+   <script>
+
+        console.log(1);
+
+        setTimeout(() => {
+            console.log(2);
+            process.nextTick(() => {
+                console.log(3);
+            });
+            new Promise((resolve) => {
+                console.log(4);
+                resolve();
+            }).then(() => {
+                console.log(5);
+            });
+        });
+
+        new Promise((resolve) => {
+            console.log(7);
+            resolve();
+        }).then(() => {
+            console.log(8);
+        });
+
+        process.nextTick(() => {
+            console.log(6);
+        });
+
+        setTimeout(() => { 
+            console.log(9);
+            process.nextTick(() => {
+                console.log(10);
+            });
+            new Promise((resolve) => {
+                console.log(11);
+                resolve();
+            }).then(() => {
+                console.log(12);
+            });
+        });
+       
+        // 1 7 6  8  2  4  9  11  3 10  5 12
+ 
+    </script>
+
+    宏任务和微任务
+
+
+    宏任务：macrotask,包括setTimeout、setInerVal、setImmediate(node独有)、
+    requestAnimationFrame(浏览器独有)、I/O、UI rendering(浏览器独有)
+
+    微任务：microtask,包括process.nextTick(Node独有)、Promise.then()、
+    Object.observe、MutationObserver
+
+    Promise构造函数中的代码是同步执行的，new Promise()构造函数中的代码是同步代码，并不是微任务
+
+    Promise构造函数中的代码是同步执行的，new Promise()构造函数中的代码是同步代码，并不是微任务
+
+    Promise构造函数中的代码是同步执行的，new Promise()构造函数中的代码是同步代码，并不是微任务
+
+    Promise构造函数中的代码是同步执行的，new Promise()构造函数中的代码是同步代码，并不是微任务
+
+-------------------------------------------------------------------------------------------------------
+
+Promise本身是同步的立即执行函数， 当在executor中执行resolve或者reject的时候, 
+
+此时是异步操作， 会先执行then/catch等，当主栈完成后，
+
+才会去调用resolve/reject中存放的方法执行，打印p的时候，是打印的返回结果，一个Promise实例。
+
+<script>
+    console.log('script start')
+
+    let promise1 = new Promise(function (resolve) {
+        console.log('promise1')
+        resolve()
+        console.log('promise1 end')
+    }).then(function () {
+        console.log('promise2')
+    })
+
+    setTimeout(function(){
+        console.log('settimeout')
+    })
+
+    console.log('script end')
+
+    // 输出顺序: script start->promise1->promise1 end->script end->promise2->settimeout
+</script>
+
+-------------------------------------------------------------------------------------------------------
+
+async/await
+
+<script>
+
+    async function async1(){
+        console.log('async1 start');
+        await async2();
+        console.log('async1 end')
+    }
+    async function async2(){
+        console.log('async2')
+    }
+
+    console.log('script start');
+    async1();
+    console.log('script end')
+
+    // 输出顺序：script start->async1 start->async2->script end->async1 end
+
+</script>
+
+   async 函数返回一个 Promise 对象，当函数执行的时候，一旦遇到 await 就会先返回，
+   
+   等到触发的异步操作完成，再执行函数体内后面的语句。
+   
+   可以理解为，是让出了线程，跳出了 async 函数体。
+
+
+   await的含义为等待，也就是 async 函数需要等待await后的函数执行完成并且有了
+   
+   返回结果（Promise对象）之后，才能继续执行下面的代码。
+   
+   await通过返回一个Promise对象来实现同步的效果。
+
+-------------------------------------------------------------------------------------------------------
+
+<script>
+
+    async function async1() {
+        console.log('async1 start');
+        await async2();
+        console.log('async1 end');
+    }
+
+    async function async2() {
+        console.log('async2');
+    }
+
+    console.log('script start');
+
+    setTimeout(function() {
+        console.log('setTimeout');
+    }, 0)
+
+    async1();
+
+    new Promise(function(resolve) {
+        console.log('promise1');
+        resolve();
+    }).then(function() {
+        console.log('promise2');
+    });
+
+    console.log('script end');
+
+    // 执行顺序：script start   async1 start   async2        promise1    
+    //          script end     async1 end     promise2      setTimeout
+    
+</script>
+
+-------------------------------------------------------------------------------------------------------
+
+首先我们需要明白以下几件事情：
+
+js 分为同步任务和异步任务
+
+同步任务都在主线程上执行，形成一个执行栈
+
+主线程之外，事件触发线程管理着一个任务队列，只要异步任务有了运行结果，就在任务队列之中放置一个事件。
+
+一旦执行栈中的所有同步任务执行完毕（此时JS引擎空闲），系统就会读取任务队列，
+
+将可运行的异步任务添加到可执行栈中，开始执行。
+
+-------------------------------------------------------------------------------------------------------
+
+宏任务
+
+(macro)task（又称之为宏任务），可以理解是每次执行栈执行的代码就是一个宏任务
+
+（包括每次从事件队列中获取一个事件回调并放到执行栈中执行）。
+
+
+浏览器为了能够使得js内部(macro)task与DOM任务能够有序的执行，
+
+会在一个(macro)task执行结束后，在下一个(macro)task 执行开始前，对页面进行重新渲染
+
+
+(macro)task主要包含：script(整体代码)、setTimeout、
+
+setInterval、I/O、UI交互事件、postMessage、MessageChannel、setImmediate(Node.js 环境)
+
+-------------------------------------------------------------------------------------------------------
+
+微任务
+
+microtask（又称为微任务），可以理解是在当前 task 执行结束后立即执行的任务。
+
+也就是说，在当前task任务后，下一个task之前，在渲染之前。
+
+所以它的响应速度相比setTimeout（setTimeout是task）会更快，因为无需等渲染。
+
+也就是说，在某一个macrotask执行完后，就会将在它执行期间产生的所有microtask都执行完毕（在渲染前）。
+
+microtask主要包含：Promise.then、MutaionObserver、process.nextTick(Node.js 环境)
+
+-------------------------------------------------------------------------------------------------------
+
+Promise中的异步体现在then和catch中，所以写在Promise中的代码是被当做同步任务立即执行的。
+
+而在async/await中，在出现await出现之前，其中的代码也是立即执行的
+
+-------------------------------------------------------------------------------------------------------
+
+await做了什么 ( await是一个让出线程的标志 )
+
+从字面意思上看await就是等待，await 等待的是一个表达式，这个表达式的返回值可以是一个promise对象也可以是其他值。
+
+很多人以为await会一直等待之后的表达式执行完之后才会继续执行后面的代码，
+
+
+实际上await是一个让出线程的标志。
+
+await后面的表达式会先执行一遍，将await后面的代码加入到microtask中，
+
+然后就会跳出整个async函数来执行后面的代码。
+
+-------------------------------------------------------------------------------------------------------
+
+<script>
+
+    async function async1() {
+        
+        console.log('async1 start');
+
+        await async2();
+
+        console.log('async1 end');
+
+    }
+    
+    // 等价于
+
+    async function async1() {
+        console.log('async1 start');
+        Promise.resolve(async2()).then(() => {
+
+            console.log('async1 end');
+
+        })
+    }
+
+</script>
+
+-------------------------------------------------------------------------------------------------------
+
+<script>
+
+    console.log('start')
+
+    setTimeout(() => {
+        console.log('timer1')
+        Promise.resolve().then(function() {
+            console.log('promise1')
+        })
+    }, 0)
+
+    setTimeout(() => {
+        console.log('timer2')
+        Promise.resolve().then(function() {
+            console.log('promise2')
+        })
+    }, 0)
+
+    Promise.resolve().then(function() {
+        console.log('promise3')
+    })
+    
+    console.log('end')
+    
+    // start
+    // end
+    // promise3
+    // timer1
+    // promise1
+    // timer2
+    // promise2
+
+</script> 
+
+-------------------------------------------------------------------------------------------------------
+
+
+</html>

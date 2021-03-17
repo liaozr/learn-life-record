@@ -1,0 +1,27 @@
+<html>
+
+
+    obj={
+        a:1,
+        b:2
+    }
+    obj2={
+        a:1,
+        b:2
+    }
+    obj3={
+        a:1,
+        b:'2'
+    }
+
+    最开始的思路是遍历来判断，但是最后好像没有说清楚，查了下，好像可以转换为字符串来判断。
+
+    <script>
+
+        JSON.stringify(obj)==JSON.stringify(obj2);//true
+        JSON.stringify(obj)==JSON.stringify(obj3);//false
+
+    </script>
+
+
+</html>
