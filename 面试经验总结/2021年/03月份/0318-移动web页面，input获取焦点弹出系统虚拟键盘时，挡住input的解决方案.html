@@ -1,0 +1,18 @@
+<html>
+   
+    输入框获取到焦点的时候，执行下面代码（vue.js中）
+
+    focus:function(){
+        let _this = this;
+        setTimeout(function(){
+            let pannel = document.getElementById("chatpannel") // 你输入框所在的那个块儿
+            // let pannel = _this.$refs.chatpannel;      // vuejs 中
+
+            pannel.scrollIntoView(true);               
+            pannel.scrollIntoViewIfNeeded();
+
+        },200) 
+        // 做个延时，键盘弹起需要时间
+    } 
+
+</html>

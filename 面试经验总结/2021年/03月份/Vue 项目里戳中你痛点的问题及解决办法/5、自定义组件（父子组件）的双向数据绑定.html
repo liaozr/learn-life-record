@@ -1,0 +1,82 @@
+<html>
+
+        其实v-model是个语法糖，上面这一段代码和下面这一段代码是一样的效果：
+
+        <input type="text" :value="msg" @input="msg = $event.target.value">
+
+        data () {
+            return {
+                msg: '' 
+            }        
+        }
+
+-----------------------------------------------------------------------------------------------------
+        父组件用法：
+        <empty v-model="msg"></empty>
+        子组件写法：点击该按钮触发父子组件的数据同步
+        <div class="share-btn" @click="confirm">确定</div>
+        接收父组件传递的value值
+        注意，这种实现方法，这里只能使用value属性名
+        props: {            
+            value: {                
+                type: Boolean,                
+                default: false            
+            }        
+        },
+        methods: {            
+            confirm () {                
+                // 双向数据绑定父组件:value对应的值 
+                // 通过$emit触发父组件input事件，第二个参数为传递给父组件的值，这里传递了一个false值 
+                // 可以理解为最上面展示的@input="msg = $event.target.value"这个事件
+                // 即触发父组件的input事件，并将传递的值'false'赋值给msg             
+                this.$emit('input', false)            
+            }        
+        }
+        这种方式实现了父子组件见v-model双向数据绑定的操作，
+        例如你可以试一下实现一个全局弹窗组件的操作，通过v-model控制弹窗的显示隐藏，
+        因为你要在页面内进行某些操作将他显示出来，控制其隐藏的代码是写在组件里面的，
+        当组件隐藏了对应的也要父组件对应的值改变。
+
+ -----------------------------------------------------------------------------------------------------
+       
+       为了更优雅的使用v-model通信而解决冲突的问题，我们可以通过在子组件中使用model选项，
+       下面演示写法2：
+
+       父组件写法：<empty v-model="msg"></empty>
+       
+       子组件写法：<div class="share-btn" @click="confirm">确定</div>
+
+        // model选项用来避免冲突
+        // prop属性用来指定props属性中的哪个值用来接收父组件v-model传递的值
+        // 例如这里用props中的show来接收父组件传递的v-model值
+        // event：为了方便理解，可以简单理解为父组件@input的别名，从而避免冲突
+        // event的值对应了你emit时要提交的事件名，你可以叫aa，也可以叫bb，但是要命名要有意义哦！！！
+
+        model: {            
+            prop: 'show',            
+            event:'changed'        
+        },
+        props: {
+            // 由于model选项中的prop属性指定了，所以show接收的是父组件v-model传递的值            
+            show: {                
+                type: Boolean,                
+                default: false            
+            }        
+        },        
+        methods:{            
+            confirm () {                
+                // 双向数据绑定父组件传递的值
+                // 第一个参数，对应model选项的event的值，你可以叫aa，bbb，ccc，起名随你 
+                this.$emit('changed', false)            
+            }        
+        }
+
+        这种实现父子组件见v-model绑定值的方法，在我们开发中其实是很常用的，特别是你要封装公共组件的时候。
+        
+-----------------------------------------------------------------------------------------------------
+
+
+
+
+
+</html>

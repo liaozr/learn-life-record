@@ -1,0 +1,61 @@
+<html>
+     
+    Promise 状态的不可逆性
+
+    var p1 = new Promise(function(resolve, reject){
+      resolve("success1");
+      resolve("success2");
+    });
+    
+    var p2 = new Promise(function(resolve, reject){
+       resolve("success");
+       reject("reject");
+    });
+    
+    p1.then(function(value){
+      console.log(value);
+    });
+    
+    p2.then(function(value){
+      console.log(value);
+    });
+    
+    控制台输出：
+    "success1"
+    "success"
+
+-------------------------------------------------------------------------------------------------------
+    
+    Promise状态的一旦变成 resolved 或 rejected 时，Promise的状态和值就固定下来了，
+    
+    不论你后续再怎么调用 resolve 或 reject 方法，都不能改变它的状态和值。
+    
+    因此，p1中 resolve("success2") 并不能将p1的值 更改为 success2，
+    
+    p2中 reject("reject")也不能将p2的状态由 resolved 改变为 rejected.
+
+------------------------------------------------------------------------------------------------------
+   
+    Promise then() 回调异步性
+    
+    <script>
+        
+        var p = new Promise(function(resolve, reject){
+            resolve("success");
+        });
+
+        p.then(function(value){
+            console.log(value);
+        });
+
+        console.log("which one is called first ?");
+
+        // "which one is called first ?"
+        // "success"
+
+    </script>
+
+------------------------------------------------------------------------------------------------------
+
+
+</html>
