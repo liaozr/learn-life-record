@@ -17,7 +17,6 @@ MVVM是Model-View-ViewModel缩写，也就是把MVC中的Controller演变成View
 Vue在初始化数据时，会使用Object.defineProperty重新定义data中的所有属性，当页面使用对应属性时，首先会进行依赖收集(收集当前组件的watcher)如果属性发生变化会通知相关依赖进行更新操作(发布订阅)。
 
 
-
 2.那你知道Vue3.x响应式数据原理吗？
 
 (还好我有看，这个难不倒我)
@@ -28,8 +27,6 @@ Proxy只会代理对象的第一层，那么Vue3又是怎样处理这个问题�
 （很简单啊）
 判断当前Reflect.get的返回值是否为Object，如果是则再通过reactive方法做代理，
 这样就实现了深度观测。
-
-
 
 4.nextTick知道吗，实现原理是什么？
 

@@ -17,17 +17,19 @@
 
 -----------------------------------------------------------------------------------------------
 
-
+2                                                                               
 使用 immediate: true 在初始化时触发watcher
 
 Vue Watchers 是添加高级功能（例如，API调用）的好方法，该功能可以在观察值发生变化时运行。
 默认情况下，观察者不会在初始化时运行。根据你的功能，这可能意味着某些数据不会完全初始化。
+
 watch: {
     title: (newTitle, oldTitle) => {
       console.log("Title changed from " + oldTitle + " to " + newTitle)
     }
 }
-复制代码如果你需要 wather 在实例初始化后立即运行，那么你所要做的就是将 
+
+如果你需要 wather 在实例初始化后立即运行，那么你所要做的就是将 
 
 wather 转换为具有 handler(newVal, oldVal) 函数以及即时 immediate: true 的对象。
 

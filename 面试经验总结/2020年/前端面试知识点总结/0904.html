@@ -32,7 +32,8 @@ this总是指向函数的直接调用者（而非间接调用者） 如果有new
 
 
 6、「闭包」
-一个父函数里面包含了一个子函数，子函数调用了父函数内部的变量，如果子函数在外部被调用，就产生了闭包。简单的说，闭包就是能够读取其他函数内部变量的函数。
+一个父函数里面包含了一个子函数，子函数调用了父函数内部的变量，如果子函数在外部被调用，就产生了闭包。
+简单的说，闭包就是能够读取其他函数内部变量的函数。
 闭包的作用：
 ①读取其他函数内部的变量
 ②变量保存在内存中
@@ -134,15 +135,16 @@ JavaScript 如何实现继承？
 	var jiaoben = new Standard();
 	jiaoben.event();
 
-
 	(6)用混合方式来创建
 	function iPhone(name,event) {
 	   this.name = name;
 	   this.event = event;
 	}
+
 	iPhone.prototype.sell = function() { 
 	  alert("我是"+this.name+"，我是iPhone5s的"+this.event+"~ haha!");
 	}
+
 	var SE = new iPhone("iPhone SE","官方翻新机");
 	SE.sell();
 
