@@ -8,10 +8,12 @@
 
 1、简单类型：String、Number、Boolean、Null、Undefined
 
-2、null与undefined有什么区别 答：null 表示一个对象被定义了，值为“空值”，而undefined 表示不存在这个值。 正因为这个原因，所以使用typeof判断是，null返回的是object，而undefined返回的是undefined。(判断两者时需要使用===严格判断)                         
+2、null与undefined有什么区别 答：null 表示一个对象被定义了，值为“空值”，而undefined 表示不存在这个值。 
+正因为这个原因，所以使用typeof判断是，null返回的是object，而undefined返回的是undefined。
+(判断两者时需要使用===严格判断)                         
+
 
 3、如何通过JS判断一个数组？
-
 instanceof方法
 
 
@@ -25,8 +27,8 @@ instanceof方法
 
 5、this的指向在函数定义的时候是确定不了的，
 只有函数执行的时候才能确定this到底指向谁，实际上this的最终指向的是那个调用它的对象。
-
-this总是指向函数的直接调用者（而非间接调用者） 如果有new关键字，this指向new出来的那个对象 在事件中，this指向触发这个事件的对象，特殊的是，IE中的attachEvent中的this总是指向全局对象Window
+this总是指向函数的直接调用者（而非间接调用者） 如果有new关键字，this指向new出来的那个对象 在事件中
+this指向触发这个事件的对象，特殊的是，IE中的attachEvent中的this总是指向全局对象Window
 
 
 6、「闭包」
@@ -38,20 +40,17 @@ this总是指向函数的直接调用者（而非间接调用者） 如果有new
 注意：
 使用过多的闭包会消耗大量内存，造成网页的性能问题，可以在函数执行完成之前把不需要的局部变量删除。
 
-特性：
+特性： 
 函数嵌套函数
 函数内部可以引用外部的参数和变量
 参数和变量不会被垃圾回收机制回收
-
 
 7、getElementsByTagName() //通过标签名查找
 getElementsByName() //通过元素的name属性查找
 getElementById() //通过元素的id查找
 
-
 8、说说你对作用于链的理解
 作用域链中的变量都是向上访问的，变量访问到windows对象后终止，向下访问是不允许的。 简单的说，作用域就是变量函数的可访问范围。
-
 
 9、js原型，原型链有什么特点
 
@@ -63,10 +62,11 @@ getElementById() //通过元素的id查找
 
 异步：浏览器访问服务器请求，用户正常操作，浏览器后端进行请求。等请求完，页面不刷新，新内容也会出现，用户看到新内容。
 
-
 11、说说你对Promise的理解
 
-所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。
+所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。
+
+从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。
 Promise对象有以下两个特点:
 
 对象的状态不受外界影响，Promise对象代表一个异步操作，有三种状态：Pending（进行中）、Resolved（已完成，又称Fulfilled）和Rejected（已失败）
@@ -78,7 +78,7 @@ shift 方法
 var a=[1,2];
 alert(a.shift());
 unshift 方法
-将指定的元素插入数组开始位置并返回该数组。
+将指定的元素插入数组开始位置并返/回该数组。
 
 13、
 JavaScript 如何实现继承？
