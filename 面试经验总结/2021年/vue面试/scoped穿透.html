@@ -1,0 +1,37 @@
+<html>
+    1.在模板中使用两次style标签
+
+	<style lang="scss">
+	    /*添加要覆盖的样式*/
+	</style>
+
+	<style lang="scss" scoped>
+	    /* local styles */
+	</style>
+	
+-----------------------------------------------------------------------------------------------------
+        
+    2.使用 >>>或者 /deep/ 操作符（Sass 之类的预处理器无法正确解析 >>>，可以使用/deep/）
+
+    <style lang="scss" scoped>
+        .box {
+            /deep/ input {
+                width: 166px;
+                text-align: center;
+            }
+        }
+    </style>
+
+    或者
+
+    <style lang="scss" scoped>
+        .box >>> input {
+            width: 166px;
+            text-align: center;
+        }
+    </style>
+
+-----------------------------------------------------------------------------------------------------
+
+
+</html>

@@ -1,0 +1,36 @@
+<html>
+
+使用 wx.navigateTo 与 wx.redirectTo 的时候，可以将部分数据放在 url 里面，并在新页面 onLoad 的时候初始化
+
+// Navigate
+wx.navigateTo({
+  url: '../pageD/pageD?name=raymond&gender=male',
+})
+
+// Redirect
+wx.redirectTo({
+  url: '../pageD/pageD?name=raymond&gender=male',
+})
+
+// pageB.js
+...
+Page({
+  onLoad: function(option){
+    console.log(option.name + 'is' + option.gender)
+    this.setData({
+      option: option
+    })
+  }
+})
+
+
+需要注意的问题：
+
+wx.navigateTo 和 wx.redirectTo 不允许跳转到 tab 所包含的页面
+
+onLoad 只执行一次
+
+使用本地缓存 Storage 相关
+
+
+</html>

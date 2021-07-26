@@ -1,0 +1,24 @@
+<html>
+    
+
+    当我们监听一个基本数据类型时：
+
+        watch: {
+            value () {
+                // do something
+            }
+        }
+
+    当我们监听一个引用数据类型时：
+
+        watch: {
+            obj: {
+                handler () { // 执行回调
+                    // do something
+                },
+                deep: true, // 是否进行深度监听
+                immediate: true // 是否初始执行handler函数
+            }
+        }
+
+</html>

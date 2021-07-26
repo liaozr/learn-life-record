@@ -1,0 +1,36 @@
+<html>
+    
+        在我们的Vue开发中，会有一些数据，从始至终都未曾改变过，这种死数据，
+
+        既然不改变，那也就不需要对他做响应式处理了，不然只会做一些无用功消耗性能，比
+
+        如一些写死的下拉框，写死的表格数据，
+            
+        这些数据量大的死数据，如果都进行响应式处理，那会消耗大量性能。
+
+--------------------------------------------------------------------------------------------------------
+        
+        将数据定义在data之外
+        
+       <script>
+            data () {
+
+                this.list1 = { xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx }
+                this.list2 = { xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx }
+                this.list3 = { xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx }
+                this.list4 = { xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx }
+                this.list5 = { xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx }
+
+                return {
+
+                }
+            }
+                
+       </script>
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+
+</html>

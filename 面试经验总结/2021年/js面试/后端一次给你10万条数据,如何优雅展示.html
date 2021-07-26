@@ -1,0 +1,69 @@
+<html>
+    
+    既然一次渲染10万条数据会造成页面加载速度缓慢，那么我们可以不要一次性渲染这么多数据，而是分批次渲染，
+
+    比如一次10000条，分10次来完成， 这样或许会对页面的渲染速度有提升。 然而，如果这13次操作在同一个代码执行流程中运行，
+
+    那似乎不但无法解决糟糕的页面卡顿问题，反而会将代码复杂化。 类似的问题在其它语言最佳的解决方案是使用多线程，
+
+    JavaScript虽然没有多线程，但是setTimeout和setInterval两个函数却能起到和多线程差不多的效果。 
+
+    因此，要解决这个问题， 其中的setTimeout便可以大显身手。
+
+    setTimeout函数的功能可以看作是在指定时间之后启动一个新的线程来完成任务。
+
+
+ --------------------------------------------------------------------------------------------------------
+
+    <script>
+        function loadAll(response) {
+            //将10万条数据分组， 每组500条，一共200组
+            var groups = group(response);
+            for (var i = 0; i < groups.length; i++) {
+                //闭包， 保持i值的正确性
+                window.setTimeout(function () {
+                    var group = groups[i];
+                    var index = i + 1;
+                    return function () {
+                        //分批渲染
+                        loadPart( group, index );
+                    }
+                }(), 1);
+            }
+        }
+
+        //数据分组函数（每组500条）
+        function group(data) {
+        var result = [];
+        var groupItem;
+        for (var i = 0; i < data.length; i++) {
+            if (i % 500 == 0) {
+                groupItem != null && result.push(groupItem);
+                groupItem = [];
+            }
+            groupItem.push(data[i]);
+        }
+        result.push(groupItem);
+        return result;
+        }
+        var currIndex = 0;
+        //加载某一批数据的函数
+        function loadPart( group, index ) {
+            var html = "";
+            for (var i = 0; i < group.length; i++) {
+                var item = group[i];
+                html += "<li>title:" + item.title + index + " content:" + item.content + index + "</li>";
+            }
+            //保证顺序不错乱
+            while (index - currIndex == 1) {
+                $("#content").append(html);
+                currIndex = index;
+            }
+        }
+
+
+    </script>   
+
+--------------------------------------------------------------------------------------------------------
+
+</html>

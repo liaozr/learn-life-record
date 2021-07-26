@@ -1,0 +1,16 @@
+<html>
+
+
+    .passive
+
+    当我们在监听元素滚动事件的时候，会一直触发onscroll事件，
+    
+    在pc端是没啥问题的，但是在移动端，会让我们的网页变卡，因此我们使用这个修饰符的时候，
+    
+    相当于给onscroll事件整了一个.lazy修饰符
+
+    <div @scroll.passive="onScroll">...</div>
+
+    
+
+</html>

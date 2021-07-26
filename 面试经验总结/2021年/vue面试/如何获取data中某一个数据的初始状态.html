@@ -1,0 +1,24 @@
+<html>
+    
+        data() {
+            return {
+            num: 10
+        },
+        mounted() {
+            this.num = 1000
+        },
+        methods: {
+            howMuch() {
+                // 计算出num增加了多少，那就是1000 - 初始值
+                // 可以通过this.$options.data().xxx来获取初始值
+                console.log(1000 - this.$options.data().num)
+            }
+        }
+
+        this.$options.data().num
+
+        this.$options.data().num
+
+        this.$options.data().num
+
+</html>
