@@ -1,0 +1,25 @@
+<html>
+
+
+    android需勾选 android.permission.INSTALL_PACKAGES 及 
+
+
+    android.permission.REQUEST_INSTALL_PACKAGES权限，避免有些机型安装出现问题。
+
+
+    如有涉及到相册读写权限ios需要填写描述：如（‘如需要上传或保存图片，我们会使用该权限’）
+
+
+    去除ios默认的底部安全区需在
+    
+    manifest.json中 app-plus 属性下配置：
+
+    "safearea" : {
+        "bottom" : {
+            "offset" : "none"
+        }
+    }
+
+
+
+</html>

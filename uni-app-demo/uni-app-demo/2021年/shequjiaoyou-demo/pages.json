@@ -1,4 +1,5 @@
-{
+{   
+	// 修改了pages.json文件里面的文件需要重启
 	"pages": [ //pages数组中第一项表示应用启动页
 		{
 			"path": "pages/index/index",
@@ -7,20 +8,24 @@
 					// 导航栏配置
 					"titleNView":{	
 						// 搜索框配置
+						// disabled:true 代表着搜索框处于禁用状态
 						"searchInput":{
 							"align":"center",
 							"backgroundColor":"#f5f4f2",
 							"borderRadius":"4px",
-					        "disabled":true,
+					        "disabled":true, 
 							"placeholder":"搜索帖子",
 							"placeholderColor":"#6d6c67"					
-						},							
-						"button":[								
+						},
+						//搜索框的按钮							
+						"buttons":[								
 							{
 							  "color":"#333333",
 							  "colorPressed":"#fd597c",
 					          "float":"right",
-							  "fontSize":"20px"									  
+							  "fontSize":"20px",
+							  "fontSrc":"/static/iconfont.ttf",
+							  "text":"\ue668"										  
 							}
 						]
 					}
@@ -35,9 +40,23 @@
             "path" : "pages/msgs/msgs",
             "style" : {}
         }
-        ,{
-            "path" : "pages/my/my",
-            "style" : {}
+        ,
+		// navigationBarTitleText 导航栏标题
+		{
+            "path" : "pages/my/mine",
+            "style" : {
+				"navigationBarTitleText":"我的",	
+				"app-plus":{
+					  //app中的导航栏，不会在小程序上生效的
+					 "titleNView":{
+						  "buttons":[
+							   {
+								  "type":"menu"  
+							   }
+						  ] 
+					  }
+				}
+			}
         }
     ],
 	"globalStyle": {
@@ -71,7 +90,7 @@
 			  "selectedIconPath":"static/tabBar/homeed.png"
 			},
 			{
-			  "pagePath":"pages/my/my",
+			  "pagePath":"pages/my/mine",
 			  "text":"我的",
 			  "iconPath":"./static/tabBar/my.png",
 			  "selectedIconPath":"static/tabBar/myed.png"

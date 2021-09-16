@@ -1,6 +1,6 @@
 <template>
 	<view>
-		新闻动态页面
+		<text>新闻动态页面33</text>
 	</view>
 </template>
 

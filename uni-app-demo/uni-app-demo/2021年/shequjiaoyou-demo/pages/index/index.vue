@@ -4,8 +4,8 @@
 		<view class="text-area">
 			<text class="title">{{title}}</text>
 		</view>
-		<view class="animated faster" hover-class="pulse" style="border:1px solid #09BB07;width:100px;height:100px;">
-			 
+		<view class="animated faster" hover-class="pulse" 
+		style="border:1px solid #09BB07;width:100px;height:100px;">
 		</view>
 	</view>
 </template>

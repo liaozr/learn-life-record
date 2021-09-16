@@ -1,0 +1,29 @@
+<html>
+
+
+uniapp提供了内置 CSS 变量:
+
+
+--status-bar-height为 系统状态栏高度，此变量常用于自定义导航栏，还是很方便的。
+
+
+--window-top: 内容区域距离顶部的距离 ,--window-bottom : 
+
+内容区域距离底部的距离。内容区域就是去除系统状态栏，原生导航栏和底部安全区的区域。
+
+
+此外还有两个CSS变量在适配iphone过程中是常用到的：
+
+constant(safe-area-inset-bottom),env(safe-area-inset-bottom),
+
+如避开 iPhoneX  底部安全区：
+
+<style>
+  .safeArea {  
+    padding-bottom: 0;  
+    padding-bottom: constant(safe-area-inset-bottom);  
+    padding-bottom: env(safe-area-inset-bottom);  
+  }  
+</style>
+
+</html>

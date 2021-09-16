@@ -1,0 +1,30 @@
+<html>
+
+    <script>
+
+        "style" : {
+              "navigationBarTitleText": "导航标题",
+              "app-plus": {
+                  //导航栏底部边框配置
+                  "titleNView": {
+                      "splitLine": {
+                          "color": "#f2f2f2"//边框颜色
+                      }
+                  },
+                  "bounce": "none",//橡皮回弹效果
+                   "scrollIndicator": "none",//不显示滚动条
+                       
+                       //如果是自定义导航栏，使用系统默认的下拉刷新，会使在下拉过程中导航栏一起被拉下来，因为默认使用的是default刷新样式，这时需要使用circle刷新样式才不会出现问题，需要在对应页面下配置：
+                   "pullToRefresh": {
+                       "support": true,//开启下拉刷新
+                       "color": "#2F89FC",//圆圈颜色
+                       "style": "circle",
+                       "offset": "50px"//离顶部的距离
+                    }
+              }
+          }
+
+    </script>
+
+
+</html>

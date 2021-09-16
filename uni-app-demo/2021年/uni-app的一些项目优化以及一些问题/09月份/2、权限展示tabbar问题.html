@@ -1,0 +1,38 @@
+<html>
+
+    需求：根据不同权限展示相应的tabbar
+
+    目前有两种思路：
+
+    自定义tabbar，不在pages.json里配置tabBar相关数据，将tabbar对应的item写成组件，
+    在统一的home页根据权限展示相应的tabbar。
+
+    在pages.json里配置tabBar相关数据，重写原生tabbar，
+    然后利用uni.hideTabBar这个API隐藏原生tabbar，
+    在自定义tabbar内切换 item时 调用 uni.switchTab 以达到切换目的。
+
+    还有个要注意的就是tabbar页面只能用uni.switchTab来跳转。
+
+    还有个要注意的就是tabbar页面只能用uni.switchTab来跳转。
+
+
+
+    但是这两种方案都有一定的瑕疵，第一种最大的问题就是没有缓存机制，每次切换都是重新渲染，
+    
+    第二种容易出现选中item和对应页面不一致的情况（可通过vuex解决）。
+    
+    总之自定义tabbar是有很多问题的，目前uni官方也还没有出相关api去解决类似场景:no_mouth:
+
+​	 时隔几天，再次更新，项目中使用了第二种思路，
+
+    但在ios在切换tabbar的时候，会有机率出现tabbar被抬高底部白条的情况， 
+    
+    而且只有第一次打开的tabbar页会有这个问题，切换至其他tabbar又恢复正常，
+    
+    类似问题 【报Bug】uni-app V3编译器，uni.hideTabBar()不能正确隐藏底部tabbar  ,
+    
+    最后调试发现 reLaunch 页面才能解决~
+
+
+
+</html>

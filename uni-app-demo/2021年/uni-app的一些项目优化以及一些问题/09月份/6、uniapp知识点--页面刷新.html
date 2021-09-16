@@ -1,0 +1,38 @@
+<html>
+   
+
+向上一个页面传递数据
+
+<script>
+
+    uni.navigateBack({
+        success: () => {
+            let page = getCurrentPages().pop();//跳转页面成功之后
+            if (!page) return;
+            let options = {
+              xx:xx  //例如上一页面是id为2的数据,要传递回去
+            }
+            page.onLoad(options);
+        }
+    })
+
+</script>
+
+如果说我们想用返回的上一个页面的options,用page自带的options
+
+<script>
+
+    uni.navigateBack({
+        success: () => {
+            let page = getCurrentPages().pop();  //跳转页面成功之后
+            if (!page) {
+              return;
+            } else {
+              page.onLoad(page.options);// page自带options对象.
+            }
+        }
+    })
+
+</script>
+
+</html>
