@@ -1,3 +1,61 @@
 <html>
-    
+
+--------------------------------------------------------------------------------------
+
+前端业务
+
+比如小明在手机上用微信登录，他如果是首次登录，就要用一个系统账号绑定，比如admin账号，
+他得完成两步操作：1、微信授权并获取微信账号信息；2、微信账号绑定系统账号；
+
+
+第一步，获取微信账号信息，简单总结就是先获得用户授权，然后用开发者AppID及
+AppSecret调用特定的登录接口得到用户信息及openid等信息。
+
+
+第二步，当拿到这些信息后，还要回到前端界面，再给一个登录操作界面，这一步，
+是用来输入系统用户名及密码的。
+
+--------------------------------------------------------------------------------------
+
+微信登录要弹出授权页面，视图层代码有特殊格式，
+得这么写"<button open-type="getUserInfo"/>",然后在触发按钮事件方法时才会弹出授权页面
+，授权后再调用uni.login这个api，这一步是获取code，code相当于一个凭证，
+是临时的，每次调用都不同。前端拿到这个凭证，到后端调用服务端接口'wxlogin'
+
+<script>
+  xcxWxLogin() {
+    var self = this;
+    uni.login({
+        provider: 'weixin',
+        success: function(res) {
+            if (res.code) {
+                //发起网络请求
+                uni.request({
+                    method: 'POST',
+                    url: 'http://************/wxlogin',
+                    data: {
+                        code: res.code
+                    },
+                    success(res) {
+                        //将openid存入本地缓存
+                        uni.setStorage({
+                            key: 'openid_key',
+                            data: res.data.openid
+                        });
+                        if (res.statusCode == 200 && res.data && res.data.username) {
+                            self.isFirstWXLogin = false;
+                            self.name = res.data.username;
+                            self.password = res.data.password;
+                        }    
+                    }
+                })        
+            }
+        }
+    })                        
+   }
+</script>
+
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+
 </html>
