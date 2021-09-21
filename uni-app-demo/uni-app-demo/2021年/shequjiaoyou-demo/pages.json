@@ -1,4 +1,14 @@
 {   
+	"condition": {
+		"current": 0,  // 当前激活的模式，list节点的索引值
+		"list": [      // 启动模式列表
+			{
+				"name": "index",  // 启动模式名称
+				"path": "pages/msgs/msgs",  // 启动页面路径
+				"query": "isShowHelp=1"     //启动参数,可在页面的 onLoad 函数里获得
+			}				
+		]
+	},
 	// 修改了pages.json文件里面的文件需要重启
 	"pages": [ //pages数组中第一项表示应用启动页
 		{

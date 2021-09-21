@@ -1,0 +1,1 @@
+<view class="content"><view class="text-area"><text class="title">{{title}}</text></view><view class="animated faster" style="border:1px solid #09BB07;width:100px;height:100px;" hover-class="pulse"></view></view>
