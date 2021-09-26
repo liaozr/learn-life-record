@@ -1,0 +1,28 @@
+<html>
+
+    这里用到了数组的 filter 方法，此方法具有以下特点：
+
+    需要传入一个回调函数作为参数，此函数应返回一个布尔值。
+    filter 执行时会对数组中的每一个元素执行一遍回调函数。
+    filter 的返回值为一个新数组，其成员为原数组中返回值为 true 的元素
+
+    <script>
+        // var users = allUsers.filter((user) => user.loged === true)
+        var arr = [
+            {
+               text:'a',
+               tag:true 
+            },
+            {
+               text:'b',
+               tag:false 
+            },
+            {
+               text:'c',
+               tag:false 
+            }
+        ]
+        var newarr = arr.filter( (user) => user.tag === true )
+    </script>
+
+</html>

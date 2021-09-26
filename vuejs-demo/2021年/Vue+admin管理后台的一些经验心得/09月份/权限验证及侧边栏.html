@@ -1,0 +1,153 @@
+<html>
+
+路由
+
+路由是组织一个vue项目的关键，在对项目原型分析后，接下来的第一步就是编写路由，
+本项目中，主要分为两种路由，currencyRoutes 和 asyncRoutes
+
+currencyRoutes：代表通用路由，意思就是不需要权限判断，不同角色用户都显示的页面
+如：登陆页、404等
+
+asyncRoutes： 代表动态路由，需要通过判断权限动态分配的页面，有关的权限判断的方法接下来会介绍。
+
+--------------------------------------------------------------------------------------------
+
+<script>
+/**
+ * 路由相关属性说明
+ * hidden: 当设置hidden为true时，意思不在sideBars侧边栏中显示
+ * 
+ * mete{
+ *   title: xxx,  设置sideBars侧边栏名称
+ *   icon: xxx,  设置ideBars侧边栏图标
+ *   noCache: true  当设置为true时不缓存该路由页面
+ * }
+ * 
+ */
+
+</script>
+
+--------------------------------------------------------------------------------------------
+
+权限验证动态添加侧边栏
+
+本项目通过路由联动更新侧边栏，所有侧边栏配置都是在前端完成的，
+通过访问接口，后端会返回一个权限相关的list数组，其中数组值为路由的name属性值，
+前端通过递归遍历asyncRoutes判断权限list中是否包含有对应的name路由，
+最终会返回包含该用户角色所有权限路由页面的addRoutes的数组对象。
+
+<script>
+
+// 导航守卫
+
+router.beforeEach(async (to, from, next) => {
+  document.title = getTitle(to.meta.title)
+  if (to.path === '/login') {
+    next()
+  } else {
+    if (store.getters.token) {
+      const hasRoles = store.getters.roles.length > 0
+      if (hasRoles) {
+        next()
+      } else {
+        try {
+          const { roles } = await store.dispatch('user/_getInfo')
+          const addRoutes = await store.dispatch(
+            'permission/getAsyncRoutes',
+             roles
+          )
+          router.addRoutes(addRoutes)
+          // hack method to ensure that addRoutes is complete
+          // set the replace: true, so the navigation will not leave a history record
+          next({ ...to, replace: true })
+        } catch (error) {
+          Message.error(error)
+        }
+      }
+    } else {
+      next({
+        path: '/login',
+        query: {
+          redirect: to.fullPath
+        }
+      })
+    }
+  }
+})
+
+</script>
+
+
+这里我在通过addRoutes添加路由时，遇到一个bug，当切换角色时，
+
+并不能删除之前添加动态路由，所以这边重新初始化router.matcher的属性方式实现：
+
+<script>
+
+const creatRouter = () => {
+  return new Router({
+    routes: currencyRoutes,
+    scrollBehavior() {
+      return { x: 0, y: 0 }
+    }
+  })
+}
+
+const router = creatRouter()
+
+// 解决addRoute不能删除动态路由问题
+export function resetRouter() {
+  const reset = creatRouter()
+  router.matcher = reset.matcher
+}
+
+</script>
+
+当我每次退出登录的时候执行resetRouter方法来初始化router对象，实现删除之前动态添加的路由。
+
+最后通过element-ui的el-menu组件来递归遍历路由对象加载侧边栏。
+
+--------------------------------------------------------------------------------------------
+
+
+第一步：路由声明
+
+router/index 需要拆分路由，以往的做法是把所有的路由初始化的时候就注入到路由表内，
+
+现在初始化注入到的应该是不需要权限控制的路由，把需要权限控制的路由声明以及抛出。等用户登录后动态添加。
+
+constantRoutes 基础路由
+
+asyncRoutes 异步路由( 权限控制路由 )
+
+--------------------------------------------------------------------------------------------
+
+permission.js 路由守卫
+
+首先判断是否登录 getToken方法 如果没有登录跳转到登录页
+
+如果登录过判断是否可以用户的roles（ roles代表用户权限 如果可以获取到代表用户以及登录
+ && 已经注入了动态路由 ）
+
+具体讲解 已经登录且没有获取用户权限 和 没有注入动态路由的情况
+
+这里会进行 store.dispatch('user/getInfo') 会拿登录的token 
+
+获取到此用户的权限 返回的是 用户的 roles 
+
+接下来就是拿 roles 去匹配用户下面的可以访问的路由 permission/generateRoutes
+
+匹配的对应关系为 router声明的 meta.roles 和用户的roles 对应
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

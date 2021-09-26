@@ -1,0 +1,17 @@
+<html>
+    <script>
+        
+        // 传统写法
+        var isSelected = function(row) {
+           return (selection || []).indexOf(row) > -1;
+        }
+
+        // ES7写法，简洁了许多
+        isSelected = selection.includes(row)
+
+        // var arr = [1,2,3,4,5]
+        // var isSelected = arr.includes(2)
+        // console.log(isSelected)  // true
+
+    </script>
+</html>
