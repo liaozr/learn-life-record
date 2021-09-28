@@ -1,0 +1,98 @@
+<html>
+    
+   <a id="a-upon">
+        <input type="file" id="inputImage" 
+        accept="image/gif, image/jpeg, image/png, image/jpg"> 点击这里上传
+    </a>
+
+------------------------------------------------------------------------------------
+    
+    <script>
+
+        $("#inputImage").change(function () {
+
+            var objUrl = $(this)[0].files[0];
+
+            var reader = new FileReader();//新建一个FileReader
+            reader.readAsDataURL(objUrl);//读取文件,保存为base64 格式
+
+            reader.onload = function (evt) { //读取完文件之后会回来这里
+
+                imageString = evt.target.result;
+
+                //获得一个http格式的url路径:mozilla(firefox)||webkit or chrome
+                var windowURL = window.URL || window.webkitURL;
+
+                //createObjectURL创建一个指向该参数对象(图片)的URL
+                var dataURL = windowURL.createObjectURL(objUrl);
+
+                $("#showImage").attr("src", dataURL);
+
+            }
+        });
+
+    </script>
+
+    file转url
+
+    windowURL.createObjectURL（）将其转化为HTTP url类型的数据
+
+------------------------------------------------------------------------------------
+    
+    base64转blob对象
+
+    返回值为blob对象
+
+    <script>
+
+        function dataURLtoBlob(dataurl) {
+            var arr = dataurl.split(','),
+                mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[1]),
+                n = bstr.length,
+                u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new Blob([u8arr], { type: mime });
+        }
+
+    </script>
+
+------------------------------------------------------------------------------------
+    
+    blob对象转化为blob的url
+
+    利用URL.createObjectURL();返回值为blob的url
+
+------------------------------------------------------------------------------------
+
+    blob 转 base64
+
+    <script>
+
+        function blobToDataURL(blob) {
+
+            var a = new FileReader();
+
+            a.readAsDataURL(blob);//读取文件保存在result中
+
+            a.onload = function (e) {
+               var getRes = e.target.result;//读取的结果在result中
+            }
+
+        }
+        // 其中getRes中保存的就是base64格式
+
+    </script>
+
+------------------------------------------------------------------------------------
+    
+    注：图片 img 的src选择 base64 或者 blob 的url格式都能显示出来
+
+    注：图片 img 的src选择 base64 或者 blob 的url格式都能显示出来
+
+    注：图片 img 的src选择 base64 或者 blob 的url格式都能显示出来
+
+------------------------------------------------------------------------------------
+</html>
