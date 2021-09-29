@@ -1,0 +1,45 @@
+<html>
+	
+	首先，你的gitlab远程已经有项目
+	
+	1.创建本地分支dev
+	
+	git branch dev
+	
+	2.切换到分支dev
+	
+	git checkout dev
+	
+	3.查看远程分支
+	
+	git branch -a
+	
+	4.将代码暂存在本地
+	
+	git add .
+	
+	5.给暂存在本地的代码打个tag
+	
+	git commit -m "first commit"
+	
+	6.将本地代码推送到远程指定分支
+	
+	git push origin <指定的分支名>
+	
+	7.这时如果出行hint，远程没有更新
+	
+	git push origin <指定的分支名> -f    注意这条命令的意思是强行让本地分支覆盖远程分支
+	
+	8.从远程指定分支上拉取代码
+	
+	git clone -b  <指定分支名>  <ssh或者http地址> 
+	
+	9.如果第一次create远程的git仓库，将本地与仓库和远程仓库联系
+	
+	git remote add origin <远程仓库ssh或者http地址>
+	
+	10.本地仓库推送到远程仓库主分支
+	
+	git push -u origin master
+	
+</html>

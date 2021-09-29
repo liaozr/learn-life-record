@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		 
+		async await的 最大优点就是将异步代码同步化，写起来跟写同步代码一样
+		例如下面的代码就是
+		
+		<script>
+		       imgEdit(index){
+					var img = this.imgList[index]		
+					var imgUrl = img.url				  
+					const editor = createImageEditor({
+						appId: 'QVMS22',
+					});
+					var _this = this
+					editor.importFile(imgUrl).then(function(res){  
+						var fileReader = new FileReader()
+						fileReader.readAsDataURL(res.files[0])
+						fileReader.onload=function(e){
+						  var result = e.target.result 
+						  _this.base64Imgupload(result,index)
+						}
+					})
+		      },
+		      async base64Imgupload(result,index){
+		        var formData = {
+		          base64Image:result	
+		        }
+		        this.imgList[index].loading = true
+		        var _this = this
+		        var res = await upImageBase64(formData);
+				
+		        var fr = new FileReader();
+		        fr.readAsText(res.data);
+		        fr.onload = ()=>{
+		            var ret = JSON.parse(fr.result);
+		            var url = ret.data.url
+		            _this.imgList[index].url = url
+		            if(_this.imgList[index].tempPath){
+		               _this.imgList[index].tempPath = url
+		            }
+		            _this.imgList[index].loading = false
+		            _this.updateValue();
+		        };
+		      }
+		</script>
+	</body>
+</html>
