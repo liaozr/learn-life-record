@@ -1,0 +1,35 @@
+{
+    "manifest_version": 2,
+    "name": "华钜同创采集工具",
+    "description": "此工具用于华钜同创商品采集到ERP系统，使用前请先登录ERP系统，再进行采集！",
+    "version": "2.0",
+  
+    "permissions": [
+      "contextMenus",
+      "cookies",
+      "http://*/*",
+      "https://*/*",
+      "http://hjtc.erp.kjeyun.com",
+      "http://api.526zs.com",
+      "https://www.aliexpress.com"
+    ],
+    "icons": {
+      "16": "icon_hj.png",
+      "48": "icon_hj.png",
+      "128": "icon_hj.png"
+    },
+    "content_scripts":[{
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": ["js/jquery.min.js", "js/content-script.js"],
+      "css":["css/content_script.css"],
+      "run_at": "document_start"
+    }],
+    "web_accessible_resources": ["icon_hj.png"],
+    "background": {
+      "page": "background.html"
+    },
+    "content_security_policy": "script-src 'self' 'nonece-123456' 'unsafe-eval'; object-src 'self';"
+}

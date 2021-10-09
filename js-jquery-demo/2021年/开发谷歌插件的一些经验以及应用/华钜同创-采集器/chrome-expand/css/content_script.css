@@ -1,0 +1,41 @@
+.chrome-tips{
+    position:fixed;
+    bottom:0;
+    right:0;
+    z-index:9999;
+    /* transform: rotateX(-50%);
+    transform: rotateY(-50%); */
+}
+.chrome-tips{
+    display:block;
+    color:#fff;
+    width:250px;
+    /* height:100px; */
+    text-align:center;
+    font-size:25px;
+    border-radius:3px;
+    background-color: rgba(0,0,0,.5);
+    padding:5px 10px;
+}
+.chrome-title{
+    display:flex;
+    align-items:center;
+    height:30px;
+}
+.chrome-title span{
+    background: url('chrome-extension://__MSG_@@extension_id__/icon_hj.png');
+}
+.chrome-title img{
+    width:20px;height:20px;
+}
+.chrome-title p{
+    font-size:15px;
+    line-height:30px;
+    margin:0 0 0 3px;
+    padding:0;
+}
+.chrome-content{
+    margin-top:10px;
+    padding-bottom:20px;
+    line-height:1.3;
+}
