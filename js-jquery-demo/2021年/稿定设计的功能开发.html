@@ -1,0 +1,35 @@
+  <html>
+  	 <div id="app">
+  		 <div>
+  	          <input  type="file" multiple  @change="change($event)">
+ 			  <img :src="newsrc" alt="">
+  		 </div>
+  	</div>
+  	<script src="https://cdn.dancf.com/editor-sdk@1.2.0"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  	<script>
+  	    var vm =  new Vue({
+  			el:"#app",
+  			data:{
+ 				 newsrc:""
+  			},
+  			methods:{
+  				change(e){
+ 					var _this = this;
+ 					var editor = window.gaoding.createImageEditor({
+ 						appId: 'QVMS22',
+ 					});							
+ 					editor.importFile(Array.from(e.target.files)).then(function(res){
+ 						var fileReader = new FileReader()
+ 						fileReader.readAsDataURL(res.files[0])
+ 						fileReader.onload=function(e){
+ 						  var result = e.target.result			
+ 						  _this.newsrc=result
+ 						}
+ 					})
+  				}
+  			}	 
+  		})
+  	</script>
+  	
+  </html>
