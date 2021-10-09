@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		学习网址：
+		https://juejin.cn/post/6844903740646899720#base
+		https://juejin.cn/post/6844903740646899720#base
+		https://juejin.cn/post/6844903740646899720#base
+		
+		一个插件，必须都含有这个一个文件——manifest.json，位于根目录。顾名思义，这是一个扩展的组成清单，
+		在这个清单里能大约看到该插件的一个“规则”。
+		
+		<script>
+			{
+			// 必须
+			"manifest_version": 2,
+			"name": "插件名称a",
+			"version": "1.1.2",
+		
+			// 推荐
+			"default_locale": "en",
+			"description": "插件的描述",
+			"icons": {
+				"16": "img/icon.png",	// 扩展程序页面上的图标
+				"32": "img/icon.png",	// Windows计算机通常需要此大小。提供此选项可防止尺寸失真缩小48x48选项。
+				"48": "img/icon.png",	// 显示在扩展程序管理页面上
+				"128": "img/icon.png"	// 在安装和Chrome Webstore中显示
+			},
+		
+			// 可选
+			"background": {
+				"page": "background/background.html",
+				"scripts": ["background.js"],
+				// 推荐
+				"persistent": false
+			},
+			"browser_action": {
+				"default_icon": "img/icon.png",	
+				// 特定于工具栏的图标，至少建议使用16x16和32x32尺寸，应为方形，
+				// 不然会变形
+				"default_title": "悬浮在工具栏插件图标上时的tooltip内容",
+				"default_popup": "hello.html"	// 不允许内联JavaScript。
+			},
+			"content_scripts": [ {
+				"js": [ "inject.js" ],
+				"matches": [ "http://*/*", "https://*/*" ],
+				"run_at": "document_start"
+			 } ],
+			"permissions": [
+				"contextMenus",
+				"tabs",
+				"http://*/*",
+				"https://*/*"
+			],
+			"web_accessible_resources": [ "dist/*", "dist/**/*" ]
+		}
+
+		</script>
+		
+		browser_action与page_action
+		
+		这两个配置项都是用来处理扩展在浏览器工具栏上的表现行为。
+		前者扩展可以适用于任何页面。后者扩展只能作用于某一页面，当打开该页面时触发该Google Chrome扩展，
+		关闭页面则Google Chrome扩展也随之消失。
+		通俗的举个例子，一些扩展任何页面可用，就都会显示在工具栏上为可用状态，
+		一些扩展只适用于某些页面，如大家很熟悉的vue tools调试器，在检测到页面用的是vue时，就会在工具栏显示出来并可用（非灰色）
+		
+		
+		default_popup
+		
+		在用户点击扩展程序图标时，都可以设置弹出一个popup页面。而这个页面中自然是可以有运行的js脚本的（比如就叫popup.js）。它会在每次点击插件图标——popup页面弹出时，重新载入。
+		这个小小的设置，也就是上面我把它分为在基本组成里的popup了
+		
+		permissions
+		
+		在background里使用一些chrome api，需要授权才能使用，例如要使用chrome.tabs.xxx的api，就要在permissions引入“tabs”
+		
+		
+		web_accessible_resources
+		
+		允许扩展外的页面访问的扩展内指定的资源。通俗来讲就是，扩展是一个文件夹A的，
+		别人的网站是一个文件夹B，B要看A的东西，需要获得权限，而写在这个属性下的文件，就是授予了别人访问的权限。
+		
+	
+		background script
+		
+		background可以理解为插件运行在浏览器中的一个后台网站/脚本，注意它是与当前浏览页面无关的。
+		实际上这部分内容的配置情况也会写在manifest里，对应的是background配置项。
+		单独拿出来讲，是彰显它的分量很重，也是一个插件常用的配置。
+		从其中几个配置项项去了解一下什么是background script
+		
+		page
+		
+		可以理解为这个后台网站的主页，在这个主页中，有引用的脚本，
+		其中一般都会有一个专门来管理插件各种交互以及监听浏览器行为的脚本，一般都起名为background.js。这个主页，不一定要求有。
+		
+		
+		content script
+		
+		这部分脚本，简单来说是插入到网页中的脚本。它具有独立而富有包容性。
+		所谓独立，指它的工作空间，命名空间，域等是独立的，不会说跟插入到的页面的某些函数和变量发生冲突；
+		所谓包容性，指插件把自己的一些脚本（content script）插入到符合条件的页面里，
+		作为页面的脚本，因此与插入的页面共享dom的，即用dom操作是针对插入的网页的，
+		在这些脚本里使用的window对象跟插入页面的window是一样的。主要用在消息传递上（使用postMessage和onmessage）
+		
+		js
+		
+		要插入到页面里的脚本。例子很常见，例如在一个别人的网页上，你要打开你做的扩展，
+		对别人的网页做一些处理或者获取一些数据等，那怎么跟别人的页面建立起联系呢？
+		就是通过把js里的这些脚本嵌入都别人的网页里。
+		
+		matches
+		
+		必需。匹配规则组成的数组，用来匹配页面url的，符合条件的页面将会插入js的脚本。
+		当然，有可以匹配的自然会有不匹配的——exclude_matches
+		
+		run_at
+		
+		js配置项里的脚本何时插入到页面里呢，这个配置项来控制插入时机。有三个选择项：
+		document_start
+		document_end
+		document_idle（默认）
+		document_start
+		style样式加载好，dom渲染完成和脚本执行前
+		document_end
+		dom渲染完成后，即DOMContentLoaded后马上执行
+		document_idle
+		在DOMContentLoaded 和 window load之间，具体是什么时刻，要视页面的复杂程度和加载时间，并针对页面加载速度进行了优化。
+		
+		
+		popup
+		
+		其实这部分，早就讲过了，就是在manifest里的browser_action与page_action配置项里设置的
+		
+		
+		
+	</body>
+</html>

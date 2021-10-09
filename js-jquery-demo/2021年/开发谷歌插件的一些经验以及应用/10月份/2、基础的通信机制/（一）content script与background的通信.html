@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+--------------------------------------------------------------------------------------------------------------
+
+		content-script向background发送消息
+		
+		在content-script端使用
+		
+		chrome.runtime.sendMessege(message,function(response){
+			…
+		})
+		
+		就能向background发送消息了，第一个参数message为发送的消息（基础数据类型），
+		回调函数里的第一个参数为background接收消息后返回的消息（如有）
+		
+		
+		在background端使用
+		
+		chrome.runtime.onMessege.addListener(function(request, sender, sendResponse) {
+		    …
+		})
+		
+		进行监听发来的消息，request表示发来的消息，sendResponse是一个函数，用于对发来的消息进行回应，如
+		sendResponse('我已收到你的消息：'+JSON.stringify(request));
+		这里需要注意的是，默认情况下sendResponse函数的执行是同步的，
+		如果在这个监听消息的处理函数的同步执行流程里没有发现sendResponse，
+		则默认返回undefined，假设我们是要经过一个异步处理之后才调用sendResponse，已经为时已晚了。
+		因此，我们可能需要异步执行sendResponse，这时我们在这个监听函数里的添加return true就能实现了。
+		还有，由于background监听所有页面上的content script上发来的消息，如果多个页面同时发送同种消息，
+		background的onMessage只会处理最先收到的那个，其他的不了了之了。
+		
+--------------------------------------------------------------------------------------------------------------
+	    
+		background向content-script发送消息
+		我们发现，一个插件里只有一个background环境，
+		而content-script有多个（一个页面一个），那么background怎么向特定的content-script发送消息？
+		
+		在background端
+		首先我们需要知道要向哪个content scripts发送消息，一般一个页面一份content scripts，
+		而一个页面对应一个浏览器tab，每个tab都有自己的tabId，因此首先要获取要发送消息的tab对应的tabId。
+		
+		<script>
+			/**
+			 * 获取当前选项卡id
+			 * @param callback - 获取到id后要执行的回调函数
+			 */
+			
+			function getCurrentTabId(callback) {
+				chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+					if (callback) {
+						callback(tabs.length ? tabs[0].id: null);
+					}
+				});
+			}
+        </script>
+		
+		当知道了tabId后，就使用该api进行发送消息
+		
+		chrome.tabs.sendMessage(tabId, message, function(response) {
+			...
+		})
+		
+		其中message为发送的消息，回调函数的response为content scripts接收到消息后的回传消息
+		
+		
+		在content scripts端同样是使用
+		
+		chrome.runtime.onMessege.addListener(function(request, sender, sendResponse) {
+			…
+		})
+		
+		进行来自background发来消息的监听并回传
+	
+--------------------------------------------------------------------------------------------------------------
+        
+		
+	</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		遍历数组方法
+-------------------------------------------------------------------------------------------------------------------
+
+		不会改变原数组的遍历方法
+		
+		1、forEach() 方法按照升序为数组中每一项执行一次给定的函数。
+		
+		<script>
+		
+			var arr = [2,3,4,1,44]	
+				
+			arr.forEach(val =>{
+				console.log(`值为${val*2}`)
+			})
+			
+			arr.forEach(function(item){
+			  console.log( item * 2 )	
+			})
+			
+			console.log(arr) //  4 , 6 , 8 , 2 , 88	
+			
+		</script>
+	
+	
+		2、find() 返回满足特定条件的元素对象或者元素值， 不满足返回 undefined
+		
+		find方法找到符合条件的对象之后不在往后执行, 无符合条件返回undefined
+		
+		arr.find((element,index,array), thisArg)
+		
+		<script>
+		
+		  var data = [
+			  {
+			  	  name:'李四',
+			  	  age:24
+			  },	
+			  {
+				  name:'张三',
+				  age:34
+			  },		  
+			  {
+				  name:"王五",
+				  age:38
+			  }
+		  ] 			  
+		  var newData = data.find(function(item){
+			  return item.age > 30
+		  }) 
+		  console.log(newData) //{name: '张三', age: 34}
+		  
+		</script>
+		
+-------------------------------------------------------------------------------------------------------------------
+        
+		返回布尔值
+		
+		1、every() 用来判断数组内所有元素是否符合某个条件，返回 布尔值
+		
+		当所有的元素都符合条件才会返回true
+		every 不会改变原数组。
+		若传入一个空数组，无论如何都会返回 true。
+		
+		<script>
+		
+		  var arr2 = [23,33,43,53,63]
+		  
+		  var arr3 = arr2.every(function(value){
+			  return value > 20
+		  })
+		  console.log(arr3) // true
+		  
+		</script>
+		
+		
+		2、some() 用来判断数组元素是否符合某个条件，只要有一个元素符合，那么返回 true.
+		
+		some() 在遍历时，元素范围已经确定，在遍历过程中添加的元素，不会加入到遍历的序列中。
+		
+		<script>
+		
+		  var arr2 = [23,33,43,53,63]
+		  
+		  var arr3 = arr2.some(function(value){
+			  return value > 30
+		  })
+		  console.log(arr3) // true
+		  
+		</script>
+		
+-------------------------------------------------------------------------------------------------------------------
+
+        不改变原有数组，形成新的数组
+		
+		1、filter() 用来遍历原数组，过滤拿到符合条件的数组元素，形成新的数组元素。
+		
+		filter 不会改变原数组，它返回过滤后的新数组。
+		filter() 在遍历时，元素范围已经确定，在遍历过程中添加的元素，不会加入到遍历的序列中。
+		
+		<script>
+		    var data =[
+				{
+				  text:'aaa',
+				  value:12	  
+				},
+				{
+				  text:'bbb',
+				  value:14	  
+				},
+				{
+				  text:'ccc',
+				  value:15	  
+				}
+			]
+			var newData =  data.filter(function(item){
+				  return item.value >13
+			})
+			
+			console.log(newData)  // [ {text:'bbb',value:14},{text:'ccc',value:15} ]
+			
+		</script>
+		
+		
+        2、map() 创建一个新的数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果。
+		
+		map不修改调用它的原数组本身
+		map() 在遍历时，元素范围已经确定，在遍历过程中添加的元素，不会加入到遍历的序列中。
+		
+		<script>
+		
+		   var arr = [
+			   {
+			     text:'aaa',
+			     value:12	  
+			   },
+			   {
+			     text:'bbb',
+			     value:14	  
+			   },
+			   {
+			     text:'ccc',
+			     value:15	  
+			   }
+		   ]
+		   var newArr = arr.map(function(item){
+			   return (item.value) * 2
+		   })
+		   console.log(newArr)	 // [24, 28, 30]
+		   
+		</script>
+		
+ -------------------------------------------------------------------------------------------------------------------
+
+        不改变原数组元素方法
+		
+		1、indexOf()方法返回可以在数组中找到给定元素的第一个索引，如果不存在，则返回 -1。
+		
+		<script>
+		
+		  var arr = [1,2,3,4,5,6]
+		  console.log( arr.indexOf(3))  //  2
+		  console.log(arr.indexOf(7))   // -1
+		  
+		</script>
+		
+		
+		2、includes() 方法用来判断一个数组是否包含一个指定的值，根据情况，如果包含则返回 true，否则返回false。
+		
+		<script>
+		   var arr = [1,2,3,4,5]
+		   
+		   console.log(arr.includes(3))   // true 
+		
+		</script>
+
+
+        3、toString() 返回一个字符串，表示指定的数组及其元素。
+        
+		当一个数组被作为文本值或者进行字符串连接操作时，将会自动调用其 toString 方法。
+		
+		<script>
+		
+		  var arr = [1,2,3]
+		  console.log(arr.toString());  //1,2,3
+		  
+		</script>
+		
+-------------------------------------------------------------------------------------------------------------------
+		
+
+	  
+        
+
+	</body>
+</html>

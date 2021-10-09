@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		一般地，popup与background的交流，常见于popup要获取background里的某些“东西”，
+		
+		当然我们可以使用上述的chrome.runtime.sendMessage和
+		
+		chrome.runtime.onMessage的方式进行popup向background的交流，
+		
+		但是其实有更方便快捷的方式：
+		
+		var bg = chrome.extension.getBackgroundPage();
+		bg.someMethod();    //someMethod()是background中的一个方法
+		
+
+		
+	</body>
+</html>

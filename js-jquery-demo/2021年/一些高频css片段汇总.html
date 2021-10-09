@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+--------------------------------------------------------------------------------------------------------------
+
+        元素高度跟随窗口      
+
+		<div class="app">
+		   <div class="child">
+		   </div>
+		</div>
+		
+		<style>
+			*{
+			  margin: 0;
+			  padding: 0;
+			} 
+			.child{
+			  width: 100%;
+			  /*关键css*/
+			  height: 100vh;
+			  background-image: linear-gradient(180deg, #2af598 0%, #009efd 100%);
+			}	
+		</style>
+		
+--------------------------------------------------------------------------------------------------------------
+        
+		巧用not选择器
+		
+		有些情况下所有的元素都需要某些样式，唯独最后一个不需要，这时候使用not选择器将会特别方便	
+		   
+		<style>
+			li:not(:last-child){
+			  border-bottom: 1px solid #ebedf0;
+			}
+		</style>
+		
+--------------------------------------------------------------------------------------------------------------
+		
+		使用flex布局实现智能固定底部
+		
+		<div class="container">
+		  <div class="main">我是内容区域</div>
+		  <div class="footer">规则说明</div>
+		</div>
+		
+		<style>
+		   .container{
+		    height: 100vh;
+		    /* 关键css处 */
+		    display: flex;
+		    flex-direction: column;
+		    justify-content: space-between;
+		  }
+		  
+		  .main{
+		    /* 关键css处 */
+		    flex: 1;
+		    background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    color: #fff;
+		  }
+		  
+		  .footer{
+		    padding: 15px 0;
+		    text-align: center;
+		    color: #ff9a9e;
+		    font-size: 14px;
+		  }
+		</style>
+		
+--------------------------------------------------------------------------------------------------------------
+   
+        在IOS机器上，经常遇到元素滚动时卡顿的情况，只需要一行css即可让其支持弹性滚动
+		
+		<style>
+			body,html{   
+			  -webkit-overflow-scrolling: touch;
+			}
+		</style>
+		
+--------------------------------------------------------------------------------------------------------------
+       
+		图片尺寸自适应
+		
+		<div class="img-container">
+		    <img src="https://i0.hippopx.com/photos/179/171/625/sparkler-holding-hands-firework-preview.jpg" alt="">
+		</div>
+		
+		<style>
+		   /* padding方案 */
+		   .img-container{
+				 width: 100%;
+				 height: 0;
+				 /* 图片的高宽比 */
+				 padding-bottom: 66.620879%;
+		   }
+		   img{
+		      width: 100%;
+		   }
+		</style>
+		
+--------------------------------------------------------------------------------------------------------------
+	    
+		单行文本溢出显示省略号
+		
+		<style>
+		   .one-line-ellipsis {
+			 overflow: hidden;
+			 white-space: nowrap;
+			 text-overflow: ellipsis;
+			 /* 非必须，只是为了制造一行放不下的效果 */
+			 max-width: 375px; 
+		   }
+		</style>
+    
+--------------------------------------------------------------------------------------------------------------
+        
+		多行文本溢出显示省略号
+		
+		<style>
+			.more-line-ellipsis {
+			  overflow: hidden;
+			  text-overflow: ellipsis;
+			  display: -webkit-box;
+			  /* 设置n行，也包括1 */
+			  -webkit-line-clamp: 2;
+			  -webkit-box-orient: vertical;
+			}
+		</style>
+		
+--------------------------------------------------------------------------------------------------------------
+
+
+	</body> 
+</html>
+;

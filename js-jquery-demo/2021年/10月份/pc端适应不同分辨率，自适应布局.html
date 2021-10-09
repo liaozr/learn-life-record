@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+-------------------------------------------------------------------------------------------------------------------------------------
+
+		可加入下面这一段js，下面这一段js是以常见的pc设计稿  1920 x 1080 的设计稿的为标准进行开发的，
+		
+		算出来的 html 的fontSize值为100，然后可利用cssrem插件将差值改为100，然后把px换算成rem即可了。
+		
+		<script>
+		
+		   // 适配不同尺寸屏幕（动态计算根元素的大小fonSize）
+		    (function(doc, win) {
+				 var docEl = doc.documentElement
+				 var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize'
+				 var recalc = function() {
+				   var clientWidth = docEl.clientWidth
+				   if (!clientWidth) return
+				   docEl.style.fontSize = 100 * (clientWidth / 1920) + 'px'
+				 }
+				 if (!doc.addEventListener) return
+				 win.addEventListener(resizeEvt, recalc, false)
+				 doc.addEventListener('DOMContentLoaded', recalc, false)
+		   })(document, window)
+ 
+		   
+		</script>
+		
+-------------------------------------------------------------------------------------------------------------------------------------
+		
+		这是比较简单粗暴的做法，原理是跟上面的是一模一样的。
+		
+		<style>
+		
+			html{
+			  font-size:19.20px;  
+			}
+			@media only screen and (max-width: 1366px) {
+				html{
+				  font-size:13.66px;
+				}
+			}
+			
+		</style>
+		
+-------------------------------------------------------------------------------------------------------------------------------------
+		
+		
+	</body>
+</html>

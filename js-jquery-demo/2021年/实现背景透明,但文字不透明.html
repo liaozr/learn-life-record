@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		我们通常是使用 opacity来做背景的透明化处理，该属性被所有浏览器支持，可以大胆使用，
+		
+		透明度从0.0(完全透明)到1.0(完全不透明)，但该方法会使其所有子元素都透明，
+		
+		此时若只想让背景透明，其他不透明，则可以使用rgba处理背景：
+		
+		1、div背景透明，但是不影响文本内容的正常显示，如下
+		
+		/*background: #585858;*/
+		background: rgba(88, 88, 88, 0.6);
+		
+		2、div背景透明，整体都会透明，如下：
+		
+		background: #585858;
+		opacity: 0.6;
+		
+		
+		示例：
+		
+		<div class="text">
+			这块div背景透明，整个div块都是透明的，会影响到文字
+		</div>
+		<style>
+			 .text{
+				 background:#585858;
+				 opacity: 0.6;
+				 width:300px;
+				 height:300px;
+				 text-align:center;
+			 }
+		</style>
+		
+		<div class="text2">
+			这块div背景透明，整个div块都是透明的，但是不会影响到文字
+		</div>
+		<style>
+			 .text2{
+				 margin-top:30px;
+				 background: rgba(88, 88, 88, 0.6);
+				 width:300px;
+				 height:300px;
+				 text-align:center;
+			 }
+		</style>
+		
+		
+	
+		
+		
+	</body>
+</html>
