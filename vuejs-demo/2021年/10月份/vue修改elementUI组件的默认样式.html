@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+-----------------------------------------------------------------------------------------------------------------
+	
+		1.首先，在需要修改样式的组件内新建一个style(不需要scoped)，(可一个加scoped，一个不加scoped，不加scoped的为作用于全局的)
+		
+		接着给这个组件的根元素加上一个class名，然后对要修改的元素直接进行修改。
+		
+		例：.rootElement是根元素的class名，.el-progress__text是要修改的元素
+		
+		<style lang="scss" scoped>
+		     .aa{
+				.bb{
+					
+				}
+			 }
+		</style>
+		
+		<style lang="scss">
+			.rootElement {
+				 .el-progress__text {
+				  // 要修改的样式
+				 }
+			}
+		</style>
+		
+		注意：为了防止污染全局样式，一定要给根元素加一个类名。
+		
+-----------------------------------------------------------------------------------------------------------------	
+		
+		2.使用 深度选择器 >>> 或/deep/或::v-deep
+		
+		scss/less之类的处理器可能无法识别，这时候就需要使用 /deep/ /或::v-deep 代替，他是 >>> 的一个别名，使用方法相同。
+		
+		<style scoped>
+			 .rootElement >>> .el-progress__text {
+			  // 要修改的样式
+			 }
+		</style>
+		
+		<style lang="scss" scoped>
+			 .rootElement{
+				 /deep/ .el-progress__text{
+					 // 要修改的样式
+				 }
+			 }
+		</style>
+		
+		但是有些开发者反应，在vue-cli3编译时，deep的方式会报错或者警告。 此时我们可以使用第三种方式
+		
+		::v-deep
+		
+		切记必须是双冒号
+		
+		<style lang="scss" scoped>
+			.rootElement{
+				 ::v-deep .el-progress__text{ 
+				  /* ... */
+				 }
+			} 
+		</style>
+
+-----------------------------------------------------------------------------------------------------------------
+
+	</body>
+</html>
