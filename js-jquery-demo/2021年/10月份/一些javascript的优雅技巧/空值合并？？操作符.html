@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+--------------------------------------------------------------------------------------------------	
+		
+		当我们想检查一个变量是否为 null 或 undefined 时，
+		
+		??操作符很有用。当它的左侧操作数为null 或 undefined时，
+		
+		它返回右侧的操作数，否则返回其左侧的操作数。
+		
+		<script>		
+			var foo = null ?? 'Hello';
+			console.log(foo); // 'Hello'
+			
+			const bar = 'Not null' ?? 'Hello';
+			console.log(bar); // 'Not null'
+		 
+		</script>
+		
+--------------------------------------------------------------------------------------------------		
+		
+	    你可能认为我们可以用||算子但这两者之间是有区别的
+		
+		你可能认为我们可以在这里使用 || 操作符，但这两者之间是有区别的。
+		
+		const cannotBeZero = 0 || 5;
+		
+		console.log(cannotBeZero); // 5
+		
+		
+		const canBeZero = 0 ?? 5;
+		
+		console.log(canBeZero); // 0
+		
+--------------------------------------------------------------------------------------------------
+		
+		
+	</body>
+</html>

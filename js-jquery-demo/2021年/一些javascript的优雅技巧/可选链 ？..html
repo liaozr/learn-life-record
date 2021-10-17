@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		我们是不是经常遇到这样的错误： TypeError: Cannot read property ‘foo’ of null。
+		
+		这对每一个毅开发人员来说都是一个烦人的问题。
+		
+		引入可选链就是为了解决这个问题。一起来看看：
+		
+		const book = { id:1, title: 'Title', author: null };
+		
+		
+		// 通常情况下，你会这样做
+		console.log(book.author.age) // throws error
+		console.log(book.author && book.author.age); // null
+		
+		// 使用可选链
+		console.log(book.author?.age); // undefined
+		
+		// 或深度可选链
+		console.log(book.author?.address?.city); // undefined
+		
+	
+		
+	</body>
+</html>

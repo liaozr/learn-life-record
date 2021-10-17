@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		使用动态键设置对象属性很简单。只需使用['key name']来添加属性:
+		
+		const dynamic = 'flavour';
+		
+		var item = {
+		  name: '前端小智',
+		  [dynamic]: '巧克力'
+		}
+		
+		console.log(item); // { name: '前端小智', flavour: '巧克力' }
+		
+		
+		同样的技巧也可用于使用动态键引用对象属性：
+		
+		const keyName = 'name';
+		
+		console.log(item[keyName]); // returns '前端小智'
+		
+	
+		
+	</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+-----------------------------------------------------------------------------------
+		    
+		动态添加更多的路由规则。参数必须是一个符合 routes 选项要求的数组。
+
+		let routes = [
+		  {
+			path: "/",
+			component: Home,
+			name: "首页",
+			iconCls: "#icon-shouye", //图标样式class
+			children: [
+			  {
+				path: "/main",
+				component: main,
+				name: "我的易到",
+				hidden: false
+			  }
+			]
+		  },
+		  {
+			path: "/",
+			component: Home,
+			name: "人员",
+			iconCls: "#icon-renyuanxiaozu",
+			children: [
+			  {
+				path: "/userManage",
+				component: userManage,
+				name: "人员列表",
+				hidden: false
+			  },           
+			  {
+				path: "/deptManage",
+				component: deptManage,
+				name: "部门管理",
+				hidden: user_info.ext_type ? false : true
+			  }
+			]
+		  },
+		  {
+			path: "/",
+			component: Home,
+			name: "方案",
+			iconCls: "#icon-dengpao",
+			children: [
+			  {
+				path: "/useCarType",
+				component: useCarType,
+				name: "用车方案",
+				hidden: user_info.ext_type ? false : true
+			  }
+		  },
+		  {
+			path: "/",
+			component: Home,
+			name: "订单",
+			iconCls: "#icon-dingdan",
+			//leaf: true,//只有一个节点
+			children: [
+			  {
+				path: "/order",
+				component: order,
+				name: "订单列表",
+				hidden: false
+			  },
+			  {
+				path: "/orderDetail",
+				component: orderDetail,
+				name: "订单详情",
+				hidden: true
+			  }
+			]
+		  },
+		  {
+			path: "/",
+			component: Home,
+			name: "财务",
+			iconCls: "#icon-caiwu",
+			children: [
+			  {
+				path: "/recharge",
+				component: recharge,
+				name: "充值",
+				hidden:
+				  user_info.isTopCorpUser &&
+				  user_info.isShow &&
+				  user_info.extFlag
+					? false
+					: true
+			  }
+			 
+		  },
+		  {
+			path: "/",
+			component: Home,
+			name: "设置",
+			iconCls: "#icon-shezhi",
+			children: [
+			  {
+				path: "/companyApprove",
+				component: companyApprove,
+				name: "企业认证",
+				hidden: user_info.isTopCorpUser ? false : true
+			  },
+			  {
+				path: "/companyData",
+				component: companyData,
+				name: "企业资料",
+				hidden: user_info.isTopCorpUser ? false : true
+			  },
+			  {
+				path: "/changepwd",
+				component: changepwd,
+				name: "修改密码",
+				hidden: false
+			  }
+			]
+		  },
+		  {
+			path: "/404",
+			component: NotFound,
+			name: "",
+			hidden: true
+		  },
+		  {
+			path: "*",
+			hidden: true,
+			redirect: { path: "/404" }
+		  }
+		];
+		
+		this.$router.options.routes = routes;
+		
+		this.$router.addRoutes(routes);
+				
+-----------------------------------------------------------------------------------	
+	
+		其中最主要的是
+		
+		this.$router.options.routes = routes;
+		
+		如果没有这一段就不会生效这是因为，router.options.routes 不是响应式的。
+		
+-----------------------------------------------------------------------------------
+
+
+	</body>
+</html>
