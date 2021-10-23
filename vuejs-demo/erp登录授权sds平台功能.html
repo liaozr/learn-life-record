@@ -1,0 +1,93 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body> 
+	
+------------------------------------------------------------------------------------------------------
+
+	       功能简介：
+		   
+		   已有sds账号，需与erp账号做个绑定
+	
+	       跳转到授权地址，该地址涉及到sds平台的登录，跳过去的该链接，会将erp平台的用户信息带过去的，
+		   
+		   生成的一个网址,输入完sds平台的账号名以及密码后，点击登录。然后后台会返回一个原来的erp平台的地址链接（携带参数的）
+			   
+		   这一步就是跳回来原来的页面了。   
+				  
+		   所以得用路由钩子，beforeRouterEnter 去判断当地址链接发现有携带参数（ merchantId ）的时候，去获取这些参数保存下来
+		   
+		   然后就去调用后台的保存授权信息的接口 saveAauthorizeInfo,授权成功后，回调 authorizeSucess 授权成功 这个方法 
+						  
+		   授权成功后，做一些提示操作以及后续接口的调用,最后将路由地址跳回来原来的路径即可完成整一个授权操作了。
+		   
+		   这一步是类似于微信授权登录的。
+						 
+		   this.$router.push({
+			   path:'/sds/design/index'
+		   })
+		   
+------------------------------------------------------------------------------------------------------
+		
+		   <script>
+		   
+		   async goAuthorize(){
+		       try {
+		          const res = await authorize()
+		          var url = res.data
+		          // window.open(url); 
+		           window.location.href = url 
+		       } catch (error) {
+		          console.log(error)
+		       }
+		    }
+			
+			beforeRouteEnter(to,from,next){
+				  var url =window.location.href
+				  if(url.indexOf('?merchantId') > -1){
+					var canshu =url.split('?')[1]
+					var canshuLists = canshu.split('&')
+					var arr =[]        
+					for(var i=0;i<canshuLists.length;i++){
+						arr.push(canshuLists[i].split('=')[1])
+					}
+					var msg ={          
+						"merchantId":arr[0],
+						"token":arr[2],
+						"userId":arr[1],          
+					}
+					saveAauthorizeInfo(msg)
+					.then(res => {         
+						next(vm=>{
+						  vm.authorizeSucess()   
+						})              
+					})
+					["catch"](err => {
+						console.log(err) 
+						next()
+					});
+				  }
+				  else{
+					next()
+				  }    
+			},
+			authorizeSucess(){
+				this.$notify({
+						title: "授权成功",
+						type: "success"
+				});
+				this.$store.dispatch("sds/checkUserRegister", true);
+				this.$router.push({
+				  path:'/sds/design/index'
+				})
+			}
+			
+			</script>
+			
+------------------------------------------------------------------------------------------------------
+			
+	</body>
+</html>

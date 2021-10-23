@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		mixins（混入），官方的描述是一种分发 Vue 组件中可复用功能的非常灵活的方式，
+		
+		mixins是一个js对象，它可以包含我们组件中script项中的任意功能选项，
+		
+		如data、components、methods 、created、computed等等。
+		
+		我们只要将共用的功能以对象的方式传入 mixins选项中，
+		
+		当组件使用 mixins对象时所有mixins对象的选项都将被混入该组件本身的选项中来，
+		
+		这样就可以提高代码的重用性，使你的代码保持干净和易于维护。
+		
+		
+		
+		当我们存在多个组件中的数据或者功能很相近时，我们就可以利用mixins将公共部分提取出来，
+		
+		通过 mixins封装的函数，组件调用他们是不会改变函数作用域外部的。
+		
+		
+		
+		mixins的方法和参数在各组件中不共享，虽然组件调用了mixins并将其属性合并到自身组件中来了，
+		
+		但是其属性只会被当前组件所识别并不会被共享，也就是其他组件无法从当前组件中获取到mixins中的数据和方法。
+		
+	
+		<script>
+		
+			export const myMixins = {
+			  components:{},
+			  data() {
+				return {
+				  age: 18,
+				}
+			  },
+			  mounted() {
+				this.getAge()
+			  },
+			  methods: {
+				getAge() {
+				  console.log(this.age)
+				}
+			  }
+			}
+			
+			// 组件里面调用：
+			
+			import { myMixins } from "@/mixins/myMixins.js";
+			
+			export default {
+			  mixins: [myMixins],
+			  data() {
+			    return {}
+			  },
+			  created() {
+			    this.age++
+			  }
+			}
+			
+		</script>
+		
+		
+		mixins合并冲突
+		
+		值为对象(components、methods 、computed、data)的选项，混入组件时选项会被合并，
+		
+		键冲突时优先组件，组件中的键会覆盖混入对象的
+		
+		
+		
+	
+	</body> 
+</html>

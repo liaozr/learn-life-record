@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body> 
+	
+       若ref用在v-for里，当循环内的ref值不同时，需提供this.$refs[ref名称][0]来获取该DOM节点或组件实例；
+	   
+       当ref值相同时，this.$refs[ref名称]获取到的是该DOM节点或组件的数组。
+	   
+	    <script>
+			var length =  _this.$refs.itemImg.length		
+			for(var i=0;i<length;i++){
+			   var imgWidth = _this.$refs.itemImg[i].clientWidth
+			   console.log(imgWidth)
+			   _this.$refs.itemImg[i].style.height= imgWidth +'px'  
+			} 
+        </script>
+		   
+	 
+</body>
+</html>

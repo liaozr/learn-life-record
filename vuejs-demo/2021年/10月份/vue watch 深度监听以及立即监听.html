@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+-------------------------------------------------------------------------------------------------------
+
+		vue watch 深度监听以及立即监听
+		
+		<script>
+		
+			watch:{		
+			　　registerFlag:{
+			　　　　handler:function(newVal,oldVal){
+			
+			　　　　},
+			　　　　deep:true,  // 深度监听，适用于对数组以及对象的监听
+			       immediate:true //设置 immediate 为true，将立即以表达式的当前值触发回调
+			　　}			
+			}
+		</script>
+		
+-------------------------------------------------------------------------------------------------------	
+	
+		immediate立即执行
+		
+		watch监听只有在数据变化时才会执行监听函数。
+		
+		父组件向子组件动态传值时，子组件props首次获取到父组件传来的默认值时，
+		
+		此时也需要执行watch监听函数。则需设置immediate：true.
+		
+		<script>
+		  new Vue({
+			 el: '#app',
+			 data: {
+			   name: ''
+			 },
+			 watch: {
+			   name: {
+			   　　handler(newVal,oldVal) {  
+					// ...
+			   　　},
+			   　　immediate: true
+			   }
+			 },
+			 watch:{
+				userRegisterFlag:{            
+					handler:function(newVal,oldVal){
+					  if(newVal){ 
+						this.$nextTick(function(){             
+							var msg ={
+								current:8,
+								page:1
+							}
+							this.$store.dispatch("sds/getEndProductByPage", msg);                 
+							if(this.$refs.iframe){
+							  var appHeight = this.$refs.appContainer.clientHeight
+							  this.$refs.iframe.style.height = appHeight +'px'
+							}               
+						})
+					  }
+		  　　　　  },
+				   immediate:true
+				}
+			 }
+		   })	   
+		   
+		</script>
+		
+-------------------------------------------------------------------------------------------------------
+		
+	</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		 <div v-loading="loading" :class="{'zhezhao':loading}" id="design" ref='appContainer' class="app-container">
+			 
+		      <template v-if="!userRegisterFlag"> 
+		         <div class="containerTips">
+		            <sdsTips @goAuthorize="goAuthorize" @back='back' @goReg='goReg'></sdsTips>
+		         </div>
+		      </template> 
+			  
+		      <div v-if="userRegisterFlag" class="containerTips neediframe">
+		         <iframe :src="iframeUrl" ref="iframe" scrolling="auto" width="100%" height="100%" frameborder="0" ></iframe>
+		      </div>
+			  
+		  </div>
+		  
+		  这个做法相对来讲，比较简单粗暴，就是在loading未消失前，在外层的遮罩层的显示透明度降低为0，相当于不可见了。
+		  
+		  这样就相当于把判断是否已注册所要加载的图片隐藏掉了，从而提高了用户体验。
+		  
+		  
+		  <style lang="scss" scoped>
+		     .app-container{
+		        position: relative;
+		        width:100%;
+		        min-height: calc(100vh - 50px);
+		        padding:0px;
+		        &.zhezhao{
+		           opacity:0.05;
+		        }
+		     }
+		  </style>
+		  
+		  
+	</body>
+</html>

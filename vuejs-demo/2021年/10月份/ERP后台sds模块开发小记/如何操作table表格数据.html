@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		倘若要对table表格的数据做一些操作的话，可以像下面这样操作。 
+			
+		<el-table-column width="150px" align="center" label="账号类型">
+			
+			<template slot-scope="scope">
+			  <span>{{ scope.row.accountType?'普通用户':'管理员' }}</span>
+			</template>
+			
+		</el-table-column>
+			
+			
+	</body>
+</html>

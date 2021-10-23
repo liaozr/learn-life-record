@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script>
+		
+			export default {
+				data(){
+					return {
+						 num: 18
+					}
+				},	
+				beforeRouteEnter(to, from, next){
+					next(vm=>{
+						vm.num=19;
+					})
+				}
+			}
+			
+		</script>
+	</body>
+</html>
