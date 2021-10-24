@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+---------------------------------------------------------------------------------		
+		
+		<script>
+			
+			function compare(x, y) {  
+				var z = 0;  
+				var s = x.length + y.length;;  
+			  
+				x.sort();  
+				y.sort();  
+				var a = x.shift();  
+				var b = y.shift();  
+			  
+				while(a !== undefined && b !== undefined) {  
+					if (a === b) {  
+						z++;  
+						a = x.shift();  
+						b = y.shift();  
+					} else if (a < b) {  
+						a = x.shift();  
+					} else if (a > b) {  
+						b = y.shift();  
+					}  
+				}  
+				return z/s * 200;  
+			}
+			
+			console.log(compare(['123', '中文', 'hello'], ['123', '中文', 'hello'])) //100  
+            
+			var str1 = '撒大苏打12'
+			var str2 = '撒大苏打12465'
+			
+            console.log( compare(str1.split(''),str2.split(''))) //80
+	
+		</script>
+		
+---------------------------------------------------------------------------------
+
+	</body>
+</html>

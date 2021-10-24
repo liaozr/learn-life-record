@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		el-dialog作为子组件使用时，关闭对话窗的时候会出现各种错误，
+		
+		因为弹窗显示状态值（:visible.sync）是从父组件传递的参数，如果使用自带的关闭按钮，
+		
+		会报错的，因为props值传递的问题。
+		
+		
+		子组件的可见性要由父组件来控制，不能直接修改visible的值，
+		
+		通过设置 :befor-close 来规避这一问题，从而解决问题
+		
+		before-close为关闭弹窗前的回调函数，在操作改变子组件关闭事件之前先调用父组件的关闭事件，就不会再报错了
+		
+	
+		<el-dialog
+		  :visible.sync="bindWarnStandardVisible"
+		  :before-close="closeDialog"
+		  title="气体警报标准绑定">
+		</el-dialog>
+		
+		methods: {
+		    // 关闭绑定气体标准弹窗
+		    closeDialog() {
+		      this.$emit('closeDialog')
+		    }
+		}
+	
+		
+		
+		
+		
+		
+	</body>
+</html>
