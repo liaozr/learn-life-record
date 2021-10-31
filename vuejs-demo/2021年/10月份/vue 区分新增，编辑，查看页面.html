@@ -1,0 +1,46 @@
+<html>
+	
+	<el-button
+		size="mini"
+		type="primary"
+		@click="gotoDetail(scope.row,'edit')"
+	  >编辑
+	</el-button>
+	
+	<el-button
+		size="mini"
+		type="primary"
+		@click="gotoDetail(scope.row,'see')"
+	  >查看
+	</el-button>
+	
+	<script>
+	
+		gotoDetail(item,type){
+			console.log(item)
+			console.log(type)
+			this.$router.push({
+			  name:'boutiqueDetails',
+			  params:{
+				type:type,
+				id:'1111'
+			  }
+			})
+		}
+	
+	    // router.js
+	    {
+		  path: "boutiqueLibrary/boutiqueDetails/:type/:id",
+		  name: "boutiqueDetails",
+		  component: () => import("@/views/boutiqueLibrary/boutiqueDetails/index"),
+		  meta: { title: "商品详情", isRefresh: false },
+		  hidden: true
+	    }
+		
+		
+		var type = this.$route.params.type
+		var id = this.$route.params.id
+			
+	    
+	</script>
+</html>
