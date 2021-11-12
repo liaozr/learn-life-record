@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<tr v-for="(item,index) in arr" v-if="myfilter(index)">
+		    <td>{{item.username}}</td>
+		    <td>{{item.sex}}</td>
+		    <td>{{item.grade}}</td>
+		    <td>
+		        <a href="#" @click="delClick(index)">删除</a>
+		    </td>
+		</tr>
+		
+	
+        <script>
+			 export default {
+				 name: 'Achievement',
+				 data () {
+					 return {
+						 ...
+					 }
+				 },
+				 methods: {
+					 ...
+				 },
+				 computed: {
+					 myfilter() {
+						 return function(index){
+							 return this.arr[index].username.match(this.name)!==null;         
+						 }           
+					 } 
+				 }
+			}
+		</script>
+		
+		
+		
+
+	</body>
+</html>

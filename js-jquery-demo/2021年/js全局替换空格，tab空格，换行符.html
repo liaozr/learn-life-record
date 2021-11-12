@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		在做erp 违禁词模块中,涉及到在文本域提交违禁词，然后提交到后台，这就涉及到
+		
+		tab换行了。
+		
+		<script> 
+		
+		    var str = 'sdq	 					是的'		
+		    str = str.replace(/\s+/g,' ') 
+	
+			console.log(str) // sdq 是的 
+			// 打印出来的结果是  sdq 是的 
+		                                                     
+		</script>
+		
+		
+	</body>
+</html>
+ 
