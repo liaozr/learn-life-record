@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div @click="gotoDetail(item)" v-for="item  in letterData" :key="item.id" class="item">
+			<div @click.stop style="display:inline;">
+				 <el-checkbox @change="boxChange(item,$event)" 
+				 v-if="item.status == 1" class="listcheckbox" v-model="item.checkFlag"></el-checkbox>
+			</div>
+		</div>
+		
+		 外面套个div，再在div里写click.stop
+		 
+		 这样就阻止了事件的冒泡了，这样就阻止了el-checkbox 的change事件 向上冒泡到 gotoDetail事件上了。
+		 
+		 这样就阻止了事件的冒泡了，这样就阻止了el-checkbox 的change事件 向上冒泡到 gotoDetail事件上了。
+								  
+	</body>
+</html>
