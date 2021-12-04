@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+	   修改 element的一些默认样式，有时候在组件里面写是不会生效的，就是发现改动了代码还是没生效，
+	   
+	   需要在App.vue里面改动才会生效代码
+	   
+	   <!-- App.vue -->
+	   
+	   <style lang="scss">
+			.gaoding-editor-iframe-dialog{
+			  top:80px !important;
+			}
+			
+		   .swiper-wrapper ::selection {
+			 background:white;
+		   }
+		   .swiper-wrapper ::-moz-selection {
+			 background:white;
+		   }
+		   .swiper-wrapper ::-webkit-selection {
+			 background:white;
+		   }
+	   </style>
+	   
+	</body>
+</html>

@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="generator" content="VNote">
+
+    <title>前端开发规范 - VNote</title>
+
+    <style type="text/css">
+    div.code-toolbar > div.toolbar {
+    display: none;
+}
+
+    </style>
+
+    <style type="text/css">
+    *,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.container-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.col-12 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+@media (min-width: 768px) {
+    .col-md-3 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 25%;
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+}
+
+@media (min-width: 768px) {
+    .col-md-9 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 75%;
+        flex: 0 0 75%;
+        max-width: 75%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-xl-2 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 16.666667%;
+        flex: 0 0 16.666667%;
+        max-width: 16.666667%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-xl-10 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 83.333333%;
+        flex: 0 0 83.333333%;
+        max-width: 83.333333%;
+    }
+}
+
+@media (min-width: 768px) {
+    .pt-md-3, .py-md-3 {
+        padding-top: 1rem!important;
+    }
+}
+
+@media (min-width: 768px) {
+    .pb-md-3, .py-md-3 {
+        padding-bottom: 1rem!important;
+    }
+}
+
+@media (min-width: 768px) {
+    .pl-md-5, .px-md-5 {
+        padding-left: 3rem!important;
+    }
+}
+
+.d-none {
+    display: none!important;
+}
+
+@media (min-width: 1200px) {
+    .d-xl-block {
+        display: block!important;
+    }
+}
+
+@media (min-width: 768px) {
+    .d-md-block {
+        display: block!important;
+    }
+}
+
+.bd-content {
+    -webkit-box-ordinal-group: 1;
+    -ms-flex-order: 0;
+    order: 0;
+}
+
+.bd-toc {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 4rem;
+    height: calc(100vh - 10rem);
+    overflow-y: auto;
+}
+
+.bd-toc {
+    -webkit-box-ordinal-group: 2;
+    -ms-flex-order: 1;
+    order: 1;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    font-size: .875rem;
+}
+
+.section-nav {
+    padding-left: 0;
+}
+
+.section-nav ul {
+    font-size: .875rem;
+    list-style-type: none;
+}
+
+.section-nav li {
+    font-size: .875rem;
+}
+
+.section-nav a {
+    color: inherit !important;
+    white-space: nowrap;
+}
+
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+@media (min-width: 1200px) {
+    .flex-xl-nowrap {
+        flex-wrap: nowrap !important;
+    }
+}
+
+#floating-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: #00897B;
+    position: fixed;
+    top: .5rem;
+    right: .5rem;
+    cursor: pointer;
+    box-shadow: 0px 2px 5px #666;
+}
+
+#floating-button .more {
+    color: #F5F5F5;
+    position: absolute;
+    top: 0;
+    display: block;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    line-height: 2.5rem;
+    font-size: 2rem;
+    font-family: 'monospace';
+    font-weight: 300;
+}
+
+.hide-none {
+    display: none !important;
+}
+
+.col-expand {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100% !important;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    padding-right: 3rem !important;
+}
+
+.outline-bold {
+    font-weight: bolder !important;
+}
+
+@media print {
+    #floating-button {
+        display: none !important;
+    }
+}
+
+
+    #vx-content.vx-section-number, #vx-content.vx-section-number-2 h1, #vx-content.vx-section-number-3 h1, #vx-content.vx-section-number-3 h2 { counter-reset: section1 0 section2 0 section3 0 section4 0 section5 0 section6 0; }
+#vx-content.vx-section-number-1 h1, #vx-content.vx-section-number-2 h2, #vx-content.vx-section-number-3 h3 { counter-reset: section2 0 section3 0 section4 0 seciton5 0 section6 0; }
+#vx-content.vx-section-number-1 h2, #vx-content.vx-section-number-2 h3, #vx-content.vx-section-number-3 h4 { counter-reset: section3 0 section4 0 section5 0 section6 0; }
+#vx-content.vx-section-number-1 h3, #vx-content.vx-section-number-2 h4, #vx-content.vx-section-number-3 h5 { counter-reset: section4 0 section5 0 section6 0; }
+#vx-content.vx-section-number-1 h4, #vx-content.vx-section-number-2 h5 { counter-reset: section5 0 section6 0; }
+#vx-content.vx-section-number-1 h5 { counter-reset: section6 0; }
+#vx-content.vx-section-number-1 h1::before, #vx-content.vx-section-number-2 h2::before, #vx-content.vx-section-number-3 h3::before { counter-increment: section1 1; content: counter(section1) ". "; }
+#vx-content.vx-section-number-1 h2::before, #vx-content.vx-section-number-2 h3::before, #vx-content.vx-section-number-3 h4::before { counter-increment: section2 1; content: counter(section1) "." counter(section2) ". "; }
+#vx-content.vx-section-number-1 h3::before, #vx-content.vx-section-number-2 h4::before, #vx-content.vx-section-number-3 h5::before { counter-increment: section3 1; content: counter(section1) "." counter(section2) "." counter(section3) ". "; }
+#vx-content.vx-section-number-1 h4::before, #vx-content.vx-section-number-2 h5::before, #vx-content.vx-section-number-3 h6::before { counter-increment: section4 1; content: counter(section1) "." counter(section2) "." counter(section3) "." counter(section4) ". "; }
+#vx-content.vx-section-number-1 h5::before, #vx-content.vx-section-number-2 h6::before { counter-increment: section5 1; content: counter(section1) "." counter(section2) "." counter(section3) "." counter(section4) "." counter(section5) ". "; }
+#vx-content.vx-section-number-1 h6::before { counter-increment: section6 1; content: counter(section1) "." counter(section2) "." counter(section3) "." counter(section4) "." counter(section5) "." counter(section6) ". "; }
+#vx-content.vx-constrain-image-width img, #vx-content.vx-constrain-image-width div.vx-plantuml-graph > svg, #vx-content.vx-constrain-image-width div.vx-mermaid-graph, #vx-content.vx-constrain-image-width div.vx-flowchartjs-graph, #vx-content.vx-constrain-image-width div.vx-wavedrom-graph { max-width: 100% !important; height: auto !important; }
+.vx-table-of-contents ol { list-style: none; }
+#vx-content.vx-section-number-1 .vx-table-of-contents ol { counter-reset: toc 0; }
+#vx-content.vx-section-number-1 .vx-table-of-contents ol li { counter-increment: toc 1; }
+#vx-content.vx-section-number-1 .vx-table-of-contents ol li::before { content: counters(toc, ".") ". "; font-family: cursive; }
+#vx-content.vx-section-number-2 .vx-table-of-contents > ol > li ol { counter-reset: toc 0; }
+#vx-content.vx-section-number-2 .vx-table-of-contents > ol > li ol li { counter-increment: toc 1; }
+#vx-content.vx-section-number-2 .vx-table-of-contents > ol > li ol li::before { content: counters(toc, ".") ". "; font-family: cursive; }
+#vx-content.vx-section-number-3 .vx-table-of-contents > ol > li > ol > li ol { counter-reset: toc 0; }
+#vx-content.vx-section-number-3 .vx-table-of-contents > ol > li > ol > li ol li { counter-increment: toc 1; }
+#vx-content.vx-section-number-3 .vx-table-of-contents > ol > li > ol > li ol li::before { content: counters(toc, ".") ". "; font-family: cursive; }
+.vx-header-anchor { visibility: hidden; vertical-align: middle; }
+.vx-header-anchor::after { content: attr(vx-data-anchor-icon); }
+#vx-content h1:hover .vx-header-anchor, #vx-content h2:hover .vx-header-anchor, #vx-content h3:hover .vx-header-anchor, #vx-content h4:hover .vx-header-anchor, #vx-content h5:hover .vx-header-anchor, #vx-content h6:hover .vx-header-anchor { visibility: visible; vertical-align: middle; }
+#vx-content.vx-indent-first-line p { text-indent: 2em; }
+body.vx-transparent-background { background-color: transparent !important; }
+#vx-content.vx-nonscrollable pre { white-space: pre-wrap !important; word-break: break-all !important; overflow: hidden !important; }
+#vx-content.vx-nonscrollable pre code { white-space: pre-wrap !important; word-break: break-all !important; }
+#vx-content.vx-nonscrollable code, #vx-content.vx-nonscrollable a { word-break: break-all !important; }
+body { margin: 0px auto; font-family: -apple-system, "Noto Sans", "Helvetica Neue", "Segoe UI", Helvetica, sans-serif, Tahoma, Arial, Geneva, Georgia, Palatino, "Times New Roman", 冬青黑体, "YaHei Consolas Hybrid", "Microsoft YaHei", 微软雅黑, "Microsoft YaHei UI", "WenQuanYi Micro Hei", 文泉驿雅黑, Dengxian, 等线体, STXihei, 华文细黑, "Liberation Sans", "Droid Sans", NSimSun, 新宋体, SimSun, 宋体, "Apple Color Emoji", "Segoe UI Emoji"; color: rgb(34, 34, 34); line-height: 1.5; padding: 16px; background-color: rgb(245, 245, 245); font-size: 16px; }
+h1, h2, h3, h4, h5, h6 { color: rgb(34, 34, 34); font-weight: bold; margin-top: 20px; margin-bottom: 10px; padding: 0px; }
+p { padding: 0px; margin-bottom: 16px; }
+h1 { font-size: 26px; }
+h2 { font-size: 24px; }
+h3 { font-size: 22px; }
+h4 { font-size: 20px; }
+h5 { font-size: 19px; }
+h6 { font-size: 18px; }
+a { color: rgb(0, 153, 255); margin: 0px; padding: 0px; vertical-align: baseline; text-decoration: none; word-break: break-word; }
+a:hover { text-decoration: underline; }
+a:visited { color: rgb(128, 0, 128); }
+ul, ol { padding: 0px 0px 0px 24px; }
+li { line-height: 24px; }
+li ul, li ol { margin-left: 16px; }
+p, ul, ol { font-size: 16px; line-height: 24px; }
+pre { display: block; overflow: auto hidden; tab-size: 4; }
+code { font-family: "YaHei Consolas Hybrid", Consolas, Monaco, monospace, Courier; color: rgb(142, 36, 170); word-break: break-word; }
+pre code { display: block; padding-left: 0.5em; padding-right: 0.5em; color: rgb(34, 34, 34); background-color: rgb(224, 224, 224); line-height: 1.5; font-family: "YaHei Consolas Hybrid", Consolas, Monaco, monospace, Courier; white-space: pre; tab-size: 4; }
+aside { display: block; float: right; width: 390px; }
+blockquote { color: rgb(102, 102, 102); border-left: 0.5em solid rgb(122, 122, 122); padding: 0px 1em; margin-left: 0px; }
+blockquote p { color: rgb(102, 102, 102); }
+hr { display: block; text-align: left; margin: 1em 0px; border: none; height: 2px; background-color: rgb(153, 153, 153); }
+table { padding: 0px; margin: 1rem 0.5rem; border-collapse: collapse; }
+table tr { border-top: 1px solid rgb(204, 204, 204); background-color: rgb(255, 255, 255); margin: 0px; padding: 0px; }
+table tr:hover { background-color: rgb(218, 218, 218); }
+table tr th { font-weight: bold; border: 1px solid rgb(204, 204, 204); margin: 0px; padding: 6px 13px; }
+table tr td { border: 1px solid rgb(204, 204, 204); margin: 0px; padding: 6px 13px; }
+table tr th :first-child, table tr td :first-child { margin-top: 0px; }
+table tr th :last-child, table tr td :last-child { margin-bottom: 0px; }
+div.vx-mermaid-graph { margin: 16px 0px; overflow-y: hidden; }
+div.vx-flowchartjs-graph { padding: 0px 5px; margin: 16px 0px; width: fit-content; overflow: hidden; }
+div.vx-wavedrom-graph { padding: 0px 5px; margin: 16px 0px; width: fit-content; overflow: hidden; }
+div.vx-plantuml-graph { padding: 5px 5px 0px; margin: 16px 0px; width: fit-content; overflow: hidden; }
+::selection { background-color: rgb(25, 118, 210); color: rgb(245, 245, 245); }
+::-webkit-scrollbar { background-color: rgb(234, 234, 234); width: 14px; height: 14px; border: none; }
+::-webkit-scrollbar-corner { background-color: rgb(234, 234, 234); }
+::-webkit-scrollbar-button { height: 14px; width: 14px; background-color: rgb(234, 234, 234); }
+::-webkit-scrollbar-button:hover { background-color: rgb(218, 218, 218); }
+::-webkit-scrollbar-button:active { background-color: rgb(192, 192, 192); }
+::-webkit-scrollbar-track { background-color: rgb(234, 234, 234); }
+::-webkit-scrollbar-thumb { border: none; background-color: rgb(205, 205, 205); }
+::-webkit-scrollbar-thumb:hover { background-color: rgb(192, 192, 192); }
+::-webkit-scrollbar-thumb:active { background-color: rgb(187, 187, 187); }
+::-webkit-scrollbar-button:horizontal:increment { background-image: url('data:image/svg+xml;utf8,<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"> <g>    <g transform="rotate(-90 256.00000000000006,256) " id="svg_1">   <polygon fill="%23222222" id="svg_2" points="128,192 256,320 384,192  "/>  </g> </g></svg>'); background-repeat: no-repeat; background-size: contain; }
+::-webkit-scrollbar-button:horizontal:decrement { background-image: url('data:image/svg+xml;utf8,<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"> <g>    <g transform="rotate(90 255.99999999999997,256.00000000000006) " id="svg_1">   <polygon points="128,192 256,320 384,192  " id="svg_2" fill="%23222222"/>  </g> </g></svg>'); background-repeat: no-repeat; background-size: contain; }
+::-webkit-scrollbar-button:vertical:increment { background-image: url('data:image/svg+xml;utf8,<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"> <g>    <g transform="null" id="svg_1">   <polygon points="128,192 256,320 384,192  " id="svg_2" fill="%23222222"/>  </g> </g></svg>'); background-repeat: no-repeat; background-size: contain; }
+::-webkit-scrollbar-button:vertical:decrement { background-image: url('data:image/svg+xml;utf8,<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"> <g>    <g transform="rotate(180 255.99999999999997,256) " id="svg_1">   <polygon points="128,192 256,320 384,192  " id="svg_2" fill="%23222222"/>  </g> </g></svg>'); background-repeat: no-repeat; background-size: contain; }
+#vx-content span.vx-search-match { color: rgb(34, 34, 34); background-color: rgb(77, 182, 172); }
+#vx-content span.vx-current-search-match { color: rgb(34, 34, 34); background-color: rgb(102, 187, 106); }
+code[class*="language-"], pre[class*="language-"] { color: black; background: none; font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace; font-size: 1em; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; overflow-wrap: normal; line-height: 1.5; tab-size: 4; hyphens: none; }
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection, code[class*="language-"]::selection, code[class*="language-"] ::selection { text-shadow: none; background-color: rgb(25, 118, 210); color: rgb(245, 245, 245); }
+@media print {
+  code[class*="language-"], pre[class*="language-"] { text-shadow: none; }
+}
+pre[class*="language-"] { padding: 1em; margin: 0.5em 0px; overflow: auto; }
+:not(pre) > code[class*="language-"], pre[class*="language-"] { background: rgb(237, 232, 228); }
+:not(pre) > code[class*="language-"] { padding: 0.1em; border-radius: 0.3em; white-space: normal; }
+.token.comment, .token.prolog, .token.doctype, .token.cdata { color: slategray; }
+.token.punctuation { color: rgb(153, 153, 153); }
+.token.namespace { opacity: 0.7; }
+.token.property, .token.tag, .token.boolean, .token.number, .token.constant, .token.symbol, .token.deleted { color: rgb(153, 0, 85); }
+.token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.inserted { color: rgb(102, 153, 0); }
+.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string { color: rgb(154, 110, 58); }
+.token.atrule, .token.attr-value, .token.keyword { color: rgb(0, 119, 170); }
+.token.function, .token.class-name { color: rgb(221, 74, 104); }
+.token.regex, .token.important, .token.variable { color: rgb(238, 153, 0); }
+.token.important, .token.bold { font-weight: bold; }
+.token.italic { font-style: italic; }
+.token.entity { cursor: help; }
+pre[class*="language-"].line-numbers { position: relative; padding-left: 3.8em; counter-reset: linenumber 0; }
+pre[class*="language-"].line-numbers > code { position: relative; white-space: inherit; }
+.line-numbers .line-numbers-rows { position: absolute; pointer-events: none; top: 0px; font-size: 100%; left: -3.8em; width: 3em; letter-spacing: -1px; border-right: 1px solid rgb(153, 153, 153); user-select: none; }
+.line-numbers-rows > span { display: block; counter-increment: linenumber 1; }
+.line-numbers-rows > span::before { content: counter(linenumber); color: rgb(153, 153, 153); display: block; padding-right: 0.8em; text-align: right; }
+div.code-toolbar { position: relative; }
+div.code-toolbar > .toolbar { position: absolute; top: 0.3em; right: 0.2em; transition: opacity 0.3s ease-in-out 0s; opacity: 0; }
+div.code-toolbar:hover > .toolbar { opacity: 1; }
+div.code-toolbar:focus-within > .toolbar { opacity: 1; }
+div.code-toolbar > .toolbar .toolbar-item { display: inline-block; }
+div.code-toolbar > .toolbar a { cursor: pointer; }
+div.code-toolbar > .toolbar button { background: none; border: 0px; color: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; font-family: inherit; line-height: normal; overflow: visible; padding: 0px; user-select: none; }
+div.code-toolbar > .toolbar a, div.code-toolbar > .toolbar button, div.code-toolbar > .toolbar span { color: rgb(187, 187, 187); font-size: 0.8em; padding: 0px 0.5em; background: rgba(224, 224, 224, 0.2); box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 0px 0px; border-radius: 0.5em; }
+div.code-toolbar > .toolbar a:hover, div.code-toolbar > .toolbar a:focus, div.code-toolbar > .toolbar button:hover, div.code-toolbar > .toolbar button:focus, div.code-toolbar > .toolbar span:hover, div.code-toolbar > .toolbar span:focus { color: inherit; text-decoration: none; }
+.vx-image-view-image { transition: all 0.3s ease 0s; }
+.vx-modal-box { display: none; position: fixed; z-index: 1000; padding-top: 50px; left: 0px; top: 0px; width: 100%; height: 100%; overflow: hidden; background-color: rgba(51, 56, 66, 0.85); }
+.vx-modal-content { margin: auto; display: block; width: auto; height: auto; cursor: move; }
+.vx-modal-content { animation-name: zoom; animation-duration: 0.6s; }
+@-webkit-keyframes zoom { 
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+@keyframes zoom { 
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+span.vx-modal-close { position: absolute; z-index: 1000; top: 15px; right: 35px; color: rgb(171, 178, 191); font-size: 40px; font-weight: bold; transition: all 0.3s ease 0s; }
+span.vx-modal-close:hover, span.vx-modal-close:focus { color: rgb(215, 218, 224); text-decoration: none; cursor: pointer; }
+ul.contains-task-list { list-style-type: none; }
+.vx-alert { position: relative; padding: 0.75rem 1.25rem; margin-bottom: 1rem; border: 1px solid transparent; border-radius: 0.25rem; }
+.alert-primary { color: rgb(0, 64, 133); background-color: rgb(204, 229, 255); border-color: rgb(184, 218, 255); }
+.alert-secondary { color: rgb(56, 61, 65); background-color: rgb(226, 227, 229); border-color: rgb(214, 216, 219); }
+.alert-success { color: rgb(21, 87, 36); background-color: rgb(212, 237, 218); border-color: rgb(195, 230, 203); }
+.alert-info { color: rgb(12, 84, 96); background-color: rgb(209, 236, 241); border-color: rgb(190, 229, 235); }
+.alert-warning { color: rgb(133, 100, 4); background-color: rgb(255, 243, 205); border-color: rgb(255, 238, 186); }
+.alert-danger { color: rgb(114, 28, 36); background-color: rgb(248, 215, 218); border-color: rgb(245, 198, 203); }
+.alert-light { color: rgb(129, 129, 130); background-color: rgb(254, 254, 254); border-color: rgb(253, 253, 254); }
+.alert-dark { color: rgb(27, 30, 33); background-color: rgb(214, 216, 217); border-color: rgb(198, 200, 202); }
+
+    </style>
+
+    <script type="text/javascript">
+        var vxOutlineToc = [];
+
+var setVisible = function(node, visible) {
+    var cl = 'hide-none';
+    if (visible) {
+        node.classList.remove(cl);
+    } else {
+        node.classList.add(cl);
+    }
+};
+
+var isVisible = function(node) {
+    var cl = 'hide-none';
+    return !node.classList.contains(cl);
+};
+
+var setPostContentExpanded = function(node, expanded) {
+    var cl = 'col-expand';
+    if (expanded) {
+        node.classList.add(cl);
+    } else {
+        node.classList.remove(cl);
+    }
+};
+
+var setOutlinePanelVisible = function(visible) {
+    var outlinePanel = document.getElementById('outline-panel');
+    var postContent = document.getElementById('post-content');
+
+    setVisible(outlinePanel, visible);
+    setPostContentExpanded(postContent, !visible);
+};
+
+var isOutlinePanelVisible = function() {
+    var outlinePanel = document.getElementById('outline-panel');
+    return isVisible(outlinePanel);
+};
+
+window.addEventListener('load', function() {
+    var outlinePanel = document.getElementById('outline-panel');
+    outlinePanel.style.display = 'initial';
+
+    var floatingContainer = document.getElementById('container-floating');
+    floatingContainer.style.display = 'initial';
+
+    var outlineContent = document.getElementById('outline-content');
+    var postContent = document.getElementById('post-content');
+
+    // Escape @text to Html.
+    var escapeHtml = function(text) {
+        var map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+
+        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
+
+    // Fetch the outline.
+    var headers = postContent.querySelectorAll("h1, h2, h3, h4, h5, h6");
+    vxOutlineToc = [];
+    for (var i = 0; i < headers.length; ++i) {
+        var header = headers[i];
+
+        vxOutlineToc.push({
+            level: parseInt(header.tagName.substr(1)),
+            anchor: header.id,
+            title: escapeHtml(header.textContent)
+        });
+    }
+
+    if (vxOutlineToc.length == 0) {
+        setOutlinePanelVisible(false);
+        setVisible(floatingContainer, false);
+        return;
+    }
+
+    var baseLevel = baseLevelOfToc(vxOutlineToc);
+    var tocTree = tocToTree(toPerfectToc(vxOutlineToc, baseLevel), baseLevel);
+
+    outlineContent.innerHTML = tocTree;
+    setOutlinePanelVisible(true);
+    setVisible(floatingContainer, true);
+});
+
+// Return the topest level of @vxOutlineToc, starting from 1.
+var baseLevelOfToc = function(p_toc) {
+    var level = -1;
+    for (i in p_toc) {
+        if (level == -1) {
+            level = p_toc[i].level;
+        } else if (level > p_toc[i].level) {
+            level = p_toc[i].level;
+        }
+    }
+
+    if (level == -1) {
+        level = 1;
+    }
+
+    return level;
+};
+
+// Handle wrong title levels, such as '#' followed by '###'
+var toPerfectToc = function(p_toc, p_baseLevel) {
+    var i;
+    var curLevel = p_baseLevel - 1;
+    var perfToc = [];
+    for (i in p_toc) {
+        var item = p_toc[i];
+
+        // Insert empty header.
+        while (item.level > curLevel + 1) {
+            curLevel += 1;
+            var tmp = { level: curLevel,
+                        anchor: '',
+                        title: '[EMPTY]'
+                      };
+            perfToc.push(tmp);
+        }
+
+        perfToc.push(item);
+        curLevel = item.level;
+    }
+
+    return perfToc;
+};
+
+var itemToHtml = function(item) {
+    return '<a href="#' + item.anchor + '" title="' + item.title + '" data="' + item.anchor + '">' + item.title + '</a>';
+};
+
+// Turn a perfect toc to a tree using <ul>
+var tocToTree = function(p_toc, p_baseLevel) {
+    var i;
+    var front = '<li>';
+    var ending = ['</li>'];
+    var curLevel = p_baseLevel;
+    for (i in p_toc) {
+        var item = p_toc[i];
+        if (item.level == curLevel) {
+            front += '</li>';
+            front += '<li>';
+            front += itemToHtml(item);
+        } else if (item.level > curLevel) {
+            // assert(item.level - curLevel == 1)
+            front += '<ul>';
+            ending.push('</ul>');
+            front += '<li>';
+            front += itemToHtml(item);
+            ending.push('</li>');
+            curLevel = item.level;
+        } else {
+            while (item.level < curLevel) {
+                var ele = ending.pop();
+                front += ele;
+                if (ele == '</ul>') {
+                    curLevel--;
+                }
+            }
+            front += '</li>';
+            front += '<li>';
+            front += itemToHtml(item);
+        }
+    }
+    while (ending.length > 0) {
+        front += ending.pop();
+    }
+    front = front.replace("<li></li>", "");
+    front = '<ul>' + front + '</ul>';
+    return front;
+};
+
+var toggleMore = function() {
+    if (vxOutlineToc.length == 0) {
+        return;
+    }
+
+    var p = document.getElementById('floating-more');
+    if (isOutlinePanelVisible()) {
+        p.textContent = '<';
+        setOutlinePanelVisible(false);
+    } else {
+        p.textContent = '>';
+        setOutlinePanelVisible(true);
+    }
+};
+
+window.addEventListener('scroll', function() {
+    if (vxOutlineToc.length == 0 || !isOutlinePanelVisible()) {
+        return;
+    }
+
+    var postContent = document.getElementById('post-content');
+    var scrollTop = document.documentElement.scrollTop
+                    || document.body.scrollTop
+                    || window.pageYOffset;
+    var eles = postContent.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+    if (eles.length == 0) {
+        return;
+    }
+
+    var idx = -1;
+    var biaScrollTop = scrollTop + 50;
+    for (var i = 0; i < eles.length; ++i) {
+        if (biaScrollTop >= eles[i].offsetTop) {
+            idx = i;
+        } else {
+            break;
+        }
+    }
+
+    var header = '';
+    if (idx != -1) {
+        header = eles[idx].id;
+    }
+
+    highlightItemOnlyInOutline(header);
+});
+
+var highlightItemOnlyInOutline = function(id) {
+    var cl = 'outline-bold';
+    var outlineContent = document.getElementById('outline-content');
+    var eles = outlineContent.querySelectorAll("a");
+    var target = null;
+    for (var i = 0; i < eles.length; ++i) {
+        var ele = eles[i];
+        if (ele.getAttribute('data') == id) {
+            target = ele;
+            ele.classList.add(cl);
+        } else {
+            ele.classList.remove(cl);
+        }
+    }
+
+    // TODO: scroll target into view within the outline panel scroll area.
+};
+
+    </script>
+
+    <!-- VX_SCRIPTS_PLACEHOLDER -->
+
+    <!-- VX_HEAD_PLACEHOLDER -->
+</head>
+<body class="vx-transparent-background">
+    <div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <!-- VX_OUTLINE_PANEL_START -->
+        <div id="outline-panel" style="display:none;" class="d-none d-md-block d-xl-block col-md-3 col-xl-2 bd-toc">
+            <div id="outline-content" class="section-nav"></div>
+        </div>
+        <!-- VX_OUTLINE_PANEL_END -->
+
+        <div id="post-content" class="col-12 col-md-9 col-xl-10 py-md-3 pl-md-5 bd-content">
+        <div id="vx-content" class="vx-constrain-image-width line-numbers"><h1 id="前端开发规范" class="source-line" data-source-line="0">前端开发规范<a class="vx-header-anchor" href="#前端开发规范" vx-data-anchor-icon="¶"></a></h1>
+<h2 id="一、一般规范" class="source-line" data-source-line="2">一、一般规范<a class="vx-header-anchor" href="#一、一般规范" vx-data-anchor-icon="¶"></a></h2>
+<h3 id="1、命名规范" class="source-line" data-source-line="3">1、命名规范<a class="vx-header-anchor" href="#1、命名规范" vx-data-anchor-icon="¶"></a></h3>
+<h4 id="变量" class="source-line" data-source-line="4">变量<a class="vx-header-anchor" href="#变量" vx-data-anchor-icon="¶"></a></h4>
+<p class="source-line" data-source-line="6">（1）以英文命名，避免使用中文拼音尽量简易并要求语义化。</p>
+<p class="source-line" data-source-line="8">（2）全部采用小写方式，如需要分割以-连接。如：my-project-name</p>
+<p class="source-line" data-source-line="10">（3）前缀应该是名词</p>
+<p class="source-line" data-source-line="12">（4）尽量在变量名字中体现所属类型，如:length、count等表示数字类型；而包含name、title表示为字符串类型。</p>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="14">// 好的命名方式
+let maxCount = 10;
+let tableTitle = 'LoginTable';
+
+// 不好的命名方式
+let setCount = 10;
+let getTitle = 'LoginTable';
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h4 id="常量" class="source-line" data-source-line="23">常量<a class="vx-header-anchor" href="#常量" vx-data-anchor-icon="¶"></a></h4>
+<ul>
+<li class="source-line" data-source-line="25">全部使用大写+下划线</li>
+</ul>
+<h4 id="函数" class="source-line" data-source-line="27">函数<a class="vx-header-anchor" href="#函数" vx-data-anchor-icon="¶"></a></h4>
+<ul>
+<li class="source-line" data-source-line="29">命名方法：小驼峰式命名法。</li>
+<li class="source-line" data-source-line="30">命名规范：前缀应当为动词。</li>
+<li class="source-line" data-source-line="31">命名建议：可使用常见动词约定</li>
+</ul>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="33">// 是否可阅读
+function canRead() { return true;
+}
+
+// 获取名称
+function getName() { return this.name;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h4 id="类名" class="source-line" data-source-line="43">类名<a class="vx-header-anchor" href="#类名" vx-data-anchor-icon="¶"></a></h4>
+<ul>
+<li class="source-line" data-source-line="45">命名方法：大驼峰式命名法，首字母大写。</li>
+<li class="source-line" data-source-line="46">命名规范：前缀为名称</li>
+</ul>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="48">class Student{
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+<ul>
+<li class="source-line" data-source-line="52">建议尽量使用let而不是用var声明变量。</li>
+</ul>
+<h4 id="变量声明方式" class="source-line" data-source-line="54">变量声明方式<a class="vx-header-anchor" href="#变量声明方式" vx-data-anchor-icon="¶"></a></h4>
+<h3 id="2、代码注释" class="source-line" data-source-line="57">2、代码注释<a class="vx-header-anchor" href="#2、代码注释" vx-data-anchor-icon="¶"></a></h3>
+<p class="source-line" data-source-line="59">（1）关键步骤必须写注释。</p>
+<p class="source-line" data-source-line="61">（2）不要写你的代码都干了些什么，而要写你的代码为什么要这么写，背后的考量是什么。当然也可以加入所思考问题或是解决方案的链接地址。</p>
+<h3 id="3、代码检查" class="source-line" data-source-line="63">3、代码检查<a class="vx-header-anchor" href="#3、代码检查" vx-data-anchor-icon="¶"></a></h3>
+<p class="source-line" data-source-line="65">使用esLint对javascript 代码进行检查。</p>
+<h2 id="二、html规范" class="source-line" data-source-line="67">二、HTML规范<a class="vx-header-anchor" href="#二、html规范" vx-data-anchor-icon="¶"></a></h2>
+<h3 id="1、文档类型" class="source-line" data-source-line="69">1、文档类型<a class="vx-header-anchor" href="#1、文档类型" vx-data-anchor-icon="¶"></a></h3>
+<p class="source-line" data-source-line="71">使用HTML5文档类型声明。</p>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="72">&lt;!DOCTYPE html&gt;
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<h3 id="2、结构(html)、表现(css)、行为(js)代码分离。" class="source-line" data-source-line="76">2、结构(HTML)、表现(CSS)、行为(JS)代码分离。<a class="vx-header-anchor" href="#2、结构(html)、表现(css)、行为(js)代码分离。" vx-data-anchor-icon="¶"></a></h3>
+<ul>
+<li class="source-line" data-source-line="78">HTML文件中只包含标签，将表现放入样式表中，将所有动作行为放入脚本文件中。在HTML的中引入样式文件，在之前引入脚本文件。</li>
+</ul>
+<h3 id="3、meat声明" class="source-line" data-source-line="80">3、meat声明<a class="vx-header-anchor" href="#3、meat声明" vx-data-anchor-icon="¶"></a></h3>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="81">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+
+让网页宽度适应屏幕宽度，多用于移动端。
+
+&lt;meta http-equiv="X-UA-Compatible"content="IE=edge,chrome=1" /&gt;
+
+&lt;meta name="renderer" content="webkit|ie-comp|ie-stand"&gt;
+
+让360浏览器默认进入极速模式
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h3 id="4、img标签必须添加alt属性。" class="source-line" data-source-line="92">4、img标签必须添加alt属性。<a class="vx-header-anchor" href="#4、img标签必须添加alt属性。" vx-data-anchor-icon="¶"></a></h3>
+<ul>
+<li class="source-line" data-source-line="94">在图像无法显示时的替代文本。在网速慢、图片src属性错误、浏览器禁用图片或是屏幕阅读器中alt属性很重要，且利于SEO。</li>
+</ul>
+<h3 id="5、标签规范" class="source-line" data-source-line="96">5、标签规范<a class="vx-header-anchor" href="#5、标签规范" vx-data-anchor-icon="¶"></a></h3>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="98">html标签属性必须小写
+标签、属性、属性命名由小写英文、数字和_组成，且所有标签必须闭合，属性值必须用双引号""
+避免冗余标签
+段落文字应该用&lt;p&gt;而不应该使用&lt;br&gt;换行
+列表项放&lt;ul&gt;,&lt;ol&gt;,&lt;dl&gt;，不要使用&lt;div&gt;或者&lt;p&gt;
+&lt;input&gt;应该使用for属性绑定&lt;label&gt;
+form button应该指定type类型，&lt;button type="submit"&gt;xxx&lt;/button&gt;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h2 id="三、css、sass规范" class="source-line" data-source-line="108">三、CSS、SASS规范<a class="vx-header-anchor" href="#三、css、sass规范" vx-data-anchor-icon="¶"></a></h2>
+<ul>
+<li class="source-line" data-source-line="110">推荐语义化的名称</li>
+<li class="source-line" data-source-line="111">避免使用ID作为样式名称</li>
+<li class="source-line" data-source-line="112">避免使用标签名作为样式名称 省略"0"值后面的单位(px,rem,em)</li>
+<li class="source-line" data-source-line="113">颜色表示推荐使用十六进制表示法，除非一些特殊需要每个声明必须以";"结尾，除非使用sass等语法</li>
+<li class="source-line" data-source-line="114">css属性选择器或者属性值必须使用"双引号，但url(path)不要使用引号推荐使用css缩写属性，比如 font、background等</li>
+</ul>
+<h3 id="1、css选择器层级" class="source-line" data-source-line="116">1、css选择器层级<a class="vx-header-anchor" href="#1、css选择器层级" vx-data-anchor-icon="¶"></a></h3>
+<p class="source-line" data-source-line="118">错误示范：</p>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="120">.content_box form ul li {height:30px;margin:10px;}
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<p class="source-line" data-source-line="123">错误原因：样式指向不精准，使得受影响的标签范围太大，当多个页面同时引用同一样式表时，容易出现不可预见的问题。</p>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="124">#final #content .con_border .system_time .default_checkbox {}
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<p class="source-line" data-source-line="127">错误原因：选择器太多，权重太高，不利于后期维护。</p>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="129">.access_control &gt; ul &gt; li &gt; ul &gt; li &gt; input{
+    margin-right:10px;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+<p class="source-line" data-source-line="134">错误原因：选择器太多，影响运行效率，不利于样式复用。尽量避免使用后代选择器。<br>
+建议：层级尽量不超过三级，防止出现权重太高，不利于后期的覆盖与维护。</p>
+<h3 id="2、!important" class="source-line" data-source-line="137">2、!important<a class="vx-header-anchor" href="#2、!important" vx-data-anchor-icon="¶"></a></h3>
+<p class="source-line" data-source-line="139">尽量避免使用!important，因为这是css里面的终极大招，用多了伤元气。</p>
+<h3 id="3、合理的避免使用id选择器。" class="source-line" data-source-line="141">3、合理的避免使用ID选择器。<a class="vx-header-anchor" href="#3、合理的避免使用id选择器。" vx-data-anchor-icon="¶"></a></h3>
+<p class="source-line" data-source-line="143">一般情况下ID不应被应用于样式表中。因为ID样式不能被复用且每个页面中只能使用一次ID。还有一个原因是ID选择器权重很高。</p>
+<h3 id="4、尽量避免使用元素选择器" class="source-line" data-source-line="145">4、尽量避免使用元素选择器<a class="vx-header-anchor" href="#4、尽量避免使用元素选择器" vx-data-anchor-icon="¶"></a></h3>
+<p class="source-line" data-source-line="147">错误示范：</p>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="148">form ul li em{
+
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+<p class="source-line" data-source-line="153">推荐写法：</p>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="154">.content .title{
+
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+<h3 id="5、文件命名、id、class等所有命名避免以下词汇。" class="source-line" data-source-line="159">5、文件命名、ID、CLASS等所有命名避免以下词汇。<a class="vx-header-anchor" href="#5、文件命名、id、class等所有命名避免以下词汇。" vx-data-anchor-icon="¶"></a></h3>
+<p class="source-line" data-source-line="161">一些浏览器会将含有这些词的作为广告拦截，文件命名、ID、CLASS等所有命名避免以上词汇。 ad、ads、adv、banner、sponsor、gg、guangg、guanggao等。</p>
+<h3 id="6、命名风格" class="source-line" data-source-line="163">6、命名风格<a class="vx-header-anchor" href="#6、命名风格" vx-data-anchor-icon="¶"></a></h3>
+<p class="source-line" data-source-line="165">使用连字符"-"来作为单词的分隔符，避免使用"_"下划线</p>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="167">/*不推荐*/
+.demoimage {}
+.error_status {}
+/*推荐*/
+.ads-sample {}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h3 id="7、声明顺序" class="source-line" data-source-line="175">7、声明顺序<a class="vx-header-anchor" href="#7、声明顺序" vx-data-anchor-icon="¶"></a></h3>
+<ul>
+<li class="source-line" data-source-line="177">位置属性(position, top, right, z-index, display, float等)</li>
+<li class="source-line" data-source-line="178">大小(width, height, padding, margin)</li>
+<li class="source-line" data-source-line="179">文字系列(font, line-height, letter-spacing, color- text-align等)</li>
+<li class="source-line" data-source-line="180">背景(background, border等)</li>
+<li class="source-line" data-source-line="181">其他(animation, transition等)</li>
+</ul>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="183">.box {
+    display: block; 
+    position: absolute; 
+    left: 30%;
+    right: 30%; 
+    overflow: hidden; 
+    margin: 1em; 
+    padding: 1em;
+    background-color: #eee; 
+    border: 3px solid #ddd;
+    font-family: 'Arial', 
+    sans-serif; 
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h3 id="8、嵌套顺序" class="source-line" data-source-line="201">8、嵌套顺序<a class="vx-header-anchor" href="#8、嵌套顺序" vx-data-anchor-icon="¶"></a></h3>
+<p class="source-line" data-source-line="203">1.当前选择器的样式属性<br>
+2.当前选择器的伪类样式(:first-letter,:hover,:active etc)<br>
+3.当前选择器的伪类元素(:before,:after)<br>
+4.子选择器部分</p>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="208">.parent{
+    color:red; 
+    background:url(img.png); 
+    &amp;:first-letter{
+        font-size:30px; 
+        font-weight:bold;
+    }
+    &amp;:before{
+        position:absolute;
+    }
+    .child{
+        width:100px;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h2 id="四、javascript规范" class="source-line" data-source-line="225">四、JAVASCRIPT规范<a class="vx-header-anchor" href="#四、javascript规范" vx-data-anchor-icon="¶"></a></h2>
+<h3 id="1、等同==-和严格等===的区别" class="source-line" data-source-line="227">1、等同== 和严格等===的区别<a class="vx-header-anchor" href="#1、等同==-和严格等===的区别" vx-data-anchor-icon="¶"></a></h3>
+<p class="source-line" data-source-line="229">==， 两边值类型不同的时候，要先进行类型转换，再比较。===，不做类型转换，类型不同的一定不等。</p>
+<p class="source-line" data-source-line="231">使用 === 精确的比较操作符，避免在判断的过程中，由 JavaScript 的强制类型转换所造成的困扰。例如</p>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="233">(function(log){
+  'use strict';
+
+  log('0' == 0); // true
+  log('' == false); // true
+  log('1' == true); // true
+  log(null == undefined); // true
+
+  var x = {
+    valueOf: function() {
+      return 'X';
+    }
+  };
+
+  log(x == 'X');
+
+}(window.console.log));
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<p class="source-line" data-source-line="253">总是使用 === 精确的比较操作符，避免在判断的过程中，由 JavaScript 的强制类型转换所造成的困扰。</p>
+<p class="source-line" data-source-line="255">如果你使用 === 操作符，那比较的双方必须是同一类型为前提的条件下才会有效。 在只使用 == 的情况下，JavaScript 所带来的强制类型转换使得判断结果跟踪变得复杂。</p>
+<h3 id="2、二元和三元操作符" class="source-line" data-source-line="258">2、二元和三元操作符<a class="vx-header-anchor" href="#2、二元和三元操作符" vx-data-anchor-icon="¶"></a></h3>
+<ul>
+<li class="source-line" data-source-line="260">操作符始终写在前一行, 以免分号的隐式插入产生预想不到的问题</li>
+</ul>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="262">let x = a ? b : c;
+let y = a ?
+    longButSimpleOperandB : longButSimpleOperandC;
+let z = a ?
+        moreComplicatedB :
+        moreComplicatedC;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h3 id="3、条件(三元)操作符-(-?-:-)" class="source-line" data-source-line="271">3、条件(三元)操作符 ( ? : )<a class="vx-header-anchor" href="#3、条件(三元)操作符-(-?-:-)" vx-data-anchor-icon="¶"></a></h3>
+<ul>
+<li class="source-line" data-source-line="273">三元操作符用于替代 if 条件判断语句。</li>
+<li class="source-line" data-source-line="274"></li>
+</ul>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="275">if (val != 0) {
+  return foo();
+} else {
+  return bar();
+}
+// Recommended
+return val ? foo() : bar();
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h3 id="4、字符串" class="source-line" data-source-line="285">4、字符串<a class="vx-header-anchor" href="#4、字符串" vx-data-anchor-icon="¶"></a></h3>
+<ul>
+<li class="source-line" data-source-line="287">字符串统一使用'  '单引号，避免与html中的"冲突</li>
+<li class="source-line" data-source-line="288">需要拼接，尽量少用+，多使用模板字符串</li>
+</ul>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="290">let str1 = 'yang'
+
+let string = `hello ${str1}`
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+<h3 id="5、协议" class="source-line" data-source-line="295">5、协议<a class="vx-header-anchor" href="#5、协议" vx-data-anchor-icon="¶"></a></h3>
+<p class="source-line" data-source-line="297">引入外部资源时，url所指向的具体路径不要指定协议部分，防止资源协议无法确定</p>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="298">
+&lt;!--不推荐--&gt;
+&lt;script src="http://cdn.com/foundation.min.js"&gt;&lt;/script&gt;
+&lt;!--推荐--&gt;
+&lt;script src="//cdn.com/foundation.min.js"&gt;&lt;/script&gt;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h3 id="6、代码注释风格" class="source-line" data-source-line="306">6、代码注释风格<a class="vx-header-anchor" href="#6、代码注释风格" vx-data-anchor-icon="¶"></a></h3>
+<ul>
+<li class="source-line" data-source-line="308">对于不能自解释的代码，function必须使用JSDoc风格的注释</li>
+</ul>
+<div class="code-toolbar"><pre class="language-txt line-numbers"><code class="source-line language-txt" data-source-line="309">/**
+*method description
+*@param {type} pramaA description
+*@param {type} pramaB description
+*@returns {type} description
+*/
+function method (pramaA, pramaB) { return true;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h2 id="五、vue规范" class="source-line" data-source-line="319">五、Vue规范<a class="vx-header-anchor" href="#五、vue规范" vx-data-anchor-icon="¶"></a></h2>
+<h3 id="1、组件/实例的选项顺序" class="source-line" data-source-line="321">1、组件/实例的选项顺序<a class="vx-header-anchor" href="#1、组件/实例的选项顺序" vx-data-anchor-icon="¶"></a></h3>
+<ul>
+<li class="source-line" data-source-line="323">name</li>
+<li class="source-line" data-source-line="324">components / directives / filters</li>
+<li class="source-line" data-source-line="325">extends / mixins</li>
+<li class="source-line" data-source-line="326">model / props / propsData</li>
+<li class="source-line" data-source-line="327">data / computed</li>
+<li class="source-line" data-source-line="328">watch / 生命周期钩子</li>
+<li class="source-line" data-source-line="329">Methods</li>
+</ul>
+<h3 id="2、元素特性的顺序" class="source-line" data-source-line="331">2、元素特性的顺序<a class="vx-header-anchor" href="#2、元素特性的顺序" vx-data-anchor-icon="¶"></a></h3>
+<ul>
+<li class="source-line" data-source-line="333">is</li>
+<li class="source-line" data-source-line="334">v-for / v-if / v-else-if / v-else / v-show / v-cloak</li>
+<li class="source-line" data-source-line="335">v-pre / v-once</li>
+<li class="source-line" data-source-line="336">id</li>
+<li class="source-line" data-source-line="337">ref / key / slot</li>
+<li class="source-line" data-source-line="338">v-model</li>
+<li class="source-line" data-source-line="339">v-on</li>
+<li class="source-line" data-source-line="340">v-html / v-text</li>
+</ul>
+<h3 id="3、事件的控制" class="source-line" data-source-line="342">3、事件的控制<a class="vx-header-anchor" href="#3、事件的控制" vx-data-anchor-icon="¶"></a></h3>
+<ul>
+<li class="source-line" data-source-line="344">不要使用 this.parent / this.root 进行控制, 会导致流程难以跟踪. 可使用事件中心进行代替.</li>
+<li class="source-line" data-source-line="345">事件中心每添加事件, 需要注明事件的 名称 / 来源文件 / 流向文件, 以及事件的作用.</li>
+<li class="source-line" data-source-line="346">事件移除时需要移除事件中心对应事件注明.</li>
+<li class="source-line" data-source-line="347">组件当中有原生绑定事件, 注意在组建注销前进行移除</li>
+</ul>
+<h2 id="六、版本控制" class="source-line" data-source-line="349">六、版本控制<a class="vx-header-anchor" href="#六、版本控制" vx-data-anchor-icon="¶"></a></h2>
+<p class="source-line" data-source-line="351">说明：本公司使用Gitlab作为版本控制。</p>
+<h3 id="1、分支管理（与后端一致）" class="source-line" data-source-line="353">1、分支管理（与后端一致）<a class="vx-header-anchor" href="#1、分支管理（与后端一致）" vx-data-anchor-icon="¶"></a></h3>
+<p class="source-line" data-source-line="355">本公司的每个项目在分支管理方面，必须统一采用以下工作流程。</p>
+<p class="source-line" data-source-line="357">（1）主干分支</p>
+<p class="source-line" data-source-line="359">项目初始化时会自动创建，是受到保护的分支，名为master。此分支的代码必须始终保持与正式环境一致，每次预发布正式版本测试通过之后，必须基于此分支新建标签，标签名以“&lt;版本号&gt;.RELEASE”格式进行命名。</p>
+<p class="source-line" data-source-line="361">（2）测试分支</p>
+<p class="source-line" data-source-line="363">项目初始化完成之后即可创建（基于master），是长期性分支（一般情况下不会被删除），直接命名为test。此分支的代码必须始终保持与测试环境一致。</p>
+<p class="source-line" data-source-line="365">（3）特性分支</p>
+<p class="source-line" data-source-line="367">每次开发新功能或修补BUG时创建，是短期性分支（发布后可以删除），若是开发新功能的分支，则以“feature/&lt;版本号&gt;”格式进行命名；若是修补BUG的分支，则以“hotfix/&lt;版本号&gt;”的格式进行命名。通常基于主干分支或其他特性分支（可以基于多个）创建，具体得根据实际情况而定，一般情况下，若同时满足以下条件，则可以考虑基于其他特性分支创建。</p>
+<ul>
+<li class="source-line" data-source-line="369">本次需要创建的特性分支与其他未发布的特性分支有很大的关联，通常集中相同的类、页码或模块中开发；</li>
+<li class="source-line" data-source-line="370">被基于创建的其他特性分支的需求被废弃、搁置的可能性不大，且不会存在重大BUG。</li>
+</ul>
+<p class="source-line" data-source-line="372">需要明确的是，以上基于其他特性分支创建只是一种建议，需要开发人员根据实际情况进行权衡利弊。但是当本次需要创建的特性分支与其他未发布的特性分支存在很大关联时，不管基于哪个分支创建，都会存在一些弊端。</p>
+<p class="source-line" data-source-line="374">基于主干分支创建存在的弊端：</p>
+<ul>
+<li class="source-line" data-source-line="376">本次需要创建的特性分支与有很大关联的其他未发布特性分支合并时，必定会存在很多冲突需要解决；</li>
+<li class="source-line" data-source-line="377">在本次需要创建的特性分支中开发过程中，可能无法复用有很大关联的其他未发布特性分支的通用代码。</li>
+</ul>
+<p class="source-line" data-source-line="379">基于其他有很大关联的特性分支创建存在的弊端：</p>
+<ul>
+<li class="source-line" data-source-line="381">若其他有很大关联的特性分支的需求被废弃或搁置，则本次需要创建的分支在发布时会连带其他特性分支的代码一同发布，这就显得有些多余，甚至会受到它的影响；</li>
+<li class="source-line" data-source-line="382">若其他有很大关联的特性分支的代码存在重大BUG，则本次需要创建的分支在发布时会连带此重大BUG一同发布，也会受到它的影响。</li>
+</ul>
+<p class="source-line" data-source-line="384">（4）发布分支</p>
+<p class="source-line" data-source-line="386">发布正式版本时创建（基于master），是短期性分支（发布完成后可删除）。通常以“release/&lt;版本号&gt;”格式进行命名。此分支的代码是预发布代码，可以将本次需要发布的所有特性分支依次合并到此分支，若预发布后存在BUG，则可直接在此分支进行修补。预发布完成之后，必须将此分支合并到master分支。</p>
+<h3 id="2、代码质量" class="source-line" data-source-line="388">2、代码质量<a class="vx-header-anchor" href="#2、代码质量" vx-data-anchor-icon="¶"></a></h3>
+<p class="source-line" data-source-line="390">一切代码必须同时满足以下两个条件方可提交到Gitlab。</p>
+<ul>
+<li class="source-line" data-source-line="392">本次提交的代码已经符合本规范， 提交前执行npm run lint检测代码规范；</li>
+<li class="source-line" data-source-line="393">本次提交的代码已经通过测试，至少是启动不报错，否则会影响他人的开发进度。</li>
+</ul>
+</div>
+        </div>
+    </div>
+    </div>
+
+    <!-- VX_OUTLINE_BUTTON_START -->
+    <div id="container-floating" style="display:none;" class="d-none d-md-block d-xl-block">
+        <div id="floating-button" onclick="toggleMore()">
+            <p id="floating-more" class="more">&gt;</p>
+        </div>
+    </div>
+    <!-- VX_OUTLINE_BUTTON_END -->
+</body>
+</html>
