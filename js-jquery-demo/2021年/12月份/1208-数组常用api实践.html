@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script>
+			let arr2 =[
+				{
+				  name:'批量删除',
+				  key:'1'
+				},
+				{
+				  name:'新增',
+				  key:'2'
+				},
+				{
+				  name:'上架',
+				  key:'3'
+				}
+			]
+			let arr3 =[
+				{
+				  name:'批量删除',
+				  key:1
+				},
+				{
+				  name:'新增',
+				  key:2
+				},
+				{
+				  name:'上架',
+				  key:4
+				}
+			]
+			
+			arr2.forEach(item =>{
+				console.log( item.key * 2)  // 2  4  6
+			})
+				
+			let newArr = arr3.filter(item =>{
+				return item.key > 2
+			})
+			console.log(newArr)   //[{"name": "上架","key": 4}]
+			
+			let newArr2 = arr2.map(item =>{
+				return item.key * 2
+			})
+			console.log(newArr2)   // [2, 4, 6]
+			
+			let arr =[
+				{
+				  name:'批量删除',
+				  key:'delete'
+				},
+				{
+				  name:'新增',
+				  key:'add'
+				},
+				{
+				  name:'上架',
+				  key:'putShelf'
+				}
+			]
+			arr.forEach(item =>{
+				if(!item.state){
+					item.state = item.key
+				}
+			})
+			console.log(arr)
+			// [
+			//     {
+			//         "name": "批量删除",
+			//         "key": "delete",
+			//         "state": "delete"
+			//     },
+			//     {
+			//         "name": "新增",
+			//         "key": "add",
+			//         "state": "add"
+			//     },
+			//     {
+			//         "name": "上架",
+			//         "key": "putShelf",
+			//         "state": "putShelf"
+			//     }
+			// ]
+				
+			arr.forEach(item =>{
+				if(item.key =='delete'){
+					item.state='deleteNew'
+				}
+			})
+			
+		</script>
+	</body>
+</html>
