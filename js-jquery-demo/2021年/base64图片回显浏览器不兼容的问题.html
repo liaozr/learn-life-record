@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		一般都会使用通配符来保证多种格式的图片都可以支持有如下标签:
+		
+		<img id="frontImg" src = "data:image/*;base64,${Img}" width='250' height='200'/>
+		
+		但是发现使用base64格式进行图片的回显时,有些比如ie或Edge浏览器不兼容无法回显图片,这是因为有些浏览器对*的通配符无法识别导致的,修改如下:
+		
+		<img id="frontImg" src = "data:image/jpg;base64,${Img}" width='250' height='200'/>
+		
+		base64 记得这里是小写，不是大写的BASE64,因为测试过 低版本的谷歌浏览器 大写的BASE64图片  会有兼容性的问题，显示不出来。
+		
+		所以，base64这里是要小写的，不是大写。
+			 
+ 
+		
+	</body>
+</html>

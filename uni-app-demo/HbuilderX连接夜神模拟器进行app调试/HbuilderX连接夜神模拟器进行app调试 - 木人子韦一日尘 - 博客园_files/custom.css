@@ -1,0 +1,11 @@
+
+body::after{
+   content:"";
+  display:block;
+z-index:-1;
+position:fixed;
+top:0;right:0;bottom:0;left:0;
+    background: rgba(12, 100, 129, 1) url('https://images.cnblogs.com/cnblogs_com/murenziwei/1605443/o_191203035757p7.jpg') fixed no-repeat;   //修改背景图片
+    background-position: 50% 5%; 
+    background-size: cover;
+}

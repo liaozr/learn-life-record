@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+   
+   <script type="text/javascript">
+
+    // common目录下的config.js文件
+   	export default{
+		// api请求前缀
+		webUrl:'https://ceshi2.dishait.cn/api/v1',
+		// websocket地址
+		websocketUrl:'wss://ceshi2.dishait.cn/wss'
+	}
+
+
+
+	// 入口文件 main.js 
+	// 引入配置文件
+	import $config  from './common/config.js'
+	Vue.prototype.$config = $config
+    
+
+
+    // 组件里面使用
+	onLoad(){
+	  console.log( this.$config.webUrl)		
+	}
+
+   </script>
+
+
+
+
+</body>
+</html>

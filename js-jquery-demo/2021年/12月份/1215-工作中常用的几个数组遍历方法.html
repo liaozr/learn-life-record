@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.8/vue.js"></script>
+</head>
+<body>
+
+  <div id="app">
+  	  <div v-for="item in arr0" class="aa">
+  	  	 {{item.text}}{{item.state}}
+  	  </div>
+
+  </div>
+
+Array.forEach()
+接收一个函数作为参数
+使用场景
+需要遍历一个数组的时候
+
+<script type="text/javascript">
+
+	new Vue({
+		el:'#app',
+		data:{
+	        arr0:[
+			   {
+			   	text:'张三',
+			   	name:22
+			   },
+			   {
+			   	text:'罗翔',
+			   	name:23
+			   },
+			]
+		},
+		mounted(){
+          this.arr0.forEach((item) =>{
+          	 if(!item.state){
+          	 	this.$set(item,'state',false)
+          	 }
+          })
+          console.log(this.arr0)
+		},
+		methods:{
+
+		}
+	})
+	
+let arr = ["张三", "罗翔", "张伟"];
+let arr0 =[
+   {
+   	text:'张三',
+   	name:22
+   },
+   {
+   	text:'罗翔',
+   	name:23
+   },
+]
+
+arr0.forEach((item) =>{
+   if(!item.state){
+   	item.state = false
+   }
+})
+
+console.log(arr0)
+// [
+//     {
+//         "text": "张三",
+//         "name": 22,
+//         "state": false
+//     },
+//     {
+//         "text": "罗翔",
+//         "name": 23,
+//         "state": false
+//     }
+// ]
+
+
+
+ 
+
+arr.forEach((item) =>{
+	console.log(item)
+})
+// '张三' 
+// '罗翔' 
+// '张伟' 
+
+</script>
+
+
+
+Array.filter()
+接收一个方法作为参数
+使用场景
+需要获取到列表里符合条件的元素，组成新数组
+
+<script type="text/javascript">
+	
+	let arr2 = [1, 5, 9, 2, 3];
+
+	let newArr = arr2.filter((item) => item > 4);
+
+	let arr4 =[
+	   {
+	   	text:'张三1',
+	   	name:22
+	   },
+	   {
+	   	text:'罗翔1',
+	   	name:23
+	   },
+	]
+	let newArr4 = arr4.filter((item) =>
+      item.name > 22
+	)
+
+
+	console.log(newArr); //[5, 9]
+	console.log(newArr4)
+
+	// [
+	//     {
+	//         "text": "罗翔1",
+	//         "name": 23
+	//     }
+	// ]
+
+</script>
+
+
+
+
+Array.map()
+接收一个方法作为参数
+使用场景
+对数据进行处理，变成自己需要的数据格式,组成新数组
+
+<script type="text/javascript">
+	let arr3 = [
+	  { name: "张三", age: 14 },
+	  { name: "罗翔", age: 50 },
+	  { name: "张伟", age: 23 },
+	];
+
+	let newArr2 = arr3.map((item) =>
+		item.name
+	)
+	// 第二种写法
+	// let newArr2 = arr3.map((item) =>{
+	// 	return item.name
+	// })
+	console.log(newArr2); //['张三', '罗翔', '张伟']
+
+
+</script>
+
+</body>
+</html>
