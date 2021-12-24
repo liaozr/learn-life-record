@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+
+
+npm i babel-plugin-transform-remove-console --save-dev
+
+
+在项目根目录babel.config.js文件下配置。该插件不区分生产环境或者开发环境，只要你配置都能生效。
+
+<script type="text/javascript">
+
+	// babel.config.js
+
+	// 生产环境如下配置
+	
+	const prodPlugins = [];
+	if (process.env.NODE_ENV === "production") {
+	  prodPlugins.push("transform-remove-console");
+	}
+
+	module.exports = {
+	  configureWebpack: {
+	    plugins: [
+	      ...prodPlugins
+	    ]
+	  }
+	}
+
+</script>
+
+
+
+
+</body>
+</html>

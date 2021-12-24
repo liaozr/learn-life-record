@@ -117,14 +117,12 @@ Array.filter()
 	   	name:23
 	   },
 	]
-	let newArr4 = arr4.filter((item) =>
-      item.name > 22
-	)
+	let newArr4 = arr4.filter((item) =>{
+      return item.name > 22
+	})
 
-
-	console.log(newArr); //[5, 9]
+   console.log(77777)
 	console.log(newArr4)
-
 	// [
 	//     {
 	//         "text": "罗翔1",
@@ -149,13 +147,13 @@ Array.map()
 	  { name: "张伟", age: 23 },
 	];
 
-	let newArr2 = arr3.map((item) =>
-		item.name
-	)
+	// let newArr2 = arr3.map((item) =>
+	// 	item.name
+	// )
 	// 第二种写法
-	// let newArr2 = arr3.map((item) =>{
-	// 	return item.name
-	// })
+	let newArr2 = arr3.map((item) =>{
+		return item.name
+	})
 	console.log(newArr2); //['张三', '罗翔', '张伟']
 
 
