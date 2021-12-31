@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		FormData的主要用途有两个：
+		
+		1、将form表单元素的name与value进行组合，实现表单数据的序列化，从而减少表单元素的拼接，提高工作效率。
+		2、异步上传文件
+		
+		一、创建formData对象
+		
+		
+		1、创建一个空对象：
+		<script>
+		
+			//通过FormData构造函数创建一个空对象
+			var formdata=new FormData();
+			//可以通过append()方法来追加数据
+			formdata.append("name","laotie");
+			//通过get方法对值进行读取
+			console.log(formdata.get("name"));//laotie
+			//通过set方法对值进行设置
+			formdata.set("name","laoliu");
+			console.log(formdata.get("name"));//laoliu
+			
+		</script>
+		
+<!-- ----------------------------------------------------------------------------------------------------------------		 -->
+		
+		<button @click="impoortExcel">导入excel文件</button>
+		<!-- 导入人员档案 -->
+		<!--  action 放的是导入文件的后台地址 -->
+		<el-dialog title="导入人员档案" :visible.sync="importDialogVisible" width="66%">
+		  <el-upload
+			ref="upload"
+			name="file"
+			:limit="limit"
+			:auto-upload="false"
+			action="接口地址"
+			:on-exceed="handleExceed"
+			:file-list="filelist"
+			:on-change="handleChansge"
+		  >
+		  <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+		  <el-button
+			  style="margin-left: 10px;"
+			  size="small"
+			  type="success"
+			  @click="postfile"
+			  :disabled="btn.disable"
+			>{{btn.message}}
+		   </el-button>
+		   <div slot="tip" class="el-upload__tip">上传文件只能为excel文件，且为xlsx,xls格式</div>
+		  </el-upload>
+		</el-dialog>
+		
+		<script>
+			data() {
+				return {  
+				    importDialogVisible: false,
+					//文件
+					file: "",
+					filename: "",
+					limit: 1,
+					filelist: [],
+					errmesg: [],
+					btn: {
+					  disable: false,
+					  message: "上传服务器",
+					}
+				}
+			},
+			methods:{
+				// 弹出框方法
+				impoortExcel() {
+				  let that = this;
+				  that.importDialogVisible = true;
+				},
+				// 判断是否只能上传一个文件，超过提示报错
+				handleExceed(e) {
+				  console.log(e);
+				  this.$notify.error({
+					title: "错误",
+					message: "只能上传一个文件哦",
+				  });
+				},
+				// 选择文件方法
+				handleChansge(file, fileList) {
+				  console.log(file);
+				  let name = file.name;
+				  if (!/\.(xlsx|xls|XLSX|XLS)$/.test(file.name)) {
+					this.$notify.error({
+					  title: "错误",
+					  message: "上传文件只能为excel文件，且为xlsx,xls格式",
+					});
+					this.filelist = [];
+					this.file = "";
+					return false;
+				  }
+				  this.file = file.raw;
+				  this.filename = file.name;
+				},
+				//文件上传的回调方法
+				submit(){
+				  if (this.file == "") {
+					this.$toast("上传文件不能为空", {
+					  type: "warning"
+					});
+					return false;
+				  }
+				  if (this.remake == "") {
+					this.$toast("上传备注不能为空", {
+					  type: "warning"
+					});
+					return false;
+				  }
+				  let msg = {
+					templateType: this.templateType,
+					file: this.file,
+					remake: this.remake,
+					countryId: this.countryId
+				  };
+				  let file = this.file;
+				  let formData = new FormData();
+				  formData.append("file", file);
+				  formData.append("templateType", this.templateType);
+				  formData.append("remake", this.remake);
+				  formData.append("countryId", this.countryId);
+				  this.uploadXls(formData);
+				},
+			    async uploadXls(formData){
+				  this.buttonLoad.submit = true;
+				  if(this.uploadFlag){
+					return;
+				  }
+				  this.uploadFlag = true;
+				  const res = await upload(formData);
+				  this.uploadFlag = false;
+				  this.buttonLoad.submit = false;
+				  this.$tips({ title: "上传成功", message: "文件上传成功！", type: "success" });
+				  this.cancelDialog();
+				  this.dataSource.pageData.pageNum = 1;
+				  this.getList();
+				},
+				// 上传回调
+				postfile() {
+				  let that = this;
+				  if (this.file == "") {
+					that.$notify.error({
+					  title: "错误",
+					  message: "上传文件不能为空",
+					});
+					return false;
+				  } else {
+					// 文件形式的需要用 formData形式
+					let formData = new FormData();
+					formData.append("file", this.file);
+					let url = "接口地址";
+					let config = {
+					  headers: { "Content-Type": "multipart/form-data" },
+					};
+					this.btn.disable = true;
+					this.btn.message = "上传中，请等待";
+					this.$axios1
+					  .post(url, formData, config)
+					  .then(function (response) {
+						console.log(response);
+						that.$notify({
+						  title: "成功",
+						  message: response.data.message,
+						  type: "success",
+						});
+						that.filelist = [];
+						that.btn.disable = false;
+						that.btn.message = "上传服务器";
+					  })
+					  .catch((err) => {
+						that.btn.disable = false;
+						that.btn.message = "上传服务器";
+						that.$notify.error({
+						  title: "错误",
+						  message: "上传过程出错啦",
+						});
+					  });
+				  }
+				},
+			}
+		</script>
+		
+		
+
+
+
+	</body>
+</html>
