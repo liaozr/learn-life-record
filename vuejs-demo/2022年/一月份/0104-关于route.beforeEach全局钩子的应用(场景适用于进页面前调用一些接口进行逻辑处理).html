@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		关于route.beforeEach全局钩子的应用
+		
+		场景适用于进页面前调用一些接口进行逻辑处理判断
+		
+		比如这个erp模块下的sds功能就是，他首先得判断当前的用户有没有注册过sds
+		
+		然后场景分了注册过跟没注册过的情况。
+		
+		所以，得用router.beforeEach的全局钩子去调用判断。
+		
+		
+		<script>
+		    import { checkUserRegister } from "@/api/sds"; 
+			import store from "./store";                                         
+			router.beforeEach(async (to, from, next) => {
+			   if(to.path === "/login" && to.query.token) {	
+				   next()
+			   }
+			   else{  
+			      if(to.path.includes("sds")){ 
+					checkUserRegister()
+					.then(res => {
+					  let userRegisterFlag = res.data;
+					  store.commit("sds/USER_REGISTER", userRegisterFlag);
+					  if(userRegisterFlag){
+						store.dispatch("sds/checkUserRegister", userRegisterFlag);
+						let msg = {
+						  current: 8,
+						  page: 1
+						};
+						store.dispatch("sds/getEndProductByPage", msg);
+					  }else{
+						store.dispatch("sds/getUserInfo", "");
+					  }
+					  setTimeout(() =>{
+						next();
+					  },20)			
+					})
+					["catch"](err => {
+					  console.log(err);
+					  next();
+					});
+				  }else{
+					next()
+				  }
+			    }
+			})
+		</script>
+	</body>
+</html>
