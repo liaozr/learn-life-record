@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+	var maxSubArray = function(nums) {
+	 let arr = []
+	 let count = 0
+	 for(let i =0;i<nums.length;i++){
+	    arr.push(nums[i])
+	    count = nums[i]
+	   for(let j =i+1;j<nums.length;j++){
+	   	count += nums[j]
+	   	arr.push(count)
+	   }
+	 }
+	 arr.sort(function(a,b){
+         return  a - b
+     })
+     console.log(arr)
+	 return arr[arr.length -1]
+	};
+	console.log(maxSubArray([5,4,-1,7,8]))
+
+
+
+</script>
+</body>
+</html>

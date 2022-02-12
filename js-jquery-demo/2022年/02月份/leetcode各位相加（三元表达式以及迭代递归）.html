@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		给定一个非负整数 num，反复将各个位上的数字相加，直到结果为一位数。返回这个结果。
+ 
+		<script type="text/javascript">
+		
+			var addDigits = function(num) {
+			  let str = num.toString()
+			  let strArr = str.split("")
+			  console.log(strArr)
+			  let count = 0
+			  strArr.forEach((item) =>{
+				count +=Number(item)
+			  })
+			  // 这样写是不行的，一定要用三元表达式去实现。
+			  // if(count > 9){
+			  //   addDigits(count)
+			  // }else{
+			  // 	return count
+			  // }
+			  return count > 9 ? addDigits(count) : count
+			};
+			
+			console.log(addDigits(38))
+			
+		</script>
+		
+	</body>
+</html>

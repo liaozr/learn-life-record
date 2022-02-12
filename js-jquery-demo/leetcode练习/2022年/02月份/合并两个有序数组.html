@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	
+var merge = function(nums1, m, nums2, n) {
+ m = m -1 
+ n = n -1
+ if(m > 0){
+ 	 nums1 = nums1.slice(0,m+1)
+ }else{
+ 	if(m == 0){
+ 	 nums1 = nums1.slice(0,2)
+ 	}else{
+ 	nums1 = []
+ 	}
+ }
+
+  if( n > 0){
+ 	nums2 = nums2.slice(0,n+1)
+ }else{
+ 	if( n == 0){
+ 	 nums2 = nums2.slice(0,2)
+ 	}else{
+ 		nums2 = []
+ 	}
+ }
+ let nums3 = [...nums1,...nums2]
+
+ nums3.sort(function(a,b){
+ 	return a - b
+ })
+
+ return nums3
+}
+console.log(merge([1,2,3,0,0,0],3,[2,5,6],3))
+
+</script>
+</body>
+</html>

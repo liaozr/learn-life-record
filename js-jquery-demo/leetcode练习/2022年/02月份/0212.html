@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+
+
+各位相加
+
+<script type="text/javascript">
+var addDigits = function(num) {
+  let str = num.toString()
+  let strArr = str.split("")
+  console.log(strArr)
+  let count = 0
+  strArr.forEach((item) =>{
+  	count +=Number(item)
+  })
+  // if(count > 9){
+  //   addDigits(count)
+  // }else{
+  // 	return count
+  // }
+  return count > 9 ? addDigits(count) :count
+};
+console.log(addDigits(38))
+</script>
+
+
+判断字符串的两半是否相似
+<script type="text/javascript">
+var halvesAreAlike = function(s) {
+	let length = s.length / 2
+	let str1 = s.slice(0,length)
+	let str2  = s.slice(length,s.length)
+	let arr = ['a','e','i','o','u','A','E','I','O','U']
+
+	let str1Arr= str1.split('')
+	let str2Arr= str2.split('')
+	let str1count = 0,str2count =0;
+
+	str1Arr.forEach((item) =>{
+       if(arr.includes(item)){
+       	 str1count++
+       }
+	})
+	str2Arr.forEach((item) =>{
+       if(arr.includes(item)){
+       	 str2count++
+       }
+	})
+	if(str1count == str2count){
+		return true
+	}else{
+		return false
+	}
+};
+console.log('-------')
+console.log(halvesAreAlike('book') )
+
+</script>
+
+
+唯一元素的和
+<script type="text/javascript">
+var sumOfUnique = function(nums) {
+	let arr = []
+	let newArr = []
+	for(let i=0;i<nums.length;i++){
+      for(let j=i+1;j<nums.length;j++){
+         if(nums[i] == nums[j]){
+         	arr.push(nums[i])
+         }
+	  } 
+	}
+	console.log(arr)
+	if(arr.length > 0){
+	    
+		for(let j=0;j<nums.length;j++){
+	        if(!arr.includes(nums[j])){
+               newArr.push(nums[j])
+	        }
+		}
+		console.log(newArr)
+		let count = 0
+		newArr.forEach((item) =>{
+	       count += item
+		})
+		return count
+	}else{
+
+		let count = 0
+		nums.forEach((item) =>{
+	       count += item
+		})
+		return count
+
+	}
+	
+};
+console.log('aaaa')
+console.log(sumOfUnique([10,6,9,6,9,6,8,7]) )
+
+</script>
+
+
+</body>
+</html>

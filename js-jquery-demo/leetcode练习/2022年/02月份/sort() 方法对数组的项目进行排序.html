@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+
+
+		sort() 方法对数组的项目进行排序。
+
+		排序顺序可以是按字母或数字，也可以是升序（向上）或降序（向下）。
+
+		默认情况下，sort() 方法将按字母和升序将值作为字符串进行排序。
+
+		这适用于字符串（"Apple" 出现在 "Banana" 之前）。
+
+
+		但是，如果数字按字符串排序，则 "25" 大于 "100" ，因为 "2" 大于 "1"。
+
+		正因为如此，sort() 方法在对数字进行排序时会产生不正确的结果。
+
+
+		您可以通过提供“比较函数”来解决此问题（请参阅下面的“参数值”）。
+
+
+		<script type="text/javascript">
+		
+			const points = [40, 100, 1, 5, 25, 10];
+
+			// 按升序对数字进行排序：
+
+			points.sort(function(a, b){return a-b});
+
+			console.log(points)  // [1, 5, 10, 25, 40, 100]
+
+		</script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	
+	/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var searchInsert = function(nums, target) {
+   let Index = 0
+   if(nums.includes(target)){
+      nums.forEach((item,index) =>{
+        if(item == target){
+            Index = index
+        }  
+      })
+   }else{
+       nums.push(target)
+       nums.sort(function(a,b){
+         return  a - b
+       })
+       nums.forEach((item,index) =>{
+        if(item == target){
+            Index = index
+        }  
+      })
+   }
+   return Index
+};
+
+console.log( searchInsert([3,5,7,9,10],8) )
+
+
+</script>
+</body>
+</html>
