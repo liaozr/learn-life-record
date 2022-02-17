@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		由于 viewport 单位得到众多浏览器的兼容，所以目前基于 viewport 的移动端适配方案被各大厂团队所采用。
+		
+		vw 作为布局单位，从底层根本上解决了不同尺寸屏幕的适配问题，
+		
+		因为每个屏幕的百分比是固定的、可预测、可控制的。 
+		
+		viewport 相关概念如下：
+		
+		vw：是 viewport's width 的简写，1vw 等于 window.innerWidth 的 1%；
+		
+		vh：和 vw 类似，是 viewport's height 的简写，1vh 等于 window.innerHeihgt 的 1%；
+		
+		vmin：vmin 的值是当前 vw 和 vh 中较小的值；
+		vmax：vmax 的值是当前 vw 和 vh 中较大的值；
+		
+		假设我们拿到的视觉稿宽度为 750px，视觉稿中某个字体大小为 75px，则我们的 css 属性只要如下这么写，
+		
+		不需要额外的去用 js 进行设置，也不需要去缩放屏幕等；
+		
+		.logo {
+		  font-size: 10vw; // 1vw = 750px * 1% = 7.5px
+		}
+		
+	   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	   
+	   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	   
+
+
+		
+		
+	</body>
+</html>

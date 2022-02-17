@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+	  过滤空值
+		
+	  使用 filter() 过滤 “空” 值，如 null、undefined 或空字符串，可以使用 .filter(Boolean) 的缩写方法；
+		
+	  它将所有空值转为 false 并从列表中删除它们，优雅！
+	
+	  <script>		
+	  
+		  const groceries = ['apple', null, 'milk', undefined, 'bread', ''];
+		  
+		  const cleanList = groceries.filter(Boolean);
+		  
+		  let arr = ['33','则','',' ','aa']
+		  arr = arr.filter(Boolean)
+		  
+		  console.log(cleanList);
+		  console.log(arr)
+		  // ['33', '则', ' ', 'aa']
+		  // ['apple', 'milk', 'bread']
+	                      
+	  </script>
+		
+	</body>
+</html>
+              

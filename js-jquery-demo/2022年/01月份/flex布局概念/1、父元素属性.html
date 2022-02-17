@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		https://www.yuque.com/cuggz/feplus/vmygbg
+		
+		https://www.yuque.com/cuggz/feplus/vmygbg
+		
+		https://www.yuque.com/cuggz/feplus/vmygbg
+		
+-----------------------------------------------------------------------------------------------------
+
+		想要使用flex布局，首先需要给父元素指定为flex布局，这样容器内的元素才能实现flex布局
+		
+		<div class="container"></div>
+		
+		.container {
+		    display: flex 
+		}
+		
+-----------------------------------------------------------------------------------------------------
+		
+		父元素（容器）可以设置以下六个属性：
+		
+		1、flex-direction ：主轴方向，它决定了容器内元素排列方向，它有四个属性值：
+		
+		.container {
+		    flex-direction: row | row-reverse | column | column-reverse;
+		}
+		
+		row：：默认值，沿水平主轴从左到右排列，起点在左沿
+		
+		column:：沿垂直主轴从上到下排列，起点在上沿
+		
+		
+		2、flex-wrap：容器内元素是否可以换行，它有三个属性值：
+		
+		.container {
+		    flex-wrap: nowrap（不换行） | wrap（可换行） | wrap-reverse;
+		}
+		
+		3、 justify-content：元素在主轴的对齐方式，它有五个属性值：
+		
+		.container {
+		    justify-content: flex-start | flex-end | center | space-between | space-around;
+		}
+		
+		4、align-items：元素在交叉轴上的对齐方式，它有五个属性值：
+		
+		.container {
+		    align-items: flex-start | flex-end | center | baseline | stretch;
+		}
+		
+		5、align-content：多根轴线对齐方式。如果元素只有一根轴线，该属性不起作用。它有六个属性值：
+		
+		.container {
+		    align-content: flex-start | flex-end | center | space-between | space-around | stretch;
+		}
+		
+		
+	</body>
+</html>

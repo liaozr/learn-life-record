@@ -66,45 +66,9 @@ console.log(halvesAreAlike('book') )
 
 唯一元素的和
 <script type="text/javascript">
-var sumOfUnique = function(nums) {
-	let arr = []
-	let newArr = []
-	for(let i=0;i<nums.length;i++){
-      for(let j=i+1;j<nums.length;j++){
-         if(nums[i] == nums[j]){
-         	arr.push(nums[i])
-         }
-	  } 
-	}
-	console.log(arr)
-	if(arr.length > 0){
-	    
-		for(let j=0;j<nums.length;j++){
-	        if(!arr.includes(nums[j])){
-               newArr.push(nums[j])
-	        }
-		}
-		console.log(newArr)
-		let count = 0
-		newArr.forEach((item) =>{
-	       count += item
-		})
-		return count
-	}else{
-
-		let count = 0
-		nums.forEach((item) =>{
-	       count += item
-		})
-		return count
-
-	}
-	
-};
-console.log('aaaa')
-console.log(sumOfUnique([10,6,9,6,9,6,8,7]) )
-
 </script>
+
+双重map 循坏
 
 
 </body>
