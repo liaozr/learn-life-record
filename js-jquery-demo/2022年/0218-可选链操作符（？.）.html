@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		在开发过程中，我们经常需要获取深层次属性，
+		
+		例如 system.user.addr.province.name。
+		
+		但在获取 name 这个属性前需要一步步的判断前面的属性是否存在，否则并会报错：
+		
+		
+		ES2020 引入了「链判断运算符」?.
+		
+		可选链操作符( ?. )允许读取位于连接对象链深处的属性的值，而不必明确验证链中的每个引用是否有效
+		
+		<script>	
+		 
+		  let system = {}	 
+		  const name = system?.user?.addr?.province?.name || 'default';
+		  
+		  console.log(name)  // default
+		
+		  let msg ={				  
+			  biglists:{
+				 type:2,
+				 text:'aa'
+			  }
+		  }
+	
+		  let text =msg?.biglists?.text || ''
+		  let text2 = msg?.biglists?.name ?? '默认值'
+		  
+		  console.log(text)   //aa
+		  console.log(text2)  //默认值
+		  
+		</script>
+		
+		
+	</body>
+</html>

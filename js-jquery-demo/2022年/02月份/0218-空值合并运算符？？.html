@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		但是 || 的写法存在一定的缺陷，
+		
+		当 dogName 为 0 或 false 的时候也会走到 default 的逻辑。
+			
+		所以 ES2020 引入了 ?? 运算符。只有 ?? 左边为 null 或 undefined时才返回右边的值：
+		
+		
+		<script>
+			
+		   let dogName = '张三'
+		   let name =  dogName || 'default'; 
+		   
+		   // 但是 || 的写法存在一定的缺陷，			   
+		   // 当 dogName 为 0 或 false 的时候也会走到 default 的逻辑。	
+		   // 所以 ES2020 引入了 ?? 运算符。只有 ?? 左边为 null 或 undefined时才返回右边的值：
+		   
+		   
+		   let dogName2 = false; 
+		   let name2 =  dogName2 ?? 'default';  // name2 = false;
+		   console.log(name)     // 张三
+		   console.log(name2)   // false
+			
+		</script>
+		
+		
+		
+	</body>
+</html>

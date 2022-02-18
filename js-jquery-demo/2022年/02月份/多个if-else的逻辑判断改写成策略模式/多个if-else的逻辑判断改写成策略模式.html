@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>	
+		
+			function checkAuth(data) {
+			   if (data.role !== 'juejin') {
+				 console.log('不是掘金用户');
+				 return false;
+			   }
+			   if (data.grade < 1) {
+				 console.log('掘金等级小于 1 级');
+				 return false;
+			   }
+			   if (data.job !== 'FE') {
+				 console.log('不是前端开发');
+				 return false;
+			   }
+			   if (data.type !== 'eat melons') {
+				 console.log('不是吃瓜群众');
+				 return false;
+			   }
+			}
+			
+		</script>
+		
+		checkAuth 函数会爆炸 💥
+		
+		策略项无法复用
+		
+		
+		我们可以用策略模式去优化上述代码：
+		
+		定义 : 要实现某一个功能，有多种方案可以选择。我们定义策略，把它们一个个封装起来，并且使它们可以相互转换。
+		
+		<script>
+			// 维护权限列表
+			const jobList = ['FE', 'BE'];
+			// 策略
+			let strategies = {
+			  checkRole: function(value) {
+				return value === 'juejin';
+			  },
+			  checkGrade: function(value) {
+				return value >= 1;
+			  },
+			  checkJob: function(value) {
+				return jobList.indexOf(value) > 1;
+			  },
+			  checkEatType: function(value) {
+				return value === 'eat melons';
+			  }
+			};
+			
+			console.log(strategies['checkRole']('juejin'))  //true
+			console.log(strategies.checkRole('juejin'))   //true
+			
+		</script>
+		
+		
+
+	</body>
+</html>
