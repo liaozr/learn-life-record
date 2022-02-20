@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    求数组最大值：
+    array.reduce((a,b) => a > b ? a : b);
+    Math.max(...array)
+
+
+    求数组最小值:
+    array.reduce((a,b) => a < b ? a : b);
+    Math.min(...array)
+
+
+    过滤空值
+    const array = [1, 0, undefined, 6, 7, '', false];
+    array.filter(Boolean);
+    // [1, 6, 7]
+
+
+    判断简化
+    if(a === undefined || a === 10 || a=== 15 || a === null) {
+        //...
+    }
+    优化判断
+    if([undefined, 10, 15, null].includes(a)) {
+        //...
+    }
+
+
+    验证 null 和 undefined 
+    <script>
+
+        if(a === null || a === undefined) {
+            doSomething()
+        }
+        
+        // 可优化成这样
+        a ?? doSomething()
+
+    </script>
+    
+
+
+
+
+
+
+
+
+</body>
+</html>
