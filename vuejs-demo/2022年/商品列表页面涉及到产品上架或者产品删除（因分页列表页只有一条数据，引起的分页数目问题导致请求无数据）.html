@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		商品列表页面涉及到产品上架或者产品删除（因分页列表页只有一条数据，引起的分页数目问题导致请求无数据）
+		
+		
+		商品列表页面涉及到产品上架或者产品删除（因分页列表页只有一条数据，引起的分页数目问题导致请求无数据）
+		
+		
+		商品列表页面涉及到产品上架或者产品删除（因分页列表页只有一条数据，引起的分页数目问题导致请求无数据）
+		
+		
+		商品列表页面涉及到产品上架或者产品删除（因分页列表页只有一条数据，引起的分页数目问题导致请求无数据）
+		
+		
+		商品列表页面涉及到产品上架或者产品删除（因分页列表页只有一条数据，引起的分页数目问题导致请求无数据）
+		
+	
+-------------------------------------------------------------------------------------------------------------------	
+		
+		
+		在做ERP项目过程中发现，在商品列表页面一般涉及到删除功能或者上架商品，上架后的商品会在当前的列表页移除的类似功能时，
+		
+		
+		会发现，当你的分页列表页面如果只有一条数据时，这条数据删除后，按道理是分页数目是要减去1的，但是如果这种情况不去做
+		
+		
+		特殊处理的话，你会发现，你删除商品后，分页还停留在那一页，导致请求无数据。这显然是不合理的。
+		
+		
+		正确的做法是，在删除操作后，或者返回到列表页面后，得判断当前列表页是不是只有一条数据。
+		
+-------------------------------------------------------------------------------------------------------------------
+		
+		
+		<script>
+		
+		     // 组件里面涉及到删除功能的，包括单个删除，批量删除后的分页处理
+			 // 此场景一般常见于删除操作。此场景一般常见于删除操作。
+			 
+		    deleteCurrentPage(length) {
+		      // 为了在删除最后一页的最后一条数据时能成功跳转回最后一页的上一页
+		      const totalPage = Math.ceil(
+		        (this.dataSource.pageData.total - length) /
+		          this.dataSource.pageData.pageSize
+		      ); // 总页数
+		      this.dataSource.pageData.pageNum =
+		        this.dataSource.pageData.pageNum > totalPage
+		          ? totalPage
+		          : this.dataSource.pageData.pageNum;
+		      this.dataSource.pageData.pageNum =
+		        this.dataSource.pageData.pageNum < 1
+		          ? 1
+		          : this.dataSource.pageData.pageNum;
+		    },
+		    dealCurrentPage(res){
+		      // 处理列表最后一个产品被删除时，导致的分页数目请求的问题
+			  // 此场景是列表页跳去详情页，然后要跳回到列表页，数据会从列表页移除的场景，比如产品上架。
+		      if(res.data.current !== res.data.pages && res.data.total > 0){
+		        if(res.data.current >= 1){
+		          this.dataSource.pageData.pageNum = res.data.pages;
+		          this.getList();
+		        }
+		      }else{
+		        this.dataSource.loading = false;
+		      }
+		    }
+			
+		</script>
+
+-------------------------------------------------------------------------------------------------------------------
+		
+		
+		
+	
+	</body>
+</html>

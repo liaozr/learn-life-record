@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+--------------------------------------------------------------------------------------------------		
+		
+		<script>	
+		
+			function checkAuth(data) {
+			   if (data.role !== 'juejin') {
+				 console.log('不是掘金用户');
+				 return false;
+			   }
+			   if (data.grade < 1) {
+				 console.log('掘金等级小于 1 级');
+				 return false;
+			   }
+			   if (data.job !== 'FE') {
+				 console.log('不是前端开发');
+				 return false;
+			   }
+			   if (data.type !== 'eat melons') {
+				 console.log('不是吃瓜群众');
+				 return false;
+			   }
+			}
+			
+		</script>
+		
+		checkAuth 函数会爆炸 💥
+		
+		策略项无法复用
+
+		
+		其实策略模式的核心思想和 if else如出一辙，根据不同的key动态的找到不同的业务逻辑
+		
+		
+		我们可以用策略模式去优化上述代码：
+		
+		定义 : 要实现某一个功能，有多种方案可以选择。我们定义策略，把它们一个个封装起来，并且使它们可以相互转换。
+		
+		<script>
+			// 维护权限列表
+			const jobList = ['FE', 'BE'];
+			// 策略
+			let strategies = {
+			  checkRole: function(value) {
+				return value === 'juejin';
+			  },
+			  checkGrade: function(value) {
+				return value >= 1;
+			  },
+			  checkJob: function(value) {
+				return jobList.indexOf(value) > 1;
+			  },
+			  checkEatType: function(value) {
+				return value === 'eat melons';
+			  }
+			};
+			
+			console.log(strategies['checkRole']('juejin'))  //true
+			console.log(strategies.checkRole('juejin'))   //true
+			
+		</script>
+		
+-------------------------------------------------------------------------------------------------
+   
+    <!-- 粗糙的表单校验 -->
+	<script>
+
+		// 粗糙的表单校验
+
+		loginForm.onsubmit = function (e) {
+			e.preventDefault();  
+			var account = document.getElementById("account").value;
+			var pwd = document.getElementById("password").value;
+
+			if(account===null||account===''){
+				alert('手机号不能为空')
+				return false;
+			}
+			if(pwd===null||pwd===''){
+				alert('密码不能为空')
+				return false;
+			}
+			if (!/(^1[3|4|5|7|8][0-9]{9}$)/.test(account)) {
+				alert('手机号格式错误')
+				return false;
+			}
+			if(pwd.length<6){
+				alert('密码不能小于六位')
+				return false;
+			}
+			// ajax 发送请求
+		}
+
+// -------------------------------------------------------------------------------------------------		
+
+		// 优秀的表单验证
+
+		var strategies = {
+			isNonEmpty: function (value, errorMsg) {
+				if (value === '' || value === null) {
+					return errorMsg;
+				}
+			},
+			isMobile: function (value, errorMsg) { // 手机号码格式
+				if (!/(^1[3|4|5|7|8][0-9]{9}$)/.test(value)) {
+					return errorMsg;
+				}
+			},
+			minLength: function (value, length, errorMsg) {
+				if (value.length < length) {
+					return errorMsg;
+				}
+			}
+		};
+
+		loginForm.onsubmit = function (e) {
+			e.preventDefault(); 
+			var accountIsMobile = strategies.isMobile(account,'手机号格式错误');
+			var pwdMinLength = strategies.minLength(pwd,8,'密码不能小于8位');
+			var errorMsg = accountIsMobile || pwdMinLength; 
+			if(errorMsg){
+				alert(errorMsg);
+				return false;
+			}
+		}
+	</script>
+
+----------------------------------------------------------------------------------------------------
+
+
+	</body>
+</html>
