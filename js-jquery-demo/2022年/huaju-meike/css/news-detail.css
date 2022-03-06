@@ -1,0 +1,77 @@
+.breadcrumb_box{
+  height: 68px;
+  line-height: 68px;
+  background: #FAF3FD;
+}
+.breadcrumb_box .breadcrumb{
+  width:1200px; 
+  margin: 0 auto;
+}
+.breadcrumb_box .breadcrumb p{
+  font-size: 14px;
+  color: #333333;
+}
+
+.content_box .section {
+  width: 1200px;
+  margin: 0 auto;
+  margin-top: 60px;
+}
+.content_box .section .section_title {
+
+}
+.content_box .section .section_title h2 {
+  text-align: center;
+  font-size: 30px;
+  color: #333333;
+}
+
+
+.content_box .section .news_about {
+  font-size: 14px;
+  color: #999999;
+  margin-top: 40px;
+}
+.content_box .section .news_about div {
+  margin:0 40px;
+}
+
+.content_box .section .news_about img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.section_content{
+  margin: 40px 0 70px 0;
+}
+
+.section .tag{
+  margin-bottom: 50px;
+}
+.section .tag span{
+  background: #EEF5FF;
+  border-radius: 2px;
+  font-size: 14px;
+  color: #2C77F4;
+  padding: 8px 12px;
+}
+
+
+
+.switch_pageNum{
+  width: 1200px;
+  height: 58px;
+  line-height: 58px;
+  background: #FAF3FD;
+  border: 1px solid #F7E4FF;
+  padding: 0 30px;
+  margin-bottom: 140px;
+  box-sizing: border-box;
+}
+
+.switch_pageNum div{
+  font-size: 14px;
+  color: #333333;
+  cursor: pointer;
+}
