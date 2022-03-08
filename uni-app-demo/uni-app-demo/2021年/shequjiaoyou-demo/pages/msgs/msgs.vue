@@ -1,6 +1,6 @@
 <template>
 	<view>
-		消息页面update
+		消息页面update22
 	</view>
 </template>
 
