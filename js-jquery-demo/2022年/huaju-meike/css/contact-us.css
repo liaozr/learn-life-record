@@ -1,0 +1,43 @@
+.section_title{
+	font-family: Microsoft YaHei;
+	font-weight: bold; 
+	font-size: 40px;
+	color: #1A1A1A;
+	text-align: center;
+	width:100%;
+	margin-top:60px;
+	margin-bottom:60px;
+}
+.section1_box{
+	width:80%;
+	margin:20px auto;
+	text-align: center;
+	min-height:500px;
+	padding-bottom:20px;
+}
+.section1_box .img{
+   margin-bottom:20px;	
+}
+.section1_box .desc{
+   margin-bottom:20px;	
+   font-size: 24px;
+   font-family: Microsoft YaHei;
+   font-weight: 400;
+   line-height:50px;
+   color: #999999;
+}
+.section1_box .itemlist{
+	font-size: 18px;
+	font-family: Microsoft YaHei;
+	font-weight: 400;
+	height:141px;
+	color: #666666;
+	width:39%
+}
+.section1_box .itemlist:hover .title{
+  color:#C000FF;	
+}
+.section1_box .itemlist:hover  img{
+	transform: translateY(-10px);
+	transition: all 0.8s;
+}

@@ -1,0 +1,268 @@
+.section_title{
+	font-family: Microsoft YaHei;
+	font-weight: bold; 
+	font-size: 40px;
+	color: #1A1A1A;
+	text-align: center;
+	width:100%;
+	margin-top:30px;
+	margin-bottom:60px;
+}
+.layout1{
+	padding-top:30px;
+	background:url(../images/meituan-operation/first/tp1.png) no-repeat;
+	background-position: center center;
+	background-size:cover;
+	width:100%;
+	min-height:900px;
+	padding-bottom:50px;
+}
+.layout2{
+	background:url(../images/meituan-operation/second/bg.png) no-repeat;
+	background-position: center center;
+	background-size:cover;
+	height:1000px;
+}
+.section2 .section_title{
+	font-size: 40px;
+	font-family: Microsoft YaHei;
+	font-weight: bold;
+	color: #FFFFFF;
+	line-height: 23px;
+	margin-top:0px;
+	padding-top:120px;
+}
+.section2  .subtitle{
+	font-size: 20px;
+	font-family: Microsoft YaHei;
+	font-weight: bold;
+	color: #FFFFFF;
+	line-height: 23px;
+	text-align: center;
+	width:100%;
+}	
+.section2_box{
+	margin-top:80px;
+}
+.section2_box .box{
+  font-size:0;
+  height:540px;
+  box-sizing: border-box;
+}
+.section2_box .list{
+	display: inline-block;
+	font-size:14px;
+	width:260px;
+	position: relative;
+	background: #5B2BD5;
+	height: 540px;
+	box-sizing: border-box;
+	border-right:1px solid #822AF3;
+	cursor: pointer;
+}
+.section2_box .list:last-child{
+	border-right:none;
+}
+.section2_box .list .icon{
+	text-align: center;
+	margin-top:50px;
+}
+.section2_box .list .title{
+	font-size: 24px;
+	font-family: Microsoft YaHei;
+	font-weight: bold;
+	color: #FFFFFF;
+	line-height: 23px;
+	text-align: center;
+	margin-top:20px;
+}
+.section2_box .list .desc{
+	position: absolute;
+	left:50%;
+	top:70%;
+	transform: translate(-50%,-50%);
+	width:90%;
+	text-align: center;
+}
+.section2_box .list .desc li{
+	font-size: 16px;
+	font-family: Microsoft YaHei;
+	font-weight: bold;
+	color: #FFFFFF;
+	line-height: 32px;
+	margin-bottom:10px;
+}
+.section2_box .list{
+	height:520px;
+}
+.section2_box .list.active{
+	width: 420px;
+	height: 560px;
+	background: rgba(0, 0, 0, 0.4);
+	color:white;
+	display: inline-block;
+	
+	/* transition: all 0.8s; */
+/* 	-moz-transition: all 0.2s;
+	-webkit-transition: all 0.2s; 
+	-o-transition: all 0.2s; */
+	
+}
+.layout3{
+	padding-bottom:50px;
+}
+.section3_box{
+}
+.section3{
+	height:530px;
+}
+.section3_box .list{
+	flex:1;
+	margin-left:10px;
+	margin-right:10px;
+	cursor:pointer;
+	background: #FDFDFE;
+	box-shadow: 0px 4px 40px 0px rgba(135, 0, 208, 0.1);
+	border-radius: 10px;
+	height:400px;
+}
+.section3_box .list:hover .title{
+	color:#C000FF !important;
+}
+.section3_box .title{
+	font-size: 20px;
+	font-family: Microsoft YaHei;
+	font-weight: bold;
+	color: #1A1A1A;
+	line-height: 23px;
+	margin-top:15px;
+	margin-bottom:15px;
+	padding-left:20px;
+}
+.section3_box .desc{
+	font-size: 16px;
+	font-family: Microsoft YaHei;
+	font-weight: 400;
+	color: #666666;
+	line-height: 23px;
+	padding-left:20px;
+	padding-right:20px;
+}
+.section3_box .desc p{
+	line-height:28px;   
+}
+.section4_box{
+	min-height:530px; 
+	background: url(../images/meituan-operation/four/tp1.png) no-repeat;
+	background-position: right center;
+	background-size: 600px 600px;
+}
+.section4_box .list{
+	font-size:0;
+	height:68px;
+	position: relative;
+	cursor: pointer;
+	margin-bottom:40px;
+}
+.section4_box .list .number{
+	width: 160px;
+	height: 68px;
+	background: linear-gradient(0deg, #A90AFF 0%, #C55AFF 100%);
+	border-radius: 28px 6px 28px 0px;
+	text-align: center;
+	display: inline-block;
+	
+	font-size: 30px;
+	font-family: zcool-gdh;
+	font-weight: 400;
+	color: #FFFFFF;
+	line-height: 68px;
+	
+}
+.section4_box .list:hover .title{
+	color:#C000FF;
+	background: #F8EBFF;
+}
+.section4_box .list .title{
+	width: 388px;
+	height: 68px;
+	background: #FFFFFF;
+	box-shadow: 0px 6px 20px 0px rgba(38, 38, 38, 0.1);
+	border-radius: 10px;
+	display: inline-block;
+	
+	font-size: 20px;
+	font-family: Microsoft YaHei;
+	font-weight: 400;
+	color: #333333;
+	line-height: 68px;
+	position:absolute;
+	left:140px;
+	padding-left:30px;
+	
+}
+.layout5{
+	height:740px;
+	width:100%;
+	background: url(../images/meituan-operation/five/bg.png) no-repeat;
+	background-size: 100% 100%;
+	position: relative;
+}
+.section5  .section_title{
+	padding-top:100px;
+	color:white;
+}
+.section5 .box{
+	width:100%;
+	margin-top:30px;
+}
+.section5 .box .img{
+	position: absolute;
+	left:0;
+	top:180px;
+	height:470px;
+	width:55%;
+}
+.section5 .box .img img{
+	width:100%;
+	height:100%;
+	object-fit: contain;
+}
+.section5 .box .list{
+	position: absolute;
+	left:58%;
+	top:180px;
+	height:470px;
+	width:450px;
+}
+.section5 .box .list .item{
+	margin-bottom:30px;
+}
+.section5 .box .list .item .icontitle{
+	font-size: 0;
+	height:34px;
+	margin-bottom:20px;
+}
+.section5 .box .list .item .icon{
+	display: inline-block;
+	width:34px;
+	vertical-align: middle;
+}
+.section5 .box .list .item .title{
+	display: inline-block;
+	font-size: 24px;
+	font-family: Microsoft YaHei;
+	font-weight: bold;
+	color: #FFFFFF;
+	line-height: 34px;
+	height:34px;
+	vertical-align: middle;
+	margin-left:20px;
+}
+.section5 .box .list .item .subtitle{
+	font-size: 16px;
+	font-family: Microsoft YaHei;
+	font-weight: 400;
+	color: #FFFFFF;
+	line-height: 23px;
+}

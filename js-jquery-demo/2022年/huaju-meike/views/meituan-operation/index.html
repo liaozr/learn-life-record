@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../css/base.css">
+    <!-- <link rel="stylesheet" href="../../css/index.css"> -->
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <link rel="stylesheet" href="../../css/animate.min.css">
+	<link rel="stylesheet" href="../../css/meituan-operation.css">
+	<link rel="stylesheet" href="../../css/hover.css">
+
+    <title>华钜美科</title>
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon" />
+    <meta name="keywords" content="华钜美科">
+    <meta name="description" content="华钜美科">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <!-- nofollow 该页面上所有链接都无需追踪 -->
+    <meta name="robots" content="nofollow" />
+</head>
+
+<body class="meituan-operation">
+	<div id="app">
+    <header class="hc-header">
+        <div class="hc-container  flex-center-between">
+            <!-- <img src="../../images/logo.png" alt="logo" title="logo" class="logo" /> -->
+			<a href="../../index.html">
+			  <img src="../../images/logo.png" alt="logo" title="logo" class="logo" />		
+			</a>
+            <ul class="hc-nav">
+				  <li><a href="../../index.html">首页</a></li>
+				  <li><a href="../../views/into-huamei/index.html">走进华美</a></li>
+				  <li class="active"><a href="../../views/meituan-operation/index.html">美团代运营</a></li>
+				  <li><a href="../../views/brand-operation/index.html">品牌运营</a></li>
+				  <li><a href="../../views/newMedia-operation/index.html">新媒体运营</a></li>
+				  <li><a href="../../views/private-domain-operation/index.html">私域运营</a></li>
+				  <li><a href="../../views/marketing-case/index.html">营销案例</a></li>
+				  <li><a href="../../views/news/index.html">新闻资讯</a></li>
+				  <li><a href="../../views/contact-us/index.html">联系我们</a></li>	
+            </ul>
+        </div>
+    </header>
+    <!-- banner:begin -->
+    <div class="swiper-container" id="swiper1">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="../../images/meituan-operation/banner.png" alt="banner" title="banner"
+                    class="banner" /></div>
+        </div>
+        <!-- Add Pagination -->
+        <!-- <div class="swiper-pagination"></div> -->
+    </div>
+    <!-- banner:end -->
+	
+	<div class="layout layout1">
+		<div class="content_box">
+		    <div class="section1">
+		          <div class="section_title">   
+					其他代运营VS华钜美科代运营 
+		         </div>
+		         <div class="section1_box flex-center-center">	            
+		         </div>
+		    </div>
+		</div>  
+	</div>
+	<div class="layout layout2">
+		<div class="content_box">
+		    <div class="section2">
+		        <div class="section_title">   
+					华钜美科美团代运营服务优势 
+		         </div>
+				 <div class="subtitle">市场调研+转化提升+营销引流+精细化运营</div>
+		         <div class="section2_box flex-center-center">	
+					 <div class="box">
+						 <div @mouseover="onHover(0)" @mouseleave="onleave(0)" class="list hvr-float" :class="{'active':curIndex  == 0 }">
+							 <div class="icon">
+								 <img src="../../images/meituan-operation/second/tb1.png" alt="">
+							 </div>
+							 <div class="title">市场调研</div>
+							 <template v-if="curIndex == 0">
+								 <ul class="desc">
+									 <li>调研本地流量产品服务内容、与同行分析出具报告</li>
+									 <li>设计品牌形象、服务团队形象</li>
+									 <li>根据调研结果重构产品，确定上线的团单项目</li>
+								 </ul>
+							 </template>
+						 </div>
+						 <div @mouseover="onHover(1)" @mouseleave="onleave(1)" class="list hvr-float" :class="{'active':curIndex  == 1 }">
+							 <div class="icon">
+								 <img src="../../images/meituan-operation/second/tb2.png" alt="">
+							 </div>
+							 <div class="title">转化提升</div>
+							 <template v-if="curIndex == 1">
+								 <ul  class="desc">
+									<li>点亮门店星级，并优化差评</li>
+									<li>针对性设计爆款引流项目到店</li>
+									<li>制定优惠方案，快速提高店铺收藏数量</li>
+									<li>建立标签内容体系形成消费者认知</li>
+									<li>配合完成平台金牌任务</li>
+									<li>建立常用问答并持续提高</li>
+								 </ul> 
+							</template>	 
+						 </div>
+						 <div @mouseover="onHover(2)" @mouseleave="onleave(2)" class="list hvr-float" :class="{'active':curIndex  == 2 }">
+							 <div class="icon">
+								 <img src="../../images/meituan-operation/second/tb3.png" alt="">
+							 </div>
+							 <div class="title">营销引流</div>
+							<template v-if="curIndex == 2">
+								 <ul class="desc">
+									<li>合理利用推广通获取潜在优质客户</li>
+									<li>优化推广，节省成本</li>
+									<li>做好定位、获取目标用户</li>
+									<li>利用平台规则获取免费流量</li>
+									<li>提高复购率</li>
+									<li>如何利用老客带新客</li>
+								 </ul>
+							 </template>
+						 </div>
+						 <div @mouseover="onHover(3)" @mouseleave="onleave(3)" class="list hvr-float" :class="{'active':curIndex  == 3 }">
+							 <div class="icon">
+								 <img src="../../images/meituan-operation/second/tb4.png" alt="">
+							 </div>
+							 <div class="title">精细化运营</div>
+							 <template v-if="curIndex == 3">
+								 <ul class="desc">
+									 <li>征集案例，提高评价数量及质量及成交率</li>
+									 <li>数据分析调整推广预算并保证投入产出比</li>
+									 <li>申报平台双11等大型活动对接与执行</li>
+									 <li>主图、详情、环境照等设计升级改版</li>
+									 <li>报表分析总结，分析经营报告向机构反馈情况</li>
+								 </ul>
+							 </template>
+						 </div>
+					 </div> 		 
+		         </div>
+		    </div>
+		</div>  
+	</div>
+	<div class="layout layout3">
+		<div class="content_box">
+		    <div class="section3">
+		         <div class="section_title">   
+					曝光量、访问量、店铺人气提升 
+		         </div>
+		         <div class="section3_box flex-center-between">	
+				    <div class="list hvr-float">
+						<div class="img">
+							<img src="../../images/meituan-operation/three/tp1.png" alt="">
+						</div>
+						<div class="title">流量</div>
+						<div class="desc">
+						  <p>平台流量导入（推广通+用户群）</p>
+						  <p>平台流量不可或缺的获客渠道,因此我们的目标是把每个平台流量的价值发挥到最大</p>
+						</div>
+					</div>
+					<div class="list hvr-float">
+						<div class="img">
+							<img src="../../images/meituan-operation/three/tp2.png" alt="">
+						</div>
+						<div class="title">访客</div>
+						<div class="desc">
+						  <p>访客转化（推广通+用户群））</p>
+						  <p>提升流量,获取访客，通过内容、活动营销吸引客人点击了解</p>
+						</div>
+					</div>
+					<div class="list hvr-float">
+						<div class="img">
+							<img src="../../images/meituan-operation/three/tp3.png" alt="">
+						</div>
+						<div class="title">到店</div>
+						<div class="desc">
+						  <p>金牌门店、五星门店</p>
+						  <p>好评覆盖、项目设定、视觉设计各个板块完善推广，帮助商户提升客流到店</p>
+						</div>
+					</div>
+					<div class="list hvr-float">
+						<div class="img">
+							<img src="../../images/meituan-operation/three/tp4.png" alt="">
+						</div>
+						<div class="title">留客</div>
+						<div class="desc">
+						  <p>留住客户</p>
+						  <p>符合品牌定位及市场行情的到店转卡设定，提高二次到店</p>
+						</div>
+					</div>
+				 </div>
+			</div>
+	    </div>
+	</div>
+	<div class="layout layout4">
+		<div class="content_box">
+		    <div class="section4">
+		         <div class="section_title">   
+					华钜美科美业如何玩转美团、口碑
+		         </div>
+		         <div class="section4_box flex-center-start">	
+				    <div class="itemlist">
+						<div class="list hvr-forward" style="display: block;">
+							<div class="number">01</div>
+							<div class="title">搜索结果，人气最高，排名靠前</div>
+						</div>
+						<div class="list hvr-forward" style="display: block;">
+							<div class="number">02</div>
+							<div class="title">搜索结果，排名最好，评价靠前</div>
+						</div>
+						<div class="list hvr-forward" style="display: block;">
+							<div class="number">03</div>
+							<div class="title">商户页面美观度，信息完整，活动内容全面</div>
+						</div>
+						<div class="list hvr-forward" style="display: block;">
+							<div class="number">04</div>
+							<div class="title">所有店面商户五星级，好评累计多</div>
+						</div>
+						<div class="list hvr-forward" style="display: block;">
+							<div class="number">05</div>
+							<div class="title">营销活动销量高</div>
+						</div>
+					</div>
+				 </div>
+			</div>
+		</div>
+	</div>
+	<div class="layout layout5">
+		<div class="content_box">
+		    <div class="section5">
+		         <div class="section_title">   
+					推广数据监控及调整
+		         </div>
+				 <div class="box">
+					 <div class="img">
+						 <img src="../../images/meituan-operation/five/tp1.png" alt="">
+					 </div>
+					 <div class="list">
+						<div class="item">
+							 <div class="icontitle">
+								<div class="icon">
+								   <img src="../../images/meituan-operation/five/tb1.png" alt="">	
+								</div>
+							    <div class="title">日监控</div>							
+							 </div>							
+							 <div class="subtitle">推广通每日调整1 -2次;评价新增数1 -2条;交易订单2-3单</div>
+						 </div>
+						 <div class="item">
+						 	 <div class="icontitle">
+						 		<div class="icon">
+						 		   <img src="../../images/meituan-operation/five/tb2.png" alt="">	
+						 		</div>
+						 	    <div class="title">周监控</div>							
+						 	 </div>							
+						 	 <div class="subtitle">曝光/访问人数一转化率; 访问人数/订单量一转化率</div>
+						  </div>
+						  <div class="item">
+						  	 <div class="icontitle">
+						  		<div class="icon">
+						  		   <img src="../../images/meituan-operation/five/tb3.png" alt="">	
+						  		</div>
+						  	    <div class="title">推广通</div>							
+						  	 </div>							
+						  	 <div class="subtitle">花费预算比(80%以上); 点击数及点击均价;投入产出比 100(元):1(订单)</div>
+						   </div>
+						   <div class="item">
+						   	 <div class="icontitle">
+						   		<div class="icon">
+						   		   <img src="../../images/meituan-operation/five/tb4.png" alt="">	
+						   		</div>
+						   	    <div class="title">月监控</div>							
+						   	 </div>							
+						   	 <div class="subtitle">曝光访问浏览环比增长量;推广消耗带来订单数;评价新增量及回复率;店铺排名及金银铜牌完成度;</div>
+						    </div>
+					 </div>
+				 </div>
+			</div>
+		</div>
+	</div>
+	
+				
+    <!-- footer:begin -->
+    <footer class="footer-box">
+        <div class="footer-content footer-top-box flex-center-between">
+            <div class="company-info">
+                <img src="../../images/logo.png" alt="logo" title="logo" class="logo" />
+                <div class="phone flex-center">
+                    <img src="../../images/footer/phone.png" alt="联系电话" title="联系电话" class="icon"/>
+                    <p>18107307073</p>
+                </div>
+                <div class="mail flex-center">
+                    <img src="../../images/footer/mail.png" alt="公司地址" title="公司地址" class="icon"/>
+                    <p>hjmk@hjmk1000.onexmail.com</p>
+                </div>
+                <div class="address flex-center">
+                    <img src="../../images/footer/address.png" alt="公司地址" title="公司地址" class="icon"/>
+                    <p>
+深圳市龙华区汇海广场C座1306</p>
+                </div>
+            </div>
+            <div class="flex-start">
+                <div class="flex-start-between footer-item1">
+                    <ul>
+                        <li class="title"><a href="index.html">首页</a></li>
+                        <li><a href="../../views/meituan-operation/index.html">美团代运营</a></li>
+                        <li><a href="../../views/brand-operation/index.html">品牌运营</a></li>
+                        <li><a href="../../views/newMedia-operation/index.html">新媒体运营</a></li>
+                        <li><a href="../../views/private-domain-operation/index.html">私域运营</a></li>
+                    </ul>
+                    <ul>
+                        <li class="title"><a href="../../views/into-huamei/index.html">走进华美</a></li>
+                        <li><a href="../../views/into-huamei/index.html#2">公司简介</a></li>
+                        <li><a href="../../views/into-huamei/index.html#3">企业愿景</a></li>
+                        <li><a href="../../views/into-huamei/index.html#4">团队介绍</a></li>
+                        <li><a href="../../views/marketing-case/index.html">营销案例</a></li>
+                    </ul>
+                    <ul>
+                        <li class="title"><a href="../../views/news/index.html">新闻资讯</a></li>
+                        <li><a href="../../views/news/index.html?id=182">公司新闻</a></li>
+                        <li><a href="../../views/news/index.html?id=183">美业热点</a></li>
+                        <li><a href="../../views/news/index.html?id=184">运营知识</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-content flex-center-between">
+            <div class="map-containter">
+                <!--百度地图容器-->
+                <div class="map-box" id="dituContent"></div>
+            </div>
+            <div class="code-containter">
+                <div class="flex-center">
+                    <div class="code-box">
+                        <img src="../../images/footer/code1.png" alt="微信公众号" title="微信公众号" class="code-img">
+                        <p>微信公众号</p>
+                    </div>
+                    <div class="code-box">
+                        <img src="../../images/footer/code2.png" alt="微信号二维码" title="微信号二维码" class="code-img">
+                        <p>微信号二维码</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="icp">华钜美科服务（深圳）有限公司  粤ICP备2021036063号-1</div>
+    </footer>
+	</div>
+    <!-- <script type="text/javascript" src="http://z1-pcok6.kuaishangkf.com/bs/ks.j?cI=424712&fI=155701" charset="utf-8"></script> -->
+</body>
+
+    <!-- JS -->
+
+    <script src="../../js/swiper.min.js"></script>
+    <script src="../../js/swiper.animate.min.js"></script>
+    <script src="../../js/jquery.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+    <script src="../../js/jquery.waypoints.min.js"></script> <!-- 数字滚动插件 -->
+	<script type="text/javascript" src="../../js/jquery.countup.min.js"></script> <!-- 数字滚动插件 --> 
+	<script src="../../js/vue.min.js"></script>
+	<script type="text/javascript">
+		// 数字滚动
+		$('.counter').countUp();
+		var vm = new Vue({
+			el:'#app',
+			data:{
+				curIndex:0
+			},
+			methods:{
+			onHover(index){
+				this.curIndex  = index
+			},
+			onleavve(index){			 
+			}
+			},
+			mounted(){
+			}
+		})						
+	</script>
+	<script src="../../js/index.js"></script>
+	<script src="../../js/map.js"></script>
+</html>

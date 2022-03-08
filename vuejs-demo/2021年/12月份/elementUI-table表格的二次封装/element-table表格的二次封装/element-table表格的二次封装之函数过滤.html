@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>	
+		    // 表格里面有多数据的展现形式。
+			{
+				label: "上架国家",
+				prop: "goodsDetailVO",													
+				isCodeTableFormatter: function(val) {
+				  let arr = val.orderDetailList;
+				  let arr2 = [];
+				  let template = [];
+				  for(let key in val.shopeeAuthorizationSiteList){
+					template.push(<el-tag>{val.shopeeAuthorizationSiteList[key].siteCname}</el-tag>);
+				  }
+				  return template;
+				}
+			},
+			{
+				label: "商品信息",
+				prop: "goodsDetailVO",
+				isCodeTableFormatter: function(val) {
+				  return <div class="pl15">
+					<el-popover
+					  placement="top-start"
+					  title="商品标题"
+					  width="200"
+					  trigger="hover"
+					  content="val.goodsDetailVO.title"
+					><p class="ellipsis" slot="reference">{ val.goodsDetailVO.title }</p>
+					</el-popover>
+					<p>ASIN: { val.goodsDetailVO.asin }</p>
+					<p>运送方式: { ["FBM"][val.goodsDetailVO.deliveryType] }</p>
+				  </div>;
+				}
+			},
+		    {
+				label: "当前价格",
+				prop: "symbol",
+				isCodeTableFormatter: function(val) {
+				  return <div>{val.symbol }{val.price}</div>;
+				}
+			}			
+		</script>
+		
+	</body>
+</html>
