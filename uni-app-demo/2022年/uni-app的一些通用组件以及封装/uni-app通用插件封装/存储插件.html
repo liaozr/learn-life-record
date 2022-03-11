@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		在使用vue的时候我们常常会使用vuex + vuex-persistedstate来使我们的数据可以全局使用以及持久化，
+		
+		在小程序中我们有两种全局数据的存储方式 一种是globalData，
+		
+		通过在App.vue中添加globalData这个值来进行数据全局化，例如我们可以用来保存我们的小程序版本。
+		
+		export default {
+		  globalData: {
+		    version: '1.0.0'
+		  }
+		}
+		
+		
+        但是globalData的数据不是持久化的，当我们退出小程序再进入的时候就重新初始化了，	
+			
+		所以我们还有一种全局数据存储方式是storage，类比我们web端的localstroge，
+		
+		使用方式也几乎一样。通过官方提供的api实现本地存储的效果
+		
+		
+		<script>
+		
+			var store = {
+				_init(){
+					if(uni.getStorageSync('store')==''){
+						uni.setStorageSync('store',{})
+						return
+					}
+					const data = uni.getStorageSync('store')
+					for(let i in data){
+						if(!this[i]){
+							this[i] = data[i]
+						}
+					}
+				},
+				setData(key,value){
+					if(key == '_init'||key=='setData'){
+						console.error('store:非法key值',key)
+						return
+					}
+					this[key] = value
+					uni.setStorageSync('store',this)
+					console.log(uni.getStorageSync('store'))
+				}
+			}	
+				
+			module.exports = store	
+			
+		</script>
+		
+		示例：
+		<script>
+			this.store.setData('user',{name:'oil'}) // 赋值
+			console.log(this.store.user) // 读值
+		</script>
+		
+		
+		
+		
+		
+		
+	</body>
+</html>
