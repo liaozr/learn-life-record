@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		onload 事件在图片加载完成后立即执行。
+		
+		window.onload事件是在页面dom元素加载完后执行，也就包括了img图片中src加载完成，那么img.onload 就不会执行了。
+		
+		在开发ERP管理后台的稿定设计图片上传功能的时候，会发现 调用 upImageBase64 这个接口后，
+		
+		接口已经返回有图片路径的接口数据了。 
+		
+		
+		但是当如果要设计的图片很大的到时候，你就会明显感觉到图片设计后的效果图片会延迟好久才会显示出来的。
+		
+		解决办法是可以在  img的 onload 回调事件里面去回显图片以及关闭loading效果。
+		
+		<script>
+		
+		    async base64Imgupload(result, index){
+		      try {
+		        let formData = {
+		          base64Image: result
+		        };
+		        this.imgList[index].loading = true;
+		        let _this = this;
+		        let res = await upImageBase64(formData);
+		        console.log(55111);
+		        console.log(res);
+		        let fr = new FileReader();
+		        fr.readAsText(res.data);
+		        fr.onload = ()=>{
+		          console.log("fr onload 事件");
+		          var ret = JSON.parse(fr.result);
+		          let url = ret.data.url;
+		          
+		          // 创建对象
+		          let img = new Image();
+		          // 改变图片的src
+		          img.src = url;
+		          // 加载完成执行
+		          img.onload = function(){
+		            // 打印
+		            console.log("width:" + img.width + ",height:" + img.height);
+		            _this.imgList[index].url = url;
+		            if(_this.imgList[index].tempPath){
+		              _this.imgList[index].tempPath = url;
+		            }
+		            setTimeout(() =>{
+		              _this.updateValue();
+		              _this.imgList[index].loading = false;
+		            }, 20);
+		          };
+		        };
+		      } catch (error) {
+		        console.log(error);
+		      }
+		    },
+		</script>
+	</body>
+</html>

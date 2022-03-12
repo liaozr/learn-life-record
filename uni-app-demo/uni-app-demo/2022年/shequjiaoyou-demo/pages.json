@@ -70,9 +70,9 @@
         }
     ],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
+		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "社区交友",
-		"navigationBarBackgroundColor": "#ffffff", //导航栏状态栏的颜色
+		"navigationBarBackgroundColor": "#ED6384", //导航栏状态栏的颜色
 		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar":{ // 配置底部导航栏

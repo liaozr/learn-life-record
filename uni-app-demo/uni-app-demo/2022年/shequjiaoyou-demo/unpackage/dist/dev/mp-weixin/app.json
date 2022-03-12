@@ -7,9 +7,9 @@
   ],
   "subPackages": [],
   "window": {
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     "navigationBarTitleText": "社区交友",
-    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarBackgroundColor": "#ED6384",
     "backgroundColor": "#F8F8F8"
   },
   "tabBar": {

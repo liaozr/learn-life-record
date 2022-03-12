@@ -8635,9 +8635,9 @@ function resolveLocaleChain(locale) {
 
 /***/ }),
 /* 5 */
-/*!*********************************************************!*\
-  !*** D:/demo/uni-app-demo/shequjiaoyou-demo/pages.json ***!
-  \*********************************************************/
+/*!************************************************************************************************!*\
+  !*** D:/zrliao/learn-life-record/uni-app-demo/uni-app-demo/2022年/shequjiaoyou-demo/pages.json ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -8778,9 +8778,9 @@ function normalizeComponent (
 
 /***/ }),
 /* 12 */
-/*!***************************************************************!*\
-  !*** D:/demo/uni-app-demo/shequjiaoyou-demo/common/config.js ***!
-  \***************************************************************/
+/*!******************************************************************************************************!*\
+  !*** D:/zrliao/learn-life-record/uni-app-demo/uni-app-demo/2022年/shequjiaoyou-demo/common/config.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8793,9 +8793,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 13 */
-/*!**************************************************************!*\
-  !*** D:/demo/uni-app-demo/shequjiaoyou-demo/common/utils.js ***!
-  \**************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** D:/zrliao/learn-life-record/uni-app-demo/uni-app-demo/2022年/shequjiaoyou-demo/common/utils.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8865,9 +8865,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 14 */
-/*!*************************************************************!*\
-  !*** D:/demo/uni-app-demo/shequjiaoyou-demo/store/index.js ***!
-  \*************************************************************/
+/*!****************************************************************************************************!*\
+  !*** D:/zrliao/learn-life-record/uni-app-demo/uni-app-demo/2022年/shequjiaoyou-demo/store/index.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
