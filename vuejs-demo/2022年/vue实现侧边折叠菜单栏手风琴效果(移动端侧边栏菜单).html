@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  https://juejin.cn/post/7033781231401566216#heading-13
+  https://juejin.cn/post/7033781231401566216#heading-13
+  https://juejin.cn/post/7033781231401566216#heading-13
+  https://juejin.cn/post/7033781231401566216#heading-13
+  https://juejin.cn/post/7033781231401566216#heading-13
+  https://juejin.cn/post/7033781231401566216#heading-13
+
+
+  <transition name="toggle-cart">
+		<div v-if="slideShow" class="layout_slider">
+			<div @click="close" class="close">
+				<img src="~/assets/images/common/icon12.png" alt="">
+			</div>
+			<div class="slideBar">
+			   <div @click="routeTo(item)" v-for="item in navList" :key="item.id" class="list" :class="{'active':item.code == $route.name}">{{item.name}}</div>
+			</div>
+			<div @click="close" class="slidebg"></div>
+		</div>
+	</transition>
+
+
+  <style>
+
+    .toggle-cart-enter-active {
+      transition: all 0.4s linear;
+    }
+
+    .toggle-cart-leave-active {
+      transition: all 0.4s linear;
+    }
+
+    .toggle-cart-enter {
+      transform: translateX(-200%);
+    }
+
+    .toggle-cart-leave-active {
+      transform: translateX(-200%);
+    }
+
+  </style>
+
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<html>
+
+  https://www.freesion.com/article/4701784615/
+
+  https://www.freesion.com/article/4701784615/
+
+  https://www.freesion.com/article/4701784615/
+
+  https://www.freesion.com/article/4701784615/
+  
+
+<el-date-picker
+   v-model="time"
+   type="datetimerange"
+   @change="datePickerChange"
+   :picker-options="pickerOptions"
+   range-separator="-"
+   start-placeholder="开始日期"
+   end-placeholder="结束日期"
+   align="right"
+   style="width:100%;"
+   value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss"
+   :default-time="['00:00:00','23:59:59']">
+</el-date-picker>
+
+
+<script>
+  data(){
+    return {
+      selectData: '',
+      pickerOptions: {
+        // 点击时，选择的是开始时间，也就是minDate
+        onPick: ({ maxDate, minDate }) => {
+          this.selectData = minDate.getTime()
+          if (maxDate) {
+            // 解除限制
+            this.selectData = ''
+          }
+        },
+        disabledDate: (time) => {
+            // 是否限制的判断条件
+            if (!this.isNull(this.selectData)) {
+              var date = new Date(this.selectData)
+              // 这里就是限制的关键，大于或者小于本月的日期被禁用
+              return date.getMonth() > new Date(time).getMonth() || date.getMonth() < new Date(time).getMonth()
+            } else {
+              return false
+            }
+          }
+      }
+    }
+  },
+  methods:{
+    // 检查是否为空
+    isNull(value) {
+      if (value) {
+        return false
+      }
+      return true
+    }
+  }
+</script>
+
+</html>
