@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+
+
+  https://juejin.cn/post/7041768835954769957
+  https://juejin.cn/post/7041768835954769957
+
+
+  https://juejin.cn/post/6844903919903047688#heading-7
+  https://juejin.cn/post/6844903919903047688#heading-7
+
+
+  npm i vue-social-share --save
+
+  main.js 中引入
+
+  import share from 'vue-social-share'
+  Vue.use(share);
+  import "vue-social-share/dist/client.css"
+
+  使用
+
+  <share :config="share_config"></share>
+
+  <script>
+      share_config: {
+          url: `${location.href}`, // 网址，默认使用 window.location.href
+          source: "", // 来源（QQ空间会用到）, 默认读取head标签：<meta name="site" content="http://overtrue" />
+          title: "", // 标题，默认读取 document.title 或者 <meta name="title" content="share.js" />
+          description: "", // 描述, 默认读取head标签：<meta name="description" content="PHP弱类型的实现原理分析" />
+          image: "", // 图片, 默认取网页中第一个img标签
+          sites: ["weibo", "wechat", "qzone", "qq"], // 启用的站点
+          // disabled: ["google", "facebook", "twitter"], // 禁用的站点
+          wechatQrcodeTitle: "微信扫一扫：分享", // 微信二维码提示文字
+          wechatQrcodeHelper:
+            "<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>",
+      }
+   </script> 
+
+  常见问题
+
+  图标无法展示
+
+  解决办法：找到node_modules->vue-social-share->dist->client.css，修改其资源路径
+
+  @font-face {
+    font-family: "socialshare";
+    src: url(./static/iconfont.eot);
+    src: url(./static/iconfont.eot?#iefix) format("embedded-opentype"), url(./static/iconfont.woff) format("woff"), url(./static/iconfont.ttf) format("truetype"), url(./static/iconfont.svg#iconfont) format("svg")
+  }
+
+
+
+
+
+
+
+
+
+</body>
+</html>

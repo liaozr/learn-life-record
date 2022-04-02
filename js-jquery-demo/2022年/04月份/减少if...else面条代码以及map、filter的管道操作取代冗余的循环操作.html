@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  -----------------------------------------------------------------------------------------------------------------------------------------
+  -----------------------------------------------------------------------------------------------------------------------------------------
+
+  1、减少 if...else的面条代码
+
+  <script>
+
+     let huameiType = null
+
+     function getType(value){
+        if (value == 0) {
+            huameiType = 'section2'
+            return huameiType
+        }
+        if (value == 1) {
+            huameiType = 'section3'
+            return huameiType
+        }
+        if (value == 2) {
+            huameiType = 'section4'
+            return huameiType
+        }
+     }
+
+     console.log(getType(1)) // section3
+
+  </script>
+
+  这样的写法会让函数体有很多的条件判断语句，而当我们想下次增加一个
+
+  商品的时候就需要修改函数内的逻辑增加一个if...else语句，这一定程度上也违反了开闭原则,
+
+  当我们需要增加一个逻辑的时候要尽量通过扩展软件实体来解决需求变化，而不是通过修改已有的代码来完成变化。
+
+  这是很经典的优化方式，我们可以使用一个类似Map结构的数据来保存所有商品，这里我们直接建立一个对象来存储。
+
+  这是单个条件类型的判断。
+
+  <script>
+     let value = 2
+     let msg ={
+      0:'section2',
+      1:"section3",
+      2:'section4'
+     }
+     
+     let getTypes = function(name){
+       return msg[name]
+     }
+     console.log(getTypes([value])) //section4
+
+  </script>
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+  假如if....else 里面,有多种不同类型的条件判断时，建议使用策略模式，比如，除了判断value这个变量之外，还得判断别的条件的，建议使用策略模式 
+
+  假如if....else 里面,有多种不同类型的条件判断时，建议使用策略模式，比如，除了判断value这个变量之外，还得判断别的条件的，建议使用策略模式
+
+  假如if....else 里面,有多种不同类型的条件判断时，建议使用策略模式，比如，除了判断value这个变量之外，还得判断别的条件的，建议使用策略模式
+
+  <script>
+
+      // 这个是策略模式，但是只有一个条件时，不建议使用策略模式，有点多此一举。 
+
+      let msgRoles ={
+         checkTypes(value){
+            if(value ==0){
+              return 'section2'
+            }else if(value == 1){
+              return 'section3'
+            }else{
+              return  'section4'
+            }
+         }
+      }
+      console.log(msgRoles.checkTypes(1))  //section3
+
+
+      // 维护权限列表
+			const jobList = ['FE', 'BE'];
+			// 策略
+			let strategies = {
+			  checkRole: function(value) {
+				return value === 'juejin';
+			  },
+			  checkGrade: function(value) {
+				return value >= 1;
+			  },
+			  checkJob: function(value) {
+				return jobList.indexOf(value) > 1;
+			  },
+			  checkEatType: function(value) {
+				return value === 'eat melons';
+			  }
+			};
+			console.log(strategies['checkRole']('juejin'))  //true
+			console.log(strategies.checkRole('juejin'))   //true
+
+  </script>
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+</body>
+</html>

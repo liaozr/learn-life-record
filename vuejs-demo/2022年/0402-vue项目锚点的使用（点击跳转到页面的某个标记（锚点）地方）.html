@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		Vue 跳转页面 定位到某个位置 scrollIntoView 锚点滚动
+
+		主要js代码：
+
+		async mounted () {
+		  await this.getGoodsList()
+		  this.$nextTick(() => {
+			document.querySelector("#member-goods-list-box").scrollIntoView(true)
+		  })
+		},
+		
+		document.querySelector("#member-goods-list-box").scrollIntoView(true)
+		
+		
+		注意：这行代码一定要写在mounted方法里面或者执行完mounted之后的方法里面，
+		
+		一定要使用nextTick或者setTimeout}注意：这行代码一定要写在mounted方法里面或者执行完mounted之后的方法里面，
+		
+		一定要使用nextTick或者setTimeout
+		
+		
+		<script>
+		
+			mounted() {
+				// 自动跳转到页面对应的年级位置
+				// 获取hash地址信息
+				var hash = window.location.hash;
+				// 提取井号内容,即id信息
+				var id = "#" + hash.substring(14);
+				// 利用scrollIntoView这个api实现自动跳转
+				document.querySelector(id).scrollIntoView(true);
+			}
+			
+		</script>
+	
+	
+	
+		a标签 :
+		
+		a.html里：
+		
+		<a href="b.html#abc">xxx</a>
+		
+		b.html里加一个锚记：
+		<a name="abc"></a>
+
+	
+	
+	</body>
+</html>

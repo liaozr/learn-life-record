@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+        /**
+     * 复制文本
+     * @param {string} text 复制的文本
+     */
+      copyText(text){
+
+        const input = document.createElement('input')
+        document.body.appendChild(input)
+        input.setAttribute('readonly', 'readonly')
+        input.setAttribute('value', text)
+        input.select()
+        input.setSelectionRange(0, text.length)
+        try {
+          document.execCommand('copy')
+        } catch (err) { }
+        document.body.removeChild(input)
+      }
+      
+  </script>
+
+
+</body>
+</html>
