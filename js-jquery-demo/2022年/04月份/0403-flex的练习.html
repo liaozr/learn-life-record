@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  section1为多行居中
+    
+  <div class="container">
+    <div class="section section1">
+       <div class="list">1111</div>
+       <div class="list">2222</div>
+       <div class="list">3333</div>
+       <div class="list">4444</div>
+    </div>
+
+    <div class="section section2">
+       <div class="list">固定宽度</div>
+       <div class="other">随件宽度</div>
+    </div>
+    <div class="section section3">
+        <div class="list">11</div>
+        <div class="list">22</div>
+        <div class="list">33</div>
+    </div>
+  </div>
+  
+  <style>
+    .container{
+      margin:40px auto;
+      min-height: 300px;
+      width:500px;
+      background-color: pink;
+    }
+    .section{
+      width:96%;
+      margin:10px auto;
+    }
+    .section1{
+      display: flex;
+      justify-content:space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .section1 .list{
+      width:46%;
+      height:200px;
+      margin:10px auto;
+      margin-bottom: 15px;
+      background-color: yellow;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .section2{
+       display: flex;
+       justify-content: center;
+    }
+    .section2 .list{
+      width:100px;
+      background-color:brown;
+    }
+    .section2 .other{
+      flex:1;
+      background-color: aqua;
+    }
+    .section3{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .section3 .list{
+      height:30px;
+      width:31%;
+      background-color: aquamarine;
+    }
+  </style>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+解决：利用el-date-picker的picker-options属性筛选日期。
+
+<el-date-picker
+  type="date"
+  placeholder="请选择时间"
+  :picker-options="pickerOptions"
+  v-model="ruleForm.date"
+  :clearable="false"
+></el-date-picker>
+
+<script>
+  data(){
+    return{
+
+      //禁用当前日期之前的日期（只能选择今日到今日之后）
+
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() < Date.now() - 24 * 60 * 60 * 1000
+        }
+      },
+
+      // 只能选当前日期之前的30天时间，也就是只能选近一个月的日期
+
+      pickerOptions2:{
+        disabledDate(time) {
+          let curDate = (new Date()).getTime();
+          let times = 31 * 24 * 3600 * 1000;
+          let months = curDate - times;
+          return time.getTime() > Date.now() || time.getTime() < months;
+        }
+      },
+
+      // 可以选任一时间段（一个月内）的时间,但是这个功能不能跨月。
+
+      pickerOptions3: {
+      // 点击时，选择的是开始时间，也就是minDate
+        onPick: ({ maxDate, minDate }) => {
+          this.selectData = minDate.getTime();
+          if (maxDate) {
+            // 解除限制
+            this.selectData = "";
+          }
+        },
+        disabledDate: (time) => {
+          // 是否限制的判断条件
+          if (!this.isNull(this.selectData)) {
+            let date = new Date(this.selectData);
+            // 这里就是限制的关键，大于或者小于本月的日期被禁用
+            return date.getMonth() > new Date(time).getMonth() || date.getMonth() < new Date(time).getMonth();
+          } else {
+            return false;
+          }
+        }
+      }
+    }
+  },
+  methods:{
+    isNull(value) {
+      if (value) {
+        return false;
+      }
+      return true;
+    }
+  }
+
+</script>
+
+</body>
+</html>

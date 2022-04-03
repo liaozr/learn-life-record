@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+  <script>
+
+    // 下载文件
+    // 导出Excel的函数
+    export function fileDown(res) {
+      const disposition = res.headers["content-disposition"];
+      console.log("fileDown", disposition);
+      let fileName = "临时文件";
+      if (disposition) {
+        fileName = disposition.substring(disposition.indexOf("filename=") + 9);
+        fileName = decodeURIComponent(fileName);// 解码文件名
+      }
+      const data = res.data;
+      const url = window.URL.createObjectURL(new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }));
+      const link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // 数据导出
+    exportData(){
+        this.$confirm("是否确定数据导出?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+        .then(() => {
+          let item = {
+            appointStatus: this.search.appointStatus,	// 指派状态：0：未指派，1：已指派	query	false
+            // cityName: "",	// 所在市名称
+            cluseStatus: this.search.cluseStatus,
+            currentFollowerOrgan: this.search.currentFollowerOrgan,
+            currentFollowerUser: this.search.currentFollowerUser,
+            // dateType: this.search.dateType,	// 时间类型：0：今日，1：昨日，2：本周，3：上周	query	false
+            endDate: this.search.endDate,	// 结束时间	query	false
+            followStatusId: this.search.followStatusId,	// 跟进状态id	query	false
+            grade: this.search.grade,	// 客户等级：0：重要客户，1：普通客户，2：低价值客户，3：未标记	query	false
+            // provinceId: this.search.provinceId,	// 所在省id	query	false
+            sourceId: this.search.sourceId,	// 客户来源id	query	false
+            startDate: this.search.startDate,	// 开始时间
+            provinceName: this.search.provinceName, // 所在省名称
+            customerCode: this.search.customerCode,
+            mobile: this.search.mobile,
+            name: this.search.name,
+            wxMobile: this.search.wxMobile,
+          };
+          let searchData = JSON.parse(JSON.stringify(item));
+          Object.keys(searchData).forEach((key) => {
+            if ((searchData[key] != 0 && !searchData[key]) || searchData[key] === "" || searchData[key] == -1) {
+              this.$delete(searchData, key);
+            }
+            if(this.search.currentFollowerOrgan == "全部"){
+              this.$delete(searchData, "currentFollowerOrgan");
+            }
+          });
+          const loading = this.$loading({
+            lock: true,
+            text: "正在导出，请稍后",
+            spinner: "el-icon-loading",
+            background: "rgba(0, 0, 0, 0.7)",
+          });
+          exportData(searchData).then(res=>{
+            console.log("导出客户数据", res);
+            loading.close();
+            fileDown(res);
+            })
+            ["catch"](err=>{
+              loading.close();
+              console.log("导出报错", err);
+            });
+          })
+          ["catch"]((err) => {
+           loading.close();
+           console.log("导出报错", err);
+          });
+    }
+  </script>
+
+
+  问题
+
+  对于文件下载后打开乱码，很有可能是以下两个问题：
+  文件格式与响应类型对不上，前端后端都得对上
+  没有设置编码 UTF-8
+
+
+  对于文件损坏，提示无法打开，很有可能是：
+
+  文件格式与响应类型对不上，前端后端都得对上
+
+
+</body>
+</html>

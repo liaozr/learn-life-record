@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+-------------------------------------------------------------------------------------------------------------------------------
+
+          常用的 3 种提交：
+
+          POST / GET 方法 application/x-www-form-urlencoded，<form>标签等默认提交方式
+
+          // POST
+          Content-Type: application/x-www-form-urlencoded
+
+          foo=bar&baz=The+first+line.%0D%0AThe+second+line.%0D%0A
+
+          // GET 放到URL后
+          ?foo=bar&baz=The%20first%20line.%0AThe%20second%20line.
+      
+-------------------------------------------------------------------------------------------------------------------------------
+
+
+          POST 方法 multipart/form-data，文件上传常用提交方式
+
+          // POST
+          Content-Type: multipart/form-data; boundary=---------------------------314911788813839
+
+          -----------------------------314911788813839
+          Content-Disposition: form-data; name="foo"
+
+          bar
+          -----------------------------314911788813839
+          Content-Disposition: form-data; name="baz"
+
+          The first line.
+          The second line.
+
+          
+-------------------------------------------------------------------------------------------------------------------------------
+
+          POST / GET 方法 application/json，常用的请求JSON数据方式
+
+          // POST
+          Content-Type: application/json
+
+          {"foo": "bar"}
+
+          // GET
+          ?foo=bar
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+
+</body>
+</html>

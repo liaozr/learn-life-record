@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+     
+  
+      我们在项目开发时，可能会遇到这样问题:当页面切换到同一个路由但不同参数地址时，
+      
+      比如/detail/1，跳转到/detail/2，页面跳转后数据竟然没更新？路由配置如下：
+
+      {
+        path: "/detail/:id",
+        name:"detail",
+        component: Detail
+      }
+
+
+      这是因为vue-router会识别出两个路由使用的是同一个组件从而进行复用，并不会重新创建组件，
+      
+      而且组件的生命周期钩子自然也不会被触发，导致跳转后数据没有更新。
+      
+      那我们如何解决这个问题呢？我们可以为router-view组件添加属性key,例子如下：
+
+
+
+      <router-view :key="$route.fullpath"></router-view>
+
+
+
+      这种办法主要是利用虚拟DOM在渲染时候通过key来对比两个节点是否相同，
+       
+      如果key不相同，就会判定router-view组件是一个新节点，
+       
+      从而先销毁组件，然后再重新创建新组件，这样组件内的生命周期会重新触发。
+
+
+
+      
+</body>
+</html>
