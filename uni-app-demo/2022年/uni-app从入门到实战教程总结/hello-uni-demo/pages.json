@@ -1,0 +1,88 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path":"pages/uni-style/uni-style"
+		},
+		{
+			"path": "pages/index/index"
+		},
+		{
+			"path": "pages/navigator/navogator"
+		},
+		{
+			"path": "pages/message/message",
+			"style": {
+				"navigationBarTitleText":"信息页",          // 配置当前页面的导航栏标题
+				"navigationBarBackgroundColor": "#007AFF", // 配置当前页面导航栏背景色
+				"h5":{                                     // 配置编译到H5平台时的特定样式，跟小程序上的表现形式是会不一样的
+					"pullToRefresh":{
+						"color": "#7D26CD"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/list/list",
+			"style":{
+				" ": true,
+				"onReachBottomDistance": 200  //距离底部的距离多少触发下拉刷新
+			}
+		},
+		{
+			"path":"pages/home/home"
+		},
+		
+		{
+			"path": "pages/contact/contact"
+		},
+		{
+			"path": "pages/detail/detail" 
+		}
+	],
+	//可在微信开发者工具里面，切换编译模式可以看到所需页面。 
+	"condition":{ // 配置启动模式。
+		"current":0,
+		"list":[
+			{
+				"name":"详情页",
+				"path":"pages/detail/detail",
+				"query":"id = 80"				
+			}
+		]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "绿帽子",
+		"navigationBarBackgroundColor": "#7FFF00",
+		"backgroundColor": "#7CCD7C", // 全局的背景色
+		"enablePullDownRefresh":true,// 开启全局的下拉刷新
+		"backgroundTextStyle": "light"
+	},
+	"tabBar": {  
+		"color": "#A0522D",
+		"selectedColor": "#B3EE3A",
+		"backgroundColor": "#fff",
+		"borderStyle": "white",  // 配置上边框的颜色
+		"position": "bottom", // 配置顶部 还是 底部的tabBar，顶部的只会显示文字，且只会在小程序中生效
+		"list": [  // 最少两项，最多5项
+			{
+				"text": "首页",
+				"pagePath":"pages/index/index",
+				"iconPath":"static/tabs/home.png",
+				"selectedIconPath":"static/tabs/home-active.png"
+			},
+			{
+				"text": "信息",
+				"pagePath":"pages/message/message",
+				"iconPath":"static/tabs/message.png",
+				"selectedIconPath":"static/tabs/message-active.png"
+			},
+			{
+				"text": "我们",
+				"pagePath":"pages/contact/contact",
+				"iconPath":"static/tabs/contact.png",
+				"selectedIconPath":"static/tabs/contact-active.png"
+			}
+		]
+	}
+}

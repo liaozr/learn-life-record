@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<!-------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+  uni 中样式的使用以及字体大小
+
+  使用 @import 可以导入外联样式表，后跟需要导入的外联样式表的相对路径
+
+  rpx 与 upx  本质上是没区别的，upx的初衷是为了兼容小程序的rpx.
+
+  $global-color 是在 uni.scss里面定义的全局变量。
+
+  <style lang="scss">
+
+    @import url("./a.css");
+    .box1{
+      width: 375rpx;
+      height: 375rpx;
+      background: $global-color;
+      font-size: 30rpx;
+      color: #fff;
+      text{
+        color: pink;
+      }
+    }
+
+  </style>
+
+
+
+  App.vue里面
+
+  <style>
+    /* App.vue里面定义的样式是属于全局样式来的，是所有组件都生效的 */
+    /*每个页面公共css */
+    @import url("./static/fonts/iconfont.css");
+    .box1{
+      background: pink;
+    }
+  </style>
+
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+
+
+
+
+</body>
+</html>
