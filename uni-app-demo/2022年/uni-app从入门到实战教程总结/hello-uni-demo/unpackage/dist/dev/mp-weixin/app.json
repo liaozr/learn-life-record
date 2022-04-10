@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/uni-style/uni-style",
-    "pages/index/index",
-    "pages/navigator/navogator",
     "pages/message/message",
     "pages/list/list",
+    "pages/index/index",
+    "pages/uni-style/uni-style",
+    "pages/navigator/navogator",
     "pages/home/home",
     "pages/contact/contact",
     "pages/detail/detail"
@@ -45,5 +45,6 @@
       }
     ]
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
 }

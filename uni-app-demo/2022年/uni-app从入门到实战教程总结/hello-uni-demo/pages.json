@@ -1,15 +1,6 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path":"pages/uni-style/uni-style"
-		},
-		{
-			"path": "pages/index/index"
-		},
-		{
-			"path": "pages/navigator/navogator"
-		},
-		{
 			"path": "pages/message/message",
 			"style": {
 				"navigationBarTitleText":"信息页",          // 配置当前页面的导航栏标题
@@ -24,10 +15,21 @@
 		{
 			"path": "pages/list/list",
 			"style":{
-				" ": true,
-				"onReachBottomDistance": 200  //距离底部的距离多少触发下拉刷新
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 200  //距离底部的距离多少触发上拉加载
 			}
 		},
+		{
+			"path": "pages/index/index"
+		},
+		{
+			"path":"pages/uni-style/uni-style"
+		},
+		{
+			"path": "pages/navigator/navogator"
+		},
+		
+		
 		{
 			"path":"pages/home/home"
 		},
@@ -47,7 +49,7 @@
 				"name":"详情页",
 				"path":"pages/detail/detail",
 				"query":"id = 80"				
-			}
+			}		
 		]
 	},
 	"globalStyle": {

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>    
+      methods:{
+        get () {
+            uni.request({
+                url: "http://localhost:8082/api/get",
+                success (res) {
+                    console.log(res)
+                }
+            })
+        },
+        // 将data存储在本地缓存中指定的key中，setStorageSync这是一个同步接口
+        setStorage () {
+            // uni.setStorage({
+            // 	key: 'id',
+            // 	data: 80,
+            // 	success () {
+            // 		console.log('存储成功')
+            // 	}
+            // })          
+            uni.setStorageSync('id',100)
+        },
+        // 将data存储在本地缓存中指定的key中，getStorageSync这是一个同步接口
+        getStorage () {
+            // uni.getStorage({
+            // 	key: "id",
+            // 	success(res){
+            // 		console.log('获取成功',res.data)
+            // 	}
+            // })
+            const res = uni.getStorageSync('id')
+            console.log(res)
+        },
+        removeId () {
+            // uni.removeStorage({
+            // 	key: 'id',
+            // 	success(){
+            // 		console.log('删除成功')
+            // 	}
+            // })
+            uni.removeStorageSync('id')
+        }
+      }
+    </script>
+</body>
+</html>
