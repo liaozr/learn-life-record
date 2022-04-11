@@ -14,11 +14,17 @@
 				<text>{{item.title}}</text>
 			</view>
 		</view>
+		<!-- 推荐商品 -->
+		<view class="hot_goods">
+			<view class="tit">推荐商品</view>
+		</view>
+		<goodsList :data="goodslists"></goodsList>
 	</view>
 </template>
 
 <script>
 	import { getNewsList }  from '../../api/index.js'	
+	import goodsList from '../../components/goodsList/goodsList.vue'
 	export default {
 		data() {
 			return {
@@ -43,8 +49,13 @@
 					title: '学习视频',
 					path: '/pages/videos/videos'
 				}
-			  ]
+			  ],
+			  baseUrl:'https://admin.hjtc123.com/',
+			  goodslists:[]
 			}
+		},
+		components:{
+		  goodsList	
 		},
 		onLoad() {
          // 测试获取新闻列表
@@ -53,20 +64,37 @@
 		methods: {
 		 async getNewsList(){
 			 try{
-				 // 两种请求方式都可以。
-			 	const res = await getNewsList()
+				 // 两种请求方式都可以。			
+				 let params = {
+					 pageNo:1,
+					 pageSize:8,
+					 contentCategoryId:182
+				 }
+			 	const res = await getNewsList(params)
 				// const res = await this.$request({
 				// 	url: '/content/list'
 				// })
-			 	console.log(res)
-			 	console.log(7777)
+				let goodslists = res.data.data.rows
+				goodslists.forEach((item) =>{
+					if(!item.imageUrl){
+						if(item?.contentImg){
+							let arr = JSON.parse(item.contentImg)[0]
+							let path = this.baseUrl+arr.path
+							this.$set(item,'imageUrl',path)
+						}			
+					}					
+				})
+				this.goodslists = goodslists			
+				console.log(this.goodslists)
 			 }catch(e){
 				 console.log(e)
 			 	//TODO handle the exception
 			 }	
 		 },
 		 navTo(path){
-			 
+			uni.navigateTo({
+			  url: path
+			})
 		 }
 		}
 	}
@@ -118,5 +146,19 @@
 			}
 		}
 	  }
+	  .hot_goods {
+		background: #eee;
+		overflow: hidden;
+		margin-top: 20rpx;
+		.tit{
+			height: 100rpx;
+			line-height: 100rpx;
+			color: $shop-color;
+			text-align: center;
+			letter-spacing: 40rpx;
+			background: #fff;
+			margin: 7rpx 0;
+		}
+	   }
 	}
 </style>
