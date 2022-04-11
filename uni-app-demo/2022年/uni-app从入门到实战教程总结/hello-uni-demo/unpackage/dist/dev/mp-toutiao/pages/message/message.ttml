@@ -1,0 +1,1 @@
+<view><button type="primary" data-event-opts="{{[['tap',[['chooseImg',['$event']]]]]}}" bindtap="__e">上传图片</button><block tt:for="{{imgArr}}" tt:for-item="item" tt:for-index="__i0__"><image src="{{item}}" data-event-opts="{{[['tap',[['previewImg',['$0'],[[['imgArr','',__i0__]]]]]]]}}" bindtap="__e"></image></block></view>

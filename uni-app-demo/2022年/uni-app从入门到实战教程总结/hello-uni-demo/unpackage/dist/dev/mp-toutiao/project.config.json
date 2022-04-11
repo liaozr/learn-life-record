@@ -1,0 +1,24 @@
+{
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "postcss": false,
+    "minified": false,
+    "newFeature": true
+  },
+  "appid": "testAppId",
+  "projectname": "hello-uni",
+  "condition": {
+    "miniprogram": {
+      "current": 0,
+      "list": [
+        {
+          "name": "详情页",
+          "query": "id = 80",
+          "id": 0,
+          "pathName": "pages/detail/detail"
+        }
+      ]
+    }
+  }
+}
