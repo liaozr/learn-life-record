@@ -1,6 +1,6 @@
 <template>
 	<view class="goodslist">
-		<view v-for="item in data" :key="item.id" class="list">
+		<view v-for="(item,index) in data" :key="item.id" class="list" >
 			<image :src="item.imageUrl"></image>
 			<view>{{item.contentTitle}}</view>
 		</view>	
@@ -50,7 +50,7 @@
 			font-size:28rpx;
 			line-height: 40rpx;
 			text-align: left;
-		}
+		}		
 	  }
   }
 </style>
