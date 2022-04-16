@@ -49,6 +49,7 @@
 		  }
 		  .wen{
 			  margin-left:30rpx;
+			  padding-right:10rpx;
 			  flex:1;
 			  .title{
 				  font-size:28rpx;
