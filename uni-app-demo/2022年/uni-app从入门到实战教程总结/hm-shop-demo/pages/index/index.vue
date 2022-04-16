@@ -68,7 +68,7 @@
 				 let params = {
 					 pageNo:1,
 					 pageSize:8,
-					 contentCategoryId:182
+					 contentCategoryId:184
 				 }
 			 	const res = await getNewsList(params)
 				// const res = await this.$request({

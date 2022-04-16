@@ -37,7 +37,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .contact{
 	.img{
 		width: 750rpx;
@@ -51,7 +51,6 @@
 			border-bottom: 1px solid #eee;
 		}
 	}
-	
 	.map{
 		width: 750rpx;
 		height: 750rpx;

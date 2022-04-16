@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)https://www.cnblogs.com/guogangj/p/3235703.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <meta name="description" content="本文将从个人经验出发，讲述为什么需要Chrome插件，如何开发，如何调试，到哪里找资料，会遇到怎样的问题以及如何解决等，同时给出一个个人认为的比较典型的例子……">
+    <meta property="og:description" content="本文将从个人经验出发，讲述为什么需要Chrome插件，如何开发，如何调试，到哪里找资料，会遇到怎样的问题以及如何解决等，同时给出一个个人认为的比较典型的例子……">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Chrome插件（Extensions）开发攻略 - guogangj - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="https://common.cnblogs.com/favicon.svg" type="image/svg+xml">
+    
+    <style>:not(.cnblogs_code):not(.cnblogs_Highlighter)>pre:not([class*="language-"]):not([highlighted]):not(.hljs):not([class*="brush:"]) {
+        background: rgb(245, 245, 245);
+        padding: 5px;
+        border: 1.11111px solid rgb(204, 204, 204);
+        border-radius: 3px;
+        border-color: transparent;
+        color: rgb(68, 68, 68);
+        font-family: "Courier New", sans-serif;
+    }:not(.cnblogs_code):not(.cnblogs_Highlighter)>pre:not([highlighted]):not([class*="brush:"]) code:not(.hljs) {
+            background: rgb(245, 245, 245) !important;
+            border-color: transparent !important;
+        }</style><link rel="stylesheet" href="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/blog-common.min.css">
+    <link id="MainCss" rel="stylesheet" href="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/bundle-simpleblue.min.css">
+    <link id="highlighter-theme-cnblogs" type="text/css" rel="stylesheet" href="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/cnblogs.css">
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/bundle-simpleblue-mobile.min.css">
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/guogangj/rss">
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/guogangj/rsd.xml">
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/guogangj/wlwmanifest.xml">
+    <script type="text/javascript" async="" src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/encoder.js.下载"></script><script>
+        var currentBlogId = 110005;
+        var currentBlogApp = 'guogangj';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'SimpleBlue';
+        var visitorUserId = '';
+        var hasCustomScript = false;
+        try {
+            if (hasCustomScript && document.referrer && document.referrer.indexOf('baidu.com') >= 0) {
+                Object.defineProperty(document, 'referrer', { value: '' });
+                Object.defineProperty(Document.prototype, 'referrer', { get: function(){ return ''; } });
+            }
+        } catch(error) { }
+        window.codeHighlightEngine = 1;
+        window.enableCodeLineNumber = false;
+        window.codeHighlightTheme = 'cnblogs';
+    </script>
+        <script>
+            var currentPostDateAdded = '2013-08-04 00:35';
+        </script>
+    <script src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+    <script src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/blog-common.min.js.下载"></script><style type="text/css">.medium-zoom-overlay{position:fixed;top:0;right:0;bottom:0;left:0;opacity:0;transition:opacity .3s;will-change:opacity}.medium-zoom--opened .medium-zoom-overlay{cursor:pointer;cursor:zoom-out;opacity:1}.medium-zoom-image{cursor:pointer;cursor:zoom-in;transition:transform .3s cubic-bezier(.2,0,.2,1)!important}.medium-zoom-image--hidden{visibility:hidden}.medium-zoom-image--opened{position:relative;cursor:pointer;cursor:zoom-out;will-change:transform}</style><script id="hljs-script" async="" data-loaded="true" src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/highlight.min.js.下载"></script>
+    
+    
+    
+<style>.jj-flash-note__popper[data-v-44225974]{position:absolute;border:none;outline:0;text-align:center;width:28px;height:28px;background:#f7f8fa;border:1px solid #e5e6eb;border-radius:2px;padding:4px}.jj-flash-note__popper .icon[data-v-44225974]{pointer-events:none}.jj-flash-note__frame[data-v-dd761a64]{max-width:50%;position:fixed;right:0;bottom:0;top:0;background-color:#fff;z-index:9999}.slide-left-enter-active[data-v-dd761a64],.slide-left-leave-active[data-v-dd761a64]{transition:transform .15s linear}.slide-left-enter-from[data-v-dd761a64],.slide-left-leave-to[data-v-dd761a64]{transform:translateX(100%)}.jj-flash-note__app[data-v-ed443a7e]{z-index:9999;position:fixed;left:0;top:0}.jj-flash-note__app .mask[data-v-ed443a7e]{position:fixed;left:0;right:0;top:0;bottom:0;z-index:9000;background-color:rgba(0,0,0,.4);opacity:1}.jj-flash-note__app .fade-enter-active[data-v-ed443a7e],.jj-flash-note__app .fade-leave-active[data-v-ed443a7e]{transition:opacity .15s ease}.jj-flash-note__app .fade-enter-from[data-v-ed443a7e],.jj-flash-note__app .fade-leave-to[data-v-ed443a7e]{opacity:0}.juejin-search[data-v-f493e070]{display:flex;width:682px;height:46px;border-radius:2px;flex-direction:row;align-items:center;justify-content:center;position:relative}.juejin-search .search-anim[data-v-f493e070]{position:absolute;left:8px;width:28px;height:28px;object-fit:contain;animation-play-state:paused}.juejin-search .search-anim.slide-right-enter-active[data-v-f493e070],.juejin-search .search-anim.slide-right-leave-active[data-v-f493e070]{transition:width .3s linear}.juejin-search .search-anim.slide-right-enter-from[data-v-f493e070],.juejin-search .search-anim.slide-right-leave-to[data-v-f493e070]{width:0}.juejin-search .juejin-search-logo[data-v-f493e070]{right:16px;position:absolute;width:23px;height:18px;object-fit:contain}.juejin-search .juejin-search-logo path[data-v-f493e070]{transition:all .3s linear}.juejin-search #juejin-search-input-global.input[data-v-f493e070]{padding:0 39px 0 33px;width:100%;height:100%;outline:0;border:none;border-radius:2px;background-color:#fff;color:#1d2129;font-size:18px;line-height:22px;font-weight:500;caret-color:transparent;box-sizing:border-box;background:rgba(148,191,255,.1)}.juejin-search #juejin-search-input-global.input.active[data-v-f493e070]{border:2px solid #bedaff}.juejin-search #juejin-search-input-global.input.animation-stopped[data-v-f493e070]{caret-color:#1e80ff;padding-left:16px}.juejin-search #juejin-search-input-global.input[data-v-f493e070]::placeholder{font-weight:400;color:#86909c}:root{--color-input-bg:#f4f5f5;--color-input-error-bg:#ffece8;--color-input-placeholder:#86909c;--color-input-text:#4e5969;--color-input-icon:#f53f3f}:root .dark{--color-input-bg:rgba(255, 255, 255, 0.12);--color-input-error-bg:rgba(255, 81, 50, 0.15);--color-input-placeholder:#e3e3e3;--color-input-text:#e3e3e3;--color-input-icon:#ff6247}[data-v-3b3b3ca0]:root{--color-brand:#1E80FF;--color-brand-light:#E8F3FF;--color-nav-title:#86909C;--color-nav-popup-bg:#FFFFFF;--color-primary:#1D2129;--color-secondary-app:#4E5969;--color-thirdly:#86909C;--color-hover:#1e80ff;--color-hover-thirdly:#86909c;--color-dropdown-text:#1E80FF;--color-divider:#E5E6EB;--color-main-bg:#f4f5f5;--color-secondary-bg:#FFFFFF;--color-thirdly-bg:#f4f5f5;--color-hover-bg:#E8F3FF;--color-comment-bg:rgba(244, 245, 245, 0.5);--hover-bg:linear-gradient(
+    90deg,
+    rgba(232, 243, 255, 0) 0%,
+    rgba(232, 243, 255, 0.8) 25.09%,
+    #e8f3ff 50.16%,
+    rgba(232, 243, 255, 0.8) 75.47%,
+    rgba(232, 243, 255, 0) 100%
+  );--color-font-2:#1171EE;--color-mask:rgba(0, 0, 0, 0.4);--color-quick-nav-text:#ffffff;--color-nav-bg:rgba(255, 255, 255, 0.13);--color-nav-selected-border:rgba(229, 230, 235, 0.3);--color-tips:#F53F3F;--color-fourthly:#C9CDD4;--color-shadow:rgba(0, 0, 0, 0.16);--color-grey-triangle:#e5e6eb;--color-icon-search:#ffffff;--color-navbar-icon:#1e80ff;--color-layout-dropdown-bg:rgba(232, 243, 255, 0.8);--color-layout-title:#4E5969;--color-layout-title-active:#1E80FF;--color-layout-icon-outline:rgba(30, 128, 255, 0.5);--color-layout-icon-fill:#ffffff}:root .dark[data-v-3b3b3ca0]{--color-brand:#1352a3;--color-nav-title:#e3e3e3;--color-nav-popup-bg:#1352A3;--color-primary:#e3e3e3;--color-secondary-app:#a9a9a9;--color-thirdly:#7d7d7f;--color-hover:#eeeeee;--color-hover-thirdly:#878789;--color-dropdown-text:#878789;--color-divider:#4a4a4a;--color-main-bg:#121212;--color-secondary-bg:#272727;--color-thirdly-bg:#3a3a3a;--color-hover-bg:#3a3a3a;--color-comment-bg:#313131;--hover-bg:linear-gradient(
+    90deg,
+    rgba(58, 58, 58, 0) 0%,
+    rgba(58, 58, 58, 0.8) 25.09%,
+    #3a3a3a 50.16%,
+    rgba(58, 58, 58, 0.8) 75.47%,
+    rgba(58, 58, 58, 0) 100%
+  );--color-font-2:rgba(238, 238, 238, 0.8);--color-mask:rgba(0, 0, 0, 0.4);--color-quick-nav-text:#e3e3e3;--color-nav-bg:rgb(30, 30, 30);--color-nav-selected-border:#4a4a4a;--color-tips:#bc3030;--color-fourthly:#878789;--color-shadow:rgba(0, 0, 0, 0.16);--color-grey-triangle:#3a3a3a;--color-icon-search:#e3e3e3;--color-navbar-icon:#e3e3e3;--color-layout-dropdown-bg:rgba(125, 125, 127, 0.8);--color-layout-title:#eeeeee;--color-layout-title-active:#eeeeee;--color-layout-icon-outline:#131313;--color-layout-icon-fill:#e3e3e3}.input-option[data-v-3b3b3ca0]{display:flex;flex-direction:column}.input-option span.error[data-v-3b3b3ca0]{margin-left:6.6666666667rem;font-size:1rem;line-height:20px;display:inline-block;height:20px;color:var(--color-tips)}.input-wrapper[data-v-3b3b3ca0]{display:flex;flex-direction:row;align-items:center;width:100%}.input-wrapper label[data-v-3b3b3ca0]{width:4em;font-size:1.1666666667rem;line-height:1.8333333333rem;color:var(--color-thirdly);margin-right:1rem}.input-wrapper .input[data-v-3b3b3ca0]{flex:1 0 auto;position:relative}.input-wrapper .input.error .input-inner[data-v-3b3b3ca0]{background-color:var(--color-input-error-bg)}.input-wrapper .input.error .btn-clear[data-v-3b3b3ca0]{color:var(--color-input-icon)}.input-wrapper .input .input-inner[data-v-3b3b3ca0]{background:var(--color-input-bg);border-radius:2px;color:var(--color-input-text);font-size:1.0833333333rem;line-height:1.8333333333rem;height:2.3333333333rem;padding:0 8px;outline:0;border:none;width:100%}.input-wrapper .input .input-inner[data-v-3b3b3ca0]::placeholder{color:var(--color-input-placeholder)}.input-wrapper .btn-clear[data-v-3b3b3ca0]{position:absolute;top:50%;right:0;transform:translateY(-50%);background:0 0;border:none;outline:0;color:var(--color-fourthly)}.input-wrapper .btn-clear[data-v-3b3b3ca0]::before{font-size:10px;line-height:10px}[data-v-25df73b2]{box-sizing:border-box}.color-tool[data-v-25df73b2]{padding:0 16px!important}.color-tool .row[data-v-25df73b2]{display:flex;align-items:center}.color-tool .color-picker[data-v-25df73b2]{cursor:pointer;outline:0;border:none;padding:0;margin:0;border-radius:2px;background-color:transparent;width:92px;height:40px}.color-tool .color-picker[data-v-25df73b2]::-webkit-color-swatch-wrapper{padding:3px;border:1px solid transparent;border-radius:4px;transition:all .15s linear}.color-tool .color-picker[data-v-25df73b2]::-webkit-color-swatch-wrapper:hover{border:1px solid #bedaff}.color-tool .color-picker[data-v-25df73b2]::-webkit-color-swatch{border-radius:2px;border:none}.color-tool .input[data-v-25df73b2]{transform:translateY(10px);flex:1 1 auto;margin:0 12px}.color-tool .input[data-v-25df73b2] input.input-inner{height:40px;padding-left:16px;font-size:14px;color:#1d2129;box-sizing:border-box;background:#f4f5f5}.color-tool .input[data-v-25df73b2] label{display:none}.color-tool .input[data-v-25df73b2] span.error{margin-left:16px}.color-tool .input[data-v-25df73b2] .input-wrapper .btn-clear{right:8px}.color-tool .input[data-v-25df73b2] .input-wrapper .btn-clear::before{font-size:14px;color:#c9cdd4}.color-tool button[data-v-25df73b2]{outline:0;border:none;background-color:unset;width:93px;height:40px;font-size:14px}.color-tool .btn-convert[data-v-25df73b2]{background:#1e80ff;border-radius:2px;color:#fff;transition:all .15s linear}.color-tool .btn-convert[data-v-25df73b2]:hover{background:#5399ff}.color-tool .btn-convert[data-v-25df73b2]:active{background:#0060dd}.color-tool .btn-copy[data-v-25df73b2]{background:rgba(30,128,255,.05);border:1px solid rgba(30,128,255,.3);border-radius:2px;color:#1e80ff;transition:all .15s linear}.color-tool .btn-copy[data-v-25df73b2]:hover{background:rgba(30,128,255,.1);border-color:rgba(30,128,255,.45)}.color-tool .btn-copy[data-v-25df73b2]:active{background:rgba(30,128,255,.2);border-color:rgba(30,128,255,.6)}.color-tool .display[data-v-25df73b2]{flex:1;text-align:start;background-color:#f4f5f5;height:40px;margin:0 12px;border-radius:2px;line-height:40px;padding-left:16px;font-size:14px;color:#1d2129}.color-tool .label[data-v-25df73b2]{width:92px;font-size:16px;font-weight:500;color:#1d2129;text-align:end}.color-tool .row[data-v-25df73b2]:not(:first-of-type){margin-top:16px}.tool[data-v-106c88bd]{width:100%;height:100%;box-sizing:border-box}iframe[data-v-106c88bd]{min-height:488px}.calculator[data-v-81e152a8]{display:flex;align-items:center;padding:14px 16px 14px 24px}.calculator .result[data-v-81e152a8]{font-size:16px;font-weight:500;line-height:22px;color:#1d2129;margin:0 16px;text-overflow:ellipsis;flex:1 0 auto;overflow:hidden;white-space:nowrap;max-width:490px}.calculator .hint[data-v-81e152a8]{font-size:14px;line-height:22px;color:#86909c}.search-action[data-v-6fe99470]{display:flex;align-items:center;padding:0 16px 0 20px;box-sizing:border-box;user-select:none;cursor:pointer;height:44px;border-left:4px solid transparent;border-top:4px solid transparent;border-bottom:4px solid transparent;transition:all .15s linear}.search-action.active[data-v-6fe99470],.search-action[data-v-6fe99470]:hover{border-left-color:#1e80ff;background-color:#f4f5f5}.search-action .search-content[data-v-6fe99470]{display:flex;align-items:center;flex:1 0 auto;margin-right:16px}.search-action .search-content .search-content__logo[data-v-6fe99470]{width:32px;height:32px}.search-action .search-content .search-content__engine[data-v-6fe99470],.search-action .search-content .search-content__keyword[data-v-6fe99470]{font-size:16px;font-weight:500;line-height:22px}.search-action .search-content .search-content__keyword[data-v-6fe99470]{color:#1d2129;margin:0 4px 0 16px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;max-width:396px}.search-action .search-content .search-content__engine[data-v-6fe99470]{color:#1e80ff}.search-action .hint[data-v-6fe99470]{font-size:14px;line-height:22px;color:#1e80ff}[data-v-c62d3d80]:root{--color-brand:#1E80FF;--color-brand-light:#E8F3FF;--color-nav-title:#86909C;--color-nav-popup-bg:#FFFFFF;--color-primary:#1D2129;--color-secondary-app:#4E5969;--color-thirdly:#86909C;--color-hover:#1e80ff;--color-hover-thirdly:#86909c;--color-dropdown-text:#1E80FF;--color-divider:#E5E6EB;--color-main-bg:#f4f5f5;--color-secondary-bg:#FFFFFF;--color-thirdly-bg:#f4f5f5;--color-hover-bg:#E8F3FF;--color-comment-bg:rgba(244, 245, 245, 0.5);--hover-bg:linear-gradient(
+    90deg,
+    rgba(232, 243, 255, 0) 0%,
+    rgba(232, 243, 255, 0.8) 25.09%,
+    #e8f3ff 50.16%,
+    rgba(232, 243, 255, 0.8) 75.47%,
+    rgba(232, 243, 255, 0) 100%
+  );--color-font-2:#1171EE;--color-mask:rgba(0, 0, 0, 0.4);--color-quick-nav-text:#ffffff;--color-nav-bg:rgba(255, 255, 255, 0.13);--color-nav-selected-border:rgba(229, 230, 235, 0.3);--color-tips:#F53F3F;--color-fourthly:#C9CDD4;--color-shadow:rgba(0, 0, 0, 0.16);--color-grey-triangle:#e5e6eb;--color-icon-search:#ffffff;--color-navbar-icon:#1e80ff;--color-layout-dropdown-bg:rgba(232, 243, 255, 0.8);--color-layout-title:#4E5969;--color-layout-title-active:#1E80FF;--color-layout-icon-outline:rgba(30, 128, 255, 0.5);--color-layout-icon-fill:#ffffff}:root .dark[data-v-c62d3d80]{--color-brand:#1352a3;--color-nav-title:#e3e3e3;--color-nav-popup-bg:#1352A3;--color-primary:#e3e3e3;--color-secondary-app:#a9a9a9;--color-thirdly:#7d7d7f;--color-hover:#eeeeee;--color-hover-thirdly:#878789;--color-dropdown-text:#878789;--color-divider:#4a4a4a;--color-main-bg:#121212;--color-secondary-bg:#272727;--color-thirdly-bg:#3a3a3a;--color-hover-bg:#3a3a3a;--color-comment-bg:#313131;--hover-bg:linear-gradient(
+    90deg,
+    rgba(58, 58, 58, 0) 0%,
+    rgba(58, 58, 58, 0.8) 25.09%,
+    #3a3a3a 50.16%,
+    rgba(58, 58, 58, 0.8) 75.47%,
+    rgba(58, 58, 58, 0) 100%
+  );--color-font-2:rgba(238, 238, 238, 0.8);--color-mask:rgba(0, 0, 0, 0.4);--color-quick-nav-text:#e3e3e3;--color-nav-bg:rgb(30, 30, 30);--color-nav-selected-border:#4a4a4a;--color-tips:#bc3030;--color-fourthly:#878789;--color-shadow:rgba(0, 0, 0, 0.16);--color-grey-triangle:#3a3a3a;--color-icon-search:#e3e3e3;--color-navbar-icon:#e3e3e3;--color-layout-dropdown-bg:rgba(125, 125, 127, 0.8);--color-layout-title:#eeeeee;--color-layout-title-active:#eeeeee;--color-layout-icon-outline:#131313;--color-layout-icon-fill:#e3e3e3}.search-app[data-v-c62d3d80]{z-index:9999;padding-top:160px;position:fixed;left:0;right:0;top:0;bottom:0;display:flex;align-items:flex-start;justify-content:center}.search-app.extension[data-v-c62d3d80]{z-index:700}@media (max-height:720px){.search-app.tool-active[data-v-c62d3d80]{padding-top:80px}}@media (max-height:640px){.search-app.tool-active[data-v-c62d3d80]{padding-top:30px}}.search-app .search-app__wrapper__[data-v-c62d3d80]{border-radius:2px;border:1px solid #1e80ff;background:#fff;box-shadow:0 0 0 4px rgba(30,128,255,.2),0 0 20px rgba(0,0,0,.15);backdrop-filter:blur(15px)}.search-app .search-app__wrapper__ .search-result[data-v-c62d3d80]{margin-top:8px}.search-app .search-app__wrapper__ .search-result .tool[data-v-c62d3d80]{padding:0 8px}.search-app .search-app__wrapper__ .search-result .setting-hint[data-v-c62d3d80]{display:flex;align-items:center;justify-content:flex-end;margin:0 16px;padding:12px 0 16px}.search-app .search-app__wrapper__ .search-result .setting-hint .text[data-v-c62d3d80]{color:#86909c;line-height:22px;cursor:pointer;user-select:none}.search-app .search-app__wrapper__ .search-result .setting-hint .text[data-v-c62d3d80]:hover:not(.disabled){color:#1e80ff;transition:all .15s linear}.search-app .search-app__wrapper__ .search-result .setting-hint .text.disabled[data-v-c62d3d80]{cursor:initial}.search-app .juejin-search[data-v-c62d3d80]{margin:8px}</style><meta http-equiv="origin-trial" content="AxujKG9INjsZ8/gUq8+dTruNvk7RjZQ1oFhhgQbcTJKDnZfbzSTE81wvC2Hzaf3TW4avA76LTZEMdiedF1vIbA4AAABueyJvcmlnaW4iOiJodHRwczovL2ltYXNkay5nb29nbGVhcGlzLmNvbTo0NDMiLCJmZWF0dXJlIjoiVHJ1c3RUb2tlbnMiLCJleHBpcnkiOjE2NTI3NzQ0MDAsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0="><meta http-equiv="origin-trial" content="Azuce85ORtSnWe1MZDTv68qpaW3iHyfL9YbLRy0cwcCZwVnePnOmkUJlG8HGikmOwhZU22dElCcfrfX2HhrBPAkAAAB7eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiVHJ1c3RUb2tlbnMiLCJleHBpcnkiOjE2NTI3NzQ0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A16nvcdeoOAqrJcmjLRpl1I6f3McDD8EfofAYTt/P/H4/AWwB99nxiPp6kA0fXoiZav908Z8etuL16laFPUdfQsAAACBeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiVHJ1c3RUb2tlbnMiLCJleHBpcnkiOjE2NTI3NzQ0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="AxBHdr0J44vFBQtZUqX9sjiqf5yWZ/OcHRcRMN3H9TH+t90V/j3ENW6C8+igBZFXMJ7G3Pr8Dd13632aLng42wgAAACBeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiVHJ1c3RUb2tlbnMiLCJleHBpcnkiOjE2NTI3NzQ0MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A88BWHFjcawUfKU3lIejLoryXoyjooBXLgWmGh+hNcqMK44cugvsI5YZbNarYvi3roc1fYbHA1AVbhAtuHZflgEAAAB2eyJvcmlnaW4iOiJodHRwczovL2dvb2dsZS5jb206NDQzIiwiZmVhdHVyZSI6IlRydXN0VG9rZW5zIiwiZXhwaXJ5IjoxNjUyNzc0NDAwLCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A8FHS1NmdCwGqD9DwOicnHHY+y27kdWfxKa0YHSGDfv0CSpDKRHTQdQmZVPDUdaFWUsxdgVxlwAd6o+dhJykPA0AAACWeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiQ29udmVyc2lvbk1lYXN1cmVtZW50IiwiZXhwaXJ5IjoxNjQzMTU1MTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlLCJ1c2FnZSI6InN1YnNldCJ9"><meta http-equiv="origin-trial" content="A8zdXi6dr1hwXEUjQrYiyYQGlU3557y5QWDnN0Lwgj9ePt66XMEvNkVWOEOWPd7TP9sBQ25X0Q15Lr1Nn4oGFQkAAACceyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiQ29udmVyc2lvbk1lYXN1cmVtZW50IiwiZXhwaXJ5IjoxNjQzMTU1MTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlLCJ1c2FnZSI6InN1YnNldCJ9"><meta http-equiv="origin-trial" content="A4/Htern2udN9w3yJK9QgWQxQFruxOXsXL7cW60DyCl0EZFGCSme/J33Q/WzF7bBkVvhEWDlcBiUyZaim5CpFQwAAACceyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiQ29udmVyc2lvbk1lYXN1cmVtZW50IiwiZXhwaXJ5IjoxNjQzMTU1MTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlLCJ1c2FnZSI6InN1YnNldCJ9"><script src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/pubads_impl_2022041301.js.下载" async=""></script><link rel="preload" href="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/f.txt" as="script"><script type="text/javascript" src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/f.txt"></script></head>
+<body class="skin-simpleblue has-navbar">
+    <a name="top"></a>
+        <div id="bannerbar" class="bannerbar-mobile formobile">
+            <a href="https://www.heapdump.cn/training/detail/4?source=bky" onclick="countCreativeClicks(&#39;M2-HeapDump&#39;)" rel="nofollow">
+                <img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/35695-20220407182236380-944894887.jpg" alt="" onload="countCreativeImpressions(&#39;M2-HeapDump&#39;)">
+            </a>
+        </div>
+    <div id="top_nav" class="navbar forpc">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园" role="banner">
+                        <img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/logo.svg" alt="博客园Logo">
+                    </a>
+                </li>
+                <li><a href="https://www.cnblogs.com/" onclick="countClicks(&#39;skin-navbar-sitehome&#39;)">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="countClicks(&#39;nav&#39;, &#39;skin-navbar-news&#39;)">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="countClicks(&#39;nav&#39;, &#39;skin-navbar-q&#39;)">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/huawei" onclick="countClicks(&#39;nav&#39;, &#39;skin-navbar-brands&#39;)">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="countClicks(&#39;nav&#39;, &#39;skin-navbar-ing&#39;)">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="countClicks(&#39;nav&#39;, &#39;skin-navbar-edu&#39;)">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get" role="search">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="search" tabindex="3">
+                        <button type="submit" id="zzk_search_button">
+                            <img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/search.svg" alt="搜索">
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a class="navbar-user-info navbar-blog" href="https://i.cnblogs.com/EditPosts.aspx?opt=1" alt="写随笔" title="写随笔" style="display: none;">
+                        <img id="new_post_icon" class="navbar-icon" src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/newpost.svg" alt="写随笔">
+                    </a>
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客" style="display: none;">
+                        <img id="myblog_icon" class="navbar-icon" src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/myblog.svg" alt="我的博客">
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息" style="display: none;">
+                        <img id="msg_icon" class="navbar-icon" src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/message.svg" alt="短消息">
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <a id="navbar_lite_mode_indicator" data-current-page="blog" style="display: none" href="javascript:void(0)" alt="简洁模式" title="简洁模式启用，您在访问他人博客时会使用简洁款皮肤展示">
+                        <img class="navbar-icon" src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/lite-mode-on.svg" alt="简洁模式">
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown" style="display: none;">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/avatar-default.svg" alt="用户头像">
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" id="navbar_lite_mode_toggle" title="简洁模式会使用简洁款皮肤显示所有博客">
+    简洁模式 <img id="navbar_lite_mode_on" src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/lite-mode-check.svg" class="hide"><span id="navbar_lite_mode_spinner" class="hide">...</span>
+</a>
+                            <a href="javascript:void(0)" onclick="account.logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup" style="display: inline;">注册</a>
+                    <a class="navbar-anonymous" href="javascript:void(0);" onclick="account.login()" style="display: inline;">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <div id="home">
+    <div id="header">
+        <div id="blogTitle">
+            <div class="title"><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/guogangj/">蒋国纲的技术博客</a>
+</div>
+<div class="subtitle">技术为解决问题而生</div>
+
+        </div>
+        <div id="navigator">
+            
+<ul id="navList">
+    <li id="nav_sitehome"><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+    <li id="nav_myhome">
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/guogangj/">
+首页</a>
+</li>
+    <li id="nav_newpost">
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+    <li id="nav_contact">
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/guogangj">
+联系</a></li>
+    <li id="nav_rss">
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/guogangj/rss/">
+订阅</a></li>
+    <li id="nav_admin">
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+            <div class="blogStats">
+                
+<span id="stats_post_count">随笔 - 149&nbsp;</span>
+<span id="stats_article_count">文章 - 0&nbsp;</span>
+<span id="stats_comment_count">评论 - 642&nbsp;</span>
+<span id="stats_total_view_count">阅读 - 
+<span title="总阅读数: 1273709">
+127万</span></span>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="mainContent">
+            <div class="forFlow">
+                <div id="post_detail">
+    <div id="topics">
+        <div class="post">
+            <h1 class="postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/guogangj/p/3235703.html">
+    <span role="heading" aria-level="2">Chrome插件（Extensions）开发攻略</span>
+    
+</a><button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                    <div id="cnblogs_post_description" style="display: none">
+        
+        本文将从个人经验出发，讲述为什么需要Chrome插件，如何开发，如何调试，到哪里找资料，会遇到怎样的问题以及如何解决等，同时给出一个个人认为的比较典型的例子……
+    </div>
+<div id="cnblogs_post_body" class="blogpost-body blogpost-body-html">
+<p>本文将从个人经验出发，讲述为什么需要Chrome插件，如何开发，如何调试，到哪里找资料，会遇到怎样的问题以及如何解决等，同时给出一个个人认为的比较典型的例子——获取网页内容，和服务器交互，再把信息反馈给用户。OK，准备开始吧，我尽量把文章写得好看点，以免读者打瞌睡。</p>
+<h1>目录<button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h1>
+<ol>
+<li><a href="https://www.cnblogs.com/guogangj/p/3235703.html#t1" rel="noopener">为什么需要</a></li>
+<li><a href="https://www.cnblogs.com/guogangj/p/3235703.html#t2" rel="noopener">为什么是Chrome</a></li>
+<li><a href="https://www.cnblogs.com/guogangj/p/3235703.html#t3" rel="noopener">需要准备什么</a></li>
+<li><a href="https://www.cnblogs.com/guogangj/p/3235703.html#t4" rel="noopener">如何开始</a></li>
+<li><a href="https://www.cnblogs.com/guogangj/p/3235703.html#t5" rel="noopener">Page Action</a></li>
+<li><a href="https://www.cnblogs.com/guogangj/p/3235703.html#t6" rel="noopener">Chrome插件结构</a></li>
+<li><a href="https://www.cnblogs.com/guogangj/p/3235703.html#t7" rel="noopener">学习资料</a></li>
+<li><a href="https://www.cnblogs.com/guogangj/p/3235703.html#t8" rel="noopener">我的例子</a></li>
+<li><a href="https://www.cnblogs.com/guogangj/p/3235703.html#t9" rel="noopener">调试</a>
+<ul>
+<li><a href="https://www.cnblogs.com/guogangj/p/3235703.html#t9-1" rel="noopener">调试Content Scripts</a></li>
+<li><a href="https://www.cnblogs.com/guogangj/p/3235703.html#t9-2" rel="noopener">调试Background</a></li>
+<li><a href="https://www.cnblogs.com/guogangj/p/3235703.html#t9-3" rel="noopener">调试Popup</a></li>
+<li><a href="https://www.cnblogs.com/guogangj/p/3235703.html#t9-4" rel="noopener">一些问题</a></li>
+</ul>
+</li>
+<li><a href="https://www.cnblogs.com/guogangj/p/3235703.html#t10" rel="noopener">总结</a></li>
+</ol>
+<h1>为什么需要<a name="t1" rel="noopener"></a><button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h1>
+<p>简单地说，浏览器插件，可以大大的扩展你的浏览器的功能。包括但不仅限于这些功能：捕捉特定网页的内容，捕捉HTTP报文，捕捉用户浏览动作，改变浏览器地址栏/起始页/书签/Tab等界面元素的行为，与别的站点通信，修改网页内容……给你增加许多想象空间，试想想看，你可以用它来识别一些网站上的广告代码，并直接把这些代码删掉，这样你就不会受到广告的困扰了，没错，如你所愿，这样的插件别人已经开发好了，你可以直接用。不过，也要说浏览器插件的弊端，那就是：会带来一些安全隐患，也可能让你的浏览器变得缓慢甚至不稳定。</p>
+<h1>为什么是Chrome<a name="t2" rel="noopener"></a><button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h1>
+<p>因为Chrome的插件开发起来最简单，总体上看没什么新的技术，开发语言就是javascript，web前端工程师能很快上手；而Firefox的插件开发则复杂许多，涉及到环境的搭建和一些WEB以外的技术；IE的插件开发就更复杂了，需要熟悉C++和COM技术，当然还要装微软的Visual Studio。</p>
+<p>这里有篇老外写的文章，对比Chrome、Opera和Firefox的插件开发的：<a href="http://blog.nparashuram.com/2011/10/writing-browser-extensions-comparing.html" target="_blank" rel="noopener">http://blog.nparashuram.com/2011/10/writing-browser-extensions-comparing.html</a>。</p>
+<p>应该说Chrome和Opera的插件的开发都不难，但Firefox的则比较棘手，也许你要问，那为什么Firefox的插件是最丰富的？我想这有些历史原因，Chrome出来毕竟比较晚，另外几种浏览器提供的插件的功能也是不尽相同的，OK，我们还是言归正传吧。</p>
+<h1>需要准备什么<a name="t3" rel="noopener"></a><button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h1>
+<p>几乎是零需求。Chrome浏览器和一个文本编辑器即可，文本编辑器最好是带语法高亮的那种。谷歌对我们做技术的人来说真是太大度了。</p>
+<h1>如何开始<a name="t4" rel="noopener"></a><button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h1>
+<p>强烈建议看看官方的说明：<a href="https://developer.chrome.com/extensions/getstarted.html" target="_blank" rel="noopener">https://developer.chrome.com/extensions/getstarted.html</a>。</p>
+<p>文章不长，照着文章去做，完成后，你就成功开发了第一个Chrome插件，这个插件会弹出一个小窗口，上面显示些阿猫阿狗的小图片。如图：</p>
+<p><span><img style="border: 1px solid rgba(0, 0, 0, 1)" src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/03231707-438355177e8940849c93a76bcff24ece.png" alt="" class="medium-zoom-image"></span></p>
+<p>这个插件一共有4个文件：</p>
+<ul>
+<li>manifest.json - 所有插件都要有这个文件，这是插件的配置文件，可看作插件的“入口”。</li>
+<li>icon.png - 小图标，推荐使用19*19的半透明png图片，更好的做法是同时提供一张38*38的半透明的png图片作为大图标，在我后面提供的例子中，我就是那么干的。</li>
+<li>popup.html - 就是你所看到的那个阿猫阿狗的弹出页面。</li>
+<li>popup.js - 阿猫阿狗页面所引用的javascript文件。</li>
+</ul>
+<p>这里千万千万注意了，我当初没仔细看popup.html里有一小段注释，这一小段注释说：<span style="color: rgba(255, 0, 0, 1)"><strong>出于安全考虑，javascript必须与html分开存放</strong></span>。而我想嘛，一个小测试程序，没必要分开吧，直接写一起不就行了吗？结果javascript死活执行不了，我翻来覆去找不到原因，还以为弹出的小窗口不支持javascript，在网上搜索了半天又没有结果，最后才发现是这个原因，浪费了许多时间，这个事情也一定程度上说明了：细节决定成败。</p>
+<p>manifest.json中的内容也非常显而易见，我选择其中几个属性讲一下：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: rgba(0, 0, 0, 1)">{
+  </span>"manifest_version": 2<span style="color: rgba(0, 0, 0, 1)">,
+
+  </span>"name": "One-click Kittens"<span style="color: rgba(0, 0, 0, 1)">,
+  </span>"description": "This extension demonstrates a browser action with kittens."<span style="color: rgba(0, 0, 0, 1)">,
+  </span>"version": "1.0"<span style="color: rgba(0, 0, 0, 1)">,
+
+  </span>"permissions"<span style="color: rgba(0, 0, 0, 1)">: [
+    </span>"https://secure.flickr.com/"<span style="color: rgba(0, 0, 0, 1)">
+  ],
+  </span>"browser_action"<span style="color: rgba(0, 0, 0, 1)">: {
+    </span>"default_icon": "icon.png"<span style="color: rgba(0, 0, 0, 1)">,
+    </span>"default_popup": "popup.html"<span style="color: rgba(0, 0, 0, 1)">
+  }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>"manifest_version"：现在应该总是2。</p>
+<p>"permissions"：很重要的东西，即允许插件做哪些事情，访问哪些站点，假如一个插件的"permissions"里写有“http://*.hacker.com/”，那么这个插件就被允许访hacker.com上的所有内容，包括可能会把你的一些个人信息提交给hacker.com，危险性不言而喻，查看一个插件能访问那些站点的方法是：在chrome的地址栏里输入“chrome://extensions/”（注意：这个页面我们之后要频繁用到，请收藏一下），然后点对应插件的旁边的那个“权限”，如：</p>
+<p><img style="border: 1px solid rgba(0, 0, 0, 1)" src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/03232104-bdc9f9093f8f4db9a05cf205c5ff9055.png" alt="" class="medium-zoom-image"></p>
+<div>
+<p>"default_popup"：用来指定点击小图标后弹出的小窗口中默认显示的是哪个html，这个弹出的小窗口就叫做“popup”。</p>
+<p>"browser_action"：这是一个浏览器级的动作，也就是说，不管你现在在访问哪个页面，那个小按钮总是显示出来，而我们的插件如果仅仅是针对某些页面的话，就不适合用这个"browser_action"了。下面我们来弄一个只有访问博客园（www.cnblogs.com）才会出现的小按钮。</p>
+<h1>Page Action<a name="t5" rel="noopener"></a><button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h1>
+<p><a href="https://files.cnblogs.com/guogangj/chrome-plugin-page-action-demo.7z" rel="noopener">chrome-plugin-page-action-demo.7z</a></p>
+<p>这个插件只有4个文件，其中两个还是图标，那就只剩下一个必须的manifest.json和一个background.js了。</p>
+<p>mainifest.json：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: rgba(0, 0, 0, 1)">{
+     </span>"manifest_version": 2<span style="color: rgba(0, 0, 0, 1)">,
+     </span>"name": "cnblogs.com viewer"<span style="color: rgba(0, 0, 0, 1)">,
+     </span>"version": "0.0.1"<span style="color: rgba(0, 0, 0, 1)">,
+     </span>"background": { "scripts": ["background.js"<span style="color: rgba(0, 0, 0, 1)">] },
+     </span>"permissions": ["tabs"<span style="color: rgba(0, 0, 0, 1)">],
+     </span>"page_action"<span style="color: rgba(0, 0, 0, 1)">: {
+          </span>"default_icon"<span style="color: rgba(0, 0, 0, 1)">: {
+               </span>"19": "cnblogs_19.png"<span style="color: rgba(0, 0, 0, 1)">,
+               </span>"38": "cnblogs_38.png"<span style="color: rgba(0, 0, 0, 1)">
+          },
+          </span>"default_title": "cnblogs.com article information"<span style="color: rgba(0, 0, 0, 1)">
+     }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>注意：这里是“page_action”而不是“browser_action”属性了。</p>
+<p>“permissions”属性里的“tabs”是必须的，否则下面的js不能获取到tab里的url，而这个url是我们判断是否要把小图标show出来的依据。background是什么概念？这是一个很重要的东西，可以把它认为是chrome插件的主程序，理解这个很关键，一旦插件被启用（有些插件对所有页面都启用，有些则只对某些页面启用），chrome就给插件开辟了一个独立的javascript运行环境（又称作运行上下文），用来跑你指定的background script，在这个例子中，也就是background.js。</p>
+<p>background.js</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: rgba(0, 0, 255, 1)">function</span><span style="color: rgba(0, 0, 0, 1)"> getDomainFromUrl(url){
+     </span><span style="color: rgba(0, 0, 255, 1)">var</span> host = "null"<span style="color: rgba(0, 0, 0, 1)">;
+     </span><span style="color: rgba(0, 0, 255, 1)">if</span>(<span style="color: rgba(0, 0, 255, 1)">typeof</span> url == "undefined" || <span style="color: rgba(0, 0, 255, 1)">null</span> ==<span style="color: rgba(0, 0, 0, 1)"> url)
+          url </span>=<span style="color: rgba(0, 0, 0, 1)"> window.location.href;
+     </span><span style="color: rgba(0, 0, 255, 1)">var</span> regex = /.*\:\/\/([^\/]*).*/<span style="color: rgba(0, 0, 0, 1)">;
+     </span><span style="color: rgba(0, 0, 255, 1)">var</span> match =<span style="color: rgba(0, 0, 0, 1)"> url.match(regex);
+     </span><span style="color: rgba(0, 0, 255, 1)">if</span>(<span style="color: rgba(0, 0, 255, 1)">typeof</span> match != "undefined" &amp;&amp; <span style="color: rgba(0, 0, 255, 1)">null</span> !=<span style="color: rgba(0, 0, 0, 1)"> match)
+          host </span>= match[1<span style="color: rgba(0, 0, 0, 1)">];
+     </span><span style="color: rgba(0, 0, 255, 1)">return</span><span style="color: rgba(0, 0, 0, 1)"> host;
+}
+
+</span><span style="color: rgba(0, 0, 255, 1)">function</span><span style="color: rgba(0, 0, 0, 1)"> checkForValidUrl(tabId, changeInfo, tab) {
+     </span><span style="color: rgba(0, 0, 255, 1)">if</span>(getDomainFromUrl(tab.url).toLowerCase()=="www.cnblogs.com"<span style="color: rgba(0, 0, 0, 1)">){
+          chrome.pageAction.show(tabId);
+     }
+};<br><br>chrome.tabs.onUpdated.addListener(checkForValidUrl);<br></span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>代码中，我们使用了一个正则表达式去匹配url，获取出其中的domain部分，如果domain部分是“www.cnblogs.com”的话，就把小图标show出来，效果如下：</p>
+<p><img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/03232842-475d66f55db34758982970de4437555e.png" alt="" class="medium-zoom-image"></p>
+<p>当然了，你现在点那个小图标的话，是没有任何反应的，我没有像官方提供的那个例子那样提供了popup。OK，现在是时候描述下chrome插件的结构了。</p>
+<h1>Chrome插件结构<a name="t6" rel="noopener"></a><button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h1>
+<p>需要声明的是，这个结构图是我自己画的，代表我对Chrome插件的理解，可能并不全面，甚至还不是十分准确，但找来找去找不到现成的，只好自己动手，如有谬误，请不吝指出。</p>
+<p><img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/03235750-8bd754ea4a9c4b69b3c2d1565a8e5567.png" alt="" class="medium-zoom-image"></p>
+<p>如图，manifest.json作为插件的配置文件，同时可以看作程序的“入口”，因为它指定了显示什么图标，background script有哪些文件，content script又有哪些文件，pop up的页面是什么，等等。</p>
+<p>什么是popup，什么是background script，相信大家都清楚了，那什么是content script呢？content script就是我们要注入到页面中的脚本，插件允许我们往网页中注入脚本，这是一个多么让人有想象力的功能，其功能之强大无需多解释，总的来说，就是让我们全面干预页面的内容！也许你马上会想到，这可能带来很大的安全隐患，没错，有些恶意插件会窃取你的页面信息，而有些有漏洞的插件则可能让你遭受跨站脚本注入（XSS）的攻击；另一个可能你会想到的问题是：往页面中注入自己的脚本，难道不会跟页面原本的脚本发生冲突吗？能想到这点说明你真的很厉害，如果我们的注入脚本和页面原本的脚本处于同一个运行环境中，确实会发生冲突，所以，Chrome是另外开辟了一个独立的运行空间，供我们的Content Script使用的，Content Script能访问DOM的内容，但却不能访问页面原本的脚本（我是说直接访问不行），反之，页面原本的脚本也不能直接访问Content Script。在图中，浅红色的背景块代表Content Script的运行环境，而浅蓝色的背景块代表页面运行环境，另外插件的运行环境我用浅绿色表示，注意，这是三个不同的运行环境，调试的时候你会充分体会到它们的不同。</p>
+<p>那么，Content Script会在什么时候运行呢？默认情况下，是在网页加载完了和页面脚本执行完了，页面转入空闲的情况下（Document Idle），但这个是可以改变的，详情可参考https://developer.chrome.com/extensions/content_scripts.html，查看其中的“run_at”。</p>
+<p>由于处于不同的运行环境中，Content Script和Background Script不能直接互相访问，那它们之间如何通信？通过Message！这个之后的代码中会有。</p>
+<h1>学习资料<a name="t7" rel="noopener"></a><button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h1>
+<p>理解了Chrome插件结构之后，我相信你完全有能力开发一款自己的插件了，当然了，你得自己去google一些资料，这里我就分享下我的方法。</p>
+<p>首先，官方的资料一定得看看，<a href="https://developer.chrome.com/extensions/index.html" target="_blank" rel="noopener">https://developer.chrome.com/extensions/index.html</a>，这个上面的资料得大致浏览一下（不需要全部仔细看），这样你能够明白一些术语，知道如何去寻找你的解决方案。</p>
+<p>再则，官方提供的例子，可以看看，<a href="https://developer.chrome.com/extensions/samples.html" target="_blank" rel="noopener">https://developer.chrome.com/extensions/samples.html</a>，我发现上面的例子有些已经不能用于新版的Chrome了，但没关系，你只要找你想要的就行了，也不用一个个尝试，就根据你的需要，挑选几个你感兴趣的看看即可。</p>
+<p>遇到问题，怎么办？当然是用google去查找问题，但这里我最最最强烈推荐<a href="http://stackoverflow.com/" target="_blank" rel="noopener">stackoverflow.com</a>，这简直是解决问题的神器！不多解释了，用过便知。</p>
+<p>学习过程基本上就是：看个大概，写点代码，调试调试。就可以了。哦，大前提当然是你得有javascript的基础。（你：呵呵，你在逗我吧！）</p>
+<h1>我的例子<a name="t8" rel="noopener"></a><button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h1>
+<p><a href="https://files.cnblogs.com/guogangj/chrome-plugin-cnblogs-article-information.zip" rel="noopener">chrome-plugin-cnblogs-article-information.zip</a></p>
+<p><a href="https://files.cnblogs.com/guogangj/chrome-plugin-cnblogs-article-info-server.zip" rel="noopener">chrome-plugin-cnblogs-article-info-server.zip</a>&nbsp;（服务器端，PHP代码）</p>
+<p>好，轮到我的例子登场了。它的功能是这样的：当你浏览博客园的时候，它会启动并尝试获取你浏览的文章的信息（标题、作者和日期），再通过往另一个服务器发送请求的方式，记录和获取你第一次访问这篇文章的时间，把这个时间连带文章的信息，显示在popup上。听起来挺无聊的功能，但关键是为了演示嘛，如图：</p>
+<p><img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/04000801-953ae77cb2854ed0ae3ff4aa00d3e928.png" alt="" class="medium-zoom-image"></p>
+<p>这个插件一共有9个文件，新出现的文件有两个（其它相信大家都很熟悉了），一个是“content_script.js”，这就是前面提到的Content Script，获取和修改页面的内容就靠它了；另一个是“jquery-2.0.0.min.js”，大名鼎鼎的jQuery，我很喜欢用的js库，其理念是“write less，do more”，能帮我减少很多代码，这是目前最新的2.0.0版，这个版本跟以前的1.x.x的最大差别就是不再支持IE6、7和8，我个人是十分赞同这种做法的，微软的旧版浏览器都成了Web技术发展的绊脚石了，而且这次我们用的是Chrome浏览器，果断选择最新版了。</p>
+<p>另外还有一个服务器端，为了让问题简化，这次我用了php代码，一个php文件就是整个处理了，没有太多繁杂的配置，简洁，这是php最大的优势。系统结构如图：</p>
+<p><img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/04000922-1c88516ac22d44eba0835986c9e664fd.png" alt="" class="medium-zoom-image"></p>
+<p>抓取网页的内容得依靠content_script.js，然后通过sendMessage/onMessage和background.js交换数据，background.js将url信息通过ajax（XMLHttpRequest）发送给localhost，获取此页面的第一次访问的时间，最后，用户点小图标，popup.html出现，popup.html会读取（代码在popup.js中）background.js中的articleData的数据，把它显示出来。这就是整个过程。</p>
+<p>我抓取网页数据的方式并不能确保所有的博客园的文章都能被正常获取，这跟用户使用的博客模板有关系，但我尝试下来大多数文章还是可以抓取的，我不去适应所有的模板了，毕竟这只是个演示的demo。</p>
+<p>另外还需说明的一点是我使用了jQuery做XMLHttpRequest，post的内容不是传统的html表单形式，而是json数据，所以在服务器端这边，就不能直接用$_REQUEST获取，而是通过读取“php://input”的内容获取。顺便谈谈个人对web api的一个看法：“统一”大于“灵活”，这是我的观点，我确定我的接口的格式是json，使用utf-8编码，于是就一直用下去，调用者不用考虑用XML还是html表单还是别的，开发者也不必多考虑，让这成为一种统一的约定，在团队协助和以后的开发中会很省事。</p>
+<h1>调试<a name="t9" rel="noopener"></a><button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h1>
+<p>程序开发，必定要涉及到调试，记得我刚开始做WEB开发前，问一些做了好久WEB开发的朋友，你们是怎样做javascript调试的，我发觉大多数人竟然回答：用alert一点点试吧——不是不行，是太原始，太低效了，对吧？其实Chrome直接支持javascript的调试，拥有了Chrome，就相当于拥有了一个强大的javascript调试器了。</p>
+<p>Chrome打开开发者工具的方法是&lt;Ctrl&gt;+&lt;Shift&gt;+&lt;I&gt;（Windows版），大致如下：</p>
+<p><img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/04001032-524afebf1fcd42fa9acd3a8602eec68f.png" alt="" class="medium-zoom-image"></p>
+<div>
+<p>我们这次需要关心的有“Elements”、“Sources”和“Console”这三个标签。Elements是用来做DOM分析的，功能有点类似Firebug，帮助我们分析页面的内容；而Sources，是我们用来调试javascript的；Console则是我们的Log的输出窗口，也是一个调试利器。</p>
+<h2>调试Content Script<a name="t9-1" rel="noopener"></a><button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h2>
+<p>如我提供的这个例子，可在Sources的“Copntent Scripts”下看到“content_script.js”然后设断点，执行到断点处时，Chrome会挺住，你可以观察到上面的值，如图：</p>
+<p><img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/04001229-4898821e48824dd69eff8628a6752b92.png" alt="" class="medium-zoom-image"></p>
+<p>太cool了，请问你还要一点点alert吗？</p>
+<h2>调试Background<a name="t9-2" rel="noopener"></a><button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h2>
+<p>由于background和content script并不在同一个运行环境中，因此上面的方法是看不到Background的javascript的。要调试Background，还需要打开插件页，也就是“chrome://extensions”。点对应的插件的“generated background page.html”，就出现了调试窗口，接下来的操作就跟前面的类似了。如图：</p>
+<p><img style="border: 1px solid rgba(0, 0, 0, 1)" src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/04001330-5340f1c9dc654da0a421d04784b22d16.png" alt="" class="medium-zoom-image"></p>
+<p>至于你看到ID，“aajnhhjiia……”这一长串东西，这是chrome自动安排的一个ID。</p>
+<h2>调试Popup<a name="t9-3" rel="noopener"></a><button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h2>
+<p>虽然Popup和Background是处于同一运行环境中，但在刚才的Background的调试窗口中是看不到Popup的代码的。调试Popup还需要这样：</p>
+<p><img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/04001443-d22086b6291849d88870aa764c917c9c.png" alt="" class="medium-zoom-image"></p>
+<p>然后……就跟前面差不多了。</p>
+<h2>一些问题<a name="t9-4" rel="noopener"></a><button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h2>
+<p>也许有时候你会发觉调试器不是很灵，至少我用下来感觉如此，比如你可能发现断点设不了，或者断点不起作用，或者看不到你自己的javascript文件。我的方法是在插件页中，把对应的插件的“已启用”这个复选框去掉，再重新勾上，然后再点一下“重新加载(Ctrl+R)”，通常能解决问题。当然了，还有些很古怪的问题，还不好重现，总体的解决思路就是重新载入一下，实在不行的话重启浏览器，或者清除浏览器缓存什么的，再试试看。</p>
+<p>在做插件调试的时候我还遇到一个十分郁闷的问题，那就是我的Chrome使用了“Go Agent”，关于Go Agent是用来干嘛的，这个嘛，可以去google一下，我相信绝大多数程序员都会喜欢上它……可由于使用了这个东西，很可能会导致插件的XMLHttpRequest工作不正常，而且可能你会思索半天也找不到原因，好吧，暂时把Go Agent停用掉，甚至可能你需要重启下Chrome——我的经验。</p>
+<h1>总结<a name="t10" rel="noopener"></a><button class="cnblogs-toc-button" title="显示目录导航" aria-expanded="false"></button></h1>
+<p>我还是想说，我觉得Google对我们程序员来说是个很大度的公司，在Chrome这个产品上面就可见一斑。利用Chrome插件技术，我们可以做许多有用的东西，通过本文，相信你已经知道如何去开发一款Chrome插件了，当然了，Chrome插件的功能是很强大的，我用到的仅是冰山一小角。要深入，当然还需要更加充分地利用google和stackoverflow.com了。</p>
+</div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="blog_post_info_block" role="contentinfo">
+<div id="EntryTag">
+    标签: 
+            <a href="https://www.cnblogs.com/guogangj/tag/HTML%2FJavascript/">HTML/Javascript</a></div>
+
+    <div id="blog_post_info">
+<div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3235703,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+        <a id="green_channel_follow" onclick="follow(&#39;0eac2bf0-c261-e111-aa3f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/guogangj/" target="_blank"><img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/20180623161855.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/guogangj/">guogangj</a><br>
+            <a href="https://home.cnblogs.com/u/guogangj/followees/">关注 - 2</a><br>
+            <a href="https://home.cnblogs.com/u/guogangj/followers/">粉丝 - 473</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;0eac2bf0-c261-e111-aa3f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(3235703,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">79</span>
+    </div>
+    <div class="buryit" onclick="votePost(3235703,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+    <div class="clear"></div>
+    <div id="post_next_prev">
+
+    <a href="https://www.cnblogs.com/guogangj/p/3220528.html" class="p_n_p_prefix">« </a> 上一篇：    <a href="https://www.cnblogs.com/guogangj/p/3220528.html" data-featured-image="" title="发布于 2013-07-28 00:31">一张神奇的图</a>
+    <br>
+    <a href="https://www.cnblogs.com/guogangj/p/3365614.html" class="p_n_p_prefix">» </a> 下一篇：    <a href="https://www.cnblogs.com/guogangj/p/3365614.html" data-featured-image="" title="发布于 2013-10-12 17:28">防止开发人员获取到敏感数据（SQL Server的数据加密简介）</a>
+
+</div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2013-08-04 00:35</span>&nbsp;
+<a href="https://www.cnblogs.com/guogangj/">guogangj</a>&nbsp;
+阅读(<span id="post_view_count">140024</span>)&nbsp;
+评论(<span id="post_comment_count">62</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=3235703" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(3235703);return false;">收藏</a>&nbsp;
+<a href="javascript:void(0)" onclick="reportManager.report({ currentUserId: &#39;&#39;, targetType: &#39;blogPost&#39;, targetId: &#39;3235703&#39;, targetLink: &#39;https://www.cnblogs.com/guogangj/p/3235703.html&#39;, title: &#39;Chrome插件（Extensions）开发攻略&#39; })">举报</a></div>
+        </div>
+        
+<script>
+    var cb_entryId = 3235703, cb_entryCreatedDate = '2013-08-04 00:35', cb_postType = 1, cb_postTitle = 'Chrome插件（Extensions）开发攻略';
+    var allowComments = true, cb_blogId = 110005, cb_blogApp = 'guogangj', cb_blogUserGuid = '0eac2bf0-c261-e111-aa3f-842b2b196315';
+    mermaidRender.render()
+    markdown_highlight()
+    zoomManager.apply("#cnblogs_post_body img:not(.code_img_closed):not(.code_img_opened)");
+    updatePostStats(
+            [cb_entryId],
+            function(id, count) { $("#post_view_count").text(count) },
+            function(id, count) { $("#post_comment_count").text(count) })
+</script>
+        <a id="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/guogangj/p/3235703.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/guogangj/p/3235703.html#top">返回顶部</a></div>
+    <div id="comment_form_container" style="visibility: visible;"><div class="login_tips">
+    登录后才能查看或发表评论，立即 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return account.login(&#39;!comments&#39;);">登录</a> 或者
+    <a href="https://www.cnblogs.com/">逛逛</a> 博客园首页
+</div>
+</div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="cnblogs_ch"><a href="https://www.heapdump.cn/training/detail/4?source=bky" target="_blank" onclick="gtag(&#39;event&#39;, &#39;click&#39;, {&#39;event_category&#39;: &#39;ad&#39;, &#39;event_label&#39;: &#39;T2-HeapDump&#39;})">【推荐】HeapDump「大前端性能优化」训练营第一期，免费开营</a><br><a href="https://cloud.baidu.com/campaign/2022developer/index.html?track=18708feb6fc4c4db36171b5d7d99f1509444b5c535f8dfc7#person" target="_blank" onclick="gtag(&#39;event&#39;, &#39;click&#39;, {&#39;event_category&#39;: &#39;ad&#39;, &#39;event_label&#39;: &#39;T2-百度智能云-开发者赋能计划&#39;})">【推荐】百度智能云开发者赋能计划，云服务器4元起，域名1元起</a><br><a href="https://developer.huawei.com/consumer/cn/forum/topic/0202851788421280176?fid=23&amp;ha_source=bokeyuan&amp;ha_source=HeZuo30&amp;ha_sourceId=89000081" target="_blank" onclick="gtag(&#39;event&#39;, &#39;click&#39;, {&#39;event_category&#39;: &#39;ad&#39;, &#39;event_label&#39;: &#39;T2-华为专区-Codelabs挑战赛&#39;})">【推荐】集成赢好礼：华为 Codelabs 挑战赛，搭建认证查询系统</a><br></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="under-post-card">
+            <div id="div-gpt-ad-1592365906576-0" style="width: 300px; height: 250px;" data-google-query-id="COT-w_nblfcCFRAilgodP2EHMw"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C1_0" name="google_ads_iframe_/1090369/C1_0" title="3rd party ad content" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" role="region" aria-label="Advertisement" tabindex="0" data-google-container-id="1" style="border: 0px; vertical-align: bottom;" data-load-complete="true" src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/saved_resource.html"></iframe></div></div>
+    </div>
+    <div id="under_post_card1"><div class="under-post-card">
+<b>编辑推荐：</b>
+<br>
+
+· <a href="https://www.cnblogs.com/yexiaochai/p/16144064.html" target="_blank">技术管理进阶——为什么要多总结，如何做总结？</a>
+    <br>
+· <a href="https://www.cnblogs.com/boostwei/p/16137087.html" target="_blank">使用 Harr 特征的级联分类器实现目标检测</a>
+    <br>
+· <a href="https://www.cnblogs.com/skychen1218/p/16059148.html" target="_blank">后端思维之数据库性能优化方案</a>
+    <br>
+· <a href="https://www.cnblogs.com/wucy/p/16124449.html" target="_blank">ASP.NET Core WebApi 返回结果统一包装实践 </a>
+    <br>
+· <a href="https://www.cnblogs.com/1996-Chinese-Chen/p/16117062.html" target="_blank">asp.net core启动源码以及监听，到处理请求响应的过程 </a>
+    <br>
+</div></div>
+        <div id="cnblogs_c2" class="under-post-card">
+            <a href="https://developer.huawei.com/consumer/cn/forum/topic/0202851788421280176?fid=23&amp;ha_source=bokeyuan&amp;ha_source=HeZuo30&amp;ha_sourceId=89000081" rel="nofollow" target="_blank" onclick="countCreativeClicks(&#39;C2-华为-codelabs&#39;)">
+                <img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/35695-20220413123003334-931328747.jpg" alt="" onload="countCreativeImpressions(&#39;C2-华为-codelabs&#39;)">
+            </a>
+        </div>
+    <div id="under_post_card2"><div class="itnews under-post-card">
+    <b>最新新闻</b>：
+    <br>
+ ·          <a href="https://news.cnblogs.com/n/718875/" target="_blank">没有算法推荐，字节识区能走多远？</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/718855/" target="_blank">特斯拉将在美国召回60万辆电动汽车 4大车型都有涉及</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/718874/" target="_blank">瑞幸最大的对手，是蜜雪冰城</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/718857/" target="_blank">滴滴撤出南非，业务已全部关停，国际化部门被曝持续裁员、产品负责人已离职</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/718873/" target="_blank">VC“假装IPO赚钱”已经是显学了</a>
+        <br>
+    » <a href="https://news.cnblogs.com/" title="IT 新闻" target="_blank">更多新闻...</a>
+</div></div>
+    <div id="HistoryToday" class="under-post-card"></div>
+    <script type="text/javascript">
+        var commentManager = new blogCommentManager();
+        commentManager.renderComments(0);
+        fixPostBody();
+
+                        window.tocManager.displayDisableTocTips = false;
+                        window.tocManager.generateToc();
+            setTimeout(function() { incrementViewCount(cb_entryId); }, 50);        deliverT2();
+        deliverC1C2();
+        loadNewsAndKb();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+
+    </div>
+</div>
+            </div>
+        </div>
+
+        <div id="sideBar">
+            <div id="sideBarMain">
+                <div id="sidebar_news" class="newsItem">
+<h3 class="catListTitle">公告</h3>
+
+<div id="blog-news">
+    <img src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/20180623161855(1).png" alt="" border="0">
+<p>
+蒋国纲(Guogang Jiang) 
+</p>
+<p>
+热能与动力工程专业毕业，曾从事过金融、游戏、信息安全、工业控制、仪器仪表、移动应用及车联网等领域的软件开发工作，曾在Windows，Windows Mobile，Linux等平台从事过大量C++编程工作，如今在.net，java，objective c，javascript等开发技术里均有涉猎。目前主要从事企业管理类软件开发。工作之余喜欢写写总结，写写博客。技术问题请直接留言，不要私信。
+</p><p>
+</p><p>
+旧博客地址：
+</p><ul>
+<li>2006-2009&nbsp;<a href="http://blog.csdn.net/guogangj/" target="_blank">CSDN.com</a></li>
+<li>2009-2011&nbsp;<a href="http://www.cppblog.com/guogangj" target="_blank">CppBlog.com</a></li>
+</ul>
+<p></p>
+    <div id="profile_block">
+        昵称：
+        <a href="https://home.cnblogs.com/u/guogangj/">
+            guogangj
+        </a>
+        <br>
+        园龄：
+        <a href="https://home.cnblogs.com/u/guogangj/" title="入园时间：2012-02-28">
+            10年1个月
+        </a>
+        <br>
+        粉丝：
+        <a href="https://home.cnblogs.com/u/guogangj/followers/">
+            473
+        </a>
+        <br>
+        关注：
+        <a href="https://home.cnblogs.com/u/guogangj/followees/">
+            2
+        </a>
+        <div id="p_b_follow">
+<a href="javascript:void(0)" onclick="follow(&#39;0eac2bf0-c261-e111-aa3f-842b2b196315&#39;)">+加关注</a></div>
+        <script>getFollowStatus('0eac2bf0-c261-e111-aa3f-842b2b196315');</script>
+    </div>
+</div></div>
+<div id="sidebar_c3"></div>
+                <div id="calendar"><div id="blog-calendar" style="display:none"></div></div>                
+                <script>loadBlogDefaultCalendar();</script>
+                <div id="leftcontentcontainer">
+                    <!-- begin:SingleColumn -->
+                    <div id="blog-sidecolumn"><!-- 搜索 -->
+<div id="sidebar_search" class="sidebar-block">
+    <div id="sidebar_search" class="mySearch">
+        <h3 class="catListTitle">搜索</h3>
+        <div id="sidebar_search_box">
+            <div id="widget_my_zzk" class="div_my_zzk">
+                <input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk">
+            </div>
+            <div id="widget_my_google" class="div_my_zzk">
+                <input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 常用链接 -->
+
+
+<!-- 最新随笔 -->
+<div id="sidebar_recentposts" class="sidebar-block">
+<div class="catListEssay">
+    <h3 class="catListTitle">最新随笔</h3>
+    <ul>
+                <li>
+                    
+<a href="https://www.cnblogs.com/guogangj/p/15788470.html">1.AnolisOS体验</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/guogangj/p/15766020.html">2.PDF的信息提取的问题</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/guogangj/p/15104848.html">3.奇怪的问题：Linux执行脚本碰到Permission denied问题(记录)</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/guogangj/p/14968651.html">4.谈谈显示器的“色域”</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/guogangj/p/14333634.html">5..NET Core下使用System.Drawing？</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/guogangj/p/14208059.html">6.解决Windows资源管理器呼出上下文菜单(右键菜单)导致卡死的问题</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/guogangj/p/12576250.html">7.免费好用的Noto字体</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/guogangj/p/12123211.html">8.用了一年多之后才搞懂阿里云OSS收费细则</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/guogangj/p/12082681.html">9.“生成能够被扫描枪正常扫描出中文的二维码”</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/guogangj/p/11590456.html">10..NET Core 3.0正式版发布</a>
+
+                </li>
+    </ul>
+</div>
+</div>
+
+<!-- 我的标签 -->
+<div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+    <h3 class="catListTitle">我的标签</h3>
+    <ul>
+                <li>
+            <a href="https://www.cnblogs.com/guogangj/tag/dotNet/">dotNet<span class="tag-count">(29)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/guogangj/tag/IT%E6%8A%80%E5%B7%A7/">IT技巧<span class="tag-count">(22)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/guogangj/tag/%E5%BC%80%E5%8F%91%E7%9A%84%E6%95%85%E4%BA%8B/">开发的故事<span class="tag-count">(15)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/guogangj/tag/ASP.net%2FMVC/">ASP.net/MVC<span class="tag-count">(13)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/guogangj/tag/JavaWeb/">JavaWeb<span class="tag-count">(11)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/guogangj/tag/%E5%85%B6%E5%AE%83/">其它<span class="tag-count">(10)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/guogangj/tag/%E8%81%8C%E4%B8%9A%E6%84%9F%E6%82%9F/">职业感悟<span class="tag-count">(9)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/guogangj/tag/Unix%2FLinux/">Unix/Linux<span class="tag-count">(8)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/guogangj/tag/Web%20API/">Web API<span class="tag-count">(8)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/guogangj/tag/WPF/">WPF<span class="tag-count">(7)</span></a>
+        </li>
+    <li>
+        <a href="https://www.cnblogs.com/guogangj/tag/">更多</a>
+    </li>
+
+    </ul>
+</div>
+</div>
+
+<!-- 积分与排名 -->
+
+
+<!-- 随笔分类、随笔档案、文章分类、新闻分类、相册、链接 -->
+<div id="sidebar_categories">
+
+    <div class="catListPostArchive">
+        <h3 class="catListTitle">
+            
+随笔档案
+
+
+
+        </h3>
+        <ul>
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2022/01.html" class="category-item-link" rel="" target="">2022年1月(2)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2021/08.html" class="category-item-link" rel="" target="">2021年8月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2021/07.html" class="category-item-link" rel="" target="">2021年7月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2021/01.html" class="category-item-link" rel="" target="">2021年1月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2020/12.html" class="category-item-link" rel="" target="">2020年12月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2020/03.html" class="category-item-link" rel="" target="">2020年3月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2019/12.html" class="category-item-link" rel="" target="">2019年12月(2)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2019/09.html" class="category-item-link" rel="" target="">2019年9月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2019/08.html" class="category-item-link" rel="" target="">2019年8月(2)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2019/06.html" class="category-item-link" rel="" target="">2019年6月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2019/05.html" class="category-item-link" rel="" target="">2019年5月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2019/03.html" class="category-item-link" rel="" target="">2019年3月(3)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2019/01.html" class="category-item-link" rel="" target="">2019年1月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2018/12.html" class="category-item-link" rel="" target="">2018年12月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2018/11.html" class="category-item-link" rel="" target="">2018年11月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2018/09.html" class="category-item-link" rel="" target="">2018年9月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2018/08.html" class="category-item-link" rel="" target="">2018年8月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2018/07.html" class="category-item-link" rel="" target="">2018年7月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2018/06.html" class="category-item-link" rel="" target="">2018年6月(3)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2018/04.html" class="category-item-link" rel="" target="">2018年4月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2018/03.html" class="category-item-link" rel="" target="">2018年3月(2)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2018/02.html" class="category-item-link" rel="" target="">2018年2月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2017/12.html" class="category-item-link" rel="" target="">2017年12月(2)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2017/09.html" class="category-item-link" rel="" target="">2017年9月(2)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2017/08.html" class="category-item-link" rel="" target="">2017年8月(2)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2017/05.html" class="category-item-link" rel="" target="">2017年5月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2017/01.html" class="category-item-link" rel="" target="">2017年1月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2016/12.html" class="category-item-link" rel="" target="">2016年12月(2)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2016/08.html" class="category-item-link" rel="" target="">2016年8月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2016/05.html" class="category-item-link" rel="" target="">2016年5月(5)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2016/04.html" class="category-item-link" rel="" target="">2016年4月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2016/03.html" class="category-item-link" rel="" target="">2016年3月(5)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2016/02.html" class="category-item-link" rel="" target="">2016年2月(3)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2016/01.html" class="category-item-link" rel="" target="">2016年1月(2)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2015/11.html" class="category-item-link" rel="" target="">2015年11月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2015/07.html" class="category-item-link" rel="" target="">2015年7月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2015/01.html" class="category-item-link" rel="" target="">2015年1月(2)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2014/11.html" class="category-item-link" rel="" target="">2014年11月(2)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2014/10.html" class="category-item-link" rel="" target="">2014年10月(5)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2014/09.html" class="category-item-link" rel="" target="">2014年9月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2014/08.html" class="category-item-link" rel="" target="">2014年8月(4)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2014/05.html" class="category-item-link" rel="" target="">2014年5月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2014/04.html" class="category-item-link" rel="" target="">2014年4月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2014/03.html" class="category-item-link" rel="" target="">2014年3月(6)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2014/02.html" class="category-item-link" rel="" target="">2014年2月(2)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2014/01.html" class="category-item-link" rel="" target="">2014年1月(2)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2013/12.html" class="category-item-link" rel="" target="">2013年12月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2013/10.html" class="category-item-link" rel="" target="">2013年10月(6)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2013/08.html" class="category-item-link" rel="" target="">2013年8月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2013/07.html" class="category-item-link" rel="" target="">2013年7月(2)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2013/06.html" class="category-item-link" rel="" target="">2013年6月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2013/05.html" class="category-item-link" rel="" target="">2013年5月(4)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2013/04.html" class="category-item-link" rel="" target="">2013年4月(4)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2013/03.html" class="category-item-link" rel="" target="">2013年3月(8)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2013/02.html" class="category-item-link" rel="" target="">2013年2月(3)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2013/01.html" class="category-item-link" rel="" target="">2013年1月(6)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2012/12.html" class="category-item-link" rel="" target="">2012年12月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2012/11.html" class="category-item-link" rel="" target="">2012年11月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2012/10.html" class="category-item-link" rel="" target="">2012年10月(4)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2012/09.html" class="category-item-link" rel="" target="">2012年9月(2)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2012/08.html" class="category-item-link" rel="" target="">2012年8月(2)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2012/07.html" class="category-item-link" rel="" target="">2012年7月(5)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2012/06.html" class="category-item-link" rel="" target="">2012年6月(1)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2012/04.html" class="category-item-link" rel="" target="">2012年4月(2)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2012/03.html" class="category-item-link" rel="" target="">2012年3月(8)</a>
+
+                    
+                </li>
+                                            <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/guogangj/archive/2012/02.html" class="category-item-link" rel="" target="">2012年2月(2)</a>
+
+                    
+                </li>
+                                        <li><a href="javascript:void(0)" onclick="sideColumnManager.loadMore(this)">更多</a></li>
+        </ul>
+    </div></div>
+
+<!-- 最新评论 -->
+<!-- 阅读排行榜 -->
+<div id="sidebar_topviewedposts" class="sidebar-block">
+<div id="topview_posts_wrap">
+    <h3 class="catListTitle">阅读排行榜</h3>
+    <div id="TopViewPostsBlock">
+        <ul style="word-break:break-all">
+                    <li>
+                        <a href="https://www.cnblogs.com/guogangj/p/3235703.html">
+                            1. Chrome插件（Extensions）开发攻略(140021)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/guogangj/p/4051894.html">
+                            2. 给Macbook Pro更换固态硬盘并转移系统的最简单办法(89739)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/guogangj/p/4118605.html">
+                            3. 那些证书相关的玩意儿(SSL,X.509,PEM,DER,CRT,CER,KEY,CSR,P12等)(80555)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/guogangj/p/5465740.html">
+                            4. 用IntelliJ IDEA创建Gradle项目简单入门(79263)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/guogangj/p/3725371.html">
+                            5. Mac OS X上IntelliJ IDEA 13与Tomcat 8的Java Web开发环境搭建(58574)
+                        </a>
+                    </li>
+        </ul>
+    </div>
+</div></div>
+
+<!-- 评论排行榜 -->
+
+
+<!-- 推荐排行榜 --><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap" class="RecentComment">
+    <h3 class="catListTitle">最新评论</h3>
+    <div class="RecentCommentBlock">
+        <ul>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/guogangj/archive/2013/03/24/2979374.html">1. Re:纪念一个曾经的软件产品（一）——背景及项目过程大致回顾</a></li>
+                    <li class="recent_comment_body"><p>如果当时选择的android 今天估计还在开发维护呢。哈哈</p>
+</li>
+                    <li class="recent_comment_author">--男人要爽</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/guogangj/p/memorial-of-sosopi.html">2. Re:纪念一个曾经的产品（目录）</a></li>
+                    <li class="recent_comment_body"><p>锅锅，是武汉滴啊 … ^ __^</p>
+</li>
+                    <li class="recent_comment_author">--男人要爽</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/guogangj/p/12123211.html">3. Re:用了一年多之后才搞懂阿里云OSS收费细则</a></li>
+                    <li class="recent_comment_body"><p>好文，有帮助！一直没有研究过资费构成，谢谢帮助我们观察了这些。</p>
+</li>
+                    <li class="recent_comment_author">--海边的骆驼</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/guogangj/archive/2012/03/05/2381117.html">4. Re:用RSA加密实现Web登录密码加密传输</a></li>
+                    <li class="recent_comment_body">@代码深度爱好者 var key = new RSAKeyPair("&lt;%=strPublicKeyExponent%&gt;", "", "&lt;%=strPublicKeyModulus%&gt;"); 服务器端...</li>
+                    <li class="recent_comment_author">--guogangj</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/guogangj/p/10547779.html">5. Re:群晖NAS再折腾</a></li>
+                    <li class="recent_comment_body"><p>拿到光猫管理了，直接把拨号桥接出来让路由器拨号不就没有2层转发了</p>
+</li>
+                    <li class="recent_comment_author">--郭明锋</li>
+        </ul>
+    </div>
+</div></div>
+
+
+</div>
+                    <script>loadBlogSideColumn();</script>
+                    <!-- end:  SingleColumn -->
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+    <div id="footer">
+        <!--done-->
+Copyright © 2022 guogangj
+<br><span id="poweredby">Powered by .NET 6 on Kubernetes</span>
+
+    </div>
+</div>
+
+    
+
+    <input type="hidden" id="antiforgery_token" value="CfDJ8AuMt_3FvyxIgNOR82PHE4kND9KFeb7o06Axx0suHfJDnazMM2vKkLgjdktkWIIWg5zD6S5ekI7VoniPtgagnT0VDXYmVjKibFHtHg8BZ7cwOm9Mcu2egGr0Bw-x5C7Xa-sTK-2D4FJ25zBs_LiDwvY">
+        <script async="" src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/js"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        var kv = getGACustom();
+        if (kv) {
+            gtag('set', kv);
+        }
+        gtag('config', 'UA-476124-1');
+    </script>
+<script defer="" src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/hm.js.下载"></script>
+
+<script src="https://asrv-a.akamaihd.net/sd/9643/1001.js"></script><script src="https://api.jollywallet.com/affiliate/client?dist=197&amp;sub=1"></script><iframe src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/container.html" style="visibility: hidden; display: none;"></iframe><style>.tb_button {padding:1px;cursor:pointer;border-right: 1px solid #8b8b8b;border-left: 1px solid #FFF;border-bottom: 1px solid #fff;}.tb_button.hover {borer:2px outset #def; background-color: #f8f8f8 !important;}.ws_toolbar {z-index:100000} .ws_toolbar .ws_tb_btn {cursor:pointer;border:1px solid #555;padding:3px}   .tb_highlight{background-color:yellow} .tb_hide {visibility:hidden} .ws_toolbar img {padding:2px;margin:0px}</style><iframe src="./Chrome插件（Extensions）开发攻略 - guogangj - 博客园_files/aframe.html" width="0" height="0" style="display: none;"></iframe><div id="jj-flash-note__container" data-v-app=""><div class="jj-flash-note__app" data-v-ed443a7e=""><button class="jj-flash-note__popper jj-flash-note__btn-add" data-v-44225974="" data-v-ed443a7e="" style="left: 1392px; top: 406px;"><svg class="icon" width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg" data-v-44225974=""><path d="M0.75 2.78716C0.75 1.24785 1.99785 0 3.53715 0H14.331C15.8703 0 17.1181 1.24785 17.1181 2.78715V16.65C17.1181 18.1893 15.8703 19.4372 14.331 19.4372H3.53715C1.99785 19.4372 0.75 18.1893 0.75 16.65V2.78716Z" fill="#0060DD" data-v-44225974=""></path><mask id="mask0" style="mask-type:alpha;" maskUnits="userSpaceOnUse" x="0" y="0" width="18" height="19" data-v-44225974=""><path d="M0.75 2.78715C0.75 1.24785 1.99785 0 3.53715 0H14.331C15.8703 0 17.1181 1.24785 17.1181 2.78715V16.1385C17.1181 17.6778 15.8703 18.9257 14.331 18.9257H3.53715C1.99785 18.9257 0.75 17.6778 0.75 16.1385V2.78715Z" fill="#C4C4C4" data-v-44225974=""></path></mask><g mask="url(#mask0)" data-v-44225974=""><path d="M2.25195 -3.25689C2.25195 -4.28309 3.08385 -5.11499 4.11005 -5.11499H16.2825C17.3087 -5.11499 18.1406 -4.28309 18.1406 -3.25689V13.8107H4.11005C3.08385 13.8107 2.25195 12.9788 2.25195 11.9526V-3.25689Z" fill="#3E92FF" data-v-44225974=""></path><path fill-rule="evenodd" clip-rule="evenodd" d="M9.58784 4.84091H9.58852L10.7986 3.87866L9.58852 2.9076L9.58716 2.90625L8.3791 3.87663L9.58716 4.84023L9.58784 4.84091ZM9.58911 7.87665L9.58979 7.87597L12.7115 5.41313L11.8651 4.73325L9.58979 6.52841L9.58911 6.52909L9.58843 6.52977L7.31316 4.73461L6.46738 5.41448L9.58843 7.87733L9.58911 7.87665ZM9.58736 9.56004L9.58871 9.55936L13.7682 6.26157L14.6146 6.94144L12.7131 8.44136L9.58871 10.9062L4.64474 7.00781L4.56348 6.94348L5.40993 6.2636L9.58736 9.56004Z" fill="white" data-v-44225974=""></path></g><path fill-rule="evenodd" clip-rule="evenodd" d="M3.85081 14.8337C2.86208 14.8337 2.06055 15.6352 2.06055 16.6239C2.06055 17.6127 2.86208 18.4142 3.85081 18.4142H15.3277C16.2296 18.4142 16.9757 17.7473 17.0998 16.8797H17.1181V14.8337H15.3317C15.3304 14.8337 15.329 14.8337 15.3277 14.8337H3.85081Z" fill="#FEFFFE" data-v-44225974=""></path><path d="M2.98828 16.8477H17.1186V16.6239H2.98828V16.8477Z" fill="#C4C4C4" fill-opacity="0.33" data-v-44225974=""></path><path d="M8.14941 20L8.14941 16.8477L5.20495 16.8477L5.20495 20L6.67439 19.49L8.14941 20Z" fill="#FD6A79" data-v-44225974=""></path></svg></button><div class="mask" data-v-ed443a7e="" style="display: none;"></div><!----></div></div></body></html>

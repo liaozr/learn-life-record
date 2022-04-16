@@ -1,0 +1,1 @@
+<block wx:if="{{goodslists.length>0}}"><view class="goodlist"><news-list vue-id="1cdd0ce0-1" data="{{goodslists}}" bind:__l="__l"></news-list><block wx:if="{{flag}}"><view class="isOver">-----我是有底线的-----</view></block></view></block>

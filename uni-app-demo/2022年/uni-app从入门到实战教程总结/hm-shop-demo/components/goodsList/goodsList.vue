@@ -28,17 +28,19 @@
   .goodslist{
 	  width:96%;
 	  margin:0 auto;
-	  margin-top:20rpx;
 	  display: flex;
 	  flex-wrap:wrap;
 	  align-items:stretch;
+	  padding-top:20rpx;
 	  padding-bottom:20rpx;
 	  margin-bottom:40rpx;
 	  .list{
 		width:47%;
 		border:1px solid #ddd;
 		box-sizing: border-box;
-		margin:5rpx auto;
+		margin-left:10rpx;
+		margin-right:10rpx;
+
 		display: inline-block;
 		margin-bottom:20rpx;
 		image{

@@ -47,4 +47,14 @@
 		height: auto;
 	}
 	
+	/* App.vue 增加如下样式可以去除 scroll-view 组件的滚动条（不支持nvue页面） */
+	
+	::-webkit-scrollbar {  
+	    display: none;  
+	    width: 0 !important;  
+	    height: 0 !important;  
+	    -webkit-appearance: none;  
+	    background: transparent;  
+	}
+	
 </style>

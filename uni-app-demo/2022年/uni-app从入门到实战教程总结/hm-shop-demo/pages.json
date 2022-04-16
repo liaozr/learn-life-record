@@ -29,27 +29,17 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "资讯",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": true
             }
             
-        }
-        ,{
-            "path" : "components/goodsList/goodsList",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
+        }      
         ,{
             "path" : "pages/goods/goods",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "商品列表",
-                "enablePullDownRefresh": false
-            }
-            
+                "enablePullDownRefresh": true  // 开启下拉刷新
+            } 
         }
         ,{
             "path" : "pages/contact/contact",

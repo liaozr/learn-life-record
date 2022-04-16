@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "黑马商城",
+  "usingComponents": {
+    "goods-list": "/components/goodsList/goodsList"
+  }
+}
