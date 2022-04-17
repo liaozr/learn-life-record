@@ -12,7 +12,7 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 	/*每个页面公共css */
 	
 	@font-face {font-family: "iconfont";
@@ -57,4 +57,14 @@
 	    background: transparent;  
 	}
 	
+	
+	// 生成的dom样式，需要放到App.vue全局样式下
+	.news-detail-content{
+		margin-top:40rpx;
+		padding-bottom:40rpx;
+		img{
+			width:100% !important;
+			object-fit: contain;
+		}
+	}
 </style>

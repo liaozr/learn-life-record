@@ -1,5 +1,14 @@
 import App from './App'
 
+// 全局过滤器
+Vue.filter('formatDate',(date)=>{
+	const nDate = new Date(date)
+	const year = nDate.getFullYear()
+	const month = nDate.getMonth().toString().padStart(2,0)
+	const day = nDate.getDay().toString().padStart(2,0)
+	return year+'-'+month+'-'+day
+})
+
 // #ifndef VUE3
 import Vue from 'vue'
 Vue.config.productionTip = false

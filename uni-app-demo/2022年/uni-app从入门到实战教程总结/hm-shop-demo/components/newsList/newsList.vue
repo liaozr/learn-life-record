@@ -1,6 +1,6 @@
 <template>
 	<view class="newsList">
-		 <view v-for="item in data" :key='item.id' class="list">
+		 <view @click="gotoDetail(item)" v-for="item in data" :key='item.id' class="list">
 			<image :src="item.imageUrl"></image>
 			<view class="wen">
 				<view class="title">{{item.contentTitle}}</view>
@@ -25,7 +25,10 @@
 			 default:[]
 		 }	
 		},
-		methods: {		
+		methods: {			  
+		  gotoDetail(item){
+			 this.$emit("toDetail",item)   
+		  }	
 		}
 	}
 </script>

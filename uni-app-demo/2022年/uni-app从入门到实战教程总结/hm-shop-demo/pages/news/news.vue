@@ -1,6 +1,6 @@
 <template>
 	<view v-if="goodslists.length >0" class="goodlist">
-		<newsList :data="goodslists"></newsList>
+		<newsList @toDetail="toDetail" :data="goodslists"></newsList>
 		<view class="isOver" v-if="flag">-----我是有底线的-----</view>
 	</view>
 </template>
@@ -49,7 +49,13 @@
 		components:{
 	      newsList		
 		},
-		methods: {
+		methods: {			  
+		  toDetail(item){
+			  let id = item.id
+			  uni.navigateTo({
+			  	url:`/pages/news-detail/news-detail?id=${id}`
+			  })
+		  },
 		  async getNewsList(callBack){
 			  try{			
 			  	let params = {

@@ -6,3 +6,11 @@ export function getNewsList(data) {
     data
   })
 }
+
+export function getNewsDetail(data) {
+  return request({
+    url: '/content/get',
+    method: 'get',
+    data
+  })
+}

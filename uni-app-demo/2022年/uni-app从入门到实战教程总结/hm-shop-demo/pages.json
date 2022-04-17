@@ -32,7 +32,7 @@
                 "enablePullDownRefresh": true
             }
             
-        }      
+        }
         ,{
             "path" : "pages/goods/goods",
             "style" :                                                                                    
@@ -64,6 +64,15 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "学习视频",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/news-detail/news-detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "详情",
                 "enablePullDownRefresh": false
             }
             
