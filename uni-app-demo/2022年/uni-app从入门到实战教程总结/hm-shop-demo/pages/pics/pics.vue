@@ -94,15 +94,34 @@
 					url:require("../../static/images/tp4.png"),
 					text:'是的是的是的'
 				  },
+			  ],  
+			  datalist2:[
+				  {
+					url:require("../../static/images/tp5.png"),
+					text:'是的是的是的'
+				  },
+				  {
+					url:require("../../static/images/tp4.png"),
+					text:'是的是的是的'
+				  },
+				  {
+					url:require("../../static/images/tp5.png"),
+					text:'是的是的是的'
+				  },
+				  {
+					url:require("../../static/images/tp4.png"),
+					text:'是的是的是的'
+				  },
 			  ],
 			  scrollTop:0
 			}
 		},
 		methods: {
 		   changeItem(item,index){
-			   this.curIndex = index		       			
+			   this.curIndex = index
+			   this.datalist = []						   
 			   this.$nextTick(() =>{
-				this.scrollTop = 0 
+				this.datalist = this.datalist2
 			   })
 		   },
 		   preview(currentUrl){

@@ -177,6 +177,9 @@ var _index = __webpack_require__(/*! ../../api/index.js */ 22);function _interop
   onLoad: function onLoad() {
     this.getNewsList();
   },
+  onTabItemTap: function onTabItemTap() {
+    console.log('news页被点击了');
+  },
   // 上拉加载回调触发函数
   onReachBottom: function onReachBottom() {
     // 判断是否已请求完数据

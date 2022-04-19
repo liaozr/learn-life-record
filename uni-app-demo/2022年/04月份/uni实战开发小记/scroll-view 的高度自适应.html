@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+
+    不要使用 windowHeight / windowWidth 他获取的是可用高度/宽度，
+    
+    在某些带导航栏的手机上 显示系统导航栏的状态下打开页面再隐藏导航栏会造成原先导航栏的位置是空白的。
+
+   <script>
+
+      try {
+      const getSystemInfoSyncData = uni.getSystemInfoSync(); // 获取系统信息
+
+      this.pageHeight = (getSystemInfoSyncData.screenHeight * (750 /              getSystemInfoSyncData.screenWidth) - 88 - 32 - 72) + 'rpx'; // screenHeight ：屏幕高度 ， - 的数字是你固定头部的高度。 并将 px 转为 rpx
+        // console.log('pageHeight', this.pageHeight)
+      } catch (e) {
+        // error
+      }
+
+    </script>
+    
+</body>
+</html>

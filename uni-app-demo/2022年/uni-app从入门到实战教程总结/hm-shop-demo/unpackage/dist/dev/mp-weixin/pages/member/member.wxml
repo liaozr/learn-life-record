@@ -1,1 +1,1 @@
-<view>会员页面</view>
+<view><view class="resetTop"><view style="{{'height:'+(statusBarHeight+'px')+';'}}"></view><view class="toBar" style="{{'height:'+(toBarHeight+'px')+';'}}"><view class="title" style="{{'height:'+(toBarHeight+'px')+';'}}"><text class="topInfo"></text></view></view></view></view>

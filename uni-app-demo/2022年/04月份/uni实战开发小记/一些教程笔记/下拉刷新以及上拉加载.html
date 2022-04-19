@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+ <!-- --------------------------------------------------------------------------------------------------- -->
+    
+    第一种    page.json下配置下拉刷新
+
+    "pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/list/list",
+			"style":{
+				"enablePullDownRefresh": true, // 开启下拉刷新
+				"onReachBottomDistance": 200  //距离底部的距离多少触发上拉加载
+			}
+		},
+    ]
+
+
+
+
+    onPullDownRefresh 监听 下拉刷新的回调
+
+    onReachBottom 页面触底的回调
+
+    // 上拉加载 页面滚动到底部的事件，常用于下拉下一页数据
+
+    uni.stopPullDownRefresh()  // 关闭当前的下拉刷新
+
+    <script>
+
+        export default {           
+            onPullDownRefresh () {
+                console.log('触发了下拉刷新')
+                setTimeout(()=>{
+                    this.list = ['JAVA','UI','前端','测试','大数据']
+                    uni.stopPullDownRefresh()  // 关闭当前的下拉刷新
+                },2000)
+            },
+            // 上拉加载 页面滚动到底部的事件，常用于下拉下一页数据
+            onReachBottom() {
+                console.log('页面触底了')
+                this.list = [...this.list,...['JAVA','UI','前端','测试','大数据']]
+            },
+            methods:{
+
+            }
+        }
+
+    </script>
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+    
+ 手动触发下拉刷新，方法methods 里面触发 uni.startPullDownRefresh() 开启下拉刷新
+
+ <script>
+     methods:{
+
+        pullDown(){
+
+		  uni.startPullDownRefresh()
+
+		}
+
+     }
+
+ </script>
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+   
+    {
+        "path": "pages/list/list",
+        "style":{
+            "enablePullDownRefresh": true, // 开启下拉刷新
+            "onReachBottomDistance": 200  //距离底部的距离多少触发上拉加载
+        }
+    },
+
+
+    
+    // 上拉加载 页面滚动到底部的事件，常用于下拉下一页数据
+
+    onReachBottom() {
+        console.log('页面触底了')
+        this.list = [...this.list,...['JAVA','UI','前端','测试','大数据']]
+    }
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+
+
+
+
+</body>
+</html>

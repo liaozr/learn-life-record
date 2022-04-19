@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    页面中实现跨段兼容
+
+    <!-- #ifdef H5 -->
+    <view>我希望只在h5页面中看见</view>
+    <!-- #endif -->
+
+    <!-- #ifdef MP-WEIXIN -->
+    <view>我希望只在微信小程序页面中看见</view>
+    <!-- #endif -->
+
+
+    <script>
+        onLoad () {
+
+            // js上同样是可以实现跨段兼容的
+
+            // #ifdef H5
+            console.log('我希望h5中打印')
+            // #endif
+
+            // #ifdef MP-WEIXIN
+            console.log('我希望微信小程序中打印')
+            // #endif
+		}
+    </script>
+    
+    
+
+    <!-- 样式中也是可以实现条件编译跨端兼容的 -->
+     
+    <style>
+        /* h5中的样式 */
+
+        /* #ifdef H5 */
+        view{
+            color: hotpink;
+        }
+        /* #endif */
+
+
+        /* 微信小程序中的样式 */
+
+        /* #ifdef MP-WEIXIN */
+        view{
+            color: #0000FF;
+        }
+        /* #endif */
+
+    </style>
+
+
+
+</body>
+</html>

@@ -227,14 +227,33 @@ var _default =
         text: '是的是的是的' }],
 
 
+      datalist2: [
+      {
+        url: __webpack_require__(/*! ../../static/images/tp5.png */ 67),
+        text: '是的是的是的' },
+
+      {
+        url: __webpack_require__(/*! ../../static/images/tp4.png */ 68),
+        text: '是的是的是的' },
+
+      {
+        url: __webpack_require__(/*! ../../static/images/tp5.png */ 67),
+        text: '是的是的是的' },
+
+      {
+        url: __webpack_require__(/*! ../../static/images/tp4.png */ 68),
+        text: '是的是的是的' }],
+
+
       scrollTop: 0 };
 
   },
   methods: {
     changeItem: function changeItem(item, index) {var _this = this;
       this.curIndex = index;
+      this.datalist = [];
       this.$nextTick(function () {
-        _this.scrollTop = 0;
+        _this.datalist = _this.datalist2;
       });
     },
     preview: function preview(currentUrl) {

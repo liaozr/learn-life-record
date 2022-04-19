@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+   
+      应用的生命周期：
+
+      应用的生命周期应该定义在App.vue里面 
+
+      应用的生命周期应该定义在App.vue里面
+
+      <script>
+        export default {
+          // 当uni-app初始化完成时触发，全局只触发一次
+          onLaunch: function() {
+            console.log('App Launch')
+          },
+          // 当uni-app启动，或从后台进入前台显示
+          onShow: function() {
+            console.log('App Show')
+          },
+          // 当uni-app从前台进入后台
+          onHide: function() {
+            console.log('App Hide')
+          },
+          onError:function(err){
+            console.log('出现异常了',err)
+          }
+        }
+      </script>
+
+
+      页面的生命周期：
+
+      export default{
+        onLoad(options) {
+          console.log('页面加载了',options)
+        },
+        <!-- 会多次出发的 onShow -->
+        onShow() {
+          console.log('页面显示了')
+        },
+        onReady(){
+          console.log('页面初次渲染完成了')
+        },
+        onHide() {
+          console.log('页面隐藏了')
+        }      
+      }
+
+
+
+</body>
+</html>

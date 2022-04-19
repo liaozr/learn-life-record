@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+获取路径传参，类似小程序，在onLoad接受参数。没有vue中的query和param
+
+<script>
+  // 路径 /pages/index/index?a=1&b=2
+  onLoad(config) {
+      const { a, b } = config
+  }
+</script>
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+uni.navigateTo： 保留当前页面，跳转到应用内的某个页面，url可带参，类似于vue-router中的router.push
+
+uni.redirectTo： 关闭当前页面，跳转到应用内的某个页面，url可带参，类似于vue-router中router.replace
+
+uni.switchTab：跳转到 tabBar 页面，并关闭其他所有非 tabBar 页面，url不可带参，
+
+uni.navigateBack：关闭当前页面，返回上一页面或多级页面，类似于vue-router中的router.go(-n)
+
+------------------------------------------------------------------------------------------------------------------------------
+
+vue组件生命周期
+
+页面也有组件的生命周期，但是组件没有页面的生命周期
+
+页面生命周期中，onload不能直接访问dom，onready可以
+
+<script>
+
+    // 在一个页面中同时有页面生命周期和组件生命周期
+    created() {
+      console.log('create')
+    },
+    onLoad() {
+      console.log('load')
+    },
+    beforeMount() {
+      console.log('beforemount')
+    },
+    beforeCreate() {
+      console.log('beforecreate')
+    },
+    onReady() {
+      console.log('ready')
+    },
+    mounted(){
+      console.log('mounted')
+    },
+
+    // h5、app中顺序
+    // beforecreate -> load -> create -> beforemount -> ready -> mounted
+    
+    // 微信和支付宝小程序中顺序
+    // beforecreate -> create -> beforemount -> load -> mounted ->ready
+
+
+    // 页面
+    onLoad() {
+      console.log('load')
+    },
+    onReady() {
+      console.log('ready')
+    }
+
+    // 组件
+    beforeCreate() {
+      console.log('comp-before-create')
+    },
+    beforeMount() {
+      console.log('comp-before-mount')
+    },
+    created() {
+      console.log('comp-create')
+    },
+    mounted() {
+      console.log('comp-mounted')
+    }
+</script>
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+条件编译
+
+<script>
+
+  // #ifdef H5 || MP-WEIXIN
+  h5和微信小程序平台特有
+  // #endif
+
+  // #ifndef APP-PLUS || MP-ALIPAY
+  app和支付宝小程序之外的平台特有
+  // #endif
+
+</script>
+
+不同文件使用不同注释方式，js使用// 注释，css使用/* 注释 */，vue模板使用<!-- 注释 -->
+静态资源static目录下也可使用条件编译，只要目录名为对应平台名就可以实现条件编译
+条件编译不区分安卓和ios，使用uni.getSystemInfo区分二者
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+v-html
+
+小程序不支持v-html
+
+
+onTabItemTap
+
+点击 tab或者执行uni.switchTab 时触发，参数为Object
+
+
+onBackPress
+
+监听页面返回，返回 event = {from:backbutton、 navigateBack} ，backbutton 表示来源是左上角返回按钮或 android 返回键；navigateBack表示来源是 uni.navigateBack。在回调函数中如果想进行一些逻辑判断的话，可以通过动态的设置return true禁止返回上一个页面，return false返回上一个页面
+
+onBackPress(event){
+    const { from } = event;
+    if(from === 'backbutton'){
+        //逻辑判断
+        return true;
+    }else if(from === 'navigateBack'){
+        return false;
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+globalData
+App.vue 中定义globalData的相关配置：
+
+//App.vue
+
+<script>
+
+    export default{
+        globalData: {
+            msg: "hello world!"
+        }
+    }
+    
+</script>
+
+//page中使用
+//获取数据
+
+getApp().globalData.msg
+
+//更改数据
+getApp().globalData.msg = 'uni-app!'
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+</body>
+</html>

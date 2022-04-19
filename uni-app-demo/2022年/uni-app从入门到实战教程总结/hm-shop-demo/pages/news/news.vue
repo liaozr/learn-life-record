@@ -22,6 +22,9 @@
 		onLoad(){
 		  this.getNewsList()	
 		},
+		onTabItemTap(){
+		  console.log('news页被点击了')	 
+		},
 		// 上拉加载回调触发函数
 		onReachBottom(){
 			// 判断是否已请求完数据

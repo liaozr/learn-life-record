@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+     如果要跳转到tabBar页面的话，则要加 open-type="switchTab"
+
+     open-type="redirect" 为把当前页面关闭，再跳转到下一个页面，上一个页面已经被销毁了
+     没了，所以不存在上级页面
+
+    <navigator url="/pages/detail/detail?id=80&age=19">跳转至详情页</navigator>
+    <navigator url="/pages/message/message" open-type="switchTab">跳转至信息页</navigator>
+    <navigator url="/pages/detail/detail" open-type="redirect">跳转至详情页</navigator>
+
+    <button @click="goDetail">跳转之详情页</button>
+    <button @click="goMessage">跳转至信息页</button>
+    <button type="primary" @click="redirectDetail()">跳转到详情页并关闭当前页面</button>
+
+    <script>
+        export default {
+            onUnload() {
+                console.log('导航页面卸载了')
+            },
+            methods: {
+                goDetail () {
+                    // 普通的跳转页面
+                    uni.navigateTo({
+                        url: '/pages/detail/detail?id=80&age=19'
+                    })
+                },
+                goMessage () {
+                    // 跳转到tabBar页面
+                    uni.switchTab({
+                        url: '/pages/message/message'
+                    })
+                },
+                redirectDetail () {
+                    // 关闭当前页面跳转，所以不存在上级页面
+                    uni.redirectTo({
+                        url: '/pages/detail/detail'
+                    });
+                },
+                addToCar () {
+                    uni.$emit('updateCart',{
+                        id: 10,
+                        name: '贸易'
+                    })
+                }
+            }
+        }
+    </script>
+
+------------------------------------------------------------------------------------------------
+
+    详情页接收上个页面的参数
+
+    <script>
+      export default{
+         onLoad(options){
+           // 这里面的options就是上个页面携带的参数
+           console.log(options)// {id:80,age:19}
+         }
+      }
+    </script>
+    
+------------------------------------------------------------------------------------------------
+
+</body>
+</html>

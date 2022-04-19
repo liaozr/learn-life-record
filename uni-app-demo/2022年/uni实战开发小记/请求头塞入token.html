@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+  <script>
+
+      let SetHeader = { // 设置请求头、token
+         'context-type': 'application/x-www-form-urlencoded',
+         'Cookie': `token=` + uni.getStorageSync('token')
+      }
+
+      uni.request({
+          url: 'www.example.com/request', //仅为示例，并非真实接口地址。
+          data: {
+            text: 'uni.request'
+          },
+          header: SetHeader,
+          success: (res) => {
+            console.log(res.data);
+            this.text = 'request success';
+          }
+      });
+
+  </script>
+
+
+</body>
+</html>
