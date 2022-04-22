@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+     
+    
+      服务器选择
+
+
+      我选择的是宝塔 linux 系统。
+      
+      
+      前端项目部署
+
+      我们可以将静态资源文件放到 /www/server/nginx/html/ 路径下，于是我们开始部署前端项目。
+
+      cd /www/wwwroot/
+      git clone https://gitee.com/violetjack/system-fe.git
+      cd system-fe/
+      npm install
+      npm run build
+      cp -r dist/* /www/server/nginx/html
+      
+
+
+
+      
+</body>
+</html>
