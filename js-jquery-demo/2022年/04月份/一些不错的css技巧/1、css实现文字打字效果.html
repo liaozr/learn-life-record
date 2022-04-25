@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+在这个例子中，我们将使用 animation 和 @keyframes 属性去实现打字效果。
+
+具体来说，在这个演示中，我们通过 steps() 属性来实现分割文本的效果。首先，你必须指定 step() 中传入的数量，在这个例子中就是文本的长度。
+接着，第二步，我们使用 @keyframes 去声明什么时候开始执行动画。
+
+
+如果你在文本 Typing effect for text 后面添加内容，而不改变 step() 中的数字，将不会产生这种效果。
+
+这种效果并不是特别新鲜。然而，很多开发者却使用 JavaScript 库去实现，而不是使用 CSS。
+
+
+<div class="typing">
+
+  <div class="typing-effect">Typing effect for text</div>
+
+</div>
+
+<style>
+
+  .typing {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .typing-effect {
+    width: 22ch;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid;
+    font-family: monospace;
+    font-size: 2em;
+    animation: typing 2s steps(22), effect .5s step-end infinite alternate;
+  }
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+  }
+  @keyframes effect {
+    50% {
+      border-color: transparent;
+    }
+  }
+
+</style>
+
+
+</body>
+</html>

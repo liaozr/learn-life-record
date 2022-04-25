@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+      将数组从小到大排序，这个例子很常见。但在实际开发中，总会有一些花样。
+
+      下面这段代码，在实际开发中，经常用到，一定要掌握。完整代码如下：
+      
+      <script>    
+          let dataList = [
+            {
+              title: "品牌鞋子，高品质低价入手",
+              publishTime: 200,
+            },
+            {
+              title: "不是很贵，但是很暖",
+              publishTime: 100,
+            },
+            {
+              title: "无法拒绝的美食，跟我一起吃吃",
+              publishTime: 300,
+            },
+          ];
+
+          let newList = dataList.sort(function(a,b){
+             return a.publishTime - b.publishTime
+          })
+
+          console.log(newList)
+
+          // [
+          //     {
+          //         "title": "不是很贵，但是很暖",
+          //         "publishTime": 100
+          //     },
+          //     {
+          //         "title": "品牌鞋子，高品质低价入手",
+          //         "publishTime": 200
+          //     },
+          //     {
+          //         "title": "无法拒绝的美食，跟我一起吃吃",
+          //         "publishTime": 300
+          //     }
+          // ]
+
+      </script>
+
+
+</body>
+</html>
