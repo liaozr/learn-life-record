@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+
+    1.不允许id选择器
+
+    这个问题是最容易发现的，在h5页面中用id标记标签很常见，然后在css中用#+id来设置标签的style，
+    
+    但是微信小程序中是不能用id选择器的，从警告内容中很容易发现。 
+    
+    警告内容 从警告中还可以看出，小程序中标签名、属性名选择器都不能用。
+
+
+
+
+
+    2.默认竖排
+
+    在H5页面中，元素默认是横排的，但是在小程序中，元素是默认竖排的，因此最好显式的设置元素的横排竖排，这样就不会发生页面错乱了。
+    
+    <style>
+      .row-arrange{
+          flex-direction: row;	/*横排元素*/
+      }
+  </style>
+
+
+
+
+    3.图片加载不出来
+
+    其实这个原因官网的文档上有写，不过我没仔细看
+
+    而且H5中用相对路径可以正常加载，但是在小程序中就不行了，所以最好还是用绝对路径吧。
+
+    ../../../static/xxx.jpg # 相对路径
+
+    /static/xxx.jpg # 绝对路径
+
+</body>
+</html>
