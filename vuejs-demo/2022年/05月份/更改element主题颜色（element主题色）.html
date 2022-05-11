@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	
+	
+	
+	创建一个公共的更改CSS的文件，以 element-variables.scss 为例
+	
+	
+	
+	在element-variables.scss文件里面
+
+	$--color-primary: #4b5ff5; /* 改变主题色变量 */
+	
+	$--font-path: '~element-ui/lib/theme-chalk/fonts';/* 改变 icon 字体路径变量，必需 */
+	
+	@import "~element-ui/packages/theme-chalk/src/index";
+	
+
+
+	在main.js里面引入
+	import './style/element-variables.scss'
+
+
+
+</body>
+</html>
