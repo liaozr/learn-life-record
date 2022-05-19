@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  1、数组去重
+
+  使用Set，必须使用 new 来声明
+
+  new Set()返回的类型并不是数组，而是对象，所以需要配合Array.from()转化为数组，当然还可以通过展开运算符...，这里也推荐使用 ...
+
+
+  <script>
+     let arr = [1,1,'true','true',true,true,15,15,false,false, undefined,undefined, null,null, NaN, NaN,'NaN', 0, 0, 'a', 'a'];
+
+     console.log([...new Set(arr)])
+    //  [1, 'true', true, 15, false, undefined, null, NaN, 'NaN', 0, 'a']
+
+  </script>
+
+  2、并集
+
+  <script>
+     let a = [1,2,3]
+     let b=  [2,3,4]
+
+     //并集
+
+     console.log( [...new Set([...a,...b])])
+
+     //[1, 2, 3, 4]
+
+
+  </script>
+
+</body>
+</html>
