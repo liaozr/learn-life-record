@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+ 
+            $options是一个记录当前Vue组件的初始化属性选项。通常开发中，我们想把data里的某个值重置为初始化时候的值，可以像下面这么写：
+
+            this.value = this.$options.data().value;
+
+            这样子就可以在初始值由于需求需要更改时，只在data中更改即可。
+
+
+            this.form = this.$options.data().form
+
+            this.form = this.$options.data().form
+
+            this.form = this.$options.data().form
+
+            <script>
+                export default {
+                  name: "App",
+                  data(){
+                    return {
+                      visible: false,
+                      form: {
+                        gender: 'male',
+                        name: 'wayne'
+                      }
+                    }
+                  },
+                  methods:{
+                    initForm(){
+                      this.form = this.$options.data().form
+                    }
+                  }
+                };
+            </script>
+
+</body>
+</html>
