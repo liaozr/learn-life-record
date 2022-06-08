@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    
+    1.sort()：对数组的元素进行从小到大来排序（会改变原来的数组） 
+
+    默认排序顺序是在将元素转换为字符串按照Unicode 编码，从小到大进行排序
+
+    <script>
+
+        //一维数组排序
+        var arr=[1,5,7,9,16,2,4];
+
+        arr.sort(function(a,b){
+            
+          return b-a; //降序排列，return a-b; —>升序排列
+
+        }) //括号里不写回调函数，则默认按照字母逐位升序排列，结果为[1,16,2,4,5,7,9]
+
+    </script>
+
+
+</body>
+</html>
