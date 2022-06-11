@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+         
+  https://blog.csdn.net/Leijiang0504/article/details/122935826
+  https://blog.csdn.net/Leijiang0504/article/details/122935826
+
+
+
+  https://www.csdn.net/tags/MtTaIgxsNDMxODk1LWJsb2cO0O0O.html
+  https://www.csdn.net/tags/MtTaIgxsNDMxODk1LWJsb2cO0O0O.html
+
+
+
+  
+  uniapp中，文件目录下的pages文件夹一般用于存放tabbar界面，而其他的子界面，单独创建个同级文件夹存放，也是便于分包操作。
+
+  uniapp中，文件目录下的pages文件夹一般用于存放tabbar界面，而其他的子界面，单独创建个同级文件夹存放，也是便于分包操作。
+
+  uniapp中，文件目录下的pages文件夹一般用于存放tabbar界面，而其他的子界面，单独创建个同级文件夹存放，也是便于分包操作。
+
+  见图0
+
+
+
+  修改uniapp中的page.json
+
+  主包配置,按之前的配置,不用管,子包配置，
+  
+  添加“subpackages”属性(这个和主包pages同级)，数据里面，每个对象都是一个子包。
+  
+  root为一级目录名，pages是相对一级目录的相对路径，也是数组格式，每个对象是一个界面。
+
+  见图2
+
+  <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+  
+  
+  首先是分包的大小
+
+  微信小程序每个分包的大小是2M，总体积一共不能超过16M。
+
+  uni-app内支持对微信小程序、QQ小程序、百度小程序分包优化，即将静态资源或者js文件放入分包内不占用主包大小。详情请参考：关于分包优化的说明
+
+  直接新建文件夹，然后利用subPackages创建分包，root属性是你分包名称，pages是你分包下面的目录文件，记住分包是有大小限制的，不要过多的往一个分包里放很多目录，你可以多新建几个分包。
+
+  见图1
+
+
+  ————————————————
+
+
+
+  
+</body>
+</html>

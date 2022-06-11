@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+       
+创建公共文件share.js
+
+<script>
+  /************请求存储***************/
+  import storage from "@/utils/storage.js";
+
+  export default {
+    data(){
+      return{
+        recommenderId:null,
+        uuid:null,
+        curRoute:''
+      }
+    },
+    // mounted
+    onShow() {
+        if( storage.getUserInfo() !== {} ){
+          this.recommenderId = storage.getUserInfo().id || ''
+          this.uuid = storage.getUuid() || ''
+        }
+        let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
+        let curRoute =''
+        let curParam = {}
+        if( routes.length > 0 ){
+          curRoute = routes[routes.length - 1].route //获取当前页面路由
+          this.curRoute = curRoute
+          curParam = routes[routes.length - 1].options; //获取路由参数
+        } 
+
+        if(curParam?.recommenderId !== '' && curParam?.recommenderId !== ' ' && curParam?.recommenderId !==  "undefined" &&  curParam?.recommenderId !==  undefined){
+          uni.setStorageSync('curRecommenderId',  curParam.recommenderId);
+          uni.setStorageSync('curUuid',  curParam.uuid);
+        }
+
+        // #ifdef MP-WEIXIN
+        // 小程序默认分享
+          // uni.showShareMenu({ 
+          //    withShareTicket: true,
+          //    path: this.share() 
+          // });
+        // #endif
+    },
+    // #ifdef MP-WEIXIN
+    onShareAppMessage(res) {
+      console.log('分享路径')
+      console.log(this.share())
+      return {
+        path: this.share()
+      };
+    },
+    // #endif
+    methods:{
+      share(){
+        let curRoute = this.curRoute
+        let path = `/${curRoute}?recommenderId=${this.recommenderId}&uuid=${this.uuid}`
+        console.log('分享的路径')
+        console.log(path)
+        return path
+      }
+    }
+  }
+</script>
+
+全局使用，在 main.js 里面
+
+import share from './common/share.js'
+
+Vue.mixin(share)
+
+
+
+</body>
+</html>

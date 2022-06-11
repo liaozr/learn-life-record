@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+    
+
+easycom的作用主要是,在pages.json文件里面配置了easycom,使用组件的时候就不用每次都在页面里面引入一下了。
+
+自定义easycom配置的示例
+
+"easycom": {
+  "autoscan": true,
+  "custom": {
+    "^uni-(.*)": "@/components/uni-$1.vue", // 匹配components目录内的vue文件
+    "^vue-file-(.*)": "packageName/path/to/vue-file-$1.vue" // 匹配node_modules内的vue文件
+  }
+}
+
+我的组件是创建在components/文件夹/组件.vue，所以在我的项目里面的配置方式就是如下:
+
+"easycom": {
+	  "autoscan": true,
+	  "custom": {
+	    "^ui-(.*)": "@/components/ui-$1/ui-$1.vue" // 匹配components目录内的vue文件
+	  }
+},
+
+值得注意的是，改变了pages.json的配置方式需要重新运行一下项目才能生效
+
+关于配置node_modules里面的组件我还没有试，等有用到的地方再更新
+
+
+例子: pages.json
+
+"easycom": {
+  "^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue",
+  "^esc-(.*)": "@/components/sn-swiper/esc-$1/index.vue"
+}
+
+
+</body>
+</html>

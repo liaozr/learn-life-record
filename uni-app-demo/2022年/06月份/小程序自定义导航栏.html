@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  pages.json文件
+  {
+    "root": "pages-course",
+    "pages": [
+      {
+        "path": "course/course",
+        "style": {
+          "navigationBarTitleText": "我的课程",
+          "navigationStyle": "custom"  // 自定义导航栏
+        }
+      },
+      {
+        "path": "course/courseDetails",
+        "style": {
+          "navigationBarTitleText": "课程详情",
+          "navigationStyle": "custom"  // 自定义导航栏
+        }
+      }
+    ]
+  },
+
+  courseDetails 页面
+
+  <u-navbar
+  is-back="true"
+  :border-bottom="false"
+  title-color="black"
+  :title="processDetails.processTitle"
+  ></u-navbar>
+
+  course 页面
+
+  <u-navbar :background="navObj" :is-back="false">
+	  <mSearch ref="mSearch" class="mSearch-input-box" @clickLeft="back" :mode="2" :placeholder="defaultKeyword"
+	    @search="doSearch(false)" @confirm="doSearch(false)" v-model="keyword"
+	    :isFocusVal="!isShowSeachGoods"></mSearch>
+	</u-navbar>
+
+
+</body>
+</html>
