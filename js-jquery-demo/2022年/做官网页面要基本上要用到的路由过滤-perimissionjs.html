@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			
+			import router from './router';
+			import NProgress from 'nprogress'; // progress bar
+			import 'nprogress/nprogress.css'; // progress bar style
+			import getPageTitle from '@/utils/get-page-title';
+			NProgress.configure({ showSpinner: false }); // NProgress Configuration
+			
+			router.beforeEach((to, from, next) => {
+				// start progress bar
+				
+				// 设置网页顶部进度条
+				NProgress.start(); 
+			
+				// set page title
+				// 设置跳转页面的标题
+				document.title = getPageTitle(to.meta.title);
+				
+				// 设置跳转页面后，将跳转后的页面的滚动条置为0，从而实现跳转页面，可视区域依然在页面顶部。
+				window.scrollTo({
+				  top: 0, // 需要滚动的距离
+				  // behavior: 'smooth', // 平滑滚动到顶部
+				});
+				
+				// determine whether the user has logged in
+				next();
+				
+				NProgress.done();
+			});
+			
+		</script>	
+		
+		
+	</body>
+</html>

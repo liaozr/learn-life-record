@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		https://blog.csdn.net/weixin_42230222/article/details/119123720
+		https://blog.csdn.net/weixin_42230222/article/details/119123720
+		
+<!-- -------------------------------------------------------------------------------------------------------------------------------------	 -->
+		
+		vue预渲染
+		
+		​vue是一个单页面应用（spa），只有一个 html 文件（内容只有一个#app根节点），
+		
+		通过加载js脚本来填充页面要渲染的内容，然而这种方式无法被爬虫和百度搜索到。
+		
+		如果想对某些页面进行SEO（搜索引擎优化）优化，可以通过预渲染实现，无需使用web服务器实时动态编译html，
+		
+		只需要在构建的时候简单的生成针对特定路由的 静态html文件。优点是设置预渲染更简单，并可以将你得前端作为一个完全静态的站点。
+		
+<!-- -------------------------------------------------------------------------------------------------------------------------------------	 -->
+
+		1 安装预渲染插件
+		
+		npm install prerender-spa-plugin -D  #安装或者编译出错，npm换成cnpm
+		
+		
+		2 配置vue.config.js
+		
+		<script>		
+			const path = require('path')
+			// 预渲染插件
+			const PrerenderSPAPlugin = require('prerender-spa-plugin')
+			const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
+			
+			module.exports = {
+			    configureWebpack: {
+			        plugins: [
+			            new PrerenderSPAPlugin({
+			                // 生成文件的路径，与webpack打包一致即可
+						    // 下面这句话非常重要！！！
+							// 这个目录只能有一级，如果目录层次大于一级，在生成的时候不会有任何错误提示，在预渲染的时候只会卡着不动。
+			                staticDir: path.join(__dirname, 'dist'),
+			                // 需要预渲染的路由
+							// 对应自己的路由文件，比如a有参数，就需要写成 /a/param1。
+							// 例如下面两个例子
+							// routes: ['/', '/about'],
+							routes: [
+								'/home',
+								'/about',
+								'/service',
+								'/ceses',
+								'/news/list',
+								'/news/detail/id',
+								'/tools',
+								'/contact',
+							],
+			                renderer: new Renderer({
+			                    inject: {
+			                        foo: 'bar'
+			                    },
+			                    headless: false,
+			                    // 这个选项很重要，在程序入口执行：document.dispatchEvent(new Event('render-event'))
+								// 在 main.js 中 document.dispatchEvent(new Event('render-event'))，两者的事件名称要对应上。
+			                    renderAfterDocumentEvent: 'render-event',
+			                })
+			            })
+			        ]
+			    }
+			}
+		</script>
+		
+		
+		3 修改main.js
+		
+		<script>
+		
+			import Vue from 'vue'
+			import App from './App.vue'
+			import router from './router'
+			
+			Vue.config.productionTip = false
+			
+			new Vue({
+			    router,
+			    mounted() {
+			        document.dispatchEvent(new Event('render-event'))
+			    },
+			    render: h => h(App)
+			}).$mount('#app')
+
+		</script>
+		
+		
+	    4 修改router.js
+		
+		<script>
+			const router = new VueRouter({
+			   // 修改路由模式为history
+			   mode: 'history',
+			   routes
+			})
+		</script>
+			
+					
+		5 构建项目
+		
+		npm run build
+		
+		构建成功后，dist目录下可以看到，根路径和about路径下都生成了index.html文件，当浏览器访问这两个路径(路由)时，服务器返回的就是对应html文件的内容。
+		
+		
+		6 修改页面的meta信息 安装vue-meta-info插件
+		
+		npm install vue-meta-info -s  #安装时最好和prerender-spa-plugin一起安装
+		
+		修改main.js
+		import MetaInfo from 'vue-meta-info'
+		Vue.use(MetaInfo)
+		
+		修改vue文件
+		
+		<template>
+		    <div class="home">
+		        home page...
+		    </div>
+		</template>
+		
+		<script>
+			export default {
+			// npm install vue-meta-info --save 
+			// main.js 导入并Vue.use(xxx)
+			// 配置title和meta数据，实现seo优化配合预渲染使用
+			  metaInfo: {
+				title: '我是一个title',
+				meta: [
+				  {
+					name: 'keywords',
+					content: '关键字1,关键字2,关键字3'
+				  },
+				  {
+					name: 'description',
+					content: '这是一段网页的描述'
+				  }
+				]
+			  },
+			}
+		</script>
+		
+		7 打包后生成的文件内容
+		
+		<!DOCTYPE html>
+		<html lang="">
+			<head>
+				<meta charset="utf-8">
+				<meta http-equiv="X-UA-Compatible" content="IE=edge">
+				<meta name="viewport" content="width=device-width,initial-scale=1">
+				<link rel="icon" href="/favicon.ico">
+				<title>我是一个title</title>
+				<link href="/js/about.9f1a3f34.js" rel="prefetch">
+				<link href="/js/app.bebcb2a7.js" rel="preload" as="script">
+				<link href="/js/chunk-vendors.6dae171a.js" rel="preload" as="script">
+				<meta data-vue-meta-info="true" name="keywords" content="关键字1,关键字2,关键字3">
+				<meta data-vue-meta-info="true" name="description" content="这是一段网页的描述">
+			</head>
+			
+			<body>
+				<noscript>
+					<strong>We're sorry but my-prj2 doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+				</noscript>
+				<div id="app"><a href="/" aria-current="page" class="router-link-exact-active router-link-active">首页</a> | <a href="/about" class="">关于</a>
+					<div class="home"> home page... </div>
+				</div>
+				<script src="/js/chunk-vendors.6dae171a.js"></script>
+				<script src="/js/app.bebcb2a7.js"></script>
+			</body>
+		
+		</html>
+<!-- -------------------------------------------------------------------------------------------------------------------------------------	 -->
+
+	</body>
+	
+</html>

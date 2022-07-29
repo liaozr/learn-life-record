@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		swiper轮播模块实现当前被激活的轮播块放大的交互效果
+		
+		如下面的css代码就可以看出来，核心代码是：
+		
+		.swiper-slide {
+			transition: 300ms;       //设置动画过渡效果
+			transform: scale(0.6);   // 设置所有的轮播模块缩小0.6倍
+		}
+		//swiper-slider-active 代表的是当前被激活的轮播模块
+		.swiper-slide-active,.swiper-slide-duplicate-active {
+			transform: scale(1);    // 当前被激活的轮播模块正常缩放（ transform:scale(1) ），效果看起来也就是被放大了。
+		}
+		
+		
+		<style>		
+			.swiper-container {
+				position: relative;
+				width: 100%;
+				height: 500px;
+			}
+			.swiper-slide {
+				transition: 300ms;
+				transform: scale(0.6);
+			}
+			.swiper-slide-active,.swiper-slide-duplicate-active {
+				transform: scale(1);
+			}
+			
+		</style>
+		
+	</body>
+</html>
