@@ -1,0 +1,29 @@
+<html>
+      
+
+    vue之src图片路径地址动态拼接的方法。   
+    
+    方法1：
+
+    <template>
+        <img :src="require(`@/assets/images/new/${index}.png`)" alt="">
+    </template>
+
+
+    方式2：
+
+    <template>
+      <img :src="bindIcon(item.icon)" alt="">
+    </template>
+
+    <script>
+        methods:{
+          bindIcon(icon){
+            return `@assets/images/new/${icon}.png`
+          }
+        }
+    </script>
+
+
+
+</html>
