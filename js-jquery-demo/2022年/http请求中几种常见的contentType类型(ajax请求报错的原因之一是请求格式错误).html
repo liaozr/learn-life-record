@@ -1,0 +1,92 @@
+<html> 
+  
+  Content-Type含义为内容类型，请求头和响应头中都有该项
+
+
+  参数传输失败元凶：请求头中的Content-Type
+
+  请求头中的Content-Type是为告诉服务器我们发送的请求信息是哪种格式的。
+
+  不合适的Content-Type可能导致服务端无法正确接收我们的参数
+
+
+  
+  1.1 application/x-www-form-urlencoded
+
+  请求头中的Content-Type默认值为content-type:application/x-www-form-urlencoded，不指定content-type时，默认使用此格式。
+  
+  此时参数格式如下:
+
+  key1=value1&key2=value2
+
+
+  对象转字符串格式：
+
+  <script>
+    let params = { c: 'b', a: 'd' };
+    qs.stringify(params)
+
+    // 结果是
+    'c=b&a=d'
+ </script>
+
+  亦或者是：
+
+  <script>
+       const toUrlEncoded = obj => Object.keys(obj).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(obj[k])).join('&');
+
+       toUrlEncoded({hello: 'world', message: "JavaScript is cool"});
+
+       // => "hello=world&message=JavaScript%20is%20cool"
+
+  </script>
+
+
+
+
+  1.2 multipart/form-data
+
+
+  application/x-www-form-urlencoded是把数据使用url编码后传送给后端，不适合用于传输大型二进制数据或者包含非ASCII字符的数据，
+  
+  multipart/form-data就诞生了，专门用于有效的传输文件。
+
+  multipart/form-data 既可以上传文件，也可以上传键值对，它采用了键值对的方式，所以可以上传多个文件。
+
+  使用multipart/form-data时，请求体参数可来自于new FormData()生成的实例，或enctype为multipart/form-data的表单数据。
+
+  <script>
+
+    let data = new FormData()
+    data.append('file1', file1)
+    data.append('file2', file2)
+    this.axios({
+      url: url,
+      headers: {'Content-Type': 'multipart/form-data'},
+      data: data
+    }).then(()=>{
+      // ...
+    })
+
+  </script>
+
+
+
+
+  1.3 content-type:application/json
+
+  application/json能够方便传递复杂多层次对象，消息主体是序列化的JSON字符串。
+
+  <script>
+
+    let params2 = { c: 'b', a: 'd' };
+
+    params = JSON.stringify(params2)
+
+  </script>
+
+
+
+
+
+</html>
