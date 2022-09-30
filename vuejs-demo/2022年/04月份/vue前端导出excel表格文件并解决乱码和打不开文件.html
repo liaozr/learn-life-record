@@ -10,7 +10,45 @@
   
 
   <script>
-
+	  
+	export const getRequest = (url, params, resBlob) => {
+	  let accessToken = getStore("accessToken");
+	  let data = {
+	    method: "get",
+	    url: `${url}`,
+	    params: params,
+	    headers: {
+	      accessToken: accessToken
+	    },
+	    responseType: "blob"
+	  };
+	  if (resBlob != "blob") {
+	    delete data.responseType;
+	  }
+	  return service(data);
+	};
+	
+	
+    这里要注意的是导出excel表的时候，请求的数据接口需要加上  responseType: "blob"
+	不然会出现导出失败或者导出的excel文件打不开的。。
+	
+	这里要注意的是导出excel表的时候，请求的数据接口需要加上  responseType: "blob"
+	不然会出现导出失败或者导出的excel文件打不开的。。
+	
+	这里要注意的是导出excel表的时候，请求的数据接口需要加上  responseType: "blob"
+	不然会出现导出失败或者导出的excel文件打不开的。。
+	
+	这里要注意的是导出excel表的时候，请求的数据接口需要加上  responseType: "blob"
+	不然会出现导出失败或者导出的excel文件打不开的。。
+	
+	这里要注意的是导出excel表的时候，请求的数据接口需要加上  responseType: "blob"
+	不然会出现导出失败或者导出的excel文件打不开的。。
+	
+	这里要注意的是导出excel表的时候，请求的数据接口需要加上  responseType: "blob"
+	不然会出现导出失败或者导出的excel文件打不开的。。
+	
+	
+	
     // 下载文件
     // 导出Excel的函数
     export function fileDown(res) {

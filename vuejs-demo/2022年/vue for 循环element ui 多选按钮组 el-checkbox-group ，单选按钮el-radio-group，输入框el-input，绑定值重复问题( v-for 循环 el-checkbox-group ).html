@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+   
+  <div v-for="(item,index) in questions" :key="index">
+
+    <div class="tj_team fen_team" v-if="item.type==2"> 
+        {{item.sort}}.&nbsp;&nbsp;{{item.description}}？(单选) <br>
+
+        <el-radio-group v-model="checkList[item.id]" class="w_radio">
+            <el-radio :label="i.id" v-for="(i,d) in item.options" :key="d">{{i.sort}}{{i.explain}}
+            </el-radio>
+        </el-radio-group>
+
+    </div>
+
+  </div>
+
+  解决：
+
+  只要把绑定的值变成一个对象就可以了，例如我上面的写法。
+  
+  由于我的需求是答题：所以我的思路是把当前题的id 变成当前对象 
+  
+  键名（每个对象的键名为当前题到id，对象的键值为当前题的答案）；代码如下：
+
+  先在data中初始化checkList 为{} 空对象；
+  
+  下面为重点，必须使用$set,因为vue 不能检测对象动态添加的属性值，所以提供了$set方法；
+
+  <script>
+
+    for (var i = 0; i < this.questions.length; i++) {
+      this.$set(this.checkList, this.questions[i].id, '')
+    }
+    
+  </script>
+
+
+
+</body>
+</html>
