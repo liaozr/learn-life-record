@@ -14,7 +14,7 @@
   "strategy": null,
   "index": 0,
   "global": false,
-  "enabled": true,
+  "enabled": false,
   "shareOverLan": false,
   "isDefault": false,
   "localPort": 1080,
