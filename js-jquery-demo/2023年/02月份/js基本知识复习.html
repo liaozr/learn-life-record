@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+闭包的特征：
+
+函数中存在函数；
+
+内部函数可以访问外层函数的作用域；
+
+参数和变量不会被 GC，始终驻留在内存中；
+
+有内存地方才有闭包。
+
+所以使用闭包会消耗内存、不正当使用会造成内存溢出的问题，在退出函数之前，需要将不使用的局部变量全部删除。
+
+如果不是某些特定需求，在函数中创建函数是不明智的，闭包在处理速度和内存消耗方面对脚本性能具有负面影响。
+
+
+
+
+
+</body>
+</html>
