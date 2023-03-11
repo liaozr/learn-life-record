@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+  微前端
+
+  随着项目的开发，会出现一个前端项目模块巨多的情况，不利于开发和维护。
+  
+  微前端就能帮助我们解决这个问题，帮我们实现了前端复杂项目的解耦，同时能做到跨团队和跨部门协同开发。
+
+  对于微前端，它与技术栈无关（主框架不限制介入应用的技术栈，微应用具有完全的自主权），各个微应用间仓库独立，
+  
+  每个微应用之间状态隔离，运行时状态不共享。
+
+
+  
+  常见的微前端实现方案：
+  
+  基于iframe的完全隔离，iframe是浏览器自带的功能，使用简单，隔离完美，不过它无法保持路由状态，页面一刷新状态就丢失，同时iframe中的状态无法突破对应的应用，同时整个应用是全量加载，速度慢。
+
+  基于single-spa路由劫持的方案。qiankun就是基于这种方案实现的，通过对single-spa做一层封装，根据执行环境的修改，来解析微应用的资源，实现了JS沙箱、样式隔离等特性。
+
+  借鉴WebComponent思想的micro-app，通过CustomElement结合自定义的ShadowDom，将微前端封装成一个类Web Component组件。
+  
+ 
+  
+</body>
+</html>
