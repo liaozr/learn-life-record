@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	
+	
+	
+vue.js是采用数据劫持结合发布者-订阅者模式的方式，
+通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调来渲染视图。
+	
+	
+	
+	
+	
+什么是数据双向绑定？
+
+vue是一个mvvm框架，即数据双向绑定，即当数据发生变化的时候，视图也就发生变化，
+
+当视图发生变化的时候，数据也会跟着同步变化。这也算是vue的精髓之处了。
+
+值得注意的是， 我们所说的数据双向绑定，一定是对于UI控件来说的，
+
+非UI控件不会涉及到数据双向绑定。 单向数据绑定是使用状态管理工具（如redux）的前提。
+
+
+
+
+
+Object.defineProperty?
+
+1.1 语法：
+
+Object.defineProperty(obj, prop, descriptor)
+
+参数说明：
+
+obj：必需。目标对象
+prop：必需。需定义或修改的属性的名字
+descriptor：必需。目标属性所拥有的特性
+
+返回值：
+传入函数的对象。即第一个参数obj；
+针对属性，我们可以给这个属性设置一些特性，比如是否只读不可以写；是否可以被for…in或Object.keys()遍历。
+给对象的属性添加特性描述，目前提供两种形式：数据描述和存取器描述。
+当修改或定义对象的某个属性的时候，给这个属性添加一些特性：
+
+
+var obj = {
+  foo: 'foo'
+}
+
+Object.defineProperty(obj, 'foo', {
+  get: function () {
+	console.log('将要读取obj.foo属性');
+  }, 
+  set: function (newVal) {
+	console.log('当前值为', newVal);
+  }
+});
+
+obj.foo; // 将要读取obj.foo属性
+obj.foo = 'name'; // 当前值为 name
+
+可以看到，get即为我们访问属性时调用，set为我们设置属性值时调用。
+
+
+
+
+双向绑定的实现
+
+回顾一下，每当new一个Vue，主要做了两件事情：第一是监听数据：observe(data)，第二是编译HTML：nodeToFragment(id)
+
+在监听数据的过程中，会为data中的每一个属性生成一个主题对象dep。
+
+在编译HTML的过程中，会为每一个与数据绑定相关的节点生成一个订阅者 watcher，watcher会将自己添加到相应属性的dep中。
+
+我们已经实现了： 修改输入框内容 => 在事件回调函数中修改属性值 => 触发属性的set方法。
+
+接下来我们要实现的是： 发出通知 dep.notify() => 触发订阅者update方法 => 更新视图。
+
+这里的关键逻辑是： 如何将watcher添加到关联属性的dep中。
+
+
+
+
+	
+	
+</body>
+</html>
