@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+  整体思路是数据劫持+观察者模式
+
+  对象内部通过 defineReactive 方法，
+  
+  使用 Object.defineProperty 来劫持各个属性的 setter、getter（只会劫持已经存在的属性），数组则是通过重写数组7个方法来实现。
+  
+  当页面使用对应属性时，每个属性都拥有自己的 dep 属性，存放他所依赖的 watcher（依赖收集），当属性变化后会通知自己对应的 watcher 去更新(派发更新)
+
+  Object.defineProperty基本使用
+
+
+  <script>
+
+    function observer(value) { // proxy reflect
+        if (typeof value === 'object' && typeof value !== null)
+        for (let key in value) {
+            defineReactive(value, key, value[key]);
+        }
+    }
+
+    
+    function defineReactive(obj, key, value) {
+        observer(value);
+        Object.defineProperty(obj, key, {
+            get() { // 收集对应的key 在哪个方法（组件）中被使用
+                return value;
+            },
+            set(newValue) {
+                if (newValue !== value) {
+                    observer(newValue);
+                    value = newValue; // 让key对应的方法（组件重新渲染）重新执行
+                }
+            }
+        })
+    }
+
+    let obj1 = { school: { name: 'poetry', age: 20 } };
+
+    observer(obj1);
+
+    console.log(obj1)
+
+</script>
+
+
+
+vue2中的数据响应式会根据数据类型来做不同处理，如果是 对象则采用Object.defineProperty()的方式定义数据拦截，当数据被访问或发生变化时，我们感知并作出响应；
+
+如果是数组则通过覆盖数组对象原型的7个变更方法 ，使这些方法可以额外的做更新通知，从而作出响应。
+
+这种机制很好的解决了数据响应化的问题，但在实际使用中也存在一些缺点：比如初始化时的递归遍历会造成性能损失；
+
+新增或删除属性时需要用户使用Vue.set/delete这样特殊的api才能生效；对于es6中新产生的Map、Set这些数据结构不支持等问题
+
+
+
+为了解决这些问题，vue3重新编写了这一部分的实现：利用ES6的Proxy代理要响应化的数据，它有很多好处，编程体验是一致的，
+
+不需要使用特殊api，初始化性能和内存消耗都得到了大幅改善；另外由于响应化的实现代码抽取为独立的reactivity包，使得我们可以更灵活的使用它，第三方的扩展开发起来更加灵活了
+
+
+
+
+
+
+</body>
+</html>

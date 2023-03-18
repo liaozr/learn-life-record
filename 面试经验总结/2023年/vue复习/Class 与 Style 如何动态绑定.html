@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+
+Class 可以通过对象语法和数组语法进行动态绑定
+
+对象语法：
+<div v-bind:class="{ active: isActive, 'text-danger': hasError }"></div>
+
+data: {
+  isActive: true,
+  hasError: false
+}
+
+
+数组语法：
+
+<div v-bind:class="[isActive ? activeClass : '', errorClass]"></div>
+
+data: {
+  activeClass: 'active',
+  errorClass: 'text-danger'
+}
+
+
+
+
+
+Style 也可以通过对象语法和数组语法进行动态绑定
+
+对象语法：
+<div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+
+data: {
+  activeColor: 'red',
+  fontSize: 30
+}
+
+
+数组语法：
+<div v-bind:style="[styleColor, styleSize]"></div>
+
+data: {
+  styleColor: {
+     color: 'red'
+   },
+  styleSize:{
+     fontSize:'23px'
+  }
+}
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+    
+  考虑一种场景，如果A是B组件的父组件，B是C组件的父组件。如果想要组件A给组件C传递数据，这种隔代的数据，该使用哪种方式呢？
+
+
+  如果是用props/$emit来一级一级的传递，确实可以完成，但是比较复杂；
+
+
+  如果使用事件总线，在多人开发或者项目较大的时候，维护起来很麻烦；如果使用Vuex，的确也可以，但是如果仅仅是传递数据，那可能就有点浪费了。
+
+
+  针对上述情况，Vue引入了$attrs / $listeners，实现组件之间的跨代通信。
+
+
+  先来看一下inheritAttrs，它的默认值true，继承所有的父组件属性除props之外的所有属性；inheritAttrs：false 只继承class属性 。
+
+
+  $attrs：继承所有的父组件属性（除了prop传递的属性、class 和 style ），一般用在子组件的子元素上
+
+
+  $listeners：该属性是一个对象，里面包含了作用在这个组件上的所有监听器，
+
+  
+  可以配合 v-on="$listeners" 将所有的事件监听器指向这个组件的某个特定的子元素。（相当于子组件继承父组件的事件）
+
+
+</body>
+</html>
