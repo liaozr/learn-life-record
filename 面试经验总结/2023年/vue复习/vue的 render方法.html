@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+ ----------------------------------------------------------------------------------------------------------
+    
+    Vue 的 render 方法是用来渲染组件的函数，它可以用来替代模板语法，
+
+    通过代码的方式来生成 DOM 结构。相较于模板语法，render 方法具有更好的类型检查和代码提示。
+
+    下面详细介绍 Vue 的 render 方法的使用方法：
+
+    render: function (createElement) {
+        // 返回一个 VNode
+    }
+
+    其中 createElement 是一个函数，它用来创建 VNode（虚拟节点），并返回一个 VNode 对象。
+
+
+    render: function (createElement) {
+        return createElement('div', 'Hello, world!')
+    }
+    
+----------------------------------------------------------------------------------------------------------
+
+    如果要创建一个带有子节点的元素，可以将子节点作为第三个参数传递给 createElement 函数。
+    
+    例如，下面的代码创建了一个包含两个子元素的 div 元素：
+
+    render: function (createElement) {
+        return createElement('div', [
+            createElement('h1', 'Hello'),
+            createElement('p', 'World')
+        ])
+    }
+
+----------------------------------------------------------------------------------------------------------
+
+    如果要给元素添加属性，可以将属性对象作为第二个参数传递给 createElement 函数。
+    
+    例如，下面的代码创建了一个带有样式和事件处理程序的 button 元素：
+
+    render: function (createElement) {
+      return createElement('button', {
+        style: { backgroundColor: 'red' },
+        on: {
+          click: this.handleClick
+        }
+      }, 'Click me')
+    },
+    methods: {
+      handleClick: function () {
+        console.log('Button clicked')
+      }
+    }
+    
+----------------------------------------------------------------------------------------------------------
+
+动态数据
+
+render 方法可以根据组件的状态动态生成内容。
+
+要在 render 方法中使用组件的数据，可以使用 this 关键字来访问组件实例的属性。
+
+例如，下面的代码根据组件的状态动态生成了一个带有计数器的 div 元素：
+
+render: function (createElement) {
+  return createElement('div', [
+    createElement('p', 'Count: ' + this.count),
+    createElement('button', {
+      on: {
+        click: this.increment
+      }
+    }, 'Increment')
+  ])
+},
+data: function () {
+  return {
+    count: 0
+  }
+},
+methods: {
+  increment: function () {
+    this.count++
+  }
+}
+
+----------------------------------------------------------------------------------------------------------
+
+
+</body>
+</html>

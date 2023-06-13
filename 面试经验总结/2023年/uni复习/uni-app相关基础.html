@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+项目目录基本介绍
+
+pages目录存在所有的页面
+
+static文件存放静态资源
+
+unpackage文件为打包目录，存放打包输出的文件
+
+App.vue是根组件，也是页面 de的入口文件，所有页面都是在App.vue下面进行切换，在这个文件中可以调用应用的生命周期函数
+
+main.js 文件是项目的入口文件，主要作用是初始化vue实例并使用需要的插件
+
+mainfest.json 文件是应用的配置文件用于指定应用的名称、图标、权限等
+
+pages.json 对uniapp进行全局配置，决定页面的路径，窗口样式、原生导航栏等
+
+
+
+-------------------------------------------------------------------------------------------------------
+
+uni-app的生命周期
+
+uniapp的生命周期主要分为三类：应用生命周期、页面生命周期、页面内组件生命周期
+
+(1) 应用生命周期：
+onlaunch、onshow、onhide
+
+(2) 页面生命周期：
+
+按照页面的加载 onLoad(加载后开始渲染)、
+页面的显示 onShow、
+渲染完成 onReady、
+隐藏 onHide、
+页面的卸载 onUnload
+
+(3) 组件生命周期：
+
+beforeCreate： 在实例初始化之后被调用
+created： 实例创建完成后被立即调用--调函数、
+beforeMount： 在挂载开始之前被调用
+mounted： 挂载到实例上去之后调用
+destroyed：Vue 实例销毁后调用
+
+
+
+
+
+</body>
+</html>
