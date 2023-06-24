@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    ------------------------------------------------------------------------------------------
+
+    <!-- 这个是table表格里面的字段校验 -->
+    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" 
+    label-width="110px" v-loading="dataListLoading"
+    :disabled="false">
+        <el-row v-if="curType == 'canAdd'">
+            <el-button type="text" @click="detailAddHandle()">
+                <i class="iconfont erp-icon-tianjiamingxi"></i>新增明细行
+            </el-button>
+        </el-row>
+        <el-row>
+            <el-table :data="dataForm.detailList" stripe border highlight-current-row max-height="400"
+                v-loading="dataListLoading">
+                <el-table-column prop="prodCode" label="产品编码"></el-table-column>
+                <el-table-column prop="marketingAllowance" label="营销津贴">
+                    <template slot="header" slot-scope="scope">
+                        <span class="star">*</span>
+                        <span class="starName">营销津贴</span>
+                    </template>
+                    <template slot-scope="scope">
+                        <el-form-item :prop="'detailList[' + scope.$index + '].marketingAllowance'"
+                            :rules="dataRule.validnegative" label-width="0px">
+                            <div class="inlineInput">
+                                <el-input v-model="scope.row.marketingAllowance" min=0 max=100 placeholder
+                                    type="Number" @mousewheel.native.prevent></el-input>%                         
+                            </div>
+                        </el-form-item>
+                    </template>
+                </el-table-column>
+            </el-table> 
+        </el-row>   
+    </el-form> 
+    
+ ------------------------------------------------------------------------------------------
+
+    <!--这个不是table表格里面的字段校验  -->
+    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" label-width="110px" v-loading="dataListLoading"
+        :disabled="false">
+        <el-row>
+            <div class="el-lay">
+                <el-form-item prop="selectValue" label-width="0px">
+                    <el-select v-model="selectValue" placeholder="请选择">
+                        <el-option v-for="item in sortLists" :key="item.key" :label="item.value" :value="item.key">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item prop="numCode" :rules="dataRule.validnegative" label-width="0px">
+                    <el-input v-model="dataForm.numCode" placeholder="请输入数值"></el-input> %
+                </el-form-item>
+            </div>
+        </el-row>
+    </el-form>
+
+ ------------------------------------------------------------------------------------------
+     
+    <script>
+        dataRule: {
+            isRequired: [
+                {
+                    required: true,
+                    pattern: '[^ \x22]+',
+                    message: '必填项',
+                    trigger: 'blur'
+                }
+            ],
+            isRequiredSelect: [
+                {
+                    required: true,
+                    message: '必填项',
+                    trigger: 'blur'
+                }
+            ],
+            issaleChannelRequired: [
+                { required: true, message: '必填项', trigger: 'blur' }
+            ],
+            isNoRequired: [{ required: false, message: '', trigger: 'blur' }],
+            isInteger: [
+                { required: true, message: '必填项', trigger: 'change' },
+                { pattern: /^[1-9]\d*$/, message: '正整数', trigger: 'change' }
+            ],
+            isnonnegative: [
+                { required: false, message: '', trigger: 'blur' },
+                {
+                    pattern: /^\+?((0|([1-9]+\d*))|((0\.\d+)|([1-9]+\d*\.\d+)))$/,
+                    message: '非负数',
+                    trigger: 'change'
+                }
+            ],
+            validnegative: [
+                { required: true, message: '必填项', trigger: 'blur' },
+                {
+                    pattern: /^([0-9]{1,2}$)|(^[0-9]{1,2}\.[0-9]{1,2}$)|100$/,
+                    message: '请输入0-100的数字,且最多两位小数',
+                    trigger: 'blur'
+                }
+            ],
+            validBetweenInt: [
+                { required: false, message: '', trigger: 'blur' },
+                { validator: betweenInt(0, 100), trigger: 'change' }
+            ]
+        }
+
+        this.$refs['dataForm'].validate(valid => {
+            if (valid) {
+                this.submitData()
+            }
+        })
+        
+    </script>
+
+  ------------------------------------------------------------------------------------------  
+
+</body>
+</html>
