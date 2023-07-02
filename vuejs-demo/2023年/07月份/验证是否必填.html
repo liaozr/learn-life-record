@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<el-form :model="dataForm" :rules="dataRule" ref="dataForm" 
+		label-width="110px" v-loading="dataListLoading":disabled="false">
+			<el-row>
+				<div class="el-lay">
+					<el-form-item prop="selectValue" label-width="0px">
+						<el-select v-model="selectValue" placeholder="请选择">
+							<el-option v-for="item in sortLists" :key="item.key" :label="item.value" :value="item.key">
+							</el-option>
+						</el-select>
+					</el-form-item>
+					<el-form-item prop="numCode" :rules="dataRule.validnegative" label-width="0px">
+						<el-input @blur="changeBlur(dataForm.numCode)" v-model="dataForm.numCode" min=0 max=100
+							type="Number" @mousewheel.native.prevent placeholder="请输入数值"></el-input> %
+					</el-form-item>
+				</div>
+			</el-row>
+		</el-form>
+		
+		<script>
+			dataRule: {
+				isRequired: [{ required: true, message: '必填项', trigger: 'blur' }],
+				validnegative: [
+					{ required: true, message: '必填项', trigger: 'blur' },
+					{
+						pattern: /^0\.\d[1-9]$|^0\.[1-9]\d$|^[1-9](\.\d{1,2})?$|^[1-9]\d(\.\d{1,2})?$/,
+						message: '请输入0-100的数字(不包括0和100),且最多两位小数',
+						trigger: 'blur'
+					}s
+				],
+			},
+			
+			this.$refs['dataForm'].validate(valid => {
+			    if (valid) {
+					
+				}else{
+					
+				}
+			})
+		</script>
+		
+---------------------------------------------------------------------------------------------------------------
+	        
+	        table表格含有 必填的文本框输入时
+			下面的这个情况是，一些表格里面 含有必填输入的。
+			
+	        <el-form :model="dataForm" :rules="dataRule" ref="dataForm" 
+		       label-width="110px" v-loading="dataListLoading"
+	           :disabled="false">
+			     <el-row>
+					<el-table :data="dataForm.detailList" stripe border 
+					highlight-current-row max-height="400"
+						v-loading="dataListLoading">
+						<el-table-column prop="prodCode" label="产品编码"></el-table-column>
+						<el-table-column prop="prodName" label="产品名称"></el-table-column>
+						<el-table-column prop="specifications" label="规格型号"></el-table-column>
+
+						<el-table-column prop="marketingAllowance" label="营销津贴">
+							<!-- 自定义列表头 -->
+							<template slot="header" slot-scope="scope">
+								<span class="star">*</span>
+								<span class="starName">营销津贴</span>
+							</template>
+							<template slot-scope="scope">
+								<el-form-item :prop="'detailList[' + scope.$index + '].marketingAllowance'"
+									:rules="dataRule.validnegative" label-width="0px">
+									<div class="inlineInput">
+										<el-input v-model="scope.row.marketingAllowance" min=0 max=100 placeholder
+											type="Number" @mousewheel.native.prevent></el-input>%			                                       
+									</div>
+								</el-form-item>
+							</template>
+						</el-table-column>
+					</el-table>
+				</el-row>
+			</el-form>	
+				
+--------------------------------------------------------------------------------------------------------------------				
+			
+			<el-form :model="dataForm" :rules="dataRule" ref="dataForm" label-width="0px">
+				<el-table border :data="dataForm.dataList" :max-height="maxHeight" ref="preTable">
+					<el-table-column label="类型" prop="typeName" show-overflow-tooltip></el-table-column>
+					<el-table-column prop="scale" label="比例">
+						<!-- 自定义列表头 -->
+						<template slot="header" slot-scope="scope">
+							<span class="star">*</span>
+							<span class="starName">比例</span>
+						</template>
+						<template slot-scope="scope">
+							<el-form-item :prop="'dataList[' + scope.$index + '].scale'" :rules="dataRule.validnegative"
+								label-width="0px">
+
+								<div class="inlineInput">
+									<el-input v-model="scope.row.scale" min=0 max=100 placeholder type="Number"
+										@mousewheel.native.prevent></el-input>%
+								</div>
+							</el-form-item>
+						</template>
+					</el-table-column>	
+				</el-table>	
+			</el-form>	
+--------------------------------------------------------------------------------------------------------------------			
+	</body>
+</html>

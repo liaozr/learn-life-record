@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		匹配0到100,且最多两位小数
+		
+		<script>
+		
+		dataRule: {
+		    isRequired: [{ required: true, message: '必填项', trigger: 'blur' }],
+		    validnegative: [
+		        { required: true, message: '必填项', trigger: 'blur' },
+		        {   
+					// 这个是包括 0 和 100 ，且最多两位小数
+		            // pattern: /^([0-9]{1,2}$)|(^[0-9]{1,2}\.[0-9]{1,2}$)|100$/,
+					
+					// 这个是 不包括 0，包括 100，且最多两位小数
+		            // pattern: /^\d\.([1-9]{1,2}|[0-9][1-9])$|^[1-9]\d{0,1}(\.\d{1,2}){0,1}$|^100(\.0{1,2}){0,1}$/,
+					
+					// 这个是不包括0，也不包括 100，且最多两位小数
+		            pattern: /^0\.\d[1-9]$|^0\.[1-9]\d$|^[1-9](\.\d{1,2})?$|^[1-9]\d(\.\d{1,2})?$/,
+		            message: '请输入0-100的数字,且最多两位小数',
+		            trigger: 'blur'
+		        }
+		    ],
+		},
+		
+		// 正负数，且最多保留2位小数
+		{
+			pattern: /^-?\d+\.?\d{0,2}$/,
+			message: '最多保留两位小数',
+			trigger: 'blur'
+		}
+		
+		
+		</script>
+		
+		
+		
+	</body>
+</html>

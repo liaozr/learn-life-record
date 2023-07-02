@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		erp项目里，给table表格加loading效果，建议一般都是用这种，
+		
+		this.$nextTick(() => {
+		    this.showLoading('.tableDiv')
+		})
+		
+		还有个就是常见的 v-loading 效果。
+		
+		
+		
+		
+		涉及到tab 选项卡的 
+		
+		如vc毛利率规则的这种，选项卡列表的权限要配置在后台的，
+		一般要在created 钩子上 要做一层判断，默认展示的是哪个选项卡
+		就是看选项卡有没有被后台分配权限。
+		
+		
+		
+		代码错误的bug 解决后要备注原因
+		
+		你的每日汇报要记得做，体现在jira里 每天下班需要登记
+		
+		还有涉及改动的BUG 需要登记耗时 原因 方案
+		 
+		 
+		 
+		选择框有禁止选择的  传这个值bsUsedAmz: true
+		basicBasicchannelQueryChannelByParams({
+		sellerType: 'VC',
+		bsUsedAmz: true
+		
+		
+		其他页面跳转过来，携带参数的情况下的页面处理
+		一般情况下，要在 created 这个钩子函数  
+		以及 watch $route 监听路由变化的钩子函数，这两个情况下
+		都要加上对跳转携带过来的参数进行处理。
+		
+		
+		
+	</body>
+</html>
