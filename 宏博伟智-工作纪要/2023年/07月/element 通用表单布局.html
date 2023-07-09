@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		 
+		 element 通用表单布局
+		 
+		 一般有 el-form  才会有 el-form-item
+		 
+		 一般有 el-row  ，就会有 el-col  
+		 
+		 el-row，表示的是一行，   el-col 代表的是一个单元体
+		 
+		 el-col 的 span 值加起来 24 则为铺满了 整一行。
+		 
+		 一般有验证表单是否必填的情况下才会有 <el-form></el-form>
+		 
+		 一般有验证表单是否必填的情况下才会有 <el-form></el-form>
+		 
+		 <el-row>
+			<el-col :span="12">
+				<el-form-item prop="selectValue" label="销售平台" label-width="120px">
+					<el-select v-model="selectValue" placeholder="请选择">
+						<el-option v-for="item in sortLists" :key="item.key" :label="item.value" :value="item.key">
+						</el-option>
+					</el-select>
+				</el-form-item>
+			</el-col>
+			<el-col :span="12">
+				<el-form-item prop="numCode" label="品牌" label-width="120px">
+					<el-input placeholder="品牌"></el-input>
+				</el-form-item>	
+			</el-col>
+		</el-row>
+		
+		
+		<el-row>
+			<el-col :span="12">
+				<el-form-item prop="selectValue" label="国家" label-width="120px">
+					<el-select v-model="selectValue" placeholder="请选择">
+						<el-option v-for="item in sortLists" :key="item.key" :label="item.value" :value="item.key">
+						</el-option>
+					</el-select>
+				</el-form-item>
+			</el-col>
+			<el-col :span="12">
+				<el-form-item prop="numCode" label="ASP(CNY)" label-width="120px">
+					<el-input placeholder="品牌"></el-input>
+				</el-form-item>
+			</el-col>
+		</el-row>
+
+
+
+	</body>
+</html>

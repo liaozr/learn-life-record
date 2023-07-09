@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		 
+		 element 通用表单布局
+		 
+		 一般有 el-form  才会有 el-form-item
+		 
+		 一般有 el-row  ，就会有 el-col  
+		 
+		 el-row，表示的是一行，   el-col 代表的是一个单元体
+		 
+		 el-col 的 span 值加起来 24 则为铺满了 整一行。
+		 
+		 
+		 一般有验证表单是否必填的情况下才会有 <el-form></el-form>
+		 
+		 一般有验证表单是否必填的情况下才会有 <el-form></el-form>
+		 
+		 
+		 <el-row>
+			<el-col :span="12">
+				<el-form-item prop="selectValue" label="销售平台" label-width="120px">
+					<el-select v-model="selectValue" placeholder="请选择">
+						<el-option v-for="item in sortLists" :key="item.key" :label="item.value" :value="item.key">
+						</el-option>
+					</el-select>
+				</el-form-item>
+			</el-col>
+			<el-col :span="12">
+				<el-form-item prop="numCode" label="品牌" label-width="120px">
+					<el-input placeholder="品牌"></el-input>
+				</el-form-item>	
+			</el-col>
+		</el-row>
+		
+		
+		<el-row>
+			<el-col :span="12">
+				<el-form-item prop="selectValue" label="国家" label-width="120px">
+					<el-select v-model="selectValue" placeholder="请选择">
+						<el-option v-for="item in sortLists" :key="item.key" :label="item.value" :value="item.key">
+						</el-option>
+					</el-select>
+				</el-form-item>
+			</el-col>
+			<el-col :span="12">
+				<el-form-item prop="numCode" label="ASP(CNY)" label-width="120px">
+					<el-input placeholder="品牌"></el-input>
+				</el-form-item>
+			</el-col>
+		</el-row>
+
+------------------------------------------------------------------------------------------------------
+       
+	   <!-- 选择人员的下拉 -->
+	   <el-form-item label="销售人员" prop="userId" style="margin-top:2px">
+		  <select-seach v-model="dataForm.seller" httpUrl="sys/user/queryUserByParam" httpMethod="post"
+			  data-label="name" data-value="id" data-source="list"
+			  :listDataOptionStatic="sellerIdOption"></select-seach>
+	   </el-form-item>
+		
+------------------------------------------------------------------------------------------------------
+		
+		国家市场下拉    (多维度选择)
+		{
+			label: '国家',
+			value: 'countryList',
+			inputType: 'el-select',
+			httpUrl: 'basicData/queryMwsArea',
+			httpMethod: 'post',
+			dataSource: 'mwsAuthorize',
+			dataValue: 'id',
+			dataLabel: 'id',
+			placeholder: '国家',
+			multiple: true
+		},
+		
+------------------------------------------------------------------------------------------------------
+	  
+	   项目中有三个导出方式
+	   
+	   一个是大文件导出，需要前端自己定义一个标识符，要去downloading-list组件里面根据这个标识符去写代码的
+	   
+	   一个是有弹窗交互的导出
+	   
+	   另一个就是直接导出了
+	   
+------------------------------------------------------------------------------------------------------
+	   
+	  少波说：
+	  
+	  你的工作日志 登记 需要体现： 这项事情 进展到哪里了，完成了哪些
+	  
+	  工作进度到哪了
+	  
+	  日报要呈现进度
+	  
+------------------------------------------------------------------------------------------------------
+	
+	关于日期的大小比较的
+	
+	<script>
+	
+	    if (this.dataForm.latestShelvesDate) {
+			var startNum = parseInt(
+			  this.dataForm.firstShelvesDate.replace(/-/g, ''),
+			  10
+			)
+			var endNum = parseInt(
+			  this.dataForm.latestShelvesDate.replace(/-/g, ''),
+			  10
+			)
+			if (startNum > endNum) {
+			  this.notifyError('最新上架日期不能小于首次上架日期')
+			  return
+			}		
+	  }
+	  
+	</script>
+	
+------------------------------------------------------------------------------------------------------
+
+    枚举值  需要通过一个key 去获取参数的
+	
+   dict('CONDITION_TITLE').then(data => {
+	   
+     this.ConditionTitleOptions = data.fontMaps
+	 
+   })
+------------------------------------------------------------------------------------------------------
+
+	</body>
+</html>
