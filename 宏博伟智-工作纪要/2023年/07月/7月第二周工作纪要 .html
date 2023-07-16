@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    
+    <!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+    有排序的默认为 全表排序 
+    
+    点重置的时候  searchSort记得要清理掉
+
+    <!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+
+    canSelectDisabled  可以选择禁止的人员
+
+    select-seach 这个组件是用于可输入下拉的，一般常用于选择人员上，就是可输入下拉。
+
+    <select-seach v-model="searchData.userId" 
+        httpUrl="sys/user/queryUserByParam" httpMethod="post"
+        data-label="name" data-value="id" data-source="list" :listDataOptionStatic="sellerIdOption"
+    :canSelectDisabled="true"></select-seach>
+
+
+
+    select-all 这个组件就是常见的选择下拉。
+
+    <select-all v-model="dataForm.saleCountryId" :listDataOption="dictDocStatusOption" data-value="id"
+    data-label="nameCn"></select-all>
+    
+    <!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+
+    日历 切换月份问题
+
+    http://www.manongjc.com/detail/42-vcryvkwnaqtqumn.html
+    http://www.manongjc.com/detail/42-vcryvkwnaqtqumn.html
+
+
+    .el-calendar-table td.current {
+    background-color: #fde2e2;
+    }
+    .el-calendar-table td.current:hover {
+    background-color: #fde2e2 !important;
+    }
+    .el-calendar-table .el-calendar-day:hover {
+    background-color: #fde2e2 !important;
+    }
+
+    <!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+    <script>
+
+        // 寻找页面上所有含有class 类为 hasValue的集合
+        let elements = document.querySelectorAll(".hasValue")
+        let length = elements.length
+
+        console.log(elements)
+        console.log(length)
+
+        // 表示的就是页面上的hasValue集合中的第几个，获取到具体的dom元素
+        // elements[i]
+        
+        // elements[i].parentNode.parentNode  获取具体dom元素的父元素的父元素的集合。
+        elements[i].parentNode.parentNode
+
+        for (let i = 0; i < length; i++) {
+          console.log(elements[i].parentNode.parentNode)
+          elements[i].parentNode.parentNode.classList.add('currentHasValue')
+        }
+
+    </script>
+
+    <!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+    <script>
+
+        // 前后去空格，中间空格保留
+        validSpacekey() {
+            for (const item of this.dataForm.detailList) {
+
+                item.loginEmail =
+                item.loginEmail !== null
+                    ? item.loginEmail.replace(/(^\s*)|(\s*$)/g, '')
+                    : null
+
+                item.validator =
+                item.validator !== null
+                    ? item.validator.replace(/(^\s*)|(\s*$)/g, '')
+                    : ''
+
+                item.emailPwd =
+                item.emailPwd !== null
+                    ? item.emailPwd.replace(/(^\s*)|(\s*$)/g, '')
+                    : ''
+
+                item.loginPwd =
+                item.loginPwd !== null
+                    ? item.loginPwd.replace(/(^\s*)|(\s*$)/g, '')
+                    : ''
+
+            }
+        }
+    </script>
+
+      <!-- --------------------------------------------------------------------------------------------------------------------- -->
+  
+      验证必填是写在 el-form-item上的
+      验证必填是写在 el-form-item上的
+      验证必填是写在 el-form-item上的
+
+      <el-form-item :prop="'detailList[' + scope.$index + '].phoneNumber'" 
+      :rules="dataRule.isValidMobile" label-width="0px">
+
+         <textarea-all v-model="scope.row.phoneNumber" 
+             placeholder="手机号" :disabled="isDisabled">
+         </textarea-all>
+
+     </el-form-item>
+
+
+     <!-- --------------------------------------------------------------------------------------------------------------------- -->
+   
+     多维度搜索默认是有 Enter 键 搜索 请求的，除非是有文本框多选功能。
+
+     多维度搜索默认是有 Enter 键 搜索 请求的，除非是有文本框多选功能。
+
+     <!-- --------------------------------------------------------------------------------------------------------------------- -->
+     
+     css 强制换行
+
+     word-wrap: break-word;
+     word-break: break-all;
+
+     
+     word-wrap: break-word;
+     word-break: break-all;
+
+     <!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+</body>
+</html>
