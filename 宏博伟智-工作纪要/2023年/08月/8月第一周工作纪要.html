@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<!-- ------------------------------------------------------------------------------- -->
+https://www.cnblogs.com/morango/p/15193035.html
+element下拉框远程搜索debounce防抖控制
+element下拉框远程搜索debounce防抖控制
+<!-- ------------------------------------------------------------------------------- -->
+
+备货执行情况报表  有合并在合计的功能
+
+小包自发货清单的 合并高亮是可以参考的
+
+备货执行情况报表  有合并在合计的功能
+
+小包自发货清单的 合并高亮是可以参考的
+
+<!-- ------------------------------------------------------------------------------- -->
+
+prod-up-picture 这个组件里面有图片放大和缩小的功能
+
+prod-up-picture 这个组件里面有图片放大和缩小的功能
+
+<!-- ------------------------------------------------------------------------------- -->
+
+导出的一般涉及到的请求参数
+
+let dataObj = {}
+if (this.searchData) {
+  dataObj = Object.assign({}, dataObj, this.searchData)
+}
+this.request = getRequest()
+if (JSON.stringify(this.$route.query) !== '{}') {
+  dataObj = Object.assign({}, this.request)
+}
+dataObj = Object.assign({}, dataObj, {
+  searchSort: this.sortParmas
+})
+
+dataObj = Object.assign(dataObj,this.searchData)
+
+<!-- ------------------------------------------------------------------------------- -->
+
+表单页面命名不要index,要xxx-list
+表单页面命名不要index,要xxx-list
+
+fba多渠道配送申请有 原销售订单号
+fba多渠道配送申请有 原销售订单号
+
+
+<!-- ------------------------------------------------------------------------------- -->
+
+Amazon移除货件 有这个功能
+清除地址栏参数
+
+:isClearUrlParmas="true"
+:isClearUrlParmas="true"
+这个参数就是点击搜索的时候清除掉 别的地方跳过来的地址栏参数。
+这个参数就是点击搜索的时候清除掉 别的地方跳过来的地址栏参数。
+
+<erp-search-panel v-model="searchData" 
+:searchOptions="searchOptions" @search="getDataList(1)"
+:isResetHandle="true" :isClearUrlParmas="true" 
+@resetHandle="resetHandle()"></erp-search-panel>
+
+<!-- ------------------------------------------------------------------------------- -->
+@clearHandle="clearProCode(scope.row)"
+
+<select-seach v-model="scope.row.prodId" httpUrl="prod/prodbasic/queryProdbasicByParam"
+:requestParams="{ bCheckPurUser: true }" httpMethod="post" requestParamsKey="code"
+data-label-right="name_ch" :showName="true" data-label="codeName" data-value="id" data-source="list"
+isSelectChange="true" @clearHandle="clearProCode(scope.row)" @selectChange="codeValue2"></select-seach>
+
+
+:isClearable="false" 不允许清除
+:isClearable="false" 不允许清除
+
+<select-all v-model="searchData.dictCountrySendType"
+ :listDataOption="TypeOption" data-value="key"
+ data-label="value" class="areaTypeSyle" :isClearable="false" style="width:130px"
+:isSelectChange="true"></select-all>
+
+<!-- ------------------------------------------------------------------------------- -->
+
+watch $route 下，不要随便 使用  this.getDataList ,要区分路径，不然会出现异常问题。
+从其他页面跳转过来，获取地址栏参数，并携带地址栏参数请求接口的，
+这种要在 watch $route 那里 记得判断下当前的$route 是否是属于当前的路径，
+因为组件是keep-alive的，不是keep-alive的可以不用判断，但是
+keep-alive的组件是必须要判断的。
+
+不然会出现跳转组件，会引起全局刷新的问题。
+
+let path = '/Amazon-manage-performance-commission/result-schedule/schedule-list'
+
+if (this.$route.path == path) {
+    this.getDataList(1)
+}
+
+<!-------------------------------------------------------------------------------- -->
+
+    这段代码表示的是滚动到某一个锚点，相当于滚动条滚动的效果，相当于滚动条滚动的效果。
+    也类似于a标签的锚点那种滚动。也类似于a标签的锚点那种滚动。
+
+    setTimeout(() => {
+
+        document.querySelector("#fullchartsLay").scrollIntoView(true)
+
+    }, 20)
+
+<!-------------------------------------------------------------------------------- -->
+
+JavaScript如何做空字符串的校验
+
+通过正则表达式校验
+
+<script>
+    if(str && /[^\s]/.test(str)) {
+    // 不为空  
+    } else {
+    // 为空
+    }
+</script>
+<!-------------------------------------------------------------------------------- -->
+
+解决问题要填写问题原因。不然会被测试打回来。
+解决问题要填写问题原因。不然会被测试打回来。
+
+<!-------------------------------------------------------------------------------- -->
+
+金额合计字段支持千分位显示
+sums[index] = Number(sums[index].toFixed(2)).toLocaleString()
+sums[index] = Number(sums[index].toFixed(2)).toLocaleString()
+
+<!-------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>
