@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+少波:我后面能在jira里看到你较为详细的每日工作内容进度吗
+少波:我后面能在jira里看到你较为详细的每日工作内容进度吗
+少波:我后面能在jira里看到你较为详细的每日工作内容进度吗
+
+<!-- ------------------------------------------------------------------ -->
+    
+每个新开发的列表页面尽量加上这一段
+watch route 下重置下 搜索框的值的状态,有些会有异常的bug,如提成结果明细表那个表单页面
+出现多维度搜索的 有些输入框出现无法输入.
+所以新开发的表单,都需要加上这一段代码.
+
+watch: {
+	$route(to, from) {
+		if (Object.keys(this.$route.query).length > 0) {		  
+		} else {
+		    this.searchData = this.$options.data().searchData
+		    let beforeDate = GetInputDateStr(new Date(), -4)
+		    let date = beforeDate.slice(0, 7)
+		    this.searchData.monthDateRange = [date, date]
+		    this.searchData.dayDateRange = []
+		}
+	},
+	deep: true
+}
+<!-- ------------------------------------------------------------------ -->
+
+处理 表格放大缩小 错位 ( FBA索赔这个表单里面可以重点参考 )
+
+watch: {
+    dataList: {
+      // 解决表格显示错位问题
+      handler() {
+        this.$nextTick(() => {
+          console.log('对table重新布局')
+          // tableRef是el-table绑定的ref属性值
+          this.$refs.Eltable.doLayout() // 对 Table 进行重新布局
+        })
+      },
+      deep: true
+    }
+ },
+
+全局样式
+.el-table--border th.gutter:last-of-type {
+  display: block !important;
+  width: 17px !important;
+}
+
+.el-table th.gutter {
+  display: table-cell !important;
+}
+
+.el-table colgroup.gutter {
+  display: table-cell !important;
+}
+
+<!-- ------------------------------------------------------------------ -->
+
+销售订单的自发货订单，从钉钉消息跳转过来的是可以参考的
+
+销售订单的自发货订单，从钉钉消息跳转过来的是可以参考的
+
+<!-- ------------------------------------------------------------------ -->
+
+websocket的了解
+https://blog.csdn.net/AisinGioroGouzi/article/details/125987740
+https://blog.csdn.net/qq_37332614/article/details/131582484
+
+https://juejin.cn/post/6844904007593361415?searchId=202308080904473C317A414FF19369FBCD
+https://juejin.cn/post/7146465704387018760?searchId=20230808110518513E5736E5DD75787CED#heading-5
+https://juejin.cn/post/7080171898176274463?searchId=20230808093850A5A514D93CE9636C0B92
+https://juejin.cn/post/7020964728386093093?searchId=20230808093850A5A514D93CE9636C0B92#heading-9
+
+<!-- ------------------------------------------------------------------ -->
+
+解决问题要填写问题原因。不然会被测试打回来。
+
+<!-- ------------------------------------------------------------------ -->
+
+
+
+</body>
+</html>
