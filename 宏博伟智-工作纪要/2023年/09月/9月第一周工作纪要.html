@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+
+表头换行
+
+<el-table-column prop="bPrint" width="90">
+
+    <template slot="header" slot-scope="scope">
+        <div style="line-height:20px;">截货时间</div>
+        <div style="line-height:20px;">开船车时间</div>
+    </template>
+    <template slot-scope="scope">
+        <el-tag v-if="scope.row.bPrint == false" size="small" type="danger">未打</el-tag>
+        <el-tag v-else size="small">已打</el-tag>
+    </template>
+
+</el-table-column>
+
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+
+table表格错位的解决办法是，还得加上table正常情况下，表格只会有一行展示，参考待组装清单。。
+
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+
+
+// 大于等于0，保留2位小数
+isnoRequired2: [
+  { required: false, message: '', trigger: 'blur' },
+  { pattern: /(^[0-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/, message: '大于等于0，保留2位小数', trigger: 'blur' }
+],
+
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+
+{
+    label: '仓库名称',
+    value: 'addressWarehouseIds',
+    inputType: 'el-select',
+    httpUrl: 'basic/basicwarehouse/queryWarehouseByParam',
+    requestParams: { noProperty: 'FBA,WORK_SHOP', compIds: compIds },
+    multiple: true,
+    collapseTags: true,
+    dataSource: 'list',
+    title: 'warehouseId',
+    dataValue: 'id',
+    dataLabel: 'name',
+    placeholder: '仓库名称',
+    httpMethod: 'post'
+  },
+
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+
+自定义校验
+<script>
+ const checkAgings = (rule, value, callback) => {
+      // let len = value.length
+      value = value.toString()
+      value = this.getSpace(value)
+      if (value.includes('-')) {
+        let num1 = value.split('-')[0]
+        let num2 = value.split('-')[1]
+        let num3 = value.split('-')[2]
+        if (num3) {
+          callback(new Error('请输入正确的时效，如10-10，10-20'))
+        } else {
+          if (!(/(^[1-9]\d*$)/.test(num1))) {
+            callback(new Error('请输入正确的时效，如10-10，10-20'))
+          } else {
+            if (!(/(^[1-9]\d*$)/.test(num2))) {
+              callback(new Error('请输入正确的时效，如10-10，10-20'))
+            } else {
+              callback()
+            }
+          }
+        }
+      } else {
+        callback(new Error('请输入正确的时效，如10-10，10-20'))
+      }
+    }
+</script>
+
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+
+
+</body>
+</html>
