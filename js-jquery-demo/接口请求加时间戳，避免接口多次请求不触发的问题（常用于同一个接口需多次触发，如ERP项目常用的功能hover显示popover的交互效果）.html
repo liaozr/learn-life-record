@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+	  接口请求加时间戳，
+	  接口请求加时间戳，避免接口多次请求不触发的问题（常用于同一个接口需多次触发，如ERP项目常用的功能hover显示popover的交互效果）
+	  
+	  <script>
+		  
+		  let timestamp = Date.now()
+		  let params = {}
+		  
+		  this.$http({
+			url: this.$http.adornUrl(`bi/channelOrderFinSummary/queryYearTarget?timestamp=${timestamp}`),
+			method: 'post',
+			data: params
+		  }).then(({ data }) => {
+
+		  })
+	  </script>
+	  
+	  这样可以实现，同一个接口可以在短时间内被重复触发请求，加时间戳主要是为了告诉浏览器，我这个是新请求的接口，不要使用缓存，可以让我重新触发请求。
+	  
+	</body>
+</html>
