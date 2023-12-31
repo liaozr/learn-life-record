@@ -61,6 +61,11 @@
 			{ pattern: /^([1-9]\d*(\.\d{1,2})?|([0](\.([0][1-9]|[1-9]\d{0,1}))))$/, message: '大于0，保留2位小数', trigger: 'blur' }
 		],
 		
+		// 大于等于0，保留2位小数
+        isnoRequired2: [
+          { required: false, message: '', trigger: 'blur' },
+          { pattern: /(^[0-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/, message: '大于等于0，保留2位小数', trigger: 'blur' }
+        ],
 		
 		// 请输入大于0的正整数
 		isInteger: [

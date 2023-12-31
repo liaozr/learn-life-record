@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> 
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+
+    解决问题要填写问题原因。不然会被测试打回来。
+
+    下次发版本一定不要超过太晚了，一定一定。
+
+    少波:我后面能在jira里看到你较为详细的每日工作内容进度吗
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+    每个新开发的列表页面尽量加上这一段
+
+    watch route 下重置下 搜索框的值的状态,有些会有异常的bug,如提成结果明细表那个表单页面
+
+    出现多维度搜索的 有些输入框出现无法输入.
+
+    所以新开发的表单,都需要加上这一段代码.
+
+    watch: {
+        $route(to, from) {
+            if (Object.keys(this.$route.query).length > 0) {		  
+            } else {
+                this.searchData = this.$options.data().searchData
+                let beforeDate = GetInputDateStr(new Date(), -4)
+                let date = beforeDate.slice(0, 7)
+                this.searchData.monthDateRange = [date, date]
+                this.searchData.dayDateRange = []
+            }
+        },
+        deep: true
+    }
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+处理 表格放大缩小 错位
+
+ watch: {
+    dataList: {
+      // 解决表格显示错位问题
+      handler() {
+        this.$nextTick(() => {
+          console.log('对table重新布局')
+          // tableRef是el-table绑定的ref属性值
+          this.$refs.zuzhuangList.doLayout() // 对 Table 进行重新布局
+        })
+      },
+      deep: true
+    }
+ },
+ destroyed() {
+    // 销毁Clipboard实例，避免在其它页面或组件中实例化Clipboard后造成再次监听，产生重复回调
+    window.removeEventListener("resize", this.handleResize);
+ },
+ mounted() {
+    window.addEventListener('resize', this.handleResize);
+ },
+ methods:{
+    handleResize() {
+        this.$nextTick(() => {
+          this.$refs.zuzhuangList.doLayout();
+        });
+    },
+ }
+
+全局样式
+.el-table--border th.gutter:last-of-type {
+  display: block !important;
+  width: 17px !important;
+}
+.el-table th.gutter {
+  display: table-cell !important;
+}
+.el-table colgroup.gutter {
+  display: table-cell !important;
+}
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+销售订单的自发货订单，从钉钉消息跳转过来的是可以参考的
+销售订单的自发货订单，从钉钉消息跳转过来的是可以参考的
+销售订单的自发货订单，从钉钉消息跳转过来的是可以参考的
+
+涉及到浏览器携带参数跳转的,店铺管理跟、销售订单、平台仓库存单据错误日志都是可以参考的
+
+涉及到浏览器携带参数跳转的,店铺管理跟平台仓库存单据错误日志都是可以参考的
+
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+  el-option 里面 放span
+
+  可以实现下拉框展示的数据 跟x输入框里面的label值是不一样的。
+  可以实现下拉框展示的数据 跟输入框里面的label值是不一样的。
+
+ <el-select clearable  @clear="clearProdId(scope.row, scope.row.prodId)"
+  @change="codeValue(scope, scope.row, scope.row.prodId)" v-model="scope.row.prodId"
+  placeholder="请选择">
+
+  <el-option v-for="item in spuListArr" :key="item.key" :disabled="item.disabled" :label="item.code"
+    :value="item.code">
+    <span style="float: left">{{ item.labelName }}</span>
+  </el-option>
+
+</el-select>
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+websocket的了解
+
+https://blog.csdn.net/AisinGioroGouzi/article/details/125987740
+https://blog.csdn.net/qq_37332614/article/details/131582484
+
+https://juejin.cn/post/6844904007593361415?searchId=202308080904473C317A414FF19369FBCD
+https://juejin.cn/post/7146465704387018760?searchId=20230808110518513E5736E5DD75787CED#heading-5
+https://juejin.cn/post/7080171898176274463?searchId=20230808093850A5A514D93CE9636C0B92
+https://juejin.cn/post/7020964728386093093?searchId=20230808093850A5A514D93CE9636C0B92#heading-9
+https://zhuanlan.zhihu.com/p/355765098
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+//清空选中行class
+clearClassName() {
+  for (let i = 0; i < this.dataForm.otherPlatList.length; i++) {
+    let selector = `.el-table__row:nth-child(${i})`
+    jquery(selector).remove('current-row')
+  }
+},
+//点击行触发
+handleRowClick(row, column, event) {
+  console.log('aaaaaaaaa')
+  let id = row.id
+  this.clearClassName()
+  setTimeout(() => {
+    for (let i = 0; i < this.dataForm.otherPlatList.length; i++) {
+      if (row.id == this.dataForm.otherPlatList[i].id) {
+        let selector = `.el-table__row:nth-child(${i + 1})`
+        jquery(selector).addClass('current-row')
+      } else {
+        let selector = `.el-table__row:nth-child(${i + 1})`
+        jquery(selector).removeClass('current-row')
+      }
+    }
+  }, 20)
+},
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+发版后的第二天上午不要提交代码
+
+发版后的第二天上午不要提交代码--
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+tooltip支持复制，锁库记录表，不能写在全局样式里面。
+
+<template slot-scope="scope">
+
+   <el-tooltip v-if="props.scope.row.prodName && props.scope.row.prodName.length > 10" 
+    class="item" effect="dark"
+            :content="props.scope.row.prodName" placement="top">
+            <div style="overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
+                {{ props.scope.row.prodName }}
+            </div>
+    </el-tooltip>
+    <span v-else>{{ scope.row.buyerEmail }}</span>
+
+</template>
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+
+我们ERP所有的下拉输入框 都要做成支持输入搜索的哈
+
+我们ERP所有的下拉输入框 都要做成支持输入搜索的哈
+
+几乎详情页的涉及用户编辑的都要这样
+
+下拉值只有两三个的 没有都可以 但是多一些就要提供
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+每年的4月份跟8月份都容易亏得吐血，一个是披露一季报，一个是披露中报，
+这两个月份都是很容易造成血亏的
+
+每年的4月份跟8月份都容易亏得吐血，一个是披露一季报，一个是披露中报，
+这两个月份都是很容易造成血亏的
+
+每年的4月份跟8月份都容易亏得吐血，一个是披露一季报，一个是披露中报，
+这两个月份都是很容易造成血亏的
+
+<!-- ----------------------------------------------------------------------------------------------- -->
+
+</body>
+</html>
