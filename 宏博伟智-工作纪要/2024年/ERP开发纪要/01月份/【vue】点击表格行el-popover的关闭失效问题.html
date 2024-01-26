@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		 https://zhuanlan.zhihu.com/p/470827219?utm_id=0
+		 https://zhuanlan.zhihu.com/p/470827219?utm_id=0
+		
+		【vue】点击表格行el-popover的关闭失效问题
+		
+		 在el-popover里面切换跳转，在跳转前先对打开的popover进行关闭。
+		 
+	
+		<script>
+			
+		  if (type == 1) {
+			queryType = 'thirtyDay'
+			this.$refs.thirtyInfoList1.doClose()
+		  } else {
+			queryType = 'sixtyDay'
+			this.$refs.sixtyInfoList1.doClose()
+		  }
+		  let params = {
+			queryType: queryType,
+			// specifications: row.specifications,
+			skipSpecifications: row.specifications,
+			countryCode: row.countryId
+		  }
+		  this.$router.push({
+			name: 'warehouse-report/FBA-track-differences/FBA-track-differences-list',
+			query: params
+		  })
+		  
+		</script>
+		
+		
+	</body>
+</html>
