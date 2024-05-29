@@ -17,8 +17,19 @@
 		  this.$http({
 			url: this.$http.adornUrl(`bi/channelOrderFinSummary/queryYearTarget?timestamp=${timestamp}`),
 			method: 'post',
+			headers: {
+			 version: encodeURIComponent(localStorage.localversion)
+			},
 			data: params
 		  }).then(({ data }) => {
+			  
+			  if(data.code == 200 || data.code == 0){
+				   this.notifySuccess('保存成功')
+				   // this.visible = false
+				   // this.$emit('refreshDataList')
+			  }else{
+				  this.notifyError(data.msg)
+			  }
 
 		  })
 	  </script>
