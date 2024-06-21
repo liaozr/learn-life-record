@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		    v-for 合并表格。
+			
+		    <template>
+			  <table border="1">
+			    <thead>
+			      <tr>
+			        <th>姓名</th>
+			        <th>年龄</th>
+			        <th>国家</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <template v-for="(person, index) in people">
+			        <template v-if="index === 0 || person.name !== people[index - 1].name">
+			          <tr>
+			            <td :rowspan="getRowspan(person.name)">{{ person.name }}</td>
+			            <td>{{ person.age }}</td>
+			            <td>{{ person.country }}</td>
+			          </tr>
+			        </template>
+			        <template v-else>
+			          <tr>
+			            <td>{{ person.age }}</td>
+			            <td>{{ person.country }}</td>
+			          </tr>
+			        </template>
+			      </template>
+			    </tbody>
+			  </table>
+		    </template>
+			
+			<script>
+				export default {
+				  data() {
+				    return {
+				      people: [
+				        { name: "John", age: 25, country: "USA" },
+				        { name: "John", age: 28, country: "Canada" },
+				        { name: "Jane", age: 22, country: "UK" },
+				        { name: "Jane", age: 24, country: "Australia" },
+				      ]
+				    };
+				  },
+				  methods: {
+				    getRowspan(name) {
+				      return this.people.filter(person => person.name === name).length;
+				    }
+				  }
+				};
+			</script>
+
+	</body>
+</html>
