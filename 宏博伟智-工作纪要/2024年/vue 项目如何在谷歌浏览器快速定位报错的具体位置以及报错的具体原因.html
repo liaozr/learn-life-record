@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		1. 打开开发者工具
+		打开你的 Vue 应用程序在谷歌浏览器中运行的页面。
+		按 F12 键或右键点击页面并选择“检查”来打开开发者工具。
+		
+		
+		2. 查看控制台日志
+		在开发者工具中，选择“Console”选项卡。
+		控制台会显示错误信息，包括错误的具体位置（文件名和行号）。
+		
+		
+		3. 定位错误的具体位置
+		错误日志通常会包含文件名和行号，比如：main.js:45 Uncaught TypeError: Cannot read property 'foo' of undefined。
+		点击这个错误信息，会自动跳转到“Sources”选项卡，并高亮显示报错的具体代码位置。
+		
+		
+		例子：使用开发者工具定位报错
+		假设你在控制台中看到如下错误信息：
+		
+		
+		javascript
+		App.vue:10 Uncaught TypeError: Cannot read property 'foo' of undefined
+		
+		点击 App.vue:10，会跳转到 Sources 选项卡，并高亮显示 App.vue 文件中的第10行代码。
+		
+		检查这行代码，并查看相关变量的值，可以通过鼠标悬停在变量名上来查看变量的当前值，或者在控制台中手动检查。
+		
+		
+	</body>
+</html>

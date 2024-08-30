@@ -34,7 +34,34 @@
 		  })
 	  </script>
 	  
+	   输入框要提供可以搜索的
+	   <el-select v-model="value" filterable placeholder="请选择">
+	      <el-option
+	        v-for="item in options"
+	        :key="item.value"
+	        :label="item.label"
+	        :value="item.value">
+	      </el-option>
+	   </el-select>
+		
+	  
 	  这样可以实现，同一个接口可以在短时间内被重复触发请求，加时间戳主要是为了告诉浏览器，我这个是新请求的接口，不要使用缓存，可以让我重新触发请求。
+	  
+	  
+	  @input="blurTrackNumber"
+	  @blur="handleBlur"
+	  
+	  blurTrackNumber (value) {
+		  let lines = this.dataForm.trackingNumber.split('\n')
+		  lines = lines.map(line => line.trim())
+		  this.dataForm.trackingNumber = lines.join('\n')
+	  },
+	  handleBlur () {
+		// 去除空白行
+		// el-textarea去除空白行以及前后换行
+		const nonEmptyLines = this.dataForm.trackingNumber.split('\n').filter(line => line.trim() !== '')
+		this.dataForm.trackingNumber = nonEmptyLines.join('\n')
+	  },
 	  
 	</body>
 </html>
