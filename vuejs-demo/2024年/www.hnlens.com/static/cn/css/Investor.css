@@ -1,0 +1,575 @@
+* {
+	font-family: 'HarmonyOS_Sans_SC_Regular';
+}
+
+
+#nyBan .p_btitle {
+	line-height: 1.2;
+}
+
+#Inv_number1 {
+	background: url('../img/gpBj1.jpg') no-repeat center/cover;
+	padding-top: 4.7vw;
+	padding-bottom: 8vw;
+}
+
+#Inv_number1 .Invnum1_b {
+	line-height: 1;
+	font-weight: bold;
+	color: #333;
+}
+
+#Inv_number1 .Invnum1_shares {
+	width: 100%;
+	margin-top: 4vw;
+	border-radius: 10px;
+	background: rgba(255 255 255 /40%);
+	box-shadow: 0 0 15px rgba(52 55 59 / 4%);
+	padding: 35px 4vw;
+}
+
+#Inv_number1 .prz {
+	position: relative;
+	zoom: 1;
+}
+
+#Inv_number1 .pra {
+	position: absolute;
+}
+
+
+#Inv_number1 .stc_updown.zd_up:before {
+	content: "+";
+}
+
+#Inv_number1 .st_zd.zd_up:before {
+	content: "+";
+}
+
+#Inv_number1 .stk_left {
+	width: 33%;
+}
+
+#Inv_number1 .stk_cen {
+	width: 29%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: url('../img/xian1.png') no-repeat left;
+}
+
+#Inv_number1 .stk_right {
+	width: 29%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: url('../img/xian1.png') no-repeat left;
+}
+
+#Inv_number1 .s_l_b {
+	width: 100%;
+}
+
+#Inv_number1 .st_price {
+	line-height: 1;
+	/*font-family: 'DIN-Bold';*/
+	font-weight:700;
+	font-family:"Arial";
+}
+
+#Inv_number1 .stk-data {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+#Inv_number1 .stk-data .stc-left {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#Inv_number1 .stk-data .data-from {
+	color: #a8a8a8;
+	right: 0;
+	top: 0;
+}
+
+#Inv_number1 .stk-data .stc-name {
+	color: #222;
+	font-family: "Alibaba-PuHuiTi-Medium";
+}
+
+#Inv_number1 .stk-data .stc-codd {
+	color: #777;
+	margin-left: 15px;
+	text-transform: uppercase;
+}
+
+#Inv_number1 .stk-data .st_date {
+	color: #131313;
+	margin-left: 5px;
+}
+
+#Inv_number1 .data-wrap>.stc-data {
+	font-size: calc(30px + 3.64vw);
+	line-height: 1;
+	position: relative;
+	display: flex;
+	align-items: baseline;
+	width: max-content;
+}
+
+#Inv_number1 .stk-data .zd_up {
+	color: #ff0000;
+}
+
+#Inv_number1 .stk-data .zd_down {
+	color: #169961;
+}
+
+#Inv_number1 .stk-data .pc_tb {
+	list-style: none;
+	width: 80%;
+	height: 100%;
+	max-width: 230px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+#Inv_number1 .stk-data .pc_tb li {
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+
+#Inv_number1 .zd_up {
+	color: #ff0000;
+}
+
+#Inv_number1 .zd_down {
+	color: #169961;
+}
+
+#Inv_number1 .st_price.zd_down:after {
+	content: "";
+	display: block;
+	width: 19px;
+	height: 25px;
+	position: absolute;
+	right: -30px;
+	bottom: 8px;
+	background: url('../img/jian2.png') no-repeat;
+}
+
+#Inv_number1 .st_price.zd_up:after {
+	content: "";
+	display: block;
+	width: 19px;
+	height: 25px;
+	position: absolute;
+	right: -34px;
+	bottom: 12px;
+	background: url('../img/jian1.png') no-repeat;
+}
+
+#Inv_number1 .s_r {
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+
+#Inv_number1 .s_r .stc-data:not(:first-child) {
+	margin-left: 20px;
+}
+
+#Inv_number1 .s_r span {
+	font-family: "Alibaba-PuHuiTi-Medium";
+}
+
+#Inv_number1 .st_price1 {
+	margin-right: 20px;
+	/*font-family: 'DIN-Bold';*/
+	font-weight:700;
+	font-family:"Arial";
+}
+
+#Inv_number1 .thead_cn {
+	width: 50%;
+	color: #777;
+}
+
+#Inv_number1 .stc_right {
+	width: 50%;
+	color: #222;
+	font-family: 'Alibaba-PuHuiTi-Medium';
+}
+
+#Inv_number1 .stc_min {
+	color: #59bb9a;
+}
+
+#Inv_number1 .Invnum1_txt {
+	color: #666;
+	line-height: 1.8;
+	margin-top: 2vw;
+}
+
+#Inv_number2 {
+	width: 100%;
+	padding-top: 5vw;
+}
+
+#Inv_number2 .Invnum2_b1 {
+	line-height: 1;
+	font-weight: bold;
+	color: #000;
+}
+
+#Inv_number2 .Invnum2list1 {
+	margin-top: 4vw;
+	position: relative;
+	padding: 0 80px;
+}
+
+#Inv_number2 .mySwiper_gp {
+	width: 100%;
+	overflow: hidden;
+}
+
+#Inv_number2 .mySwiper_gp .swiper-slide {
+	background: url(../img/gp01.png) no-repeat;
+	background-size: 100% 100%;
+	padding: 2.6vw;
+}
+
+#Inv_number2 .Invnum2_cen {
+	width: 100%;
+}
+
+#Inv_number2 .Invnum2_cen>svg {
+	width: 40px;
+	fill: #c0c0c0;
+}
+
+#Inv_number2 .Invnum2_time {
+	font-size: 16px;
+	color: #777;
+	margin-top: 1vw;
+}
+
+#Inv_number2 .Invnum2_tt {
+	font-weight: bold;
+	color: #222;
+	margin-top: 10px;
+	position: relative;
+	width: fit-content;
+}
+
+#Inv_number2 .Invnum2_tt::after {
+	content: "";
+	width: 0%;
+	height: 1px;
+	background: var(--yx_Color);
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	transition: 0.5s all;
+}
+
+#Inv_number2 .gplink {
+	display: flex;
+	width: 110px;
+	align-items: center;
+	color: #999;
+	margin-top: 2.5vw;
+}
+
+#Inv_number2 .gplink svg {
+	width: 20px;
+	margin-right: 15px;
+}
+
+#Inv_number2 .gplink2 {
+	margin-top: 20px;
+}
+
+#Inv_number2 .swiper_but {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 10;
+	cursor: pointer;
+}
+
+#Inv_number2 .swiper_but .icon {
+	width: auto;
+	height: 36px;
+	color: #cbced1;
+}
+
+#Inv_number2 .swiper_prev {
+	left: 1vw;
+}
+
+#Inv_number2 .swiper_next {
+	right: 1vw;
+}
+
+#Inv_number2 .swiper_but:hover .icon {
+	color: var(--yx_Color);
+}
+
+#Inv_number2 .Invnum2_b2 {
+	line-height: 1;
+	font-weight: bold;
+	color: #000;
+	margin-top: 4.3vw;
+}
+
+#Inv_number2 .Invnum2list2 {
+	margin-top: 2vw;
+}
+
+#Inv_number2 .Invnum2Li {
+	width: 100%;
+	padding: 1.5vw 0;
+	border-bottom: 1px solid rgba(0 0 0 / 10%);
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+#Inv_number2 .Invnum2Time1 {
+	width: 130px;
+	color: rgba(0 0 0 / 50%);
+	line-height: 1;
+}
+
+#Inv_number2 .Invnum2Jt {
+	width: 20px;
+	height: 20px;
+	background: url('../img/jiantou2.png') no-repeat right center;
+}
+
+#Inv_number2 .Invnum2_l2_tt {
+	width: calc(100% - 150px);
+	padding-right: 2vw;
+	color: #333;
+	line-height: 1;
+	font-weight: bold;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+#Inv_number3 {
+	width: 100%;
+	margin-top: 6vw;
+	overflow: hidden;
+	position: relative;
+}
+
+#Inv_number3 img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#Inv_number3 .Inv_number3_text {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#Inv_number3 .Inv_number3_cen {
+	width: 50%;
+	background: #fff;
+	border-radius: 20px;
+	margin-left: auto;
+	padding: 2.8vw 3.6vw;
+}
+
+#Inv_number3 .Inv_number3_text_tt {
+	line-height: 1;
+	font-weight: bold;
+	color: #000;
+}
+
+#Inv_number3 .Inv_number3_text_tt2 {
+	color: rgba(0 0 0 / 80%);
+	padding-left: 55px;
+	background: url('../img/gp02.png') no-repeat left;
+	background-size: 20px;
+	display: block;
+	margin-top: 2vw;
+}
+
+#Inv_number3 .Inv_number3_text_tt3 {
+	color: rgba(0 0 0 / 80%);
+	padding-left: 55px;
+	background: url('../img/gp03.png') no-repeat left;
+	background-size: 20px;
+	margin-top: 15px;
+}
+
+#Inv_number3 .Inv_number3_text_tt4 {
+	color: rgba(0 0 0 / 80%);
+	padding-left: 55px;
+	background: url('../img/gp04.png') no-repeat left;
+	background-size: 20px;
+	margin-top: 15px;
+	display: block;
+}
+
+#Inv_number3 .Inv_number3_text_tt5 {
+	color: rgba(0 0 0 / 80%);
+	padding-left: 55px;
+	background: url('../img/gp05.png') no-repeat left;
+	background-size: 18px;
+	margin-top: 15px;
+}
+
+@media only screen and (min-width: 769px) {
+	#nyBan .textBox{
+		bottom: 70px;
+	}
+}
+
+@media only screen and (min-width: 1500px) and (max-width: 1550px) {
+	#Inv_number1 .stc_right{
+		font-size: 16px;
+	}
+	#Inv_number1 .thead_cn{
+		width: 40%;
+	}
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1250px) {
+	#Inv_number1 .stc_right{
+		font-size: 16px;
+	}
+	#Inv_number1 .thead_cn{
+		width: 40%;
+	}
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1100px) {
+	#Inv_number2 .Invnum2Li {
+		padding: 20px 0;
+	}
+
+	#Inv_number2 .Invnum2_l2_tt {
+		font-size: 20px;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	#Inv_number1 {
+		padding: 50px 0;
+	}
+
+	#Inv_number1 .Invnum1_shares {
+		margin-top: 25px;
+		padding: 30px;
+	}
+
+	#Inv_number1 .stk_left {
+		width: 100%;
+	}
+
+	#Inv_number1 .stk_cen {
+		width: 100%;
+		margin-top: 20px;
+		background: transparent;
+	}
+
+	#Inv_number1 .stk_right {
+		width: 100%;
+		background: transparent;
+	}
+
+	#Inv_number1 .data-wrap>.stc-data {
+		margin-top: 10px;
+	}
+
+	#Inv_number1 .stk-data .pc_tb {
+		width: 100%;
+		max-width: 100%;
+	}
+
+	#Inv_number1 .s_r {
+		margin-top: 10px;
+	}
+
+	#Inv_number1 .stk-data .pc_tb li {
+		margin: 5px 0;
+	}
+
+	#Inv_number1 .Invnum1_txt {
+		margin-top: 20px;
+	}
+
+	#Inv_number2 {
+		padding-top: 50px;
+	}
+
+	#Inv_number2 .Invnum2list1 {
+		padding: 0 30px;
+	}
+
+	#Inv_number2 .swiper_but .icon {
+		height: 22px;
+	}
+
+	#Inv_number2 .mySwiper_gp .swiper-slide {
+		padding: 25px;
+	}
+
+	#Inv_number2 .gplink {
+		margin-top: 10px;
+	}
+
+	#Inv_number2 .Invnum2_b2 {
+		margin-top: 50px;
+	}
+
+	#Inv_number2 .Invnum2list2 {
+		margin-top: 20px;
+	}
+
+	#Inv_number2 .Invnum2Li {
+		padding: 15px 0;
+	}
+
+	#Inv_number2 .Invnum2Time1 {
+		font-size: 14px;
+		width: 80px;
+	}
+
+	#Inv_number2 .Invnum2_l2_tt {
+		width: calc(100% - 100px);
+		font-size: 16px;
+	}
+
+	#Inv_number3 {
+		margin-top: 40px;
+	}
+
+	#Inv_number3 .Inv_number3_text {
+		position: unset;
+		transform: translate(0%, 0%);
+		margin-top: 25px;
+		margin-bottom: 40px;
+	}
+
+	#Inv_number3 .Inv_number3_cen {
+		width: 100%;
+	}
+
+	#Inv_number3 .Inv_number3_text_tt2 {
+		margin-top: 30px;
+	}
+}

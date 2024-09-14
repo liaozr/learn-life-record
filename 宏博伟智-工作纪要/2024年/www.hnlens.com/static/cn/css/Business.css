@@ -1,0 +1,220 @@
+* {
+	font-family: 'HarmonyOS_Sans_SC_Regular';
+}
+
+#cateBox .cateLi:nth-child(1)::after {
+	width: 100%;
+}
+
+#nyBan .p_btitle {
+	line-height: 1.2;
+}
+
+#BusBox .busFenBox li.active a {
+	color: var(--yx_Color);
+}
+
+#BusBox .busFenBox li.active a::after {
+	width: 100%;
+}
+
+#BusBox {
+	background: #f4f9fe;
+	padding-top: 50px;
+	overflow: hidden;
+	padding-bottom: 30px;
+}
+
+#BusBox .busFenBox {
+	display: flex;
+}
+
+#BusBox .busFenBox li {
+	margin-right: 20px;
+}
+
+#BusBox .busFenBox li a {
+	display: block;
+	line-height: 50px;
+	padding: 0 10px;
+	position: relative;
+	font-weight: bold;
+	color: rgba(51 51 51 / 50%);
+}
+
+#BusBox .busFenBox li a:after {
+	content: "";
+	width: 0%;
+	height: 4px;
+	background: var(--yx_Color);
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	transform: translateX(-50%);
+	transition: 0.5s all;
+}
+
+#BusBox .busFenBox li a:hover {
+	color: var(--yx_Color);
+}
+
+#BusBox .busFenBox li a:hover:after {
+	width: 100%;
+}
+
+#BusBox .Bus_b {
+	line-height: 1;
+	font-weight: bold;
+	color: #000;
+	margin-top: 3.8vw;
+	display: none;
+}
+
+#BusBox .Bus_List {
+	margin-top: 4vw;
+}
+
+#BusBox .busLi {
+	width: 100%;
+	border-radius: 20px;
+	overflow: hidden;
+	background-color: #fff;
+	position: relative;
+	margin-bottom: 2.2vw;
+	display: flex;
+    align-items: center;
+}
+
+#BusBox .busLi_box1 {
+	width: 50%;
+}
+
+#BusBox .busLi_box2 {
+	width: 50%;
+	height: 100%;
+	background: rgba(255 255 255 / 97%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#BusBox .busLi_box1_img {
+	width: 100%;
+	position: relative;
+	max-height: 400px;
+	height: 22vw;
+}
+
+#BusBox .busLi_box1_img img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#BusBox .busLi_box1_img:hover img{
+ transform:translate(-50%, -50%) scale(1.05);
+}
+
+#BusBox .busLi_box1_text {
+	width: 83%;
+	font-weight: bold;
+	line-height: 1.5;
+	margin: 25px auto 35px;
+	color: #333;
+	display: none;
+}
+
+#BusBox .busLi:hover .busLi_box2 {
+	visibility: visible;
+	opacity: 1;
+}
+
+#BusBox .busLi_box2_cen {
+	width: 90%;
+	max-width: 585px;
+	margin: 40px 0;
+}
+
+#BusBox .busLi_box2_tt {
+	line-height: 1;
+	color: #333;
+	font-weight: bold;
+}
+
+#BusBox .busLi_box2_tt:hover{
+	color: var(--yx_Color);
+}
+
+#BusBox .busLi_box2_sum {
+	line-height: 1.6;
+	margin-top: 25px;
+	color: #333;
+}
+
+@media only screen and (min-width: 769px) {
+	#cateBox {
+		background: url(../img/fenbj01.png) no-repeat;
+		margin-top: -81px;
+		position: relative;
+		z-index: 1;
+		border-top: 1px solid rgba(255 255 255 / 20%);
+	}
+	#BusBox .busLi:nth-child(2n) {
+		flex-direction: row-reverse;
+	}
+}
+
+
+@media only screen and (max-width: 768px) {
+	#BusBox .busFenBox {
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+	#BusBox .busFenBox li.active a::after{width:60%;}
+	#BusBox .busFenBox li:hover a::after{width:60%;}
+	
+
+	#BusBox .busFenBox li {
+		width: 48%;
+		margin: 5px 0;
+		text-align: center;
+	}
+
+	#BusBox .busFenBox li a {
+		line-height: 40px;
+	}
+
+	#BusBox .busFenBox li a:after {
+		height: 2px;
+	}
+
+	#BusBox .Bus_b {
+		margin-top: 40px;
+	}
+
+	#BusBox .Bus_List {
+		margin-top: 30px;
+	}
+
+	#BusBox .busLi {
+		width: 100%;
+		flex-wrap: wrap;
+		margin-bottom: 25px;
+	}
+
+	#BusBox .busLi_box1_img {
+		height: 50vw;
+	}
+
+	#BusBox .busLi_box1 {
+		width: 100%;
+	}
+
+	#BusBox .busLi_box2 {
+		width: 100%;
+	}
+}

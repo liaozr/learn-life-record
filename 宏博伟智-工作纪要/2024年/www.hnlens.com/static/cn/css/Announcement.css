@@ -1,0 +1,220 @@
+* {
+	font-family: 'HarmonyOS_Sans_SC_Regular';
+}
+
+#cateBox .cateLi:nth-child(3)::after {
+	width: 100%;
+}
+
+#Ann_number1 {
+	width: 100%;
+	padding-top: 5vw;
+	padding-bottom: 6vw;
+}
+
+#Ann_number1 .AnnBox1 {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+#Ann_number1 .Ann_b {
+	line-height: 1;
+	font-weight: bold;
+	color: #333;
+}
+
+#Ann_number1 .fenLi {
+	color: rgba(51 51 51 / 50%);
+	display: inline-block;
+	font-weight: bold;
+	line-height: 52px;
+	position: relative;
+	padding: 0 10px;
+	transition: 0.3s all;
+	margin-left: 1.5vw;
+}
+
+#Ann_number1 .fenLi::after {
+	content: "";
+	width: 0%;
+	height: 4px;
+	background: var(--yx_Color);
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	transform: translateX(-50%);
+	transition: 0.5s all;
+}
+
+#Ann_number1 .fenLi:hover:after {
+	width: 100%;
+}
+
+#Ann_number1 .fenLi:hover {
+	color: var(--yx_Color);
+}
+
+#Ann_number1 .fenLi:nth-child(2) {
+	color: var(--yx_Color);
+}
+
+#Ann_number1 .fenLi:nth-child(2)::after {
+	width: 100%;
+}
+
+#Ann_number1 .AnnBox2 {
+	margin-top: 3.4vw;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#Ann_number1 .AnnLi {
+	width: 100%;
+	padding: 2.5vw 0;
+	border-bottom: 1px solid rgba(0 0 0 / 10%);
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+#Ann_number1 .infoBox {
+	display: flex;
+	width: 75px;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+#Ann_number1 .AnnTime1 {
+	font-weight: bold;
+	color: var(--yx_Color);
+	line-height: 1;
+}
+
+#Ann_number1 .AnnTime2 {
+	color: var(--yx_Color);
+	line-height: 1;
+}
+
+#Ann_number1 .Ann_tt {
+	margin-left: 30px;
+	padding-left: 30px;
+	color: #333;
+	position: relative;
+	width: calc(100% - 290px);
+}
+
+#Ann_number1 .Ann_tt::before {
+	content: "";
+	width: 1px;
+	height: 65px;
+	border-left: 1px dashed rgba(0 0 0 / 30%);
+	position: absolute;
+	left: 0;
+	top: -6px;
+}
+
+#Ann_number1 .Ann_tt span {
+	width: 80%;
+	display: block;
+}
+
+#Ann_number1 .Ann_tt:hover {
+	color: var(--yx_Color);
+}
+
+#Ann_number1 .AnnLink {
+	width: 160px;
+	line-height: 54px;
+	background: #f5f5f5;
+	transition: 0.5s all;
+	text-align: center;
+	color: #999;
+	display: block;
+	border-radius: 10px;
+}
+
+#Ann_number1 .AnnLink:hover {
+	background: var(--yx_Color);
+	color: #fff;
+}
+
+@media only screen and (min-width: 769px) {
+	#Ann_number1 .newLi:nth-child(3n) {
+		margin-right: 0;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	#Ann_number1 {
+		padding-top: 30px;
+		padding-bottom: 70px;
+	}
+	
+	
+
+	#Ann_number1 .Ann_b {
+		display: none;
+	}
+
+	#Ann_number1 .AnnFen {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+
+	#Ann_number1 .fenLi {
+		width: 42%;
+		margin: 0;
+		display: block;
+		text-align: center;
+		line-height: 40px;
+	}
+	#Ann_number1 .fenLi:after{height:2px;}
+
+	#Ann_number1 .fenLi:hover:after {
+	width: 60%;
+    }
+    #Ann_number1 .fenLi:nth-child(2)::after {
+	width: 60%;
+    }
+
+	#Ann_number1 .AnnBox2 {
+		margin-top: 35px;
+	}
+
+	#Ann_number1 .AnnLi {
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 25px;
+	}
+
+	#Ann_number1 .AnnTime1 {
+		font-size: 32px;
+	}
+
+	#Ann_number1 .AnnTime2 {
+		margin-top: 5px;
+	}
+
+	#Ann_number1 .Ann_tt {
+		width: calc(100% - 100px);
+		margin-left: 15px;
+		padding-left: 15px;
+	}
+
+	#Ann_number1 .AnnLink {
+		display: none;
+	}
+
+	#Ann_number1 .Ann_tt span {
+		width: 100%;
+	}
+
+	#Ann_number1 .Ann_tt::before {
+		height: 50px;
+		        top: 50%;
+        transform: translateY(-50%);
+	}
+}

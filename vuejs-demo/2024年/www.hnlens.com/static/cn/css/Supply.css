@@ -1,0 +1,430 @@
+* {
+	font-family: 'HarmonyOS_Sans_SC_Regular';
+}
+
+#cateBox .cateLi:nth-child(1)::after {
+	width: 100%;
+}
+
+#nyBan .p_btitle {
+	line-height: 1.2;
+}
+
+#Sup_number1 {
+	width: 100%;
+	padding-top: 6vw;
+}
+
+#Sup_number1 .SupBox1 {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+#Sup_number1 .Sup_b {
+	line-height: 1;
+	font-weight: bold;
+	color: #333;
+	width: 20%;
+}
+
+#Sup_number1 .SupRight {
+	width: 75%;
+}
+
+#Sup_number1 .Sup_tt {
+	line-height: 1.4;
+	font-weight: bold;
+	color: var(--yx_Color);
+}
+
+#Sup_number1 .Sup_sum {
+	line-height: 1.8;
+	color: #6d6d6d;
+	margin-top: 20px;
+}
+
+#Sup_number1 .SupimgBox {
+	width: 100%;
+	overflow: hidden;
+	border-radius: 20px;
+	margin-top: 4vw;
+}
+
+#Sup_number1 .SupimgBox img {
+	width: 100%;
+	transition: 0.5s all;
+}
+
+#Sup_number1 .SupimgBox:hover img {
+	transform: scale(1.05);
+}
+
+#Sup_number2 {
+	margin-top: 5.2vw;
+}
+
+#Sup_number2 .Num2_b {
+	line-height: 1;
+	font-weight: bold;
+	color: #333;
+}
+
+#Sup_number2 .Num2_list {
+	width: 100%;
+	margin-top: 35px;
+}
+
+#Sup_number2 .Num2_li {
+	width: 100%;
+	display: flex;
+	padding: 2vw 0;
+	border-bottom: 1px solid rgba(0 0 0 /10%);
+	align-items: center;
+	position: relative;
+}
+
+#Sup_number2 .Num2_li::after {
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 10px;
+	height: 10px;
+	background: url('../img/jiantou2.png') no-repeat center;
+}
+
+#Sup_number2 .Num2_li .Num2_time {
+	color: rgba(0 0 0 / 50%);
+	line-height: 1;
+}
+
+#Sup_number2 .Num2_li .Num2_tt {
+	color: #333;
+	line-height: 1.2;
+	padding: 0 1.5vw;
+}
+
+#Sup_number2 .Num2_li .Num2_tt:hover {
+	color: var(--yx_Color);
+}
+
+#Sup_number3 {
+	margin-top: 5.2vw;
+}
+
+#Sup_number3 .Num3_b {
+	line-height: 1;
+	font-weight: bold;
+	color: #333;
+}
+
+#Sup_number3 .Num3imgBox {
+	width: 100%;
+	margin-top: 2.5vw;
+	overflow: hidden;
+}
+
+#Sup_number3 .Num3imgBox img {
+	width: 100%;
+}
+
+#Sup_number4 {
+	margin-top: 8.8vw;
+}
+
+#Sup_number4 .Num4_b {
+	line-height: 1;
+	font-weight: bold;
+	color: #333;
+}
+
+#Sup_number4 .Num4list {
+	width: 100%;
+	margin-top: 4vw;
+	display: flex;
+	justify-content: space-between;
+}
+
+#Sup_number4 .Num4Left {
+	width: 50.4%;
+	overflow: hidden;
+	border-radius: 20px;
+}
+
+#Sup_number4 .Num4Left img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: 0.5s all;
+}
+
+#Sup_number4 .Num4Left:hover img {
+	transform: scale(1.05);
+}
+
+#Sup_number4 .Num4Right {
+	width: 39.5%;
+	display: flex;
+	flex-direction: column;
+}
+
+#Sup_number4 .Num4_Li {
+	flex: 1;
+	display: flex;
+	flex-wrap: wrap;
+	position: relative;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+#Sup_number4 .Num4_Li:not(:last-child) {
+	border-bottom: 1px solid rgba(0 0 0 /10%);
+}
+
+#Sup_number4 .Num4_Li::after {
+	content: "";
+	width: 20px;
+	height: 20px;
+	background: url(../img/jiantou3.png) no-repeat center;
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	transition: 0.5s all;
+}
+
+#Sup_number4 .Num4_tt {
+	font-weight: bold;
+	width: 100%;
+	color: rgba(51 51 51 / 50%);
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	transition: 0.5s all;
+}
+
+#Sup_number4 .Num4_sum {
+	font-weight: bold;
+	width: 100%;
+	color: var(--yx_Color);
+	position: absolute;
+	top: 150%;
+	opacity: 0;
+	transform: translateY(-50%);
+	transition: 0.7s all;
+}
+
+#Sup_number4 .Num4_Li.active .Num4_tt {
+	top: 30%;
+}
+
+#Sup_number4 .Num4_Li.active .Num4_sum {
+	top: 65%;
+	opacity: 1;
+}
+
+#Sup_number4 .Num4_Li.active::after {
+	top: 31%;
+	transform: translateY(-50%) rotate(180deg);
+}
+
+#Sup_number5 {
+	overflow: hidden;
+	border-radius: 20px;
+	margin-top: 4vw;
+	margin-bottom: 50px;
+	position: relative;
+}
+
+#Sup_number5 img {
+	width: 100%;
+}
+
+#Sup_number5 .Num5Text {
+	width: 90%;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+#Sup_number5 .Num5_tt {
+	font-weight: bold;
+	color: #fff;
+	line-height: 1;
+}
+
+#Sup_number5 .Num5Link {
+	width: 190px;
+	line-height: 60px;
+	background-color: #fff;
+	color: var(--yx_Color);
+	display: block;
+	margin: 35px auto 0;
+	transition: 0.5s all;
+	border-radius: 10px;
+}
+
+#Sup_number5 .Num5Link:hover {
+	background-color: var(--yx_Color);
+	color: #fff;
+}
+
+#Sup_number6 {
+	margin-top: 6vw;
+	margin-bottom: 30px;
+}
+
+#Sup_number6 .Num6_b {
+	line-height: 1;
+	font-weight: bold;
+	color: #333;
+}
+
+#Sup_number6 .Num6list {
+	width: 100%;
+	margin-top: 2.6vw;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+#Sup_number6 .Num6_li {
+	width: 48.5%;
+	background: #fff;
+	border-radius: 20px;
+	margin-bottom: 2.4vw;
+	padding: 2.8vw 0;
+	min-height: 253px;
+	box-shadow: 0 0 20px rgba(0 0 0 / 20%);
+}
+
+#Sup_number6 .Num6_text {
+	width: 80%;
+	max-width: 530px;
+	margin: 0 auto;
+}
+
+#Sup_number6 .Num6_tt {
+	line-height: 1;
+	font-weight: bold;
+	color: var(--yx_Color);
+}
+
+#Sup_number6 .Num6_sum {
+	color: #000;
+	margin-top: 15px;
+	line-height: 1.6;
+}
+@media only screen and (min-width: 769px) {
+	#nyBan .textBox{
+		bottom: 70px;
+	}
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1100px) {
+	#Sup_number4 .Num4_tt {
+		font-size: 22px;
+	}
+
+	#Sup_number4 .Num4_sum {
+		font-size: 18px;
+	}
+}
+
+
+
+@media only screen and (max-width: 768px) {
+	#Sup_number1 {
+		padding-top: 50px;
+	}
+
+	#Sup_number1 .Sup_b {
+		width: 100%;
+	}
+
+	#Sup_number1 .SupRight {
+		width: 100%;
+		margin-top: 20px;
+	}
+
+	#Sup_number2 {
+		margin-top: 50px;
+	}
+
+	#Sup_number2 .Num2_li {
+		padding: 15px 0;
+	}
+
+	#Sup_number2 .Num2_list {
+		margin-top: 15px;
+	}
+
+	#Sup_number3 {
+		margin-top: 50px;
+	}
+
+	#Sup_number3 .Num3imgBox {
+		margin-top: 25px;
+	}
+
+	#Sup_number4 {
+		margin-top: 50px;
+	}
+
+	#Sup_number4 .Num4list {
+		margin-top: 25px;
+		flex-wrap: wrap;
+	}
+
+	#Sup_number4 .Num4Left {
+		width: 100%;
+	}
+
+	#Sup_number4 .Num4Right {
+		width: 100%;
+		display: block;
+		margin-top: 10px;
+	}
+
+	#Sup_number4 .Num4_Li {
+		height: 75px;
+	}
+
+	#Sup_number5 {
+		margin-top: 50px;
+		height: 180px;
+	}
+
+	#Sup_number5 img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	#Sup_number5 .Num5Link {
+		line-height: 40px;
+		width: 130px;
+		font-size: 14px;
+		margin-top: 20px;
+	}
+
+	#Sup_number6 {
+		margin-top: 50px;
+		margin-bottom: 30px;
+	}
+
+	#Sup_number6 .Num6list {
+		margin-top: 25px;
+	}
+
+	#Sup_number6 .Num6_li {
+		width: 100%;
+		padding: 30px 0;
+		min-height: unset;
+		margin-bottom: 20px;
+	}
+}

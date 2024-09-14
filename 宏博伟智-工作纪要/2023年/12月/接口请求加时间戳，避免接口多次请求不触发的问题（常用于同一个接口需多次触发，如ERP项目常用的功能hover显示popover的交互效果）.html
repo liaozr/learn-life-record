@@ -63,5 +63,14 @@
 		this.dataForm.trackingNumber = nonEmptyLines.join('\n')
 	  },
 	  
+	  
+	   this.$notify({
+		  type: 'error',
+		  title: '错误',
+		  message: error,
+		  dangerouslyUseHTMLString: true,
+		  customClass: 'pointCustomErroyNot22'
+	   })
+	  
 	</body>
 </html>

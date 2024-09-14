@@ -1,0 +1,762 @@
+	#navBox {
+		position: fixed;
+		width: 100%;
+		z-index: 99999;
+		top: 35px;
+		transition: 0.3s all;
+	}
+
+	#navBox .header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	#navBox .logoBox {
+		width: 260px;
+	}
+
+	#navBox .logoBox img {
+		width: 100%;
+	}
+
+	.logoImg {
+		display: block;
+	}
+
+	.logoImg1 {
+		display: none;
+	}
+
+	#navBox.active .logoImg1 {
+		display: block;
+	}
+
+	#navBox.active .logoImg {
+		display: none;
+	}
+
+	#navBox .topNav {
+		width: calc(100% - 326px);
+	}
+
+	#navBox .topNav>ul {
+		width: 90%;
+		display: flex;
+		justify-content: space-between;
+		max-width: 700px;
+		margin-left: auto;
+		margin-right: 2.2vw;
+	}
+
+	#navBox .topNav>ul li {
+		position: relative;
+	}
+
+	#navBox .topNav>ul li .navTitle1 {
+		line-height: 44px;
+		color: #fff;
+		transition: 0.5s all;
+	}
+
+	#navBox .topNav .slideNav {
+		position: absolute;
+		background: rgb(255 255 255 / 50%);
+		width: 135px;
+		left: 50%;
+		transform: translateX(-50%);
+		top: auto;
+		display: none;
+		box-shadow: inset 0 0 20px rgba(0 0 0 / 5%);
+	}
+
+	#navBox .topNav .slideNav ul {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	#navBox .topNav .slideNav ul li {
+		width: 100%;
+	}
+
+	#navBox .topNav .slideNav ul li a {
+		line-height: 44px;
+		padding: 0 10px;
+		color: #060a2f;
+		text-align: center;
+		display: block;
+		border-bottom: 1px solid #f2f2f21c;
+	}
+
+	#navBox .seachBut {
+		width: 20px;
+		height: 20px;
+		color: #fff;
+	}
+
+	#navBox .topYuyan {
+		width: 65px;
+		height: 21px;
+		position: relative;
+		margin-left: 25px;
+		color: #fff;
+	}
+
+	.yuText {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+	}
+
+	#navBox .topYuyan svg {
+		width: 10px;
+	}
+
+	#navBox .yulist {
+		display: none;
+	}
+
+	#footBox {
+		width: 100%;
+		padding-top: 60px;
+		padding-bottom: 25px;
+		background: url('../img/bj05.jpg') no-repeat;
+		background-size: cover;
+	}
+
+	#footBox .footNav>ul {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+
+	#footBox .yjTitle {
+		font-weight: 500;
+		color: #0a1b3d;
+		line-height: 1;
+	}
+
+	#footBox .p_level2Box {
+		width: auto;
+	}
+
+	#footBox .p_level2Box .ejTitle {
+		display: block;
+		line-height: 1;
+		color: #6e7d98;
+		margin-top: 15px;
+	}
+
+	#footBox .footText {
+		margin-top: 7vw;
+		padding-top: 25px;
+		border-top: 1px solid #d8e3f5;
+	}
+
+	#footBox .footCen {
+		width: 100%;
+		max-width: 1440px;
+		margin: 0 auto;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	#footBox .fotLeft {
+		width: 55%;
+		display: flex;
+		align-items: center;
+	}
+
+	#footBox .fotRight {
+		width: 40%;
+		max-width: 250px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+	}
+
+	#footBox .fxBox {
+		width: 100%;
+		height: 20px;
+		max-width: 200px;
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	#footBox .fxBox a {
+		width: auto;
+		display: block;
+		margin-left: 15px;
+	}
+
+	#footBox .fxBox a img {
+		width: auto;
+		max-width: 100%;
+	}
+
+	#footBox .smList {
+		width: 100%;
+		margin-top: 15px;
+		;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	#footBox .shengming {
+		font-size: 14px;
+		color: #8fa2b9;
+		line-height: 1;
+		display: block;
+		position: relative;
+	}
+
+	#footBox .shengming:not(:last-child):before {
+		content: "";
+		width: 1px;
+		height: 100%;
+		position: absolute;
+		right: -20%;
+		top: 0;
+		background: #8fa2b9;
+	}
+
+	#footBox .bText1 {
+		color: #0a1b3d;
+		font-weight: bold;
+		font-size: 16px;
+	}
+
+	#footBox .ftLogo {
+		width: auto;
+		max-width: 100%;
+	}
+
+	#footBox .banQuan {
+		width: auto;
+		padding-left: 25px;
+	}
+
+	#footBox .bText2 {
+		font-size: 14px;
+		color: #8fa2b9;
+		line-height: 1;
+		margin-top: 10px;
+	}
+
+	#footBox .bText2 a {
+		margin-right: 15px;
+	}
+
+
+	#nyBan {
+		width: 100%;
+		overflow: hidden;
+		position: relative;
+	}
+
+	#nyBan .banImg {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	#nyBan .textBox {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		bottom: 150px;
+	}
+
+	#nyBan .p_btitle {
+		font-weight: bold;
+		color: #fff;
+	}
+
+	#cateBox {
+		width: 100%;
+		background: url('../img/js02.jpg') no-repeat;
+		background-size: cover;
+		margin-top: -81px;
+	}
+
+	#cateBox .cateCen {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	#cateBox .cateLi {
+		display: block;
+		line-height: 80px;
+		color: #fff;
+		padding: 0 10px;
+		position: relative;
+	}
+
+	#cateBox .cateLi:after {
+		content: "";
+		width: 0%;
+		transition: 0.5s all;
+		height: 4px;
+		background: #eaeffa;
+		position: absolute;
+		left: 50%;
+		bottom: 0;
+		transform: translateX(-50%);
+	}
+
+	#cateBox .cateLi:hover:after {
+		width: 100%;
+	}
+
+	.page {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.page svg {
+		margin: 0;
+		height: auto;
+		width: 15px;
+	}
+
+	.page .pageBnt {
+		width: 50px;
+		height: 50px;
+		border-radius: 5px;
+		border: 1px solid #eceff5;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0 8px;
+		color: #787e86 !important;
+		font-size: 16px;
+		text-align: center;
+	}
+
+	.page .page_input {
+		width: 50px;
+		height: 50px;
+		border-radius: 5px;
+		border: 1px solid #eceff5;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0 8px;
+		color: #787e86 !important;
+		font-size: 16px;
+		text-align: center;
+	}
+
+	.page .pageBnt.pageActive {
+		color: #fff !important;
+		border-color: var(--yx_Color);
+		background: var(--yx_Color);
+	}
+
+	.page .pageBnt:hover {
+		color: #fff !important;
+		border-color: var(--yx_Color);
+		background: var(--yx_Color);
+	}
+
+	.page .page_tiao {
+		margin-left: 1vw;
+		width: auto;
+		display: flex;
+		align-items: center;
+	}
+
+	.navBox .SeachBox {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.5);
+		left: 0;
+		top: 0;
+		z-index: 1000;
+		display: none;
+	}
+
+	.search-box {
+		background: #fff;
+		padding: 40px 0;
+	}
+
+	.search-box .search-center {
+		width: 400px;
+		margin: 0 auto;
+		position: relative;
+	}
+
+	.search-box .search-center input {
+		width: 100%;
+		height: 40px;
+		border: none;
+		border-bottom: 1px solid #ccc;
+		font-size: 16px;
+		padding-right: 40px;
+	}
+
+	.search-box .search-center span {
+		position: absolute;
+		color: #333;
+		right: 0;
+		top: 0;
+		cursor: pointer;
+		transition: all 0.5s;
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.search-box .search-center span svg {
+		width: 20px;
+	}
+
+	.cateTop {
+		position: sticky !important;
+		top: -1px;
+		z-index: 100000 !important;
+	}
+
+
+
+	@media only screen and (min-width: 769px) {
+		#navBox .closes {
+			display: none;
+		}
+
+		#navBox .nav-button {
+			display: none;
+		}
+
+		#navBox .Mjiantou {
+			display: none;
+		}
+
+		#navBox.active {
+			background: #fff;
+			top: 0;
+		}
+
+		#navBox.active .seachBut {
+			color: #333;
+		}
+
+		#navBox.active .topYuyan {
+			color: #333;
+		}
+
+		#navBox.active .navTitle1 {
+			color: #333 !important;
+			line-height: 80px !important;
+		}
+
+		.Fotjiantou {
+			display: none;
+		}
+
+		#cateBox .cateLi:not(:last-child) {
+			margin-right: 3vw;
+		}
+
+		#navBox.active1 {
+			top: -100px;
+		}
+	}
+
+	@media only screen and (max-width: 1200px) {
+		#navBox .logoBox {
+			width: 190px;
+		}
+
+		#navBox .topNav {
+			width: calc(100% - 256px);
+		}
+
+		#navBox .topNav>ul li .navTitle1 {
+			font-size: 14px;
+		}
+	}
+
+	@media only screen and (max-width: 768px) {
+
+		/*导航*/
+		#navBox {
+			top: 0;
+			background: #fff;
+			z-index: 99999999;
+		}
+
+		#navBox .header {
+			justify-content: unset;
+			min-height: 66px;
+		}
+
+		#navBox .logoBox {
+			width: 125px;
+		}
+
+		#navBox .nav-button {
+			width: 38px;
+			height: 38px;
+			margin-left: 15px;
+		}
+
+		#navBox .topNav {
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			right: -100%;
+			top: 0;
+			background: rgba(0, 0, 0, 0.5);
+			z-index: 2;
+			display: flex;
+			justify-content: flex-end;
+			transition: all 0.5s;
+			padding: 0;
+		}
+
+		#navBox .seachBut {
+			margin-left: auto;
+			color: #333;
+		}
+
+		#navBox .topYuyan {
+			color: #333;
+		}
+
+		#navBox .topNav.active {
+			right: 0;
+		}
+
+		#navBox .closes {
+			display: block;
+			position: absolute;
+			right: 15px;
+			top: 15px;
+			width: 30px;
+		}
+
+		#navBox .topNav>ul {
+			display: block;
+			background: #fff;
+			width: 80%;
+			padding: 60px 20px 0;
+			margin: 0;
+		}
+
+		#navBox .topNav>ul li {
+			padding: 0;
+			margin: 0;
+			position: relative;
+			border-bottom: 1px solid #eee;
+		}
+
+		#navBox .yjBox {
+			width: 100%;
+			display: flex;
+		}
+
+		#navBox .Mjiantou {
+			background: url('../img/jiantou1.webp') no-repeat;
+			width: 12px;
+			height: 8px;
+			background-size: 100%;
+			position: absolute;
+			right: 5px;
+			top: 19px;
+			transition: all 0.5s;
+		}
+
+		#navBox .topNav>ul li .navTitle1 {
+			width: 50%;
+			color: #333;
+			line-height: 45px;
+		}
+
+		#navBox .topNav .slideNav {
+			position: unset;
+			box-shadow: none;
+			transform: translateX(0%);
+			width: 100%;
+			border-radius: 0;
+		}
+
+		#navBox .topNav .slideNav ul li a {
+			text-align: left;
+			padding-left: 20px;
+		}
+
+		#navBox .topNav>ul>li.active .Mjiantou {
+			transform: rotate(180deg);
+		}
+
+		.search-box .search-center {
+			width: 90%;
+		}
+
+		/*end*/
+
+		.cateTop {
+			top: 66px;
+		}
+
+		/*banner*/
+		#nyBan {
+			margin-top: 66px;
+		}
+
+		#nyBan .textBox {
+			bottom: 25px;
+		}
+
+		/*end*/
+
+		/*foot;*/
+		#footBox {
+			padding-top: 45px;
+		}
+
+		#footBox .fotLi {
+			width: 100%;
+		}
+
+		#footBox .yjTitle {
+			display: flex;
+			justify-content: space-between;
+			margin: 0;
+			line-height: 44px;
+			border-bottom: 1px solid rgba(0 0 0 / 8%);
+			position: relative;
+		}
+
+		#footBox .Fotjiantou {
+			background: url(../img/jiantou1.webp) no-repeat;
+			width: 12px;
+			height: 8px;
+			background-size: 100%;
+			position: absolute;
+			right: 5px;
+			top: 19px;
+			transition: all 0.5s;
+		}
+
+		#footBox .p_level2Box {
+			display: none;
+			padding-left: 20px;
+		}
+
+		#footBox .fotLi.active .Fotjiantou {
+			transform: rotate(180deg);
+		}
+
+		#footBox .p_level2Box .ejTitle {
+			line-height: 44px;
+			margin-top: 0;
+			border-bottom: 1px solid rgba(0 0 0 / 8%);
+		}
+
+		#footBox .fotLeft {
+			width: 100%;
+		}
+
+		#footBox .fotRight {
+			width: 70%;
+			margin: 20px auto 0;
+			max-width: 100%;
+		}
+
+		#footBox .ftLogo {
+			display: none;
+		}
+
+		#footBox .banQuan {
+			padding-left: 0;
+			text-align: center;
+		}
+
+		#footBox .fxBox {
+			display: none;
+		}
+
+		#footBox .shengming:not(:last-child):before {
+			right: -26%;
+		}
+
+		/*end*/
+
+
+		/*分类*/
+		#cateBox .cateLi {
+			line-height: 50px;
+		}
+
+		#cateBox {
+			margin-top: 0;
+		}
+
+		/*end*/
+
+		/*翻页*/
+		.page .page_num3 {
+			display: none;
+		}
+
+		.page .page_num4 {
+			display: none;
+		}
+
+		.page .pageBnt {
+			width: 36px;
+			height: 36px;
+			margin: 0 5px;
+		}
+
+		.page .page_tiao {
+			width: 100%;
+			margin-top: 20px;
+			justify-content: center;
+		}
+
+		.page .page_input {
+			width: 36px;
+			height: 36px;
+		}
+
+		/*end*/
+	}
+
+
+
+
+	/* 基本滚动条样式 */
+	::-webkit-scrollbar {
+		width: 4px;
+		/* 宽度 */
+	}
+
+	/* 滑块样式 */
+	::-webkit-scrollbar-thumb {
+		background-color: var(--yx_Color);
+		/* 颜色 */
+		border-radius: 3px;
+		/* 圆角 */
+	}
+
+	/* 轨道样式 */
+	::-webkit-scrollbar-track {
+		background-color: rgba(255 255 255 / 20%);
+		/* 颜色 */
+		border-radius: 3px;
+		/* 圆角 */
+	}

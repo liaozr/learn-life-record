@@ -1,0 +1,468 @@
+* {
+	font-family: 'HarmonyOS_Sans_SC_Regular';
+}
+
+#cateBox .cateLi:nth-child(2)::after {
+	width: 100%;
+}
+
+#nyBan .p_btitle {
+	line-height: 1.2;
+}
+
+#Inn_number1 {
+	padding-top: 6vw;
+	padding-bottom: 4vw;
+	background: url('../img/cxbj1.jpg') no-repeat center/cover;
+}
+
+#Inn_number1 .Inn_number1_b {
+	line-height: 1;
+	font-weight: bold;
+	color: #000;
+}
+
+#Inn_number1 .Inn_number1_c {
+	line-height: 1;
+	font-weight: bold;
+	color: #000;
+	margin-top: 4vw;
+}
+
+#Inn_number1 .Inn_number1_d {
+	font-weight: bold;
+	color: var(--yx_Color);
+	margin-top: 10px;
+}
+
+#Inn_number1 .Inn_number1_List {
+	margin-top: 6vw;
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+
+#Inn_number1 .Inn_number1_Li {
+	width: auto;
+	padding-left: 25px;
+	border-left: 4px solid var(--yx_Color);
+}
+
+#Inn_number1 .Inn_numU {
+	display: flex;
+	align-items: baseline;
+	line-height: 1;
+	font-weight: bold;
+	color: var(--yx_Color);
+}
+
+#Inn_number1  .Innroll_j{
+	align-self: flex-start;
+}
+
+
+#Inn_number1 .Innroll_tt {
+	margin-top: 10px;
+	line-height: 1;
+	color: #222;
+}
+
+#Inn_number1 .InnBox2 {
+	margin-top: 5.2vw;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+#Inn_number1 .InnBox2_Li {
+	width: 48.5%;
+	background: #fff;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0 0 0 / 20%);
+	transition: 0.5s all;
+}
+
+#Inn_number1 .InnBox2_Img {
+	width: 100%;
+	overflow: hidden;
+}
+
+#Inn_number1 .InnBox2_Img img {
+	width: 100%;
+}
+
+#Inn_number1 .InnBox2_tt {
+	margin: 2.8vw auto 0;
+	max-width: 455px;
+	text-align: center;
+	line-height: 1;
+	color: #000;
+	font-weight: bold;
+}
+
+#Inn_number1 .InnBox2_txt {
+	max-width: 455px;
+	margin: 20px auto 30px;
+	text-align: center;
+	line-height: 1.8;
+	color: #000;
+	min-height: 112px;
+}
+
+#Inn_number1 .InnBox2_Li:hover {
+	transform: translateY(-10px);
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+#Inn_number2 {
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+	height: 47vw;
+	max-height: 900px;
+}
+
+#Inn_number2 .Inn_num2imgBox {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+#Inn_number2 .Inn_num2imgBox::after{
+	content: "";
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.3);
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+}
+
+#Inn_number2 .Inn_num2imgBox img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	position: absolute;
+	left: 0%;
+	top: 0%;
+	transition: 1s all;
+}
+
+#Inn_number2 .Inn_num2imgBox .cxcgbj.cur {
+	width: 100%;
+}
+
+#Inn_number2 .Inn_num2Text {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+	z-index: 1;
+	height: 100%;
+}
+
+#Inn_number2 .cxcgLi {
+	width: 33.33%;
+	overflow: hidden;
+	position: relative;
+	transition: all ease .5s;
+	background: url('../img/cxbj2.png') no-repeat center/cover;
+}
+
+#Inn_number2 .Inn_num2_bb {
+	color: #fff;
+	line-height: 1;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	font-weight: bold;
+	z-index: 10;
+	top: 4.5vw;
+}
+
+#Inn_number2 .cgTextBox1 {
+	max-width: 50%;
+	width: 90%;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -30%);
+	transition: 0.5s all;
+	opacity: 0;
+}
+
+#Inn_number2 .cxcgLi.active1 .cgTextBox1 {
+	opacity: 1;
+	transform: translate(-50%, -50%);
+}
+
+#Inn_number2 .cgTextBox2 {
+	width: 90%;
+	max-width: 320px;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 3.5vw;
+	transition: 0.5s all;
+}
+
+#Inn_number2 .cgTitle2 {
+	line-height: 1;
+	font-weight: bold;
+	color: #fff;
+	text-align: center;
+}
+
+#Inn_number2 .cxcgLi.active1 .cgTextBox2 {
+	opacity: 0;
+	transform: translateX(-50%) translateY(30%);
+}
+
+#Inn_number2 .cgTitle1 {
+	line-height: 1;
+	color: #fff;
+	font-weight: bold;
+}
+
+#Inn_number2 .cgSum1 {
+	color: #fff;
+	line-height: 1.8;
+	margin-top: 2vw;
+}
+
+#Inn_number3 {
+	margin-top: 8vw;
+}
+
+#Inn_number3 .InnNum3_li {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	align-items: center;
+	margin-bottom: 6vw;
+}
+
+#Inn_number3 .InnNum3_Left {
+	width: 50.4%;
+	border-radius: 20px;
+	overflow: hidden;
+}
+
+#Inn_number3 .InnNum3_Left img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#Inn_number3 .InnNum3_Right {
+	width: 36%;
+}
+
+#Inn_number3 .InnNum3_tt {
+	line-height: 1;
+	font-weight: bold;
+	color: #000;
+}
+
+#Inn_number3 .InnNum3_Right_list {
+	width: 100%;
+	margin-top: 4.5vw;
+}
+
+#Inn_number3 .InnNum3_Right_li:not(:last-child) {
+	border-bottom: 1px solid rgba(0 0 0 /10%);
+}
+
+#Inn_number3 .InnNum3_Right_li {
+	width: 100%;
+	padding: 1.8vw 0;
+	transition: 0.5s all;
+	cursor: pointer;
+}
+
+#Inn_number3 .InnNum3_Right_tt {
+	font-weight: bold;
+	width: 100%;
+	color: rgba(51 51 51 / 50%);
+	position: relative;
+}
+
+#Inn_number3 .InnNum3_Right_tt::after {
+	content: "";
+	width: 20px;
+	height: 20px;
+	background: url(../img/jiantou3.png) no-repeat center;
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	transition: 0.5s all;
+}
+
+#Inn_number3 .InnNum3_Right_txt {
+	color: #333;
+	line-height: 1.8;
+	display: none;
+}
+
+#Inn_number3 .InnNum3_Right_li.active {
+	padding-top: 10px;
+}
+
+#Inn_number3 .InnNum3_Right_li.active .InnNum3_Right_tt {
+	margin-bottom: 20px;
+	color: var(--yx_Color);
+}
+
+#Inn_number3 .InnNum3_Right_li.active .InnNum3_Right_tt:after {
+	transform: translateY(-50%) rotate(180deg);
+}
+
+#Inn_number3 .InnNum3_Right_li.active .InnNum3_Right_txt {
+	display: block;
+}
+
+#Inn_number3 .InnNum3_Left:hover img {
+	transform: scale(1.05);
+}
+
+@media only screen and (min-width: 769px) {
+	#Inn_number1 .Inn_number1_Li:not(:last-child) {
+		margin-right: 9vw;
+	}
+
+	#Inn_number2 .cxcgLi:not(:last-child) {
+		border-right: 1px solid rgba(255, 255, 255, 0.3);
+	}
+
+	#Inn_number2 .cxcgLi.active1 {
+		width: 70%;
+		background: transparent;
+	}
+
+	.InnNum3_li:nth-child(2n) {
+		flex-direction: row-reverse;
+	}
+	
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1200px) {
+	#Inn_number2 .cgTextBox1 {
+		max-width: 80%;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	#Inn_number1 {
+		padding-top: 50px;
+	}
+
+	#Inn_number1 .Inn_number1_c {
+		margin-top: 20px;
+	}
+
+	#Inn_number1 .Inn_number1_d {
+		margin-top: 20px;
+	}
+
+	#Inn_number1 .Inn_number1_List {
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+
+	#Inn_number1 .Inn_number1_Li {
+		width: 48%;
+		margin: 10px 0;
+		padding-left: 10px;
+		border-left: 3px solid var(--yx_Color);
+	}
+
+	#Inn_number1 .Innroll_tt{
+		line-height: 1.3;
+		font-size: 15px;
+	}
+
+	#Inn_number1 .InnBox2 {
+		margin-top: 25px;
+	}
+
+	#Inn_number1 .InnBox2_Li {
+		width: 100%;
+		margin-bottom: 25px;
+	}
+
+	#Inn_number1 .InnBox2_tt {
+		width: 90%;
+		margin-top: 25px;
+	}
+
+	#Inn_number1 .InnBox2_txt {
+		min-height: 0;
+		width: 90%;
+		margin: 15px auto 20px;
+	}
+
+	#Inn_number2 {
+		height: auto;
+	}
+
+	#Inn_number2 .Inn_num2Text {
+		flex-wrap: wrap;
+	}
+
+	#Inn_number2 .cxcgLi {
+		width: 100%;
+		padding: 35px 25px;
+	}
+
+	#Inn_number2 .Inn_num2_bb {
+		position: unset;
+		margin-top: 45px;
+		transform: translateX(0);
+	}
+
+	#Inn_number2 .cgTextBox1 {
+		position: unset;
+		transform: translate(0%, 0%) !important;
+		opacity: 1 !important;
+		max-width: 90%;
+	}
+
+	#Inn_number2 .cgTextBox2 {
+		display: none;
+	}
+
+	#Inn_number2 .cgSum1 {
+		margin-top: 15px;
+	}
+
+	#Inn_number2 .cxcgLi:not(:last-child) {
+		border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+	}
+
+	#Inn_number3 {
+		margin-top: 50px;
+	}
+
+	#Inn_number3 .InnNum3_Left {
+		width: 100%;
+	}
+
+	#Inn_number3 .InnNum3_Right {
+		width: 100%;
+		margin-top: 25px;
+	}
+
+	#Inn_number3 .InnNum3_Right_li {
+		padding: 20px 0;
+	}
+	#Inn_number3 .InnNum3_Right_li.active .InnNum3_Right_tt{
+		margin-bottom: 10px;
+	}
+}

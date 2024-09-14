@@ -1,0 +1,142 @@
+* {
+	font-family: 'HarmonyOS_Sans_SC_Regular';
+}
+
+#cateBox .cateLi:nth-child(2)::after {
+	width: 100%;
+}
+
+#nyBan .p_btitle {
+	line-height: 1.2;
+}
+
+#Tra_number1 {
+	margin-top: 6vw;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+#Tra_number1 .Tra_num1_b {
+	line-height: 1;
+	font-weight: bold;
+	color: #333;
+	width: 20%;
+}
+
+#Tra_number1 .Tra_num1_TextRi {
+	width: 75%;
+}
+
+#Tra_number1 .Tra_num1_tt {
+	line-height: 1.4;
+	color: var(--yx_Color);
+	font-weight: bold;
+}
+
+#Tra_number1 .Tra_num1_sum {
+	line-height: 1.7;
+	color: #6d6d6d;
+}
+
+#Tra_number2 {
+	margin-top: 6.4vw;
+	overflow: hidden;
+}
+
+#Tra_number2 img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+#Tra_number3 {
+	margin-top: 5.5vw;
+	margin-bottom: 5vw;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+#Tra_number3 .Tra_num3Left {
+	width: 45%;
+	border-radius: 20px;
+	overflow: hidden;
+}
+
+#Tra_number3 .Tra_num3Left img {
+	width: 100%;
+}
+
+#Tra_number3 .Tra_num3Left:hover img {
+	transform: scale(1.05);
+}
+
+#Tra_number3 .Tra_num3Riht {
+	width: 52%;
+}
+
+#Tra_number3 .Tra_num3_tt {
+	line-height: 1;
+	font-weight: bold;
+	color: #333;
+}
+
+#Tra_number3 .Tra_num3Line {
+	width: 44px;
+	height: 6px;
+	background: var(--yx_Color);
+	margin: 30px 0;
+}
+
+#Tra_number3 .Tra_num3_sum {
+	color: #333;
+	line-height: 1.8;
+}
+
+@media only screen and (min-width: 769px) {
+	#cateBox {
+		background: url(../img/fenbj02.png) no-repeat;
+		margin-top: -81px;
+		position: relative;
+		z-index: 1;
+		border-top: 1px solid rgba(255 255 255 / 20%);
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	#Tra_number1 {
+		margin-top: 50px;
+	}
+
+	#Tra_number1 .Tra_num1_b {
+		width: 100%;
+	}
+
+	#Tra_number1 .Tra_num1_TextRi {
+		width: 100%;
+		margin-top: 20px;
+	}
+
+	#Tra_number3 {
+		margin-top: 50px;
+		margin-bottom: 60px;
+		flex-direction: column-reverse;
+	}
+
+	#Tra_number3 .Tra_num3Left {
+		width: 100%;
+		margin-top: 25px;
+	}
+
+	#Tra_number3 .Tra_num3Riht {
+		width: 100%;
+		
+	}
+
+	#Tra_number3 .Tra_num3Line {
+		margin: 20px 0;
+		height: 3px;
+	}
+}
