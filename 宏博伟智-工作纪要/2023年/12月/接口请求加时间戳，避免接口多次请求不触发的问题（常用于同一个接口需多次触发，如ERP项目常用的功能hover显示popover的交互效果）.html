@@ -71,6 +71,22 @@
 		  dangerouslyUseHTMLString: true,
 		  customClass: 'pointCustomErroyNot22'
 	   })
+	   
+	   
+	   
+	    this.$notify.error({
+		 title: '错误',
+		 customClass: 'custom-notify333',
+		 dangerouslyUseHTMLString: true, // 允许使用 HTML
+		 message: error.replace(/\n/g, '<br>') // 将 \n 替换为 <br>，手动换行
+	   })
+	   
+	   <style>
+	   .custom-notify333 .el-notification__content {
+	     white-space: normal; /* 让内容超出宽度时自动换行 */
+	     word-wrap: break-word; /* 如果有超长单词，也能强制换行 */
+	   }
+	   </style>
 	  
 	</body>
 </html>
