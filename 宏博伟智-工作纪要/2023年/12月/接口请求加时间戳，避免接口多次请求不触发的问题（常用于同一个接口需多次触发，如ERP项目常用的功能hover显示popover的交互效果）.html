@@ -87,6 +87,31 @@
 	     word-wrap: break-word; /* 如果有超长单词，也能强制换行 */
 	   }
 	   </style>
+	   
+	   
+	    列表鼠标点选及鼠标移入的交互效果优化表单
+		
+		重点，去掉 el-table的 stripe属性 这个作用于隔行变色
+		highlight-current-row 同时也要去掉这个。
+		
+	    <el-table ref="elTable"
+	    @row-click="handleRowClick"
+	    :row-class-name="getRowClass"
+	    >
+	     currentGroup:null
+
+		 handleRowClick (row) {
+		   this.currentGroup = row.id // 根据点击的行更新当前组
+		   this.$refs.elTable.setCurrentRow(row) // 设置当前行
+		 },
+		 // 动态设置行样式
+		 getRowClass ({ row }) {
+		   return row.id === this.currentGroup ? 'custom-current-row' : ''
+		 },
+		 // 点击操作项时选中
+		 handleDropdownCommand(row) {
+		   this.currentGroup = row.id
+		 },
 	  
 	</body>
 </html>
