@@ -114,5 +114,35 @@
 		   this.currentGroup = row.id
 		 },
 	  
+		<el-form-item label="当前进度备注" prop="progressRemark"  :rules="[
+			{ required: false, message: '', trigger: 'blur' },
+			{
+			  min: 0,
+			  max: this.progressRemarkLength,
+			  message: `最多可以输入${progressRemarkLength}个字符`,
+			  trigger: 'blur',
+			},
+		  ]">
+		  <div class="tipWrapLimit">
+			<div>
+				<el-input
+					type="textarea"
+					:disabled="(type == 'canCheck' ) || (type == 'canApproval' && node !== 'T01'  ) "
+					:autosize="{ minRows: 3, maxRows: 4}"
+					placeholder="请输入当前进度备注"
+					@input="blurTrackNumber('progressRemark')"
+					@blur="handleBlur('progressRemark')"
+					v-model="dataForm.progressRemark">
+				</el-input>
+			</div>
+			<div class="tip">
+			  <span class="red">
+				{{dataForm.progressRemark ? dataForm.progressRemark.length : 0 }}
+			  </span>
+			  /<span class="num_count">{{progressRemarkLength}}</span>
+			</div>
+		  </div>
+		</el-form-item>
+						
 	</body>
 </html>
