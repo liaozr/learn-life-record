@@ -32,6 +32,14 @@
 			  }
 
 		  })
+		  
+		  
+		  
+		  import {
+		    dictBatchKey,
+			getFieldSizes
+		  } from '@/api/common/common.api'
+		  
 	  </script>
 	  
 	   输入框要提供可以搜索的
@@ -130,7 +138,6 @@
 					:disabled="(type == 'canCheck' ) || (type == 'canApproval' && node !== 'T01'  ) "
 					:autosize="{ minRows: 3, maxRows: 4}"
 					placeholder="请输入当前进度备注"
-					@input="blurTrackNumber('progressRemark')"
 					@blur="handleBlur('progressRemark')"
 					v-model="dataForm.progressRemark">
 				</el-input>
