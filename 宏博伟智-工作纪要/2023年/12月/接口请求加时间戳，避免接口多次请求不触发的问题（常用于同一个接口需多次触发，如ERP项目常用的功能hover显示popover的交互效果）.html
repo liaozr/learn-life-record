@@ -43,6 +43,30 @@
 		  
 	  </script>
 	  
+	  
+	  :data="dataList"
+	   <el-dropdown
+	   methods:
+	   components: 
+	   @cell-mouse-ent
+	  
+	  
+	  <el-tooltip class="item" effect="dark"  placement="top">
+		<div v-html="props.scope.row.dictShippingLabelErrorMsg" slot="content" 
+		  style="white-space: pre-line;" class="list">
+		</div>
+	
+		<select-all 
+		  v-model="dataForm.roomIdList"
+		  :listDataOption="roomIdListOptions"
+		  data-value="id"
+		  data-label="name"
+		  :isMultiple="true"
+		  :collapseTags="true"
+		  :isDisabled="isDisabled"
+		></select-all>
+	  </el-tooltip>
+	  
 	   系统封装好的带快捷键的日期组件。
 	   <datePickerAll v-model="dataForm.dateRange" typeName="daterange" :defaultDate="false"></datePickerAll>
 	   import datePickerAll from '@/components/erp-date/datePicker-all'	
