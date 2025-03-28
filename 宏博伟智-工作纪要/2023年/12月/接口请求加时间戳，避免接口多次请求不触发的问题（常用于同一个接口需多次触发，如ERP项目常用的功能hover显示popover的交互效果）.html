@@ -36,12 +36,38 @@
 		  禁用的排在后面,封装了一个方法
 		  this.$sortbUsed
 		  
+		  
+		  
+		  let ids = this.dataListSelections.map((item) => {
+			  if (item.dictDocStatus === '01' || item.dictDocStatus === '04') {
+				return item.id
+			  }
+		  })
+		  ids = ids.filter(item => item !== undefined);
+		  
+		  
+		  
+		  
 		  import {
 		    dictBatchKey,
 			getFieldSizes
 		  } from '@/api/common/common.api'
 		  
+		  
+		  
+		  //重置的写法，将携带参数的路径去除掉 
+		  if (JSON.stringify(this.$route.query) !== '{}') {
+			  var oldUrl = window.location.href
+			  var newUrl = oldUrl.substring(0, oldUrl.indexOf('?'))
+			  window.location.href = newUrl
+			  delete this.searchData['taskId']
+			  delete this.searchData['id']
+			  delete this.searchData['code']
+			  delete this.searchData['sourceDetailId']
+		  }
 	  </script>
+	  
+	  
 	  
 	  
 	  :data="dataList"
