@@ -65,6 +65,12 @@
 			  delete this.searchData['code']
 			  delete this.searchData['sourceDetailId']
 		  }
+		  
+		  
+		  import {getUser} from '@/utils'
+		  let curUser = await getUser()
+		  this.dataForm.applicant = curUser
+		  
 	  </script>
 	  
 	  
@@ -145,6 +151,12 @@
 		 message: error.replace(/\n/g, '<br>') // 将 \n 替换为 <br>，手动换行
 	   })
 	   
+	   注意，错误类才能用  custom-notify333 这个类，
+	   
+	   custom-notify333 这个类绑定 抖动效果了。
+	   
+	   其他类型使用 custom-notify3330 这个类。
+	   
 	   <style>
 	   .custom-notify333 .el-notification__content {
 	     white-space: normal; /* 让内容超出宽度时自动换行 */
@@ -177,6 +189,13 @@
 		 handleDropdownCommand(row) {
 		   this.currentGroup = row.id
 		 },
+		 
+		 
+		 <el-table
+		 <el-dropdown
+		 methods:
+		 components:
+		 @cell-mouse-enter
 	  
 		<el-form-item label="当前进度备注" prop="progressRemark"  :rules="[
 			{ required: false, message: '', trigger: 'blur' },
@@ -206,6 +225,33 @@
 			</div>
 		  </div>
 		</el-form-item>
+		
+		
+		
+		阻止使用谷歌浏览器自带的打印功能， 分页显示的时候，表头重复的问题。
+		
+		<style scoped>
+		/* 打印样式 */
+		@media print {
+		  /* 阻止表头重复 */
+		  .payment-print-content thead {
+		    display: table-row-group !important;
+		  }
+		
+		  /* 控制分页行为 */
+		  .payment-print-content {
+		    page-break-inside: avoid; /* 尽量保持表格完整 */
+		  }
+		
+		  /* 标题行特殊处理 */
+		  .header-text-title tr:first-child td {
+		    position: sticky;
+		    top: 0;
+		    background: white;
+		    z-index: 1;
+		  }
+		}
+		</style>
 						
 	</body>
 </html>
