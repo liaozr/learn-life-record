@@ -38,6 +38,25 @@
 		  
 		  
 		  
+		  
+		 <template slot-scope="scope">
+		  <el-tooltip v-if="scope.row.remark && scope.row.remark.length > 25" class="item" effect="dark"
+			:content="scope.row.remark" placement="top">
+			<div style="overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;">
+			  {{ scope.row.remark }}
+			</div>
+		  </el-tooltip>
+		  <div v-else>
+			{{ scope.row.remark }}	
+		  </div>
+		 </template>
+					
+		  
+		  
 		  let ids = this.dataListSelections.map((item) => {
 			  if (item.dictDocStatus === '01' || item.dictDocStatus === '04') {
 				return item.id
