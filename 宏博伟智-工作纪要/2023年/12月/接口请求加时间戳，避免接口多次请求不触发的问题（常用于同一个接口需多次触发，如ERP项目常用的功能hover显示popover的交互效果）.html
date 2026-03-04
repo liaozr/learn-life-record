@@ -54,6 +54,83 @@
 			{{ scope.row.remark }}	
 		  </div>
 		 </template>
+		 
+		 
+		   <el-form-item style="margin-top:5px;" label="备注" prop="remark" :rules="[
+			 { required: false, message: '', trigger: 'blur' },
+			 {
+			   min: 0,
+			   max: remarkLength,
+			   message: `最多可以输入${remarkLength}个字符`,
+			   trigger: 'blur',
+			 },
+		   ]">
+			 <div class="tipWrapLimit">
+			   <div>
+				 <el-input type="textarea" :disabled="isDisabled" :autosize="{ minRows: 2, maxRows: 3 }" placeholder="备注"
+				   @blur="handleBlur('remark')" v-model="dataForm.remark">
+				 </el-input>
+			   </div>
+			   <div class="tip">
+				 <span class="red">
+				   {{ dataForm.remark ? dataForm.remark.length : 0 }}
+				 </span>
+				 /<span class="num_count">{{ remarkLength }}</span>
+			   </div>
+			 </div>
+		   </el-form-item>
+		   
+		   
+		    <template slot-scope="scope">
+			   <el-form-item :rules="[
+				 { required: true, message: '必填项', trigger: 'blur' },
+				 {
+				   min: 0,
+				   max: remarkLength2,
+				   message: `最多可以输入${remarkLength2}个字符`,
+				   trigger: 'blur',
+				 }
+			   ]" :prop="'detailList[' + scope.$index + '].usage'" label-width="0px">
+				 <div class="tipWrapLimit">
+				   <div>
+					 <el-input type="textarea"
+					   :disabled="isDisabled"
+					   :autosize="{ minRows: 2, maxRows: 3 }" placeholder="备注"
+					   @blur="blurAmount(scope.row, 'usage')" v-model="scope.row.usage">
+					 </el-input>
+				   </div>
+				   <div class="tip">
+					 <span class="red">
+					   {{ scope.row.usage ? scope.row.usage.length : 0 }}
+					 </span>
+					 /<span class="num_count">{{ remarkLength2 }}</span>
+				   </div>
+				 </div>
+			   </el-form-item>
+			</template>
+			
+			import {
+			  dictBatchKey,
+			  getFieldSizes
+			} from '@/api/common/common.api'
+			
+			
+			  let msg = {
+				docName: "固定资产入库单"
+			  }
+			  getFieldSizes(msg).then(data => {
+				let arr = data.response
+				arr.forEach((item) => {
+				  if (item.frontName == 'usage') {
+					this.remarkLength2 = item.colnumSize
+				  }
+				  if (item.frontName == 'remark') {
+					this.remarkLength = item.colnumSize
+				  }
+				})
+			  })
+		 
+		 
 					
 		  
 		  
