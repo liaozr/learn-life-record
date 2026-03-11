@@ -55,7 +55,38 @@
 		  </div>
 		 </template>
 		 
-		 
+		含有金额的精度合计问题
+		getSummaries(param) {
+		   const { columns, data } = param
+		   const sums = []
+		   columns.forEach((column, index) => {
+			 if (index === 0) {
+			   sums[index] = '当前页合计'
+			   return
+			 }
+			 let total = 0
+			 data.forEach(item => {
+			   let value = Number(item[column.property])
+	 
+			   if (!isNaN(value)) {
+				 total += Math.round(Number(value.toFixed(2)) * 100)
+			   }
+			 })
+			 if (
+			   column.property === 'amountPerUnit' ||
+			   column.property === 'amountTotal'
+			 ) {
+			   sums[index] = (total / 100).toLocaleString(undefined, {
+				 minimumFractionDigits: 2,
+				 maximumFractionDigits: 2
+			   })
+			 } else {
+			   sums[index] = ''
+			 }
+		   })
+		   return sums
+		}
+
 		   <el-form-item style="margin-top:5px;" label="备注" prop="remark" :rules="[
 			 { required: false, message: '', trigger: 'blur' },
 			 {
@@ -177,6 +208,13 @@
 	   methods:
 	   components: 
 	   @cell-mouse-ent
+	   
+	   getRowClass({ row }) {
+		 return {
+		   'custom-current-row': row.id === this.currentGroup,
+		   'custom-hover-row': row.id === this.hoverRowId
+		 }
+	   },
 	  
 	  
 	  <el-tooltip class="item" effect="dark"  placement="top">
