@@ -201,6 +201,8 @@
 	  </script>
 	  
 	  
+	  this.imageUrl = this.$http.adornImgUrl(path)
+	  
 	  
 	  
 	  :data="dataList"
@@ -232,6 +234,25 @@
 		  :isDisabled="isDisabled"
 		></select-all>
 	  </el-tooltip>
+	  
+	  
+	  
+	  el-tooltip 内容超多引起的上下看不全的问题，增加最大高度跟滚动条。
+	  
+	  <el-table-column prop="params" width="300" label="请求参数">
+		<template slot-scope="scope">
+		  <el-tooltip class="item" effect="dark" placement="left">
+			<!-- 用 content 插槽自定义弹出内容:内层 div 自身限高可滚动 + 长串折行,比 :content 纯文本可控,不会被视口裁掉 -->
+			<div slot="content" style="max-width:600px;max-height:80vh;overflow:auto;word-break:break-all;">
+			  {{ scope.row.params }}
+			</div>
+			<!-- 触发区:单元格内省略号一行 -->
+			<div style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{ scope.row.params }}</div>
+		  </el-tooltip>
+		</template>
+	  </el-table-column>
+	  
+	  
 	  
 	   系统封装好的带快捷键的日期组件。
 	   <datePickerAll v-model="dataForm.dateRange" typeName="daterange" :defaultDate="false"></datePickerAll>
